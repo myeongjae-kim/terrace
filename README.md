@@ -10,6 +10,8 @@ Functions
  - Resume
  - Blog
  - Mail server
+ - One page app
+ - Language select (Korean, English)
  
  Markdown must be supported.
 
