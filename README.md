@@ -12,6 +12,7 @@ Functions
  - Mail server
  - One page app
  - Language select (Korean, English)
+ - DevOps Environment
  
  Markdown must be supported.
 
