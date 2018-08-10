@@ -9,6 +9,7 @@ Functions
  - Business card
  - Resume
  - Blog
+ - Mail server
  
  Markdown must be supported.
 
