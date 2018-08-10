@@ -11,3 +11,10 @@ Functions
  - Blog
  
  Markdown must be supported.
+
+# references
+
+https://siiimple.com
+https://koriel.kr
+https://github.com/ParkSB/Front-End-Performance-Checklist/blob/master/README.md
+https://medium.com/the-node-js-collection/modern-javascript-explained-for-dinosaurs-f695e9747b70
