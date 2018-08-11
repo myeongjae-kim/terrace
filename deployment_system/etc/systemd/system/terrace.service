@@ -1,0 +1,24 @@
+[Unit]
+Description=Terrace
+Requires=network.target
+After=network.target
+
+[Service]
+WorkingDirectory=/home/git/terrace_deploy
+Type=forking
+
+#ExecStart=/bin/bash -c 'sleep 3;echo "I am starting";echo "$(pwd)";echo "$(whoami)";'
+ExecStart=/bin/bash -c 'sudo pkill terrace; sudo nohup ./bin/terrace &'
+# For a node.js app this could be something like:
+#ExecStart=/bin/bash -c 'npm start'
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=terraceService
+User=git
+Group=git
+
+Environment="NODE_ENV=production" "DEBUG=testapp:*"
+
+[Install]
+WantedBy=multi-user.target
