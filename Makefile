@@ -1,5 +1,7 @@
-all:
-	@echo "Doing all"
+local:
+	@echo "Local Deploy"
+	@go build -x -o /home/git/terrace_deploy/bin/terrace
+	@sudo systemctl restart "terrace.service" && sudo systemctl status "terrace.service"
 
 deploy:
 	@echo "Pushing to production"
