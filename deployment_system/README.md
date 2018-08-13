@@ -5,7 +5,7 @@ Auto deployment system for terrace project.
 When a commit occurs, `post-receive` hook catches the commit and execute updating procedure.
 
 ### Diagram
-<img src="./imgs/deployment.png" width="75%" height="75%" alt="Deployment system diagram">
+![Deployment system diagram](./imgs/deployment.png)
 
 ### Updating procedure
 
