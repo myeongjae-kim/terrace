@@ -10,7 +10,7 @@ When a commit occurs, `post-receive` hook catches the commit and execute updatin
 ### Updating procedure
 
 1. Rebuild terrace.
-2. Start `terrace.service` of `systemd`
+2. Restart `terrace.service` of `systemd`
    1. Kill the server daemon
    2. Start new builded server daemon.
 
