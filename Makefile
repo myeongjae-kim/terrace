@@ -1,13 +1,13 @@
+local:
+	@echo "Local Deploy"
+	@go build -x -o /home/git/terrace_deploy/bin/terrace
+	@sudo systemctl restart "terrace.service" && sudo systemctl status "terrace.service"
+
 update:
 	@echo "Makefile: Doing UPDATE stuff like grunt, gulp, rake,..."
 	@whoami
 	@pwd
 	@/usr/local/go/bin/go build -x -o bin/terrace
-
-local:
-	@echo "Local Deploy"
-	@go build -x -o /home/git/terrace_deploy/bin/terrace
-	@sudo systemctl restart "terrace.service" && sudo systemctl status "terrace.service"
 
 deploy:
 	@echo "Pushing to production"
