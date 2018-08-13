@@ -12,3 +12,9 @@ update:
 deploy:
 	@echo "Pushing to production"
 	@git push git@myeongjae.kim:~/terrace_hook master
+
+push:
+	@echo "Pushing to github, local and production"
+	@git push
+	@make local
+	@make deploy
