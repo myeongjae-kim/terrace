@@ -25,3 +25,6 @@ https://koriel.kr
 https://github.com/ParkSB/Front-End-Performance-Checklist/blob/master/README.md
 
 https://medium.com/the-node-js-collection/modern-javascript-explained-for-dinosaurs-f695e9747b70
+
+How-to setup a simple git push deployment
+ - https://gist.github.com/thomasfr/9691385
