@@ -33,7 +33,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Set content type as css if required file's extension is css
-		if path[len(path)-4:] == ".css" {
+		if len(path) >= 4 && path[len(path)-4:] == ".css" {
 			w.Header().Set("Content-Type", "text/css")
 		}
 
