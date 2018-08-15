@@ -5,8 +5,10 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", rootHandler)
-	if err := http.ListenAndServe(":80", nil); err != nil {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", rootHandler)
+
+	if err := http.ListenAndServe(":http", mux); err != nil {
 		panic(err)
 	}
 }
