@@ -30,7 +30,7 @@ export default {
 
 #site-title {
   margin: 20px 0 20px 0;
-  font-family: 'Consolas';
+	font-family: 'Inconsolata', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
