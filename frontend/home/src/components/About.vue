@@ -3,6 +3,7 @@
     <img alt="Profile Image" src="../assets/logo.jpg" width="200px" height="200px">
     <h1>Greetings!</h1>
     <p>Nice to meet you :)</p>
+    <p>안녕하세요?</p>
   </div>
 </template>
 
