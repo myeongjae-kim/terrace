@@ -5,7 +5,10 @@ package main
 //   -redirect-to-https : redirect HTTP to HTTTPS
 
 import (
+	"context"
+	"crypto/tls"
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -73,8 +76,50 @@ func main() {
 	parseFlags()
 	var m *autocert.Manager
 
-	var httpSrv *http.Server
+	var httpsSrv *http.Server
+	if flgProduction {
+		hostPolicy := func(ctx context.Context, host string) error {
+			allowedHosts := [...]string{
+				"myeongjae.kim",
+				"www.myeongjae.kim",
+			}
 
+			// Check if the host is allowed
+			found := false
+			for i := range allowedHosts {
+				if host == allowedHosts[i] {
+					found = true
+					break
+				}
+			}
+
+			if found {
+				return nil
+			}
+
+			return fmt.Errorf("acme/autocert: %s is not an allowed host", host)
+		}
+
+		dataDir := "."
+		m = &autocert.Manager{
+			Prompt:     autocert.AcceptTOS,
+			HostPolicy: hostPolicy,
+			Cache:      autocert.DirCache(dataDir),
+		}
+
+		httpsSrv = makeHTTPServer()
+		httpsSrv.Addr = ":443"
+		httpsSrv.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
+
+		go func() {
+			log.Printf("Starting HTTPS server on %s\n", httpsSrv.Addr)
+			if err := httpsSrv.ListenAndServeTLS("", ""); err != nil {
+				log.Fatalf("httpsSrv.ListenAndServeTLS() failed with %s", err)
+			}
+		}()
+	}
+
+	var httpSrv *http.Server
 	if flgRedirectHTTPtoHTTPS {
 		httpSrv = makeHTTPtoHTTPSRedirectServer()
 	} else {
