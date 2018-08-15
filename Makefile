@@ -1,4 +1,3 @@
-#
 local:
 	@echo "Local Deploy"
 	#@rm -rf /home/git/terrace_deploy/*
