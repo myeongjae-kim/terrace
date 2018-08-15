@@ -1,17 +1,14 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>My website is under development.</p>
-    <p>Please visit again :)</p>
+  <div class="about">
+    <img alt="Profile Image" src="../assets/logo.jpg" width="200px" height="200px">
+    <h1>Greetings!</h1>
+    <p>Nice to meet you :)</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  name: 'About'
 }
 </script>
 
