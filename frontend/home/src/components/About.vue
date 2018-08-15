@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <img alt="Profile Image" src="../assets/logo.jpg" width="200px" height="200px">
+    <img alt="Profile Image" src="http://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px">
     <h1>Greetings!</h1>
     <p>Nice to meet you :)</p>
     <p>안녕하세요?</p>
