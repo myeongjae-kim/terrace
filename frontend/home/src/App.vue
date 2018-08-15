@@ -19,8 +19,8 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700|Inconsolata');
-@import url('/css/SpoqaHanSans.css');
+/*@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700|Inconsolata');
+@import url('/css/SpoqaHanSans.css');*/
 
 #app {
 	font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
