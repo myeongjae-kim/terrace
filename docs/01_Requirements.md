@@ -18,6 +18,7 @@
    - Auto restart after a crash of web server
  - Backend
    - Develop my own server with golang. Do not use any web package except golang supports. 
+   - Support SSL
  - Frontend
    - One page app
    - VueJS
