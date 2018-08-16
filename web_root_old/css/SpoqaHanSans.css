@@ -30,6 +30,7 @@
     url('/fonts/SpoqaHanSans/SpoqaHanSansBold.ttf') format('truetype');
 }
 
+/*
 @font-face {
     font-family: 'Spoqa Han Sans';
     font-weight: 400;
@@ -38,6 +39,7 @@
     url('/fonts/SpoqaHanSans/SpoqaHanSansRegular.woff') format('woff'),
     url('/fonts/SpoqaHanSans/SpoqaHanSansRegular.ttf') format('truetype');
 }
+*/
 
 @font-face {
     font-family: 'Spoqa Han Sans';
@@ -48,6 +50,7 @@
     url('/fonts/SpoqaHanSans/SpoqaHanSansLight.ttf') format('truetype');
 }
 
+/*
 @font-face {
     font-family: 'Spoqa Han Sans';
     font-weight: 100;
@@ -56,3 +59,4 @@
     url('/fonts/SpoqaHanSans/SpoqaHanSansThin.woff') format('woff'),
     url('/fonts/SpoqaHanSans/SpoqaHanSansThin.ttf') format('truetype');
   }
+*/
