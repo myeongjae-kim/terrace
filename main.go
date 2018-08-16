@@ -99,9 +99,14 @@ func main() {
 	var httpsSrv *http.Server
 	if flgProduction {
 		hostPolicy := func(ctx context.Context, host string) error {
+
+			// allowedHosts are small, so use complete search.
+			// If it is slow, use hash set
 			allowedHosts := [...]string{
 				"myeongjae.kim",
 				"www.myeongjae.kim",
+				"terrace",
+				"8.9.37.186",
 			}
 
 			// Check if the host is allowed
