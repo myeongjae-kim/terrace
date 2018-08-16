@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+func sampleHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello, world!")
+}
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// when request is root, send index.html
 	// otherwise, send the file

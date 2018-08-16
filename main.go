@@ -41,7 +41,7 @@ func makeServerFromMux(mux *http.ServeMux) *http.Server {
 
 func makeHTTPServer() *http.Server {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", rootHandler)
+	mux.HandleFunc("/", sampleHandler)
 	return makeServerFromMux(mux)
 }
 
