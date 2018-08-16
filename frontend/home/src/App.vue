@@ -13,14 +13,27 @@
 </template>
 
 <script>
+import WebFont from 'webfontloader';
+
+const loadWebFont = () =>
+WebFont.load({
+    google: {
+      families: ['Source Sans Pro:300,700', 'Inconsolata']
+    },
+    custom: {
+      families: ['Spoqa Han Sans'],
+      urls: ['/css/SpoqaHanSans.css']
+    }
+  });
+loadWebFont()
+
 export default {
   name: 'app'
 }
+
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700|Inconsolata');
-@import url('/css/SpoqaHanSans.css');
 
 #app {
 	font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
