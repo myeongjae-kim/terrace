@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"golang.org/x/crypto/acme/autocert"
@@ -72,7 +73,19 @@ func parseFlags() {
 	}
 }
 
+func setLogger() {
+	f, err := os.OpenFile("log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
+
+	log.SetOutput(f)
+	log.Println("Logger is ready.")
+}
+
 func main() {
+	setLogger()
 	parseFlags()
 	var m *autocert.Manager
 
@@ -140,11 +153,11 @@ func main() {
 }
 
 /* func main() {
- *   mux := http.NewServeMux()
- *   mux.HandleFunc("/", rootHandler)
- *
- *   // Even if ":http" is omitted, a port will be set as 80
- *   if err := http.ListenAndServe(":http", mux); err != nil {
- *     panic(err)
- *   }
- * } */
+*   mux := http.NewServeMux()
+*   mux.HandleFunc("/", rootHandler)
+*
+*   // Even if ":http" is omitted, a port will be set as 80
+*   if err := http.ListenAndServe(":http", mux); err != nil {
+	*     panic(err)
+	*   }
+	* } */
