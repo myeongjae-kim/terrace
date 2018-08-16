@@ -11,6 +11,7 @@ new Vue({
 
 
 /* web font loader */
+/* Below sources are from https://mytory.net/2016/06/15/webfont-best-practice.html */
 function loadFontCss(css_href) {
   "use strict";
   // 스매싱 매거진의 '지연된 웹폰트 불러오기' javascript를 안형우가 수정한 것.
