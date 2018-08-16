@@ -13,20 +13,25 @@
 </template>
 
 <script>
+
+/*
 import WebFont from 'webfontloader';
 
 // Asynchronously load web fonts
+
 (function () {
 WebFont.load({
     google: {
       families: ['Source Sans Pro:300,700', 'Inconsolata']
-    },
+    }
     custom: {
       families: ['Spoqa Han Sans'],
       urls: ['/css/SpoqaHanSans.css']
     }
   });
 }());
+*/
+
 
 export default {
   name: 'app'
