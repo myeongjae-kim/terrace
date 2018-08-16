@@ -4,11 +4,17 @@ package main
 //   -production : enables HTTPS on port 443
 //   -redirect-to-https : redirect HTTP to HTTTPS
 
+// TODO: If redirection is on at the server side, infinit loop between
+// http and https occurs. This is because of Cloudflare. It also has
+// redirection function, and these two conflits to each other.
+// Therefore, turn off redirect option at the server side
+
 import (
 	"context"
 	"crypto/tls"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -80,7 +86,8 @@ func setLogger() {
 	}
 	defer f.Close()
 
-	log.SetOutput(f)
+	mw := io.MultiWriter(os.Stdout, f)
+	log.SetOutput(mw)
 	log.Println("Logger is ready.")
 }
 
