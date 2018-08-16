@@ -15,7 +15,8 @@
 <script>
 import WebFont from 'webfontloader';
 
-const loadWebFont = () =>
+// Asynchronously load web fonts
+(function () {
 WebFont.load({
     google: {
       families: ['Source Sans Pro:300,700', 'Inconsolata']
@@ -25,7 +26,7 @@ WebFont.load({
       urls: ['/css/SpoqaHanSans.css']
     }
   });
-loadWebFont()
+}());
 
 export default {
   name: 'app'
