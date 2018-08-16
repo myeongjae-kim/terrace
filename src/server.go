@@ -1,9 +1,5 @@
 package main
 
-// Command-line options:
-//   -production : enables HTTPS on port 443
-//   -redirect-to-https : redirect HTTP to HTTTPS
-
 // TODO: If redirection is on at the server side, infinit loop between
 // http and https occurs. This is because of Cloudflare. It also has
 // redirection function, and these two conflits to each other.
@@ -12,20 +8,12 @@ package main
 import (
 	"context"
 	"crypto/tls"
-	"flag"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/crypto/acme/autocert"
-)
-
-var (
-	flgProduction          = false
-	flgRedirectHTTPtoHTTPS = false
 )
 
 func makeServerFromMux(mux *http.ServeMux) *http.Server {
@@ -55,45 +43,7 @@ func makeHTTPtoHTTPSRedirectServer() *http.Server {
 	return makeServerFromMux(mux)
 }
 
-func parseFlags() {
-	flag.BoolVar(
-		&flgProduction,
-		"production",
-		false,
-		"if true, we start HTTPS server")
-
-	flag.BoolVar(
-		&flgRedirectHTTPtoHTTPS,
-		"redirect-to-https",
-		false,
-		"if true, we redirect HTTP to HTTPS")
-
-	flag.Parse()
-
-	if flgProduction {
-		log.Println("flgProduction is set.")
-	}
-
-	if flgRedirectHTTPtoHTTPS {
-		log.Println("flgRedirectHTTPtoHTTPS is set.")
-	}
-}
-
-func setLogger() {
-	f, err := os.OpenFile("log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("error opening file: %v", err)
-	}
-	defer f.Close()
-
-	mw := io.MultiWriter(os.Stdout, f)
-	log.SetOutput(mw)
-	log.Println("Logger is ready.")
-}
-
-func main() {
-	setLogger()
-	parseFlags()
+func runServers() {
 	var m *autocert.Manager
 
 	var httpsSrv *http.Server
@@ -160,13 +110,3 @@ func main() {
 		log.Fatalf("httpSrv.ListenAndServe() failed with %s", err)
 	}
 }
-
-/* func main() {
-*   mux := http.NewServeMux()
-*   mux.HandleFunc("/", rootHandler)
-*
-*   // Even if ":http" is omitted, a port will be set as 80
-*   if err := http.ListenAndServe(":http", mux); err != nil {
-	*     panic(err)
-	*   }
-	* } */
