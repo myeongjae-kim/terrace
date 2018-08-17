@@ -13,30 +13,9 @@
 </template>
 
 <script>
-
-/*
-import WebFont from 'webfontloader';
-
-// Asynchronously load web fonts
-
-(function () {
-WebFont.load({
-    google: {
-      families: ['Source Sans Pro:300,700', 'Inconsolata']
-    }
-    custom: {
-      families: ['Spoqa Han Sans'],
-      urls: ['/css/SpoqaHanSans.css']
-    }
-  });
-}());
-*/
-
-
 export default {
   name: 'app'
 }
-
 </script>
 
 <style>
@@ -94,5 +73,13 @@ a:hover {
   transition: color 0.2s ease-out;
 }
 
+::-moz-selection {
+   background-color: #367BB7;
+   color: #fff;
+}
+::selection {
+    background-color: #367BB7;
+    color: #fff;
+  }
 
 </style>
