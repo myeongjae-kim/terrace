@@ -38,7 +38,7 @@ export default {
 }
 
 #site-title > a {
-  color: #000;
+  color: #2c3e50;
   text-decoration: none;
 }
 
@@ -46,12 +46,12 @@ nav {
   padding: 20px 0px 20px 0;
 }
 
-nav a {
+nav > a {
   padding: 10px;
   text-decoration: none;
   background: #fff;
   border-radius: 3x;
-  color: #000;
+  color: #2c3e50;
 }
 
 a.router-link-exact-active, a.router-link-exact-active:hover{
