@@ -74,11 +74,11 @@ a:hover {
 }
 
 ::-moz-selection {
-   background-color: #367BB7;
+   background-color: #2c3e50;
    color: #fff;
 }
 ::selection {
-    background-color: #367BB7;
+    background-color: #2c3e50;
     color: #fff;
   }
 
