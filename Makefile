@@ -1,15 +1,33 @@
 local:
 	@echo "Local Deploy"
-	#@rm -rf /home/git/terrace_deploy/*
-	#@cp -r * /home/git/terrace_deploy
+	@sudo systemctl stop "terrace.service"
+	@echo "The terrace service has been stopped"
+	@echo "Building the server"
 	@go build -x -o /home/git/terrace_deploy/bin/terrace ./src
-	@sudo systemctl restart "terrace.service" && sudo systemctl status "terrace.service"
+	@echo "Copying built results to 'web' user for security"
+	@sudo cp /home/git/terrace_deploy/bin/terrace /home/web/terrace_deploy/bin/terrace
+	@echo "Copying twice for removing legacy version without error occurred by 'rm'"
+	@sudo cp -r /home/git/terrace_deploy/web_root /home/web/terrace_deploy/web_root
+	@sudo rm -rf /home/web/terrace_deploy/web_root
+	@sudo cp -r /home/git/terrace_deploy/web_root /home/web/terrace_deploy/web_root
+	@sudo chown -R web /home/web/terrace_deploy
+	@sudo chgrp -R web /home/web/terrace_deploy
+	@sudo systemctl start "terrace.service" && sudo systemctl status "terrace.service"
 
 update:
-	@echo "Makefile: Doing UPDATE stuff like grunt, gulp, rake,..."
-	@whoami
-	@pwd
+	@echo "Remote Deploy"
+	@sudo systemctl stop "terrace.service"
+	@echo "The terrace service has been stopped"
+	@echo "Building the server"
 	@/usr/local/go/bin/go build -x -o bin/terrace ./src
+	@echo "Copying built results to 'web' user for security"
+	@sudo cp bin/terrace /home/web/terrace_deploy/bin/terrace
+	@echo "Copying twice for removing legacy version without error occurred by 'rm'"
+	@sudo cp -r web_root /home/web/terrace_deploy/web_root
+	@sudo rm -rf /home/web/terrace_deploy/web_root
+	@sudo cp -r web_root /home/web/terrace_deploy/web_root
+	@sudo chown -R web /home/web/terrace_deploy
+	@sudo chgrp -R web /home/web/terrace_deploy
 
 deploy:
 	@echo "Pushing to production"
