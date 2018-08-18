@@ -24,7 +24,7 @@ function loadMap() {
   // eslint-disable-next-line
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/myeongjae/cjl03yd1g2t5i2rlx0o7wk4kp',
+    style: 'mapbox://styles/myeongjae/cjl07pcz14j9t2sqmsp0swqhg',
   });
 }
 
