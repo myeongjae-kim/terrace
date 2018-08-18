@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "mapbox-gl": "^0.48.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "webfontloader": "^1.6.28"

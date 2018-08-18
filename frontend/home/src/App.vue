@@ -6,6 +6,7 @@
     <nav>
       <router-link to="/">About</router-link>
       <router-link to="/blog">Blog</router-link>
+      <router-link to="/places">Places</router-link>
     </nav>
 
     <router-view />
