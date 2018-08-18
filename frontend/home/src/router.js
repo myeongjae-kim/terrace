@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import About from './components/About.vue'
 import Blog from './components/Blog.vue'
-// import Places from './components/Places.vue'
+import Places from './components/Places.vue'
 // Asynchronously import components
-const Places = () => import('./components/Places.vue')
+// const Places = () => import('./components/Places.vue')
 
 Vue.use(Router)
 
