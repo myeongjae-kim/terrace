@@ -80,7 +80,7 @@ func runServers() {
 		}
 
 		httpsSrv = makeHTTPServer()
-		httpsSrv.Addr = ":8443"
+		httpsSrv.Addr = ":443"
 		httpsSrv.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
 
 		go func() {
@@ -103,7 +103,7 @@ func runServers() {
 		httpSrv.Handler = m.HTTPHandler(httpSrv.Handler)
 	}
 
-	httpSrv.Addr = ":8080"
+	httpSrv.Addr = ":80"
 
 	log.Printf("Starting HTTP server on %s\n", httpSrv.Addr)
 	if err := httpSrv.ListenAndServe(); err != nil {
