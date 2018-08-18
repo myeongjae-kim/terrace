@@ -25,8 +25,6 @@ function loadMap() {
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/myeongjae/cjl03yd1g2t5i2rlx0o7wk4kp',
-    center: [127.024612, 37.532600],
-    zoom: 3.0
   });
 }
 
