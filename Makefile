@@ -12,6 +12,8 @@ local:
 	@sudo cp -r /home/git/terrace_deploy/web_root /home/web/terrace_deploy/web_root
 	@sudo chown -R web /home/web/terrace_deploy
 	@sudo chgrp -R web /home/web/terrace_deploy
+	@sudo setcap CAP_NET_BIND_SERVICE=+eip /home/web/terrace_deploy/bin/terrace
+	@echo "Set capability of using low number ports to the server"
 	@sudo systemctl start "terrace.service" && sudo systemctl status "terrace.service"
 
 update:
@@ -22,12 +24,14 @@ update:
 	@/usr/local/go/bin/go build -x -o bin/terrace ./src
 	@echo "Copying built results to 'web' user for security"
 	@sudo cp bin/terrace /home/web/terrace_deploy/bin/terrace
-	@echo "Copying twice for removing legacy version without error occurred by 'rm'"
+	@echo "Copying web_root twice for removing legacy version without error occurred by 'rm'"
 	@sudo cp -r web_root /home/web/terrace_deploy/web_root
 	@sudo rm -rf /home/web/terrace_deploy/web_root
 	@sudo cp -r web_root /home/web/terrace_deploy/web_root
 	@sudo chown -R web /home/web/terrace_deploy
 	@sudo chgrp -R web /home/web/terrace_deploy
+	@echo "Set capability of using low number ports to the server"
+	@sudo setcap CAP_NET_BIND_SERVICE=+eip /home/web/terrace_deploy/bin/terrace
 
 deploy:
 	@echo "Pushing to production"
