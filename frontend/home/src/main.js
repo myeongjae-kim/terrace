@@ -19,7 +19,7 @@ WebFont.load({
     custom: {
       families: ['Spoqa Han Sans'],
       //urls: ['/css/SpoqaHanSans.css']
-      urls: ['//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css']
+      urls: ['//cdn.jsdelivr.net/font-spoqa-han-sans/2.1.0/css/SpoqaHanSans-kr.css']
     }
   });
 }());
