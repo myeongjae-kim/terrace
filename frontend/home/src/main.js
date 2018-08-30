@@ -15,11 +15,11 @@ new Vue({
 WebFont.load({
     google: {
       families: ['Source Sans Pro:300,700', 'Inconsolata']
-    },
+    }/*,
     custom: {
       families: ['Spoqa Han Sans'],
       //urls: ['/css/SpoqaHanSans.css']
       urls: ['//cdn.jsdelivr.net/font-spoqa-han-sans/2.1.0/css/SpoqaHanSans-kr.css']
-    }
+    }*/
   });
 }());
