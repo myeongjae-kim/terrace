@@ -1,14 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"os"
 )
 
 type FileInfo struct {
-	Name   string
-	IsDir  bool
-	SubDir []FileInfo
+	Name   string     `json:"name"`
+	IsDir  bool       `json:"isDir"`
+	SubDir []FileInfo `json:"subDir"`
 }
 
 func GetStringOfFileInfo(prefix string, files []FileInfo) string {
@@ -25,6 +26,21 @@ func GetStringOfFileInfo(prefix string, files []FileInfo) string {
 	}
 
 	return s
+}
+
+func AddPrefix(prefix string, files []FileInfo) []FileInfo {
+	var s string
+
+	for idx, _ := range files {
+		s = prefix + "/" + files[idx].Name
+		if files[idx].IsDir {
+			s += "/"
+			files[idx].SubDir = AddPrefix(prefix+"/"+files[idx].Name, files[idx].SubDir)
+		}
+		files[idx].Name = s
+	}
+
+	return files
 }
 
 func getDirectoryInfo_recur(dir string, files []os.FileInfo) ([]FileInfo, error) {
@@ -58,7 +74,13 @@ func getDirectoryInfo(dir string, files []os.FileInfo) (string, error) {
 		return "", err
 	}
 
-	// TODO: make the return as a json string
+	filelist = AddPrefix(dir, filelist)
 
-	return GetStringOfFileInfo(dir, filelist), nil
+	// TODO: make the return as a json string
+	b, err := json.Marshal(filelist)
+	if err != nil {
+		return "", err
+	}
+
+	return string(b), nil
 }
