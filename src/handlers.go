@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -17,22 +18,22 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	path := r.URL.Path[len("/"):]
 
 	if path == "" {
-		// log.Println("(rootHandler) The Main page access has been occurred.")
+		log.Println("(rootHandler) The Main page access has been occurred.")
 
-		source, err := ioutil.ReadFile("./web_root/index.html")
+		source, err := ioutil.ReadFile(WEB_ROOT + "index.html")
 		if err != nil {
 			http.Error(w, err.Error(), 500)
-			// log.Println("(rootHandler) ", err)
+			log.Println("(rootHandler) ", err)
 			return
 		}
 		fmt.Fprint(w, string(source))
 
 	} else {
 		// send requested file
-		source, err := ioutil.ReadFile("./web_root/" + path)
+		source, err := ioutil.ReadFile(WEB_ROOT + path)
 		if err != nil {
 			http.Error(w, err.Error(), 500)
-			// log.Println("(rootHandler) ", err)
+			log.Println("(rootHandler) ", err)
 			return
 		}
 
@@ -42,6 +43,26 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Fprint(w, string(source))
-		// log.Println("(handler) The requested file has been sent: ", filename)
+		log.Println("(rootHandler) The requested file has been sent: ", WEB_ROOT+path)
 	}
+}
+
+func filelistHandler(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path[len("/filelist/"):]
+
+	dirInfo, err := ioutil.ReadDir(WEB_ROOT + path)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		log.Println("(filelistHandler) ", err)
+		return
+	}
+
+	s, err := getDirectoryInfo(WEB_ROOT+path, dirInfo)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		log.Println("(filelistHandler) ", err)
+		return
+	}
+
+	fmt.Fprint(w, s)
 }

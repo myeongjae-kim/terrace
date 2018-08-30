@@ -30,6 +30,7 @@ func makeServerFromMux(mux *http.ServeMux) *http.Server {
 func makeHTTPServer() *http.Server {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", rootHandler)
+	mux.HandleFunc("/filelist/", filelistHandler)
 	return makeServerFromMux(mux)
 }
 
