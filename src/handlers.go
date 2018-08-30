@@ -49,6 +49,12 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func filelistHandler(w http.ResponseWriter, r *http.Request) {
 	path := r.URL.Path[len("/filelist/"):]
+	if path == "" {
+		msg := "Requsting directory structure of root is not allowed."
+		http.Error(w, msg, 500)
+		log.Println("(filelistHandler) ", msg)
+		return
+	}
 
 	dirInfo, err := ioutil.ReadDir(WEB_ROOT + path)
 	if err != nil {
