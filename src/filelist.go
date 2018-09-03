@@ -74,7 +74,7 @@ func getDirectoryInfo(dir string, files []os.FileInfo) (string, error) {
 		return "", err
 	}
 
-	filelist = AddPrefix(dir, filelist)
+	// filelist = AddPrefix(dir, filelist)
 
 	// TODO: make the return as a json string
 	b, err := json.Marshal(filelist)
