@@ -52,8 +52,9 @@ func runServers() {
 			// allowedHosts are small, so use complete search.
 			// If it is slow, use hash set
 			allowedHosts := [...]string{
-				"myeongjae.kim",
-				"www.myeongjae.kim",
+				// "myeongjae.kim",
+				// "www.myeongjae.kim",
+				"live.myeongjae.kim",
 			}
 
 			// Check if the host is allowed
