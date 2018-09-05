@@ -7,10 +7,7 @@ After=network.target
 WorkingDirectory=/home/git/terrace_deploy
 Type=forking
 
-#ExecStart=/bin/bash -c 'sleep 3;echo "I am starting";echo "$(pwd)";echo "$(whoami)";'
-ExecStart=/bin/bash -c 'sudo pkill terrace; sudo ./bin/terrace -production &'
-# For a node.js app this could be something like:
-#ExecStart=/bin/bash -c 'npm start'
+ExecStart=/bin/bash -c 'sudo pkill terrace; sudo ./bin/terrace -production -redirect-to-https &'
 
 StandardOutput=syslog
 StandardError=syslog
