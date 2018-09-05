@@ -35,7 +35,8 @@ update:
 
 deploy:
 	@echo "Pushing to production"
-	@git push git@8.9.37.186:~/terrace_hook master
+	@git push git@52.78.35.166:~/terrace_hook master
+	# @git push git@8.9.37.186:~/terrace_hook master
 
 push:
 	@echo "Pushing to github, local and production"
