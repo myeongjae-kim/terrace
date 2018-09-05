@@ -4,7 +4,6 @@
     <h1>Greetings!</h1>
     <p>Nice to meet you :)</p>
     <p>안녕하세요?</p>
-    <p>AWS</p>
   </div>
 </template>
 
