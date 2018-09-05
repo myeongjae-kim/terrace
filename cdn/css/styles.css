@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
+
+#main {
+  width: 100%;
+  text-align: center;
+  font-size: 8em;
+  font-family: 'Source Code Pro', monospace;
+  padding-top: 20%;
+  font-weight: 200;
+}
