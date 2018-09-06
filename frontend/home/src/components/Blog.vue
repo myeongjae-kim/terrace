@@ -2,6 +2,7 @@
   <div class="blog">
     <h1>Blog</h1>
     <p>Under development.</p>
+    <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.myeongjae.kim/res/logo1.jpg">
   </div>
 </template>
 
