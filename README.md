@@ -1,7 +1,7 @@
 # terrace
 A personal web application to show myself. It includes from web server to web frontend.
 
-##### Features
+#### Features
  - Portal (github link, blog link, email link, etc...)
  - Resume
  - Blog
