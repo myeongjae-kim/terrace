@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200');
 
 .color-text-flow,
 .color-text-flow-hover:hover {
@@ -653,7 +653,7 @@
 body {
   background-color: #1a1a1a;
   color: #fefefe;
-  font-family: 'Inconsolata', monospace;
+  font-family: 'Source Code Pro', monospace;
   font-weight: 200;
   font-size: 1.5em;
   text-transform: uppercase;
