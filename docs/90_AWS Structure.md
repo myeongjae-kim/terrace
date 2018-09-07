@@ -30,7 +30,7 @@ You can find more detailed explanation at [here](https://simonecarletti.com/blog
 
 ## Disallow other people from using my S3 for resources (hotlink)
 
-If you visit https://myeongjae.kim/#/blog, you can see a photo of me that an octopus doll is on my head. Its url is https://cdn.myeongjae.kim/res/logo1.jpg, but if you try to get an image by putting this url to your web browser, you cannot see an image and will be redirected to my website.
+If you visit https://myeongjae.kim/#/blog, you can see a photo of me that an octopus doll is on my head. Its url is https://cdn.myeongjae.kim/res/logo1.jpg, but if you try to get an image by putting this url to your web browser, you cannot see the image and will be redirected to my website.
 
 The resources in my cdn(https://cdn.myeongjae.kim) only can be accessed through my website. This feature can be implemented using AWS WAF(Web Application Firewall) and AWS ACL(Access Control List)
 
