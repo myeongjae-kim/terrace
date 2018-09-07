@@ -20,7 +20,7 @@ Once an update is made in development environment, the update will be deployed t
 
 ## Redirecting
 
-I used to use Cloudflare as a DNS server and CDN service, but now I am using Route 53 as a DNS server and CloudFront as a CDN service. Redirecting is not a piece of cake because Route 53 does not support redirecting record in contrast to Cloudflare. There are some steps to achieve redirecting using Route 53
+I used to use Cloudflare as a DNS server and a CDN service, but now I am using Route 53 as a DNS server and CloudFront as a CDN service. Redirecting is not a piece of cake because Route 53 does not support redirecting record in contrast to Cloudflare. There are some steps to achieve redirecting using Route 53
 
 1. Create a S3 bucket and turn on static web hosting. There is a option whose name is 'Redirect requests'. Write a target url you want to redirect to.
 2. (For using https) Create a CloudFront Distribution and its origin must be the bucket we have created in step 1. Request a SSL certificate as creating this distribution.
