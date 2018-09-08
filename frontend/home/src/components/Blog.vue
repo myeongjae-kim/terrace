@@ -4,7 +4,7 @@
       <!-- TODO: Show titles of blog contents -->
       <h1>Blog</h1>
       <p>Under development.</p>
-      <img src="https://cdn.myeongjae.kim/res/logo2.jpg" width="400px">
+      <img src="https://cdn.myeongjae.kim/res/logo1.jpg" width="300px">
     </div>
     <div id="blog-contents" v-else>
       <p> {{ year }} / {{ month }} / {{ day }} / {{ title }}</p>
