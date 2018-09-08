@@ -17,9 +17,14 @@
 export default {
   name: 'NotFound',
   mounted: function() {
-    var imported = document.createElement('script');
-    imported.src = '/cdn_error_page/scripts.js';
-    document.head.appendChild(imported);
+    [].forEach.call(document.querySelectorAll('.text'), function(el) {
+      var origin = el.innerHTML;
+      var new_html = "";
+      for(var i = 0; i < origin.length; i++) {
+        new_html += "<span>" + origin[i] + "</span>";
+      }
+      el.innerHTML = new_html;
+    })
   }
 }
 </script>
