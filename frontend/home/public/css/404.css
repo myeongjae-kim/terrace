@@ -1,31 +1,3 @@
-<template>
-  <div class="wrapper">
-    <div class="not-found-container">
-      <div id="not-found">
-        <p class="text color-text-flow" id="title404">404</p>
-        <p class="text color-text-flow">NOT FOUND</p>
-      </div>
-      <div id="poem-flower">
-        <p class="text color-text-flow">모든 경계에는 꽃이 핀다.</p>
-        <p class="text color-text-flow">- 함민복, [꽃]</p>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'NotFound',
-  mounted: function() {
-    var imported = document.createElement('script');
-    imported.src = '/cdn_error_page/scripts.js';
-    document.head.appendChild(imported);
-  }
-}
-</script>
-
-<style>
-/* The rainbow coloring codes are from https://codepen.io/joashp/pen/dYXNwj */
 .color-text-flow,
 .color-text-flow-hover:hover {
   /*
@@ -712,4 +684,3 @@ export default {
   font-style: italic;
   line-height: 0.3;
 }
-</style>
