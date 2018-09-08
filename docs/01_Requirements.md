@@ -1,7 +1,7 @@
 # Requirements
 
 ## Non Functional Requirements
- - Terrace: People can see the things that I would like to show them
+ - Terrace: People can see things that I would like to show them
  - Like a portal. (Github link, blog link, email link, etc..)
  - Business card
  - Resume
@@ -17,10 +17,10 @@
    - Auto start the web server when the server computer reboots
    - Auto restart after a crash of web server
  - Backend
-   - Develop my own server with golang. Do not use any web package except golang supports. 
+   - Develop my own server with golang. Do not use any web package except the package golang supports. 
    - Support SSL
  - Frontend
-   - One page app
+   - Single Page App
    - VueJS
    - PureCSS
    - Learn tools for frontend developement

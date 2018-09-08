@@ -1,21 +1,22 @@
+[Install]
+WantedBy=multi-user.target
+
 [Unit]
 Description=Terrace
 Requires=network.target
 After=network.target
 
 [Service]
-WorkingDirectory=/home/git/terrace_deploy
+WorkingDirectory=/home/web/terrace_deploy
 Type=forking
 
-ExecStart=/bin/bash -c 'sudo pkill terrace; sudo ./bin/terrace -production -redirect-to-https &'
+ExecStart=/bin/bash -c 'pkill terrace; ./bin/terrace -production -redirect-to-https &'
 
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=terraceService
-User=git
-Group=git
-
-Environment="NODE_ENV=production" "DEBUG=testapp:*"
+User=web
+Group=web
 
 [Install]
 WantedBy=multi-user.target

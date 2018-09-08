@@ -6,7 +6,7 @@ A personal web application to show myself. It includes from web server to web fr
  - Resume
  - Blog
  - Mail server
- - One page app
+ - Single Page App
  - Language select (Korean, English)
  - DevOps Environment
 
