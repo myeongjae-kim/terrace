@@ -32,7 +32,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		// send requested file
 		source, err := ioutil.ReadFile(WEB_ROOT + path)
 		if err != nil {
-			http.Error(w, err.Error(), 500)
+			// Redirect to 404 page
+			fmt.Fprint(w, "<head><meta http-equiv='refresh' content='0;url=/#/404'/></head>")
 			log.Println("(rootHandler) ", err)
 			return
 		}
