@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
 import About from './components/About.vue'
 import Blog from './components/Blog.vue'
 import Places from './components/Places.vue'
+import NotFound from './components/NotFound.vue'
 // Asynchronously import components
 // const Places = () => import('./components/Places.vue')
 
@@ -18,13 +20,22 @@ export default new Router({
     {
       path: '/blog',
       name: 'Blog',
-      component: Blog
+      component: Blog,
+      children: [
+        {
+          path: ':year/:month/:day/:title',
+        }
+      ]
     },
     {
       path: '/places',
       name: 'Places',
       component: Places
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound
     }
-
   ]
 })
