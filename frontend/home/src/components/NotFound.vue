@@ -686,7 +686,7 @@ export default {
   text-align: center;
 
   position: absolute;
-  top: 43%;
+  top: 350px;
   left: 50%;
   width: 100%;
   -webkit-transform: translate(-50%, -50%);
