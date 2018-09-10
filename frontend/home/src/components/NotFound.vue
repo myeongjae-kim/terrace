@@ -20,9 +20,8 @@ export default {
     [].forEach.call(document.querySelectorAll('.text'), function(el) {
       var origin = el.innerHTML;
       var new_html = "";
-      for(var i = 0; i < origin.length; i++) {
+      for(var i = 0; i < origin.length; i++)
         new_html += "<span>" + origin[i] + "</span>";
-      }
       el.innerHTML = new_html;
     })
   }
