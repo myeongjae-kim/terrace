@@ -19,9 +19,9 @@ new Vue({
     // 한 번 캐시하면 css 파일은 클라이언트 측에 저장한다.
     // 아래 woffPath 가 바뀌면 그 때 다시 받는다.
     // woff base64를 내장한 css
-    var woffPath = '/css/fonts_woff.css';
+    var woffPath = 'https://cdn.myeongjae.kim/css/fonts_woff.css';
     // woff2 base64를 내장한 css
-    var woff2Path = '/css/fonts_woff2.css';
+    var woff2Path = 'https://cdn.myeongjae.kim/css/fonts_woff2.css';
 
     // 간단한 이벤트 핸들러 함수
     function on(el, ev, callback) {
