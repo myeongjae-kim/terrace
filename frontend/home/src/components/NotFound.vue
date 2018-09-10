@@ -681,7 +681,7 @@ export default {
 }
 
 .not-found-container {
-	font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
+	/*font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;*/
   font-weight: 200;
   font-size: 2em;
   text-transform: uppercase;
