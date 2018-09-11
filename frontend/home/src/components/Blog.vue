@@ -69,6 +69,10 @@ export default {
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4) {
           var str = xhr.responseText.substring(0,4);
+
+          // eslint-disable-next-line
+          console.log(str);
+
           if(str == "<!DO" || str == "<met") {
 						window.location.href = "/#/404";
 					} else {
