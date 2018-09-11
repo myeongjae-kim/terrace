@@ -69,11 +69,7 @@ export default {
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4) {
           var str = xhr.responseText.substring(0,4);
-
-          // eslint-disable-next-line
-          console.log(xhr.responseText);
-
-          if(str == "<!DO" || str == "<met") {
+          if(str == "<!DO" || str == "<hea") {
 						window.location.href = "/#/404";
 					} else {
 						vue.article = xhr.responseText;
