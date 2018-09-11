@@ -3,11 +3,14 @@
     <div id="blog-main" v-if="year == undefined">
       <!-- TODO: Show titles of blog contents -->
       <h1>Blog</h1>
-      <p>Under development.</p>
+      <p>Under development. <router-link to='/blog/2018/09/11/This is test document1'>Go to test doc</router-link></p>
       <img src="https://cdn.myeongjae.kim/res/logo1.jpg" width="300px">
     </div>
     <div id="blog-contents" v-else>
-      <p> {{ year }} / {{ month }} / {{ day }} / {{ title }}</p>
+      <div class="blog-title">
+        <h1>{{ title }}</h1>
+        <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
+      </div>
 
 			<div v-html="article"></div>
     </div>
@@ -73,5 +76,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #blog-contents {
+  text-align: left;
+}
+
+.blog-title {
+  text-align: center;
+}
+
+.blog-title > h1 {
+  margin-bottom: 0;
+}
+
+.meta {
+  margin: 0;
 }
 </style>
