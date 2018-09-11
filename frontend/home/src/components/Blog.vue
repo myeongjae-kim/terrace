@@ -11,8 +11,8 @@
         <h1>{{ title }}</h1>
         <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
       </div>
-
 			<div v-html="article"></div>
+      <p>{{ address }}</p>
     </div>
   </div>
 </template>
@@ -41,13 +41,11 @@ export default {
 			day: this.$route.params.day,
 			title: this.$route.params.title,
 			article: "Loading...",
+      address : "",
 		}
 	},
   watch: {
-    '$route' (to, from) {
-      // eslint-disable-next-line
-      // console.log(to, from);
-
+    '$route' (to) {
 			this.year = to.params.year;
 			this.month = to.params.month;
 			this.day = to.params.day;
@@ -58,7 +56,7 @@ export default {
 	methods: {
 		getPage: function() {
 			if(this.year == undefined) return;
-			var adr =
+			this.address =
         '/blog_contents/'
         + this.year + '/'
         + this.month + '/'
@@ -67,13 +65,21 @@ export default {
 
 			var vue = this;
 			var xhr = new XMLHttpRequest();
-			xhr.open("GET", adr, true);
+			xhr.open("GET", this.address, true);
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4) {
-					if(xhr.responseText.substring(0,4) == "<!DO") {
+          var str = xhr.responseText.substring(0,4);
+          if(str == "<!DO" || str == "<met") {
 						window.location.href = "/#/404";
 					} else {
 						vue.article = xhr.responseText;
+
+            // After loading the document, address variable will be
+            // a permalink of this article.
+            vue.address = 
+              'https://blog.myeongjae.kim'
+              + vue.address.replace('blog_contents/', '')
+                           .replace('.html', '');
 					}
 				}
 			};
