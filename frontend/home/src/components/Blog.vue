@@ -3,7 +3,7 @@
     <div id="blog-main" v-if="year == undefined">
       <!-- TODO: Show titles of blog contents -->
       <h1>Blog</h1>
-      <p>Under development. <router-link to='/blog/2018/09/11/This is test document1'>Go to test doc</router-link></p>
+      <p>Under development. <router-link to='/blog/2018/09/11/this-is-test-document1'>Go to test doc</router-link></p>
       <img src="https://cdn.myeongjae.kim/res/logo1.jpg" width="300px">
     </div>
     <div id="blog-contents" v-else>
@@ -18,12 +18,22 @@
 </template>
 
 <script>
-// eslint-disable-next-line
 export default {
   name: 'Blog',
   mounted: function() {
 		this.getPage();
 	},
+  updated: function() {
+    // Change file name to document's title
+    var title = document.querySelector('#blog-contents');
+    if(title == null) return;
+
+    title = title.querySelectorAll('h1');
+    if(title.length == 1) return;
+
+    this.title = title[1].innerHTML;
+    title[1].remove();
+  },
 	data() {
 		return {
 			year: this.$route.params.year,
@@ -36,7 +46,7 @@ export default {
   watch: {
     '$route' (to, from) {
       // eslint-disable-next-line
-      console.log(to, from);
+      // console.log(to, from);
 
 			this.year = to.params.year;
 			this.month = to.params.month;
