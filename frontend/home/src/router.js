@@ -17,6 +17,10 @@ export default new Router({
       name: 'About',
       component: About
     },
+    { path: '/main', redirect: '/' },
+    { path: '/about', redirect: '/' },
+    { path: '/home', redirect: '/' },
+
     {
       path: '/blog',
       name: 'Blog',
@@ -27,15 +31,17 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/places',
       name: 'Places',
       component: Places
     },
+
     {
       path: '*',
       name: 'NotFound',
       component: NotFound
-    }
+    },
   ]
 })

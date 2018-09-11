@@ -9,32 +9,17 @@
     <div id="blog-contents" v-else>
       <p> {{ year }} / {{ month }} / {{ day }} / {{ title }}</p>
 
-			<div v-html="contents"></div>
+			<div v-html="article"></div>
     </div>
   </div>
 </template>
 
 <script>
+// eslint-disable-next-line
 export default {
   name: 'Blog',
   mounted: function() {
-		if(this.year == undefined) return;
-
-		var adr = '/blog_contents/' + this.year + '/' + this.month + '/' + this.day + '/' + this.title + '.html';
-
-		var vue = this;
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", adr, true);
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === 4) {
-				if(xhr.responseText.substring(0,4) == "<!DO") {
-					window.location.href = "/#/404";
-				} else {
-					vue.contents = xhr.responseText;
-				}
-			}
-		};
-		xhr.send();
+		this.getPage();
 	},
 	data() {
 		return {
@@ -42,33 +27,51 @@ export default {
 			month: this.$route.params.month,
 			day: this.$route.params.day,
 			title: this.$route.params.title,
-			contents: "Loading...",
+			article: "Loading...",
 		}
 	},
-	updated: function() {
-		// eslint-disable-next-line
-		console.log(this.contents);
+  watch: {
+    '$route' (to, from) {
+      // eslint-disable-next-line
+      console.log(to, from);
 
-		// Find every a tag.
-		// If it has link to my homepage itself, modify it to router link
-		var article = document.querySelector('#blog-contents');
-    [].forEach.call(article.querySelectorAll('a'), function(el) {
-			var target = el.getAttribute('href');
-			if(target == null) return;
-			
-			// eslint-disable-next-line
-			console.log(el.getAttribute('href'));
+			this.year = to.params.year;
+			this.month = to.params.month;
+			this.day = to.params.day;
+			this.title = to.params.title;
+			this.getPage();
+    }
+	},
+	methods: {
+		getPage: function() {
+			if(this.year == undefined) return;
+			var adr =
+        '/blog_contents/'
+        + this.year + '/'
+        + this.month + '/'
+        + this.day + '/'
+        + this.title + '.html';
 
-			if( ! (target[0] == '/' || target[0] == '#') ) return;
-
-			// eslint-disable-next-line
-			console.log("Link to itself. Generate a link");
-
-    });
+			var vue = this;
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", adr, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if(xhr.responseText.substring(0,4) == "<!DO") {
+						window.location.href = "/#/404";
+					} else {
+						vue.article = xhr.responseText;
+					}
+				}
+			};
+			xhr.send();
+		}
 	}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#blog-contents {
+}
 </style>
