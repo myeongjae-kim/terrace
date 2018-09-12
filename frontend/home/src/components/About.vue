@@ -5,6 +5,8 @@
     <h1>Greetings!</h1>
     <p>Nice to meet you :)</p>
     <p>안녕하세요?</p>
+    <p>If you like this site,
+    <br> you can copy it from <a href="https://github.com/hrzon/terrace">here</a>.</p>
   </div>
 </template>
 

@@ -1,24 +1,24 @@
 <template>
-  <div class="blog">
+  <div id="blog">
     <div id="blog-main" v-if="year == undefined">
       <p>(Under development)</p>
       <h1>Articles</h1>
-
-      <!-- TODO: Show titles of blog contents -->
-      <div v-for="i in index" :key="i.path">
+      <!-- Show titles of blog contents -->
+      <div id="blog-article-list" v-for="i in index" :key="i.path">
         <p><a :href="i.path">{{ i.title }}</a>
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
         <br>{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</p>
       </div>
-
-      <!-- <img src="https://cdn.myeongjae.kim/res/logo1.jpg" width="300px"> -->
     </div>
     <div id="blog-contents" v-else>
-      <div class="blog-title">
+      <div class="blog-title" v-show="isTitleShown">
         <h1>{{ title }}</h1>
         <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
+        <!-- Loader start -->
+        <div id="loader" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <!-- Loader end -->
       </div>
-			<div v-html="article"></div>
+			<div id="articleID" v-html="article"></div>
       <p>{{ address }}</p>
     </div>
   </div>
@@ -29,28 +29,26 @@ export default {
   name: 'Blog',
   mounted: function() {
 		this.getPage();
-    this.getIndex();
 	},
   updated: function() {
-    // I have to get index when an article is read first and the blog main
-    // is requested.
-    this.getIndex();
-
     // Change file name to document's title
     // When the page is an artice page, get blogContents
     var blogContents = document.querySelector('#blog-contents');
     if(blogContents == null){
+      this.isTitleShown = true;
       return;
     }
 
     // Find all h1 tags, and choose second h1. It is real title of this doc.
     var titles = blogContents.querySelectorAll('h1');
     if(titles.length <= 1) {
+      this.isTitleShown = true;
       return;
     }
 
     this.title = titles[1].innerHTML;
     titles[1].remove();
+    this.isTitleShown = true;
 
     // add class 'router-link-exact-active' to the blog nav
     var nav_blog = document.querySelector('nav');
@@ -77,9 +75,14 @@ export default {
 			month: this.$route.params.month,
 			day: this.$route.params.day,
 			title: this.$route.params.title,
-			article: "Loading...",
-      address : "",
-      index : null,
+			article: "",   // will contain contents' html. 
+      address : "",  // will have a permalink of the article
+
+      // INJECT_POSITION DO NOT MODIFY THIS LINE!
+      // The first json array after this line is
+      // the position of injecting index json. index MUST have an array.
+      index :  [{"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
+      isTitleShown : false,
 		}
 	},
   watch: {
@@ -94,6 +97,10 @@ export default {
 	methods: {
 		getPage: function() {
 			if(this.year == undefined) return;
+
+      // Hide title. This title is shown after it is modified.
+      this.isTitleShown = false;
+
 			this.address =
         '/blog_contents/'
         + this.year + '/'
@@ -118,41 +125,20 @@ export default {
               'https://blog.myeongjae.kim'
               + vue.address.replace('blog_contents/', '')
                            .replace('.html', '');
+
+            // hideContentLoader
+            document.querySelector('#loader').remove();
 					}
 				}
 			};
 			xhr.send();
 		},
-    getIndex: function() {
-    // Load index file only at the main page and there is index is not yet loaded
-      if(this.index == null && this.year == undefined) {
-        // This is main page and index is not yet loaded.
-        var vue = this;
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/blog_contents/index.json", true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            vue.index = JSON.parse(xhr.responseText);
-
-            /*
-            // eslint-disable-next-line
-            console.log(vue.index);
-            // eslint-disable-next-line
-            console.log(vue.index[0].title);
-            // eslint-disable-next-line
-            console.log(vue.index[0].path);
-            */
-          }
-        };
-        xhr.send();
-      }
-    }
   }
 }
 </script>
 
-          <!-- Add "scoped" attribute to limit CSS to this component only -->
-          <style scoped>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
 #blog-contents {
   text-align: left;
 }
@@ -167,5 +153,98 @@ export default {
 
 .meta {
   margin: 0;
+}
+
+div#blog {
+  min-height: 300px;
+}
+
+div.waiting {
+  background-color: gray;
+}
+
+.hidden {
+  display:none !important;
+}
+
+/* below CSS si for a loader */
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  padding: 15px;
+}
+.lds-spinner div {
+  transform-origin: 32px 32px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 29px;
+  width: 5px;
+  height: 14px;
+  border-radius: 20%;
+  background: #000;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 </style>
