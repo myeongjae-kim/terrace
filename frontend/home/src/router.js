@@ -7,6 +7,7 @@ import About from './components/About.vue'
 const Blog = () => import('./components/Blog.vue')
 const Places = () => import('./components/Places.vue')
 const NotFound = () => import('./components/NotFound.vue')
+const GoogleSEO = () => import('./components/GoogleSEO.vue')
 
 Vue.use(Router)
 
@@ -20,6 +21,10 @@ export default new Router({
     { path: '/main', redirect: '/' },
     { path: '/about', redirect: '/' },
     { path: '/home', redirect: '/' },
+    {
+      path: '/blog/google8298809821e9d13f.html',
+      component: GoogleSEO
+    },
 
     {
       path: '/blog',
