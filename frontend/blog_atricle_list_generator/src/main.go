@@ -23,11 +23,15 @@ func main() {
 
 	// log.Println(string(s))
 
+	// The created json is going to be written at OUTPUT_FILE.
 	err = ioutil.WriteFile(OUTPUT_FILE, s, 0644)
 	if err != nil {
 		log.Println("(main) ", err)
 		return
 	}
+
+	// The created json will be injected to Blog.vue file.
+	injectToBlogComponent(s)
 
 	// Check if the generated file is correct.
 	written_s, err := ioutil.ReadFile(OUTPUT_FILE)
