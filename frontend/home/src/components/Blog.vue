@@ -33,6 +33,25 @@ export default {
 
     this.title = title[1].innerHTML;
     title[1].remove();
+
+    // add class 'router-link-exact-active' to the blog nav
+    var nav_blog = document.querySelector('nav');
+
+    var is_blog_found = false;
+    [].forEach.call(nav_blog.querySelectorAll('a'), function(el) {
+      // return immediately when target is found and updated.
+      if(is_blog_found) return;
+
+      // Add ' router-link-exact-active' to the class attribute.
+      if(el.getAttribute('href') == "#/blog") {
+        el.setAttribute(
+          'class',
+          el.getAttribute('class') + ' router-link-exact-active'
+        );
+        is_blog_found = true;
+      }
+    });
+
   },
 	data() {
 		return {
