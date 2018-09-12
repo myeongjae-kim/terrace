@@ -21,7 +21,11 @@ func main() {
 		return
 	}
 
-	// log.Println(string(s))
+	// At least indexJson have to have an empty array
+	if string(s) == "null" {
+		s = s[:0]
+		s = append(s, "[]"...)
+	}
 
 	// The created json is going to be written at OUTPUT_FILE.
 	err = ioutil.WriteFile(OUTPUT_FILE, s, 0644)
