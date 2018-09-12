@@ -1,3 +1,9 @@
+# Generate index.json of blog.
+cd ./blog_atricle_list_generator
+./bin/balg
+cd ..
+
+# Generate the whole website.
 cd ./home/
 npm run build
 cd ..

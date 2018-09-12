@@ -1,10 +1,17 @@
 <template>
   <div class="blog">
     <div id="blog-main" v-if="year == undefined">
+      <p>(Under development)</p>
+      <h1>Articles</h1>
+
       <!-- TODO: Show titles of blog contents -->
-      <h1>Blog</h1>
-      <p>Under development. <router-link to='/blog/2018/09/11/this-is-test-document1'>Go to test doc</router-link></p>
-      <img src="https://cdn.myeongjae.kim/res/logo1.jpg" width="300px">
+      <div v-for="i in index" :key="i.path">
+        <p><a :href="i.path">{{ i.title }}</a>
+        <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
+        <br>{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</p>
+      </div>
+
+      <!-- <img src="https://cdn.myeongjae.kim/res/logo1.jpg" width="300px"> -->
     </div>
     <div id="blog-contents" v-else>
       <div class="blog-title">
@@ -22,9 +29,15 @@ export default {
   name: 'Blog',
   mounted: function() {
 		this.getPage();
+    this.getIndex();
 	},
   updated: function() {
+    // I have to get index when an article is read first and the blog main
+    // is requested.
+    this.getIndex();
+
     // Change file name to document's title
+    // When the page is an artice page
     var title = document.querySelector('#blog-contents');
     if(title == null) return;
 
@@ -61,6 +74,7 @@ export default {
 			title: this.$route.params.title,
 			article: "Loading...",
       address : "",
+      index : null,
 		}
 	},
   watch: {
@@ -103,13 +117,37 @@ export default {
 				}
 			};
 			xhr.send();
-		}
-	}
+		},
+    getIndex: function() {
+    // Load index file only at the main page and there is index is not yet loaded
+      if(this.index == null && this.year == undefined) {
+        // This is main page and index is not yet loaded.
+        var vue = this;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/blog_contents/index.json", true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            vue.index = JSON.parse(xhr.responseText);
+
+            /*
+            // eslint-disable-next-line
+            console.log(vue.index);
+            // eslint-disable-next-line
+            console.log(vue.index[0].title);
+            // eslint-disable-next-line
+            console.log(vue.index[0].path);
+            */
+          }
+        };
+        xhr.send();
+      }
+    }
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+          <!-- Add "scoped" attribute to limit CSS to this component only -->
+          <style scoped>
 #blog-contents {
   text-align: left;
 }

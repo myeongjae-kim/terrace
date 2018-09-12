@@ -54,6 +54,9 @@ nav > a {
   border-radius: 3x;
   color: #2c3e50;
 }
+nav > a:hover {
+  color: #808080;
+}
 
 a.router-link-exact-active, a.router-link-exact-active:hover{
   color: #367BB7;
@@ -64,15 +67,23 @@ a {
   -moz-transition: color 1s ease-out;
   -o-transition: color 1s ease-out;
   transition: color 1s ease-out;
+  color: #367bb7;
+  text-decoration: none;
 }
 
 a:hover {
-  color: #808080;
+  color: #53ADF1;
   -webkit-transition: color 0.2s ease-out;
   -moz-transition: color 0.2s ease-out;
   -o-transition: color 0.2s ease-out;
   transition: color 0.2s ease-out;
 }
+
+a:active {
+  color: #00841d;
+}
+
+
 
 ::-moz-selection {
    background-color: #2c3e50;

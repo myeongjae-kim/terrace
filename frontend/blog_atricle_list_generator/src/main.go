@@ -8,17 +8,6 @@ import (
 	"log"
 )
 
-const LOCAL_DIR string = "../home/public/blog_contents"
-const WEB_DIR string = "/#/blog"
-const EXT string = ".html"
-const OUTPUT_FILE string = LOCAL_DIR + "/index.json"
-
-func prettyprint(b []byte) ([]byte, error) {
-	var out bytes.Buffer
-	err := json.Indent(&out, b, "", "  ")
-	return out.Bytes(), err
-}
-
 func main() {
 	dirInfo, err := ioutil.ReadDir(LOCAL_DIR)
 	if err != nil {
@@ -40,7 +29,7 @@ func main() {
 		return
 	}
 
-	// Check the generated file
+	// Check if the generated file is correct.
 	written_s, err := ioutil.ReadFile(OUTPUT_FILE)
 	if err != nil {
 		log.Println("(main) ", err)
@@ -58,4 +47,10 @@ func main() {
 		return
 	}
 	fmt.Println(string(written_s))
+}
+
+func prettyprint(b []byte) ([]byte, error) {
+	var out bytes.Buffer
+	err := json.Indent(&out, b, "", "  ")
+	return out.Bytes(), err
 }
