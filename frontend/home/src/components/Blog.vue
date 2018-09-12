@@ -37,15 +37,20 @@ export default {
     this.getIndex();
 
     // Change file name to document's title
-    // When the page is an artice page
-    var title = document.querySelector('#blog-contents');
-    if(title == null) return;
+    // When the page is an artice page, get blogContents
+    var blogContents = document.querySelector('#blog-contents');
+    if(blogContents == null){
+      return;
+    }
 
-    title = title.querySelectorAll('h1');
-    if(title.length == 1) return;
+    // Find all h1 tags, and choose second h1. It is real title of this doc.
+    var titles = blogContents.querySelectorAll('h1');
+    if(titles.length <= 1) {
+      return;
+    }
 
-    this.title = title[1].innerHTML;
-    title[1].remove();
+    this.titles = titles[1].innerHTML;
+    titles[1].remove();
 
     // add class 'router-link-exact-active' to the blog nav
     var nav_blog = document.querySelector('nav');
