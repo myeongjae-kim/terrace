@@ -49,7 +49,7 @@ export default {
       return;
     }
 
-    this.titles = titles[1].innerHTML;
+    this.title = titles[1].innerHTML;
     titles[1].remove();
 
     // add class 'router-link-exact-active' to the blog nav
