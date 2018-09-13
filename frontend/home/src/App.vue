@@ -20,6 +20,11 @@ export default {
 </script>
 
 <style>
+/*
+.vglnk {
+  display: none;
+}
+*/
 
 #app {
 	font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
