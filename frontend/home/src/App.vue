@@ -45,7 +45,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   #site-title {
-    margin: 0 0 5px 0;
+    margin: 0;
   }
 }
 
