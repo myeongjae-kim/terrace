@@ -36,11 +36,24 @@ export default {
 	margin-top: 60px;
 }
 
+@media screen and (max-width: 600px) {
+  #app {
+    margin-top: 0px;
+  }
+}
+
+
 #site-title {
   margin: 20px 0 20px 0;
 	font-family: 'Inconsolata', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
+}
+
+@media screen and (max-width: 600px) {
+  #site-title {
+    margin: 0;
+  }
 }
 
 #site-title > a {
