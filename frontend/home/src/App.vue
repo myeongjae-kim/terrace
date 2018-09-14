@@ -29,13 +29,11 @@ export default {
 	margin-top: 60px;
 }
 
-/*
 @media screen and (max-width: 600px) {
   #app {
-    margin-top: 20px;
+    margin-top: 30px;
   }
 }
-*/
 
 
 #site-title {
@@ -45,13 +43,11 @@ export default {
   letter-spacing: 3px;
 }
 
-/*
 @media screen and (max-width: 600px) {
   #site-title {
-    margin: 0;
+    margin: 0 0 5px 0;
   }
 }
-*/
 
 #site-title > a {
   color: #2c3e50;
