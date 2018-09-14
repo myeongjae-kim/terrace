@@ -34,9 +34,10 @@ update:
 	@sudo setcap CAP_NET_BIND_SERVICE=+eip /home/web/terrace_deploy/bin/terrace
 
 deploy:
-	@echo "Pushing to production"
+	@echo "Pushing to EC2"
 	@git push git@52.78.35.166:~/terrace_hook master
-	# @git push git@8.9.37.186:~/terrace_hook master
+	@echo "Pushing to S3 and invalidate cached files on Cloudfront"
+	@./deploy_to_s3.sh
 
 push:
 	@echo "Pushing to github, local and production"

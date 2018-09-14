@@ -105,7 +105,6 @@ export default {
 	methods: {
     // Below function is from https://solidfoundationwebdev.com/blog/posts/many-disqus-modules-on-a-single-page
     enableDisqus: function(shortname, uri, title, url) {
-console.log("enableDisqus");
       //config
       var disqus_shortname = shortname;
       var disqus_identifier = uri;
