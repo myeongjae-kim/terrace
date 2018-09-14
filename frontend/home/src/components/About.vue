@@ -29,7 +29,12 @@
         <div class="text"><a href="https://blog.myeongjae.kim">blog.myeongjae.kim</a></div>
       </div>
     </div>
-    <p id="foot-comment">If you like my website, you can copy it from <a href="https://github.com/hrzon/terrace">here</a>.</p>
+
+    <footer id="footer">
+      If you like my website, you can copy it from
+        <a href="https://github.com/hrzon/terrace">here</a>.
+    </footer>
+
   </div>
 </template>
 
@@ -49,7 +54,7 @@ export default {
 
 #name-kor {
   padding-top:18px;
-  position: fixed;
+  position: absolute;
   font-size: 14px;
   font-weight: normal;
 }
@@ -80,7 +85,14 @@ div.text {
   font-size: 0.9em;
 }
 
-#foot-comment {
+footer {
   font-size: 0.8em;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:30px;
+  width:100%;
+  background:#FFF;
 }
+
 </style>
