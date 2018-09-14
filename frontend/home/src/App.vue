@@ -8,7 +8,6 @@
       <router-link to="/blog">Blog</router-link>
       <router-link to="/places">Places</router-link>
     </nav>
-
     <router-view />
   </div>
 </template>
@@ -20,12 +19,6 @@ export default {
 </script>
 
 <style>
-/*
-.vglnk {
-  display: none;
-}
-*/
-
 #app {
 	font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
