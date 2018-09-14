@@ -36,7 +36,7 @@ update:
 deploy:
 	@echo "Deploying to EC2"
 	@git push git@52.78.35.166:~/terrace_hook master
-	@echo "Pushing to S3 and invalidate cached files on Cloudfront"
+	@echo "Deploying to S3 and invalidate cached files on Cloudfront"
 	@./deploy_to_s3.sh
 
 push:
