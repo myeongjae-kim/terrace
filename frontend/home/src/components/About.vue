@@ -48,6 +48,13 @@ export default {
 <style scoped>
 #profileImage {
   border-radius: 5%;
+  margin-top: 14px;
+}
+
+@media screen and (max-width: 600px) {
+  #profileImage {
+    margin-top: 0;
+  }
 }
 
 #name-eng {
