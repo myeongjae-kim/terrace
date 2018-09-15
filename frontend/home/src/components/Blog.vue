@@ -51,6 +51,14 @@ export default {
     this.isTitleShown = true;
     
     // Enable disqus
+
+    /*
+    console.log('myeongjae');
+    console.log(this.address.replace(this.domain, "")); // uri as an identifier
+    console.log(this.title);
+    console.log(this.address);
+    */
+
     this.enableDisqus(
       'myeongjae',
       this.address.replace(this.domain, ""), // uri as an identifier
@@ -104,19 +112,25 @@ export default {
 	},
 	methods: {
     // Below function is from https://solidfoundationwebdev.com/blog/posts/many-disqus-modules-on-a-single-page
-    enableDisqus: function(shortname, uri, title, url) {
+    enableDisqus: function(shortname, identifier, title, url) {
       //config
-      var disqus_shortname = shortname;
-      var disqus_identifier = uri;
-      var disqus_title = title;
-      var disqus_url = url;
-
       if(typeof(DISQUS) === 'undefined'){
         (function() {
+          var vars_text = "var disqus_shortname  = \"" + shortname  + "\";\n" + 
+           "var disqus_title      = \"" + title      + "\";\n" + 
+           "var disqus_identifier = \"" + identifier + "\";\n" +
+           "var disqus_url        = \"" + url        + "\";\n";
+
+          var vars_obj   = document.createElement("script");
+          vars_obj.type  = "text/javascript";
+          vars_obj.async = true;
+          vars_obj.text  = vars_text;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(vars_obj);
+
           var dsq = document.createElement('script');
           dsq.type = 'text/javascript';
           dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          dsq.src = '//' + shortname + '.disqus.com/embed.js';
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
       } else {
@@ -124,9 +138,9 @@ export default {
         DISQUS.reset({
           reload: true,
           config: function() {
-            this.page.identifier = disqus_identifier;
-            this.page.url = disqus_url;
-            this.page.title = disqus_title;
+            this.page.identifier = identifier;
+            this.page.url = url;
+            this.page.title = title;
           }
         });
       }
