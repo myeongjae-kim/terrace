@@ -5,7 +5,7 @@
     <h1><span id="name-eng">Myeongjae Kim</span><span id="name-kor">(김명재)</span></h1>
     <div id="personal-info">
       <div class="record">
-        <div class="icon"><font-awesome-icon icon="user" /></div>
+        <div class="icon"><font-awesome-icon :icon="['fas','child']" /></div>
         <div class="text">Software Developer</div>
       </div>
       <div class="record">
@@ -17,7 +17,7 @@
         <div class="text">Résumé</div>
       </div>
       <div class="record">
-        <div class="icon"><font-awesome-icon icon="code-branch" /></div>
+        <div class="icon"><font-awesome-icon :icon="['fab', 'github']" /></div>
         <div class="text"><a href="https://github.com/hrzon">github.com/hrzon</a></div>
       </div>
       <div class="record">
