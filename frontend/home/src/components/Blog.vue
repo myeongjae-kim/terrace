@@ -5,7 +5,7 @@
       <h1>Articles</h1>
       <!-- Show titles of blog contents -->
       <div id="blog-article-list" v-for="i in index" :key="i.path">
-        <p><a :href="i.path">{{ i.title }}</a>
+        <p><a class="article-title" :href="i.path">{{ i.title }}</a>
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
         <br>{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</p>
       </div>
@@ -214,5 +214,9 @@ div.waiting {
 
 .hidden {
   display:none !important;
+}
+
+.article-title {
+  font-size: 1.3em;
 }
 </style>
