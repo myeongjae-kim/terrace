@@ -4,3 +4,4 @@ log
 web_root_old
 vue_learning
 deploy_to_s3.sh
+deploy_to_s3_cdn.sh

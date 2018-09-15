@@ -1,8 +1,8 @@
 <template>
   <div class="about">
-    <!-- <img id="profileImage" alt="myeongjae.kim@icloud.com from gravatar.com" src="https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px"> -->
+    <!-- <img id="profileImage" alt="dev@myeongjae.kim from gravatar.com" src="https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px"> -->
     <img id="profileImage" alt="Profile Image" src="https://cdn.myeongjae.kim/res/profile.jpeg" width="200px" height="200px">
-    <h1>Myeongjae Kim<span id="name-kor">(김명재)</span></h1>
+    <h1><span id="name-eng">Myeongjae Kim</span><span id="name-kor">(김명재)</span></h1>
     <div id="personal-info">
       <div class="record">
         <div class="icon"><font-awesome-icon icon="user" /></div>
@@ -46,17 +46,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import url('//cdn.myeongjae.kim/css/IropkeBatangMSubset.woff.css');
-
 #profileImage {
   border-radius: 5%;
 }
 
+#name-eng {
+  font-family: 'Bad Script', cursive;
+}
+
 #name-kor {
-  padding-top:18px;
+  padding-top:25px;
   position: absolute;
   font-size: 14px;
   font-weight: normal;
+  opacity: 0.5;
 }
 
 #personal-info {
@@ -64,6 +67,7 @@ export default {
   height: 180px;
   text-align: left;
   margin: auto;
+  font-family: 'Inconsolata', monospace;
 }
 
 #personal-info > p{
