@@ -63,7 +63,7 @@ export default {
 }
 
 #personal-info {
-  width: 150px;
+  width: 164px;
   height: 180px;
   text-align: left;
   margin: auto;
@@ -79,12 +79,12 @@ div.record {
 }
 
 div.icon {
-  width: 22px;
+  width: 28px;
   float: left;
   font-size: 0.9em;
+  text-align: center;
 }
 div.text {
-  width: 128px;
   float: left;
   font-size: 0.9em;
 }
