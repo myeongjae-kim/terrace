@@ -7,7 +7,7 @@
       <div id="blog-article-list" v-for="i in index" :key="i.path">
         <p><a class="article-title" :href="i.path">{{ i.title }}</a>
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
-        <br>{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</p>
+        <br><span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span></p>
       </div>
     </div>
     <div id="blog-contents" v-else>
@@ -217,6 +217,11 @@ div.waiting {
 }
 
 .article-title {
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
+
+.article-date {
+  font-size: 0.9em;
+}
+
 </style>
