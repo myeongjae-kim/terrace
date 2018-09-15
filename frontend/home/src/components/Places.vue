@@ -16,8 +16,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#map-wrapper {
+div#map-wrapper {
   padding: 0 10px 0 10px;
+  max-width: 1000px;
+  margin: auto;
 }
 
 #map {
