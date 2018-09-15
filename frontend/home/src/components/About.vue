@@ -6,7 +6,7 @@
     <div id="personal-info">
       <div class="record">
         <div class="icon"><font-awesome-icon icon="user" /></div>
-        <div class="text">Software Engineer</div>
+        <div class="text">Software Developer</div>
       </div>
       <div class="record">
         <div class="icon"><font-awesome-icon icon="map-marker-alt" /></div>
