@@ -12,6 +12,7 @@ import (
 )
 
 type FileInfo struct {
+	Index int    `json:"index"`
 	Title string `json:"title"`
 	Path  string `json:"path"`
 	Date  struct {
@@ -126,6 +127,10 @@ func getDirectoryInfo(dir string, files []os.FileInfo) ([]byte, error) {
 	// Reverse the order of filelist to show the list from newest to oldest
 	for i, j := 0, len(filelist)-1; i < j; i, j = i+1, j-1 {
 		filelist[i], filelist[j] = filelist[j], filelist[i]
+	}
+
+	for i, _ := range filelist {
+		filelist[i].Index = i
 	}
 
 	b, err := json.Marshal(filelist)

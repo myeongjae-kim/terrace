@@ -13,6 +13,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.3.1",
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
+    "semantic-ui-button": "^2.3.2",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "webfontloader": "^1.6.28"

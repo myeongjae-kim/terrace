@@ -18,7 +18,9 @@
         </div>
         <div id="padding-between-title-and-article"></div>
         <div id="article-content" v-html="article"></div>
-        <p>{{ address }}</p>
+        <div id="share-buttons">
+          <button v-on:click="copyUrl">{{copyBtnMsg}}</button>
+        </div>
       </article>
       <div id="disqus_thread"></div>
     </div>
@@ -96,11 +98,13 @@ export default {
 			article: "",   // will contain contents' html. 
       address : "",  // will have a permalink of the article
       domain : "https://blog.myeongjae.kim",
+      copyBtnMsg : "Copy URL to Share",
+      copiedBtnMsg : "Copied to Clipboard",
 
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
       // the position of injecting index json. index MUST have an array.
-      index :  [{"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
+      index :  [{"index":0,"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"index":1,"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"index":2,"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"index":3,"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"index":4,"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"index":5,"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"index":6,"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
       isTitleShown : false,
 		}
 	},
@@ -114,6 +118,27 @@ export default {
     }
 	},
 	methods: {
+    copyUrl : function() {
+      // copy the url
+      var t = document.createElement("textarea");
+      document.body.appendChild(t);
+      t.value = this.address;
+      t.select();
+      document.execCommand('copy');
+      document.body.removeChild(t);
+
+      // change button status to clicked.
+      var btn = event.path[0];
+      btn.setAttribute('class', ' button-clicked');
+      btn.innerHTML = this.copiedBtnMsg;
+
+      // Reset button to initial state
+      var vue = this;
+      setTimeout(function() {
+        btn.setAttribute('class', null);
+        btn.innerHTML = vue.copyBtnMsg;
+      }, 1100);
+    },
     // Below function is from https://solidfoundationwebdev.com/blog/posts/many-disqus-modules-on-a-single-page
     enableDisqus: function(shortname, identifier, title, url) {
       //config
@@ -237,5 +262,13 @@ article {
   color: #000;
 }
 
+#share-buttons {
+  text-align: center;
+  padding: 20px 0 30px 0;
+}
 
+.button-clicked {
+  color: #fff;
+  background-color: #2c3e50;
+}
 </style>
