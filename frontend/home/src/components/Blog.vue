@@ -122,12 +122,12 @@ export default {
       // copy the url
       var btn = event.path[0];
       var t = document.createElement("textarea");
-      //document.body.appendChild(t);
-      btn.appendChild(t);
+      document.body.appendChild(t);
+      //btn.appendChild(t);
       t.value = this.address;
       t.select();
-      document.execCommand('copy');
-      //document.body.removeChild(t);
+      //document.execCommand('copy');
+      document.body.removeChild(t);
       btn.removeChild(t);
 
       // change button status to clicked.
@@ -205,11 +205,6 @@ export default {
           break;
         }
       }
-
-
-      
-
-
 
       // After loading the document, address variable will be
       // a permalink of this article.
