@@ -166,7 +166,7 @@ div#musings {
 
 .component-title {
   font-family: 'Bad Script';
-  margin-top: 0;
+  margin-top: 12px;
 }
 
 .musing-element {
