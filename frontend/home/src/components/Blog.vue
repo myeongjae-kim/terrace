@@ -122,13 +122,13 @@ export default {
       // copy the url
       var btn = event.srcElement;
       var t = document.createElement("textarea");
-      document.body.appendChild(t);
-      //btn.appendChild(t);
+      //document.body.appendChild(t);
+      btn.appendChild(t);
       t.value = this.address;
       t.select();
       document.execCommand('copy');
-      document.body.removeChild(t);
-      //btn.removeChild(t);
+      //document.body.removeChild(t);
+      btn.removeChild(t);
 
       // change button status to clicked.
       btn.setAttribute('class', ' button-clicked');
