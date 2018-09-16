@@ -106,4 +106,8 @@ a:active {
     color: #fff;
 }
 
+.component-title {
+  cursor: default;
+}
+
 </style>
