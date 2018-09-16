@@ -111,6 +111,20 @@ a:active {
   cursor: default;
 }
 
+
+.component-title {
+  cursor: default;
+  padding-bottom:15px;
+}
+
+@media screen and (max-width: 600px) {
+  .component-title {
+    margin-top: 0;
+    padding-bottom:0;
+  }
+}
+
+
 /* Below codes are from http://getskeleton.com */
 
 /* Buttons
