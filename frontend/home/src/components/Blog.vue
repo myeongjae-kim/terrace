@@ -11,12 +11,15 @@
       <p>(Under development)</p>
     </div>
     <div id="blog-contents" v-else>
-      <div class="blog-title" v-show="isTitleShown">
-        <h1>{{ title }}</h1>
-        <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
-      </div>
-			<div id="articleID" v-html="article"></div>
-      <p>{{ address }}</p>
+      <article>
+        <div class="blog-title" v-show="isTitleShown">
+          <h1>{{ title }}</h1>
+          <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
+        </div>
+        <div id="padding-between-title-and-article"></div>
+        <div id="article-content" v-html="article"></div>
+        <p>{{ address }}</p>
+      </article>
       <div id="disqus_thread"></div>
     </div>
   </div>
@@ -97,7 +100,7 @@ export default {
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
       // the position of injecting index json. index MUST have an array.
-      index :  [{"title":" 디스쿠스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
+      index :  [{"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
       isTitleShown : false,
 		}
 	},
@@ -219,5 +222,18 @@ div#blog {
 .article-date {
   font-size: 0.9em;
 }
+
+article {
+  font-size : 1.18em;
+}
+
+#padding-between-title-and-article {
+  height: 30px;
+}
+
+#article-content {
+  color: #000;
+}
+
 
 </style>
