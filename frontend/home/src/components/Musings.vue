@@ -16,6 +16,16 @@
 <script>
 export default {
   name: 'Musings',
+  data() {
+		return {
+      musings : [
+        {
+          sentence : "많이 말하지도 말고, 갑자기 성내지도 말 것이다.",
+          author : "- 정약용, <목민심서>, 창비, 2005",
+        },
+      ],
+		}
+	},
   mounted: function() {
     [].forEach.call(document.querySelectorAll('.text'), function(el) {
       var origin = el.innerHTML;
@@ -138,21 +148,7 @@ export default {
 
     }());
   },
-
-	data() {
-		return {
-      musings : [
-        {
-          sentence : "많이 말하지도 말고, 갑자기 성내지도 말 것이다.",
-          author : "- 정약용, <목민심서>, 창비, 2005",
-        },
-        {
-          sentence : "Sentence2",
-          author : "Author2",
-        },
-      ],
-		}
-	},
+	
 }
 </script>
 
@@ -166,9 +162,6 @@ div#musings {
 
 h1 {
   font-family: 'Bad Script';
-
-  text-shadow: 1px 0;
-  letter-spacing: 1px;
 }
 
 .musing-element {
