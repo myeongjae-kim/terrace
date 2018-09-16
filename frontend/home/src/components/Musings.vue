@@ -1,10 +1,10 @@
 <template>
   <div id="musings">
     <div id="musings-main">
-      <h1 class="component-title">Musings</h1>
+      <h1 class="component-title">Quotes</h1>
       <!-- Show titles of Musings contents -->
-      <div id="musings-list" v-for="i in musings" :key="i.name">
-        <div class="musing-element">
+      <div id="musings-list" v-for="i in musings" :key="i.key">
+        <div class="musing-element" :style="i.css">
           <p class="musing-sentence">“{{ i.sentence }}”</p>
           <p class="musing-author">{{ i.author }}</p>
         </div>
@@ -20,12 +20,16 @@ export default {
 		return {
       musings : [
         {
+          key : 0,
           sentence : "많이 말하지도 말고, 갑자기 성내지도 말 것이다.",
           author : "- 정약용, <목민심서>, 창비, 2005",
+          css : "",
         },
         {
+          key : 1,
           sentence : "The one thing you can’t take away from me is the way I choose to respond to what you do to me. The last of one’s freedoms is to choose one’s attitude in any given circumstance.",
           author : "- Viktor E. Frankl, <Man's Search for Meaning>",
+          css : "font-family: 'Bad Script'; font-style:normal;",
         },
       ],
 		}
