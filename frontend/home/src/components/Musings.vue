@@ -1,11 +1,11 @@
 <template>
   <div id="musings">
     <div id="musings-main">
-      <h1>Musings</h1>
+      <h1 class="component-title">Musings</h1>
       <!-- Show titles of Musings contents -->
       <div id="musings-list" v-for="i in musings" :key="i.name">
         <div class="musing-element">
-          <p class="musing-sentence" :href="i.path">{{ i.sentence }}</p>
+          <p class="musing-sentence">“{{ i.sentence }}”</p>
           <p class="musing-author">{{ i.author }}</p>
         </div>
       </div>
@@ -22,6 +22,10 @@ export default {
         {
           sentence : "많이 말하지도 말고, 갑자기 성내지도 말 것이다.",
           author : "- 정약용, <목민심서>, 창비, 2005",
+        },
+        {
+          sentence : "The one thing you can’t take away from me is the way I choose to respond to what you do to me. The last of one’s freedoms is to choose one’s attitude in any given circumstance.",
+          author : "- Viktor E. Frankl, <Man's Search for Meaning>",
         },
       ],
 		}
@@ -156,24 +160,29 @@ export default {
 <style scoped>
 div#musings {
   min-height: 300px;
-  max-width: 800px;
+  max-width: 400px;
   margin: auto;
 }
 
-h1 {
+.component-title {
   font-family: 'Bad Script';
+  margin-top: 0;
 }
 
 .musing-element {
 	font-family: 'Iropke Batang', 'Spoqa Han Sans',serif;
   padding: 0;
-  line-height: 1em;
   padding-bottom:10px;
   font-style:italic;
+  font-size: 1.1em;
 }
 
 .hidden {
   display:none !important;
+}
+
+.musing-author {
+  font-size: 0.8em;
 }
 
 </style>

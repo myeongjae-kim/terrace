@@ -1,14 +1,14 @@
 <template>
   <div id="blog">
     <div id="blog-main" v-if="year == undefined">
-      <p>(Under development)</p>
-      <h1>Articles</h1>
+      <h1 class="component-title">Articles</h1>
       <!-- Show titles of blog contents -->
       <div id="blog-article-list" v-for="i in index" :key="i.path">
         <p><a class="article-title" :href="i.path">{{ i.title }}</a>
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
         <br><span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span></p>
       </div>
+      <p>(Under development)</p>
     </div>
     <div id="blog-contents" v-else>
       <div class="blog-title" v-show="isTitleShown">
