@@ -16,6 +16,14 @@
 <script>
 export default {
   name: 'Musings',
+  beforeDestroy : function() {
+    var nav = document.querySelector('nav');
+    nav.setAttribute(
+      "class",
+      nav.getAttribute("class").replace(/ musing-font/gi, "")
+    );
+
+  },
   data() {
 		return {
       musings : [
@@ -35,6 +43,16 @@ export default {
 		}
 	},
   mounted: function() {
+    // Add font to nav
+    var nav = document.querySelector('nav');
+    var attr = nav.getAttribute("class");
+    if(attr == null) attr = "";
+    nav.setAttribute(
+      "class",
+      attr + " musing-font"
+    );
+
+
     [].forEach.call(document.querySelectorAll('.text'), function(el) {
       var origin = el.innerHTML;
       var new_html = "";
@@ -160,6 +178,12 @@ export default {
 }
 </script>
 
+<style>
+.musing-font{
+  font-family: 'Bad Script', 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
+}
+</style>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 div#musings {
@@ -190,3 +214,4 @@ div#musings {
 }
 
 </style>
+
