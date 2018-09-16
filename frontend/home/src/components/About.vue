@@ -2,7 +2,7 @@
   <div class="about">
     <!-- <img id="profileImage" alt="dev@myeongjae.kim from gravatar.com" src="https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px"> -->
     <img id="profileImage" alt="Profile Image" src="https://cdn.myeongjae.kim/res/profile.jpeg" width="200px" height="200px">
-    <h1 class="component-title"><span id="name-eng">Myeongjae Kim</span><span id="name-kor">(김명재)</span></h1>
+    <h1><span id="name-eng">Myeongjae Kim</span><span id="name-kor">(김명재)</span></h1>
     <div id="personal-info">
       <div class="record">
         <div class="icon"><font-awesome-icon :icon="['fas','child']" /></div>
