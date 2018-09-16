@@ -120,7 +120,15 @@ export default {
 	methods: {
     copyUrl : function(event) {
       // copy the url
-      var btn = event.srcElement;
+      var btn;
+      if(event.srcElement) {
+        btn = event.srcElement;
+      } else if (event.target) {
+        btn = event.target;
+      } else {
+        return;
+      }
+
       var t = document.createElement("textarea");
       //document.body.appendChild(t);
       btn.appendChild(t);
