@@ -111,8 +111,6 @@ a:active {
   cursor: default;
 }
 
-
-
 /* Below codes are from http://getskeleton.com */
 
 /* Buttons

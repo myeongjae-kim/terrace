@@ -12,10 +12,10 @@ import (
 )
 
 type FileInfo struct {
-	Index int    `json:"index"`
-	Title string `json:"title"`
-	Path  string `json:"path"`
-	Date  struct {
+	RelativeId int    `json:"relativeId"`
+	Title      string `json:"title"`
+	Path       string `json:"path"`
+	Date       struct {
 		Year     string `json:"year"`
 		Month    string `json:"month"`
 		MonthEng string `json:"monthEng"`
@@ -130,7 +130,7 @@ func getDirectoryInfo(dir string, files []os.FileInfo) ([]byte, error) {
 	}
 
 	for i, _ := range filelist {
-		filelist[i].Index = i
+		filelist[i].RelativeId = i
 	}
 
 	b, err := json.Marshal(filelist)

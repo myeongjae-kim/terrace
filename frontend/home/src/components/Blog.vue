@@ -1,6 +1,6 @@
 <template>
   <div id="blog">
-    <div id="blog-main" v-if="year == undefined">
+    <div id="blog-main" v-if="year === undefined">
       <h1 class="component-title">Articles</h1>
       <!-- Show titles of blog contents -->
       <div id="blog-article-list" v-for="i in index" :key="i.path">
@@ -104,7 +104,7 @@ export default {
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
       // the position of injecting index json. index MUST have an array.
-      index :  [{"index":0,"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"index":1,"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"index":2,"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"index":3,"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"index":4,"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"index":5,"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"index":6,"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
+      index :  [{"relativeId":0,"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":1,"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":2,"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"relativeId":3,"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":4,"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":5,"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":6,"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
       isTitleShown : false,
 		}
 	},
@@ -118,17 +118,19 @@ export default {
     }
 	},
 	methods: {
-    copyUrl : function() {
+    copyUrl : function(event) {
       // copy the url
+      var btn = event.path[0];
       var t = document.createElement("textarea");
-      document.body.appendChild(t);
+      //document.body.appendChild(t);
+      btn.appendChild(t);
       t.value = this.address;
       t.select();
       document.execCommand('copy');
-      document.body.removeChild(t);
+      //document.body.removeChild(t);
+      btn.removeChild(t);
 
       // change button status to clicked.
-      var btn = event.path[0];
       btn.setAttribute('class', ' button-clicked');
       btn.innerHTML = this.copiedBtnMsg;
 
@@ -185,6 +187,29 @@ export default {
         + this.month + '/'
         + this.day + '/'
         + this.title + '.html';
+
+      var currentUri = 
+        '/#/blog/'
+        + this.year + '/'
+        + this.month + '/'
+        + this.day + '/'
+        + this.title;
+
+      // TODO: Below code's time complexity is O(n).
+      // 'this.index' array is sorted by non-increasing order of 'path' element.
+      // You can use binary search.
+      for(var i = 0; i < this.index.length; i++) {
+        if(currentUri == this.index[i].path) {
+          // console.log(i);
+          // TODO: Save relativeId to show previous and next articles.
+          break;
+        }
+      }
+
+
+      
+
+
 
       // After loading the document, address variable will be
       // a permalink of this article.
