@@ -126,9 +126,9 @@ export default {
       //btn.appendChild(t);
       t.value = this.address;
       t.select();
-      //document.execCommand('copy');
+      document.execCommand('copy');
       document.body.removeChild(t);
-      btn.removeChild(t);
+      //btn.removeChild(t);
 
       // change button status to clicked.
       btn.setAttribute('class', ' button-clicked');
