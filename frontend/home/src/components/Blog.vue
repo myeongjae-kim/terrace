@@ -208,10 +208,6 @@ div#blog {
   margin: auto;
 }
 
-div.waiting {
-  background-color: gray;
-}
-
 .hidden {
   display:none !important;
 }

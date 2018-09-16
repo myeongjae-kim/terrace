@@ -2,10 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import About from './components/About.vue'
+import Blog from './components/Blog.vue'
 
 // Asynchronously import components
-const Blog = () => import('./components/Blog.vue')
 const Places = () => import('./components/Places.vue')
+const Musings = () => import('./components/Musings.vue')
+
 const NotFound = () => import('./components/NotFound.vue')
 
 Vue.use(Router)
@@ -36,6 +38,13 @@ export default new Router({
       name: 'Places',
       component: Places
     },
+
+    {
+      path: '/musings',
+      name: 'Musings',
+      component: Musings
+    },
+
 
     {
       path: '*',
