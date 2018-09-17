@@ -16,11 +16,11 @@ Plugin 'The-NERD-Tree'
 
 vim을 실행하고 `:PlugInstall`을 입력하면 플러그인이 설치됩니다.
 
-[![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.20.53-PM.png)](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.20.53-PM.png)
+![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.20.53-PM.png)
 
 이후 vim을 재시작 한 뒤 `:NERDTree`를 입력하면 파일시스템을 볼 수 있는 창이 생깁니다.
 
-[![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.23.43-PM.png)](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.23.43-PM.png)
+![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.23.43-PM.png)
 
 분할된 창 사이를 이동하려면 Ctrl+W을 입력하고 H,J,K,L을 입력하면 됩니다..
 

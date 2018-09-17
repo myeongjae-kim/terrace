@@ -159,6 +159,13 @@ figure {
   text-align: center;
 }
 
+@media screen and (max-width: 600px) {
+  figure {
+    margin: 0;
+  }
+}
+
+
 figcaption {
   opacity: 0.5;
   font-size:0.85em;
