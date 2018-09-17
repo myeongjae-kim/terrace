@@ -19,8 +19,19 @@ func injectToBlogComponent(indexJson []byte) error {
 	from := bytes.IndexAny(blogVue[i:], "[")
 	from += i
 
-	to := bytes.IndexAny(blogVue[from+1:], "]")
-	to += from + 1
+	cnt := 1
+	to := from + 1
+	for cnt > 0 {
+		if blogVue[to] == '[' {
+			cnt++
+		} else if blogVue[to] == ']' {
+			cnt--
+		}
+		to++
+	}
+
+	// to := bytes.IndexAny(blogVue[from+1:], "]")
+	// to += from + 1
 
 	// log.Println(string(blogVue[from : to+1]))
 
@@ -28,7 +39,7 @@ func injectToBlogComponent(indexJson []byte) error {
 	modified := make([]byte, len(blogVue[0:from]))
 	copy(modified, blogVue[0:from])
 	modified = append(modified, indexJson...)
-	modified = append(modified, blogVue[to+1:]...)
+	modified = append(modified, blogVue[to:]...)
 
 	// Write the modified vue component
 	err = ioutil.WriteFile(BLOG_VUE_PATH, modified, 0644)

@@ -21,6 +21,33 @@ export default {
 </script>
 
 <style>
+img {
+  max-width:100%;
+}
+
+
+pre {
+	white-space: pre-wrap;                 /* CSS3 browsers  */
+	white-space: -moz-pre-wrap !important; /* 1999+ Mozilla  */
+	white-space: -pre-wrap;                /* Opera 4 thru 6 */
+	white-space: -o-pre-wrap;              /* Opera 7 and up */
+	word-wrap: break-word;                 /* IE 5.5+ and up */
+	/* overflow-x: auto; */                /* Firefox 2 only */
+	/* width: 99%; */		       /* only if needed */
+
+  background-color: #f3f3f3;
+  padding: 20px;
+}
+
+pre > code {
+  padding: 0;
+}
+
+code {
+  font-family: 'Inconsolata', monospace;
+  background-color: #f3f3f3;
+  padding: 1px 5px 1px 5px;
+}
 #app {
   font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
