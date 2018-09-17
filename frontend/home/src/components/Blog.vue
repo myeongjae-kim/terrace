@@ -124,7 +124,7 @@ export default {
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
       // the position of injecting index json. index MUST have an array.
-      index :  [{"relativeId":0,"title":"[vim/Linux] 2. Neovim 설치하고 24bit 컬러 적용하기","path":"/#/blog/2016/10/01/vimlinux-2-neovim-설치하고-24bit-컬러-적용하기","date":{"year":"2016","month":"10","monthEng":"October","day":"01","dayEng":"1st"}},{"relativeId":1,"title":"[vim/Linux] 1. vim을 왜 쓰냐고?","path":"/#/blog/2016/10/01/vimlinux-1-vim을-왜-쓰냐고","date":{"year":"2016","month":"10","monthEng":"October","day":"01","dayEng":"1st"}},{"relativeId":2,"title":"마초를 만드는 환경","path":"/#/blog/2016/02/10/마초를-만드는-환경","date":{"year":"2016","month":"02","monthEng":"February","day":"10","dayEng":"10th"}},{"relativeId":3,"title":"남자아이가 마초가 되어가는 과정","path":"/#/blog/2016/02/10/남자아이가-마초가-되어가는-과정","date":{"year":"2016","month":"02","monthEng":"February","day":"10","dayEng":"10th"}},{"relativeId":4,"title":"가장 오래된 작품들이 가장 덜 낡았다","path":"/#/blog/2016/01/19/가장-오래된-작품들이-가장-덜-낡았다","date":{"year":"2016","month":"01","monthEng":"January","day":"19","dayEng":"19th"}},{"relativeId":5,"title":"진정한 교양?","path":"/#/blog/2016/01/14/진정한-교양","date":{"year":"2016","month":"01","monthEng":"January","day":"14","dayEng":"14th"}},{"relativeId":6,"title":"독자는 의무가 아닌 애정의 행로를 따라가야 한다","path":"/#/blog/2016/01/14/독자는-의무가-아닌-애정의-행로를-따라가야-한다","date":{"year":"2016","month":"01","monthEng":"January","day":"14","dayEng":"14th"}}],
+      index :  [{"relativeId":0,"title":"[vim/Linux] 5. The NERD Tree 설치하기","path":"/#/blog/2017/07/14/vimlinux-5-the-nerd-tree-설치하기","date":{"year":"2017","month":"07","monthEng":"July","day":"14","dayEng":"14th"}},{"relativeId":1,"title":"[vim/Linux] 4. 플러그인 매니저를 설치하고 vim-airline 설치하기","path":"/#/blog/2016/10/06/vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기","date":{"year":"2016","month":"10","monthEng":"October","day":"06","dayEng":"6th"}},{"relativeId":2,"title":"[vim/Linux] 3. vimrc 기본설정","path":"/#/blog/2016/10/02/vimlinux-3-vimrc-기본설정","date":{"year":"2016","month":"10","monthEng":"October","day":"02","dayEng":"2nd"}},{"relativeId":3,"title":"[vim/Linux] 2. Neovim 설치하고 24bit 컬러 적용하기","path":"/#/blog/2016/10/01/vimlinux-2-neovim-설치하고-24bit-컬러-적용하기","date":{"year":"2016","month":"10","monthEng":"October","day":"01","dayEng":"1st"}},{"relativeId":4,"title":"[vim/Linux] 1. vim을 왜 쓰냐고?","path":"/#/blog/2016/10/01/vimlinux-1-vim을-왜-쓰냐고","date":{"year":"2016","month":"10","monthEng":"October","day":"01","dayEng":"1st"}},{"relativeId":5,"title":"마초를 만드는 환경","path":"/#/blog/2016/02/10/마초를-만드는-환경","date":{"year":"2016","month":"02","monthEng":"February","day":"10","dayEng":"10th"}},{"relativeId":6,"title":"남자아이가 마초가 되어가는 과정","path":"/#/blog/2016/02/10/남자아이가-마초가-되어가는-과정","date":{"year":"2016","month":"02","monthEng":"February","day":"10","dayEng":"10th"}},{"relativeId":7,"title":"가장 오래된 작품들이 가장 덜 낡았다","path":"/#/blog/2016/01/19/가장-오래된-작품들이-가장-덜-낡았다","date":{"year":"2016","month":"01","monthEng":"January","day":"19","dayEng":"19th"}},{"relativeId":8,"title":"진정한 교양?","path":"/#/blog/2016/01/14/진정한-교양","date":{"year":"2016","month":"01","monthEng":"January","day":"14","dayEng":"14th"}},{"relativeId":9,"title":"독자는 의무가 아닌 애정의 행로를 따라가야 한다","path":"/#/blog/2016/01/14/독자는-의무가-아닌-애정의-행로를-따라가야-한다","date":{"year":"2016","month":"01","monthEng":"January","day":"14","dayEng":"14th"}}],
       isTitleShown : false,
     }
   },
@@ -316,7 +316,7 @@ div#blog {
 }
 
 .article-title {
-  font-size: 1.1em;
+  font-size: 1.18em;
 }
 
 .article-date {
@@ -332,14 +332,14 @@ article {
 }
 
 #article-content {
-  text-align: justify;
+  text-align: left;
   color: #000;
   line-height: 1.6em;
 }
 
 #share-buttons {
   text-align: center;
-  padding: 20px 0 0 0;
+  padding: 20px 0 20px 0;
 }
 
 .button-clicked {
@@ -353,6 +353,11 @@ article {
 
 #disqus_thread {
   padding-top: 35px;
+}
+
+.blog-article-list {
+  max-width: 400px;
+  margin:auto;
 }
 
 </style>

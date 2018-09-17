@@ -37,6 +37,7 @@ pre {
 
   background-color: #f3f3f3;
   padding: 20px;
+  line-height: 1.3em;
 }
 
 pre > code {
@@ -45,6 +46,7 @@ pre > code {
 
 code {
   font-family: 'Inconsolata', monospace;
+  font-size: 0.85em;
   background-color: #f3f3f3;
   padding: 1px 5px 1px 5px;
 }
@@ -99,7 +101,8 @@ nav > a:hover {
 }
 
 a.router-link-exact-active, a.router-link-exact-active:hover{
-  color: #367BB7;
+  /*color: #367BB7;*/
+  color: #3073b3;
 }
 
 a {
@@ -107,7 +110,8 @@ a {
   -moz-transition: color 1s ease-out;
   -o-transition: color 1s ease-out;
   transition: color 1s ease-out;
-  color: #367bb7;
+  /*color: #367bb7;*/
+  color: #3073b3;
   text-decoration: none;
 }
 
@@ -162,6 +166,7 @@ figcaption {
 }
 
 blockquote{
+  text-indent: 0.5em;
   opacity: 0.8;
 
   display:block;

@@ -1,0 +1,109 @@
+<h1 id="vimlinux-5.-the-nerd-tree-설치하기">[vim/Linux] 5. The NERD Tree 설치하기</h1>
+<p>이번에도 마찬가지로 Vundle을 통해 플러그인을 설치합니다.</p>
+<p>The NERD Tree는 파일 탐색기입니다. vim안에서 파일시스템을 접근할 수 있는 UI를 생성합니다.</p>
+<p>.vimrc를 열어서 vim-airline 플러그인 밑에 다음과 같이 추가합니다.</p>
+<pre><code>&quot; Keep Plugin commands between vundle#begin/end.
+ 
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;</code></pre>
+<p>vim을 실행하고 <code>:PlugInstall</code>을 입력하면 플러그인이 설치됩니다.</p>
+<p><a href="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.20.53-PM.png"><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.20.53-PM.png" /></a></p>
+<p>이후 vim을 재시작 한 뒤 <code>:NERDTree</code>를 입력하면 파일시스템을 볼 수 있는 창이 생깁니다.</p>
+<p><a href="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.23.43-PM.png"><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-3.23.43-PM.png" /></a></p>
+<p>분할된 창 사이를 이동하려면 Ctrl+W을 입력하고 H,J,K,L을 입력하면 됩니다..</p>
+<p>매번 <code>:NERDTree</code>를 입력할 수 없으니 단축키를 설정합시다.</p>
+<pre><code>&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;</code></pre>
+<p>이제 vim을 실행할 때 매개변수가 없으면 NERTree가 나타나고, 매개변수가 있으면 NERDTree가 나타나지 않습니다. 가령 <code>$ v</code> (혹은 <code>nvim</code>)으로 vim을 실행하면 NERDTree가 나타나고, <code>$ v a.c</code> 를 입력해서 <code>a.c</code>파일을 열면서 vim을 실행하면 NERDTree가 나타나지 않습니다.</p>
+<p>단축키는 <code>&lt;leader&gt;ne</code>입니다. 이 전 글에서 <code>&lt;leader&gt;</code>키를 쉼표로 설정했으므로 <code>,ne</code>라고 입력하면 NERDTree가 나타납니다. 다시 한 번 입력하면 사라집니다.</p>
+<p>아래는 지금까지 설정한 .vimrc 파일입니다.</p>
+<pre><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+autocmd FileType make setlocal noexpandtab
+ 
+&quot; Key Settings
+nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;
+set pastetoggle=&lt;F2&gt;
+let mapleader = &quot;,&quot;
+nnoremap &lt;leader&gt;q :bp&lt;CR&gt;
+nnoremap &lt;leader&gt;w :bn&lt;CR&gt;
+ 
+&quot; Key Setting - resize windows
+nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;[ :exe &quot;vertical resize -8&quot;&lt;CR&gt;
+ 
+nnoremap &lt;silent&gt; &lt;Leader&gt;+ :exe &quot;resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;_ :exe &quot;resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+ 
+&quot; Vundle
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+ 
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin(&#39;~/some/path/here&#39;)
+ 
+&quot; let Vundle manage Vundle, required
+Plugin &#39;VundleVim/Vundle.vim&#39;
+ 
+&quot; Keep Plugin commands between vundle#begin/end.
+ 
+&quot; vim-airline
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;
+ 
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot; To ignore plugin indent changes, instead use:
+&quot;filetype plugin on
+&quot;
+&quot; Brief help
+&quot; :PluginList       - lists configured plugins
+&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache
+&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+&quot;
+&quot; see :h vundle for more details or wiki for FAQ
+&quot; Put your non-Plugin stuff after this line
+ 
+&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;</code></pre>
+<h2 id="reference">Reference</h2>
+<p>The NERDTree: <a href="https://github.com/scrooloose/nerdtree">github.com/scrooloose/nerdtree</a></p>
