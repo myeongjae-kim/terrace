@@ -158,7 +158,6 @@ blockquote:before {
 
 
 blockquote{
-  font-size: 0.9em;
   opacity: 0.8;
 
   display:block;
