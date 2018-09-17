@@ -22,13 +22,13 @@ export default {
 
 <style>
 #app {
-	font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 
 @media screen and (max-width: 600px) {
@@ -40,7 +40,7 @@ export default {
 
 #site-title {
   margin: 20px 0 20px 0;
-	font-family: 'Inconsolata', Helvetica, Arial, sans-serif;
+  font-family: 'Inconsolata', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
 }

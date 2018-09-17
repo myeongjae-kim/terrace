@@ -25,7 +25,7 @@ export default {
 
   },
   data() {
-		return {
+    return {
       musings : [
         {
           key : 0,
@@ -40,8 +40,8 @@ export default {
           css : "font-family: 'Bad Script'; font-style:normal;",
         },
       ],
-		}
-	},
+    }
+  },
   mounted: function() {
     // Add font to nav
     var nav = document.querySelector('nav');
@@ -174,7 +174,7 @@ export default {
 
     }());
   },
-	
+  
 }
 </script>
 
@@ -198,7 +198,7 @@ div#musings {
 }
 
 .musing-element {
-	font-family: 'Iropke Batang', 'Spoqa Han Sans',serif;
+  font-family: 'Iropke Batang', 'Spoqa Han Sans',serif;
   padding: 0;
   padding-bottom:10px;
   font-style:italic;

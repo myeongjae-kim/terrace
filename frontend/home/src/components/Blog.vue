@@ -8,7 +8,6 @@
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
         <br><span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span></p>
       </div>
-      <p>(Under development)</p>
     </div>
     <div id="blog-contents" v-else>
       <article>
@@ -34,8 +33,8 @@ export default {
   name: 'Blog',
   mounted: function() {
     this.initCopyButton();
-		this.getPage();
-	},
+    this.getPage();
+  },
 
   beforeDestroy: function() {
     // Destroy the ClipboardJS object
@@ -98,13 +97,13 @@ export default {
       }
     });
   },
-	data() {
-		return {
-			year: this.$route.params.year,
-			month: this.$route.params.month,
-			day: this.$route.params.day,
-			title: this.$route.params.title,
-			article: "",   // will contain contents' html. 
+  data() {
+    return {
+      year: this.$route.params.year,
+      month: this.$route.params.month,
+      day: this.$route.params.day,
+      title: this.$route.params.title,
+      article: "",   // will contain contents' html. 
       address : "",  // will have a permalink of the article
       domain : "https://blog.myeongjae.kim",
       copyBtnMsg : "Copy Link to Share",
@@ -116,18 +115,18 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index :  [{"relativeId":0,"title":"pandoc-test.html","path":"/#/blog/2018/09/17/pandoc-test","date":{"year":"2018","month":"09","monthEng":"September","day":"17","dayEng":"17th"}},{"relativeId":1,"title":"markdown-test.html","path":"/#/blog/2018/09/17/markdown-test","date":{"year":"2018","month":"09","monthEng":"September","day":"17","dayEng":"17th"}},{"relativeId":2,"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":3,"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":4,"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"relativeId":5,"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":6,"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":7,"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":8,"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
       isTitleShown : false,
-		}
-	},
+    }
+  },
   watch: {
     '$route' (to) {
-			this.year = to.params.year;
-			this.month = to.params.month;
-			this.day = to.params.day;
-			this.title = to.params.title;
-			this.getPage();
+      this.year = to.params.year;
+      this.month = to.params.month;
+      this.day = to.params.day;
+      this.title = to.params.title;
+      this.getPage();
     }
-	},
-	methods: {
+  },
+  methods: {
     copyUrl : function(event) {
       // copy the url
       var btn;
@@ -184,8 +183,8 @@ export default {
         });
       }
     },
-		getPage: function() {
-			if(this.year == undefined) return;
+    getPage: function() {
+      if(this.year == undefined) return;
 
       // Hide title. The title is shown after it is modified.
       this.isTitleShown = false;
@@ -222,21 +221,21 @@ export default {
       this.address = this.domain + uri;
 
 
-			var vue = this;
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", htmlDocUri, true);
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === 4) {
+      var vue = this;
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", htmlDocUri, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
           var str = xhr.responseText.substring(0,4);
           if(str == "<!DO" || str == "<hea") {
-						window.location.href = "/#/404";
-					} else {
-						vue.article = xhr.responseText;
-					}
-				}
-			};
-			xhr.send();
-		},
+            window.location.href = "/#/404";
+          } else {
+            vue.article = xhr.responseText;
+          }
+        }
+      };
+      xhr.send();
+    },
     initCopyButton: function() {
       this.ClipboardJS = new ClipboardJS(".copy-btn"); 
 
@@ -326,7 +325,7 @@ article {
 
 #share-buttons {
   text-align: center;
-  padding: 20px 0 30px 0;
+  padding: 20px 0 35px 0;
 }
 
 .button-clicked {
