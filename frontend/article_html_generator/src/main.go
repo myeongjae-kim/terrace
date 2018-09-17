@@ -11,6 +11,13 @@ func main() {
 		log.Println("(main) ", err)
 		log.Fatal(err)
 	}
+
+	err = removeOldHtml(LOCAL_DIR, dirInfo)
+	if err != nil {
+		log.Println("(main) ", err)
+		log.Fatal(err)
+	}
+
 	err = generateHtmlFromMarkdown(LOCAL_DIR, dirInfo)
 	if err != nil {
 		log.Println("(main) ", err)

@@ -30,7 +30,8 @@ func getTitleOfArticle(path string) (string, error) {
 		log.Println("(main) ", err)
 		return "", nil
 	}
-	from := bytes.Index(content, []byte("<h1>"))
+	from := bytes.Index(content, []byte(">"))
+	from += len(">")
 	to := bytes.Index(content, []byte("</h1>"))
 
 	// There are no h1 tags, use filename as a title.
@@ -41,7 +42,6 @@ func getTitleOfArticle(path string) (string, error) {
 		return tokens[len(tokens)-1], nil
 	}
 
-	from += len("<h1>")
 	return string(content[from:to]), nil
 }
 
