@@ -3,8 +3,8 @@
     <div id="blog-main" v-if="year === undefined">
       <h1 class="component-title">Articles</h1>
       <!-- Show titles of blog contents -->
-      <div id="blog-article-list" v-for="i in index" :key="i.path">
-        <p><a class="article-title" :href="i.path">{{ i.title }}</a>
+      <div class="blog-article-list" v-for="i in index" :key="i.path">
+        <p class="article-info"><a class="article-title" :href="i.path">{{ i.title }}</a>
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
         <br><span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span></p>
       </div>
@@ -21,6 +21,16 @@
           <button class="copy-btn" :data-clipboard-text="address">{{copyBtnMsg}}</button>
         </div>
       </article>
+      <div id="adjacent-articles">
+        <div id="next-article" v-if="currentArticleIdx > 0">
+          <h4>Next Article</h4>
+          <p><a :href="index[currentArticleIdx-1].path" v-on:click="toTheTop">{{index[currentArticleIdx-1].title}}</a></p>
+        </div>
+        <div id="prev-article" v-if="currentArticleIdx < index.length-1">
+          <h4>Previous Article</h4>
+          <p><a :href="index[currentArticleIdx+1].path" v-on:click="toTheTop">{{index[currentArticleIdx+1].title}}</a></p>
+        </div>
+      </div>
       <div id="disqus_thread"></div>
     </div>
   </div>
@@ -109,6 +119,7 @@ export default {
       copyBtnMsg : "Copy Link to Share",
       copiedBtnMsg : "Copied to Clipboard",
       ClipboardJS : null,
+      currentArticleIdx : null,
 
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
@@ -127,6 +138,10 @@ export default {
     }
   },
   methods: {
+    toTheTop : function() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    },
     copyUrl : function(event) {
       // copy the url
       var btn;
@@ -208,8 +223,7 @@ export default {
       // You can use binary search.
       for(var i = 0; i < this.index.length; i++) {
         if(currentUri == this.index[i].path) {
-          // console.log(i);
-          // TODO: Save relativeId to show previous and next articles.
+          this.currentArticleIdx = i;
           break;
         }
       }
@@ -326,11 +340,20 @@ article {
 
 #share-buttons {
   text-align: center;
-  padding: 20px 0 35px 0;
+  padding: 20px 0 0 0;
 }
 
 .button-clicked {
   color: #fff;
   background-color: #2c3e50;
 }
+
+#adjacent-articles {
+  text-align: center;
+}
+
+#disqus_thread {
+  padding-top: 35px;
+}
+
 </style>
