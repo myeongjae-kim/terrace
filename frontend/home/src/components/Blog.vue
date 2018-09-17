@@ -309,6 +309,7 @@ div#blog {
   min-height: 300px;
   max-width: 800px;
   margin: auto;
+  margin-bottom: 90px;
 }
 
 .hidden {
