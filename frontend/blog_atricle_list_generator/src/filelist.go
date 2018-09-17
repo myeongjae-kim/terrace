@@ -67,8 +67,8 @@ func getDirectoryInfo_recur(dir string, files []os.FileInfo) ([]FileInfo, error)
 			// Only append a file whose extension is EXT
 
 			// Length of a file have to be logner than extension
-			if (len(file.Name()) > len(EXT)) &&
-				f.Path[len(f.Path)-len(EXT):] == EXT {
+			if (len(file.Name()) > len(EXT_HTML)) &&
+				f.Path[len(f.Path)-len(EXT_HTML):] == EXT_HTML {
 
 				// Get title
 				title, _ := getTitleOfArticle(f.Path)
@@ -99,7 +99,7 @@ func getDirectoryInfo(dir string, files []os.FileInfo) ([]byte, error) {
 		filelist[i].Path = strings.Replace(filelist[i].Path, LOCAL_DIR, WEB_DIR, 1)
 
 		// Remove .html
-		filelist[i].Path = filelist[i].Path[:len(filelist[i].Path)-len(EXT)]
+		filelist[i].Path = filelist[i].Path[:len(filelist[i].Path)-len(EXT_HTML)]
 
 		// Get date from path
 		date := strings.Split(r.FindString(filelist[i].Path), "/")

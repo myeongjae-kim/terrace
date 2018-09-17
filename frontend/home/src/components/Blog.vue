@@ -19,7 +19,7 @@
         <div id="padding-between-title-and-article"></div>
         <div id="article-content" v-html="article"></div>
         <div id="share-buttons">
-          <button v-on:click="copyUrl">{{copyBtnMsg}}</button>
+          <button class="copy-btn" :data-clipboard-text="address">{{copyBtnMsg}}</button>
         </div>
       </article>
       <div id="disqus_thread"></div>
@@ -28,11 +28,20 @@
 </template>
 
 <script>
+import ClipboardJS from 'clipboard'
+
 export default {
   name: 'Blog',
   mounted: function() {
+    this.initCopyButton();
 		this.getPage();
 	},
+
+  beforeDestroy: function() {
+    // Destroy the ClipboardJS object
+    this.ClipboardJS.destroy();
+  },
+
   updated: function() {
     // Change file name to document's title
     // When the page is an artice page, get blogContents
@@ -98,13 +107,14 @@ export default {
 			article: "",   // will contain contents' html. 
       address : "",  // will have a permalink of the article
       domain : "https://blog.myeongjae.kim",
-      copyBtnMsg : "Copy URL to Share",
+      copyBtnMsg : "Copy Link to Share",
       copiedBtnMsg : "Copied to Clipboard",
+      ClipboardJS : null,
 
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
       // the position of injecting index json. index MUST have an array.
-      index :  [{"relativeId":0,"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":1,"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":2,"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"relativeId":3,"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":4,"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":5,"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":6,"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
+      index :  [{"relativeId":0,"title":"pandoc-test.html","path":"/#/blog/2018/09/17/pandoc-test","date":{"year":"2018","month":"09","monthEng":"September","day":"17","dayEng":"17th"}},{"relativeId":1,"title":"markdown-test.html","path":"/#/blog/2018/09/17/markdown-test","date":{"year":"2018","month":"09","monthEng":"September","day":"17","dayEng":"17th"}},{"relativeId":2,"title":"별 헤는 밤 - 한글 및 공백 주소 테스트","path":"/#/blog/2018/09/16/별 헤는 밤 - 한글 및 공백 주소 테스트","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":3,"title":"Lorem Ipsum","path":"/#/blog/2018/09/16/lorem-ipsum","date":{"year":"2018","month":"09","monthEng":"September","day":"16","dayEng":"16th"}},{"relativeId":4,"title":" 디스커스 테스트용 아티클입니다.","path":"/#/blog/2018/09/14/disqus-test","date":{"year":"2018","month":"09","monthEng":"September","day":"14","dayEng":"14th"}},{"relativeId":5,"title":"This is test document2","path":"/#/blog/2018/09/11/this-is-test-document2","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":6,"title":"This is test document1","path":"/#/blog/2018/09/11/this-is-test-document1","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":7,"title":"테스트 3","path":"/#/blog/2018/09/11/test-3","date":{"year":"2018","month":"09","monthEng":"September","day":"11","dayEng":"11st"}},{"relativeId":8,"title":"temp.html","path":"/#/blog/2018/09/10/temp","date":{"year":"2018","month":"09","monthEng":"September","day":"10","dayEng":"10th"}}],
       isTitleShown : false,
 		}
 	},
@@ -128,15 +138,6 @@ export default {
       } else {
         return;
       }
-
-      var t = document.createElement("textarea");
-      //document.body.appendChild(t);
-      btn.appendChild(t);
-      t.value = this.address;
-      t.select();
-      document.execCommand('copy');
-      //document.body.removeChild(t);
-      btn.removeChild(t);
 
       // change button status to clicked.
       btn.setAttribute('class', ' button-clicked');
@@ -236,6 +237,39 @@ export default {
 			};
 			xhr.send();
 		},
+    initCopyButton: function() {
+      this.ClipboardJS = new ClipboardJS(".copy-btn"); 
+
+      // Change button state to 'pushed' and reset it
+      var vue = this;
+      this.ClipboardJS.on('success', function(e) {
+        var btn = e.trigger;
+        btn.setAttribute(
+          'class',
+          btn.getAttribute('class') + ' button-clicked'
+        );
+        btn.innerHTML = vue.copiedBtnMsg;
+
+        // Reset button to initial state
+        setTimeout(function() {
+          btn.setAttribute(
+            'class',
+            btn.getAttribute('class').replace(' button-clicked', '')
+          );
+          btn.innerHTML = vue.copyBtnMsg;
+        }, 1100);
+
+        e.clearSelection();
+      });
+
+      // Print error msg
+      this.ClipboardJS.on('error', function(e) {
+        // eslint-disable-next-line
+        console.error('Action:', e.action);
+        // eslint-disable-next-line
+        console.error('Trigger:', e.trigger);
+      });
+    }
   }
 }
 </script>

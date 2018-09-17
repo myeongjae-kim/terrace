@@ -9,11 +9,11 @@ func main() {
 	dirInfo, err := ioutil.ReadDir(LOCAL_DIR)
 	if err != nil {
 		log.Println("(main) ", err)
-		return
+		log.Fatal(err)
 	}
 	err = generateHtmlFromMarkdown(LOCAL_DIR, dirInfo)
 	if err != nil {
 		log.Println("(main) ", err)
-		return
+		log.Fatal(err)
 	}
 }

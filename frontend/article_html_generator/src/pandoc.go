@@ -55,7 +55,6 @@ func generateHtmlFromMarkdown_recur(
 				// Get title
 				convertMarkdownToHtml(f)
 			}
-
 		}
 	}
 

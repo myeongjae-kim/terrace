@@ -3,7 +3,7 @@ package main
 const (
 	LOCAL_DIR       string = "../home/public/blog_contents"
 	WEB_DIR         string = "/#/blog"
-	EXT             string = ".html"
+	EXT_HTML        string = ".html"
 	OUTPUT_FILE     string = LOCAL_DIR + "/index.json"
 	BLOG_VUE_PATH   string = "../home/src/components/Blog.vue"
 	INJECT_POSITION string = "INJECT_POSITION"

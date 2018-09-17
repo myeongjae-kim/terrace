@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router.js'
 
+import ClipboardJS from 'clipboard'
+new ClipboardJS('.btn');
+
 // fontawesome configuration start
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
