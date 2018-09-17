@@ -124,6 +124,91 @@ a:active {
   }
 }
 
+figure {
+  text-align: center;
+}
+
+figcaption {
+  opacity: 0.5;
+  font-size:0.85em;
+}
+/*
+
+blockquote {
+  font-size: 0.9em;
+  opacity: 0.8;
+
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+  position: absolute;
+}
+*/
+
+
+blockquote{
+  font-size: 0.9em;
+  opacity: 0.8;
+
+  display:block;
+  background: #f9f9f9;
+  padding: 15px 20px 15px 20px;
+  margin: 0 0 20px;
+  position: relative;
+  
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+
+  /*Borders - (Optional)*/
+  border-left-style: solid;
+  border-left-width: 5px;
+  border-right-style: solid;
+  border-right-width: 1px;    
+}
+
+blockquote::before{
+  content: "\201C"; /*Unicode for Left Double Quote*/
+  
+  /*Font*/
+  font-size: 60px;
+  font-weight: bold;
+  color: #999;
+  
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top:5px;
+  
+}
+
+blockquote::after{
+  /*Reset to make sure*/
+  content: "";
+}
+
+blockquote a{
+  background: #eee;
+  cursor: pointer;
+}
+
+blockquote em{
+  font-style: italic;
+}
+
+
 
 /* Below codes are from http://getskeleton.com */
 

@@ -321,6 +321,7 @@ article {
   text-indent: 0.5em;
   text-align: justify;
   color: #000;
+  line-height: 1.6em;
 }
 
 #share-buttons {

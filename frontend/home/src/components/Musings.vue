@@ -5,7 +5,7 @@
       <!-- Show titles of Musings contents -->
       <div id="musings-list" v-for="i in musings" :key="i.key">
         <div class="musing-element" :style="i.css">
-          <p class="musing-sentence" v-for="s in i.sentences">“{{ s }}”</p>
+          <p class="musing-sentence" v-for="s in i.sentences" :key="s">“{{ s }}”</p>
           <p class="musing-author">{{ i.author }}</p>
         </div>
       </div>
