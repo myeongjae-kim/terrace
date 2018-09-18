@@ -1,0 +1,123 @@
+<h1 id="vimlinux-6.-vim-multiple-cursor와-vim-smooth-scroll">[vim/Linux] 6. vim-multiple-cursor와 vim-smooth-scroll</h1>
+<h2 id="vim-multiple-cursor">vim-multiple-cursor</h2>
+<p>Sublime Text의 가장 큰 특징은 같은 문자열을 한 번에 골라서 수정할 수 있다는 것입니다. <a href="http://www.sublimetext.com">www.sublimetext.com</a>에 의 메인 화면에서부터 그 기능을 서설명하고 있습니다.</p>
+<p>vim-multiple-cursor를 설치하면 vim에서도 같은 기능을 사용할 수 있습니다.</p>
+<p><code>.vimrc</code>에 <code>Plugin 'terryma/vim-multiple-cursors'</code> 을 추가하고 <code>:PluginInstall</code>을 합시다..</p>
+<p><code>.vimrc</code>에 다음과 같이 설정을 추가하면 됩니다.</p>
+<pre><code>&quot; vim-multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+&quot; Default mapping
+let g:multi_cursor_next_key=&#39;&lt;C-n&gt;&#39;
+let g:multi_cursor_prev_key=&#39;&lt;C-p&gt;&#39;
+let g:multi_cursor_skip_key=&#39;&lt;C-x&gt;&#39;
+let g:multi_cursor_quit_key=&#39;&lt;Esc&gt;&#39;</code></pre>
+<p>Ctrl + n을 누르면 단어를 선택합니다. 계속해서 Ctrl + n을 누르면 같은 단어들을 선택할 수 있습니다. Ctrl + p를 누르면 이전 단어로 돌아갈 수 있고, Ctrl + x를 누르면 현재 단어를 스킵하고 다음 단어로 넘어갑니다.</p>
+<p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-14-at-4.06.17-PM-1024x629.png" /></p>
+<p>여러 단어를 선택한 상태에서 x를 누르면 단어가 한 번에 지워집니다. 이 상태에서 i를 누르면 한 번에 여러곳에서 단어를 입력할 수 있습니다.</p>
+<h2 id="vim-smooth-scroll">vim-smooth-scroll</h2>
+<p>Ctrl + D, Ctrl +U를 누르면 스크롤이 반페이지정도 내려가거나 올라갑니다. Ctrl + F, Ctrl + B를 누르면 스크롤이 한 페이지정도 내려가거나 올라갑니다. 그러나 움직이는 애니메이션이 없어서 위로 올라가는지 내려가는지 알기 힘들 때도 있습니다. 이 플러그인은 페이지 이동에 애니메이션을 추가합니다.</p>
+<p><code>.vimrc</code>에 <code>Plugin 'terryma/vim-smooth-scroll'</code> 을 추가하고 <code>:PluginInstall</code>을 합니다.</p>
+<p><code>.vimrc</code>에 다음과 같이 설정을 추가합니다.</p>
+<pre><code>&quot; vim-smooth-scroll
+noremap &lt;silent&gt; &lt;c-b&gt; :call smooth_scroll#up(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-f&gt; :call smooth_scroll#down(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-u&gt; :call smooth_scroll#up(&amp;scroll, 10, 3)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-d&gt; :call smooth_scroll#down(&amp;scroll, 10, 3)&lt;CR&gt;</code></pre>
+<p>지금까지 설정한 .vimrc는 다음과 같습니다.</p>
+<pre><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+autocmd FileType make setlocal noexpandtab
+ 
+&quot; Key Settings
+nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;
+set pastetoggle=&lt;F2&gt;
+let mapleader = &quot;,&quot;
+nnoremap &lt;leader&gt;q :bp&lt;CR&gt;
+nnoremap &lt;leader&gt;w :bn&lt;CR&gt;
+ 
+&quot; Key Setting - resize windows
+nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;[ :exe &quot;vertical resize -8&quot;&lt;CR&gt;
+ 
+nnoremap &lt;silent&gt; &lt;Leader&gt;+ :exe &quot;resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;_ :exe &quot;resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+ 
+&quot; Vundle
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+ 
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin(&#39;~/some/path/here&#39;)
+ 
+&quot; let Vundle manage Vundle, required
+Plugin &#39;VundleVim/Vundle.vim&#39;
+ 
+&quot; Keep Plugin commands between vundle#begin/end.
+ 
+&quot; vim-airline
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;
+Plugin &#39;terryma/vim-multiple-cursors&#39;
+Plugin &#39;terryma/vim-smooth-scroll&#39;
+ 
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot; To ignore plugin indent changes, instead use:
+&quot;filetype plugin on
+&quot;
+&quot; Brief help
+&quot; :PluginList       - lists configured plugins
+&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache
+&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+&quot;
+&quot; see :h vundle for more details or wiki for FAQ
+&quot; Put your non-Plugin stuff after this line
+ 
+&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;
+ 
+&quot; vim-multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+&quot; Default mapping
+let g:multi_cursor_next_key=&#39;&lt;C-n&gt;&#39;
+let g:multi_cursor_prev_key=&#39;&lt;C-p&gt;&#39;
+let g:multi_cursor_skip_key=&#39;&lt;C-x&gt;&#39;
+let g:multi_cursor_quit_key=&#39;&lt;Esc&gt;&#39;
+ 
+&quot; vim-smooth-scroll
+noremap &lt;silent&gt; &lt;c-b&gt; :call smooth_scroll#up(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-f&gt; :call smooth_scroll#down(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-u&gt; :call smooth_scroll#up(&amp;scroll, 10, 3)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-d&gt; :call smooth_scroll#down(&amp;scroll, 10, 3)&lt;CR&gt;</code></pre>
+<h3 id="reference">Reference</h3>
+<p>vim-multiple-cursor: <a href="https://github.com/terryma/vim-multiple-cursors">github.com/terryma/vim-multiple-cursors</a></p>
+<p>vim-smooth-scroll: <a href="https://github.com/terryma/vim-smooth-scroll">github.com/terryma/vim-smooth-scroll</a></p>
