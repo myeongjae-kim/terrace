@@ -11,8 +11,8 @@
     </div>
     <div id="blog-contents" v-else>
       <article>
-        <div class="blog-title" v-show="isTitleShown">
-          <h1>{{ title }}</h1>
+        <div class="article-inner-title" v-show="isTitleShown">
+          <h1><a :href="address">{{ title }}</a></h1>
           <p class="meta">{{ year }} / {{ month }} / {{ day }}</p>
         </div>
         <div id="padding-between-title-and-article"></div>
@@ -38,6 +38,14 @@
 
 <script>
 import ClipboardJS from 'clipboard'
+
+var HighlightJS = require("highlight.js/lib/highlight.js");
+
+// Add languages manually to decrease size of my website
+HighlightJS.registerLanguage('vim', require('highlight.js/lib/languages/vim'));
+
+// eslint-disable-next-line
+import _ from 'highlight.js/styles/xcode.css'
 
 export default {
   name: 'Blog',
@@ -105,6 +113,11 @@ export default {
         );
         isClassAdded = true;
       }
+    });
+
+    // Find all code block and apply syntax highlighting
+    [].forEach.call(document.querySelectorAll('pre code'), function(el) {
+      HighlightJS.highlightBlock(el);
     });
   },
   data() {
@@ -234,7 +247,6 @@ export default {
                      .replace('.html', '');
       this.address = this.domain + uri;
 
-
       var vue = this;
       var xhr = new XMLHttpRequest();
       xhr.open("GET", htmlDocUri, true);
@@ -293,8 +305,19 @@ export default {
   text-align: left;
 }
 
-.blog-title {
+.article-inner-title {
   text-align: center;
+}
+.article-inner-title > h1{
+  margin-bottom: 0;
+}
+
+.article-inner-title > h1 > a{
+  color: #2c3e50;
+}
+
+.article-inner-title > h1 > a:hover{
+  color: #3073b3;
 }
 
 .blog-title > h1 {
@@ -325,7 +348,7 @@ div#blog {
 }
 
 article {
-  font-size : 1.18em;
+  font-size: 1.08em;
 }
 
 #padding-between-title-and-article {

@@ -35,7 +35,7 @@ pre {
 	/* overflow-x: auto; */                /* Firefox 2 only */
 	/* width: 99%; */		       /* only if needed */
 
-  background-color: #f3f3f3;
+  background-color: #fafafa !important;
   padding: 20px;
   line-height: 1.3em;
 }
@@ -47,9 +47,15 @@ pre > code {
 code {
   font-family: 'Inconsolata', monospace;
   font-size: 0.85em;
-  background-color: #f3f3f3;
+  background-color: #fafafa;
   padding: 1px 5px 1px 5px;
 }
+
+.hljs {
+  background: none !important;
+  padding: 0 !important;
+}
+
 #app {
   font-family: 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -117,10 +123,10 @@ a {
 
 a:hover {
   color: #53ADF1;
-  -webkit-transition: color 0.2s ease-out;
-  -moz-transition: color 0.2s ease-out;
-  -o-transition: color 0.2s ease-out;
-  transition: color 0.2s ease-out;
+  -webkit-transition: color 0.4s ease-out;
+  -moz-transition: color 0.4s ease-out;
+  -o-transition: color 0.4s ease-out;
+  transition: color 0.4s ease-out;
 }
 
 a:active {

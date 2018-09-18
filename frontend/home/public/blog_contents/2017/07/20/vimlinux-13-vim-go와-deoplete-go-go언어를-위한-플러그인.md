@@ -18,7 +18,7 @@ Go를 설치하고 `.vimrc`에  `Plugin 'fatih/vim-go'` 와  `Plugin 'zchee/deop
 
 `.vimrc`에 다음과 같이 추가합니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors
@@ -40,7 +40,7 @@ Google은 indent를 두 칸으로 사용하므로, tabsize를 2로 바꿔줍니�
 
 아래 설정도 `.vimrc`에 추가하는데, vim-go를 편하게 사용하기 위한 단축키들입니다.
 
-```
+```vim
 " Go commands
 au FileType go nmap <Leader>gi <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
@@ -55,7 +55,7 @@ au FileType go nmap <leader>gm :GoImports<CR>
 
 지금까지 설정한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

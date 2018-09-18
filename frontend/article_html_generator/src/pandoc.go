@@ -14,7 +14,15 @@ func convertMarkdownToHtml(path string) {
 
 		result := path[0:len(path)-len(EXT_MD)] + EXT_HTML
 
-		cmd := exec.Command("pandoc", path, "-o", result, "--to", "html5")
+		cmd := exec.Command(
+			"pandoc",
+			path,
+			"-o",
+			result,
+			"--to",
+			"html5",
+			"--no-highlight",
+		)
 		// cmd := exec.Command("pwd")
 		var out bytes.Buffer
 		cmd.Stdout = &out
