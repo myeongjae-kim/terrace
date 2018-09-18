@@ -70,7 +70,7 @@ export default {
       return;
     }
     this.title = titles[1].innerHTML;
-    titles[1].remove();
+    titles[1].style.display = "none";
     this.isTitleShown = true;
     
     // Enable disqus

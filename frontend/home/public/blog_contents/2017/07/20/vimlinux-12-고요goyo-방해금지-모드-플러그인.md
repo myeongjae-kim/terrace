@@ -2,7 +2,7 @@
 
 이 플러그인은 아래 스크린샷처럼 텍스트에만 집중할 수 있게 해줍니다
 
-![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM-700x428.png)
+![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png)
 
 `.vimrc`에 ` Plugin 'junegunn/goyo.vim'` 를 추가하고  `:PluginInstall` 을 해주자.
 
@@ -33,9 +33,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 `<F4>`를 누르면 Goyo mode로 토글할 수 있다.
 
-![F4를 누르기 전](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.03-PM-700x425.png)
+![F4를 누르기 전](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.03-PM.png)
 
-![F4를 누른 후](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM-700x428.png)
+![F4를 누른 후](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png)
 
 Goyo mode에 들어가면 커서가 항상 화면 가운데에 옵니다. 이 기능은 평소에도 유용하게 사용할 수 있을 것 같아서 기본으로 set scrolloff=999 옵션이 적용되도록 했습니다..
 

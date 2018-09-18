@@ -4,7 +4,7 @@
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-7.44.01-PM.png" alt="우리는 UXTerm이나 Xterm이 아니라 Terminal을 사용합니다." /><figcaption>우리는 UXTerm이나 Xterm이 아니라 Terminal을 사용합니다.</figcaption>
 </figure>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-7.44.17-PM.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-7.44.17-PM.png" /></a></p>
+<p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-7.44.17-PM.png" /></p>
 <h2 id="terminal-color">Terminal Color</h2>
 <p>우리가 쓰는 터미널 이름은 GNOME Terminal이라고 부릅니다. 우분투에 기본 터미널입니다. 처음 켜보면 약간 붉은 빛이 도는 바탕에 초록색으로 이름이 나오는데, 저는 마음에 들지 않아서 색을 바꿔 씁니다.</p>
 <figure>
@@ -14,7 +14,7 @@
 <p>위의 MJProfile.xml을 오른쪽 클릭해서 다른 이름으로 Downloads 폴더에 저장합니다. 그리고 터미널에 다음과 같이 입력합니다.</p>
 <p><code>$ dconf load /org/gnome/terminal/legacy/profiles:/ &lt;~/Downloads/MJProfile.xml</code></p>
 <p>이렇게 입력하면 다음과 같이 색깔이 변합니다.</p>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-8.36.01-PM.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-8.36.01-PM.png" alt="screen-shot-2016-10-01-at-8-36-01-pm" /></a></p>
+<p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-8.36.01-PM.png" /></p>
 <p>~/.bashrc 파일을 열어서 PS1을 검색한 뒤 다음과 같이 바꿔주면 완성입니다.</p>
 <p><code>$ vi ~/.bashrc</code></p>
 <p><code>PS1='${debian_chroot:+($debian_chroot)}\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[m\]\$ '</code></p>
@@ -30,7 +30,9 @@
 <p>계정 이름부분 색이 바뀌었습니다..</p>
 <h2 id="neovim">Neovim</h2>
 <p>Neovim을 사용하는 가장 큰 이유는 24bit True Color를 지원하기 때문입니다. 이 글의 연재 목적이 vim을 <strong>예쁘고</strong> 편리하게 쓰기 위함이기 입니다. 24bit True Color는 8bit나 16bit보다 훨씬 다양한 색을 표현할 수 있습니다.</p>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/logo@2x.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/logo@2x.png" alt="logo2x" /></a></p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/10/logo@2x.png" alt="Neovim Logo" /><figcaption>Neovim Logo</figcaption>
+</figure>
 <p>Neovim이란? vim은 유구한 역사와 전통을 자랑하는 코드 에디터이기 때문에 vim의 소스를 보면 20년 전의 C스타일을 볼 수 있습니다. 역사가 오래된 만큼 여러 사람의 손을 거쳤고 코드의 복잡도가 상당해서, <strong>그냥 첨부터 새로 짜보자!</strong> 한게 <a href="https://neovim.io/">Neovim 프로젝트</a>입니다(기존의 vim보다 소스코드를 30%가량 줄였다고 합니다).</p>
 <p>Neovim을 설치해봅시다. python을 함께 설치해야 나중에 python을 요구하는 플러그인을 쓸 때 편합니다.</p>
 <pre><code>$ sudo apt-get install software-properties-common
@@ -41,13 +43,13 @@ $ pip2 install --user neovim
 $ pip3 install --user neovim
 $ sudo apt-get install neovim</code></pre>
 <p>모든 설치를 완료하고 터미널에 nvim이라고 치면 Neovim이 실행됩니다.</p>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.15.56-PM.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.15.56-PM.png" /></a></p>
+<p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.15.56-PM.png" /></p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.16.03-PM.png" alt=":echo has(“python”)과 :echo has(“python3”)을 입력해서 1이 나오면 설치가 제대로 된 것입니다." /><figcaption>:echo has(“python”)과 :echo has(“python3”)을 입력해서 1이 나오면 설치가 제대로 된 것입니다.</figcaption>
 </figure>
 <p>~/.bashrc에 다음 코드를 추가해주면 v만으로 Neovim을 실행할 수 있습니다.</p>
 <p><code>alias v='nvim'</code></p>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.25.47-PM.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.25.47-PM.png" /></a></p>
+<p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.25.47-PM.png" /></p>
 <h2 id="vim-color">Vim Color</h2>
 <p>현재 vim의 색은 아까 설정한 터미널의 색을 그대로 가져다 씁니다. ANSI 표준 8가지 색인데, 우리는 더 예쁜 색을 쓸겁니다.</p>
 <p>vim의 설정 파일은 <code>~/.vimrc</code>에 있습니다. 없으면 만들어줍시다.</p>
@@ -66,7 +68,7 @@ $ mkdir colors</code></pre>
 <p>아래 두 줄을 추가합니다</p>
 <pre><code>colorscheme CodeSchool3
 set termguicolors</code></pre>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.37.48-PM.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.37.48-PM.png" /></a></p>
+<p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.37.48-PM.png" /></p>
 <p>저장하고 .bashrc를 열어보면 색이 영 좋지 않습니다.</p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-09-at-11.23.50-AM.png" alt="!!?" /><figcaption>!!?</figcaption>
@@ -77,7 +79,7 @@ $ mkdir nvim
 $ ln -s ~/.vimrc ~/.config/nvim/init.vim
 $ ln -s ~/.vim/colors/ ~/.config/nvim/colors/</code></pre>
 <p>이제 다시 Neovim으로 ~/.bashrc 를 열어보면 색이 제대로 나올 것입니다.</p>
-<p><a href="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.36.07-PM.png"><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.36.07-PM.png" /></a></p>
+<p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.36.07-PM.png" /></p>
 <p>24bit의 colorscheme을 사용하는 것만으로도 예뻐보입니다. 수고하셨습니다.</p>
 <h3 id="reference">Reference</h3>
 <p>Ubuntu: <a href="https://www.ubuntu.com/">www.ubuntu.com</a></p>
