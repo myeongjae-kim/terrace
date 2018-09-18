@@ -4,7 +4,7 @@ Go는 2009년 구글에서 만든 언어인데 최근 점유율이 급성장했�
 
 ![https://www.tiobe.com/tiobe-index, 작년에 비해 45단계나 올랐습니다.](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.47.00-PM.png)
 
-이 언어는 켄 톰슨(데니스 리치와 유닉스를 만들고 C를 만든 그 켄 톰슨), 롭 파이크, 로버트 그리즈머 세 명이 주축이 되어서 만들습니다(존잘님들…). 아래는 제가 만든 Go언어 스터디 소개 PDF입니다.
+이 언어는 켄 톰슨(데니스 리치와 유닉스를 만들고 C를 만든 그 켄 톰슨), 롭 파이크, 로버트 그리즈머 세 명이 주축이 되어서 만들습니다(존잘님들…). 아래는 제가 만든 [Go언어 소개 PDF](https://raw.githubusercontent.com/hrzon/terrace/24ce19d08fcbc09e2feffb9a5720414f62211d00/cdn/blog/2017/07/2017_%E1%84%8B%E1%85%A7%E1%84%85%E1%85%B3%E1%86%B7_Go_%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5%E1%84%83%E1%85%B5.pdf)입니다.
 
 <embed src="https://drive.google.com/viewerng/
 viewer?embedded=true&url=https://raw.githubusercontent.com/hrzon/terrace/24ce19d08fcbc09e2feffb9a5720414f62211d00/cdn/blog/2017/07/2017_%E1%84%8B%E1%85%A7%E1%84%85%E1%85%B3%E1%86%B7_Go_%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5%E1%84%83%E1%85%B5.pdf" width="100%" height="460px" type="application/pdf">
