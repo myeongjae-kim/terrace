@@ -6,11 +6,11 @@ Sublime Text의 가장 큰 특징은 같은 문자열을 한 번에 골라서 �
 
 vim-multiple-cursor를 설치하면 vim에서도 같은 기능을 사용할 수 있습니다.
 
-`.vimrc`에  `Plugin 'terryma/vim-multiple-cursors'` 을 추가하고 `:PluginInstall`을 합시다..
+`.vimrc`에  `Plugin 'terryma/vim-multiple-cursors'`{.vim} 을 추가하고 `:PluginInstall`을 합시다.
 
 `.vimrc`에 다음과 같이 설정을 추가하면 됩니다.
 
-```
+```vim
 " vim-multiple-cursor
 let g:multi_cursor_use_default_mapping=0
 " Default mapping
@@ -34,7 +34,7 @@ Ctrl + D, Ctrl +U를 누르면 스크롤이 반페이지정도 내려가거나 �
 
 `.vimrc`에 다음과 같이 설정을 추가합니다.
 
-```
+```vim
 " vim-smooth-scroll
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 5)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 5)<CR>
@@ -44,7 +44,7 @@ noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 3)<CR>
 
 지금까지 설정한 .vimrc는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

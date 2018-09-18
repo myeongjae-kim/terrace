@@ -12,11 +12,11 @@ Go는 2009년 구글에서 만든 언어인데 최근 점유율이 급성장했�
 
 ![fmt 패키지의 함수들입니다.](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.46.12-PM.png)
 
-Go를 설치하고 `.vimrc`에  `Plugin 'fatih/vim-go'` 와  `Plugin 'zchee/deoplete-go'` 를 추가하고  `:PluginInstall` 을 합시다. 이후에  `:GoInstallBinaries` 을 입력해서 Go관련 실행 파일들을 받습니다.
+Go를 설치하고 `.vimrc`{.bash}에  `Plugin 'fatih/vim-go'`{.vim} 와  `Plugin 'zchee/deoplete-go'`{.vim} 를 추가하고  `:PluginInstall`{.vim} 을 합시다. 이후에  `:GoInstallBinaries`{.vim} 을 입력해서 Go관련 실행 파일들을 받습니다.
 
 ![Go와 관련된 Binary file들을 받는 중](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.32.36-PM.png)
 
-`.vimrc`에 다음과 같이 추가합니다.
+`.vimrc`{.bash}에 다음과 같이 추가합니다.
 
 ```vim
 " Basic Settings
@@ -36,7 +36,7 @@ set scrolloff=999
 autocmd FileType go setlocal noexpandtab
 ```
 
-Google은 indent를 두 칸으로 사용하므로, tabsize를 2로 바꿔줍니다. 그리고 Go는 indent를 space가 아니라 tab을 쓰는 것이 표준입니다(`noexpandtab`).
+Google은 indent를 두 칸으로 사용하므로, tabsize를 2로 바꿔줍니다. 그리고 Go는 indent를 space가 아니라 tab을 쓰는 것이 표준입니다(`noexpandtab`{.vim}).
 
 아래 설정도 `.vimrc`에 추가하는데, vim-go를 편하게 사용하기 위한 단축키들입니다.
 

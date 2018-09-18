@@ -9,9 +9,9 @@
 <p>switch도 문제없습니다.</p>
 <p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-15-at-4.26.06-PM-1024x621.png" /></p>
 <p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-15-at-4.26.12-PM-1024x621.png" /></p>
-<p><code>.vimrc</code>에 <code>Plugin 'SirVer/ultisnips'</code> 과 <code>Plugin 'honza/vim-snippets'</code>을 추가하고 <code>:PluginInstall</code>을 합시다.</p>
+<p><code>.vimrc</code>에 <code class="vim">Plugin 'SirVer/ultisnips'</code> 과 <code class="vim">Plugin 'honza/vim-snippets'</code>을 추가하고 <code>:PluginInstall</code>을 합시다.</p>
 <p>.vimrc에 다음과 같이 추가합니다.</p>
-<pre><code>&quot; UltiSnips
+<pre class="vim"><code>&quot; UltiSnips
 let g:UltiSnipsExpandTrigger=&quot;&lt;tab&gt;&quot;
 let g:UltiSnipsJumpForwardTrigger=&quot;&lt;tab&gt;&quot;
 let g:UltiSnipsJumpBackwardTrigger=&quot;&lt;s-tab&gt;&quot;
@@ -20,9 +20,9 @@ let g:UltiSnipsEditSplit=&quot;vertical&quot;</code></pre>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-15-at-4.28.44-PM-1024x624.png" alt="img" /><figcaption>img</figcaption>
 </figure>
-<p><code>~/.vim/bundle/vim-snippets/snippets/c.snippets</code></p>
+<p><code class="bash">~/.vim/bundle/vim-snippets/snippets/c.snippets</code></p>
 <p>지금까지 설정한 <code>.vimrc</code>는 다음과 같습니다.</p>
-<pre><code>&quot; Basic Settings
+<pre class="vim"><code>&quot; Basic Settings
 colorscheme CodeSchool3
 set termguicolors
 syntax on

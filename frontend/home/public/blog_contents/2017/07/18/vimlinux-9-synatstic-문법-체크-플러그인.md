@@ -4,11 +4,11 @@
 
 ![vim에서 문법 체크를 해봅시다.](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-8.27.29-PM.png)
 
-`.vimrc`에  `Plugin 'Syntastic'` 을 추가하고 `:PluginInstall`을 합시다.
+`.vimrc`에  `Plugin 'Syntastic'`{.vim} 을 추가하고 `:PluginInstall`{.vim}을 합시다.
 
 `.vimrc`에 다음과 같이 추가합니다
 
-```
+```vim
 " Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -42,7 +42,7 @@ let g:syntastic_c_compiler_options = "-std=c11 -Wall -Wextra -Wpedantic"
 
 지금까지 작성한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

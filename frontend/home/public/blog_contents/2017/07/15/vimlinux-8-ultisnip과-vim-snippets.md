@@ -20,11 +20,11 @@ switch도 문제없습니다.
 
 ![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-15-at-4.26.12-PM-1024x621.png)
 
-`.vimrc`에  `Plugin 'SirVer/ultisnips'` 과  `Plugin 'honza/vim-snippets'`을 추가하고 `:PluginInstall`을 합시다.
+`.vimrc`에  `Plugin 'SirVer/ultisnips'`{.vim} 과  `Plugin 'honza/vim-snippets'`{.vim}을 추가하고 `:PluginInstall`을 합시다.
 
 .vimrc에 다음과 같이 추가합니다.
 
-```
+```vim
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -36,11 +36,11 @@ let g:UltiSnipsEditSplit="vertical"
 
 ![img](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-15-at-4.28.44-PM-1024x624.png)
 
-`~/.vim/bundle/vim-snippets/snippets/c.snippets`
+`~/.vim/bundle/vim-snippets/snippets/c.snippets`{.bash}
 
 지금까지 설정한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

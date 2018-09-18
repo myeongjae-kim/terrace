@@ -6,17 +6,17 @@
 <h2 id="vundle"><a href="https://github.com/VundleVim/Vundle.vim">Vundle</a></h2>
 <p>vim은 여러가지 플러그인들을 설치해서 사용할 수 있습니다. github이 탄생하고 plugin들을 모듈 형식으로 설치할 수 있게 되면서 vim플러그인을 쉽게 공유하고 설치할 수 있게 되었습니다. vim은 유구한 역사와 전통을 자랑하기 때문에 플러그인 매니저도 여러개가 있습니다. 지금까지 나온 매니저들중 끝판왕이 <a href="https://github.com/VundleVim/Vundle.vim">Vundle</a>입니다. 이전 플러그인 매니저들의 기능을 대부분 포함하고 있으며, 플러그인 설치와 삭제가 매우 간단합니다.</p>
 <p>대부분의 vim 플러그인은 github을 통해 관리하기 때문에 우리는 git을 설치 해야 합니다.</p>
-<p><code>$ sudo apt-get install git</code></p>
+<p><code class="bash">$ sudo apt-get install git</code></p>
 <p>git을 통해서 vundle을 설치합니다.</p>
-<p><code>$ git clone https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim</code></p>
-<p>vim의 플러그인은 <code>~/.vim/bundle/</code> 디렉토리에서 관리합니다. 설치가 잘 되었는지 확인해봅시다.</p>
-<p><code>$ cd ~/.vim/bundle</code></p>
-<p><code>$ ls -l</code></p>
+<p><code class="bash">$ git clone https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim</code></p>
+<p>vim의 플러그인은 <code class="bash">~/.vim/bundle/</code> 디렉토리에서 관리합니다. 설치가 잘 되었는지 확인해봅시다.</p>
+<p><code class="bash">$ cd ~/.vim/bundle</code></p>
+<p><code class="bash">$ ls -l</code></p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-12.43.20-AM-1024x635.png" alt="vundle이 제대로 설치되었습니다." /><figcaption>vundle이 제대로 설치되었습니다.</figcaption>
 </figure>
-<p>bundle 폴더 밑에 플러그인이 있는 것만으로는 vim이 플러그인을 인식하지 못합니다. <code>.vimrc</code>에 아래 코드를 붙여넣읍시다. 우분투 터미널에서 복사와 붙여넣기는 Ctrl-Shift-C, Ctrl-Shift-V로 할 수 있습니다.</p>
-<pre><code>&quot; Vundle
+<p>bundle 폴더 밑에 플러그인이 있는 것만으로는 vim이 플러그인을 인식하지 못합니다. <code class="bash">.vimrc</code>에 아래 코드를 붙여넣읍시다. 우분투 터미널에서 복사와 붙여넣기는 Ctrl-Shift-C, Ctrl-Shift-V로 할 수 있습니다.</p>
+<pre class="vim"><code>&quot; Vundle
 set nocompatible              &quot; be iMproved, required
 filetype off                  &quot; required
  
@@ -66,17 +66,17 @@ filetype plugin indent on    &quot; required
 </figure>
 <h2 id="vim-airline">vim-airline</h2>
 <p>이제 <code>.vimrc</code>에 다음 코드를 추가합시다. <code>vim-airline</code>을 위한 셋팅입니다.</p>
-<pre><code>&quot; for vim-airline
+<pre class="vim"><code>&quot; for vim-airline
 let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
 let g:airline_theme=&#39;hybrid&#39;
 set laststatus=2 &quot; turn on bottom bar</code></pre>
-<p><code>set laststatus=2</code> 는 ubuntu에서 기본으로 적용되어 있지만 다른 리눅스를 쓸 때를 위해 적어놓읍시다. <code>:set laststatus=1</code>을 입력하면 차이를 알 수 있다. hybrid theme는 특정한 색이 있는 것이 아니라 colorscheme을 따라갑니다. 우리가 설정한 CodeSchool3에 있는 색을 따라가기 때문에 자연스럽게 어울립니다. 여기까지 잘 따라왔다면 다음과 같은 화면이 됐을 것입니다.</p>
+<p><code class="vim">set laststatus=2</code> 는 ubuntu에서 기본으로 적용되어 있지만 다른 리눅스를 쓸 때를 위해 적어놓읍시다. <code class="vim">:set laststatus=1</code>을 입력하면 차이를 알 수 있다. hybrid theme는 특정한 색이 있는 것이 아니라 colorscheme을 따라갑니다. 우리가 설정한 CodeSchool3에 있는 색을 따라가기 때문에 자연스럽게 어울립니다. 여기까지 잘 따라왔다면 다음과 같은 화면이 됐을 것입니다.</p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-1.11.49-AM.png" alt="상단에는 buffer가, 하단에는 현재 상태가 보입니다." /><figcaption>상단에는 buffer가, 하단에는 현재 상태가 보입니다.</figcaption>
 </figure>
-<p>파일을 여러개 연 상태에서 <code>&lt;leader&gt;q</code>, <code>&lt;leader&gt;w</code> (리더키는 쉼표로 설정했었습니다)를 입력하면 buffer를 순회하는 것을 볼 수 있습니다.</p>
+<p>파일을 여러개 연 상태에서 <code class="vim">&lt;leader&gt;q</code>, <code class="vim">&lt;leader&gt;w</code> (리더키는 쉼표로 설정했었습니다)를 입력하면 buffer를 순회하는 것을 볼 수 있습니다.</p>
 <p>이번 글까지 작성한 .vimrc는 다음과 같습니다.</p>
-<pre><code>&quot; Basic Settings
+<pre class="vim"><code>&quot; Basic Settings
 colorscheme CodeSchool3
 set termguicolors
 syntax on

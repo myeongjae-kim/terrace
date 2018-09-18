@@ -10,23 +10,23 @@ vim은 여러가지 플러그인들을 설치해서 사용할 수 있습니다. 
 
 대부분의 vim 플러그인은 github을 통해 관리하기 때문에 우리는 git을 설치 해야 합니다.
 
-`$ sudo apt-get install git`
+`$ sudo apt-get install git`{.bash}
 
 git을 통해서 vundle을 설치합니다.
 
-`$ git clone https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim`
+`$ git clone https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim`{.bash}
 
-vim의 플러그인은 `~/.vim/bundle/` 디렉토리에서 관리합니다. 설치가 잘 되었는지 확인해봅시다.
+vim의 플러그인은 `~/.vim/bundle/`{.bash} 디렉토리에서 관리합니다. 설치가 잘 되었는지 확인해봅시다.
 
-`$ cd ~/.vim/bundle`
+`$ cd ~/.vim/bundle`{.bash}
 
-`$ ls -l`
+`$ ls -l`{.bash}
 
 ![vundle이 제대로 설치되었습니다.](https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-12.43.20-AM-1024x635.png)
 
-bundle 폴더 밑에 플러그인이 있는 것만으로는 vim이 플러그인을 인식하지 못합니다. `.vimrc`에 아래 코드를 붙여넣읍시다. 우분투 터미널에서 복사와 붙여넣기는 Ctrl-Shift-C, Ctrl-Shift-V로 할 수 있습니다.
+bundle 폴더 밑에 플러그인이 있는 것만으로는 vim이 플러그인을 인식하지 못합니다. `.vimrc`{.bash}에 아래 코드를 붙여넣읍시다. 우분투 터미널에서 복사와 붙여넣기는 Ctrl-Shift-C, Ctrl-Shift-V로 할 수 있습니다.
 
-```
+```vim
 " Vundle
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -89,22 +89,22 @@ filetype plugin indent on    " required
 
 이제 `.vimrc`에 다음 코드를 추가합시다. `vim-airline`을 위한 셋팅입니다.
 
-```
+```vim
 " for vim-airline
 let g:airline#extensions#tabline#enabled = 1 " turn on buffer list
 let g:airline_theme='hybrid'
 set laststatus=2 " turn on bottom bar
 ```
 
-`set laststatus=2` 는 ubuntu에서 기본으로 적용되어 있지만 다른 리눅스를 쓸 때를 위해 적어놓읍시다. `:set laststatus=1`을 입력하면 차이를 알 수 있다. hybrid theme는 특정한 색이 있는 것이 아니라 colorscheme을 따라갑니다. 우리가 설정한 CodeSchool3에 있는 색을 따라가기 때문에 자연스럽게 어울립니다. 여기까지 잘 따라왔다면 다음과 같은 화면이 됐을 것입니다.
+`set laststatus=2`{.vim} 는 ubuntu에서 기본으로 적용되어 있지만 다른 리눅스를 쓸 때를 위해 적어놓읍시다. `:set laststatus=1`{.vim}을 입력하면 차이를 알 수 있다. hybrid theme는 특정한 색이 있는 것이 아니라 colorscheme을 따라갑니다. 우리가 설정한 CodeSchool3에 있는 색을 따라가기 때문에 자연스럽게 어울립니다. 여기까지 잘 따라왔다면 다음과 같은 화면이 됐을 것입니다.
 
 ![상단에는 buffer가, 하단에는 현재 상태가 보입니다.](https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-1.11.49-AM.png)
 
-파일을 여러개 연 상태에서 `<leader>q`, `<leader>w` (리더키는 쉼표로 설정했었습니다)를 입력하면 buffer를 순회하는 것을 볼 수 있습니다.
+파일을 여러개 연 상태에서 `<leader>q`{.vim}, `<leader>w`{.vim} (리더키는 쉼표로 설정했었습니다)를 입력하면 buffer를 순회하는 것을 볼 수 있습니다.
 
 이번 글까지 작성한 .vimrc는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

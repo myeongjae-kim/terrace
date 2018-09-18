@@ -4,7 +4,7 @@
       <h1 class="component-title">Articles</h1>
       <!-- Show titles of blog contents -->
       <div class="blog-article-list" v-for="i in index" :key="i.path">
-        <p class="article-info"><a class="article-title" :href="i.path">{{ i.title }}</a>
+        <p class="article-info"><a class="article-title" :href="i.path" v-on:click="toTheTop">{{ i.title }}</a>
         <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
         <br><span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span></p>
       </div>
@@ -39,10 +39,12 @@
 <script>
 import ClipboardJS from 'clipboard'
 
-var HighlightJS = require("highlight.js/lib/highlight.js");
+import HighlightJS from 'highlight.js/lib/highlight.js'
+//var HighlightJS = require("highlight.js/lib/highlight.js");
 
 // Add languages manually to decrease size of my website
 HighlightJS.registerLanguage('vim', require('highlight.js/lib/languages/vim'));
+HighlightJS.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
 
 // eslint-disable-next-line
 import _ from 'highlight.js/styles/xcode.css'
@@ -116,7 +118,7 @@ export default {
     });
 
     // Find all code block and apply syntax highlighting
-    [].forEach.call(document.querySelectorAll('pre code'), function(el) {
+    [].forEach.call(document.querySelectorAll('code'), function(el) {
       HighlightJS.highlightBlock(el);
     });
   },
@@ -216,6 +218,13 @@ export default {
 
       // Hide title. The title is shown after it is modified.
       this.isTitleShown = false;
+
+
+      // If it already has had an article, remove it
+      var article = document.querySelector('#article-content');
+      if(article != null) {
+        article.innerHTML = "";
+      }
 
       var htmlDocUri = 
         '/blog_contents/'

@@ -2,11 +2,11 @@
 
 대부분의 편집기에서 ‘{‘를 입력하면 ‘}’가 자동으로 추가되는데, delimitMate를 설치하면 vim에서도 같은 기능을 쓸 수 있습니다.
 
-`.vimrc`에  `Plugin 'Raimondi/delimitMate'` 를 추가하고 `:PluginInstall`을 합니다.
+`.vimrc`에  `Plugin 'Raimondi/delimitMate'`{.vim} 를 추가하고 `:PluginInstall`{.vim}을 합니다.
 
 `.vimrc`에는 다음과 같이 추가합니다.
 
-```
+```vim
 " delimitMate
 let delimitMate_expand_cr=1
 ```
@@ -17,7 +17,7 @@ let delimitMate_expand_cr=1
 
 지금까지 설정한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

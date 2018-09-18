@@ -1,9 +1,9 @@
 <h1 id="vimlinux-12.-고요goyo-방해금지-모드-플러그인">[vim/Linux] 12. 고요(Goyo), 방해금지 모드 플러그인</h1>
 <p>이 플러그인은 아래 스크린샷처럼 텍스트에만 집중할 수 있게 해줍니다</p>
 <p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png" /></p>
-<p><code>.vimrc</code>에 <code>Plugin 'junegunn/goyo.vim'</code> 를 추가하고 <code>:PluginInstall</code> 을 해주자.</p>
-<p><code>.vimrc</code>에 다음과 같이 추가한다.</p>
-<pre><code>&quot; Goyo
+<p><code>.vimrc</code>에 <code class="vim">Plugin 'junegunn/goyo.vim'</code> 를 추가하고 <code>:PluginInstall</code> 을 합니다.</p>
+<p><code>.vimrc</code>에 다음과 같이 추가합니다.</p>
+<pre class="vim"><code>&quot; Goyo
 nnoremap &lt;F4&gt; :Goyo &lt;CR&gt;
 function! s:goyo_enter()
   set noshowmode
@@ -23,7 +23,7 @@ endfunction
  
 autocmd! User GoyoEnter nested call &lt;SID&gt;goyo_enter()
 autocmd! User GoyoLeave nested call &lt;SID&gt;goyo_leave()</code></pre>
-<p><code>&lt;F4&gt;</code>를 누르면 Goyo mode로 토글할 수 있다.</p>
+<p><code class="vim">&lt;F4&gt;</code>를 누르면 Goyo mode로 토글할 수 있다.</p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.03-PM.png" alt="F4를 누르기 전" /><figcaption>F4를 누르기 전</figcaption>
 </figure>
@@ -31,7 +31,7 @@ autocmd! User GoyoLeave nested call &lt;SID&gt;goyo_leave()</code></pre>
 <img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png" alt="F4를 누른 후" /><figcaption>F4를 누른 후</figcaption>
 </figure>
 <p>Goyo mode에 들어가면 커서가 항상 화면 가운데에 옵니다. 이 기능은 평소에도 유용하게 사용할 수 있을 것 같아서 기본으로 set scrolloff=999 옵션이 적용되도록 했습니다..</p>
-<pre><code>&quot; Basic Settings
+<pre class="vim"><code>&quot; Basic Settings
 colorscheme CodeSchool3
 set termguicolors
 syntax on
@@ -49,7 +49,7 @@ set scrolloff=999</code></pre>
 <img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.15.10-PM.png" alt="이제 평소에도 커서가 화면 가운데에서 움직입니다." /><figcaption>이제 평소에도 커서가 화면 가운데에서 움직입니다.</figcaption>
 </figure>
 <p>지금까지 설정한 <code>.vimrc</code>는 다음과 같습니다.</p>
-<pre><code>&quot; Basic Settings
+<pre class="vim"><code>&quot; Basic Settings
 colorscheme CodeSchool3
 set termguicolors
 syntax on

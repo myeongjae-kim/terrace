@@ -5,7 +5,7 @@
 <img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-02-at-9.46.38-PM-1024x640.png" alt="지금까지 작성한 .vimrc" /><figcaption>지금까지 작성한 .vimrc</figcaption>
 </figure>
 <p>오늘까지 입력할 .vimrc는 다음과 같습니다.</p>
-<pre><code>&quot; Basic Settings
+<pre class="vim"><code>&quot; Basic Settings
 colorscheme CodeSchool3
 set termguicolors
 syntax on
@@ -38,20 +38,20 @@ nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (win
 nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;</code></pre>
 <p><img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-02-at-11.08.55-PM-1024x825.png" /></p>
 <h2 id="options">Options</h2>
-<p><code>syntax on</code> 문법에 따라 단어에 색을 입혀준다. 우분투에서는 이 옵션을 쓰지 않아도 기본으로 적용되지만 나중에 다른 리눅스를 쓸 때에 대비해서 적어놓읍시다.</p>
-<p><code>set number</code> 좌측에 줄번호를 표시합니다.</p>
-<p><code>set relativenumber</code> 줄번호를 상대적으로 표현합니다. 명령을 입력할 때 편합니다.</p>
-<p><code>set hlsearch</code> ‘/’ 를 눌러서 검색을 하면 검색 결과 밑에 밑줄로 강조를 합니다. 우분투에서는 기본으로 적용되어 있지만, 다른 리눅스를 쓸 때에 대비해서 적어놓읍시다.</p>
-<p><code>set ignorecase</code> 대소문자를 구별하지 않고 검색을 합니다.</p>
-<p><code>set tabstop=4</code> <code>set softtabstop=4</code> <code>set shiftwidth=4</code> vim에서 보이는 모든 tab의 크기를 4로 맞춥니다.</p>
-<p><code>set expandtab</code> tab대신에 스페이스바로 채워넣습니다. 사람마다 tab 크기를 다르게 설정할 수 있기 때문에 tab 대신 스페이스바로 채워넣으면 tab size가 다르더라도 의도한 indent를 유지할 수 있습니다.</p>
-<p><code>autocmd FileType make setlocal noexpandtab</code> Makefile은 tab이 문법이기 때문에 스페이스바로 대체하면 안됩니다. Makefile을 열면 스페이스바가 아니라 tab을 입력하게 만드는 옵션입니다.</p>
-<p><code>nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;</code> 붙여넣기를 할 때 autoindent가 활성화되어있으면(기본값) 매 줄마다 indent를 추가해서 엉망이 되어버립니다. 이 옵션은 indent를 비활성화해서 붙여넣기가 제대로 작동하게 해줍니다. 토글 키는 F2입니다.</p>
-<p><code>set pastetoggle=&lt;F2&gt;</code> 위와 같은 옵션인데, 이 옵션은 insert mode에서도 F2를 토글 키로 작동하게 해줍니다. 이 옵션이 없으면 insert mode에서 F2를 눌렀을 때 <code>&lt;F2&gt;</code>가 입력됩니다.</p>
-<p><code>let mapleader = &quot;,&quot;</code> leader 키를 ‘’에서 ‘,’로 변경합니다. ,가 치기 쉽기 때문에 나는 쉼표를 leader키로 씁니다.</p>
-<p><code>nnoremap &lt;leader&gt;q :bp&lt;CR&gt;</code> 기본 상태에서 ,q를 누르면 이전 버퍼로 이동합니다. vim에서 파일을 여러개 열었을 때 :bq 명령어로 이전 파일(버퍼)로 이동할 수 있습니다.</p>
-<p><code>nnoremap &lt;leader&gt;w :bn&lt;CR&gt;</code> 마찬가지로 ,w를 누르면 다음 버퍼로 이동합니다. vim에서 파일을 2개 이상 열고 ,q ,w를 입력해봅시다. 지금은 버퍼가 몇 개 열려있는지 눈에 보이지 않는데, 이 후에 쓸 글에서 버퍼 상태를 볼 수 있는 플러그인을 소개할 것입니다(vim-airline).</p>
-<pre><code>&quot; resize windows
+<p><code class="vim">syntax on</code> 문법에 따라 단어에 색을 입혀준다. 우분투에서는 이 옵션을 쓰지 않아도 기본으로 적용되지만 나중에 다른 리눅스를 쓸 때에 대비해서 적어놓읍시다.</p>
+<p><code class="vim">set number</code> 좌측에 줄번호를 표시합니다.</p>
+<p><code class="vim">set relativenumber</code> 줄번호를 상대적으로 표현합니다. 명령을 입력할 때 편합니다.</p>
+<p><code class="vim">set hlsearch</code> ‘/’ 를 눌러서 검색을 하면 검색 결과 밑에 밑줄로 강조를 합니다. 우분투에서는 기본으로 적용되어 있지만, 다른 리눅스를 쓸 때에 대비해서 적어놓읍시다.</p>
+<p><code class="vim">set ignorecase</code> 대소문자를 구별하지 않고 검색을 합니다.</p>
+<p><code class="vim">set tabstop=4</code> <code class="vim">set softtabstop=4</code> <code class="vim">set shiftwidth=4</code> vim에서 보이는 모든 tab의 크기를 4로 맞춥니다.</p>
+<p><code class="vim">set expandtab</code> tab대신에 스페이스바로 채워넣습니다. 사람마다 tab 크기를 다르게 설정할 수 있기 때문에 tab 대신 스페이스바로 채워넣으면 tab size가 다르더라도 의도한 indent를 유지할 수 있습니다.</p>
+<p><code class="vim">autocmd FileType make setlocal noexpandtab</code> Makefile은 tab이 문법이기 때문에 스페이스바로 대체하면 안됩니다. Makefile을 열면 스페이스바가 아니라 tab을 입력하게 만드는 옵션입니다.</p>
+<p><code class="vim">nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;</code> 붙여넣기를 할 때 autoindent가 활성화되어있으면(기본값) 매 줄마다 indent를 추가해서 엉망이 되어버립니다. 이 옵션은 indent를 비활성화해서 붙여넣기가 제대로 작동하게 해줍니다. 토글 키는 F2입니다.</p>
+<p><code class="vim">set pastetoggle=&lt;F2&gt;</code> 위와 같은 옵션인데, 이 옵션은 insert mode에서도 F2를 토글 키로 작동하게 해줍니다. 이 옵션이 없으면 insert mode에서 F2를 눌렀을 때 <code class="vim">&lt;F2&gt;</code>가 입력됩니다.</p>
+<p><code class="vim">let mapleader = &quot;,&quot;</code> leader 키를 ‘’에서 ‘,’로 변경합니다. ,가 치기 쉽기 때문에 나는 쉼표를 leader키로 씁니다.</p>
+<p><code class="vim">nnoremap &lt;leader&gt;q :bp&lt;CR&gt;</code> 기본 상태에서 ,q를 누르면 이전 버퍼로 이동합니다. vim에서 파일을 여러개 열었을 때 :bq 명령어로 이전 파일(버퍼)로 이동할 수 있습니다.</p>
+<p><code class="vim">nnoremap &lt;leader&gt;w :bn&lt;CR&gt;</code> 마찬가지로 ,w를 누르면 다음 버퍼로 이동합니다. vim에서 파일을 2개 이상 열고 ,q ,w를 입력해봅시다. 지금은 버퍼가 몇 개 열려있는지 눈에 보이지 않는데, 이 후에 쓸 글에서 버퍼 상태를 볼 수 있는 플러그인을 소개할 것입니다(vim-airline).</p>
+<pre class="vim"><code>&quot; resize windows
 nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
 nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
 nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;

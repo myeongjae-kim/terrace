@@ -4,11 +4,11 @@ NERD Commenter는 단축키로 주석 처리를 할 수 있게 해주는 플러�
 
 ![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-19-at-11.46.42-PM.png)
 
-`.vimrc`에  `Plugin 'scrooloose/nerdcommenter'` 을 추가하고  `:PluginInstall` 을 합시다.
+`.vimrc`에  `Plugin 'scrooloose/nerdcommenter'`{.vim} 을 추가하고  `:PluginInstall` 을 합시다.
 
-`.vimrc`에 다음과 같이 추가한다.
+`.vimrc`에 다음과 같이 추가합니다.
 
-```
+```vim
 " NERD Commenter
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -29,7 +29,7 @@ map <Leader>cc <plug>NERDComToggleComment
 map <Leader>c<space> <plug>NERDComComment
 ```
 
-저는 `<leader>c<space>`와 `<leader>cs`를 사용합니다(현재 리더키는 쉼표입니다). `,c<space>`를 입력하면 커서가 있는 줄에 주석이 달립니다. Visual mode (v를 누르면 됨)에 진입해서 여러 줄을 선택한 뒤 `,c<space>`를 누르면 여러 줄에 주석처리를 할 수 있습니다. 주석을 해제하려면 `,c<space>`를 한 번 더 누르면 됩니다.
+저는 `<leader>c<space>`{.vim}와 `<leader>cs`{.vim}를 사용합니다(현재 리더키는 쉼표입니다). `,c<space>`{.vim}를 입력하면 커서가 있는 줄에 주석이 달립니다. Visual mode (v를 누르면 됨)에 진입해서 여러 줄을 선택한 뒤 `,c<space>`{.vim}를 누르면 여러 줄에 주석처리를 할 수 있습니다. 주석을 해제하려면 `,c<space>`{.vim}를 한 번 더 누르면 됩니다.
 
 `,cs`는 sexy comment라고 불리는 기능인데, 여러 줄을 주석처리 할 때 주석을 예쁘게 달아줍니다.
 
@@ -41,7 +41,7 @@ map <Leader>c<space> <plug>NERDComComment
 
 지금까지 작성한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

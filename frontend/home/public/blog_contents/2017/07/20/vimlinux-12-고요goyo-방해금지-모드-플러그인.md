@@ -4,11 +4,11 @@
 
 ![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png)
 
-`.vimrc`에 ` Plugin 'junegunn/goyo.vim'` 를 추가하고  `:PluginInstall` 을 해주자.
+`.vimrc`에 ` Plugin 'junegunn/goyo.vim'`{.vim} 를 추가하고  `:PluginInstall` 을 합니다.
 
-`.vimrc`에 다음과 같이 추가한다.
+`.vimrc`에 다음과 같이 추가합니다.
 
-```
+```vim
 " Goyo
 nnoremap <F4> :Goyo <CR>
 function! s:goyo_enter()
@@ -31,7 +31,7 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 ```
 
-`<F4>`를 누르면 Goyo mode로 토글할 수 있다.
+`<F4>`{.vim}를 누르면 Goyo mode로 토글할 수 있다.
 
 ![F4를 누르기 전](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.03-PM.png)
 
@@ -39,7 +39,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 Goyo mode에 들어가면 커서가 항상 화면 가운데에 옵니다. 이 기능은 평소에도 유용하게 사용할 수 있을 것 같아서 기본으로 set scrolloff=999 옵션이 적용되도록 했습니다..
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors
@@ -60,7 +60,7 @@ set scrolloff=999
 
 지금까지 설정한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

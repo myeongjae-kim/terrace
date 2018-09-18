@@ -6,7 +6,7 @@ The NERD Tree는 파일 탐색기입니다. vim안에서 파일시스템을 접�
 
 .vimrc를 열어서 vim-airline 플러그인 밑에 다음과 같이 추가합니다.
 
-```
+```vim
 " Keep Plugin commands between vundle#begin/end.
  
 Plugin 'vim-airline/vim-airline'
@@ -26,7 +26,7 @@ vim을 실행하고 `:PlugInstall`을 입력하면 플러그인이 설치됩니�
 
 매번 `:NERDTree`를 입력할 수 없으니 단축키를 설정합시다.
 
-```
+```vim
 " for vim-airline
 let g:airline#extensions#tabline#enabled = 1 " turn on buffer list
 let g:airline_theme='hybrid'
@@ -42,11 +42,11 @@ let g:NERDTreeWinPos = "right"
 
 이제 vim을 실행할 때 매개변수가 없으면 NERTree가 나타나고, 매개변수가 있으면 NERDTree가 나타나지 않습니다.  가령 `$ v` (혹은 `nvim`)으로 vim을 실행하면 NERDTree가 나타나고,   `$ v a.c` 를 입력해서 `a.c`파일을 열면서 vim을 실행하면 NERDTree가 나타나지 않습니다.
 
-단축키는 `<leader>ne`입니다. 이 전 글에서 `<leader>`키를 쉼표로 설정했으므로 `,ne`라고 입력하면 NERDTree가 나타납니다. 다시 한 번 입력하면 사라집니다.
+단축키는 `<leader>ne`{.vim}입니다. 이 전 글에서 `<leader>`{.vim}키를 쉼표로 설정했으므로 `,ne`라고 입력하면 NERDTree가 나타납니다. 다시 한 번 입력하면 사라집니다.
 
 아래는 지금까지 설정한 .vimrc 파일입니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

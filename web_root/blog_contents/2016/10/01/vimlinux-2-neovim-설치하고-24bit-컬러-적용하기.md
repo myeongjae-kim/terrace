@@ -17,7 +17,7 @@
 
 위의 MJProfile.xml을 오른쪽 클릭해서 다른 이름으로 Downloads 폴더에 저장합니다. 그리고 터미널에 다음과 같이 입력합니다.
 
-`$ dconf load /org/gnome/terminal/legacy/profiles:/ <~/Downloads/MJProfile.xml`
+`$ dconf load /org/gnome/terminal/legacy/profiles:/ <~/Downloads/MJProfile.xml`{.bash}
 
 이렇게 입력하면 다음과 같이 색깔이 변합니다.
 
@@ -25,9 +25,9 @@
 
  ~/.bashrc 파일을 열어서 PS1을 검색한 뒤 다음과 같이 바꿔주면 완성입니다.
 
-`$ vi ~/.bashrc`
+`$ vi ~/.bashrc`{.bash}
 
-`PS1='${debian_chroot:+($debian_chroot)}\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[m\]\$ '`
+`PS1='${debian_chroot:+($debian_chroot)}\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[m\]\$ '`{.bash}
 
 잘 못하겠으면 ~/.bashrc 파일을 덮어씌워도 됩니다.
 
@@ -35,9 +35,9 @@
 
 다운받아서 Downloads 폴더에 압축을 푼 뒤 터미널에 다음 명령을 입력합니다.
 
-`$ mv ~/.bashrc ~/.bashrc.bak`
+`$ mv ~/.bashrc ~/.bashrc.bak`{.bash}
 
-`$ mv ~/Downloads/mjbashrc ~/.bashrc`
+`$ mv ~/Downloads/mjbashrc ~/.bashrc`{.bash}
 
 터미널을 껏다 켜면 색이 적용됩니다.
 
@@ -55,14 +55,14 @@ Neovim이란? vim은 유구한 역사와 전통을 자랑하는 코드 에디터
 
 Neovim을 설치해봅시다. python을 함께 설치해야 나중에 python을 요구하는 플러그인을 쓸 때 편합니다.
 
-```
-$ sudo apt-get install software-properties-common
-$ sudo apt-get install python-dev python-pip python3-dev python3-pip
-$ sudo add-apt-repository ppa:neovim-ppa/unstable
-$ sudo apt-get update
-$ pip2 install --user neovim
-$ pip3 install --user neovim
-$ sudo apt-get install neovim
+```bash
+sudo apt-get install software-properties-common
+sudo apt-get install python-dev python-pip python3-dev python3-pip
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt-get update
+pip2 install --user neovim
+pip3 install --user neovim
+sudo apt-get install neovim
 ```
 
 모든 설치를 완료하고 터미널에 nvim이라고 치면 Neovim이 실행됩니다.
@@ -73,7 +73,7 @@ $ sudo apt-get install neovim
 
 ~/.bashrc에 다음 코드를 추가해주면 v만으로 Neovim을 실행할 수 있습니다.
 
-`alias v='nvim'`
+`alias v='nvim'`{.bash}
 
 ![](https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-01-at-9.25.47-PM.png)
 
@@ -83,11 +83,11 @@ $ sudo apt-get install neovim
 
 vim의 설정 파일은 `~/.vimrc`에 있습니다. 없으면 만들어줍시다.
 
-`$ touch ~/.vimrc`
+`$ touch ~/.vimrc`{.bash}
 
-그리고 `~/.vim/colors/` 디렉토리에 `CodeSchool3.vim`파일을 넣어줍시다.
+그리고 `~/.vim/colors/`{.bash} 디렉토리에 `CodeSchool3.vim`파일을 넣어줍시다.
 
-``` shell
+``` bash
 $ cd ~
 $ mkdir .vim
 $ cd .vim
@@ -100,15 +100,15 @@ $ mkdir colors
 
 Downloads 폴더에 압축을 풀고 다음과 같이 입력합니다.
 
-`$ mv ~/Downloads/CodeSchool3.vim ~/.vim/colors/CodeSchool3.vim`
+`$ mv ~/Downloads/CodeSchool3.vim ~/.vim/colors/CodeSchool3.vim`{.bash}
 
 그리고 아까 만들어두었던 `.vimrc`를 열어서 코드를 추가합니다.
 
-`$ v ~/.vimrc`
+`$ v ~/.vimrc`{.bash}
 
 아래 두 줄을 추가합니다
 
-```
+```vim
 colorscheme CodeSchool3
 set termguicolors
 ```
@@ -120,7 +120,7 @@ set termguicolors
 ![!!?](https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-09-at-11.23.50-AM.png)
 
 색이 이렇게 나오는 이유는, 사실 Neovim이 설정파일을 ~/.vimrc 에서 가져오지 않기 때문입니다. Neovim은 ~/.config/nvim/  디렉토리에서 설정을 읽어옵니다. 우리는 심볼릭 링크([하드링크와 심볼릭 링크에 대해서](http://eunguru.tistory.com/90))를 만들어 Neovim이 ~/.vimrc 와 ~./vim/colors/ 를 읽어오도록 할 것입니다.
-```shell
+```bash
 $ cd ~/.config
 $ mkdir nvim
 $ ln -s ~/.vimrc ~/.config/nvim/init.vim

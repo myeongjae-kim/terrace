@@ -6,11 +6,11 @@ Deoplete은 사용자의 입력을 prefix로 처리해서 예상되는 입력값
 
 ![img](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-9.04.58-PM.png)
 
-`.vimrc`에  `Plugin 'Shougo/deoplete.nvim'` 을 추가하고  `:PluginInstall` 을 합시다. deplete가 설치되면 vim을 재시작하고  `:UpdateRemotePlugins` 를 입력합니다.
+`.vimrc`에  `Plugin 'Shougo/deoplete.nvim'`{.vim} 을 추가하고  `:PluginInstall` 을 합시다. deplete가 설치되면 vim을 재시작하고  `:UpdateRemotePlugins` 를 입력합니다.
 
 .vimrc에 다음과 같이 추가합니다.
 
-```
+```vim
 " Deoplete.
 let g:deoplete#enable_at_startup = 1
 ```
@@ -19,34 +19,34 @@ let g:deoplete#enable_at_startup = 1
 
 ![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-8.48.48-PM-1024x627.png)
 
-`Ctrl + N`과 `Ctrl + P`로 관련된 단어들을 선택할 수 있다. 선택한 뒤에는 `Ctrl + [` 혹은 `ESC`를 누르면 된다.
+`Ctrl + N`과 `Ctrl + P`로 관련된 단어들을 선택할 수 있습니다. 선택한 뒤에는 `Ctrl + [` 혹은 `ESC`를 누르면 됩니다.
 
 ![](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-8.48.58-PM.png)
 
-지금 상태는 vim에서 열어놓은 파일 안에서만 관련 단어를 찾는다. 아래의 플러그인을 설치하면 C의 스탠다드 라이브러리를 활용해서 코드를 자동으로 완성할 수 있다.
+지금 상태는 vim에서 열어놓은 파일 안에서만 관련 단어를 찾습니다. 아래의 플러그인을 설치하면 C의 스탠다드 라이브러리를 활용해서 코드를 자동으로 완성할 수 있습니다.
 
 ## clang_complete
 
-플러그인을 설치하기 전에 clang compiler를 설치해야 vim에서 C언어 자동완성을 사용할 수 있다.
+플러그인을 설치하기 전에 clang compiler를 설치해야 vim에서 C언어 자동완성을 사용할 수 있습니다.
 
-```
+```bash
 sudo apt-get install clang
 ```
 
 그리고 library의 이름을 살짝 바꿔주어야 clang_complete에서 library를 찾습니다. 다음과 같이 symbolic link를 생성합시다.
 
-```
+```bash
 cd /usr/lib/x86_64-linux-gnu
 sudo ln -s libclang-3.8.so.1 libclang.so
 ```
 
 (글을 작성할 때는 3.8버전이었는데, 버전이 업데이트되면 파일 이름이 달라질 수 있습니다.)
 
-`.vimrc`에  `Plugin 'Rip-Rip/clang_complete'` 을 추가하고  `:PluginInstall` 을 합시다.
+`.vimrc`에  `Plugin 'Rip-Rip/clang_complete'`{.vim} 을 추가하고  `:PluginInstall` 을 합시다.
 
 `.vimrc`에 다음과 같이 추가합니다.
 
-```
+```vim
 " clang_complete
 set completeopt-=preview
 ```
@@ -57,7 +57,7 @@ set completeopt-=preview
 
 지금까지 작성한 `.vimrc`는 다음과 같습니다.
 
-```
+```vim
 " Basic Settings
 colorscheme CodeSchool3
 set termguicolors

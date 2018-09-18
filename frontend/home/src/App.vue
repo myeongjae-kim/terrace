@@ -35,7 +35,7 @@ pre {
 	/* overflow-x: auto; */                /* Firefox 2 only */
 	/* width: 99%; */		       /* only if needed */
 
-  background-color: #fafafa !important;
+  background: #fafafa !important;
   padding: 20px;
   line-height: 1.3em;
 }
@@ -47,12 +47,13 @@ pre > code {
 code {
   font-family: 'Inconsolata', monospace;
   font-size: 0.85em;
-  background-color: #fafafa;
+  background: #fafafa !important;
   padding: 1px 5px 1px 5px;
+  display: inline !important;
 }
 
 .hljs {
-  background: none !important;
+  background: #fafafa !important;
   padding: 0 !important;
 }
 
