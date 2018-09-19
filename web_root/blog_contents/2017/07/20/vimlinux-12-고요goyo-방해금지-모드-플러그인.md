@@ -31,13 +31,13 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 ```
 
-`<F4>`{.vim}를 누르면 Goyo mode로 토글할 수 있다.
+`<F4>`{.vim}를 누르면 Goyo mode로 토글할 수 있습니다.
 
 ![F4를 누르기 전](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.03-PM.png)
 
 ![F4를 누른 후](https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png)
 
-Goyo mode에 들어가면 커서가 항상 화면 가운데에 옵니다. 이 기능은 평소에도 유용하게 사용할 수 있을 것 같아서 기본으로 set scrolloff=999 옵션이 적용되도록 했습니다..
+Goyo mode에 들어가면 커서가 항상 화면 가운데에 옵니다. 이 기능은 평소에도 유용하게 사용할 수 있을 것 같아서 기본으로 set scrolloff=999 옵션이 적용되도록 했습니다.
 
 ```vim
 " Basic Settings

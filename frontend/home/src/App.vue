@@ -224,6 +224,9 @@ blockquote{
   border-left-width: 5px;
   border-right-style: solid;
   border-right-width: 1px;    
+
+
+  font-family: 'Iropke Batang', 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
 }
 
 blockquote::before{
@@ -231,13 +234,12 @@ blockquote::before{
   
   /*Font*/
   font-size: 60px;
-  font-weight: bold;
   color: #999;
   
   /*Positioning*/
   position: absolute;
   left: 10px;
-  top:9px;
+  top:22px;
 }
 
 blockquote::after{
