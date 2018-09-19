@@ -37,13 +37,14 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
+// import PrerenderSPAPlugin from 'prerender-spa-plugin';
+// const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+
+
 new Vue({
   router,
   render: h => h(App)
 }).$mount('#app');
-
-// prerender.io
-import './prerender.js'
 
 // Loading Webfonts
 // Below codes are from https://mytory.net/2016/06/15/webfont-best-practice.html
