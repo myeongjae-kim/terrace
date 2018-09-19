@@ -5,3 +5,7 @@ const (
 	EXT_HTML  string = ".html"
 	EXT_MD    string = ".md"
 )
+
+var (
+	articlesNotPublished []string
+)

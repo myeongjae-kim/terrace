@@ -1,0 +1,31 @@
+<h1 id="블로깅-시스템을-만들었습니다">블로깅 시스템을 만들었습니다</h1>
+<p>블로깅 시스템을 처음부터 끝까지 구현했습니다.</p>
+<h3 id="jekyll-with-spa">Jekyll with SPA?</h3>
+<p>프론트엔드의 발전에 힘입어 데이터베이스 없이 스태틱 페이지만으로 블로깅을 할 수 있는 툴들이 등장했습니다. <a href="https://pages.github.com/">Github Pages</a>에서 사용하는 <a href="https://jekyllrb.com/">Jekyll</a>이 대표적입니다. 본래 워드프레스로 블로깅을 하다가 추세를 따라서 툴을 바꾸려 생각하고 있었는데, 여기서 하나 더 고려한 것이 <a href="https://medium.com/@pshrmn/demystifying-single-page-applications-3068d0555d46">Single Page App(SPA)</a>입니다.</p>
+<p>그러나 <a href="https://jekyllrb.com/">Jekyll</a>은 Markdown 문서들을 html로 변환해서 링크로 연결할 뿐 SPA를 구현하기에는 적합하지 않았습니다.</p>
+<p>그래서, 그냥 만들어버렸습니다.</p>
+<h3 id="requirements">Requirements</h3>
+<p><a href="https://jekyllrb.com/">Jekyll</a>처럼 범용적으로 쓸 수 있는 툴을 만든 것은 아니고, 다음과 같은 요구사항을 만족하도록 웹 애플리케이션을 구현했습니다.</p>
+<ul>
+<li>SPA. 페이지를 이동할 때 브라우저의 로딩이 없어야 함.</li>
+<li>Markdown으로 글을 작성할 수 있어야 함.</li>
+<li>HTML, Javascript, CSS만으로 동작해야 함(DBMS 없음).</li>
+</ul>
+<p>위 세 가지가 꼭 만족해야 하는 요구사항들입니다.</p>
+<p>개발스택은 아래와 같습니다.</p>
+<ul>
+<li>Web server: golang으로 직접 구현.</li>
+<li>Frontend: VueJS.</li>
+<li>CI/CD: git hook을 사용해서 자동으로 배포.</li>
+</ul>
+<p>현재 시스템은 다음과 같이 구현되어 있습니다.</p>
+<p><img src="https://raw.githubusercontent.com/hrzon/terrace/master/docs/images/aws_structure.png" /></p>
+<p>개발 환경에서 커밋을 하면 AWS EC2와 S3에 자동으로 배포합니다. 용량이 큰 리소스들은 CDN으로 설정한 S3 bucket에 올립니다. 이 버킷은 오로지 <a href="https://myeongjae.kim">myeongjae.kim</a>에서 온 요청에만 응답합니다.</p>
+<p>개발 과정은 <a href="https://github.com/hrzon/terrace">여기</a>에서 볼 수 있습니다.</p>
+<p>SPA는 검색엔진이 페이지를 얻어가기 힘들다는 단점이 있는데, <a href="https://prerender.io">prerender.io</a>를 사용해서 보완할 수 있습니다.</p>
+<p>10월 초에 광일공방에서 자신만의 블로깅 시스템을 만드는 프로젝트를 진행하려고 합니다.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="http://m.mkexdev.net/374">SPA 단점에 대한 단상</a></li>
+<li><a href="https://medium.com/@jeemyeong/spa-장단점-3d91a309544e">SPA 장단점</a></li>
+</ul>

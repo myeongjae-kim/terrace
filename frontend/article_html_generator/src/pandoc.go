@@ -9,6 +9,7 @@ import (
 )
 
 func convertMarkdownToHtml(path string) {
+	// Length of a file have to be logner than extension
 	if (len(path) > len(EXT_MD)) &&
 		path[len(path)-len(EXT_MD):] == EXT_MD {
 
@@ -44,6 +45,11 @@ func generateHtmlFromMarkdown_recur(
 		var f string
 		f = dir + "/" + file.Name()
 
+		if file.Name()[:2] == "aA" {
+			articlesNotPublished = append(articlesNotPublished, f)
+			continue
+		}
+
 		if file.IsDir() {
 
 			subFilesInfo, err := ioutil.ReadDir(f)
@@ -56,13 +62,7 @@ func generateHtmlFromMarkdown_recur(
 				return err
 			}
 		} else {
-			// Length of a file have to be logner than extension
-			if (len(file.Name()) > len(EXT_MD)) &&
-				f[len(f)-len(EXT_MD):] == EXT_MD {
-
-				// Get title
-				convertMarkdownToHtml(f)
-			}
+			convertMarkdownToHtml(f)
 		}
 	}
 

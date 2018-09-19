@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 )
@@ -22,5 +23,10 @@ func main() {
 	if err != nil {
 		log.Println("(main) ", err)
 		log.Fatal(err)
+	}
+
+	fmt.Println("\n*** Not published articles ***")
+	for _, i := range articlesNotPublished {
+		fmt.Println(i)
 	}
 }
