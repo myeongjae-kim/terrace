@@ -32,7 +32,9 @@
         </div>
       </div>
       <div id="disqus_thread"></div>
+
     </div>
+    <a class="back_to_top">&uarr;</a>
   </div>
 </template>
 
@@ -54,8 +56,9 @@ export default {
   mounted: function() {
     this.initCopyButton();
     this.getPage();
+    this.initBackToTopButton();
+    
   },
-
   beforeDestroy: function() {
     // Destroy the ClipboardJS object
     this.ClipboardJS.destroy();
@@ -131,7 +134,7 @@ export default {
       article: "",   // will contain contents' html. 
       address : "",  // will have a permalink of the article
       domain : "https://blog.myeongjae.kim",
-      copyBtnMsg : "Copy Link to Share",
+      copyBtnMsg :   "Copy Link to Share",
       copiedBtnMsg : "Copied to Clipboard",
       ClipboardJS : null,
       currentArticleIdx : null,
@@ -153,6 +156,39 @@ export default {
     }
   },
   methods: {
+    initBackToTopButton: function() {
+      var vue = this;
+      (function() {
+        'use strict';
+
+        function trackScroll() {
+          var scrolled = window.pageYOffset;
+          var coords = document.documentElement.clientHeight / 2;
+
+          if (scrolled > coords) {
+            goTopBtn.classList.add('back_to_top-show');
+          }
+          if (scrolled < coords) {
+            goTopBtn.classList.remove('back_to_top-show');
+          }
+        }
+
+        /*
+        function backToTop() {
+          if (window.pageYOffset > 0) {
+            window.scrollBy(0, -80);
+            setTimeout(backToTop, 0);
+          }
+        }
+        */
+
+        var goTopBtn = document.querySelector('.back_to_top');
+
+        window.addEventListener('scroll', trackScroll);
+        //goTopBtn.addEventListener('click', backToTop);
+        goTopBtn.addEventListener('click', vue.toTheTop);
+      })();
+    },
     toTheTop : function() {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -393,4 +429,37 @@ article {
   margin:auto;
   padding-bottom:1px;
 }
+
+
+
+
+/* begin begin Back to Top button  */
+
+.back_to_top {
+  position: fixed;
+  bottom: 80px;
+  right: 40px;
+  z-index: 9999;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background: #fafafa;
+  color: #444;
+  cursor: pointer;
+  border-radius: 2px;
+  display: none;
+
+  opacity: 0.5;
+}
+
+.back_to_top:hover {
+  background: #f0f0f0;
+}
+
+.back_to_top-show {
+  display: block;
+}
+/* end begin Back to Top button  */
+
 </style>
