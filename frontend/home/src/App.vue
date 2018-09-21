@@ -19,7 +19,7 @@ export default {
   name: 'app',
   metaInfo: {
     title: 'About',
-    titleTemplate: '%s :: Myeongjae Kim :D',
+    titleTemplate: '%s :: Myeongjae Kim',
     meta: [
       { charset: 'utf-8' },
       {
@@ -36,7 +36,7 @@ export default {
       },
       {
         'property': 'og:image',
-        'content': 'https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400',
+        'content': 'http://ogp.me/logo.png',
         'template': chunk => `${chunk}`,
         'vmid': 'og:image'
       }
