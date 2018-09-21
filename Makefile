@@ -2,6 +2,11 @@ mac:
 	@go build -x -o ./bin/terrace ./src
 	sudo ./bin/terrace
 
+mac_push:
+	@echo "Pushing to github, local and production"
+	@git push
+	@make deploy
+
 local:
 	@echo "Local Deploy"
 	@sudo systemctl stop "terrace.service"
