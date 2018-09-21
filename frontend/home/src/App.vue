@@ -36,7 +36,7 @@ export default {
       },
       {
         'property': 'og:image',
-        'content': 'http://ogp.me/logo.png',
+        'content': 'https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=800',
         'template': chunk => `${chunk}`,
         'vmid': 'og:image'
       }
