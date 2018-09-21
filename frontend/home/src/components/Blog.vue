@@ -86,7 +86,7 @@ export default {
           },
           {
             'property': 'og:description',
-            'content': 'Thank you for reading my article :D',
+            'content': 'Thank you for reading my article 🙈',
             'template': chunk => `${chunk}`,
             'vmid': 'og:description'
           }
