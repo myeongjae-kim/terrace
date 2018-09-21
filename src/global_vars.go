@@ -3,5 +3,7 @@ package main
 var (
 	flgProduction          = false
 	flgRedirectHTTPtoHTTPS = false
-	WEB_ROOT               = "./web_root/"
+
+	// WebRoot is a string variable which has the directory of root of web
+	WebRoot = "./web_root/"
 )

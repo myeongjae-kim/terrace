@@ -1,3 +1,7 @@
+mac:
+	@go build -x -o ./bin/terrace ./src
+	sudo ./bin/terrace
+
 local:
 	@echo "Local Deploy"
 	@sudo systemctl stop "terrace.service"

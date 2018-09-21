@@ -1,10 +1,5 @@
 package main
 
-// TODO: If redirection is on at the server side, infinit loop between
-// http and https occurs. This is because of Cloudflare. It also has
-// redirection function, and these two conflits to each other.
-// Therefore, turn off redirect option at the server side
-
 import (
 	"context"
 	"crypto/tls"
@@ -30,7 +25,6 @@ func makeServerFromMux(mux *http.ServeMux) *http.Server {
 func makeHTTPServer() *http.Server {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", rootHandler)
-	mux.HandleFunc("/filelist/", filelistHandler)
 	return makeServerFromMux(mux)
 }
 

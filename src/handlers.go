@@ -20,7 +20,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	if path == "" {
 		log.Println("(rootHandler) The Main page access has been occurred.")
 
-		source, err := ioutil.ReadFile(WEB_ROOT + "index.html")
+		source, err := ioutil.ReadFile(WebRoot + "index.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			log.Println("(rootHandler) ", err)
@@ -30,7 +30,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		// send requested file
-		source, err := ioutil.ReadFile(WEB_ROOT + path)
+		source, err := ioutil.ReadFile(WebRoot + path)
 		if err != nil {
 			// Redirect to 404 page
 			w.WriteHeader(http.StatusNotFound)
@@ -45,32 +45,6 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Fprint(w, string(source))
-		log.Println("(rootHandler) The requested file has been sent: ", WEB_ROOT+path)
+		log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
 	}
-}
-
-func filelistHandler(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[len("/filelist/"):]
-	if path == "" {
-		msg := "Requsting directory structure of root is not allowed."
-		http.Error(w, msg, http.StatusInternalServerError)
-		log.Println("(filelistHandler) ", msg)
-		return
-	}
-
-	dirInfo, err := ioutil.ReadDir(WEB_ROOT + path)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Println("(filelistHandler) ", err)
-		return
-	}
-
-	s, err := getDirectoryInfo(WEB_ROOT+path, dirInfo)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Println("(filelistHandler) ", err)
-		return
-	}
-
-	fmt.Fprint(w, s)
 }
