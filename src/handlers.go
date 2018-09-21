@@ -15,22 +15,13 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// when request is root, send index.html
 	// otherwise, send the file
 
+	log.Println(r.URL.Path)
+
 	path := r.URL.Path[len("/"):]
 
-	if path == "" {
-		log.Println("(rootHandler) The Main page access has been occurred.")
-
-		source, err := ioutil.ReadFile(WebRoot + "index.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			log.Println("(rootHandler) ", err)
-			return
-		}
-		fmt.Fprint(w, string(source))
-
-	} else {
-		// send requested file
-		source, err := ioutil.ReadFile(WebRoot + path)
+	source, err := ioutil.ReadFile(WebRoot + path)
+	if err != nil {
+		source, err = ioutil.ReadFile(WebRoot + path + "/index.html")
 		if err != nil {
 			// Redirect to 404 page
 			w.WriteHeader(http.StatusNotFound)
@@ -38,13 +29,13 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 			log.Println("(rootHandler) ", err)
 			return
 		}
-
-		// Set content type as css if required file's extension is css
-		if len(path) >= 4 && path[len(path)-4:] == ".css" {
-			w.Header().Set("Content-Type", "text/css")
-		}
-
-		fmt.Fprint(w, string(source))
-		log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
 	}
+
+	// Set content type as css if required file's extension is css
+	if len(path) >= 4 && path[len(path)-4:] == ".css" {
+		w.Header().Set("Content-Type", "text/css")
+	}
+
+	fmt.Fprint(w, string(source))
+	log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
 }
