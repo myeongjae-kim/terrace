@@ -344,7 +344,7 @@ export default {
         if (xhr.readyState === 4) {
           var str = xhr.responseText.substring(0,4);
           if(str == "<!DO" || str == "<hea") {
-            window.location.href = "/#/404";
+            window.location.href = "/404";
           } else {
             vue.article = xhr.responseText;
           }
