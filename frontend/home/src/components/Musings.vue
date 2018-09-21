@@ -16,6 +16,24 @@
 <script>
 export default {
   name: 'Musings',
+  metaInfo: {
+    title: 'Musings',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        'property': 'og:title',
+        'content': 'Musings',
+        'template': chunk => `${chunk} :: Myeongjae Kim`,
+        'vmid': 'og:title'
+      },
+      {
+        'property': 'og:description',
+        'content': 'which inspire me',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:description'
+      }
+    ]
+  },
   beforeDestroy : function() {
     var nav = document.querySelector('nav');
     nav.setAttribute(

@@ -16,6 +16,24 @@
 <script>
 export default {
   name: 'NotFound',
+  metaInfo: {
+    title: '404',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        'property': 'og:title',
+        'content': '404 Page Not Found',
+        'template': chunk => `${chunk} :: Myeongjae Kim`,
+        'vmid': 'og:title'
+      },
+      {
+        'property': 'og:description',
+        'content': '모든 경계에는 꽃이 핀다.',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:description'
+      }
+    ]
+  },
   mounted: function() {
     [].forEach.call(document.querySelectorAll('.text'), function(el) {
       var origin = el.innerHTML;

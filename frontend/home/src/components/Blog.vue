@@ -53,6 +53,48 @@ import _ from 'highlight.js/styles/xcode.css'
 
 export default {
   name: 'Blog',
+  metaInfo () {
+    if(this.title === undefined) {
+      return {
+        title: 'Blog',
+        meta: [
+          { charset: 'utf-8' },
+          {
+            'property': 'og:title',
+            'content': 'Blog',
+            'template': chunk => `${chunk} :: Myeongjae Kim`,
+            'vmid': 'og:title'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Article List',
+            'template': chunk => `${chunk}`,
+            'vmid': 'og:description'
+          },
+        ]
+      }
+    } else {
+      return {
+        title: this.title,
+        meta: [
+          { charset: 'utf-8' },
+          {
+            'property': 'og:title',
+            'content': this.title,
+            'template': chunk => `${chunk} :: Myeongjae Kim`,
+            'vmid': 'og:title'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Descriptions should be here',
+            'template': chunk => `${chunk}`,
+            'vmid': 'og:description'
+          }
+        ]
+      }
+    }
+  },
+
   mounted: function() {
     this.initCopyButton();
     this.getPage();

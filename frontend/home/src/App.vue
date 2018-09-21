@@ -16,7 +16,26 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  metaInfo: {
+    title: 'About',
+    titleTemplate: '%s :: Myeongjae Kim :D',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        'property': 'og:title',
+        'content': 'About',
+        'template': chunk => `${chunk} :: Myeongjae Kim`,
+        'vmid': 'og:title'
+      },
+      {
+        'property': 'og:description',
+        'content': 'Information of Myeongjae Kim',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:description'
+      }
+    ]
+  }
 }
 </script>
 

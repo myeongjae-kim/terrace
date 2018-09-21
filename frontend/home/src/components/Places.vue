@@ -10,7 +10,25 @@
 
 <script>
 export default {
-  name: 'Places'
+  name: 'Places',
+  metaInfo: {
+    title : 'Places',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        'property': 'og:title',
+        'content': 'Places',
+        'template': chunk => `${chunk} :: Myeongjae Kim`,
+        'vmid': 'og:title'
+      },
+      {
+        'property': 'og:description',
+        'content': 'where I have been',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:description'
+      }
+    ]
+  }
 };
 </script>
 
