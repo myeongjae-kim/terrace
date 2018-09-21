@@ -129,6 +129,10 @@ new Vue({
       // ajax 에서 addEventListener 나 attachEvent 를 지원하지 않는 IE8을 위한 조치
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
+          if(xhr.responseText[0] === '<') {
+            return;
+          }
+
           // ajax 로 받은 css 내용을 <head>에 박는다.
           injectRawStyle(xhr.responseText);
           // 그리고 css 내용을 로컬 스토리지에 집어 넣어 나중에도 쓸 수 있게 한다.
@@ -156,5 +160,4 @@ new Vue({
     }
     document.getElementsByTagName('head')[0].appendChild(style);
   }
-
 }());
