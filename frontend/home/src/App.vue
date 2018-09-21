@@ -33,6 +33,12 @@ export default {
         'content': 'Information of Myeongjae Kim',
         'template': chunk => `${chunk}`,
         'vmid': 'og:description'
+      },
+      {
+        'property': 'og:image',
+        'content': 'https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400',
+        'template': chunk => `${chunk}`,
+        'vmid': 'og:image'
       }
     ]
   }
