@@ -7,3 +7,8 @@ cd ..
 cd ./blog_atricle_list_generator
 ./bin/balg
 cd ..
+
+# Generate vue.config.js
+cd ./prerendering_list_generator
+./bin/plg
+cd ..

@@ -5,8 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "postbuild": "react-snap"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
@@ -29,7 +28,7 @@
     "@vue/cli-plugin-babel": "^3.0.0",
     "@vue/cli-plugin-eslint": "^3.0.0",
     "@vue/cli-service": "^3.0.0",
-    "react-snap": "^1.19.1",
+    "prerender-spa-plugin": "^3.4.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -55,8 +54,5 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ],
-  "reactSnap": {
-    "source": "dist"
-  }
+  ]
 }
