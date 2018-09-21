@@ -2,7 +2,7 @@ package main
 
 const (
 	LOCAL_DIR       string = "../home/public/blog_contents"
-	WEB_DIR         string = "/#/blog"
+	WEB_DIR         string = "/blog"
 	EXT_HTML        string = ".html"
 	OUTPUT_FILE     string = LOCAL_DIR + "/index.json"
 	BLOG_VUE_PATH   string = "../home/src/components/Blog.vue"

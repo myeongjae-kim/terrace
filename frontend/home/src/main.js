@@ -159,3 +159,7 @@ new Vue({
 
 }());
 
+
+window.snapSaveState = () => {
+  document.querySelector('#app').setAttribute('data-server-rendered', 'true')
+};
