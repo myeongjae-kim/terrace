@@ -1,3 +1,3 @@
 run:
-	@go build -x -o bin/ahg ./src
+	@go build -o bin/ahg ./src
 	./bin/ahg

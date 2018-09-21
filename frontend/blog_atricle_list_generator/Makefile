@@ -1,3 +1,3 @@
 run:
-	@go build -x -o bin/balg ./src
+	@go build -o bin/balg ./src
 	./bin/balg

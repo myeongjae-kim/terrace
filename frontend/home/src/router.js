@@ -48,6 +48,11 @@ export default new Router({
       component: Musings
     },
 
+    {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound
+    },
 
     {
       path: '*',

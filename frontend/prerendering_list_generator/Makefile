@@ -1,3 +1,3 @@
 run:
-	@go build -x -o bin/plg ./src
+	@go build -o bin/plg ./src
 	./bin/plg
