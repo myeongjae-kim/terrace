@@ -98,8 +98,8 @@ func getDirectoryInfo(dir string, files []os.FileInfo) ([]byte, error) {
 		// Replace local directory to web directory
 		filelist[i].Path = strings.Replace(filelist[i].Path, LOCAL_DIR, WEB_DIR, 1)
 
-		// Remove .html
-		filelist[i].Path = filelist[i].Path[:len(filelist[i].Path)-len(EXT_HTML)]
+		// Remove .html and add trailing slash
+		filelist[i].Path = filelist[i].Path[:len(filelist[i].Path)-len(EXT_HTML)] + "/"
 
 		// Get date from path
 		date := strings.Split(r.FindString(filelist[i].Path), "/")
