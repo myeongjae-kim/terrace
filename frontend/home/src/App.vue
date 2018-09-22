@@ -248,7 +248,7 @@ blockquote{
 }
 
 blockquote a{
-  background: #eee;
+  /*background: #eee;*/
   cursor: pointer;
 }
 
@@ -272,6 +272,10 @@ hr {
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
   
   /*background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));*/
+}
+
+strong {
+  font-weight: bold;
 }
 
 
