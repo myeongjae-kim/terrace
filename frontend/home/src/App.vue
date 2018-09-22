@@ -244,32 +244,7 @@ blockquote{
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
 
-  /*Borders - (Optional)*/
-  border-left-style: solid;
-  border-left-width: 5px;
-  border-right-style: solid;
-  border-right-width: 1px;    
-
-
   font-family: 'Iropke Batang', 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
-}
-
-blockquote::before{
-  content: "\201C"; /*Unicode for Left Double Quote*/
-  
-  /*Font*/
-  font-size: 60px;
-  color: #999;
-  
-  /*Positioning*/
-  position: absolute;
-  left: 10px;
-  top:22px;
-}
-
-blockquote::after{
-  /*Reset to make sure*/
-  content: "";
 }
 
 blockquote a{
@@ -281,6 +256,23 @@ blockquote em{
   font-style: italic;
 }
 
+sup {
+  font-weight: bold;
+}
+
+.footnote {
+  font-size: 0.9em;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  
+  /*background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));*/
+}
 
 
 /* Below codes are from http://getskeleton.com */
