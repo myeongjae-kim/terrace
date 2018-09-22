@@ -319,7 +319,7 @@ export default {
         + this.year + '/'
         + this.month + '/'
         + this.day + '/'
-        + this.title;
+        + this.title + '/';
 
       // TODO: Below code's time complexity is O(n).
       // 'this.index' array is sorted by non-increasing order of 'path' element.
