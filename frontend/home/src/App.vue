@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <div id="site-title">
-      <router-link to="/">Myeongjae Kim</router-link>
+      <router-link to="/" class="button no-shadow">Myeongjae Kim</router-link>
     </div>
     <nav>
-      <router-link to="/">About</router-link>
-      <router-link to="/blog/">Blog</router-link>
-      <router-link to="/musings/">Musings</router-link>
+      <router-link to="/"
+        class="button no-shadow">About</router-link>
+      <router-link to="/blog/"
+        class="button no-shadow">Blog</router-link>
+      <router-link to="/musings/"
+        class="button no-shadow">Musings</router-link>
 
-      <router-link to="/places/">Places</router-link>
+      <router-link to="/places/"
+        class="button no-shadow">Places</router-link>
     </nav>
     <router-view />
   </div>
@@ -41,8 +45,34 @@ export default {
         'vmid': 'og:image'
       }
     ]
+  },
+  mounted: function() {
+    /* Materialize button */
+    [].forEach.call(document.querySelectorAll('.button'), function(el) {
+      el.addEventListener("mousedown", materializeButton);
+    });
+
+    function materializeButton (e) {
+        var target = e.target;
+        var rect = target.getBoundingClientRect();
+        var ripple = target.querySelector('.ripple');
+        if(ripple !== null) {
+          ripple.parentNode.removeChild(ripple);
+        }
+        ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px';
+        target.appendChild(ripple);
+        var top = e.pageY - rect.top - ripple.offsetHeight / 2 -  document.body.scrollTop;
+        var left = e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft;
+        ripple.style.top = top + 'px';
+        ripple.style.left = left + 'px';
+        return false;
+    }
   }
-}
+};
+
+
 </script>
 
 <style>
@@ -114,7 +144,7 @@ code {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 47px;
 }
 
 @media screen and (max-width: 600px) {
@@ -125,7 +155,7 @@ code {
 
 
 #site-title {
-  margin: 20px 0 20px 0;
+  margin: 20px 0 4px 0;
   font-family: 'Inconsolata', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -143,7 +173,7 @@ code {
 }
 
 nav {
-  padding: 20px 0px 20px 0;
+  padding: 9px 0;
 }
 
 nav > a {
@@ -278,67 +308,91 @@ strong {
   font-weight: bold;
 }
 
+/* Materialize button */
 
-/* Below codes are from http://getskeleton.com */
-
-/* Buttons
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.button,
-button,
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-  display: inline-block;
-  height: 38px;
-  padding: 0 30px;
-  color: #555;
-  text-align: center;
-  font-size: 11px;
-  /*font-weight: 600;*/
-  line-height: 38px;
-  letter-spacing: .1rem;
-  /*text-transform: uppercase; */
-  text-decoration: none;
-  white-space: nowrap;
-  background-color: transparent;
-  border-radius: 4px;
-  border: 1px solid #bbb;
+.button {
+  color: #2c3e50;
   cursor: pointer;
-  box-sizing: border-box; }
-.button:hover,
-button:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-.button:focus,
-button:focus,
-input[type="submit"]:focus,
-input[type="reset"]:focus,
-input[type="button"]:focus {
-  color: #333;
-  border-color: #888;
-  outline: 0; }
-.button.button-primary,
-button.button-primary,
-input[type="submit"].button-primary,
-input[type="reset"].button-primary,
-input[type="button"].button-primary {
-  color: #FFF;
-  background-color: #33C3F0;
-  border-color: #33C3F0; }
-.button.button-primary:hover,
-button.button-primary:hover,
-input[type="submit"].button-primary:hover,
-input[type="reset"].button-primary:hover,
-input[type="button"].button-primary:hover,
-.button.button-primary:focus,
-button.button-primary:focus,
-input[type="submit"].button-primary:focus,
-input[type="reset"].button-primary:focus,
-input[type="button"].button-primary:focus {
-  color: #FFF;
-  background-color: #1EAEDB;
-  border-color: #1EAEDB; }
+  
+  display: inline-block;
+  margin: 0.3em;
+  padding: 0.5em 1.5em;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  /*text-transform: uppercase;*/
+  border-radius: 3px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
+  border: none; 
+  text-align: center;
+}
 
+.button:hover {
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.5);
+  opacity: 0.5;
+}
+
+.no-shadow {
+  box-shadow: 0 0 0;
+
+  margin: 0.3em;
+  padding: 0.5em 1.5em;
+}
+
+.no-shadow:hover {
+  box-shadow: 0 0 0;
+}
+
+.ripple {
+  position: absolute;
+  background: rgba(0,0,0,.25);
+  border-radius: 100%;
+  transform: scale(0.2);
+  opacity:0;
+  pointer-events: none;
+  -webkit-animation: ripple .75s ease-out;
+  -moz-animation: ripple .75s ease-out;
+  animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+  from {
+    opacity:1;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes ripple {
+  from {
+    opacity:1;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity:1;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+nav > .button {
+  padding: 10px;
+  margin: 0;
+}
 
 </style>

@@ -19,9 +19,9 @@
         <div id="padding-between-title-and-article"></div>
         <div id="article-content" v-html="article"></div>
         <div id="share-buttons">
-          <button class="copy-btn" :data-clipboard-text="address">{{copyBtnMsg}}</button>
+          <div class="copy-btn button" :data-clipboard-text="address">{{copyBtnMsg}}</div>
           &nbsp;
-          <router-link to="/blog/"><button>Article List</button></router-link>
+          <router-link to="/blog/"><div class="button">Article List</div></router-link>
         </div>
       </article>
       <div id="adjacent-articles">
@@ -461,8 +461,10 @@ article {
 }
 
 .button-clicked {
+  /*
   color: #fff;
   background-color: #2c3e50;
+  */
 }
 
 #adjacent-articles {
