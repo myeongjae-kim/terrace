@@ -1,6 +1,6 @@
 # [웹] Single Page App의 Search Engine Optimization과 VueJS
 
-한 줄 요약: HTML5의 pushState를 통해 URI의 #을 없앤 뒤 Prerendering을 통해서 자바스크립트가 없어도 웹사이트가 작동하면 됩니다.
+한 줄 요약: HTML5 History API를 통해 URI의 #을 없앤 뒤 Prerendering을 통해서 자바스크립트가 없어도 웹사이트가 작동하면 됩니다.
 
 ### 웹사이트를 만들어 놓았는데 왜 긁어가지를 못하니......
 
