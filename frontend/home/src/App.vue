@@ -149,7 +149,7 @@ code {
 
 @media screen and (max-width: 600px) {
   #app {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
 
@@ -174,6 +174,12 @@ code {
 
 nav {
   padding: 9px 0;
+}
+
+@media screen and (max-width: 600px) {
+  nav {
+    padding: 0 0 12px 0;
+  }
 }
 
 nav > a {
