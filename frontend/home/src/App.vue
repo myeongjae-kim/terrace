@@ -179,7 +179,7 @@ nav {
 nav > a {
   padding: 10px;
   text-decoration: none;
-  background: #fff;
+  /*background: #fff;*/
   border-radius: 3x;
   color: #2c3e50;
 }
