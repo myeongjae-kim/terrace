@@ -25,7 +25,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			// Redirect to 404 page
 			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprint(w, "<head><meta http-equiv='refresh' content='0;url=/#/404'/></head>")
+			fmt.Fprint(w, "<head><meta http-equiv='refresh' content='0;url=/404/'/></head>")
 			log.Println("(rootHandler) ", err)
 			return
 		}
