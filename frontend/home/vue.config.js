@@ -32,7 +32,7 @@ const productionPlugins = [
   "/blog/2017/07/19/vimlinux-11-nerd-commenter-주석-단축키-플러그인",
   "/blog/2017/07/20/vimlinux-12-고요goyo-방해금지-모드-플러그인",
   "/blog/2017/07/20/vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인",
-  "/blog/2017/10/17/rob-pike의-프로그래밍-규칙-5가지",
+  "/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지",
   "/blog/2018/09/18/블로깅-시스템을-만들었습니다",
   "/blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs",
   "/",
