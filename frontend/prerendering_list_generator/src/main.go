@@ -28,9 +28,9 @@ func main() {
 	}
 
 	// The created json will be injected to Blog.vue file.
-	injectToVueConfig(s)
-
 	prettyS, _ := prettyprint(s)
+
+	injectToVueConfig(prettyS)
 
 	fmt.Println(string(prettyS))
 	log.Println("List of pages which have to be pre-rendered is saved to vue.config.js")

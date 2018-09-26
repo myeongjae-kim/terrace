@@ -118,6 +118,10 @@ pre {
   background: #fafafa !important;
   padding: 20px;
   line-height: 1.3em;
+
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 10px #ccc;
 }
 
 pre > code {
@@ -270,7 +274,7 @@ blockquote{
   opacity: 0.8;
 
   display:block;
-  background: #f9f9f9;
+  background: #fafafa;
   padding: 15px 20px 15px 20px;
   margin: 0 0 20px;
   position: relative;
@@ -333,6 +337,9 @@ strong {
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+
+  -moz-box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
   box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
   border: none; 
   text-align: center;
@@ -340,11 +347,15 @@ strong {
 
 .mat-button:hover {
   box-shadow: 0px 2px 8px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 2px 8px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 2px 8px rgba(0,0,0,0.5);
   opacity: 0.5;
 }
 
 .no-shadow {
   box-shadow: 0 0 0;
+  -moz-box-shadow: 0 0 0;
+  -webkit-box-shadow: 0 0 0;
 
   margin: 0.3em;
   padding: 0.5em 1.5em;
@@ -352,6 +363,8 @@ strong {
 
 .no-shadow:hover {
   box-shadow: 0 0 0;
+  -moz-box-shadow: 0 0 0;
+  -webkit-box-shadow: 0 0 0;
 }
 
 .ripple {
@@ -462,7 +475,10 @@ input[type="button"].button-primary:focus {
   background-color: #1EAEDB;
   border-color: #1EAEDB; }
 
-
-
+button, .button {
+  box-shadow: 2px 2px 12px #ccc;
+  -moz-box-shadow: 2px 2px 12px #ccc;
+  -webkit-box-shadow: 2px 2px 12px #ccc;
+}
 
 </style>
