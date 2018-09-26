@@ -21,7 +21,7 @@ var disqus_url        = "https://blog.myeongjae.kim/2018/09/23/single-page-app�
 <li>클라이언트와 실시간으로 상호작용을 해야 할 때 (e.g.&nbsp;채팅 서버, 트레이딩 서버 등)</li>
 <li>페이지가 많을 때 (= Prerendering이 너무 오래 걸릴 때)</li>
 </ol>
-<p>제 웹사이트는 3가지 모두 해당되지 않습니다. 모든 사용자에게 같은 컨텐츠를 보여주고, 클라이언트와 상호작용 하지 않고, 페이지가 100개도 되지 않습니다. 게다가 AWS S3를 서버로 사용하기 때문에 SSR을 적용할 수도 없습니다.</p>
+<p>제 웹사이트는 3가지 모두 해당하지 않습니다. 모든 사용자에게 같은 컨텐츠를 보여주고, 클라이언트와 상호작용 하지 않고, 페이지가 100개도 되지 않습니다. 게다가 AWS S3를 서버로 사용하기 때문에 SSR을 적용할 수도 없습니다.</p>
 <p>Prerendering은 웹사이트를 빌드할 때 지정한 특정 페이지를 미리 렌더링해서 저장하는 기술입니다. Headless Chrome<sup>2</sup>같은 브라우저로 렌더링합니다. SSR보다 구현하기 쉽고, 빌딩 타임에 렌더링하기 때문에 런타임에 추가로 필요한 연산이 없습니다. 대신에 빌딩 시간이 늘어납니다<sup>3</sup>.</p>
 <h3 id="prerendering을-적용하기-전에-알아야-할-것">Prerendering을 적용하기 전에 알아야 할 것</h3>
 <p>SPA를 구현하는 방법은 두 가지가 있습니다. 첫 번째는 #뒤에 오는 URI를 자바스크립트에서 읽어 라우팅하는 것이고, 두번째는 HTML5 History API를 사용하는 것입니다. 두 번째 방법의 경우 URI에 #을 포함하지 않습니다.</p>
@@ -34,7 +34,7 @@ var disqus_url        = "https://blog.myeongjae.kim/2018/09/23/single-page-app�
 })</code></pre>
 <p>이렇게해서 URI의 #을 없애면 prerendering이 제대로 작동합니다.</p>
 <h3 id="prerender-spa-plugin">prerender-spa-plugin</h3>
-<p>이 플러그인은 vuejs의 개발자들이 만든 플러그인입니다. <code class="hljs">webpack.config.js</code>에 설정을 추가하면 빌드하면서 지정한 페이지를 렌더링해 저장합니다. 다음과 같이 플러그인을 설치합니다.</p>
+<p>이 플러그인은 vuejs 개발자들이 만들었습니다. <code class="hljs">webpack.config.js</code>에 설정을 추가하면 빌드하면서 지정한 페이지를 렌더링해 저장합니다. 다음과 같이 플러그인을 설치합니다.</p>
 <pre class="bash"><code class="hljs">npm install --save-dev prerender-spa-plugin</code></pre>
 <p>저는 Vue CLI 3.0을 사용하기 때문에 직접 <code class="hljs">webpack.config.js</code>를 조작하지 않고 <code class="hljs">vue.config.js</code>에 다음과 같이 설정했습니다<sup>6</sup>.</p>
 <pre class="javascript"><code class="hljs bash">/* vue.config.js */
