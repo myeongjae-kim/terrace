@@ -55,14 +55,15 @@ export default {
     function materializeButton (e) {
         var target = e.target;
         var rect = target.getBoundingClientRect();
-        var ripple = target.querySelector('.ripple');
-        if(ripple !== null) {
-          ripple.parentNode.removeChild(ripple);
-        }
-        ripple = document.createElement('span');
+        var ripple = document.createElement('span');
         ripple.className = 'ripple';
         ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px';
         target.appendChild(ripple);
+
+        setTimeout(function(){
+          ripple.parentNode.removeChild(ripple);
+        }, 2000);
+
         var top = e.pageY - rect.top - ripple.offsetHeight / 2 -  document.body.scrollTop;
         var left = e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft;
         ripple.style.top = top + 'px';
@@ -369,7 +370,8 @@ strong {
 
 .ripple {
   position: absolute;
-  background: rgba(0,0,0,.25);
+  background: rgba(48,115,179,.5);
+  /*background: rgba(0,0,0,.25);*/
   border-radius: 100%;
   transform: scale(0.2);
   opacity:0;
@@ -476,9 +478,9 @@ input[type="button"].button-primary:focus {
   border-color: #1EAEDB; }
 
 button, .button {
-  box-shadow: 2px 2px 12px #ccc;
-  -moz-box-shadow: 2px 2px 12px #ccc;
-  -webkit-box-shadow: 2px 2px 12px #ccc;
+  box-shadow: 2px 2px 3px #ddd;
+  -moz-box-shadow: 2px 2px 3px #ddd;
+  -webkit-box-shadow: 2px 2px 3px #ddd;
 }
 
 </style>
