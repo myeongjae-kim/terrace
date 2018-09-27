@@ -120,8 +120,8 @@ pre {
   padding: 20px;
   line-height: 1.3em;
 
-  -moz-box-shadow: 2px 2px 15px #ccc;
-  -webkit-box-shadow: 2px 2px 15px #ccc;
+  -moz-box-shadow: 2px 2px 10px #ccc;
+  -webkit-box-shadow: 2px 2px 10px #ccc;
   box-shadow: 2px 2px 10px #ccc;
 }
 
@@ -196,6 +196,7 @@ nav > a {
 }
 nav > a:hover {
   color: #808080;
+
 }
 
 a.router-link-exact-active, a.router-link-exact-active:hover{
@@ -481,6 +482,17 @@ button, .button {
   box-shadow: 2px 2px 3px #ddd;
   -moz-box-shadow: 2px 2px 3px #ddd;
   -webkit-box-shadow: 2px 2px 3px #ddd;
+}
+
+.center {
+  display: block;
+  margin: auto;
+}
+
+.shadow {
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
 }
 
 </style>
