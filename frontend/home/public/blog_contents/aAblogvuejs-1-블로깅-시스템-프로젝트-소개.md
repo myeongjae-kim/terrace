@@ -7,14 +7,23 @@
 
 https://www.realista.com/es/listings/belaire-off-plan-luxury-penthouse-estepona-r5196/
 
+서버에서 프론트엔드까지 모두 건드려보는 프로젝트.
+
 시스템 작동 순서도
 
 쓰인 언어
+
 html, css, javascript, golang
 
 프레임워크
+
 프론트: VueJS
+
 서버: golang http package
+
+#### 경량화
+
+300KB도 안됨.
 
 VueJS 소개
 <iframe class="center shadow" width="560" height="315" src="https://www.youtube.com/embed/TRJMT9yjONQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -33,6 +42,7 @@ What can I learn?
 - SPA(Single Page App)
 - SEO(Search Engine Optimization)
 - DFS(Depth First Search)
+- CI/CD
 - AWS
   - EC2
   - S3
@@ -45,5 +55,6 @@ What can I learn?
 Where do I have to start on?
 
 - html, css, javacsript on 생활코딩
+- POSIX CLI https://opentutorials.org/module/3747
 - VueJS 2.0 in 60 minutes
 - VueJS Tutorial
