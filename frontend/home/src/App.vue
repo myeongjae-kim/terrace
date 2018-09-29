@@ -104,6 +104,10 @@ table tr:nth-child(2n) {
 
 img {
   max-width:100%;
+
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
 }
 
 
@@ -303,7 +307,10 @@ sup {
 }
 
 .footnote {
-  font-size: 0.9em;
+  font-size: 0.8em;
+  opacity: 0.9;
+  margin-top:-1.6em;
+  margin-left:1em;
 }
 
 hr {
@@ -314,6 +321,7 @@ hr {
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
   
   /*background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));*/
+  opacity:0.7;
 }
 
 strong {

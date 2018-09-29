@@ -6,7 +6,7 @@ Go는 2009년 구글에서 만든 언어인데 최근 점유율이 급성장했�
 
 이 언어는 켄 톰슨(데니스 리치와 유닉스를 만들고 C를 만든 그 켄 톰슨), 롭 파이크, 로버트 그리즈머 세 명이 주축이 되어서 만들습니다(존잘님들…). 아래는 제가 만든 [Go언어 소개 PDF](https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/view?usp=sharing)입니다.
 
-<iframe src="https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/preview" width="100%" height="460px" border=0></iframe>
+<iframe class="shadow" src="https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/preview" width="100%" height="460px" border=0></iframe>
 
 이전 글에서 deoplete와 clang_complete를 설치해서 C언어에서 코드 자동완성 기능을 추가했습니다. 마찬가지로 deoplete_go와 vim-go를 설치하면 Go언어에서 코드 자동완성 기능을 누릴 수 있습니다.
 

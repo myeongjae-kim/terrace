@@ -24,6 +24,7 @@
           <router-link to="/blog/"><button>Article List</button></router-link>
         </div>
       </article>
+      <hr>
       <div id="adjacent-articles">
         <div id="next-article" v-if="currentArticleIdx > 0">
           <h4>Next Article</h4>
