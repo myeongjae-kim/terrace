@@ -43,6 +43,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'About'
+}
+</script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #profileImage {
@@ -113,6 +119,10 @@ footer {
   float: right;
   width: 70px;
   margin-top: -40px;
+}
+
+.baejjang:hover {
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 420px) {
