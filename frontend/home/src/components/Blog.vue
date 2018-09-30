@@ -158,7 +158,7 @@ export default {
       if(isClassAdded) return;
 
       // Add ' router-link-exact-active' to the class attribute.
-      if(el.getAttribute('href') == "#/blog") {
+      if(el.getAttribute('href') == "/blog/") {
         el.setAttribute(
           'class',
           el.getAttribute('class') + ' router-link-exact-active'
