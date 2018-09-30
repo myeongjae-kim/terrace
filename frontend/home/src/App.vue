@@ -124,9 +124,9 @@ pre {
   padding: 20px;
   line-height: 1.3em;
 
-  -moz-box-shadow: 2px 2px 10px #ccc;
-  -webkit-box-shadow: 2px 2px 10px #ccc;
-  box-shadow: 2px 2px 10px #ccc;
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
 }
 
 pre > code {
