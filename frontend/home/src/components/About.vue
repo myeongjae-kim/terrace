@@ -132,7 +132,7 @@ footer {
   }
 }
 
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 350px) {
   .baejjang {
     display: none;
   }
