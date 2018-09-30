@@ -111,8 +111,8 @@ footer {
   -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
 
   float: right;
-  width: 80px;
-  margin-top: -50px;
+  width: 70px;
+  margin-top: -40px;
 }
 
 @media screen and (max-width: 420px) {
