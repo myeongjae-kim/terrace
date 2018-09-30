@@ -30,18 +30,18 @@
     </div>
 
     <footer id="footer">
+
+    <img class="baejjang" src="https://cdn.myeongjae.kim/res/baejjang.gif" style="float: left; opacity:0;">
+
       If you like my website, you can copy it from
         <a href="https://github.com/hrzon/terrace">here</a>.
+
+    <a href="https://www.woowahan.com/"><img class="baejjang" src="https://cdn.myeongjae.kim/res/baejjang.gif" border="0"></a>
+
     </footer>
 
   </div>
 </template>
-
-<script>
-export default {
-  name: 'About'
-}
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -103,6 +103,29 @@ footer {
   height:30px;
   width:100%;
   background:#FFF;
+}
+
+.baejjang {
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
+  -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+
+  float: right;
+  width: 80px;
+  margin-top: -50px;
+}
+
+@media screen and (max-width: 420px) {
+  .baejjang {
+    width: 50px;
+    margin-top: -20px;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .baejjang {
+    display: none;
+  }
 }
 
 </style>

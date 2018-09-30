@@ -35,6 +35,7 @@ const productionPlugins = [
   "/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지",
   "/blog/2018/09/18/블로깅-시스템을-만들었습니다",
   "/blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs",
+  "/blog/2018/09/29/test",
   "/",
   "/blog",
   "/musings",

@@ -1,4 +1,4 @@
-# [기술] Rob pike의 프로그래밍 규칙 5가지
+# [기술] Rob Pike의 프로그래밍 규칙 5가지
 
 > ## Rob Pike’s 5 Rules of Programming
 >
