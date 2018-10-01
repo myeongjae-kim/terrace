@@ -63,7 +63,7 @@ export default {
       };
 
       img.src = "https://cdn.myeongjae.kim/res/baedal_move.png";
-      })();
+    })();
   }
 }
 </script>
