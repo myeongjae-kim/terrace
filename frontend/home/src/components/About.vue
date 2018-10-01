@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <img class="shadow" id="profileImage" alt="dev@myeongjae.kim from gravatar.com" src="https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px">
+    <img class="baedal_move" src="https://cdn.myeongjae.kim/res/baedal_move.png">
     <h1><span id="name-eng">Myeongjae Kim</span><span id="name-kor">(김명재)</span></h1>
     <div id="personal-info">
       <div class="record">
@@ -9,7 +10,7 @@
       </div>
       <div class="record">
         <div class="icon"><font-awesome-icon icon="map-marker-alt" /></div>
-        <div class="text"><a href="/#/places">Seoul, Korea</a></div>
+        <div class="text"><router-link to="/places/">Seoul, Korea</router-link></div>
       </div>
       <div class="record">
         <div class="icon"><font-awesome-icon icon="user-tie" /></div>
@@ -136,6 +137,15 @@ footer {
   .baedal {
     display: none;
   }
+}
+
+.baedal_move {
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
+  -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+
+  width:200px;
+  margin-left:-200px;
 }
 
 </style>
