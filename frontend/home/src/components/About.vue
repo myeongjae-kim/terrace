@@ -1,7 +1,10 @@
 <template>
   <div class="about">
     <img class="shadow" id="profileImage" alt="dev@myeongjae.kim from gravatar.com" src="https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px">
-    <img id="baedal-move">
+
+    <!-- display:none is for firefox. After the image is loaded, change none to initial -->
+    <img id="baedal-move" style="display:none">
+
     <h1><span id="name-eng">Myeongjae Kim</span><span id="name-kor">(김명재)</span></h1>
     <div id="personal-info">
       <div class="record">
@@ -50,14 +53,17 @@ export default {
   mounted: function() {
     // Load moving baedalee asynchronously to show
     // perfect animation
-    let img = new Image();
-    let tag = document.getElementById("baedal-move");
+    (function() {
+      let img = new Image();
+      let tag = document.getElementById("baedal-move");
 
-    img.onload = function() {
-        tag.src = img.src;
-    };
+      img.onload = function() {
+          tag.src = img.src;
+          tag.style.display = "initial";
+      };
 
-    img.src = "https://cdn.myeongjae.kim/res/baedal_move.png"
+      img.src = "https://cdn.myeongjae.kim/res/baedal_move.png";
+      })();
   }
 }
 </script>
