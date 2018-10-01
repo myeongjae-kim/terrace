@@ -146,6 +146,7 @@ footer {
 
   width:200px;
   margin-left:-200px;
+  border-radius: 5%;
 }
 
 </style>
