@@ -76,7 +76,7 @@ export default {
     // Loading Webfonts
     // Below codes are from https://mytory.net/2016/06/15/webfont-best-practice.html
     loadWebFonts: function() {
-      (function(){
+      (async () => {
         "use strict";
         // 스매싱 매거진의 '지연된 웹폰트 불러오기' javascript를 안형우가 수정한 것.
         // https://gist.github.com/hdragomir/8f00ce2581795fd7b1b7

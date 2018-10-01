@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <img class="shadow" id="profileImage" alt="dev@myeongjae.kim from gravatar.com" src="https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400" width="200px" height="200px">
+    <img class="shadow" id="profileImage" alt="dev@myeongjae.kim from gravatar.com" width="200px" height="200px">
 
     <!-- display:none is for firefox. After the image is loaded, change none to initial -->
     <img id="baedal-move" style="display:none">
@@ -51,9 +51,22 @@
 export default {
   name: 'About',
   mounted: function() {
+    // Load profile image asynchronously
+    (async () => {
+      let img = new Image();
+      let tag = document.getElementById("profileImage");
+
+      img.onload = function() {
+          tag.src = img.src;
+      };
+
+      img.src = "https://cdn.myeongjae.kim/res/profile.jpeg";
+      //img.src = "https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400";
+    })();
+
     // Load moving baedalee asynchronously to show
     // perfect animation
-    (function() {
+    (async () => {
       let img = new Image();
       let tag = document.getElementById("baedal-move");
 
