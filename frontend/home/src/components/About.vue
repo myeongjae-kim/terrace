@@ -31,12 +31,12 @@
 
     <footer id="footer">
 
-    <img class="baejjang" src="https://cdn.myeongjae.kim/res/baejjang.gif" style="float: left; opacity:0;">
+    <img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" style="float: left; opacity:0;">
 
       If you like my website, you can copy it from
         <a href="https://github.com/hrzon/terrace">here</a>.
 
-    <a href="https://www.woowahan.com/"><img class="baejjang" src="https://cdn.myeongjae.kim/res/baejjang.gif" border="0"></a>
+    <a href="https://www.woowahan.com/"><img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" border="0"></a>
 
     </footer>
 
@@ -111,7 +111,7 @@ footer {
   background:#FFF;
 }
 
-.baejjang {
+.baedal {
   box-shadow: 0 0 0 rgba(0,0,0,0);
   -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
   -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
@@ -121,19 +121,19 @@ footer {
   margin-top: -40px;
 }
 
-.baejjang:hover {
+.baedal:hover {
   opacity: 0.5;
 }
 
 @media screen and (max-width: 420px) {
-  .baejjang {
+  .baedal {
     width: 50px;
     margin-top: -20px;
   }
 }
 
 @media screen and (max-width: 350px) {
-  .baejjang {
+  .baedal {
     display: none;
   }
 }
