@@ -35,12 +35,16 @@
 
     <footer id="footer">
 
+    <!--
     <img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" style="float: left; opacity:0;">
+    -->
 
       If you like my website, you can copy it from
         <a href="https://github.com/hrzon/terrace">here</a>.
 
+    <!--
     <a href="https://www.woowahan.com/"><img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" border="0"></a>
+    -->
 
     </footer>
 
