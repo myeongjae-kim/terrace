@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-126240406-1"></script><script>window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인 :: Myeongjae Kim</title><link href="/css/chunk-091b.4c4e29c3.css" rel="prefetch"><link href="/css/chunk-1aae.e6a1c6e7.css" rel="prefetch"><link href="/css/chunk-2bf5.ed8d1493.css" rel="prefetch"><link href="/js/chunk-091b.af146538.js" rel="prefetch"><link href="/js/chunk-1aae.84cb65f7.js" rel="prefetch"><link href="/js/chunk-2bf5.b267a1c2.js" rel="prefetch"><link href="/css/app.21b57aeb.css" rel="preload" as="style"><link href="/css/chunk-vendors.6e34975c.css" rel="preload" as="style"><link href="/js/app.17fe6dc5.js" rel="preload" as="script"><link href="/js/chunk-vendors.2cc6f353.js" rel="preload" as="script"><link href="/css/chunk-vendors.6e34975c.css" rel="stylesheet"><link href="/css/app.21b57aeb.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인 :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-055a2829="" id="blog"><div data-v-055a2829="" id="blog-contents"><article data-v-055a2829=""><div data-v-055a2829="" class="inner-title-container"><h1 data-v-055a2829=""><a data-v-055a2829="" href="https://blog.myeongjae.kim/2017/07/20/vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인" id="inner-title">[vim/Linux] 13. vim-go와 deoplete-go, Go언어를 위한 플러그인</a></h1><p data-v-055a2829="" class="meta">2017 / 07 / 20</p></div><div data-v-055a2829="" id="padding-between-title-and-article"></div><div data-v-055a2829="" id="article-content"><h1 id="vimlinux-13.-vim-go와-deoplete-go-go언어를-위한-플러그인" style="display: none;">[vim/Linux] 13. vim-go와 deoplete-go, Go언어를 위한 플러그인</h1>
+<p>Go는 2009년 구글에서 만든 언어인데 최근 점유율이 급성장했습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.47.00-PM.png" alt="https://www.tiobe.com/tiobe-index, 작년에 비해 45단계나 올랐습니다."><figcaption>https://www.tiobe.com/tiobe-index, 작년에 비해 45단계나 올랐습니다.</figcaption>
+</figure>
+<p>이 언어는 켄 톰슨(데니스 리치와 유닉스를 만들고 C를 만든 그 켄 톰슨), 롭 파이크, 로버트 그리즈머 세 명이 주축이 되어서 만들습니다(존잘님들…). 아래는 제가 만든 <a href="https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/view?usp=sharing">Go언어 소개 PDF</a>입니다.</p>
+<iframe class="shadow" src="https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/preview" width="100%" height="460px" border="0">
+</iframe>
+<p>이전 글에서 deoplete와 clang_complete를 설치해서 C언어에서 코드 자동완성 기능을 추가했습니다. 마찬가지로 deoplete_go와 vim-go를 설치하면 Go언어에서 코드 자동완성 기능을 누릴 수 있습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.46.12-PM.png" alt="fmt 패키지의 함수들입니다."><figcaption>fmt 패키지의 함수들입니다.</figcaption>
+</figure>
+<p>Go를 설치하고 <code class="bash hljs">.vimrc</code>에 <code class="vim hljs">Plugin <span class="hljs-string">'fatih/vim-go'</span></code> 와 <code class="vim hljs">Plugin <span class="hljs-string">'zchee/deoplete-go'</span></code> 를 추가하고 <code class="vim hljs">:PluginInstall</code> 을 합시다. 이후에 <code class="vim hljs">:GoInstallBinaries</code> 을 입력해서 Go관련 실행 파일들을 받습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.32.36-PM.png" alt="Go와 관련된 Binary file들을 받는 중"><figcaption>Go와 관련된 Binary file들을 받는 중</figcaption>
+</figure>
+<p><code class="bash hljs">.vimrc</code>에 다음과 같이 추가합니다.</p>
+<pre class="vim"><code class="hljs"><span class="hljs-comment">" Basic Settings</span>
+<span class="hljs-keyword">colorscheme</span> CodeSchool3
+<span class="hljs-keyword">set</span> termguicolors
+<span class="hljs-keyword">syntax</span> <span class="hljs-keyword">on</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span>
+<span class="hljs-keyword">set</span> relativenumber
+<span class="hljs-keyword">set</span> hlsearch
+<span class="hljs-keyword">set</span> ignorecase
+<span class="hljs-keyword">set</span> tabstop=<span class="hljs-number">2</span>
+<span class="hljs-keyword">set</span> softtabstop=<span class="hljs-number">2</span>
+<span class="hljs-keyword">set</span> <span class="hljs-built_in">shiftwidth</span>=<span class="hljs-number">2</span>
+<span class="hljs-keyword">set</span> expandtab
+<span class="hljs-keyword">autocmd</span> FileType <span class="hljs-keyword">make</span> <span class="hljs-keyword">setlocal</span> noexpandtab
+<span class="hljs-keyword">set</span> scrolloff=<span class="hljs-number">999</span>
+<span class="hljs-keyword">autocmd</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">setlocal</span> noexpandtab</code></pre>
+<p>Google은 indent를 두 칸으로 사용하므로, tabsize를 2로 바꿔줍니다. 그리고 Go는 indent를 space가 아니라 tab을 쓰는 것이 표준입니다(<code class="vim hljs">noexpandtab</code>).</p>
+<p>아래 설정도 <code class="hljs">.vimrc</code>에 추가하는데, vim-go를 편하게 사용하기 위한 단축키들입니다.</p>
+<pre class="vim"><code class="hljs"><span class="hljs-comment">" Go commands</span>
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gi <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-info)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gd <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-doc)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span><span class="hljs-keyword">gr</span> <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-run)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gb <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-build)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gt :<span class="hljs-keyword">w</span><span class="hljs-symbol">&lt;CR&gt;</span><span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-test)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> gd <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-def-<span class="hljs-keyword">tab</span>)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;leader&gt;</span>gm :GoImports<span class="hljs-symbol">&lt;CR&gt;</span></code></pre>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.46.12-PM.png" alt="fmt 패키지의 함수들입니다."><figcaption>fmt 패키지의 함수들입니다.</figcaption>
+</figure>
+<p>지금까지 설정한 <code class="hljs">.vimrc</code>는 다음과 같습니다.</p>
+<pre class="vim"><code class="hljs"><span class="hljs-comment">" Basic Settings</span>
+<span class="hljs-keyword">colorscheme</span> CodeSchool3
+<span class="hljs-keyword">set</span> termguicolors
+<span class="hljs-keyword">syntax</span> <span class="hljs-keyword">on</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span>
+<span class="hljs-keyword">set</span> relativenumber
+<span class="hljs-keyword">set</span> hlsearch
+<span class="hljs-keyword">set</span> ignorecase
+<span class="hljs-keyword">set</span> tabstop=<span class="hljs-number">2</span>
+<span class="hljs-keyword">set</span> softtabstop=<span class="hljs-number">2</span>
+<span class="hljs-keyword">set</span> <span class="hljs-built_in">shiftwidth</span>=<span class="hljs-number">2</span>
+<span class="hljs-keyword">set</span> expandtab
+<span class="hljs-keyword">autocmd</span> FileType <span class="hljs-keyword">make</span> <span class="hljs-keyword">setlocal</span> noexpandtab
+<span class="hljs-keyword">set</span> scrolloff=<span class="hljs-number">999</span>
+<span class="hljs-keyword">autocmd</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">setlocal</span> noexpandtab
+ 
+<span class="hljs-comment">" Key Settings</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;F2&gt;</span> :<span class="hljs-keyword">set</span> invpaste paste?<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">set</span> pastetoggle=<span class="hljs-symbol">&lt;F2&gt;</span>
+<span class="hljs-keyword">let</span> mapleader = <span class="hljs-string">","</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;leader&gt;</span>q :<span class="hljs-keyword">bp</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;leader&gt;</span><span class="hljs-keyword">w</span> :<span class="hljs-keyword">bn</span><span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-comment">" Key Setting - resize windows</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>= :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize +3"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>- :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize -3"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>] :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize +8"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>[ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize -8"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>+ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">3</span>/<span class="hljs-number">2</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>_ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">2</span>/<span class="hljs-number">3</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>} :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">3</span>/<span class="hljs-number">2</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>{ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">2</span>/<span class="hljs-number">3</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-comment">" Vundle</span>
+<span class="hljs-keyword">set</span> nocompatible              <span class="hljs-comment">" be iMproved, required</span>
+<span class="hljs-keyword">filetype</span> off                  <span class="hljs-comment">" required</span>
+ 
+<span class="hljs-comment">" set the runtime path to include Vundle and initialize</span>
+<span class="hljs-keyword">set</span> rtp+=~/.<span class="hljs-keyword">vim</span>/bundle/Vundle.<span class="hljs-keyword">vim</span>
+<span class="hljs-keyword">call</span> vundle#begin()
+<span class="hljs-comment">" alternatively, pass a path where Vundle should install plugins</span>
+<span class="hljs-comment">"call vundle#begin('~/some/path/here')</span>
+ 
+<span class="hljs-comment">" let Vundle manage Vundle, required</span>
+Plugin <span class="hljs-string">'VundleVim/Vundle.vim'</span>
+ 
+<span class="hljs-comment">" Keep Plugin commands between vundle#begin/end.</span>
+ 
+Plugin <span class="hljs-string">'vim-airline/vim-airline'</span>
+Plugin <span class="hljs-string">'vim-airline/vim-airline-themes'</span>
+Plugin <span class="hljs-string">'The-NERD-Tree'</span>
+Plugin <span class="hljs-string">'terryma/vim-multiple-cursors'</span>
+Plugin <span class="hljs-string">'terryma/vim-smooth-scroll'</span>
+Plugin <span class="hljs-string">'Raimondi/delimitMate'</span>
+Plugin <span class="hljs-string">'SirVer/ultisnips'</span>
+Plugin <span class="hljs-string">'honza/vim-snippets'</span>
+Plugin <span class="hljs-string">'Syntastic'</span>
+Plugin <span class="hljs-string">'Shougo/deoplete.nvim'</span>
+Plugin <span class="hljs-string">'Rip-Rip/clang_complete'</span>
+Plugin <span class="hljs-string">'scrooloose/nerdcommenter'</span>
+Plugin <span class="hljs-string">'junegunn/goyo.vim'</span>
+Plugin <span class="hljs-string">'fatih/vim-go'</span>
+Plugin <span class="hljs-string">'zchee/deoplete-go'</span>
+ 
+<span class="hljs-comment">" All of your Plugins must be added before the following line</span>
+<span class="hljs-keyword">call</span> vundle#end()            <span class="hljs-comment">" required</span>
+<span class="hljs-keyword">filetype</span> plugin <span class="hljs-built_in">indent</span> <span class="hljs-keyword">on</span>    <span class="hljs-comment">" required</span>
+<span class="hljs-comment">" To ignore plugin indent changes, instead use:</span>
+<span class="hljs-comment">"filetype plugin on</span>
+<span class="hljs-comment">"</span>
+<span class="hljs-comment">" Brief help</span>
+<span class="hljs-comment">" :PluginList       - lists configured plugins</span>
+<span class="hljs-comment">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span>
+<span class="hljs-comment">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</span>
+<span class="hljs-comment">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span>
+<span class="hljs-comment">"</span>
+<span class="hljs-comment">" see :h vundle for more details or wiki for FAQ</span>
+<span class="hljs-comment">" Put your non-Plugin stuff after this line</span>
+ 
+<span class="hljs-comment">" for vim-airline</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:airline</span>#extensions#tabline#enabled = <span class="hljs-number">1</span> <span class="hljs-comment">" turn on buffer list</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:airline_theme</span>=<span class="hljs-string">'hybrid'</span>
+<span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">2</span> <span class="hljs-comment">" turn on bottom bar</span>
+ 
+<span class="hljs-comment">" The-NERD-Tree</span>
+<span class="hljs-keyword">autocmd</span> BufEnter * <span class="hljs-keyword">lcd</span> %:<span class="hljs-keyword">p</span>:h
+<span class="hljs-keyword">autocmd</span> VimEnter * <span class="hljs-keyword">if</span> !argc() | NERDTree | <span class="hljs-keyword">endif</span>
+<span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;leader&gt;</span>ne :NERDTreeToggle<span class="hljs-symbol">&lt;cr&gt;</span>
+<span class="hljs-keyword">let</span> NERDTreeShowLineNumbers=<span class="hljs-number">1</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDTreeWinPos</span> = <span class="hljs-string">"right"</span>
+ 
+<span class="hljs-comment">" vim-multiple-cursor</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:multi_cursor_use_default_mapping</span>=<span class="hljs-number">0</span>
+<span class="hljs-comment">" Default mapping</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:multi_cursor_next_key</span>=<span class="hljs-string">'&lt;C-n&gt;'</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:multi_cursor_prev_key</span>=<span class="hljs-string">'&lt;C-p&gt;'</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:multi_cursor_skip_key</span>=<span class="hljs-string">'&lt;C-x&gt;'</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:multi_cursor_quit_key</span>=<span class="hljs-string">'&lt;Esc&gt;'</span>
+ 
+<span class="hljs-comment">" vim-smooth-scroll</span>
+<span class="hljs-keyword">noremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;c-b&gt;</span> :<span class="hljs-keyword">call</span> smooth_scroll#up(&amp;scroll*<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">noremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;c-f&gt;</span> :<span class="hljs-keyword">call</span> smooth_scroll#down(&amp;scroll*<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">5</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">noremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;c-u&gt;</span> :<span class="hljs-keyword">call</span> smooth_scroll#up(&amp;scroll, <span class="hljs-number">10</span>, <span class="hljs-number">3</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">noremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;c-d&gt;</span> :<span class="hljs-keyword">call</span> smooth_scroll#down(&amp;scroll, <span class="hljs-number">10</span>, <span class="hljs-number">3</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-comment">" delimitMate</span>
+<span class="hljs-keyword">let</span> delimitMate_expand_cr=<span class="hljs-number">1</span>
+ 
+<span class="hljs-comment">" UltiSnips</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:UltiSnipsExpandTrigger</span>=<span class="hljs-string">"&lt;tab&gt;"</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:UltiSnipsJumpForwardTrigger</span>=<span class="hljs-string">"&lt;tab&gt;"</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:UltiSnipsJumpBackwardTrigger</span>=<span class="hljs-string">"&lt;s-tab&gt;"</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:UltiSnipsEditSplit</span>=<span class="hljs-string">"vertical"</span>
+ 
+<span class="hljs-comment">" Syntastic</span>
+<span class="hljs-keyword">set</span> statusline+=%#warningmsg#
+<span class="hljs-keyword">set</span> statusline+=%{SyntasticStatuslineFlag()}
+<span class="hljs-keyword">set</span> statusline+=%*
+ 
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_always_populate_loc_list</span> = <span class="hljs-number">1</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_auto_loc_list</span> = <span class="hljs-number">1</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_check_on_open</span> = <span class="hljs-number">1</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_check_on_wq</span> = <span class="hljs-number">0</span>
+ 
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_cpp_compiler</span> = <span class="hljs-string">'g++'</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_cpp_compiler_options</span> = <span class="hljs-string">"-std=c++11 -Wall -Wextra -Wpedantic"</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:syntastic_c_compiler_options</span> = <span class="hljs-string">"-std=c11 -Wall -Wextra -Wpedantic"</span>
+ 
+<span class="hljs-comment">" Deoplete.</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:deoplete</span>#enable_at_startup = <span class="hljs-number">1</span>
+ 
+<span class="hljs-comment">" clang_complete</span>
+<span class="hljs-keyword">set</span> completeopt-=preview
+ 
+<span class="hljs-comment">" NERD Commenter</span>
+<span class="hljs-comment">" Add spaces after comment delimiters by default</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDSpaceDelims</span> = <span class="hljs-number">1</span>
+<span class="hljs-comment">" Use compact syntax for prettified multi-line comments</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDCompactSexyComs</span> = <span class="hljs-number">1</span>
+<span class="hljs-comment">" Align line-wise comment delimiters flush left instead of following code indentation</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDDefaultAlign</span> = <span class="hljs-string">'left'</span>
+<span class="hljs-comment">" Set a language to use its alternate delimiters by default</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDAltDelims_java</span> = <span class="hljs-number">1</span>
+<span class="hljs-comment">" Add your own custom formats or override the defaults</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDCustomDelimiters</span> = { <span class="hljs-string">'c'</span>: { <span class="hljs-string">'left'</span>: <span class="hljs-string">'/**'</span>,<span class="hljs-string">'right'</span>: <span class="hljs-string">'*/'</span> } }
+<span class="hljs-comment">" Allow commenting and inverting empty lines (useful when commenting a region)</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDCommentEmptyLines</span> = <span class="hljs-number">1</span>
+<span class="hljs-comment">" Enable trimming of trailing whitespace when uncommenting</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:NERDTrimTrailingWhitespace</span> = <span class="hljs-number">1</span>
+<span class="hljs-comment">" customize keymapping</span>
+<span class="hljs-keyword">map</span> <span class="hljs-symbol">&lt;Leader&gt;</span><span class="hljs-keyword">cc</span> <span class="hljs-symbol">&lt;plug&gt;</span>NERDComToggleComment
+<span class="hljs-keyword">map</span> <span class="hljs-symbol">&lt;Leader&gt;</span><span class="hljs-keyword">c</span><span class="hljs-symbol">&lt;space&gt;</span> <span class="hljs-symbol">&lt;plug&gt;</span>NERDComComment
+ 
+<span class="hljs-comment">" Goyo</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;F4&gt;</span> :Goyo <span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>! <span class="hljs-title">s</span>:<span class="hljs-title">goyo_enter</span><span class="hljs-params">()</span></span>
+  <span class="hljs-keyword">set</span> noshowmode
+  <span class="hljs-keyword">set</span> noshowcmd
+  <span class="hljs-keyword">set</span> scrolloff=<span class="hljs-number">999</span>
+  <span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span>
+  <span class="hljs-keyword">set</span> rnu
+  <span class="hljs-comment">" ...</span>
+<span class="hljs-keyword">endfunction</span>
+ 
+<span class="hljs-function"><span class="hljs-keyword">function</span>! <span class="hljs-title">s</span>:<span class="hljs-title">goyo_leave</span><span class="hljs-params">()</span></span>
+  <span class="hljs-keyword">set</span> showmode
+  <span class="hljs-keyword">set</span> showcmd
+  <span class="hljs-keyword">set</span> scrolloff=<span class="hljs-number">999</span>
+  <span class="hljs-comment">" ...</span>
+<span class="hljs-keyword">endfunction</span>
+ 
+autocmd! User GoyoEnter nested <span class="hljs-keyword">call</span> <span class="hljs-symbol">&lt;SID&gt;</span>goyo_enter()
+autocmd! User GoyoLeave nested <span class="hljs-keyword">call</span> <span class="hljs-symbol">&lt;SID&gt;</span>goyo_leave()
+ 
+<span class="hljs-comment">" Go commands</span>
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gi <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-info)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gd <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-doc)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span><span class="hljs-keyword">gr</span> <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-run)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gb <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-build)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;Leader&gt;</span>gt :<span class="hljs-keyword">w</span><span class="hljs-symbol">&lt;CR&gt;</span><span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-test)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> gd <span class="hljs-symbol">&lt;Plug&gt;</span>(<span class="hljs-keyword">go</span>-def-<span class="hljs-keyword">tab</span>)
+<span class="hljs-keyword">au</span> FileType <span class="hljs-keyword">go</span> <span class="hljs-keyword">nmap</span> <span class="hljs-symbol">&lt;leader&gt;</span>gm :GoImports<span class="hljs-symbol">&lt;CR&gt;</span></code></pre>
+<h2 id="reference">Reference</h2>
+<p>vim-go: <a href="https://github.com/fatih/vim-go">github.com/fatih/vim-go</a></p>
+<p>deoplete-go: <a href="https://github.com/zchee/deoplete-go">github.com/zchee/deoplete-go</a></p>
+</div></article><hr data-v-055a2829=""><div data-v-055a2829="" id="adjacent-articles"><div data-v-055a2829="" id="next-article"><h4 data-v-055a2829="">Next Article</h4><p data-v-055a2829=""><a data-v-055a2829="" href="/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/" class="">[기술] Rob Pike의 프로그래밍 규칙 5가지</a></p></div><div data-v-055a2829="" id="prev-article"><h4 data-v-055a2829="">Previous Article</h4><p data-v-055a2829=""><a data-v-055a2829="" href="/blog/2017/07/20/vimlinux-12-고요goyo-방해금지-모드-플러그인/" class="">[vim/Linux] 12. 고요(Goyo), 방해금지 모드 플러그인</a></p></div></div><hr data-v-055a2829="" style="margin-top: 28px;"><div data-v-055a2829="" id="share-buttons"><button data-v-055a2829="" data-clipboard-text="https://blog.myeongjae.kim/2017/07/20/vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인" class="copy-btn">Copy Link</button>
+      &nbsp;
+      <a data-v-055a2829="" href="/blog/" class="router-link-active"><button data-v-055a2829="">Article List</button></a></div><div data-v-055a2829="" id="utterances-container"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=hrzon%2Fterrace_comments&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=&amp;url=http%3A%2F%2Flocalhost%3A8000%2Fblog%2F2017%2F07%2F20%2Fvimlinux-13-vim-go%25EC%2599%2580-deoplete-go-go%25EC%2596%25B8%25EC%2596%25B4%25EB%25A5%25BC-%25EC%259C%2584%25ED%2595%259C-%25ED%2594%258C%25EB%259F%25AC%25EA%25B7%25B8%25EC%259D%25B8&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=blog%2F2017%2F07%2F20%2Fvimlinux-13-vim-go%25EC%2599%2580-deoplete-go-go%25EC%2596%25B8%25EC%2596%25B4%25EB%25A5%25BC-%25EC%259C%2584%25ED%2595%259C-%25ED%2594%258C%25EB%259F%25AC%25EA%25B7%25B8%25EC%259D%25B8&amp;title=vimlinux-13-vim-go%EC%99%80-deoplete-go-go%EC%96%B8%EC%96%B4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8%20%3A%3A%20Myeongjae%20Kim&amp;description=&amp;og%3Atitle=vimlinux-13-vim-go%EC%99%80-deoplete-go-go%EC%96%B8%EC%96%B4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8%20%3A%3A%20Myeongjae%20Kim"></iframe>
+  </div></div></div><a data-v-055a2829="" class="back_to_top">↑</a></div></div><script src="/js/chunk-vendors.2cc6f353.js"></script><script src="/js/app.17fe6dc5.js"></script></body></html>

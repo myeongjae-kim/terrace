@@ -171,7 +171,7 @@ export default {
     });
 
     // About utterances
-    //this.initUtterances();
+    this.initUtterances();
   },
   data() {
     return {

@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head><style>
+    .utterances {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .utterances-frame {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 1px;
+      min-width: 100%;
+      max-width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-126240406-1"></script><script>window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기 :: Myeongjae Kim</title><link href="/css/chunk-091b.4c4e29c3.css" rel="prefetch"><link href="/css/chunk-1aae.e6a1c6e7.css" rel="prefetch"><link href="/css/chunk-2bf5.ed8d1493.css" rel="prefetch"><link href="/js/chunk-091b.af146538.js" rel="prefetch"><link href="/js/chunk-1aae.84cb65f7.js" rel="prefetch"><link href="/js/chunk-2bf5.b267a1c2.js" rel="prefetch"><link href="/css/app.21b57aeb.css" rel="preload" as="style"><link href="/css/chunk-vendors.6e34975c.css" rel="preload" as="style"><link href="/js/app.17fe6dc5.js" rel="preload" as="script"><link href="/js/chunk-vendors.2cc6f353.js" rel="preload" as="script"><link href="/css/chunk-vendors.6e34975c.css" rel="stylesheet"><link href="/css/app.21b57aeb.css" rel="stylesheet"><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기 :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-055a2829="" id="blog"><div data-v-055a2829="" id="blog-contents"><article data-v-055a2829=""><div data-v-055a2829="" class="inner-title-container"><h1 data-v-055a2829=""><a data-v-055a2829="" href="https://blog.myeongjae.kim/2016/10/06/vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기" id="inner-title">[vim/Linux] 4. 플러그인 매니저를 설치하고 vim-airline 설치하기</a></h1><p data-v-055a2829="" class="meta">2016 / 10 / 06</p></div><div data-v-055a2829="" id="padding-between-title-and-article"></div><div data-v-055a2829="" id="article-content"><h1 id="vimlinux-4.-플러그인-매니저를-설치하고-vim-airline-설치하기" style="display: none;">[vim/Linux] 4. 플러그인 매니저를 설치하고 vim-airline 설치하기</h1>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-1.19.39-AM.png" alt="이번 글의 목표"><figcaption>이번 글의 목표</figcaption>
+</figure>
+<p>여기서는 플러그인 매니저를 설치하고 매니저를 통해 vim-airline 플러그인을 설치해보도록 하겠습니다. vim-airline은 위의 사진에서 보듯이 buffer에 쌓여있는 파일들을 시각화해서 보여주고 하단에 현재 입력모드를 표시해줍니다.</p>
+<h2 id="vundle"><a href="https://github.com/VundleVim/Vundle.vim">Vundle</a></h2>
+<p>vim은 여러가지 플러그인들을 설치해서 사용할 수 있습니다. github이 탄생하고 plugin들을 모듈 형식으로 설치할 수 있게 되면서 vim플러그인을 쉽게 공유하고 설치할 수 있게 되었습니다. vim은 유구한 역사와 전통을 자랑하기 때문에 플러그인 매니저도 여러개가 있습니다. 지금까지 나온 매니저들중 끝판왕이 <a href="https://github.com/VundleVim/Vundle.vim">Vundle</a>입니다. 이전 플러그인 매니저들의 기능을 대부분 포함하고 있으며, 플러그인 설치와 삭제가 매우 간단합니다.</p>
+<p>대부분의 vim 플러그인은 github을 통해 관리하기 때문에 우리는 git을 설치 해야 합니다.</p>
+<p><code class="bash hljs">$ sudo apt-get install git</code></p>
+<p>git을 통해서 vundle을 설치합니다.</p>
+<p><code class="bash hljs">$ git <span class="hljs-built_in">clone</span> https://github.com/VundleVim/Vundle.vim.git~/.vim/bundle/Vundle.vim</code></p>
+<p>vim의 플러그인은 <code class="bash hljs">~/.vim/bundle/</code> 디렉토리에서 관리합니다. 설치가 잘 되었는지 확인해봅시다.</p>
+<p><code class="bash hljs">$ <span class="hljs-built_in">cd</span> ~/.vim/bundle</code></p>
+<p><code class="bash hljs">$ ls -l</code></p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-12.43.20-AM-1024x635.png" alt="vundle이 제대로 설치되었습니다."><figcaption>vundle이 제대로 설치되었습니다.</figcaption>
+</figure>
+<p>bundle 폴더 밑에 플러그인이 있는 것만으로는 vim이 플러그인을 인식하지 못합니다. <code class="bash hljs">.vimrc</code>에 아래 코드를 붙여넣읍시다. 우분투 터미널에서 복사와 붙여넣기는 Ctrl-Shift-C, Ctrl-Shift-V로 할 수 있습니다.</p>
+<pre class="vim"><code class="hljs"><span class="hljs-comment">" Vundle</span>
+<span class="hljs-keyword">set</span> nocompatible              <span class="hljs-comment">" be iMproved, required</span>
+<span class="hljs-keyword">filetype</span> off                  <span class="hljs-comment">" required</span>
+ 
+<span class="hljs-comment">" set the runtime path to include Vundle and initialize</span>
+<span class="hljs-keyword">set</span> rtp+=~/.<span class="hljs-keyword">vim</span>/bundle/Vundle.<span class="hljs-keyword">vim</span>
+<span class="hljs-keyword">call</span> vundle#begin()
+<span class="hljs-comment">" alternatively, pass a path where Vundle should install plugins</span>
+<span class="hljs-comment">"call vundle#begin('~/some/path/here')</span>
+ 
+<span class="hljs-comment">" let Vundle manage Vundle, required</span>
+Plugin <span class="hljs-string">'VundleVim/Vundle.vim'</span>
+ 
+<span class="hljs-comment">" Keep Plugin commands between vundle#begin/end.</span>
+ 
+<span class="hljs-comment">" vim-airline</span>
+Plugin <span class="hljs-string">'vim-airline/vim-airline'</span>
+Plugin <span class="hljs-string">'vim-airline/vim-airline-themes'</span>
+ 
+<span class="hljs-comment">" All of your Plugins must be added before the following line</span>
+<span class="hljs-keyword">call</span> vundle#end()            <span class="hljs-comment">" required</span>
+<span class="hljs-keyword">filetype</span> plugin <span class="hljs-built_in">indent</span> <span class="hljs-keyword">on</span>    <span class="hljs-comment">" required</span>
+<span class="hljs-comment">" To ignore plugin indent changes, instead use:</span>
+<span class="hljs-comment">"filetype plugin on</span>
+<span class="hljs-comment">"</span>
+<span class="hljs-comment">" Brief help</span>
+<span class="hljs-comment">" :PluginList       - lists configured plugins</span>
+<span class="hljs-comment">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span>
+<span class="hljs-comment">" :PluginSearch foo - searches for foo at http://vim-scripts.org/vim/scripts.html; append `!` to refresh local cache</span>
+<span class="hljs-comment">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span>
+<span class="hljs-comment">"</span>
+<span class="hljs-comment">" see :h vundle for more details or wiki for FAQ</span>
+<span class="hljs-comment">" Put your non-Plugin stuff after this line</span></code></pre>
+<p>17-18번째 줄은 <code class="hljs vim"><span class="hljs-keyword">vim</span>-airline</code>과 <code class="hljs vim"><span class="hljs-keyword">vim</span>-airline-themes</code>라는 플러그인을 설치하겠다는 의미입니다. 이 플러그인들은</p>
+<p><a href="https://github.com/vim-airline/vim-airline" class="uri">https://github.com/vim-airline/vim-airline</a></p>
+<p><a href="https://github.com/vim-airline/vim-airline-themes" class="uri">https://github.com/vim-airline/vim-airline-themes</a></p>
+<p>에서 관리하고 있습니다. github를 통해 관리하는 플러그인들은 모두 17-18번째 줄처럼 입력해서 사용할 수 있습니다. 작은따옴표 사이에 <code class="hljs vim">github.<span class="hljs-keyword">com</span>/</code> 뒤의 주소(URI)만 적어주면 vundle이 알아서 설치합니다.</p>
+<p>27-30번째 줄은 vundle의 사용법이다. vim을 실행하고 <code class="hljs">:PluginList</code>를 입력하면 <code class="hljs">.vimrc</code>에 우리가 입력한 플러그인의 리스트가 나옵니다. 설치된 플러그인과 설치할 플러그인이 모두 표시됩니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-12.56.47-AM-1024x625.png" alt="Vundle은 설치되어있고, 나머지는 설치해야 할 플러그인입니다."><figcaption>Vundle은 설치되어있고, 나머지는 설치해야 할 플러그인입니다.</figcaption>
+</figure>
+<p><code class="hljs">:PluginInstall</code>을 입력하면 플러그인을 설치합니다. 이미 설치되어 있는 플러그인은 건너뛰고 설치해야 할 플러그인만 <code class="hljs vim">~/.<span class="hljs-keyword">vim</span>/bundle</code>에 다운받습니다.</p>
+<p><code class="hljs">:PluginSearch foo</code>는 <code class="hljs">foo</code>라는 플러그인을 검색합니다. <a href="http://vim-scripts.org/vim/scripts.html" class="uri">http://vim-scripts.org/vim/scripts.html</a> 에 올라와있는 플러그인은 vundle에서 찾고 설치할 수 있습니다. 이 사이트에 있는 플러그인들은 <code class="hljs">.vimrc</code>에서 작은 따옴표 안에 이름만 적어줘도 설치가 가능합니다. <code class="hljs">Plugin ‘name’</code> 같은 포맷입니다.</p>
+<p><code class="hljs">:PluginClean</code>은 <code class="hljs vim">~/.<span class="hljs-keyword">vim</span>/bundle</code>에 있으면서도 <code class="hljs">.vimrc</code>에는 없는 플러그인을 삭제합니다. 플러그인을 삭제하고 싶으면 직접 삭제하는게 아니라 <code class="hljs">.vimrc</code>에서 플러그인 이름을 지우고 vim을 재시작하고 <code class="hljs">:PluginClean</code>을 하면 됩니다.</p>
+<p><code class="hljs">:PluginInstall</code>을 입력해서 <code class="hljs vim"><span class="hljs-keyword">vim</span>-airline</code>과 <code class="hljs vim"><span class="hljs-keyword">vim</span>-airline-themes</code>를 설치합시다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-1.01.22-AM.png" alt="vim-airline을 설치하는 중"><figcaption>vim-airline을 설치하는 중</figcaption>
+</figure>
+<h2 id="vim-airline">vim-airline</h2>
+<p>이제 <code class="hljs">.vimrc</code>에 다음 코드를 추가합시다. <code class="hljs vim"><span class="hljs-keyword">vim</span>-airline</code>을 위한 셋팅입니다.</p>
+<pre class="vim"><code class="hljs"><span class="hljs-comment">" for vim-airline</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:airline</span>#extensions#tabline#enabled = <span class="hljs-number">1</span> <span class="hljs-comment">" turn on buffer list</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:airline_theme</span>=<span class="hljs-string">'hybrid'</span>
+<span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">2</span> <span class="hljs-comment">" turn on bottom bar</span></code></pre>
+<p><code class="vim hljs"><span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">2</span></code> 는 ubuntu에서 기본으로 적용되어 있지만 다른 리눅스를 쓸 때를 위해 적어놓읍시다. <code class="vim hljs">:<span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">1</span></code>을 입력하면 차이를 알 수 있다. hybrid theme는 특정한 색이 있는 것이 아니라 colorscheme을 따라갑니다. 우리가 설정한 CodeSchool3에 있는 색을 따라가기 때문에 자연스럽게 어울립니다. 여기까지 잘 따라왔다면 다음과 같은 화면이 됐을 것입니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/10/Screen-Shot-2016-10-06-at-1.11.49-AM.png" alt="상단에는 buffer가, 하단에는 현재 상태가 보입니다."><figcaption>상단에는 buffer가, 하단에는 현재 상태가 보입니다.</figcaption>
+</figure>
+<p>파일을 여러개 연 상태에서 <code class="vim hljs"><span class="hljs-symbol">&lt;leader&gt;</span>q</code>, <code class="vim hljs"><span class="hljs-symbol">&lt;leader&gt;</span><span class="hljs-keyword">w</span></code> (리더키는 쉼표로 설정했었습니다)를 입력하면 buffer를 순회하는 것을 볼 수 있습니다.</p>
+<p>이번 글까지 작성한 .vimrc는 다음과 같습니다.</p>
+<pre class="vim"><code class="hljs"><span class="hljs-comment">" Basic Settings</span>
+<span class="hljs-keyword">colorscheme</span> CodeSchool3
+<span class="hljs-keyword">set</span> termguicolors
+<span class="hljs-keyword">syntax</span> <span class="hljs-keyword">on</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span>
+<span class="hljs-keyword">set</span> relativenumber
+<span class="hljs-keyword">set</span> hlsearch
+<span class="hljs-keyword">set</span> ignorecase
+<span class="hljs-keyword">set</span> tabstop=<span class="hljs-number">4</span>
+<span class="hljs-keyword">set</span> softtabstop=<span class="hljs-number">4</span>
+<span class="hljs-keyword">set</span> <span class="hljs-built_in">shiftwidth</span>=<span class="hljs-number">4</span>
+<span class="hljs-keyword">set</span> expandtab
+<span class="hljs-keyword">autocmd</span> FileType <span class="hljs-keyword">make</span> <span class="hljs-keyword">setlocal</span> noexpandtab
+ 
+<span class="hljs-comment">" Key Settings</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;F2&gt;</span> :<span class="hljs-keyword">set</span> invpaste paste?<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">set</span> pastetoggle=<span class="hljs-symbol">&lt;F2&gt;</span>
+<span class="hljs-keyword">let</span> mapleader = <span class="hljs-string">","</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;leader&gt;</span>q :<span class="hljs-keyword">bp</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;leader&gt;</span><span class="hljs-keyword">w</span> :<span class="hljs-keyword">bn</span><span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-comment">" Key Setting - resize windows</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>= :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize +3"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>- :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize -3"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>] :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize +8"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>[ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize -8"</span><span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>+ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">3</span>/<span class="hljs-number">2</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>_ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">2</span>/<span class="hljs-number">3</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>} :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">3</span>/<span class="hljs-number">2</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+<span class="hljs-keyword">nnoremap</span> <span class="hljs-symbol">&lt;silent&gt;</span> <span class="hljs-symbol">&lt;Leader&gt;</span>{ :<span class="hljs-keyword">exe</span> <span class="hljs-string">"vertical resize "</span> . (<span class="hljs-built_in">winheight</span>(<span class="hljs-number">0</span>) * <span class="hljs-number">2</span>/<span class="hljs-number">3</span>)<span class="hljs-symbol">&lt;CR&gt;</span>
+ 
+<span class="hljs-comment">" Vundle</span>
+<span class="hljs-keyword">set</span> nocompatible              <span class="hljs-comment">" be iMproved, required</span>
+<span class="hljs-keyword">filetype</span> off                  <span class="hljs-comment">" required</span>
+ 
+<span class="hljs-comment">" set the runtime path to include Vundle and initialize</span>
+<span class="hljs-keyword">set</span> rtp+=~/.<span class="hljs-keyword">vim</span>/bundle/Vundle.<span class="hljs-keyword">vim</span>
+<span class="hljs-keyword">call</span> vundle#begin()
+<span class="hljs-comment">" alternatively, pass a path where Vundle should install plugins</span>
+<span class="hljs-comment">"call vundle#begin('~/some/path/here')</span>
+ 
+<span class="hljs-comment">" let Vundle manage Vundle, required</span>
+Plugin <span class="hljs-string">'VundleVim/Vundle.vim'</span>
+ 
+<span class="hljs-comment">" Keep Plugin commands between vundle#begin/end.</span>
+ 
+<span class="hljs-comment">" vim-airline</span>
+Plugin <span class="hljs-string">'vim-airline/vim-airline'</span>
+Plugin <span class="hljs-string">'vim-airline/vim-airline-themes'</span>
+ 
+<span class="hljs-comment">" All of your Plugins must be added before the following line</span>
+<span class="hljs-keyword">call</span> vundle#end()            <span class="hljs-comment">" required</span>
+<span class="hljs-keyword">filetype</span> plugin <span class="hljs-built_in">indent</span> <span class="hljs-keyword">on</span>    <span class="hljs-comment">" required</span>
+<span class="hljs-comment">" To ignore plugin indent changes, instead use:</span>
+<span class="hljs-comment">"filetype plugin on</span>
+<span class="hljs-comment">"</span>
+<span class="hljs-comment">" Brief help</span>
+<span class="hljs-comment">" :PluginList       - lists configured plugins</span>
+<span class="hljs-comment">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span>
+<span class="hljs-comment">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</span>
+<span class="hljs-comment">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span>
+<span class="hljs-comment">"</span>
+<span class="hljs-comment">" see :h vundle for more details or wiki for FAQ</span>
+<span class="hljs-comment">" Put your non-Plugin stuff after this line</span>
+ 
+<span class="hljs-comment">" for vim-airline</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:airline</span>#extensions#tabline#enabled = <span class="hljs-number">1</span> <span class="hljs-comment">" turn on buffer list</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">g:airline_theme</span>=<span class="hljs-string">'hybrid'</span>
+<span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">2</span> <span class="hljs-comment">" turn on bottom bar</span></code></pre>
+<h3 id="reference">Reference</h3>
+<p>Vundle.vim: <a href="https://github.com/VundleVim/Vundle.vim">github.com/VundleVim/Vundle.vim</a></p>
+<p>vim-airline: <a href="https://github.com/vim-airline/vim-airline">github.com/vim-airline/vim-airline</a></p>
+</div></article><hr data-v-055a2829=""><div data-v-055a2829="" id="adjacent-articles"><div data-v-055a2829="" id="next-article"><h4 data-v-055a2829="">Next Article</h4><p data-v-055a2829=""><a data-v-055a2829="" href="/blog/2016/11/02/macos-맥-터미널로-우분투-사용하기/" class="">[macOS] 맥 터미널로 우분투 사용하기</a></p></div><div data-v-055a2829="" id="prev-article"><h4 data-v-055a2829="">Previous Article</h4><p data-v-055a2829=""><a data-v-055a2829="" href="/blog/2016/10/02/vimlinux-3-vimrc-기본설정/" class="">[vim/Linux] 3. vimrc 기본설정</a></p></div></div><hr data-v-055a2829="" style="margin-top: 28px;"><div data-v-055a2829="" id="share-buttons"><button data-v-055a2829="" data-clipboard-text="https://blog.myeongjae.kim/2016/10/06/vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기" class="copy-btn">Copy Link</button>
+      &nbsp;
+      <a data-v-055a2829="" href="/blog/" class="router-link-active"><button data-v-055a2829="">Article List</button></a></div><div data-v-055a2829="" id="utterances-container"><div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?src=https%3A%2F%2Futteranc.es%2Fclient.js&amp;repo=hrzon%2Fterrace_comments&amp;issue-term=pathname&amp;theme=github-light&amp;crossorigin=anonymous&amp;async=&amp;url=http%3A%2F%2Flocalhost%3A8000%2Fblog%2F2016%2F10%2F06%2Fvimlinux-4-%25ED%2594%258C%25EB%259F%25AC%25EA%25B7%25B8%25EC%259D%25B8-%25EB%25A7%25A4%25EB%258B%2588%25EC%25A0%2580%25EB%25A5%25BC-%25EC%2584%25A4%25EC%25B9%2598%25ED%2595%2598%25EA%25B3%25A0-vim-airline-%25EC%2584%25A4%25EC%25B9%2598%25ED%2595%2598%25EA%25B8%25B0&amp;origin=http%3A%2F%2Flocalhost%3A8000&amp;pathname=blog%2F2016%2F10%2F06%2Fvimlinux-4-%25ED%2594%258C%25EB%259F%25AC%25EA%25B7%25B8%25EC%259D%25B8-%25EB%25A7%25A4%25EB%258B%2588%25EC%25A0%2580%25EB%25A5%25BC-%25EC%2584%25A4%25EC%25B9%2598%25ED%2595%2598%25EA%25B3%25A0-vim-airline-%25EC%2584%25A4%25EC%25B9%2598%25ED%2595%2598%25EA%25B8%25B0&amp;title=vimlinux-4-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8-%EB%A7%A4%EB%8B%88%EC%A0%80%EB%A5%BC-%EC%84%A4%EC%B9%98%ED%95%98%EA%B3%A0-vim-airline-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0%20%3A%3A%20Myeongjae%20Kim&amp;description=&amp;og%3Atitle=vimlinux-4-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8-%EB%A7%A4%EB%8B%88%EC%A0%80%EB%A5%BC-%EC%84%A4%EC%B9%98%ED%95%98%EA%B3%A0-vim-airline-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0%20%3A%3A%20Myeongjae%20Kim"></iframe>
+  </div></div></div><a data-v-055a2829="" class="back_to_top">↑</a></div></div><script src="/js/chunk-vendors.2cc6f353.js"></script><script src="/js/app.17fe6dc5.js"></script></body></html>
