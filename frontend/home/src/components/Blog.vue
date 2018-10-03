@@ -82,7 +82,7 @@ export default {
       }
     } else {
       return {
-        title: this.title,
+        title: this.titleForMeta,
         meta: [
           { charset: 'utf-8' },
           {
@@ -136,6 +136,9 @@ export default {
       var title = blogContents.querySelector('#inner-title')
       title.innerHTML = titles[1].innerHTML;
       titles[1].style.display = "none";
+
+      // It is for og:title
+      this.titleForMeta = title.innerHTML;
     }
 
     /*
@@ -186,6 +189,8 @@ export default {
       copiedBtnMsg : "Copied",
       ClipboardJS : null,
       currentArticleIdx : null,
+
+      titleForMeta : "",
 
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
