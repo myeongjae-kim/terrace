@@ -37,13 +37,13 @@
       </div>
 
 
-<div class="utterances" style="height: 799px;">
-    <iframe height="1000px" width="800px" class="utterances-frame" title="Comments" scrolling="no" src=" https://utteranc.es/utterances.html?src=https://utteranc.es/client.js&amp;repo=jojoldu/blog-comments&amp;issue-term=pathname&amp;async=&amp;origin=https://jojoldu.tistory.com&amp;pathname=332"></iframe>
+<div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" src="https://utteranc.es/utterances.html?src=https://utteranc.es/client.js&amp;repo=jojoldu/blog-comments&amp;issue-term=pathname&amp;async=&amp;origin=http://localhost:8080&amp;pathname=332" :onload="resizeIframe"></iframe>
   </div>
 
 
-<div class="utterances" style="height: 799px;">
-    <iframe height="1000px" width="800px" class="utterances-frame" title="Comments" scrolling="no" :src="utterancesSrc"></iframe>
+<div class="utterances">
+    <iframe class="utterances-frame" title="Comments" scrolling="no" :src="utterancesSrc"></iframe>
   </div>
 
 
@@ -186,6 +186,8 @@ export default {
     [].forEach.call(document.querySelectorAll('code'), function(el) {
       HighlightJS.highlightBlock(el);
     });
+
+    this.initUtterances();
   },
   data() {
     return {
@@ -201,7 +203,8 @@ export default {
       ClipboardJS : null,
       currentArticleIdx : null,
 
-      utterancesSrc : "https://utteranc.es/utterances.html?src=https://utteranc.es/client.js&repo=hrzon/terrace_comments&issue-term=pathname&async=&origin=https://myeongjae.kim&pathname=blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs",
+      uri : "",
+      utterancesSrc : "",
 
 
 
@@ -222,6 +225,24 @@ export default {
     }
   },
   methods: {
+    resizeIframe: function(iframe) {
+      console.log(iframe);
+
+      iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+
+    },
+    initUtterances: function() {
+      let script = "https://utteranc.es/utterances.html?src=https://utteranc.es/client.js";
+      let repo = "hrzon/terrace_comments";
+      let issue_term = "pathname";
+      let origin = "https://myeongjae.kim"
+      let pathname = this.uri;
+      let url = this.address;
+      let title = this.title;
+      let description = "Thank you for reading my article 🙈"
+
+      this.utterancesSrc = `${script}&repo=${repo}&issue-term=${issue_term}&origin=${origin}&pathname=${pathname}&url=${url}&title=${title}&description=${description}`;
+    },
     initBackToTopButton: function() {
       var vue = this;
       (function() {
@@ -344,6 +365,8 @@ export default {
         + this.month + '/'
         + this.day + '/'
         + this.title + '/';
+
+      this.uri = currentUri.substring(1); // remove starting '/'
 
       // TODO: Below code's time complexity is O(n).
       // 'this.index' array is sorted by non-increasing order of 'path' element.
@@ -530,5 +553,13 @@ article {
   display: block;
 }
 /* end begin Back to Top button  */
+
+.utterances-frame {
+  border: 0;
+  width: 100%;
+}
+
+.utterances {
+}
 
 </style>
