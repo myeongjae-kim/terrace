@@ -35,6 +35,21 @@
           <p><router-link :to="index[currentArticleIdx+1].path">{{index[currentArticleIdx+1].title}}</router-link></p>
         </div>
       </div>
+
+
+<div class="utterances" style="height: 799px;">
+    <iframe height="1000px" width="800px" class="utterances-frame" title="Comments" scrolling="no" src=" https://utteranc.es/utterances.html?src=https://utteranc.es/client.js&amp;repo=jojoldu/blog-comments&amp;issue-term=pathname&amp;async=&amp;origin=https://jojoldu.tistory.com&amp;pathname=332"></iframe>
+  </div>
+
+
+<div class="utterances" style="height: 799px;">
+    <iframe height="1000px" width="800px" class="utterances-frame" title="Comments" scrolling="no" :src="utterancesSrc"></iframe>
+  </div>
+
+
+
+
+
       <div id="disqus_thread"></div>
     </div>
     <a class="back_to_top">&uarr;</a>
@@ -185,6 +200,10 @@ export default {
       copiedBtnMsg : "Copied",
       ClipboardJS : null,
       currentArticleIdx : null,
+
+      utterancesSrc : "https://utteranc.es/utterances.html?src=https://utteranc.es/client.js&repo=hrzon/terrace_comments&issue-term=pathname&async=&origin=https://myeongjae.kim&pathname=blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs",
+
+
 
       // INJECT_POSITION DO NOT MODIFY THIS LINE!
       // The first json array after this line is
