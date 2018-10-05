@@ -38,8 +38,7 @@
         &nbsp;
         <router-link to="/blog/"><button>Article List</button></router-link>
       </div>
-
-      <div id="utterances-container"></div>
+      <div id="disqus_thread"></div>
     </div>
     <a class="back_to_top">&uarr;</a>
   </div>
@@ -141,14 +140,12 @@ export default {
       this.titleForMeta = title.innerHTML;
     }
 
-    /*
     this.enableDisqus(
       'myeongjae',
       this.address.replace(this.domain, ""), // uri as an identifier
       this.title,
       this.address
     );
-    */
 
     // add class 'router-link-exact-active' to the blog nav
     var nav_blog = document.querySelector('nav');
@@ -174,7 +171,7 @@ export default {
     });
 
     // About utterances
-    this.initUtterances();
+    //this.initUtterances();
   },
   data() {
     return {
@@ -208,40 +205,38 @@ export default {
     }
   },
   methods: {
-    initUtterances: function() {
-      let container = document.querySelector('#utterances-container');
-      if(container.childNodes.length !== 0) {
-        // The number of childNodes must be 1
-        container.removeChild(container.firstChild);
+    enableDisqus: function(shortname, identifier, title, url) {
+      //config
+      if(typeof(DISQUS) === 'undefined'){
+        (function() {
+          var vars_text = "var disqus_shortname  = \"" + shortname  + "\";\n" + 
+           "var disqus_title      = \"" + title      + "\";\n" + 
+           "var disqus_identifier = \"" + identifier + "\";\n" +
+           "var disqus_url        = \"" + url        + "\";\n";
+
+          var vars_obj   = document.createElement("script");
+          vars_obj.type  = "text/javascript";
+          vars_obj.async = true;
+          vars_obj.text  = vars_text;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(vars_obj);
+
+          var dsq = document.createElement('script');
+          dsq.type = 'text/javascript';
+          dsq.async = true;
+          dsq.src = '//' + shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      } else {
+        // eslint-disable-next-line
+        DISQUS.reset({
+          reload: true,
+          config: function() {
+            this.page.identifier = identifier;
+            this.page.url = url;
+            this.page.title = title;
+          }
+        });
       }
-
-      let utterancesScript = document.createElement('script');
-      utterancesScript.setAttribute(
-        'src',
-        'https://utteranc.es/client.js'
-      );
-      utterancesScript.setAttribute(
-        'repo',
-        'hrzon/terrace_comments'
-      );
-      utterancesScript.setAttribute(
-        'issue-term',
-        'pathname'
-      );
-      utterancesScript.setAttribute(
-        'theme',
-        'github-light'
-      );
-      utterancesScript.setAttribute(
-        'crossorigin',
-        'anonymous'
-      );
-      utterancesScript.setAttribute(
-        'async',
-        ''
-      );
-
-      container.appendChild(utterancesScript);
     },
     initBackToTopButton: function() {
       var vue = this;
@@ -508,6 +503,10 @@ article {
 .back_to_top-show {
   display: block;
 }
+
+#disqus_thread {
+}
+
 /* end begin Back to Top button  */
 
 
