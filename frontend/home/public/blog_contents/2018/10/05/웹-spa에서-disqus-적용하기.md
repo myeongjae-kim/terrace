@@ -1,24 +1,15 @@
 # [웹] SPA에서 Disqus 적용하기
 
-test
-
-```javascript
-this.enableDisqus(
-  'myeongjae',
-  'blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/', // uri as an identifier
-  '[기술] Rob Pike의 프로그래밍 규칙 5가지',
-  'https://myeongjae.kim/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/'
-);
-```
+Single Page App(SPA)에서 Disqus를 적용해보면 글이 바뀌더라도 처음 로딩한 코멘트가 바뀌지 않고 그대로 있는 것을 볼 수 있습니다. 아래의 함수를 글이 바뀔 때마다 호출해야 합니다.
 
 ```javascript
 // Below function is from https://solidfoundationwebdev.com/blog/posts/many-disqus-modules-on-a-single-page
-// The function was not work well,
-// so I fixed something, and it works well now.
+// The function did not work well,
+// so I have fixed something, and it works well now.
 
-function enableDisqus(shortname, identifier, title, url) {
+function initDisqus(shortname, identifier, title, url) {
   if(typeof(DISQUS) === 'undefined'){
-    (function() {
+    (async () => {
       var vars_text = "var disqus_shortname  = \"" + shortname  + "\";\n" + 
         "var disqus_title      = \"" + title      + "\";\n" + 
         "var disqus_identifier = \"" + identifier + "\";\n" +
@@ -48,4 +39,15 @@ function enableDisqus(shortname, identifier, title, url) {
     });
   }
 }
+```
+
+글을 로딩할 때마다 아래처럼 함수를 호출합니다.
+
+```javascript
+this.initDisqus(
+  'myeongjae',
+  'blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/', // uri as an identifier
+  '[기술] Rob Pike의 프로그래밍 규칙 5가지',
+  'https://myeongjae.kim/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/'
+);
 ```
