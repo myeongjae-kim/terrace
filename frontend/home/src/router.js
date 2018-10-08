@@ -6,10 +6,14 @@ import About    from './components/About.vue'
 // import Blog     from './components/Blog.vue'
 import Places   from './components/Places.vue'
 import Musings  from './components/Musings.vue'
-import NotFound from './components/NotFound.vue'
+// import NotFound from './components/NotFound.vue'
 
 // Asynchronously import components
-const Blog = () => import('./components/Blog.vue')
+// Reasons for asynchoronous load:
+//  - Blog component is quite big.
+//  - NotFound component is not going to be used in normal situation.
+const Blog     = () => import('./components/Blog.vue')
+const NotFound = () => import ('./components/NotFound.vue')
 
 Vue.use(Router)
 Vue.use(Meta)
