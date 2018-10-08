@@ -2,10 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta'
 
-import About from './components/About.vue'
 import Blog from './components/Blog.vue'
 
 // Asynchronously import components
+const About = () => import('./components/About.vue')
 const Places = () => import('./components/Places.vue')
 const Musings = () => import('./components/Musings.vue')
 

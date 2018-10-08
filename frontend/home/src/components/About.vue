@@ -35,16 +35,12 @@
 
     <footer id="footer">
 
-    <!--
     <img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" style="float: left; opacity:0;">
-    -->
 
       If you like my website, you can copy it from
         <a href="https://github.com/hrzon/terrace">here</a>.
 
-    <!--
     <a href="https://www.woowahan.com/"><img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" border="0"></a>
-    -->
 
     </footer>
 
@@ -70,6 +66,7 @@ export default {
 
     // Load moving baedalee asynchronously to show
     // perfect animation
+    /*
     (async () => {
       let img = new Image();
       let tag = document.getElementById("baedal-move");
@@ -81,6 +78,7 @@ export default {
 
       img.src = "https://cdn.myeongjae.kim/res/baedal_move.png";
     })();
+    */
   }
 }
 </script>
@@ -174,6 +172,7 @@ footer {
   }
 }
 
+/*
 #baedal-move {
   box-shadow: 0 0 0 rgba(0,0,0,0);
   -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
@@ -183,5 +182,6 @@ footer {
   margin-left:-200px;
   border-radius: 5%;
 }
+*/
 
 </style>
