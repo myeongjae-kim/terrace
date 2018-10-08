@@ -228,6 +228,8 @@ img {
   -moz-box-shadow: 2px 2px 15px #ccc;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
+
+  border-radius: 5px;
 }
 
 
@@ -247,6 +249,8 @@ pre {
   -moz-box-shadow: 2px 2px 15px #ccc;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
+
+  border-radius: 5px;
 }
 
 pre > code {
@@ -411,6 +415,8 @@ blockquote{
   box-shadow: 2px 2px 15px #ccc;
 
   font-family: 'Iropke Batang', 'Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif;
+
+  border-radius: 5px;
 }
 
 blockquote a{
@@ -622,5 +628,10 @@ button, .button {
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
 }
+
+iframe {
+  border: 0;
+}
+
 
 </style>

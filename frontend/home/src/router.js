@@ -2,14 +2,14 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta'
 
-import Blog from './components/Blog.vue'
+import About    from './components/About.vue'
+// import Blog     from './components/Blog.vue'
+import Places   from './components/Places.vue'
+import Musings  from './components/Musings.vue'
+import NotFound from './components/NotFound.vue'
 
 // Asynchronously import components
-const About = () => import('./components/About.vue')
-const Places = () => import('./components/Places.vue')
-const Musings = () => import('./components/Musings.vue')
-
-const NotFound = () => import('./components/NotFound.vue')
+const Blog = () => import('./components/Blog.vue')
 
 Vue.use(Router)
 Vue.use(Meta)

@@ -509,6 +509,9 @@ article {
 
 /* end begin Back to Top button  */
 
+article {
+  margin-bottom: 35px;
+}
 
 </style>
 
