@@ -56,6 +56,13 @@ export default {
           author : "- Viktor E. Frankl, <Man's Search for Meaning>",
           css : "font-family: 'Bad Script'; font-style:normal;",
         },
+        {
+          key : 2,
+          sentences : ["“대화는 철학, 예술, 시, 정치, 사랑, 소문, 날씨라고 하는", "7개의 현을 가진 7현금에 비유할 수 있다.”"],
+          author : "- 안나 브라우넬 제임슨, <프랭클린 플래너, 2015년 11월 27일>",
+          css : "",
+        },
+
       ],
     }
   },
