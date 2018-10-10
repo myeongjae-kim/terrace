@@ -44,7 +44,7 @@ function initDisqus(shortname, identifier, title, url) {
 글을 로딩할 때마다 아래처럼 함수를 호출합니다.
 
 ```javascript
-this.initDisqus(
+initDisqus(
   'myeongjae',
   'blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/', // uri as an identifier
   '[기술] Rob Pike의 프로그래밍 규칙 5가지',

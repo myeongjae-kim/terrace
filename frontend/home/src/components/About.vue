@@ -35,12 +35,12 @@
 
     <footer id="footer">
 
-    <img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" style="float: left; opacity:0;">
+    <img class="baedal" :src="baedal_img" style="float: left; opacity:0;">
 
       If you like my website, you can copy it from
         <a href="https://github.com/hrzon/terrace">here</a>.
 
-    <a href="https://www.woowahan.com/"><img class="baedal" src="https://cdn.myeongjae.kim/res/baedal.gif" border="0"></a>
+    <a href="https://www.woowahan.com/"><img class="baedal" :src="baedal_img" border="0"></a>
 
     </footer>
 
@@ -50,6 +50,11 @@
 <script>
 export default {
   name: 'About',
+  data() {
+    return {
+      baedal_img: "https://cdn.myeongjae.kim/res/baedal.gif",
+    }
+  },
   mounted: function() {
     // Load profile image asynchronously
     (async () => {
@@ -64,6 +69,13 @@ export default {
       //img.src = "https://www.gravatar.com/avatar/60a42ec05e4e6f2625aba6ff7f44ee02?s=400";
     })();
 
+
+    let getRandomInteger = function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    this.baedal_img = "https://cdn.myeongjae.kim/res/about_logos/" + getRandomInteger(0, 2) + ".png";
+    
     // Load moving baedalee asynchronously to show
     // perfect animation
     /*
