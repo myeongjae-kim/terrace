@@ -493,8 +493,10 @@ strong {
   -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
   -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
 
+/*
   margin: 0.3em;
   padding: 0.5em 1.5em;
+  */
 }
 
 .no-shadow:hover {

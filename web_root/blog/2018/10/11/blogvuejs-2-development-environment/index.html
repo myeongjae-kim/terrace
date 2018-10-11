@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en"><head><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-126240406-1"></script><script>window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>[Blog/VueJS] 2. 개발환경 세팅 :: Myeongjae Kim</title><link href="/css/chunk-1a81.58822ab7.css" rel="prefetch"><link href="/css/chunk-1aae.e6a1c6e7.css" rel="prefetch"><link href="/js/chunk-1a81.502d90b5.js" rel="prefetch"><link href="/js/chunk-1aae.84cb65f7.js" rel="prefetch"><link href="/css/app.32ff8bb0.css" rel="preload" as="style"><link href="/js/app.c1cfc6f2.js" rel="preload" as="script"><link href="/js/chunk-vendors.06ae0a08.js" rel="preload" as="script"><link href="/css/app.32ff8bb0.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-1a81.58822ab7.css"><script charset="utf-8" src="/js/chunk-1a81.502d90b5.js"></script><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="blogvuejs-2-development-environment :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "myeongjae";
+var disqus_title      = "blogvuejs-2-development-environment";
+var disqus_identifier = "/2018/10/11/blogvuejs-2-development-environment";
+var disqus_url        = "https://blog.myeongjae.kim/2018/10/11/blogvuejs-2-development-environment";
+</script><script type="text/javascript" async="" src="//myeongjae.disqus.com/embed.js"></script></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-31a6adae="" id="blog"><div data-v-31a6adae="" id="blog-contents"><article data-v-31a6adae=""><div data-v-31a6adae="" class="inner-title-container"><h1 data-v-31a6adae=""><a data-v-31a6adae="" href="https://blog.myeongjae.kim/2018/10/11/blogvuejs-2-development-environment" id="inner-title">[Blog/VueJS] 2. 개발환경 세팅</a></h1><p data-v-31a6adae="" class="meta">2018 / 10 / 11</p></div><div data-v-31a6adae="" id="padding-between-title-and-article"></div><div data-v-31a6adae="" id="article-content"><h1 id="blogvuejs-2.-개발환경-세팅" style="display: none;">[Blog/VueJS] 2. 개발환경 세팅</h1>
+<p>운영체제는 CentOS를 사용하고 Desktop Environment는 Gnome Desktop을 쓸 것입니다. 코드 편집기는 Visual Studio Code입니다.</p>
+<p>CentOS를 고른 이유는 AWS EC2에서 쓸 Amazon Linux가 RHEL(Red Hat Enterprise Linux) 기반이기 때문입니다. CentOS는 RHEL에서 로고만 바꾼 운영체제입니다.</p>
+<p>Visual Studio Code는 맥, 윈도우, 리눅스에서 동일한 UI/UX를 제공합니다.</p>
+<p>추천하는 확장 프로그램은 다음과 같습니다.</p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.Go">Go</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced">Markdown Preview Enhanced</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=octref.vetur">Vetur</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscodevim.vim">Vim</a>(익숙하신 분들만)</li>
+</ul>
+<h3 id="운영체제-설치">운영체제 설치</h3>
+<p>Virtualbox에 CentOS 7.5.1804 버전을 설치합니다.</p>
+<ul>
+<li><a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox 다운로드</a></li>
+<li><a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso">CentOS 7.5.1804 DVD Image 다운로드</a></li>
+</ul>
+<p><a href="https://www.instructables.com/id/How-to-install-Linux-on-your-Windows/">이 글</a>을 참고해서 CentOS를 설치합니다. Version은 <code class="hljs">Ubuntu</code> 대신 <code class="hljs">Red Hat (64-bit)</code>을 선택합니다.</p>
+<p><code class="hljs">Setting - Storage - Controller: IDE - Empty</code>를 선택한 뒤 우측에 디스크를 클릭해 이전에 다운받은 <code class="hljs">CentOS-7-x86_64-DVD-1804.iso</code>를 선택합니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/vbox-os-version.png" alt="Red Hat (64-bit)을 선택합니다" class="no-shadow"><figcaption>Red Hat (64-bit)을 선택합니다</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/choose-centos-iso.png" alt="CentOS DVD Image를 선택합니다" class="no-shadow"><figcaption>CentOS DVD Image를 선택합니다</figcaption>
+</figure>
+<p>설치 중 세팅은 다음과 같이 합니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/initial-settings.png" alt="Settings" class="no-shadow"><figcaption>Settings</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/choose-gnome.png" alt="Software Selection에서 GNOME Desktop을 선택합니다" class="no-shadow"><figcaption>Software Selection에서 GNOME Desktop을 선택합니다</figcaption>
+</figure>
+<ul>
+<li>Date &amp; TIme: Asia/Seoul</li>
+<li>Keyboard: Korean (remove english)</li>
+<li>Software Selection: GNOME Desktop</li>
+</ul>
+<p>파티션 설정하라고 경고가 나올 텐데, Installation Destination을 클릭해서 기본 설정 그대로 확인해줍니다.</p>
+<p>Begin Installation을 누르면 설치를 시작합니다. 계정 설정 화면이 나오는데 root password를 지정하고 새로운 유저도 만듭니다. 새롭게 만든 유저가 우리가 사용할 계정입니다. 유저를 만들 때 <code class="hljs">Make this user administrator</code>에 체크합시다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/initial-settings.png" alt="User Settings" class="no-shadow"><figcaption>User Settings</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/new-user.png" alt="Make this user administrator" class="no-shadow"><figcaption>Make this user administrator</figcaption>
+</figure>
+<h3 id="themes">Themes</h3>
+<p>로그인을 할 때 톱니바퀴를 눌러 Gnome Classic 대신 Gnome을 선택합니다. 예쁘거든요.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/login-gnome.png" alt="Gnome"><figcaption>Gnome</figcaption>
+</figure>
+<p>그리고 <code class="text">Dark mode</code>를 설정하기 위해 터미널을 열어서 커맨드를 입력해야 합니다. Host와 가상 머신간의 복사-붙여넣기를 연동해서 편하게 입력합시다.</p>
+<p><code class="hljs">Virtualbox - Settings - General - Advanced - Shared Clipboard</code>를 <code class="hljs">Bidirectional</code>로 선택합니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/copy-paste.png" alt="Bidirectional" class="no-shadow"><figcaption>Bidirectional</figcaption>
+</figure>
+<p>아래 명령어를 복사한 뒤 CentOS 터미널에 붙여넣기 합니다. 터미널의 복사, 붙여넣기는 <code class="hljs">Ctrl + Shift + C</code>, <code class="hljs">Ctrl + Shift + V</code> 입니다.</p>
+<p><strong>Step 1</strong>: Open the GTK3 configuration file in Text Editor:</p>
+<pre class="bash"><code class="hljs">gedit ~/.config/gtk-3.0/settings.ini</code></pre>
+<p><strong>Step 2</strong>: Paste this into the file opened by Text Editor:</p>
+<pre><code class="hljs">[Settings]
+gtk-application-prefer-dark-theme=1</code></pre>
+<p>and save it. That’s all! Enjoy your dark themes 😃<sup>1</sup></p>
+<p class="footnote">
+<strong>1</strong>. <a href="https://askubuntu.com/questions/806200/how-can-you-enable-gtk3-themes-dark-theme-mode-when-using-unity-7">How can you enable GTK3 themes’ dark theme mode when using Unity 7?</a>
+</p>
+<p>운영체제를 재시작하면 <code class="text">Dark mode</code>가 적용된 CentOS를 볼 수 있습니다.</p>
+<p>이제 터미널도 <code class="text">Dark mode</code>로 설정합니다. 좌측 상단에 <code class="hljs">Activities</code>를 누르면 좌측에 아이콘들이 올라오는데, 제일 마지막에 있는 것이 터미널입니다.</p>
+<p>터미널을 실행하면 좌측 상단 <code class="hljs">Activities</code> 옆에 <code class="hljs">Terminal</code>이 생깁니다. 눌러서 <code class="hljs">Preference</code>를 선택합니다.</p>
+<p>General 탭에 <code class="text">Show menubar by default in new terminals</code>를 체크 해제합니다. 같은 탭에 있는 <code class="hljs">Theme variant</code> 드롭다운에서 <code class="hljs">Dark</code>를 선택합니다.</p>
+<h3 id="network">Network</h3>
+<p>CentOS를 종료(Shutdown)한 뒤 인터넷을 연결합니다. <code class="hljs">Settings - Network - Adapter 1</code>에서 <code class="text">Attached to: NAT</code>, <code class="hljs">Advanced</code>를 눌러 <code class="hljs">Cable Connected</code>에 체크합니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/network-settings.png" alt="Network Settings" class="no-shadow"><figcaption>Network Settings</figcaption>
+</figure>
+<p>로그인 한 뒤 우측 상단에 있는 화살표를 눌러 <code class="hljs">Wired Off - Connect</code>를 누르면 인터넷 연결이 됩니다. 로그인 할 때마다 매번 눌러줘야하기 때문에 자동으로 연결하도록 설정합니다.</p>
+<p><code class="hljs">Activities</code>를 누른 뒤 검색 바에 <code class="hljs">network</code>라고 입력합니다. <code class="hljs">Settings</code>의 <code class="hljs">Network</code>를 선택합니다. <code class="hljs">Wired</code>란의 톱니바퀴를 눌러 <code class="hljs">Connect Automatically</code>를 체크한 뒤 <code class="hljs">Apply</code>를 누릅니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/activites-network.png" alt="Activities - Network"><figcaption>Activities - Network</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/connect-automatically.png" alt="Connect Automatically"><figcaption>Connect Automatically</figcaption>
+</figure>
+<h3 id="install-guest-additions">Install Guest Additions</h3>
+<p>아마 지금 상태는 해상도 1024 * 786에 글씨들이 또렷하게 보이지 않는 상태일 것입니다. 이 상황은 2000년대 초반 컴퓨터를 포맷하고 윈도우 XP를 설치한 뒤 외장 그래픽 드라이버를 설치하지 않은 상태와 동일하다고 볼 수 있습니다. 가상 운영체제에서 host 운영체제와 하드웨어 자원을 효율적으로 쓸 수 있도록 <code class="hljs">Guest Additions</code>를 설치해야 합니다.</p>
+<p>Virtualbox 메뉴의 <code class="hljs">Devices</code>탭에서 <code class="hljs">Insert Guest Additions CD Image...</code>를 눌러서 설치할 수 있는데, 그 전에 개발자 도구를 설치해야 <code class="hljs">Guest Additions</code>를 정상적으로 설치할 수 있습니다.</p>
+<p>아래 명령어를 복사한 뒤 CentOS 터미널에 붙여넣기 합니다.</p>
+<pre class="bash"><code class="hljs">sudo yum -y install gcc make perl kernel-devel
+sudo yum -y install kernel-devel-3.10.0-862.el7.x86_64</code></pre>
+<p><code class="hljs">yum</code>이 궁금하다면 <a href="https://opentutorials.org/module/2538/14180">이 영상</a>을 봅시다. 우분투의 <code class="hljs">apt</code>는 CentOS의 <code class="hljs">yum</code>과 같습니다. <code class="hljs">-y</code> 옵션은 설치할 때 나오는 질문들에 모두 <code class="hljs">Yes</code>를 입력한다는 의미입니다.</p>
+<p><code class="text">gcc, make, perl, kernel-devel, kernel-devel-3.10.0-862.el7.x86_64</code>을 모두 설치하면 이제 <code class="hljs">Guest Additions</code>를 설치할 수 있습니다. <code class="hljs">Insert Guest Additions CD Image...</code>를 누른 뒤 팝업에 <code class="hljs">Yes</code>를 누릅니다. 이미 CD Image를 삽입한 상태라면 <code class="hljs">Activies - Files - VBox_GAs_5...</code>을 선택하고 <code class="hljs">Run Software</code>를 누릅니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/run_software.png" alt="Run Software"><figcaption>Run Software</figcaption>
+</figure>
+<p><code class="hljs">Guest Additions</code>를 설치한 뒤 CentOS를 종료합니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/guest-addition-installed.png" alt="Guest Additions를 설치했습니다"><figcaption>Guest Additions를 설치했습니다</figcaption>
+</figure>
+<h3 id="virtual-hardware-settings">Virtual Hardware Settings</h3>
+<p>CentOS를 종료한 뒤 RAM, CPU와 Display를 세팅합니다. 가능한 많은 자원을 가상 머신에 할당하는 것이 좋습니다. 가상 머신의 해상도가 꽤나 높을 것이기 때문입니다.</p>
+<p>저는 램 3GB, CPU 코어 4개, Video Memory 256MB를 할당했습니다. 제 Virtualbox는 코어 4개를 할당하니 Invalid settings detected 경고가 뜨는데, 막상 확인해보면 코어 4개를 정상적으로 사용하는 것 같았습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/ram.png" alt="RAM" class="no-shadow"><figcaption>RAM</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/cpu.png" alt="CPU" class="no-shadow"><figcaption>CPU</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/video-memory.png" alt="Video Memory" class="no-shadow"><figcaption>Video Memory</figcaption>
+</figure>
+<p><code class="hljs">Display</code>에서 <code class="hljs">Use Unscaled HiDPI Output</code>과 <code class="hljs">Enable 3D Acceleration</code>을 체크합니다.</p>
+<p>본래 Video Memory는 128MB가 최대인데, Virtualbox의 설정 파일을 직접 조작함으로써 256MB까지 높일 수 있습니다. 맥에서는 터미널에서 다음과 같이 입력하면 됩니다.</p>
+<pre class="bash"><code class="hljs">VBoxManage modifyvm <span class="hljs-string">"Your VM's Name"</span> --vram 256</code></pre>
+<p>윈도우에선 command prompt(Win+R, cmd 입력 후 엔터)에서 다음과 같이 입력합니다.</p>
+<pre><code class="hljs vim"><span class="hljs-string">"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"</span> modifyvm <span class="hljs-string">"Your VM's Name"</span> --vram <span class="hljs-number">256</span></code></pre>
+<p>저는 가상 머신의 이름을 CentOS로 설정했으므로 “Your VM’s Name”를 “CentOS”로 바꿔서 명령을 실행했습니다.</p>
+<p>가상 머신을 실행하면 고해상도의 CentOS를 볼 수 있습니다. 아마 꽤나 버벅거릴텐데, 자동 배포 시스템을 구축한 뒤에는 가상 머신이 아니라 native OS에서 작업할 것이니 그 때까지만 참읍시다…</p>
+<p>이상 CentOS를 설치하고 기본 세팅을 했습니다.</p>
+</div></article><hr data-v-31a6adae=""><div data-v-31a6adae="" id="adjacent-articles"><!----><div data-v-31a6adae="" id="prev-article"><h4 data-v-31a6adae="">Previous Article</h4><p data-v-31a6adae=""><a data-v-31a6adae="" href="/blog/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project/" class="">[Blog/VueJS] 1. 블로깅 시스템 프로젝트 소개</a></p></div></div><hr data-v-31a6adae="" style="margin-top: 28px;"><div data-v-31a6adae="" id="share-buttons"><button data-v-31a6adae="" data-clipboard-text="https://blog.myeongjae.kim/2018/10/11/blogvuejs-2-development-environment" class="copy-btn">Copy Link</button>
+      &nbsp;
+      <a data-v-31a6adae="" href="/blog/" class="router-link-active"><button data-v-31a6adae="">Article List</button></a></div><div data-v-31a6adae="" id="disqus_thread"></div></div><a data-v-31a6adae="" class="back_to_top">↑</a></div></div><script src="/js/chunk-vendors.06ae0a08.js"></script><script src="/js/app.c1cfc6f2.js"></script></body></html>

@@ -36,6 +36,8 @@ const productionPlugins = [
   "/blog/2018/09/18/블로깅-시스템을-만들었습니다",
   "/blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs",
   "/blog/2018/10/05/웹-spa에서-disqus-적용하기",
+  "/blog/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project",
+  "/blog/2018/10/11/blogvuejs-2-development-environment",
   "/",
   "/blog",
   "/musings",

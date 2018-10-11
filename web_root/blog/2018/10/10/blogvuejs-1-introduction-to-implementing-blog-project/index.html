@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-126240406-1"></script><script>window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>[Blog/VueJS] 1. 블로깅 시스템 프로젝트 소개 :: Myeongjae Kim</title><link href="/css/chunk-1a81.58822ab7.css" rel="prefetch"><link href="/css/chunk-1aae.e6a1c6e7.css" rel="prefetch"><link href="/js/chunk-1a81.502d90b5.js" rel="prefetch"><link href="/js/chunk-1aae.84cb65f7.js" rel="prefetch"><link href="/css/app.32ff8bb0.css" rel="preload" as="style"><link href="/js/app.c1cfc6f2.js" rel="preload" as="script"><link href="/js/chunk-vendors.06ae0a08.js" rel="preload" as="script"><link href="/css/app.32ff8bb0.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-1a81.58822ab7.css"><script charset="utf-8" src="/js/chunk-1a81.502d90b5.js"></script><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="blogvuejs-1-introduction-to-implementing-blog-project :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "myeongjae";
+var disqus_title      = "blogvuejs-1-introduction-to-implementing-blog-project";
+var disqus_identifier = "/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project";
+var disqus_url        = "https://blog.myeongjae.kim/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project";
+</script><script type="text/javascript" async="" src="//myeongjae.disqus.com/embed.js"></script></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-31a6adae="" id="blog"><div data-v-31a6adae="" id="blog-contents"><article data-v-31a6adae=""><div data-v-31a6adae="" class="inner-title-container"><h1 data-v-31a6adae=""><a data-v-31a6adae="" href="https://blog.myeongjae.kim/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project" id="inner-title">[Blog/VueJS] 1. 블로깅 시스템 프로젝트 소개</a></h1><p data-v-31a6adae="" class="meta">2018 / 10 / 10</p></div><div data-v-31a6adae="" id="padding-between-title-and-article"></div><div data-v-31a6adae="" id="article-content"><h1 id="blogvuejs-1.-블로깅-시스템-프로젝트-소개" style="display: none;">[Blog/VueJS] 1. 블로깅 시스템 프로젝트 소개</h1>
+<p>이미 여러 블로깅 툴들이 있지만.. 제가 원하는 스펙을 가진 툴이 없어서 <a href="/blog/2018/09/18/블로깅-시스템을-만들었습니다/">블로깅 시스템을 직접 만들어버렸습니다</a>. 만들어놓고 보니 프로젝트 난이도가 적당하게 어려워서(혹은 쉬워서) 이제 막 공부를 시작하시는 분들이 해볼만한 프로젝트인 것 같기도 했습니다. 그래서, 블로깅 시스템 만들기를 연재합니다.</p>
+<p><a href="/blog/2016/02/26/소프트웨어-누가-이렇-개떡-같이-만든거야/">소프트웨어 누가 이렇게 개떡같이 만든거야?</a> p252: 괴짜들의 전반적인 특성</p>
+<blockquote>
+<p>괴짜들은 항상 자신들이 상황을 통제하고 있다는 느낌을 갖고 싶어합니다. 이런 욕구는 아마 초등학교 때부터 생겼을 겁니다. 운동도 잘 못하고 여자들도 그들에게는 말을 걸지 않았지만, 그들은 원할 때면 언제고 구석에 앉아서 큐빅 퍼즐을 마음대로 맞춰낼 수 있었습니다. 그리고 그들이 정말 하려는 것이 무엇이었는지를 깊숙이 파고들어가 보면 그것은 퍼즐을 사용설명서대로 마음껏 주무르는 것이었을 겁니다. 제가 1장에서 설명했듯이, 괴짜들은 수동 기어 자동차를 좋아합니다. 뭔가를 마음대로 제어할 때의 느낌을 좋아하기 때문입니다. 그 방법을 배워야 하는 것, 그리고 운전을 하면서 지속적으로 기어를 바꿔야 하는 것과 같은 부가적은 일에는 신경을 쓰지 않습니다. 그들은 이런 것이 상당히 괜찮은 트레이드오프라고(그리고 자동차라면 당연히 그래야 한다고)생각하며, 그걸 인식하고 그렇게 할 수 있을 정도로 똑똑하다는 것에 대해 스스로 자부심을 느낍니다. 그들도(추상적으로는) 어떤 사람들은 그들과 생각이 다르다는 것을 알지만 그런 사람의 비율은 그리 높지 않을 거라 생각합니다. 그리고 그런 사람들이 왜 그렇게 느끼는지에 대해서도 이해하지 못할 뿐 아니라, 그런 사람은 얼마 안 될 것이라 생각했다가 사실은 대부분의 사람들이 그렇다는 것을 알게 되면 깜짝 놀라고 맙니다.</p>
+</blockquote>
+<p>특히 이런 분(저도포함..)들은 즐겁게 프로젝트를 진행하실 수 있을거에요.</p>
+<h3 id="글-쓰기">글 쓰기</h3>
+<p>수동 기어 자동차를 직접 만들고 운행하는 프로젝트라고 비유하면 딱 맞을 것 같습니다.</p>
+<ol type="1">
+<li>사용자가 markdown으로 문서를 작성한다.</li>
+<li>markdown 문서를 html로 변환한다.</li>
+<li>변환한 html문서를 Blog component에 추가한다.</li>
+<li>웹사이트를 빌드한다.</li>
+</ol>
+<h3 id="매우-가벼운-웹사이트">매우 가벼운 웹사이트</h3>
+<p>이 블로깅 시스템은 Jekyll처럼 데이터베이스가 필요없습니다. 간단한 웹서버와 static page들만으로 동작합니다.</p>
+<p>웹서버에서 프론트엔드까지 구현할텐데, 웹서버는 GET request에 따라서 파일만 보내주고 대부분의 연산은 프론트엔드에서 발생합니다. 그럼에도 불구하고 프론트엔드는 매우 가볍습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/10/blog_size.png" alt="가볍습니다"><figcaption>가볍습니다</figcaption>
+</figure>
+<p>Javascript와 css파일 크기의 합이 250KB도 되지 않습니다. 3G network속도로 테스트해도 2.5초 안에 페이지를 로딩합니다.</p>
+<h3 id="프로젝트를-진행하면서-무엇을-배울-수-있습니까">프로젝트를 진행하면서 무엇을 배울 수 있습니까?</h3>
+<ul>
+<li>html</li>
+<li>css</li>
+<li>javascript</li>
+<li>markdown</li>
+<li>http서버 작동원리</li>
+<li>VueJS</li>
+<li>NPM(Node Package Manager)</li>
+<li>VueJS</li>
+<li>SPA(Single Page App)</li>
+<li>SEO(Search Engine Optimization)</li>
+<li>DFS(Depth First Search)</li>
+<li>Automated Deployment</li>
+<li>DNS</li>
+<li>AWS
+<ul>
+<li>EC2</li>
+<li>S3</li>
+<li>CloudFront</li>
+<li>Route 53</li>
+<li>WAF</li>
+<li>IAM</li>
+<li>…</li>
+</ul></li>
+</ul>
+<h3 id="굳이-블로그를-만들어야-하나요">굳이 블로그를 만들어야 하나요?</h3>
+<ul>
+<li><a href="https://taegon.kim/archives/7107">개발자가 블로그를 운영해야 할 이유</a></li>
+<li><a href="https://hyunseob.github.io/2017/02/26/blog-for-developers/">개발자라면, 블로그</a></li>
+<li><a href="https://medium.freecodecamp.org/every-developer-should-have-a-blog-heres-why-and-how-to-stick-with-it-5fd55a247fbf">Every developer should have a blog</a></li>
+<li><a href="https://devdactic.com/blog-as-a-software-developer/">5 Reasons Why You Should Blog as a Software Developer</a></li>
+</ul>
+<h3 id="프로젝트를-시작하기-전에-공부해야-할-것">프로젝트를 시작하기 전에 공부해야 할 것</h3>
+<ul>
+<li>생활코딩
+<ul>
+<li><a href="https://opentutorials.org/course/3084">HTML</a></li>
+<li><a href="https://opentutorials.org/course/3086">CSS</a></li>
+<li><a href="https://opentutorials.org/course/3085">JavaScript</a></li>
+<li><a href="https://opentutorials.org/course/3385/21673">HTTP</a></li>
+<li><a href="https://opentutorials.org/module/3747">Posix CLI</a></li>
+</ul></li>
+<li><a href="https://steemit.com/javascript/@march23hare/javascript">구닥다리 공룡을 위한 오늘날의 JavaScript</a></li>
+<li>VueJS
+<ul>
+<li><a href="https://www.youtube.com/watch?v=78tNYZUS-ps">The Vue Tutorial for 2018 - Learn Vue 2 in 65 Minutes</a></li>
+<li><a href="https://kr.vuejs.org/v2/guide/">VueJS 가이드</a></li>
+</ul></li>
+<li>운영체제의 파일시스템을 조작할 수 있는 언어 하나(e.g.&nbsp;c, c++, python, golang, java, c#, …)</li>
+</ul>
+<p>아래는 2018년도의 VueJS의 위상을 확인할 수 있는 영상입니다.</p>
+<iframe class="center shadow" width="560" height="315" src="https://www.youtube.com/embed/TRJMT9yjONQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+</div></article><hr data-v-31a6adae=""><div data-v-31a6adae="" id="adjacent-articles"><div data-v-31a6adae="" id="next-article"><h4 data-v-31a6adae="">Next Article</h4><p data-v-31a6adae=""><a data-v-31a6adae="" href="/blog/2018/10/11/blogvuejs-2-development-environment/" class="">[Blog/VueJS] 2. 개발환경 세팅</a></p></div><div data-v-31a6adae="" id="prev-article"><h4 data-v-31a6adae="">Previous Article</h4><p data-v-31a6adae=""><a data-v-31a6adae="" href="/blog/2018/10/05/웹-spa에서-disqus-적용하기/" class="">[웹] SPA에서 Disqus 적용하기</a></p></div></div><hr data-v-31a6adae="" style="margin-top: 28px;"><div data-v-31a6adae="" id="share-buttons"><button data-v-31a6adae="" data-clipboard-text="https://blog.myeongjae.kim/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project" class="copy-btn">Copy Link</button>
+      &nbsp;
+      <a data-v-31a6adae="" href="/blog/" class="router-link-active"><button data-v-31a6adae="">Article List</button></a></div><div data-v-31a6adae="" id="disqus_thread"></div></div><a data-v-31a6adae="" class="back_to_top">↑</a></div></div><script src="/js/chunk-vendors.06ae0a08.js"></script><script src="/js/app.c1cfc6f2.js"></script></body></html>
