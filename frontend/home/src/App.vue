@@ -435,8 +435,9 @@ sup {
 .footnote {
   font-size: 0.8em;
   opacity: 0.9;
-  margin-top:-1.6em;
-  margin-left:1em;
+  margin-top: -1em;
+  margin-left: 1em;
+  line-height: 1em;
 }
 
 hr {
