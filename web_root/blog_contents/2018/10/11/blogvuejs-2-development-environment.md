@@ -103,7 +103,6 @@ Virtualbox 메뉴의 `Devices`탭에서 `Insert Guest Additions CD Image...`를 
 아래 명령어를 복사한 뒤 CentOS 터미널에 붙여넣기 합니다.
 
 ```bash
-sudo yum update
 sudo yum -y install gcc make perl kernel-devel
 sudo yum -y install kernel-devel-3.10.0-862.el7.x86_64
 ```
