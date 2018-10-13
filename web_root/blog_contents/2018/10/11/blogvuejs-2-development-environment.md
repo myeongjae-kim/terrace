@@ -100,7 +100,7 @@ CentOS를 종료(Shutdown)한 뒤 인터넷을 연결합니다. `Settings - Netw
 
 Virtualbox 메뉴의 `Devices`탭에서 `Insert Guest Additions CD Image...`를 눌러서 설치할 수 있는데, 그 전에 개발자 도구를 설치해야 `Guest Additions`를 정상적으로 설치할 수 있습니다.
 
-아래 명령어를 복사한 뒤 CentOS 터미널에 붙여넣기 합니다.
+아래 명령어를 CentOS 터미널에 입력합시다. 두 번째 줄에 `e17`이 아니라 `el7`입니다.
 
 ```bash
 sudo yum -y install gcc make perl kernel-devel
