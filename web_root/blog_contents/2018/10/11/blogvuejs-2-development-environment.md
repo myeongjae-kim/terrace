@@ -53,13 +53,7 @@ Begin Installation을 누르면 설치를 시작합니다. 계정 설정 화면�
 
 ![Gnome](https://cdn.myeongjae.kim/blog/2018/10/login-gnome.png)
 
-그리고 `Dark mode`{.text}를 설정하기 위해 터미널을 열어서 커맨드를 입력해야 합니다. Host와 가상 머신간의 복사-붙여넣기를 연동해서 편하게 입력합시다.
-
-`Virtualbox - Settings - General - Advanced - Shared Clipboard`를 `Bidirectional`로 선택합니다.
-
-![Bidirectional](https://cdn.myeongjae.kim/blog/2018/10/copy-paste.png){.no-shadow}
-
-아래 명령어를 복사한 뒤 CentOS 터미널에 붙여넣기 합니다. 터미널의 복사, 붙여넣기는 `Ctrl + Shift + C`, `Ctrl + Shift + V` 입니다.
+그리고 `Dark mode`{.text}를 설정하기 위해 터미널을 열어서 커맨드를 입력해야 합니다. 
 
 **Step 1**: Open the GTK3 configuration file in Text Editor:
 
@@ -109,19 +103,28 @@ Virtualbox 메뉴의 `Devices`탭에서 `Insert Guest Additions CD Image...`를 
 아래 명령어를 복사한 뒤 CentOS 터미널에 붙여넣기 합니다.
 
 ```bash
+sudo yum update
 sudo yum -y install gcc make perl kernel-devel
 sudo yum -y install kernel-devel-3.10.0-862.el7.x86_64
 ```
 
 `yum`이 궁금하다면 [이 영상](https://opentutorials.org/module/2538/14180)을 봅시다. 우분투의 `apt`는 CentOS의 `yum`과 같습니다. `-y` 옵션은 설치할 때 나오는 질문들에 모두 `Yes`를 입력한다는 의미입니다.
 
-`gcc, make, perl, kernel-devel, kernel-devel-3.10.0-862.el7.x86_64`{.text}을 모두 설치하면 이제 `Guest Additions`를 설치할 수 있습니다. `Insert Guest Additions CD Image...`를 누른 뒤 팝업에 `Yes`를 누릅니다. 이미 CD Image를 삽입한 상태라면 `Activies - Files - VBox_GAs_5...`을 선택하고 `Run Software`를 누릅니다.
+`gcc, make, perl, kernel-devel, kernel-devel-3.10.0-862.el7.x86_64`{.text}을 모두 설치하면 이제 `Guest Additions`를 설치할 수 있습니다. `Insert Guest Additions CD Image...`를 누른 뒤 팝업에 `Yes`를 누릅니다. 이미 CD Image를 삽입한 상태라면 `Activities - Files - VBox_GAs_5...`을 선택하고 `Run Software`를 누릅니다.
 
 ![Run Software](https://cdn.myeongjae.kim/blog/2018/10/run_software.png)
 
 `Guest Additions`를 설치한 뒤 CentOS를 종료합니다.
 
 ![Guest Additions를 설치했습니다](https://cdn.myeongjae.kim/blog/2018/10/guest-addition-installed.png)
+
+`Guest Additions`를 설치하면 Host와 가상 머신간의 복사-붙여넣기를 연동할 수 있습니다.
+
+`Virtualbox - Settings - General - Advanced - Shared Clipboard`를 `Bidirectional`로 선택합니다.
+
+![Bidirectional](https://cdn.myeongjae.kim/blog/2018/10/copy-paste.png){.no-shadow}
+
+터미널의 복사, 붙여넣기는 `Ctrl + Shift + C`, `Ctrl + Shift + V` 입니다.
 
 ### Virtual Hardware Settings
 
