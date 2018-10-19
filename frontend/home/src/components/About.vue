@@ -74,7 +74,7 @@ export default {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    this.baedal_img = "https://cdn.myeongjae.kim/res/about_logos/" + getRandomInteger(0, 2) + ".png";
+    this.baedal_img = "https://cdn.myeongjae.kim/res/about_logos/" + getRandomInteger(0, 3) + ".png";
     
     // Load moving baedalee asynchronously to show
     // perfect animation
