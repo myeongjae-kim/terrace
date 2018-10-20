@@ -204,9 +204,13 @@ make a git repository, upload
 
 git, 형상관리 시스템
 
-add, commit, push
+add . , add -A, commit, push
 branch, checkout, branch -D
 reset --hard, revert
+
+정규표현식 (add의 . 아래 사이트에서 해보기)
+
+https://regexone.com
 
 숙제: 다음 글 읽어오기, 생활코딩 git 수업 듣기, 다음 글 한 번 더 읽어오기
 
