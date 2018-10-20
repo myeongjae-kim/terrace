@@ -62,6 +62,13 @@ export default {
           author : "- 안나 브라우넬 제임슨, <프랭클린 플래너, 2015년 11월 27일>",
           css : "",
         },
+        {
+          key : 3,
+          sentences : ["“It seems that perfection is attained not when there is nothing more to add, but when there is nothing more to remove."],
+          author : "- Antoine de Saint Exupéry, <Wind, Sand and Stars> Chapter 3",
+          css : "font-family: 'Bad Script'; font-style:normal;",
+        },
+
 
       ],
     }
