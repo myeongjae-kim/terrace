@@ -64,7 +64,7 @@ export default {
         },
         {
           key : 3,
-          sentences : ["“It seems that perfection is attained not when there is nothing more to add, but when there is nothing more to remove."],
+          sentences : ["“It seems that perfection is attained not when there is nothing more to add, but when there is nothing more to remove.”"],
           author : "- Antoine de Saint Exupéry, <Wind, Sand and Stars>, 1939, Chapter 3",
           css : "font-family: 'Bad Script'; font-style:normal;",
         },
