@@ -200,6 +200,26 @@ sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
 sudo firewall-cmd --reload
 ```
 
+make a git repository, upload
+
+git, 형상관리 시스템
+
+add . , add -A, commit, push
+branch, checkout, branch -D
+reset --hard, revert
+
+정규표현식 (add의 . 아래 사이트에서 해보기)
+
+https://regexone.com
+
+숙제: 다음 글 읽어오기, 생활코딩 git 수업 듣기, 다음 글 한 번 더 읽어오기
+
+https://www.huskyhoochu.com/issue-based-version-control-101
+https://www.huskyhoochu.com/issue-based-version-control-201
+https://medium.com/@rcwestlake/write-categorized-git-commit-messages-c9f953ea6040
+
+https://opentutorials.org/course/2708
+
 
 https://asciinema.org/a/VxmATX3owRxhSOcafHpPr4X6S
 
