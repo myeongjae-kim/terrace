@@ -83,7 +83,7 @@ index.html</code></pre>
 </p>
 <h3 id="trailing-slash">Trailing Slash</h3>
 <p>자바스크립트 없이 웹사이트가 잘 작동하는데, <a href="https://www.google.com/webmasters/tools/googlebot-fetch">Fetch as Google</a>에서는 제 블로그를 긁어가지 못했습니다. 원인은 AWS CloudFront였습니다.</p>
-<p>CloudFront에서는 디렉토리를 링크할 때 trailing slash를 추가하길 권장합니다<sup>8</sup>. 예를 들어서 <a href="https://myeongjae.kim/blog" class="uri">https://myeongjae.kim/blog</a> 로 접속을 하면 CloudFront는 이 접속을 <a href="https://myeongjae.kim/blog/" class="uri">https://myeongjae.kim/blog/</a>로 redirection을 합니다. 이 과정때문에 Fetch as Google은 페이지를 긁어가지 못했습니다(왜 못 긁어가는지는 잘 모르겠습니다). 디렉토리로 연결되는 모든 링크에 trailing slash를 추가하니 잘 작동합니다.</p>
+<p>CloudFront에서는 디렉토리를 링크할 때 trailing slash를 추가하길 권장합니다<sup>8</sup>. 예를 들어서 <a href="https://myeongjae.kim/blog">https://myeongjae.kim/blog</a> 로 접속을 하면 CloudFront는 이 접속을 <a href="https://myeongjae.kim/blog/">https://myeongjae.kim/blog/</a>로 redirection을 합니다. 이 과정때문에 Fetch as Google은 페이지를 긁어가지 못했습니다(왜 못 긁어가는지는 잘 모르겠습니다). 디렉토리로 연결되는 모든 링크에 trailing slash를 추가하니 잘 작동합니다.</p>
 <p class="footnote">
 <strong>8</strong>. <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/LinkFormat.html">Customizing the URL Format for Files in CloudFront</a>
 </p>
@@ -93,7 +93,7 @@ index.html</code></pre>
 <h3 id="open-graph">Open Graph</h3>
 <p>마지막으로 HTML의 head tag 사이에 Open Graph<sup>9</sup> 포맷의 메타 정보들을 추가함으로써 페이스북과 카카오톡의 링크에 정보를 추가할 수 있습니다. vuejs에선 <a href="https://github.com/declandewet/vue-meta">vue-meta</a> 플러그인을 사용하면 됩니다.</p>
 <p class="footnote">
-<strong>9</strong>. <a href="http://ogp.me" class="uri">http://ogp.me</a>, <a href="http://blog.ab180.co/open-graph-as-a-website-preview/">링크의 미리보기 제목, 설명, 이미지를 결정하는 open graph 태그</a>
+<strong>9</strong>. <a href="http://ogp.me">http://ogp.me</a>, <a href="http://blog.ab180.co/open-graph-as-a-website-preview/">링크의 미리보기 제목, 설명, 이미지를 결정하는 open graph 태그</a>
 <p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2018/09/fb-meta.png" alt="🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈" width="517" /><figcaption>🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈</figcaption>

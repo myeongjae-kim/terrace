@@ -57,6 +57,11 @@ Vue는 프레임워크의 정의에 잘 부합한다.
 
 숙제: 도메인 구매. DNS에 대해서 공부하기. 65분 영상 끝까지 따라해보기.
 
+----------
+
+
+
+IntelliJ에서 vim플러그인 설치해서 쓰는 중, 편하다. vimrc까지 지원해줘서 원래 쓰던 셋팅으로 코드 편집 가능
 
 프로젝트 큰 그림 보여주기. 글 쓰는데서부터 어떻게 프론트엔드로 보여지는지.
 
@@ -66,7 +71,7 @@ pandoc 변환
 
 변환한 html 찾아서 넣어주기 (Blog.vue)
 
-json array에서 list로 보여준다.
+json array를 vue가 읽어서 list로 보여준다.
 
 여기까지 하면 npm run serve에서 등장한다.
 
@@ -200,7 +205,15 @@ sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
 sudo firewall-cmd --reload
 ```
 
-make a git repository, upload
+새로운 깃 리파지토리 만들기. terrace_new. 지금 프로젝트 업로드
+
+```
+- (Project Root)
+  - frontend
+    - home
+      - dist
+```
+
 
 git, 형상관리 시스템
 
@@ -208,9 +221,9 @@ add . , add -A, commit, push
 branch, checkout, branch -D
 reset --hard, revert
 
-정규표현식 (add의 . 아래 사이트에서 해보기)
+git add .
+git add -A
 
-https://regexone.com
 
 숙제: 다음 글 읽어오기, 생활코딩 git 수업 듣기, 다음 글 한 번 더 읽어오기
 

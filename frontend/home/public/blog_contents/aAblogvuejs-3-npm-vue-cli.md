@@ -129,6 +129,14 @@ plugins=(
 )
 ```
 
+```
+# cd + ls
+function cd {
+    builtin cd "$@"
+    ls -F
+}
+```
+
 <https://zetawiki.com/wiki/CentOS_npm_설치>
 
 
