@@ -57,6 +57,7 @@ Vue는 프레임워크의 정의에 잘 부합한다.
 
 숙제: 도메인 구매. DNS에 대해서 공부하기. 65분 영상 끝까지 따라해보기.
 
+IntelliJ에서 vim플러그인 설치해서 쓰는 중, 편하다. vimrc까지 지원해줘서 원래 쓰던 셋팅으로 코드 편집 가능
 
 프로젝트 큰 그림 보여주기. 글 쓰는데서부터 어떻게 프론트엔드로 보여지는지.
 
@@ -66,7 +67,7 @@ pandoc 변환
 
 변환한 html 찾아서 넣어주기 (Blog.vue)
 
-json array에서 list로 보여준다.
+json array를 vue가 읽어서 list로 보여준다.
 
 여기까지 하면 npm run serve에서 등장한다.
 
@@ -211,6 +212,70 @@ reset --hard, revert
 정규표현식 (add의 . 아래 사이트에서 해보기)
 
 https://regexone.com
+
+go언어 설치하는 것 보여주기. $PATH의 정체.
+
+go언어로 간단한 웹서버 짜기
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
+```
+
+`r`을 잘 탐색해보면 많은 정보들을 얻을 수 있음. 클라이언트에서 서버에 보내온 정보들.
+
+fprintf, C언어
+
+root 핸들러의 동작방식?
+
+해당 URI의 리소스가 존재하면, 그 리소스 리턴.
+없으면 리소스+"/index.html" 리턴. 이것도 없으면 에러 리턴
+
+```go
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	// when request is root, send index.html
+	// otherwise, send the file
+
+	log.Println(r.URL.Path)
+
+	path := r.URL.Path[len("/"):]
+
+	source, err := ioutil.ReadFile(WebRoot + path)
+	if err != nil {
+		source, err = ioutil.ReadFile(WebRoot + path + "/index.html")
+		if err != nil {
+			// Redirect to 404 page
+			w.WriteHeader(http.StatusNotFound)
+			fmt.Fprint(w, err)
+			log.Println("(rootHandler) ", err)
+			return
+		}
+	}
+
+	// Set content type as css if required file's extension is css
+	if len(path) >= 4 && path[len(path)-4:] == ".css" {
+		w.Header().Set("Content-Type", "text/css")
+	}
+
+	fmt.Fprint(w, string(source))
+	log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
+}
+```
+
 
 숙제: 다음 글 읽어오기, 생활코딩 git 수업 듣기, 다음 글 한 번 더 읽어오기
 
