@@ -38,7 +38,6 @@ const productionPlugins = [
   "/blog/2018/10/05/웹-spa에서-disqus-적용하기",
   "/blog/2018/10/10/blogvuejs-1-introduction-to-implementing-blog-project",
   "/blog/2018/10/11/blogvuejs-2-development-environment",
-  "/blog/2018/10/24/test",
   "/",
   "/blog",
   "/musings",

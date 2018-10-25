@@ -42,6 +42,10 @@ root 핸들러의 동작방식?
 없으면 리소스+"/index.html" 리턴. 이것도 없으면 에러 리턴
 
 ```go
+const (
+  WebRoot = "./web_root/"
+)
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// when request is root, send index.html
 	// otherwise, send the file
