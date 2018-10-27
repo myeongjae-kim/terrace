@@ -1,10 +1,110 @@
 # [Terrace] 4. Routing
 
+```
+npm install --save vue-router
+```
+
+`App.vue`
+```html
+<template>
+  <div id="app">
+    <p>
+      <router-link to="/">About</router-link>
+      &nbsp;
+      <router-link to="/blog">Blog</router-link>
+    </p>
+
+    <p>
+      <router-view></router-view>
+    </p>
+
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
+</template>
+```
+
+`router.js`
+
+```javascript
+import Vue from 'vue';
+import Router from 'vue-router';
+
+import About from './components/About.vue'
+import Blog from './components/Blog.vue'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name :'About',
+      component: About
+    },
+    {
+      path: '/blog',
+      name :'Blog',
+      component: Blog
+    },
+  ]
+});
+```
+
+`About.vue`
+
+```javascript
+<template>
+  <p>About Component</p>
+</template>
+
+<script>
+export default {
+  name: 'About'
+}
+</script>
+
+<style scoped>
+</style>
+```
+
+`Blog.vue`
+
+```javascript
+<template>
+  <p>Blog Component</p>
+</template>
+
+<script>
+export default {
+  name: 'Blog'
+}
+</script>
+
+<style scoped>
+</style>
+```
+
+`main.js`
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router.js'
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+```
+
 라우팅은 원래 서버에서 했던 것.
 
 URI(uri가 뭔지 설명)에 따라 다른 핸들러가 처리했다.
 
-요새는 프론트엔드로 함.
+요새는 프론트엔드로 하는 방법이 생김.
 
 65min 영상에서 vue-router 사용. 우리도 똑같이 사용할 것.
 
