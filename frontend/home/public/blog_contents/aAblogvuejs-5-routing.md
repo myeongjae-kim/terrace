@@ -24,6 +24,22 @@ npm install --save vue-router
 </template>
 ```
 
+`main.js`
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router.js'
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+
 `router.js`
 
 ```javascript
@@ -85,20 +101,6 @@ export default {
 </style>
 ```
 
-`main.js`
-
-```javascript
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router.js'
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
-```
 
 라우팅은 원래 서버에서 했던 것.
 
