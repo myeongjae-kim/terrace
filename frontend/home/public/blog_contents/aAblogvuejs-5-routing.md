@@ -24,6 +24,22 @@ npm install --save vue-router
 </template>
 ```
 
+`main.js`
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router.js'
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+
 `router.js`
 
 ```javascript
@@ -85,20 +101,6 @@ export default {
 </style>
 ```
 
-`main.js`
-
-```javascript
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router.js'
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
-```
 
 라우팅은 원래 서버에서 했던 것.
 
@@ -115,3 +117,5 @@ About 페이지랑 Blog페이지 만들기.
 제 웹사이트 디자인, mobile화면과 desktop화면이 거의 차이가 안나게 디자인함.
 
 많이 다르게 해도 좋다. media query 설명.
+
+숙제: 웹페이지 그럴싸하게 구성해오기

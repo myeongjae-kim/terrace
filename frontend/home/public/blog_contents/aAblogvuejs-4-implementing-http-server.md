@@ -177,6 +177,8 @@ low port 실행 권한 주기
 
 `update.sh` 만들어서 `npm build`하고 프로젝트 루트의 `web_root` 지우고 `dist`를 `web_root`로 옮김
 
+(쉘스크립트에 대해서 : https://mug896.github.io/bash-shell/)
+
 ```bash
 # update.sh in frontend directory
 cd home
