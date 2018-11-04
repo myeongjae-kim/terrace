@@ -42,10 +42,8 @@ sudo yum install -y python36u python36u-libs python36u-devel python36u-pip
 which python3.6
 cd /usr/bin
 sudo rm python3
-sudo rm python
 sudo rm pip 
 sudo cp python3.6 python3
-sudo cp python3.6 python
 sudo cp pip3.6 pip
 ```
 
@@ -78,6 +76,7 @@ nvim
 
 아래 줄을 .zshrc에 추가한다.
 ```
+export EDITOR='/usr/local/bin/nvim'
 alias v="nvim"
 ```
 
