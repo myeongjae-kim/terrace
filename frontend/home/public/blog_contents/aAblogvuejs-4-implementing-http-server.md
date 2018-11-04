@@ -48,13 +48,14 @@ sudo cp pip3.6 pip
 ```
 
 neovim 설치
-```
+```bash
 wget https://github.com/neovim/neovim/releases/download/v0.3.1/nvim.appimage
 chmod 755 ./nvim.appimage
 ./nvim.appimage --appimage-extract
 cd squashfs-root
 sudo mv usr/bin/nvim /usr/bin/nvim
 sudo mv usr/share/nvim /usr/share/nvim
+sudo pip install neovim # for remove UltiSnip error
 ```
 
 vundle 설치
