@@ -33,16 +33,6 @@
       </div>
     </div>
 
-    <div>
-      <form action="https://notify-api.line.me/api/notify" method="POST">
-        <input name="Authorization" type="hidden" value="H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P" payload="_header"/>
-        <textarea name="message">
-          test message
-        </textarea>
-        <button type="submit">Send</button>
-      </form>
-    </div>
-
     <footer id="footer">
 
     <img class="baedal" :src="baedal_img" style="float: left; opacity:0;">
