@@ -104,15 +104,15 @@ export default {
       xhr.open("POST", 'https://notify-api.line.me/api/notify', true);
 
       //Send the proper header information along with the request
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("Authorization", "Bearer H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P");
 
       xhr.onreadystatechange = function() { // Call a function when the state changes.
-          alert(this.status)
           if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
               // Request finished. Do processing here.
           }
       }
-      xhr.send("{'message' : 'test message}"); 
+      xhr.send("message=testmessage"); 
     }
   }
 }
