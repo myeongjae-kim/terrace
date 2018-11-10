@@ -118,4 +118,14 @@ About 페이지랑 Blog페이지 만들기.
 
 많이 다르게 해도 좋다. media query 설명.
 
-숙제: 웹페이지 그럴싸하게 구성해오기
+숙제:
+- 웹페이지 그럴싸하게 구성해오기
+  - `vue-router` 사용해서 routing 하기.
+- AWS EC2 instance 생성해오기
+  - t2.micro 인스턴스
+  - Amazon Linux 2
+  - ssh로 ec2에 접속해보기
+    - https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
+- Github repo 만들어서 올리기
+  - https://www.huskyhoochu.com/issue-based-version-control-101
+  - https://www.huskyhoochu.com/issue-based-version-control-201

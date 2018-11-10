@@ -33,6 +33,12 @@
       </div>
     </div>
 
+    <div>
+      <div>
+          <button v-on:click="sendMessage">Send Test Message</button>
+      </div>
+    </div>
+
     <footer id="footer">
 
     <img class="baedal" :src="baedal_img" style="float: left; opacity:0;">
@@ -91,6 +97,23 @@ export default {
       img.src = "https://cdn.myeongjae.kim/res/baedal_move.png";
     })();
     */
+  },
+  methods: {
+    sendMessage: function(event) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", 'https://notify-api.line.me/api/notify', true);
+
+      //Send the proper header information along with the request
+      xhr.setRequestHeader("Authorization", "Bearer H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P");
+
+      xhr.onreadystatechange = function() { // Call a function when the state changes.
+          alert(this.status)
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+              // Request finished. Do processing here.
+          }
+      }
+      xhr.send("{'message' : 'test message}"); 
+    }
   }
 }
 </script>

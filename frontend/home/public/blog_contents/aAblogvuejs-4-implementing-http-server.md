@@ -55,7 +55,6 @@ chmod 755 ./nvim.appimage
 cd squashfs-root
 sudo mv usr/bin/nvim /usr/bin/nvim
 sudo mv usr/share/nvim /usr/share/nvim
-sudo pip install neovim # for remove UltiSnip error
 ```
 
 vundle 설치
@@ -73,6 +72,10 @@ nvim
 :UpdateRemotePlugins
 :q
 nvim
+```
+
+```bash
+sudo pip install neovim # for remove UltiSnip error
 ```
 
 아래 줄을 .zshrc에 추가한다.
@@ -183,7 +186,7 @@ low port 실행 권한 주기
 ```bash
 # update.sh in frontend directory
 cd home
-npm build
+npm run build
 rm -rf ../../web_root
 cp -r dist ../../web_root
 ```
