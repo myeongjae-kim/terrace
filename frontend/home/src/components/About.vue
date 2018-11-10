@@ -34,9 +34,13 @@
     </div>
 
     <div>
-      <div>
-          <button v-on:click="sendMessage">Send Test Message</button>
-      </div>
+      <form action="https://notify-api.line.me/api/notify" method="POST">
+        <input name="Authorization" type="hidden" value="H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P" payload="_header"/>
+        <textarea name="message">
+          test message
+        </textarea>
+        <button type="submit">Send</button>
+      </form>
     </div>
 
     <footer id="footer">
@@ -97,23 +101,6 @@ export default {
       img.src = "https://cdn.myeongjae.kim/res/baedal_move.png";
     })();
     */
-  },
-  methods: {
-    sendMessage: function(event) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'https://notify-api.line.me/api/notify', true);
-
-      //Send the proper header information along with the request
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("Authorization", "Bearer H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P");
-
-      xhr.onreadystatechange = function() { // Call a function when the state changes.
-          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-              // Request finished. Do processing here.
-          }
-      }
-      xhr.send("message=testmessage"); 
-    }
   }
 }
 </script>
