@@ -59,8 +59,11 @@ func lineNotifyHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	token := r.FormValue("token")
+	log.Println("(lineNotifyHandler) Received token: ", token)
+
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Add("Authorization", "Bearer H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P")
+	req.Header.Add("Authorization", "Bearer "+token)
 
 	// Client객체에서 Request 실행
 	client := &http.Client{}
@@ -75,7 +78,12 @@ func lineNotifyHandler(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		str := string(respBody)
 		w.Write(respBody)
+		w.WriteHeader(200)
 		log.Println("(lineNotifyHandler)", str)
+	} else {
+		w.Write([]byte("400 Bad Request"))
+		w.WriteHeader(400)
+		log.Println("(lineNotifyHandler)", err)
 	}
 
 	return
