@@ -25,6 +25,7 @@ func makeServerFromMux(mux *http.ServeMux) *http.Server {
 func makeHTTPServer() *http.Server {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", rootHandler)
+	mux.HandleFunc("/line_notify", lineNotifyHandler)
 	return makeServerFromMux(mux)
 }
 

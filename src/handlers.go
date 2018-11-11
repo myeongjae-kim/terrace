@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 func sampleHandler(w http.ResponseWriter, r *http.Request) {
@@ -38,4 +40,43 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprint(w, string(source))
 	log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
+}
+
+func lineNotifyHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		w.WriteHeader(403)
+		w.Write([]byte("403 Bad Request"))
+		return
+	}
+
+	data := url.Values{}
+	data.Set("message", "test messages")
+
+	reqBody := strings.NewReader(data.Encode())
+
+	req, err := http.NewRequest("POST", "https://notify-api.line.me/api/notify", reqBody)
+	if err != nil {
+		panic(err)
+	}
+
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Authorization", "Bearer H4lh8bHFX7NuZTHGaDc1uOb4iITTWrwVQ93eg1PgK8P")
+
+	// Client객체에서 Request 실행
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	// Response 체크.
+	respBody, err := ioutil.ReadAll(resp.Body)
+	if err == nil {
+		str := string(respBody)
+		w.Write(respBody)
+		log.Println("(lineNotifyHandler)", str)
+	}
+
+	return
 }
