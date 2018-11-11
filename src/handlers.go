@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -42,15 +44,23 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
 }
 
+type lineNotifyResponse struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
 func lineNotifyHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
+	log.Println(r.Method)
+	if r.Method == "POST" {
+
+	} else {
 		w.WriteHeader(403)
 		w.Write([]byte("403 Bad Request"))
 		return
 	}
 
 	data := url.Values{}
-	data.Set("message", "test messages")
+	data.Set("message", "\n안녕하세요, 이제 점심 메뉴를 추천해 드릴 수 있겠네요 😀")
 
 	reqBody := strings.NewReader(data.Encode())
 
@@ -75,16 +85,25 @@ func lineNotifyHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Response 체크.
 	respBody, err := ioutil.ReadAll(resp.Body)
+
+	var lineResponse lineNotifyResponse
+	marsErr := json.Unmarshal(respBody, &lineResponse)
+	log.Println("marsErr: ", marsErr)
+	log.Println("response status: ", lineResponse)
+
 	if err == nil {
-		str := string(respBody)
-		w.Write(respBody)
 		w.WriteHeader(200)
+		str := "<html><script language='JavaScript'>"
+		if lineResponse.Status != 200 {
+			str += "alert('" + strconv.Itoa(lineResponse.Status) + " : " + lineResponse.Message + "');"
+		}
+		str += "window.open('','_self').close();</script></html>"
+		w.Write([]byte(str))
 		log.Println("(lineNotifyHandler)", str)
 	} else {
-		w.Write([]byte("400 Bad Request"))
+		w.Write([]byte(err.Error()))
 		w.WriteHeader(400)
-		log.Println("(lineNotifyHandler)", err)
+		log.Println("(lineNotifyHandler) Error: ", err)
 	}
-
 	return
 }
