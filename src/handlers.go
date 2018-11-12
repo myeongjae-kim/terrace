@@ -60,7 +60,7 @@ func lineNotifyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := url.Values{}
-	data.Set("message", "\n안녕하세요, 점심뭐먹지 봇입니다.\n이제 점심 메뉴를 골라드릴 수 있겠네요 😀\n토큰을 제출하시면 내일부터 알림을 드릴게요.\n\nhttps://lunch.myeongjae.kim")
+	data.Set("message", "\n안녕하세요, 점심뭐먹지 봇입니다.\n이제 점심 메뉴를 골라드릴 수 있겠네요 😀\n\n토큰을 제출하시면 내일부터 알림을 드릴게요.\nhttps://lunch.myeongjae.kim/#/start")
 
 	reqBody := strings.NewReader(data.Encode())
 
