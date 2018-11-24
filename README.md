@@ -71,3 +71,4 @@ https://stackoverflow.com/questions/31680022/amazon-s3-bucket-policy-allow-only-
 https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
 
 https://aws.amazon.com/blogs/security/how-to-prevent-hotlinking-by-using-aws-waf-amazon-cloudfront-and-referer-checking/
+
