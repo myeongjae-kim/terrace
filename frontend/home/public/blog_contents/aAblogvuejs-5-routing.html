@@ -1,0 +1,88 @@
+<h1 id="terrace-4.-routing">[Terrace] 4. Routing</h1>
+<pre><code>npm install --save vue-router</code></pre>
+<p><code>App.vue</code></p>
+<pre class="html"><code>&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;p&gt;
+      &lt;router-link to=&quot;/&quot;&gt;About&lt;/router-link&gt;
+      &amp;nbsp;
+      &lt;router-link to=&quot;/blog&quot;&gt;Blog&lt;/router-link&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/p&gt;
+
+    &lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo.png&quot;&gt;
+    &lt;HelloWorld msg=&quot;Welcome to Your Vue.js App&quot;/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<p><code>main.js</code></p>
+<pre class="javascript"><code>import Vue from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+import router from &#39;./router.js&#39;
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h =&gt; h(App)
+}).$mount(&#39;#app&#39;)</code></pre>
+<p><code>router.js</code></p>
+<pre class="javascript"><code>import Vue from &#39;vue&#39;;
+import Router from &#39;vue-router&#39;;
+
+import About from &#39;./components/About.vue&#39;
+import Blog from &#39;./components/Blog.vue&#39;
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: &#39;/&#39;,
+      name :&#39;About&#39;,
+      component: About
+    },
+    {
+      path: &#39;/blog&#39;,
+      name :&#39;Blog&#39;,
+      component: Blog
+    },
+  ]
+});</code></pre>
+<p><code>About.vue</code></p>
+<pre class="javascript"><code>&lt;template&gt;
+  &lt;p&gt;About Component&lt;/p&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: &#39;About&#39;
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+&lt;/style&gt;</code></pre>
+<p><code>Blog.vue</code></p>
+<pre class="javascript"><code>&lt;template&gt;
+  &lt;p&gt;Blog Component&lt;/p&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: &#39;Blog&#39;
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+&lt;/style&gt;</code></pre>
+<p>라우팅은 원래 서버에서 했던 것.</p>
+<p>URI(uri가 뭔지 설명)에 따라 다른 핸들러가 처리했다.</p>
+<p>요새는 프론트엔드로 하는 방법이 생김.</p>
+<p>65min 영상에서 vue-router 사용. 우리도 똑같이 사용할 것.</p>
+<p>About 페이지랑 Blog페이지 만들기.</p>
+<p>디자인은 꼭 내껏처럼 따라할 필요 없다. 제일 간단하긴 한데, 심플한 웹페이지 모아놓은 사이트 디자인 참고하라고 알려주기</p>
+<p>제 웹사이트 디자인, mobile화면과 desktop화면이 거의 차이가 안나게 디자인함.</p>
+<p>많이 다르게 해도 좋다. media query 설명.</p>
+<p>숙제: - 웹페이지 그럴싸하게 구성해오기 - <code>vue-router</code> 사용해서 routing 하기. - AWS EC2 instance 생성해오기 - t2.micro 인스턴스 - Amazon Linux 2 - ssh로 ec2에 접속해보기 - https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html - Github repo 만들어서 올리기 - https://www.huskyhoochu.com/issue-based-version-control-101 - https://www.huskyhoochu.com/issue-based-version-control-201</p>

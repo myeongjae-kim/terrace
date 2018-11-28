@@ -3,8 +3,7 @@
 # Generate the whole website.
 cd ./home/
 
-#npm run build
-./build.sh
+npm run build
 
 cd ..
 rm -rf ../web_root_old/
