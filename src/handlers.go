@@ -21,7 +21,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	// redirection
 	if r.Host == "book.myeongjae.kim" {
-		http.Redirect(w, r, "http://live.myeongjae.kim:1333", http.StatusOK)
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=http://live.myeongjae.kim:1333'></meta></html>"))
 		return
 	}
 
