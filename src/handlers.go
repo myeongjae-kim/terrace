@@ -20,7 +20,10 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// otherwise, send the file
 
 	// redirection
-	log.Println("Host: ", r.Host)
+	if r.Host == "book.myeongjae.kim" {
+		http.Redirect(w, r, "http://live.myeongjae.kim:1333", http.StatusOK)
+		return
+	}
 
 	log.Println(r.URL.Path)
 
