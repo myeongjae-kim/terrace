@@ -51,6 +51,7 @@ func runServers() {
 				// "myeongjae.kim",
 				// "www.myeongjae.kim",
 				"live.myeongjae.kim",
+				"book.myeongjae.kim",
 			}
 
 			// Check if the host is allowed
