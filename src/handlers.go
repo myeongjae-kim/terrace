@@ -19,6 +19,9 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// when request is root, send index.html
 	// otherwise, send the file
 
+	// redirection
+	log.Println(r.URL.Host)
+
 	log.Println(r.URL.Path)
 
 	path := r.URL.Path[len("/"):]
