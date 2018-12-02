@@ -20,7 +20,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// otherwise, send the file
 
 	// redirection
-	log.Println(r.URL.Host)
+	log.Println("Host: ", r.URL.Hostname())
 
 	log.Println(r.URL.Path)
 
