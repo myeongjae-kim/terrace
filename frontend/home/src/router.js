@@ -7,6 +7,7 @@ import About    from './components/About.vue'
 import Places   from './components/Places.vue'
 import Musings  from './components/Musings.vue'
 // import NotFound from './components/NotFound.vue'
+import BlogExample  from './components/BlogExample.vue'
 
 // Asynchronously import components
 // Reasons for asynchoronous load:
@@ -57,6 +58,14 @@ export default new Router({
       name: 'NotFound',
       component: NotFound
     },
+
+    {
+      path: '/blog-example',
+      name: 'BlogExample',
+      component: BlogExample
+    },
+
+
     { path: '*', redirect: '/404' }
   ]
 })

@@ -8,11 +8,20 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"regexp"
+	"strings"
 )
 
+type ArticleMetadata struct {
+	Title string `json:"title"`
+	Uri   string `json:"uri"`
+	Date  string `json:"date"`
+}
+
 const (
-	EXT_HTML string = ".html"
-	EXT_MD   string = ".md"
+	EXT_HTML  string = ".html"
+	EXT_MD    string = ".md"
+	DirPrefix string = "../home/public/blog_contents"
 )
 
 var articles []string
@@ -84,15 +93,46 @@ func iterate(path string, dirInfo []os.FileInfo) {
 	}
 }
 
-func main() {
-	localDir := "."
+func GetArticleMetadata(htmlPaths []string) []ArticleMetadata {
+	r := regexp.MustCompile("(19|20)[0-9][0-9][- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])")
 
-	dirInfo, err := ioutil.ReadDir(localDir)
+	var metadata []ArticleMetadata
+
+	for _, htmlPath := range htmlPaths {
+		// Get title
+		htmlSource, err := ioutil.ReadFile(htmlPath)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+
+		from := bytes.Index(htmlSource, []byte(">"))
+		from += len(">")
+		to := bytes.Index(htmlSource, []byte("</h1>"))
+
+		// Get Uri
+		uri := strings.Replace(htmlPath, "../home/public/blog_contents/", "/blog/", 1)
+		uri = strings.Replace(uri, ".html", "/", 1)
+
+		// Get date
+		date := r.FindString(htmlPath)
+
+		metadata = append(metadata, ArticleMetadata{
+			Title: string(htmlSource[from:to]),
+			Uri:   uri,
+			Date:  date,
+		})
+	}
+
+	return metadata
+}
+
+func main() {
+	dirInfo, err := ioutil.ReadDir(DirPrefix)
 	if err != nil {
 		log.Println("(main) ", err)
 		log.Fatal(err)
 	}
-	iterate(localDir, dirInfo)
+	iterate(DirPrefix, dirInfo)
 
 	fmt.Println("\n\n articles \n\n")
 	for _, article := range articles {
@@ -112,11 +152,14 @@ func main() {
 		}
 	}
 
-	b, err := json.Marshal(articles)
+	metadata := GetArticleMetadata(articles)
+
+	b, err := json.Marshal(metadata)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("\n\n json \n\n")
 	fmt.Println(string(b))
+
 }

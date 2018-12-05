@@ -48,6 +48,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprint(w, string(source))
+
 	log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
 }
 
