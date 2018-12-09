@@ -72,4 +72,3 @@ https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-conte
 
 https://aws.amazon.com/blogs/security/how-to-prevent-hotlinking-by-using-aws-waf-amazon-cloudfront-and-referer-checking/
 
-
