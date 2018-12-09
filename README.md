@@ -72,3 +72,4 @@ https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-conte
 
 https://aws.amazon.com/blogs/security/how-to-prevent-hotlinking-by-using-aws-waf-amazon-cloudfront-and-referer-checking/
 
+https://blogs.technet.microsoft.com/spsofficesupportko/2017/01/06/파일명의-한글자모가-분해되어-보여지는-현상-unicode-nfd/
