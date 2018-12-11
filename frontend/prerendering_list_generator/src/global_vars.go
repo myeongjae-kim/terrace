@@ -14,6 +14,7 @@ var (
 		"/blog",
 		"/musings",
 		"/places",
+		"/blog-example",
 		"/404",
 	}
 )

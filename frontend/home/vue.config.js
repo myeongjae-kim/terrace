@@ -39,6 +39,7 @@ const productionPlugins = [
   "/blog",
   "/musings",
   "/places",
+  "/blog-example",
   "/404"
 ],
     renderer: new PrerenderSpaPlugin.PuppeteerRenderer({
