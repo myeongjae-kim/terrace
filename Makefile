@@ -53,3 +53,4 @@ push:
 	@git push
 	@make local
 	@make deploy
+
