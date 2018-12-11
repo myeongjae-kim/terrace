@@ -1,71 +1,75 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Meta from 'vue-meta'
+import Vue from "vue";
+import Router from "vue-router";
+import Meta from "vue-meta";
 
-import About    from './components/About.vue'
+import About from "./components/About.vue";
 // import Blog     from './components/Blog.vue'
-import Places   from './components/Places.vue'
-import Musings  from './components/Musings.vue'
+import Places from "./components/Places.vue";
+import Musings from "./components/Musings.vue";
 // import NotFound from './components/NotFound.vue'
-import BlogExample  from './components/BlogExample.vue'
+import BlogExample from "./components/BlogExample.vue";
 
 // Asynchronously import components
 // Reasons for asynchoronous load:
 //  - Blog component is quite big.
 //  - NotFound component is not going to be used in normal situation.
-const Blog     = () => import('./components/Blog.vue')
-const NotFound = () => import ('./components/NotFound.vue')
+const Blog = () => import("./components/Blog.vue");
+const NotFound = () => import("./components/NotFound.vue");
 
-Vue.use(Router)
-Vue.use(Meta)
+Vue.use(Router);
+Vue.use(Meta);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
-      path: '/',
-      name: 'About',
+      path: "/",
+      name: "About",
       component: About
     },
-    { path: '/main', redirect: '/' },
-    { path: '/about', redirect: '/' },
-    { path: '/home', redirect: '/' },
+    { path: "/main", redirect: "/" },
+    { path: "/about", redirect: "/" },
+    { path: "/home", redirect: "/" },
     {
-      path: '/blog',
-      name: 'Blog',
+      path: "/blog",
+      name: "Blog",
       component: Blog,
       children: [
         {
-          path: ':year/:month/:day/:title',
+          path: ":year/:month/:day/:title"
         }
       ]
     },
 
     {
-      path: '/places',
-      name: 'Places',
+      path: "/places",
+      name: "Places",
       component: Places
     },
 
     {
-      path: '/musings',
-      name: 'Musings',
+      path: "/musings",
+      name: "Musings",
       component: Musings
     },
 
     {
-      path: '/404',
-      name: 'NotFound',
+      path: "/404",
+      name: "NotFound",
       component: NotFound
     },
 
     {
-      path: '/blog-example',
-      name: 'BlogExample',
-      component: BlogExample
+      path: "/blog-example",
+      name: "BlogExample",
+      component: BlogExample,
+      children: [
+        {
+          path: ":year/:month/:day/:title"
+        }
+      ]
     },
 
-
-    { path: '*', redirect: '/404' }
+    { path: "*", redirect: "/404" }
   ]
-})
+});

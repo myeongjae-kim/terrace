@@ -19,9 +19,10 @@ type ArticleMetadata struct {
 }
 
 const (
-	EXT_HTML  string = ".html"
-	EXT_MD    string = ".md"
-	DirPrefix string = "../home/public/blog_contents"
+	EXT_HTML          string = ".html"
+	EXT_MD            string = ".md"
+	DirPrefix         string = "../home/public/blog_contents"
+	PathBlogComponent string = "../home/src/components/BlogExample.vue"
 )
 
 var articles []string
@@ -76,6 +77,10 @@ func execPandocMdToHtml(path string) {
 
 func iterate(path string, dirInfo []os.FileInfo) {
 	for _, info := range dirInfo {
+		if info.Name()[0:2] == "aA" {
+			continue
+		}
+
 		absolutePathName := path + "/" + info.Name()
 
 		if info.IsDir() {
@@ -110,7 +115,7 @@ func GetArticleMetadata(htmlPaths []string) []ArticleMetadata {
 		to := bytes.Index(htmlSource, []byte("</h1>"))
 
 		// Get Uri
-		uri := strings.Replace(htmlPath, "../home/public/blog_contents/", "/blog/", 1)
+		uri := strings.Replace(htmlPath, "../home/public/blog_contents/", "/blog-example/", 1)
 		uri = strings.Replace(uri, ".html", "/", 1)
 
 		// Get date
@@ -124,6 +129,32 @@ func GetArticleMetadata(htmlPaths []string) []ArticleMetadata {
 	}
 
 	return metadata
+}
+
+func insertJsonToBlogComponent(json string) {
+	componentSourceBytes, err := ioutil.ReadFile(PathBlogComponent)
+	if err != nil {
+		log.Fatal(err)
+	}
+	componentSource := string(componentSourceBytes)
+
+	i := strings.Index(componentSource, "__INSERTION_POSITION__")
+
+	from := strings.Index(componentSource[i:], "[")
+	from += i
+
+	k := strings.Index(componentSource, "__INSERTION_POSITION_END__")
+	to := strings.LastIndex(componentSource[i:k+2], "]")
+	to += i
+
+	fmt.Println(" -- old json -- ")
+	fmt.Println(string(componentSource[from : to+1]))
+	fmt.Println("-- old json end -- ")
+
+	componentSource = componentSource[0:from] + json + componentSource[to+1:]
+	fmt.Println(componentSource)
+
+	ioutil.WriteFile(PathBlogComponent, []byte(componentSource), 0644)
 }
 
 func main() {
@@ -162,4 +193,5 @@ func main() {
 	fmt.Println("\n\n json \n\n")
 	fmt.Println(string(b))
 
+	insertJsonToBlogComponent(string(b))
 }
