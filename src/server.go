@@ -22,10 +22,12 @@ func makeServerFromMux(mux *http.ServeMux) *http.Server {
 	}
 }
 
-func makeHTTPServer() *http.Server {
+func makeHTTPServer(handlerMap map[string]func(http.ResponseWriter, *http.Request)) *http.Server {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", rootHandler)
-	mux.HandleFunc("/line_notify", lineNotifyHandler)
+	for uri, handler := range handlerMap {
+		mux.HandleFunc(uri, handler)
+	}
+
 	return makeServerFromMux(mux)
 }
 
@@ -39,7 +41,7 @@ func makeHTTPtoHTTPSRedirectServer() *http.Server {
 	return makeServerFromMux(mux)
 }
 
-func runServers() {
+func runServers(handlerMap map[string]func(http.ResponseWriter, *http.Request)) {
 	var m *autocert.Manager
 
 	var httpsSrv *http.Server
@@ -77,7 +79,7 @@ func runServers() {
 			Cache:      autocert.DirCache(dataDir),
 		}
 
-		httpsSrv = makeHTTPServer()
+		httpsSrv = makeHTTPServer(handlerMap)
 		httpsSrv.Addr = ":443"
 		httpsSrv.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
 
@@ -93,7 +95,7 @@ func runServers() {
 	if flgRedirectHTTPtoHTTPS {
 		httpSrv = makeHTTPtoHTTPSRedirectServer()
 	} else {
-		httpSrv = makeHTTPServer()
+		httpSrv = makeHTTPServer(handlerMap)
 	}
 
 	// allow autocer handle Let's Encrypt callbacks over http
