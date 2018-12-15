@@ -27,5 +27,22 @@ func main() {
 	m["/line_notify"] = lineNotifyHandler
 
 	parseFlags()
-	runServers(m)
+	httpSrv, httpsSrv := runServers(m)
+	if httpSrv == nil {
+		log.Fatalln("(main) http server cannot be ready to run.")
+	}
+
+	if httpsSrv != nil {
+		go func() {
+			log.Printf("Starting HTTPS server on %s\n", httpsSrv.Addr)
+			if err := httpsSrv.ListenAndServeTLS("", ""); err != nil {
+				log.Fatalf("httpsSrv.ListenAndServeTLS() failed with %s", err)
+			}
+		}()
+	}
+
+	log.Printf("Starting HTTP server on %s\n", httpSrv.Addr)
+	if err := httpSrv.ListenAndServe(); err != nil {
+		log.Fatalf("httpSrv.ListenAndServe() failed with %s", err)
+	}
 }

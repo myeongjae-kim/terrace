@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 
@@ -85,18 +84,14 @@ func setHTTPSServer(handlerMap HandlerMap) *http.Server {
 	return httpsSrv
 }
 
-func runServers(handlerMap HandlerMap) {
+func runServers(handlerMap HandlerMap) (*http.Server, *http.Server) {
 	var m *autocert.Manager
 
+	var httpsSrv *http.Server
 	if flgProduction {
-		httpsSrv := setHTTPSServer(handlerMap)
-
-		go func() {
-			log.Printf("Starting HTTPS server on %s\n", httpsSrv.Addr)
-			if err := httpsSrv.ListenAndServeTLS("", ""); err != nil {
-				log.Fatalf("httpsSrv.ListenAndServeTLS() failed with %s", err)
-			}
-		}()
+		httpsSrv = setHTTPSServer(handlerMap)
+	} else {
+		httpsSrv = nil
 	}
 
 	var httpSrv *http.Server
@@ -113,8 +108,5 @@ func runServers(handlerMap HandlerMap) {
 
 	httpSrv.Addr = ":80"
 
-	log.Printf("Starting HTTP server on %s\n", httpSrv.Addr)
-	if err := httpSrv.ListenAndServe(); err != nil {
-		log.Fatalf("httpSrv.ListenAndServe() failed with %s", err)
-	}
+	return httpSrv, httpsSrv
 }
