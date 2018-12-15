@@ -26,8 +26,13 @@ func main() {
 	m["/"] = rootHandler
 	m["/line_notify"] = lineNotifyHandler
 
+	allowedHosts := []string{
+		"live.myeongjae.kim",
+		"book.myeongjae.kim",
+	}
+
 	parseFlags()
-	httpSrv, httpsSrv := runServers(m)
+	httpSrv, httpsSrv := setServers(m, allowedHosts)
 	if httpSrv == nil {
 		log.Fatalln("(main) http server cannot be ready to run.")
 	}

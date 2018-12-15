@@ -43,16 +43,8 @@ func makeHTTPtoHTTPSRedirectServer() *http.Server {
 	return makeServerFromMux(mux)
 }
 
-func setHTTPSServer(handlerMap HandlerMap) *http.Server {
+func setHTTPSServer(handlerMap HandlerMap, allowedHosts []string) (*http.Server, *autocert.Manager) {
 	hostPolicy := func(ctx context.Context, host string) error {
-		// allowedHosts are small, so use complete search.
-		// If it is slow, use hash set
-		allowedHosts := [...]string{
-			// "myeongjae.kim",
-			// "www.myeongjae.kim",
-			"live.myeongjae.kim",
-			"book.myeongjae.kim",
-		}
 
 		// Check if the host is allowed
 		found := false
@@ -81,17 +73,18 @@ func setHTTPSServer(handlerMap HandlerMap) *http.Server {
 	httpsSrv.Addr = ":443"
 	httpsSrv.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
 
-	return httpsSrv
+	return httpsSrv, m
 }
 
-func runServers(handlerMap HandlerMap) (*http.Server, *http.Server) {
+func setServers(handlerMap HandlerMap, allowedHosts []string) (*http.Server, *http.Server) {
 	var m *autocert.Manager
 
 	var httpsSrv *http.Server
 	if flgProduction {
-		httpsSrv = setHTTPSServer(handlerMap)
+		httpsSrv, m = setHTTPSServer(handlerMap, allowedHosts)
 	} else {
 		httpsSrv = nil
+		m = nil
 	}
 
 	var httpSrv *http.Server
@@ -101,7 +94,7 @@ func runServers(handlerMap HandlerMap) (*http.Server, *http.Server) {
 		httpSrv = makeHTTPServer(handlerMap)
 	}
 
-	// allow autocer handle Let's Encrypt callbacks over http
+	// allow autocert handle Let's Encrypt callbacks over http
 	if m != nil {
 		httpSrv.Handler = m.HTTPHandler(httpSrv.Handler)
 	}
