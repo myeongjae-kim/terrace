@@ -3,7 +3,6 @@ package main
 import (
 	"io"
 	"log"
-	"net/http"
 	"os"
 )
 
@@ -23,7 +22,7 @@ func main() {
 	log.SetOutput(mw)
 	log.Println("Logger is ready.")
 
-	m := make(map[string]func(http.ResponseWriter, *http.Request))
+	m := make(HandlerMap)
 	m["/"] = rootHandler
 	m["/line_notify"] = lineNotifyHandler
 

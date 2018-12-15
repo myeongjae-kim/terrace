@@ -11,6 +11,9 @@ import (
 	"golang.org/x/crypto/acme/autocert"
 )
 
+// HandlerMap is a map whose key is a string and value is a handler
+type HandlerMap map[string]func(http.ResponseWriter, *http.Request)
+
 func makeServerFromMux(mux *http.ServeMux) *http.Server {
 	// set timeouts so that a slow or malicious client doesn't
 	// hold resources forever
@@ -22,7 +25,7 @@ func makeServerFromMux(mux *http.ServeMux) *http.Server {
 	}
 }
 
-func makeHTTPServer(handlerMap map[string]func(http.ResponseWriter, *http.Request)) *http.Server {
+func makeHTTPServer(handlerMap HandlerMap) *http.Server {
 	mux := http.NewServeMux()
 	for uri, handler := range handlerMap {
 		mux.HandleFunc(uri, handler)
@@ -41,47 +44,52 @@ func makeHTTPtoHTTPSRedirectServer() *http.Server {
 	return makeServerFromMux(mux)
 }
 
-func runServers(handlerMap map[string]func(http.ResponseWriter, *http.Request)) {
+func setHTTPSServer(handlerMap HandlerMap) *http.Server {
+	hostPolicy := func(ctx context.Context, host string) error {
+		// allowedHosts are small, so use complete search.
+		// If it is slow, use hash set
+		allowedHosts := [...]string{
+			// "myeongjae.kim",
+			// "www.myeongjae.kim",
+			"live.myeongjae.kim",
+			"book.myeongjae.kim",
+		}
+
+		// Check if the host is allowed
+		found := false
+		for i := range allowedHosts {
+			if host == allowedHosts[i] {
+				found = true
+				break
+			}
+		}
+
+		if found {
+			return nil
+		}
+
+		return fmt.Errorf("acme/autocert: %s is not an allowed host", host)
+	}
+
+	dataDir := "."
+	m := &autocert.Manager{
+		Prompt:     autocert.AcceptTOS,
+		HostPolicy: hostPolicy,
+		Cache:      autocert.DirCache(dataDir),
+	}
+
+	httpsSrv := makeHTTPServer(handlerMap)
+	httpsSrv.Addr = ":443"
+	httpsSrv.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
+
+	return httpsSrv
+}
+
+func runServers(handlerMap HandlerMap) {
 	var m *autocert.Manager
 
-	var httpsSrv *http.Server
 	if flgProduction {
-		hostPolicy := func(ctx context.Context, host string) error {
-			// allowedHosts are small, so use complete search.
-			// If it is slow, use hash set
-			allowedHosts := [...]string{
-				// "myeongjae.kim",
-				// "www.myeongjae.kim",
-				"live.myeongjae.kim",
-				"book.myeongjae.kim",
-			}
-
-			// Check if the host is allowed
-			found := false
-			for i := range allowedHosts {
-				if host == allowedHosts[i] {
-					found = true
-					break
-				}
-			}
-
-			if found {
-				return nil
-			}
-
-			return fmt.Errorf("acme/autocert: %s is not an allowed host", host)
-		}
-
-		dataDir := "."
-		m = &autocert.Manager{
-			Prompt:     autocert.AcceptTOS,
-			HostPolicy: hostPolicy,
-			Cache:      autocert.DirCache(dataDir),
-		}
-
-		httpsSrv = makeHTTPServer(handlerMap)
-		httpsSrv.Addr = ":443"
-		httpsSrv.TLSConfig = &tls.Config{GetCertificate: m.GetCertificate}
+		httpsSrv := setHTTPSServer(handlerMap)
 
 		go func() {
 			log.Printf("Starting HTTPS server on %s\n", httpsSrv.Addr)
