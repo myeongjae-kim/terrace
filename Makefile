@@ -26,3 +26,4 @@ deploy:
 	git push git@52.79.241.46:~/terrace_hook master
 	#@echo "Deploying to S3 and invalidate cached files on Cloudfront"
 	#@./deploy_to_s3.sh
+
