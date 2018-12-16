@@ -31,7 +31,7 @@
 export DEPLOY_APP_NAME=`whoami`
 
 # This is the root deploy dir.
-export DEPLOY_ROOT="${HOME}/terrace_deploy"
+export DEPLOY_ROOT="${HOME}/go/src/github.com/hrzon/terrace"
 
 # When receiving a new git push, the received branch gets compared to this one.
 # If you do not need this, just add a comment

@@ -10,7 +10,7 @@ After=network.target
 WorkingDirectory=/home/web/terrace_deploy
 Type=forking
 
-ExecStart=/bin/bash -c 'pkill terrace; ./bin/terrace -production -redirect-to-https &'
+ExecStart=/bin/bash -c 'pkill webserver; ./bin/webserver -redirect-to-https -web-root-directory=./web/home/dist &'
 
 StandardOutput=syslog
 StandardError=syslog
