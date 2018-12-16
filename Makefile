@@ -1,6 +1,6 @@
 run:
 	make build
-	./bin/webserver
+	./bin/webserver -web-root-directory ./web/home/dist
 
 build:
 	./scripts/build-webserver.sh

@@ -6,13 +6,15 @@ import (
 
 	"github.com/hrzon/go-vue-boilerplate/pkg/logger"
 	"github.com/hrzon/go-vue-boilerplate/pkg/webserver"
-	"github.com/hrzon/go-vue-boilerplate/pkg/webserver/handlers"
+
+	"github.com/hrzon/terrace/internal/pkg/webserver/customhandlers"
 )
 
 var (
 	flagRedirectToHTTPS bool
 	flagHTTPSPort       int
 	flagHTTPPort        int
+	flagRootDirectory   string
 )
 
 func setArgumentOptions() {
@@ -37,6 +39,13 @@ func setArgumentOptions() {
 		"Set its value to http port number. Default value is 80",
 	)
 
+	flag.StringVar(
+		&flagRootDirectory,
+		"web-root-directory",
+		"./web",
+		"Set its value as root directory of a web server. Default value is './web'",
+	)
+
 	flag.Parse()
 
 	if flagRedirectToHTTPS {
@@ -46,6 +55,8 @@ func setArgumentOptions() {
 	webserver.SetRedirectToHTTPS(flagRedirectToHTTPS)
 	webserver.SetHTTPSPort(flagHTTPSPort)
 	webserver.SetHTTPPort(flagHTTPPort)
+
+	customhandlers.SetRootDirectory(flagRootDirectory)
 }
 
 func main() {
@@ -59,7 +70,8 @@ func main() {
 
 	// Set handlers
 	handlerMap := make(webserver.HandlerMap)
-	handlerMap["/"] = handlers.RootHandler
+	handlerMap["/"] = customhandlers.RootHandler
+	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
 	// Set HTTPS hosts
 	allowedHTTPSHosts := []string{
@@ -67,6 +79,5 @@ func main() {
 		"book.myeongjae.kim",
 	}
 
-	handlers.SetRootDirectory("./web/home/dist/")
 	webserver.InitAndRunServers(handlerMap, allowedHTTPSHosts)
 }
