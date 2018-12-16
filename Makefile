@@ -12,7 +12,7 @@ update:
 	echo "Building the server"
 	make build
 	echo "Copying built results to 'web' user for security"
-	sudo cp bin/webserver /home/web/terrace_deploy/bin/webserver
+	sudo cp ./bin/webserver /home/web/terrace_deploy/bin/webserver
 	echo "Copying web_root twice for removing legacy version without error occurred by 'rm'"
 	sudo rm -rf /home/web/terrace_deploy/web/home/dist
 	sudo cp -r ./web/home/dist /home/web/terrace_deploy/web/home/dist
