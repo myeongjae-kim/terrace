@@ -26,7 +26,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	// Redirection. TODO: Make it general. Add a function for subdomain redirection at boilerplate
 	if r.Host == "book.myeongjae.kim" {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=http://live.myeongjae.kim:1333'></meta></html>"))
+		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
 		return
 	}
 
