@@ -1,0 +1,159 @@
+<h1 id="vimlinux-10.-deoplete과-clang_complete-자동-완성-플러그인">[vim/Linux] 10. deoplete과 clang_complete, 자동 완성 플러그인</h1>
+<h2 id="deoplete">Deoplete</h2>
+<p>Deoplete은 사용자의 입력을 prefix로 처리해서 예상되는 입력값들을 추천해주는 플러그인입니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-9.04.58-PM.png" alt="img" /><figcaption>img</figcaption>
+</figure>
+<p><code>.vimrc</code>에 <code class="vim">Plugin 'Shougo/deoplete.nvim'</code> 을 추가하고 <code>:PluginInstall</code> 을 합시다. deplete가 설치되면 vim을 재시작하고 <code>:UpdateRemotePlugins</code> 를 입력합니다.</p>
+<p>.vimrc에 다음과 같이 추가합니다.</p>
+<pre class="vim"><code>&quot; Deoplete.
+let g:deoplete#enable_at_startup = 1</code></pre>
+<p><code>.vimrc</code>를 열고 제일 마지막 줄에 deo라고 입력해보면, 입력한 deo와 관련된 단어들이 나타납니다.</p>
+<p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-8.48.48-PM-1024x627.png" /></p>
+<p><code>Ctrl + N</code>과 <code>Ctrl + P</code>로 관련된 단어들을 선택할 수 있습니다. 선택한 뒤에는 <code>Ctrl + [</code> 혹은 <code>ESC</code>를 누르면 됩니다.</p>
+<p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-8.48.58-PM.png" /></p>
+<p>지금 상태는 vim에서 열어놓은 파일 안에서만 관련 단어를 찾습니다. 아래의 플러그인을 설치하면 C의 스탠다드 라이브러리를 활용해서 코드를 자동으로 완성할 수 있습니다.</p>
+<h2 id="clang_complete">clang_complete</h2>
+<p>플러그인을 설치하기 전에 clang compiler를 설치해야 vim에서 C언어 자동완성을 사용할 수 있습니다.</p>
+<pre class="bash"><code>sudo apt-get install clang</code></pre>
+<p>그리고 library의 이름을 살짝 바꿔주어야 clang_complete에서 library를 찾습니다. 다음과 같이 symbolic link를 생성합시다.</p>
+<pre class="bash"><code>cd /usr/lib/x86_64-linux-gnu
+sudo ln -s libclang-3.8.so.1 libclang.so</code></pre>
+<p>(글을 작성할 때는 3.8버전이었는데, 버전이 업데이트되면 파일 이름이 달라질 수 있습니다.)</p>
+<p><code>.vimrc</code>에 <code class="vim">Plugin 'Rip-Rip/clang_complete'</code> 을 추가하고 <code>:PluginInstall</code> 을 합시다.</p>
+<p><code>.vimrc</code>에 다음과 같이 추가합니다.</p>
+<pre class="vim"><code>&quot; clang_complete
+set completeopt-=preview</code></pre>
+<p>이제 C와 C++에서 자동완성 기능을 사용할 수 있습니다.</p>
+<p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-18-at-9.04.58-PM.png" /></p>
+<p>지금까지 작성한 <code>.vimrc</code>는 다음과 같습니다.</p>
+<pre class="vim"><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+autocmd FileType make setlocal noexpandtab
+ 
+&quot; Key Settings
+nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;
+set pastetoggle=&lt;F2&gt;
+let mapleader = &quot;,&quot;
+nnoremap &lt;leader&gt;q :bp&lt;CR&gt;
+nnoremap &lt;leader&gt;w :bn&lt;CR&gt;
+ 
+&quot; Key Setting - resize windows
+nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;[ :exe &quot;vertical resize -8&quot;&lt;CR&gt;
+ 
+nnoremap &lt;silent&gt; &lt;Leader&gt;+ :exe &quot;resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;_ :exe &quot;resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+ 
+&quot; Vundle
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+ 
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin(&#39;~/some/path/here&#39;)
+ 
+&quot; let Vundle manage Vundle, required
+Plugin &#39;VundleVim/Vundle.vim&#39;
+ 
+&quot; Keep Plugin commands between vundle#begin/end.
+ 
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;
+Plugin &#39;terryma/vim-multiple-cursors&#39;
+Plugin &#39;terryma/vim-smooth-scroll&#39;
+Plugin &#39;Raimondi/delimitMate&#39;
+Plugin &#39;SirVer/ultisnips&#39;
+Plugin &#39;honza/vim-snippets&#39;
+Plugin &#39;Syntastic&#39;
+Plugin &#39;Shougo/deoplete.nvim&#39;
+Plugin &#39;Rip-Rip/clang_complete&#39;
+ 
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot; To ignore plugin indent changes, instead use:
+&quot;filetype plugin on
+&quot;
+&quot; Brief help
+&quot; :PluginList       - lists configured plugins
+&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache
+&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+&quot;
+&quot; see :h vundle for more details or wiki for FAQ
+&quot; Put your non-Plugin stuff after this line
+ 
+&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;
+ 
+&quot; vim-multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+&quot; Default mapping
+let g:multi_cursor_next_key=&#39;&lt;C-n&gt;&#39;
+let g:multi_cursor_prev_key=&#39;&lt;C-p&gt;&#39;
+let g:multi_cursor_skip_key=&#39;&lt;C-x&gt;&#39;
+let g:multi_cursor_quit_key=&#39;&lt;Esc&gt;&#39;
+ 
+&quot; vim-smooth-scroll
+noremap &lt;silent&gt; &lt;c-b&gt; :call smooth_scroll#up(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-f&gt; :call smooth_scroll#down(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-u&gt; :call smooth_scroll#up(&amp;scroll, 10, 3)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-d&gt; :call smooth_scroll#down(&amp;scroll, 10, 3)&lt;CR&gt;
+ 
+&quot; delimitMate
+let delimitMate_expand_cr=1
+ 
+&quot; UltiSnips
+let g:UltiSnipsExpandTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpForwardTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpBackwardTrigger=&quot;&lt;s-tab&gt;&quot;
+let g:UltiSnipsEditSplit=&quot;vertical&quot;
+ 
+&quot; Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+ 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+ 
+let g:syntastic_cpp_compiler = &#39;g++&#39;
+let g:syntastic_cpp_compiler_options = &quot;-std=c++11 -Wall -Wextra -Wpedantic&quot;
+let g:syntastic_c_compiler_options = &quot;-std=c11 -Wall -Wextra -Wpedantic&quot;
+ 
+&quot; Deoplete.
+let g:deoplete#enable_at_startup = 1
+ 
+&quot; clang_complete
+set completeopt-=preview</code></pre>
+<h2 id="reference">Reference</h2>
+<p>deplete.vim: <a href="https://github.com/Shougo/deoplete.nvim">github.com/Shougo/deoplete.nvim</a></p>
