@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 
-	"github.com/hrzon/go-vue-boilerplate/pkg/logger"
-	"github.com/hrzon/go-vue-boilerplate/pkg/webserver"
+	"github.com/hrzon/go-https-boilerplate/pkg/logger"
+	"github.com/hrzon/go-https-boilerplate/pkg/webserver"
 
 	"github.com/hrzon/terrace/internal/pkg/webserver/customhandlers"
 )
