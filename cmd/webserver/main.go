@@ -73,8 +73,8 @@ func main() {
 	// Set handlers
 	handlerMap := make(webserver.HandlerMap)
 	handlerMap["/"] = handlers.RootHandler
-	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
-		//handlerMap["/ttest"] = func(w http.ResponseWriter, r *http.Request) {
+	//handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
+	handlerMap["/ttest"] = func(w http.ResponseWriter, r *http.Request) {
 		/*
 			w.WriteHeader(http.StatusOK)
 			w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
@@ -84,6 +84,7 @@ func main() {
 		// Client객체에서 Request 실행
 		r.URL.Scheme = "https"
 		r.URL.Host = "live.myeongjae.kim:1334"
+		r.RequestURI = ""
 		client := &http.Client{}
 		resp, err := client.Do(r)
 		if err != nil {
