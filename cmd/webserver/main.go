@@ -75,6 +75,7 @@ func main() {
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
+		log.Println("Redirect to https://live.myeongjae.kim:1334")
 	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
