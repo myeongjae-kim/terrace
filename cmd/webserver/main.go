@@ -78,7 +78,7 @@ func main() {
 			w.WriteHeader(http.StatusOK)
 			w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
 		*/
-		req, err := http.NewRequest(r.Method, "https://"+r.Host+r.RequestURI, r.Body)
+		req, err := http.NewRequest(r.Method, "https://"+r.Host+r.RequestURI+":1334", r.Body)
 		if err != nil {
 			panic(err)
 		}
