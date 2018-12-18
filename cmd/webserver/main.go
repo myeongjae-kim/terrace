@@ -79,6 +79,7 @@ func main() {
 			w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
 			log.Println("Redirect to https://live.myeongjae.kim:1334")
 		*/
+		log.Println(r)
 
 		// Client객체에서 Request 실행
 		r.URL.Scheme = "http"
