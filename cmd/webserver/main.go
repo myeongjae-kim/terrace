@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -74,27 +75,25 @@ func main() {
 	handlerMap["/"] = handlers.RootHandler
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
 		//handlerMap["/ttest"] = func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
-		log.Println("Redirect to https://live.myeongjae.kim:1334")
-		log.Println(r)
-		log.Println(r.URL)
-		log.Println(r.URL.Scheme)
-
 		/*
-			// Client객체에서 Request 실행
-			return
-			client := &http.Client{}
-			resp, err := client.Do(r)
-			if err != nil {
-				panic(err)
-			}
-			defer resp.Body.Close()
-
-			// Response 체크.
-			respBody, err := ioutil.ReadAll(resp.Body)
-			w.Write(respBody)
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
+			log.Println("Redirect to https://live.myeongjae.kim:1334")
 		*/
+
+		// Client객체에서 Request 실행
+		r.URL.Scheme = "https"
+		r.URL.Host = "live.myeongjae.kim:1334"
+		client := &http.Client{}
+		resp, err := client.Do(r)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		// Response 체크.
+		respBody, err := ioutil.ReadAll(resp.Body)
+		w.Write(respBody)
 	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
