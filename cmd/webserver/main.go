@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"log"
+	"net/http"
 
 	"github.com/hrzon/go-https-boilerplate/pkg/logger"
 	"github.com/hrzon/go-https-boilerplate/pkg/webserver"
+	"github.com/hrzon/go-https-boilerplate/pkg/webserver/handlers"
 
 	"github.com/hrzon/terrace/internal/pkg/webserver/customhandlers"
 )
@@ -55,8 +57,7 @@ func setArgumentOptions() {
 	webserver.SetRedirectToHTTPS(flagRedirectToHTTPS)
 	webserver.SetHTTPSPort(flagHTTPSPort)
 	webserver.SetHTTPPort(flagHTTPPort)
-
-	customhandlers.SetRootDirectory(flagRootDirectory)
+	handlers.SetRootDirectory(flagRootDirectory)
 }
 
 func main() {
@@ -70,7 +71,11 @@ func main() {
 
 	// Set handlers
 	handlerMap := make(webserver.HandlerMap)
-	handlerMap["/"] = customhandlers.RootHandler
+	handlerMap["/"] = handlers.RootHandler
+	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
+	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
 	// Set HTTPS hosts
