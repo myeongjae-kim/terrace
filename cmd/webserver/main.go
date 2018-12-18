@@ -82,7 +82,7 @@ func main() {
 
 		// Client객체에서 Request 실행
 		r.URL.Scheme = "http"
-		r.URL.Host = "live.myeongjae.kim:1333"
+		r.URL.Host = "localhost:1333"
 		r.RequestURI = ""
 		client := &http.Client{}
 		resp, err := client.Do(r)
