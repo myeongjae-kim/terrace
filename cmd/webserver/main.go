@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -73,8 +74,25 @@ func main() {
 	handlerMap := make(webserver.HandlerMap)
 	handlerMap["/"] = handlers.RootHandler
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
+		/*
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
+		*/
+		req, err := http.NewRequest(r.Method, "https://"+r.Host+r.RequestURI, r.Body)
+		if err != nil {
+			panic(err)
+		}
+
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		// Response 체크.
+		respBody, err := ioutil.ReadAll(resp.Body)
+		w.Write(respBody)
 	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
