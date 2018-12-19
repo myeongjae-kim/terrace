@@ -74,11 +74,6 @@ func main() {
 	handlerMap["/"] = handlers.RootHandler
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusFound)
-
-		/*
-			w.WriteHeader(http.StatusOK)
-			w.Write([]byte("<html><meta http-equiv='refresh' content='0; url=https://live.myeongjae.kim:1334'></meta></html>"))
-		*/
 		log.Println("Redirect to https://live.myeongjae.kim:1334")
 
 		/*
