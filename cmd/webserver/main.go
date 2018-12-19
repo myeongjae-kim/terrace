@@ -73,7 +73,7 @@ func main() {
 	handlerMap := make(webserver.HandlerMap)
 	handlerMap["/"] = handlers.RootHandler
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusFound)
+		http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusMovedPermanently)
 		log.Println("Redirect to https://live.myeongjae.kim:1334")
 
 		/*
