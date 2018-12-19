@@ -78,6 +78,7 @@ func main() {
 			http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusFound)
 		*/
 		log.Println("Redirect to https://live.myeongjae.kim:1334")
+		log.Println("Request Header:", r.Header)
 
 		// Client객체에서 Request 실행
 		r.URL.Scheme = "https"
@@ -101,6 +102,7 @@ func main() {
 		}
 
 		w.Write(respBody)
+		log.Println("Response Header:", w.Header())
 	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
