@@ -92,8 +92,6 @@ func main() {
 
 		// Response 체크.
 		respBody, err := ioutil.ReadAll(resp.Body)
-		w.Write(respBody)
-
 		// Copy headers
 		responseHeader := w.Header()
 		for key, values := range resp.Header {
@@ -101,6 +99,8 @@ func main() {
 				responseHeader.Add(key, value)
 			}
 		}
+
+		w.Write(respBody)
 	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 

@@ -66,8 +66,8 @@ func LineNotifyHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(str))
 		log.Println("(lineNotifyHandler)", str)
 	} else {
-		w.Write([]byte(err.Error()))
 		w.WriteHeader(400)
+		w.Write([]byte(err.Error()))
 		log.Println("(lineNotifyHandler) Error: ", err)
 	}
 	return
