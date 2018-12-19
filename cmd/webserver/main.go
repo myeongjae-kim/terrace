@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -73,25 +74,33 @@ func main() {
 	handlerMap := make(webserver.HandlerMap)
 	handlerMap["/"] = handlers.RootHandler
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusFound)
+		/*
+			http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusFound)
+		*/
 		log.Println("Redirect to https://live.myeongjae.kim:1334")
 
-		/*
-			// Client객체에서 Request 실행
-			r.URL.Scheme = "https"
-			r.URL.Host = "live.myeongjae.kim:1334"
-			r.RequestURI = ""
-			client := &http.Client{}
-			resp, err := client.Do(r)
-			if err != nil {
-				panic(err)
-			}
-			defer resp.Body.Close()
+		// Client객체에서 Request 실행
+		r.URL.Scheme = "https"
+		r.URL.Host = "live.myeongjae.kim:1334"
+		r.RequestURI = ""
+		client := &http.Client{}
+		resp, err := client.Do(r)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
 
-			// Response 체크.
-			respBody, err := ioutil.ReadAll(resp.Body)
-			w.Write(respBody)
-		*/
+		// Response 체크.
+		respBody, err := ioutil.ReadAll(resp.Body)
+		w.Write(respBody)
+
+		// Copy headers
+		responseHeader := w.Header()
+		for key, values := range resp.Header {
+			for _, value := range values {
+				responseHeader.Add(key, value)
+			}
+		}
 	}
 	handlerMap["/line_notify"] = customhandlers.LineNotifyHandler
 
