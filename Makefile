@@ -26,7 +26,12 @@ update:
 	sudo setcap CAP_NET_BIND_SERVICE=+eip /home/web/terrace_deploy/bin/webserver
 
 deploy:
+	echo "Add a commit for deployment"
+	echo "" >> Makefile
+	git add Makefile
+	git commit -m "Deployment"
 	echo "Deploying to EC2"
 	git push production master
 	#@echo "Deploying to S3 and invalidate cached files on Cloudfront"
 	#@./deploy_to_s3.sh
+
