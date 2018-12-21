@@ -19,11 +19,11 @@ update:
 	echo "Copying 'scripts'"
 	sudo rm -rf /home/web/terrace_deploy/scripts/
 	sudo cp -r ./scripts /home/web/terrace_deploy/scripts/
-	echo "Set capability of using low number ports to the server"
-	sudo setcap CAP_NET_BIND_SERVICE=+eip /home/web/terrace_deploy/bin/webserver
 	echo "Change permissions"
 	sudo chown -R web /home/web/terrace_deploy
 	sudo chgrp -R web /home/web/terrace_deploy
+	echo "Set capability of using low number ports to the server"
+	sudo setcap CAP_NET_BIND_SERVICE=+eip /home/web/terrace_deploy/bin/webserver
 
 deploy:
 	echo "Deploying to EC2"
