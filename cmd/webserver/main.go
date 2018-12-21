@@ -44,8 +44,8 @@ func setArgumentOptions() {
 	flag.StringVar(
 		&flagRootDirectory,
 		"web-root-directory",
-		"./web",
-		"Set its value as root directory of a web server. Default value is './web'",
+		"DEFAULT",
+		"Set its value as root directory of a web server. Default value is './website'",
 	)
 
 	flag.Parse()
@@ -57,7 +57,10 @@ func setArgumentOptions() {
 	webserver.SetRedirectToHTTPS(flagRedirectToHTTPS)
 	webserver.SetHTTPSPort(flagHTTPSPort)
 	webserver.SetHTTPPort(flagHTTPPort)
-	handlers.SetRootDirectory(flagRootDirectory)
+
+	if flagRootDirectory != "DEFAULT" {
+		handlers.SetRootDirectory(flagRootDirectory)
+	}
 }
 
 func main() {

@@ -4,6 +4,7 @@
 cd ./home/
 
 npm run build
+rm -rf ../../website
+mv dist ../../website
 
-cd ..
-cd ..
+cd ../../
