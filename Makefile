@@ -5,6 +5,13 @@ run:
 build:
 	./scripts/build-webserver.sh
 
+frontbuild:
+	./scripts/build-front.sh
+
+frontdev:
+	cd web/home/
+	npm run serve
+
 update:
 	echo "Remote Deploy"
 	sudo systemctl stop "terrace.service"

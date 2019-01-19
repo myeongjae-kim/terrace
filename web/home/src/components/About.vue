@@ -41,7 +41,7 @@
           <font-awesome-icon :icon="['fab', 'github']"/>
         </div>
         <div class="text">
-          <a href="https://github.com/hrzon">github.com/hrzon</a>
+          <a href="https://github.com/myeongjae-kim">g.com/myeongjae-kim</a>
         </div>
       </div>
       <div class="record">
