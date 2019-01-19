@@ -151,7 +151,7 @@ export default {
 }
 
 #personal-info {
-  width: 164px;
+  width: 175px;
   height: 180px;
   text-align: left;
   margin: auto;
