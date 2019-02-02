@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-126240406-1"></script><script>window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>[macOS] 맥 터미널로 우분투 사용하기 :: Myeongjae Kim</title><link href="/css/chunk-56479946.59ffc13f.css" rel="prefetch"><link href="/css/chunk-9cfd4358.0e031bae.css" rel="prefetch"><link href="/js/chunk-56479946.1d7f29b9.js" rel="prefetch"><link href="/js/chunk-9cfd4358.73b7d3c4.js" rel="prefetch"><link href="/css/app.beba9b9f.css" rel="preload" as="style"><link href="/js/app.56f29a72.js" rel="preload" as="script"><link href="/js/chunk-vendors.855aa201.js" rel="preload" as="script"><link href="/css/app.beba9b9f.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-9cfd4358.0e031bae.css"><script charset="utf-8" src="/js/chunk-9cfd4358.73b7d3c4.js"></script><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="macos-맥-터미널로-우분투-사용하기 :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "myeongjae";
+var disqus_title      = "macos-맥-터미널로-우분투-사용하기";
+var disqus_identifier = "/2016/11/02/macos-맥-터미널로-우분투-사용하기";
+var disqus_url        = "https://blog.myeongjae.kim/2016/11/02/macos-맥-터미널로-우분투-사용하기";
+</script><script type="text/javascript" async="" src="//myeongjae.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.d49f53e192b9080ef8880a7c9b24f1c3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.c1c826ba467260790d5c05dc3cc453f8.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.c8f0dc192ba789fde18d281769beb36d.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-72a1eee6="" id="blog"><div data-v-72a1eee6="" id="blog-contents"><article data-v-72a1eee6=""><div data-v-72a1eee6="" class="inner-title-container"><h1 data-v-72a1eee6=""><a data-v-72a1eee6="" href="https://blog.myeongjae.kim/2016/11/02/macos-맥-터미널로-우분투-사용하기" id="inner-title">[macOS] 맥 터미널로 우분투 사용하기</a></h1><p data-v-72a1eee6="" class="meta">2016 / 11 / 02</p></div><div data-v-72a1eee6="" id="padding-between-title-and-article"></div><div data-v-72a1eee6="" id="article-content"><h1 id="macos-맥-터미널로-우분투-사용하기" style="display: none;">[macOS] 맥 터미널로 우분투 사용하기</h1>
+<p>컴퓨터공학을 공부하게 되면 리눅스 환경에서 작업할 일이 꼭 생깁니다. 윈도우 사용자든 맥 사용자든 가상 운영체제를 설치해서 쓰게되는데 (VMWare, Parallels, Virtual Box…), 맥을 사용하고 있다면 좀 더 편하게 가상 운영체제 환경에서 작업할 수 있습니다.</p>
+<p>거창한 내용은 아니고, ssh를 사용하면 맥 터미널에서 우분투에 접속할 수 있습니다.</p>
+<h1 id="ssh-설치하기">1. ssh 설치하기</h1>
+<p>우분투의 터미널에서 다음과 같이 입력합니다</p>
+<p><code class="bash hljs">$ sudo apt-get install ssh</code></p>
+<p>그리고 <code class="bash hljs">ifconfig</code> 를 입력해 아이피를 알아봅시다. 저는 Parallels를 사용하고 있고, 기본 설정 그대로 쓰고 있습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/11/Screen-Shot-2016-11-02-at-10.46.37-PM.png" alt="ifconfig" width="800"><figcaption>ifconfig</figcaption>
+</figure>
+<p>커서가 칠해져 있는 부분이 IP입니다. 이제 맥 터미널에서 ssh username@ip 라고 입력하면 됩니다.</p>
+<p><code class="bash hljs">$ ssh mjae@10.211.55.12</code></p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/11/Screen-Shot-2016-11-02-at-10.49.56-PM.png" alt="ssh" width="800"><figcaption>ssh</figcaption>
+</figure>
+<p>우분투 로그인 비밀번호를 입력하면 접속할 수 있습니다. 터미널 첫째줄을 보면 Mjae@MJMac인데 우분투에 접속한 뒤에는 mjae@ubuntu로 바뀌었습니다. 다시 맥으로 돌아오려면 Ctrl+D를 누르면 됩니다.</p>
+<h1 id="한글-사용하기">2. 한글 사용하기</h1>
+<p>아무 설정도 하지 않았다면 한글이 ??????????로 깨져서 보일 것입니다. 한글 입력도 되지 않습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/11/Screen-Shot-2016-11-02-at-10.56.17-PM.png" alt="??????100??????????" width="800"><figcaption>??????100??????????</figcaption>
+</figure>
+<p>이때 export LC_ALL=“en_US.UTF-8” 을 입력하면 한글이 보이고 입력도 됩니다. ~/.bashrc에 추가하면 매번 입력하지 않아도 자동으로 적용됩니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/11/Screen-Shot-2016-11-02-at-10.59.24-PM.png" alt="갓TF-8" width="800"><figcaption>갓TF-8</figcaption>
+</figure>
+<h1 id="편하게-우분투-접속하기">3. 편하게 우분투 접속하기</h1>
+<p>맥 터미널에서 우분투에 접속할 때마다 매번 ssh mjae@10.211.55.12 를 입력하는 대신 alias를 이용해서 sshu에 매핑했습니다. 맥의 ~/.bash_profile에 다음 코드를 추가합시다.</p>
+<p><code class="bash hljs"><span class="hljs-built_in">alias</span> sshu=<span class="hljs-string">'ssh mjae@10.211.55.12'</span></code></p>
+<p>이제 <code class="hljs">sshu</code>만 입력하면 <code class="bash hljs">ssh mjae@10.211.55.12</code> 이 입력이 됩니다</p>
+<p>ssh-key를 이용하면 비밀번호 입력 없이도 우분투에 접속할 수 있습니다(<a href="https://opentutorials.org/module/432/3742">생활코딩</a>).</p>
+<p>맥 터미널에 다음과 같이 입력합시다</p>
+<p><code class="bash hljs">$ ssh-keygen -t rsa</code></p>
+<p>입력하면 <code class="hljs vim">Enter <span class="hljs-keyword">file</span> in which <span class="hljs-keyword">to</span> save the key (/Users/username/.ssh/id_rsa):</code> 라고 나오면서 사용자의 입력을 기다리는데, 아무것도 입력하지 말고 엔터키를 누릅시다. 그러면 <code class="hljs vim">Enter passphrase (<span class="hljs-built_in">empty</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">no</span> passphrase):</code> 라고 하면서 또 입력을 기다리는데, 다시 한번 엔터키를 누릅시다. <code class="hljs">Enter same passphrase again:</code> 이라고 나오면 역시나 엔터키를 누릅니다. 이제 <code class="hljs">~/.ssh</code> 디렉토리에 key가 생성되었습니다</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/11/Screen-Shot-2016-11-02-at-11.12.15-PM.png" alt=".ssh" width="800"><figcaption>.ssh</figcaption>
+</figure>
+<p><code class="hljs">id_rsa</code>는 비밀키고 <code class="hljs">id_rsa.pub</code>는 공개키입니다. 비밀키는 남들에게 절대로 노출되면 안되므로 다음과 같이 권한 설정을 해줍시다.</p>
+<p><code class="bash hljs">$ chmod 700 ~/.ssh</code></p>
+<p><code class="bash hljs">$ chmod 600 ~/.ssh/id_rsa</code></p>
+<p>비유컨대 비밀키는 열쇠고 공개키는 자물쇠입니다. 열쇠에 맞는 자물쇠는 여러사람이 가지고 있어도 상관없지만 열쇠는 오직 저만 가지고 있어야 합니다. 이제 우분투에 자물쇠를 달아줄 차례인데, 맥에서 생성한 <code class="hljs">id_rsa.pub</code>의 내용을 우분투의 <code class="hljs">~/.ssh/authorized_key</code> 파일에 추가하면 됩니다..</p>
+<p>공개키를 우분투의 홈폴더로 전송합시다</p>
+<p><code class="bash hljs">$ scp ~/.ssh/id_rsa.pub mjae@10.211.55.12:~/id_rsa.pub</code></p>
+<p>아마 우분투에는 <code class="hljs">.ssh</code> 디렉토리가 없을텐데, 우분투에 접속해서 디렉토리를 만들고 그 안에 <code class="hljs">authorized_keys</code> 파일을 만들어 <code class="hljs">id_rsa.pub</code>를 추가합시다.</p>
+<pre class="bash"><code class="hljs">$ sshu
+$ mkdir ~/.ssh
+$ cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+$ rm ~/id_rsa.pub</code></pre>
+<p>이제 맥에서 우분투에 접속할 때 비밀번호를 묻지 않고 바로 접속이 되는 것을 볼 수 있습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2016/11/Screen-Shot-2016-11-02-at-11.27.00-PM.png" alt="바로 접속이 되었습니다." width="800"><figcaption>바로 접속이 되었습니다.</figcaption>
+</figure>
+<p><code class="hljs">ssh-key</code> 관련 자세한 내용은 <a href="https://opentutorials.org/module/432/3742">생활코딩</a>에서 볼 수 있습니다.</p>
+</div></article><hr data-v-72a1eee6=""><div data-v-72a1eee6="" id="adjacent-articles"><div data-v-72a1eee6="" id="next-article"><h4 data-v-72a1eee6="">Next Article</h4><p data-v-72a1eee6=""><a data-v-72a1eee6="" href="/blog/2016/12/03/끝까지-가자/" class="">끝까지 가자</a></p></div><div data-v-72a1eee6="" id="prev-article"><h4 data-v-72a1eee6="">Previous Article</h4><p data-v-72a1eee6=""><a data-v-72a1eee6="" href="/blog/2016/10/06/vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기/" class="">[vim/Linux] 4. 플러그인 매니저를 설치하고 vim-airline 설치하기</a></p></div></div><hr data-v-72a1eee6="" style="margin-top: 28px;"><div data-v-72a1eee6="" id="share-buttons"><button data-v-72a1eee6="" data-clipboard-text="https://blog.myeongjae.kim/2016/11/02/macos-맥-터미널로-우분투-사용하기" class="copy-btn">Copy Link</button>
+      &nbsp;
+      <a data-v-72a1eee6="" href="/blog/" class="router-link-active"><button data-v-72a1eee6="">Article List</button></a></div><div data-v-72a1eee6="" id="disqus_thread"><iframe id="dsq-app5588" name="dsq-app5588" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=myeongjae&amp;t_i=%2F2016%2F11%2F02%2Fmacos-%EB%A7%A5-%ED%84%B0%EB%AF%B8%EB%84%90%EB%A1%9C-%EC%9A%B0%EB%B6%84%ED%88%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0&amp;t_u=https%3A%2F%2Fblog.myeongjae.kim%2F2016%2F11%2F02%2Fmacos-%EB%A7%A5-%ED%84%B0%EB%AF%B8%EB%84%90%EB%A1%9C-%EC%9A%B0%EB%B6%84%ED%88%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0&amp;t_e=macos-%EB%A7%A5-%ED%84%B0%EB%AF%B8%EB%84%90%EB%A1%9C-%EC%9A%B0%EB%B6%84%ED%88%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0&amp;t_d=%5BmacOS%5D%20%EB%A7%A5%20%ED%84%B0%EB%AF%B8%EB%84%90%EB%A1%9C%20%EC%9A%B0%EB%B6%84%ED%88%AC%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%20%3A%3A%20Myeongjae%20Kim&amp;t_t=macos-%EB%A7%A5-%ED%84%B0%EB%AF%B8%EB%84%90%EB%A1%9C-%EC%9A%B0%EB%B6%84%ED%88%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0&amp;s_o=default#version=598e4ac0f99187bfe3fea5e0e581031d" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 646px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div></div><a data-v-72a1eee6="" class="back_to_top">↑</a></div></div><script src="/js/chunk-vendors.855aa201.js"></script><script src="/js/app.56f29a72.js"></script><iframe style="display: none;"></iframe></body></html>

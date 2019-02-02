@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-126240406-1"></script><script>window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>[웹] Single Page App의 Search Engine Optimization과 VueJS :: Myeongjae Kim</title><link href="/css/chunk-56479946.59ffc13f.css" rel="prefetch"><link href="/css/chunk-9cfd4358.0e031bae.css" rel="prefetch"><link href="/js/chunk-56479946.1d7f29b9.js" rel="prefetch"><link href="/js/chunk-9cfd4358.73b7d3c4.js" rel="prefetch"><link href="/css/app.beba9b9f.css" rel="preload" as="style"><link href="/js/app.56f29a72.js" rel="preload" as="script"><link href="/js/chunk-vendors.855aa201.js" rel="preload" as="script"><link href="/css/app.beba9b9f.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-9cfd4358.0e031bae.css"><script charset="utf-8" src="/js/chunk-9cfd4358.73b7d3c4.js"></script><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="single-page-app의-search-engine-optimizaion과-vuejs :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"><script type="text/javascript" async="">var disqus_shortname  = "myeongjae";
+var disqus_title      = "single-page-app의-search-engine-optimizaion과-vuejs";
+var disqus_identifier = "/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs";
+var disqus_url        = "https://blog.myeongjae.kim/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs";
+</script><script type="text/javascript" async="" src="//myeongjae.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.d49f53e192b9080ef8880a7c9b24f1c3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.c1c826ba467260790d5c05dc3cc453f8.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.c8f0dc192ba789fde18d281769beb36d.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-72a1eee6="" id="blog"><div data-v-72a1eee6="" id="blog-contents"><article data-v-72a1eee6=""><div data-v-72a1eee6="" class="inner-title-container"><h1 data-v-72a1eee6=""><a data-v-72a1eee6="" href="https://blog.myeongjae.kim/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs" id="inner-title">[웹] Single Page App의 Search Engine Optimization과 VueJS</a></h1><p data-v-72a1eee6="" class="meta">2018 / 09 / 23</p></div><div data-v-72a1eee6="" id="padding-between-title-and-article"></div><div data-v-72a1eee6="" id="article-content"><h1 id="웹-single-page-app의-search-engine-optimization과-vuejs" style="display: none;">[웹] Single Page App의 Search Engine Optimization과 VueJS</h1>
+<p>한 줄 요약: HTML5 History API를 통해 URI의 #을 없앤 뒤 Prerendering을 통해서 자바스크립트가 없어도 웹사이트가 작동하면 됩니다.</p>
+<h3 id="웹사이트를-만들어-놓았는데-왜-긁어가지를-못하니">웹사이트를 만들어 놓았는데 왜 긁어가지를 못하니……</h3>
+<p>Single Page App(SPA)의 문제점은 검색엔진이 페이지를 긁어가기 어렵다는 것입니다. SPA는 처음에 불러온 HTML을 자바스크립트로 업데이트하면서 동작하는데, 대부분의 검색엔진이 자바스크립트를 실행하지 않습니다. 구글 검색엔진은 자바스크립트를 사용한다고 하는데, 어찌된 일인지 제 웹사이트는 메인페이지밖에 긁어가지 못했습니다.</p>
+<p>이 경우 해결책은 두 가지가 있습니다. 첫 번째는 <strong>SSR(Server Side Rendering)</strong>, 두 번째는 <strong>Prerendering</strong> 을 이용하는 것입니다.</p>
+<p>SSR은 클라이언트가 자바스크립트 코드를 실행하지 않을 때 서버에서 대신 페이지를 생성해 클라이언트에게 보내는 것입니다. SSR을 사용하는 것이 좋은 경우<sup>1</sup>는 다음과 같습니다.</p>
+<p class="footnote">
+<strong>1</strong>. <a href="https://codeburst.io/the-easiest-way-to-improve-your-vue-js-application-part-1-51f068652872">The easiest way to improve your Vue.js application. Part 1</a>
+</p>
+<ol type="1">
+<li>사용자마다 다른 컨텐츠를 보여주어야 할 때 (e.g.로그인이 필요한 사이트)</li>
+<li>클라이언트와 실시간으로 상호작용을 해야 할 때 (e.g.&nbsp;채팅 서버, 트레이딩 서버 등)</li>
+<li>페이지가 많을 때 (= Prerendering이 너무 오래 걸릴 때)</li>
+</ol>
+<p>제 웹사이트는 3가지 모두 해당하지 않습니다. 모든 사용자에게 같은 컨텐츠를 보여주고, 클라이언트와 상호작용 하지 않고, 페이지가 100개도 되지 않습니다. 게다가 AWS S3를 서버로 사용하기 때문에 SSR을 적용할 수도 없습니다.</p>
+<p>Prerendering은 웹사이트를 빌드할 때 지정한 특정 페이지를 미리 렌더링해서 저장하는 기술입니다. Headless Chrome<sup>2</sup>같은 브라우저로 렌더링합니다. SSR보다 구현하기 쉽고, 빌딩 타임에 렌더링하기 때문에 런타임에 추가로 필요한 연산이 없습니다. 대신에 빌딩 시간이 늘어납니다<sup>3</sup>.</p>
+<p class="footnote">
+<strong>2</strong>. <a href="https://developers.google.com/web/tools/puppeteer/articles/ssr">Headless Chrome: an answer to server-side rendering JS sites</a>
+</p>
+<p class="footnote">
+<strong>3</strong>. <a href="https://vuejsdevelopers.com/2017/04/01/vue-js-prerendering-node-laravel/">Pre-Render A Vue.js App (With Node Or Laravel)</a>, SSR과 Prerendering 비교
+</p>
+<h3 id="prerendering을-적용하기-전에-알아야-할-것">Prerendering을 적용하기 전에 알아야 할 것</h3>
+<p>SPA를 구현하는 방법은 두 가지가 있습니다. 첫 번째는 #뒤에 오는 URI를 자바스크립트에서 읽어 라우팅하는 것이고, 두번째는 HTML5 History API를 사용하는 것입니다. 두 번째 방법의 경우 URI에 #을 포함하지 않습니다.</p>
+<p>제가 이걸 몰라서 며칠동안 고생했는데, URI에 #이 들어가면 Prerendeing을 할 수 없습니다. 자바스크립트를 실행할 수 있는 검색엔진이라도 #때문에 페이지를 긁어가지 못합니다. Prerendering으로 생성한 페이지들이 모두 메인 페이지의 내용을 담고 있던 이유가 바로 이것이었습니다.</p>
+<p>구글은 HTML5 History API를 사용하길 권장합니다<sup>4</sup>.</p>
+<p class="footnote">
+<strong>4</strong>. <a href="https://stackoverflow.com/questions/3009380/whats-the-shebang-hashbang-in-facebook-and-new-twitter-urls-for">What’s the shebang/hashbang (#!) in Facebook and new Twitter URLs for?</a>
+</p>
+<p>제가 사용하는 vue-router는 #을 사용하는 것이 기본입니다. router.js안에 한 줄만 추가하면 History API를 사용하게 만들 수 있습니다<sup>5</sup>.</p>
+<p class="footnote">
+<strong>5</strong>. <a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations">Vue Router HTML5 History Mode</a>
+</p>
+<pre class="javascript"><code class="hljs vim">const router = <span class="hljs-keyword">new</span> VueRouter({
+  <span class="hljs-keyword">mode</span>: <span class="hljs-string">'history'</span>,
+  route<span class="hljs-variable">s:</span> [...]
+})</code></pre>
+<p>이렇게해서 URI의 #을 없애면 prerendering이 제대로 작동합니다.</p>
+<h3 id="prerender-spa-plugin">prerender-spa-plugin</h3>
+<p>이 플러그인은 vuejs 개발자들이 만들었습니다. <code class="hljs">webpack.config.js</code>에 설정을 추가하면 빌드하면서 지정한 페이지를 렌더링해 저장합니다. 다음과 같이 플러그인을 설치합니다.</p>
+<pre class="bash"><code class="hljs">npm install --save-dev prerender-spa-plugin</code></pre>
+<p>저는 Vue CLI 3.0을 사용하기 때문에 직접 <code class="hljs">webpack.config.js</code>를 조작하지 않고 <code class="hljs">vue.config.js</code>에 다음과 같이 설정했습니다<sup>6</sup>.</p>
+<p class="footnote">
+<strong>6</strong>. <a href="https://markus.oberlehner.net/blog/how-to-pre-render-vue-powered-websites-with-webpack/">How to Pre-render Vue.js Powered Websites With webpack</a>
+</p>
+<pre class="javascript"><code class="hljs bash">/* vue.config.js */
+const path = require(<span class="hljs-string">'path'</span>);
+const PrerenderSpaPlugin = require(<span class="hljs-string">'prerender-spa-plugin'</span>);
+
+const productionPlugins = [
+  new PrerenderSpaPlugin({
+    staticDir: path.join(__dirname, <span class="hljs-string">'dist'</span>),
+    routes: [
+        <span class="hljs-string">"/"</span>,
+        <span class="hljs-string">"/blog"</span>,
+        <span class="hljs-string">"/musings"</span>,
+        <span class="hljs-string">"/places"</span>,
+        <span class="hljs-string">"/404"</span>,
+        <span class="hljs-string">"/blog/2018/09/18/블로깅-시스템을-만들었습니다"</span>
+    ],
+    renderer: new PrerenderSpaPlugin.PuppeteerRenderer({
+      renderAfterElementExists: <span class="hljs-string">'#app'</span>
+    }),
+  }),
+];
+
+module.exports = {
+  lintOnSave: <span class="hljs-literal">false</span>,
+  configureWebpack: (config) =&gt; {
+    <span class="hljs-keyword">if</span> (process.env.NODE_ENV === <span class="hljs-string">'production'</span>) {
+      config.plugins.push(...productionPlugins);
+    }
+  },
+};</code></pre>
+<p><code class="hljs">routes</code> 배열에 Prerendering이 필요한 페이지들 지정하면 됩니다. 저는 모든 페이지를 <code class="hljs">routes</code> 배열에 삽입하는 프로그램을 golang으로 짜서 <code class="hljs">vue.config.js</code>를 생성합니다.</p>
+<p>빌딩을 하면 <code class="hljs">routes</code>에 지정한 페이지의 디렉토리가 생기고 그 안에 index.html이 만들어집니다.</p>
+<pre class="bash"><code class="hljs">~/terrace/frontend/home/dist/blog/2018/09/18/블로깅-시스템을-만들었습니다
+❯ ls
+index.html</code></pre>
+<p>이제 자바스크립트를 사용하지 않아도<sup>7</sup> 제 웹사이트의 모든 내용을 볼 수 있습니다.</p>
+<p class="footnote">
+<strong>7</strong>. <a href="https://stackoverflow.com/questions/13405383/how-to-disable-javascript-in-chrome-developer-tools">How to disable JavaScript in chrome developer tools</a>
+</p>
+<h3 id="trailing-slash">Trailing Slash</h3>
+<p>자바스크립트 없이 웹사이트가 잘 작동하는데, <a href="https://www.google.com/webmasters/tools/googlebot-fetch">Fetch as Google</a>에서는 제 블로그를 긁어가지 못했습니다. 원인은 AWS CloudFront였습니다.</p>
+<p>CloudFront에서는 디렉토리를 링크할 때 trailing slash를 추가하길 권장합니다<sup>8</sup>. 예를 들어서 <a href="https://myeongjae.kim/blog">https://myeongjae.kim/blog</a> 로 접속을 하면 CloudFront는 이 접속을 <a href="https://myeongjae.kim/blog/">https://myeongjae.kim/blog/</a>로 redirection을 합니다. 이 과정때문에 Fetch as Google은 페이지를 긁어가지 못했습니다(왜 못 긁어가는지는 잘 모르겠습니다). 디렉토리로 연결되는 모든 링크에 trailing slash를 추가하니 잘 작동합니다.</p>
+<p class="footnote">
+<strong>8</strong>. <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/LinkFormat.html">Customizing the URL Format for Files in CloudFront</a>
+</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/09/google_search_result.png" alt="‘site:myeongjae.kim’ 검색 결과" width="611"><figcaption>‘site:myeongjae.kim’ 검색 결과</figcaption>
+</figure>
+<h3 id="open-graph">Open Graph</h3>
+<p>마지막으로 HTML의 head tag 사이에 Open Graph<sup>9</sup> 포맷의 메타 정보들을 추가함으로써 페이스북과 카카오톡의 링크에 정보를 추가할 수 있습니다. vuejs에선 <a href="https://github.com/declandewet/vue-meta">vue-meta</a> 플러그인을 사용하면 됩니다.</p>
+<p class="footnote">
+<strong>9</strong>. <a href="http://ogp.me">http://ogp.me</a>, <a href="http://blog.ab180.co/open-graph-as-a-website-preview/">링크의 미리보기 제목, 설명, 이미지를 결정하는 open graph 태그</a>
+</p><p>
+</p><figure>
+<img src="https://cdn.myeongjae.kim/blog/2018/09/fb-meta.png" alt="🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈" width="517"><figcaption>🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈</figcaption>
+</figure>
+<p>Prerendering은 블로깅 시스템을 구축하는 과정에서 가장 많은 시간을 투자<sub>(삽질)</sub>한 주제였습니다. 도움이 되길 바라겠습니다.</p>
+</div></article><hr data-v-72a1eee6=""><div data-v-72a1eee6="" id="adjacent-articles"><div data-v-72a1eee6="" id="next-article"><h4 data-v-72a1eee6="">Next Article</h4><p data-v-72a1eee6=""><a data-v-72a1eee6="" href="/blog/2018/10/05/웹-spa에서-disqus-적용하기/" class="">[웹] SPA에서 Disqus 적용하기</a></p></div><div data-v-72a1eee6="" id="prev-article"><h4 data-v-72a1eee6="">Previous Article</h4><p data-v-72a1eee6=""><a data-v-72a1eee6="" href="/blog/2018/09/18/블로깅-시스템을-만들었습니다/" class="">[웹] 블로깅 시스템을 만들었습니다</a></p></div></div><hr data-v-72a1eee6="" style="margin-top: 28px;"><div data-v-72a1eee6="" id="share-buttons"><button data-v-72a1eee6="" data-clipboard-text="https://blog.myeongjae.kim/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs" class="copy-btn">Copy Link</button>
+      &nbsp;
+      <a data-v-72a1eee6="" href="/blog/" class="router-link-active"><button data-v-72a1eee6="">Article List</button></a></div><div data-v-72a1eee6="" id="disqus_thread"><iframe id="dsq-app5179" name="dsq-app5179" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=myeongjae&amp;t_i=%2F2018%2F09%2F23%2Fsingle-page-app%EC%9D%98-search-engine-optimizaion%EA%B3%BC-vuejs&amp;t_u=https%3A%2F%2Fblog.myeongjae.kim%2F2018%2F09%2F23%2Fsingle-page-app%EC%9D%98-search-engine-optimizaion%EA%B3%BC-vuejs&amp;t_e=single-page-app%EC%9D%98-search-engine-optimizaion%EA%B3%BC-vuejs&amp;t_d=%5B%EC%9B%B9%5D%20Single%20Page%20App%EC%9D%98%20Search%20Engine%20Optimization%EA%B3%BC%20VueJS&amp;t_t=single-page-app%EC%9D%98-search-engine-optimizaion%EA%B3%BC-vuejs&amp;s_o=default#version=598e4ac0f99187bfe3fea5e0e581031d" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 371px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div></div><a data-v-72a1eee6="" class="back_to_top">↑</a></div></div><script src="/js/chunk-vendors.855aa201.js"></script><script src="/js/app.56f29a72.js"></script><iframe style="display: none;"></iframe></body></html>
