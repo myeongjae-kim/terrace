@@ -1,5 +1,9 @@
 package main
 
-func main() {
+import (
+	"github.com/myeongjae-kim/terrace/internal/pkg/contents"
+)
 
+func main() {
+	contents.GenerateAndInjectIndexToBlogComponent()
 }

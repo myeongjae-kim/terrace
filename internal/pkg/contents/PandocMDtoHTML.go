@@ -3,10 +3,17 @@ package contents
 import (
 	"log"
 	"os/exec"
+
+	"github.com/myeongjae-kim/terrace/internal/pkg/diriteration"
 )
 
-// PandocMDtoHTML converts markdown file located at 'path' to html file.
-func PandocMDtoHTML(path string) {
+// PandocMDtoHTML converts markdown files under contents root directory to html files.
+func PandocMDtoHTML() {
+	diriteration.DirectoryRecursiveIteration(contentsRoot, pandocMDtoHTML)
+}
+
+// pandocMDtoHTML converts markdown file located at 'path' to html file.
+func pandocMDtoHTML(path string) {
 	// Length of a file have to be logner than extension
 	if (len(path) > len(extMD)) &&
 		path[len(path)-len(extMD):] == extMD {
