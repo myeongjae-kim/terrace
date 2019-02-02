@@ -27,8 +27,8 @@ func DirectoryRecursiveIteration(
 func directoryRecursiveIteration(
 	dirPath string,
 	dirInfo []os.FileInfo,
-	do func(string)) error {
-
+	do func(string),
+) error {
 	for _, subPathInfo := range dirInfo {
 		subPath := dirPath + "/" + subPathInfo.Name()
 
