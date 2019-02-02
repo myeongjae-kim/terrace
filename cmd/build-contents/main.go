@@ -6,5 +6,6 @@ func main() {
 	contents.RemoveHTML()
 	contents.PandocMDtoHTML()
 	contents.GenerateAndInjectIndexToBlogComponent()
+	contents.GenerateAndInjectIndexToDailyComponent()
 	contents.GenerateAndInjectPrerenderingListToVueConfig()
 }

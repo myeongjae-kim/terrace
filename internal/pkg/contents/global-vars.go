@@ -3,17 +3,20 @@ package contents
 import "regexp"
 
 const (
-	// contentsRoot is a path of root directory which has blog contents
-	contentsRoot      = "./web/home/public/blog_contents"
-	vueConfigPath     = "./web/home/vue.config.js"
-	blogComponentPath = "./web/home/src/components/Blog.vue"
+	// blogContentsRoot is a path of root directory which has blog contents
+	blogContentsRoot   = "./web/home/public/blog_contents"
+	dailyContentsRoot  = "./web/home/public/daily_contents"
+	vueConfigPath      = "./web/home/vue.config.js"
+	blogComponentPath  = "./web/home/src/components/Blog.vue"
+	dailyComponentPath = "./web/home/src/components/Daily.vue"
 
 	extHTML = ".html"
 	extMD   = ".md"
 
-	webRoot = "/blog"
+	blogRoot  = "/blog"
+	dailyRoot = "/daily"
 
-	outputFilePath = contentsRoot + "/index.json"
+	outputFilePath = blogContentsRoot + "/index.json"
 
 	injectPosition = "INJECT_POSITION"
 )

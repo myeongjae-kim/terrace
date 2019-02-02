@@ -10,7 +10,8 @@ import (
 
 // PandocMDtoHTML converts markdown files under contents root directory to html files.
 func PandocMDtoHTML() {
-	diriteration.DirectoryRecursiveIteration(contentsRoot, pandocMDtoHTML)
+	diriteration.DirectoryRecursiveIteration(blogContentsRoot, pandocMDtoHTML)
+	diriteration.DirectoryRecursiveIteration(dailyContentsRoot, pandocMDtoHTML)
 }
 
 // pandocMDtoHTML converts markdown file located at 'path' to html file.

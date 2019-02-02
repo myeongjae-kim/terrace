@@ -205,7 +205,7 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
-    "relativeId": 0,
+    "relativeId": 28,
     "title": "[Git] Commit 메세지에 자동으로 issue number 추가하기",
     "path": "/blog/2019/02/02/prepare-commit-msg-hook-issue-number/",
     "date": {
@@ -217,7 +217,7 @@ export default {
     }
   },
   {
-    "relativeId": 1,
+    "relativeId": 27,
     "title": "[웹] SPA에서 Disqus 적용하기",
     "path": "/blog/2018/10/05/웹-spa에서-disqus-적용하기/",
     "date": {
@@ -229,7 +229,7 @@ export default {
     }
   },
   {
-    "relativeId": 2,
+    "relativeId": 26,
     "title": "[웹] Single Page App의 Search Engine Optimization과 VueJS",
     "path": "/blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs/",
     "date": {
@@ -241,7 +241,7 @@ export default {
     }
   },
   {
-    "relativeId": 3,
+    "relativeId": 25,
     "title": "[웹] 블로깅 시스템을 만들었습니다",
     "path": "/blog/2018/09/18/블로깅-시스템을-만들었습니다/",
     "date": {
@@ -253,7 +253,7 @@ export default {
     }
   },
   {
-    "relativeId": 4,
+    "relativeId": 24,
     "title": "[기술] Rob Pike의 프로그래밍 규칙 5가지",
     "path": "/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/",
     "date": {
@@ -265,7 +265,7 @@ export default {
     }
   },
   {
-    "relativeId": 5,
+    "relativeId": 23,
     "title": "[vim/Linux] 13. vim-go와 deoplete-go, Go언어를 위한 플러그인",
     "path": "/blog/2017/07/20/vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인/",
     "date": {
@@ -277,7 +277,7 @@ export default {
     }
   },
   {
-    "relativeId": 6,
+    "relativeId": 22,
     "title": "[vim/Linux] 12. 고요(Goyo), 방해금지 모드 플러그인",
     "path": "/blog/2017/07/20/vimlinux-12-고요goyo-방해금지-모드-플러그인/",
     "date": {
@@ -289,7 +289,7 @@ export default {
     }
   },
   {
-    "relativeId": 7,
+    "relativeId": 21,
     "title": "[vim/Linux] 11. NERD Commenter, 주석 단축키 플러그인",
     "path": "/blog/2017/07/19/vimlinux-11-nerd-commenter-주석-단축키-플러그인/",
     "date": {
@@ -301,7 +301,7 @@ export default {
     }
   },
   {
-    "relativeId": 8,
+    "relativeId": 20,
     "title": "[vim/Linux] 10. deoplete과 clang_complete, 자동 완성 플러그인",
     "path": "/blog/2017/07/19/vimlinux-10-deoplete과-clang_complete-자동-완성-플러그인/",
     "date": {
@@ -313,7 +313,7 @@ export default {
     }
   },
   {
-    "relativeId": 9,
+    "relativeId": 19,
     "title": "[vim/Linux] 9. Synatstic, 문법 체크 플러그인",
     "path": "/blog/2017/07/18/vimlinux-9-synatstic-문법-체크-플러그인/",
     "date": {
@@ -325,7 +325,7 @@ export default {
     }
   },
   {
-    "relativeId": 10,
+    "relativeId": 18,
     "title": "[vim/Linux] 8. UltiSnip과 vim-snippets",
     "path": "/blog/2017/07/15/vimlinux-8-ultisnip과-vim-snippets/",
     "date": {
@@ -337,7 +337,7 @@ export default {
     }
   },
   {
-    "relativeId": 11,
+    "relativeId": 17,
     "title": "[vim/Linux] 7. delimitMate, 괄호 자동 완성 플러그인",
     "path": "/blog/2017/07/15/vimlinux-7-delimitmate-괄호-자동-완성-플러그인/",
     "date": {
@@ -349,7 +349,7 @@ export default {
     }
   },
   {
-    "relativeId": 12,
+    "relativeId": 16,
     "title": "[vim/Linux] 6. vim-multiple-cursor와 vim-smooth-scroll",
     "path": "/blog/2017/07/14/vimlinux-6-vim-multiple-cursor와-vim-smooth-scroll/",
     "date": {
@@ -361,7 +361,7 @@ export default {
     }
   },
   {
-    "relativeId": 13,
+    "relativeId": 15,
     "title": "끝까지 가자",
     "path": "/blog/2016/12/03/끝까지-가자/",
     "date": {
@@ -385,7 +385,7 @@ export default {
     }
   },
   {
-    "relativeId": 15,
+    "relativeId": 13,
     "title": "[vim/Linux] 4. 플러그인 매니저를 설치하고 vim-airline 설치하기",
     "path": "/blog/2016/10/06/vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기/",
     "date": {
@@ -397,7 +397,7 @@ export default {
     }
   },
   {
-    "relativeId": 16,
+    "relativeId": 12,
     "title": "[vim/Linux] 3. vimrc 기본설정",
     "path": "/blog/2016/10/02/vimlinux-3-vimrc-기본설정/",
     "date": {
@@ -409,7 +409,7 @@ export default {
     }
   },
   {
-    "relativeId": 17,
+    "relativeId": 11,
     "title": "[vim/Linux] 2. Neovim 설치하고 24bit 컬러 적용하기",
     "path": "/blog/2016/10/01/vimlinux-2-neovim-설치하고-24bit-컬러-적용하기/",
     "date": {
@@ -421,7 +421,7 @@ export default {
     }
   },
   {
-    "relativeId": 18,
+    "relativeId": 10,
     "title": "[vim/Linux] 1. vim을 왜 쓰냐고?",
     "path": "/blog/2016/10/01/vimlinux-1-vim을-왜-쓰냐고/",
     "date": {
@@ -433,7 +433,7 @@ export default {
     }
   },
   {
-    "relativeId": 19,
+    "relativeId": 9,
     "title": "[책] ‘소프트웨어 장인’에서 언급한 책 10권",
     "path": "/blog/2016/06/27/책-소프트웨어-장인에서-언급한-책-10권/",
     "date": {
@@ -445,7 +445,7 @@ export default {
     }
   },
   {
-    "relativeId": 20,
+    "relativeId": 8,
     "title": "[책] 소프트웨어 장인",
     "path": "/blog/2016/03/01/소프트웨어-장인정신-서평/",
     "date": {
@@ -457,7 +457,7 @@ export default {
     }
   },
   {
-    "relativeId": 21,
+    "relativeId": 7,
     "title": "[발췌] 상아탑 아키텍트 대처하기",
     "path": "/blog/2016/03/01/발췌-상아탑-아키텍트-대처하기/",
     "date": {
@@ -469,7 +469,7 @@ export default {
     }
   },
   {
-    "relativeId": 22,
+    "relativeId": 6,
     "title": "[책] 소프트웨어, 누가 이렇게 개떡같이 만든거야?",
     "path": "/blog/2016/02/26/소프트웨어-누가-이렇-개떡-같이-만든거야/",
     "date": {
@@ -481,7 +481,7 @@ export default {
     }
   },
   {
-    "relativeId": 23,
+    "relativeId": 5,
     "title": "[발췌] 마초를 만드는 환경",
     "path": "/blog/2016/02/10/마초를-만드는-환경/",
     "date": {
@@ -493,7 +493,7 @@ export default {
     }
   },
   {
-    "relativeId": 24,
+    "relativeId": 4,
     "title": "[발췌] 남자아이가 마초가 되어가는 과정",
     "path": "/blog/2016/02/10/남자아이가-마초가-되어가는-과정/",
     "date": {
@@ -505,7 +505,7 @@ export default {
     }
   },
   {
-    "relativeId": 25,
+    "relativeId": 3,
     "title": "[발췌] 가장 오래된 작품들이 가장 덜 낡았다",
     "path": "/blog/2016/01/19/가장-오래된-작품들이-가장-덜-낡았다/",
     "date": {
@@ -517,7 +517,7 @@ export default {
     }
   },
   {
-    "relativeId": 26,
+    "relativeId": 2,
     "title": "[발췌] 진정한 교양?",
     "path": "/blog/2016/01/14/진정한-교양/",
     "date": {
@@ -529,7 +529,7 @@ export default {
     }
   },
   {
-    "relativeId": 27,
+    "relativeId": 1,
     "title": "[발췌] 독자는 의무가 아닌 애정의 행로를 따라가야 한다",
     "path": "/blog/2016/01/14/독자는-의무가-아닌-애정의-행로를-따라가야-한다/",
     "date": {
@@ -541,7 +541,7 @@ export default {
     }
   },
   {
-    "relativeId": 28,
+    "relativeId": 0,
     "title": "[책] The C Programming Language",
     "path": "/blog/2015/10/17/the-c-programming-language/",
     "date": {

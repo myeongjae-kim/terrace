@@ -8,6 +8,7 @@ import Places from "./components/Places.vue";
 import Musings from "./components/Musings.vue";
 // import NotFound from './components/NotFound.vue'
 import BlogExample from "./components/BlogExample.vue";
+import Daily from "./components/Daily.vue";
 
 // Asynchronously import components
 // Reasons for asynchoronous load:
@@ -51,6 +52,17 @@ export default new Router({
       path: "/musings",
       name: "Musings",
       component: Musings
+    },
+
+    {
+      path: "/daily",
+      name: "Daily",
+      component: Daily,
+      children: [
+        {
+          path: ":year/:month/:day/:title"
+        }
+      ]
     },
 
     {
