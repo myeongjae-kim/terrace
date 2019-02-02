@@ -1,0 +1,224 @@
+<h1 id="vimlinux-12.-고요goyo-방해금지-모드-플러그인">[vim/Linux] 12. 고요(Goyo), 방해금지 모드 플러그인</h1>
+<p>이 플러그인은 아래 스크린샷처럼 텍스트에만 집중할 수 있게 해줍니다</p>
+<p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png" /></p>
+<p><code>.vimrc</code>에 <code class="vim">Plugin 'junegunn/goyo.vim'</code> 를 추가하고 <code>:PluginInstall</code> 을 합니다.</p>
+<p><code>.vimrc</code>에 다음과 같이 추가합니다.</p>
+<pre class="vim"><code>&quot; Goyo
+nnoremap &lt;F4&gt; :Goyo &lt;CR&gt;
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set number
+  set rnu
+  &quot; ...
+endfunction
+ 
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=999
+  &quot; ...
+endfunction
+ 
+autocmd! User GoyoEnter nested call &lt;SID&gt;goyo_enter()
+autocmd! User GoyoLeave nested call &lt;SID&gt;goyo_leave()</code></pre>
+<p><code class="vim">&lt;F4&gt;</code>를 누르면 Goyo mode로 토글할 수 있습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.03-PM.png" alt="F4를 누르기 전" /><figcaption>F4를 누르기 전</figcaption>
+</figure>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.09.09-PM.png" alt="F4를 누른 후" /><figcaption>F4를 누른 후</figcaption>
+</figure>
+<p>Goyo mode에 들어가면 커서가 항상 화면 가운데에 옵니다. 이 기능은 평소에도 유용하게 사용할 수 있을 것 같아서 기본으로 set scrolloff=999 옵션이 적용되도록 했습니다.</p>
+<pre class="vim"><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+autocmd FileType make setlocal noexpandtab
+set scrolloff=999</code></pre>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-6.15.10-PM.png" alt="이제 평소에도 커서가 화면 가운데에서 움직입니다." /><figcaption>이제 평소에도 커서가 화면 가운데에서 움직입니다.</figcaption>
+</figure>
+<p>지금까지 설정한 <code>.vimrc</code>는 다음과 같습니다.</p>
+<pre class="vim"><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+autocmd FileType make setlocal noexpandtab
+set scrolloff=999
+ 
+&quot; Key Settings
+nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;
+set pastetoggle=&lt;F2&gt;
+let mapleader = &quot;,&quot;
+nnoremap &lt;leader&gt;q :bp&lt;CR&gt;
+nnoremap &lt;leader&gt;w :bn&lt;CR&gt;
+ 
+&quot; Key Setting - resize windows
+nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;[ :exe &quot;vertical resize -8&quot;&lt;CR&gt;
+ 
+nnoremap &lt;silent&gt; &lt;Leader&gt;+ :exe &quot;resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;_ :exe &quot;resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+ 
+&quot; Vundle
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+ 
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin(&#39;~/some/path/here&#39;)
+ 
+&quot; let Vundle manage Vundle, required
+Plugin &#39;VundleVim/Vundle.vim&#39;
+ 
+&quot; Keep Plugin commands between vundle#begin/end.
+ 
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;
+Plugin &#39;terryma/vim-multiple-cursors&#39;
+Plugin &#39;terryma/vim-smooth-scroll&#39;
+Plugin &#39;Raimondi/delimitMate&#39;
+Plugin &#39;SirVer/ultisnips&#39;
+Plugin &#39;honza/vim-snippets&#39;
+Plugin &#39;Syntastic&#39;
+Plugin &#39;Shougo/deoplete.nvim&#39;
+Plugin &#39;Rip-Rip/clang_complete&#39;
+Plugin &#39;scrooloose/nerdcommenter&#39;
+Plugin &#39;junegunn/goyo.vim&#39;
+ 
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot; To ignore plugin indent changes, instead use:
+&quot;filetype plugin on
+&quot;
+&quot; Brief help
+&quot; :PluginList       - lists configured plugins
+&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache
+&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+&quot;
+&quot; see :h vundle for more details or wiki for FAQ
+&quot; Put your non-Plugin stuff after this line
+ 
+&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;
+ 
+&quot; vim-multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+&quot; Default mapping
+let g:multi_cursor_next_key=&#39;&lt;C-n&gt;&#39;
+let g:multi_cursor_prev_key=&#39;&lt;C-p&gt;&#39;
+let g:multi_cursor_skip_key=&#39;&lt;C-x&gt;&#39;
+let g:multi_cursor_quit_key=&#39;&lt;Esc&gt;&#39;
+ 
+&quot; vim-smooth-scroll
+noremap &lt;silent&gt; &lt;c-b&gt; :call smooth_scroll#up(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-f&gt; :call smooth_scroll#down(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-u&gt; :call smooth_scroll#up(&amp;scroll, 10, 3)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-d&gt; :call smooth_scroll#down(&amp;scroll, 10, 3)&lt;CR&gt;
+ 
+&quot; delimitMate
+let delimitMate_expand_cr=1
+ 
+&quot; UltiSnips
+let g:UltiSnipsExpandTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpForwardTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpBackwardTrigger=&quot;&lt;s-tab&gt;&quot;
+let g:UltiSnipsEditSplit=&quot;vertical&quot;
+ 
+&quot; Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+ 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+ 
+let g:syntastic_cpp_compiler = &#39;g++&#39;
+let g:syntastic_cpp_compiler_options = &quot;-std=c++11 -Wall -Wextra -Wpedantic&quot;
+let g:syntastic_c_compiler_options = &quot;-std=c11 -Wall -Wextra -Wpedantic&quot;
+ 
+&quot; Deoplete.
+let g:deoplete#enable_at_startup = 1
+ 
+&quot; clang_complete
+set completeopt-=preview
+ 
+&quot; NERD Commenter
+&quot; Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+&quot; Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+&quot; Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = &#39;left&#39;
+&quot; Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+&quot; Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { &#39;c&#39;: { &#39;left&#39;: &#39;/**&#39;,&#39;right&#39;: &#39;*/&#39; } }
+&quot; Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+&quot; Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+&quot; customize keymapping
+map &lt;Leader&gt;cc &lt;plug&gt;NERDComToggleComment
+map &lt;Leader&gt;c&lt;space&gt; &lt;plug&gt;NERDComComment
+ 
+&quot; Goyo
+nnoremap &lt;F4&gt; :Goyo &lt;CR&gt;
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set number
+  set rnu
+  &quot; ...
+endfunction
+ 
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=999
+  &quot; ...
+endfunction
+ 
+autocmd! User GoyoEnter nested call &lt;SID&gt;goyo_enter()
+autocmd! User GoyoLeave nested call &lt;SID&gt;goyo_leave()</code></pre>
+<h2 id="reference">Reference</h2>
+<p>goyo.vim: <a href="https://github.com/junegunn/goyo.vim">github.com/junegunn/goyo.vim</a></p>
