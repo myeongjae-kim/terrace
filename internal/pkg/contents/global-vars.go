@@ -4,15 +4,16 @@ import "regexp"
 
 const (
 	// contentsRoot is a path of root directory which has blog contents
-	contentsRoot = "./web/home/public/blog_contents"
+	contentsRoot      = "./web/home/public/blog_contents"
+	vueConfigPath     = "./web/home/vue.config.js"
+	blogComponentPath = "./web/home/src/components/Blog.vue"
 
 	extHTML = ".html"
 	extMD   = ".md"
 
 	webRoot = "/blog"
 
-	outputFilePath    = contentsRoot + "/index.json"
-	blogComponentPath = "./web/home/src/components/Blog.vue"
+	outputFilePath = contentsRoot + "/index.json"
 
 	injectPosition = "INJECT_POSITION"
 )
@@ -35,6 +36,3 @@ var (
 		"31st",
 	}
 )
-
-// articleHTMLs is an array of paths of html that contains an article
-var articleHTMLs []string

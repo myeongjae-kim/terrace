@@ -3,6 +3,7 @@ package contents
 import (
 	"log"
 	"os/exec"
+	"strings"
 
 	"github.com/myeongjae-kim/terrace/internal/pkg/diriteration"
 )
@@ -15,8 +16,10 @@ func PandocMDtoHTML() {
 // pandocMDtoHTML converts markdown file located at 'path' to html file.
 func pandocMDtoHTML(path string) {
 	// Length of a file have to be logner than extension
+	// Exclude files which contain "aA"
 	if (len(path) > len(extMD)) &&
-		path[len(path)-len(extMD):] == extMD {
+		path[len(path)-len(extMD):] == extMD &&
+		!strings.Contains(path, "/aA") {
 
 		result := path[0:len(path)-len(extMD)] + extHTML
 

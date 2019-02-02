@@ -2,7 +2,6 @@ package contents
 
 import (
 	"bytes"
-	"encoding/json"
 	"io/ioutil"
 	"log"
 	"strconv"
@@ -29,11 +28,10 @@ func getHTMLPaths() []string {
 	var HTMLFiles []string
 
 	diriteration.DirectoryRecursiveIteration(contentsRoot, func(path string) {
-		// Add html files under 'contentsRoot' except files containing "aA"
 		if (len(path) > len(extHTML)) &&
-			path[len(path)-len(extHTML):] == extHTML &&
-			!strings.Contains(path, "/aA") {
+			path[len(path)-len(extHTML):] == extHTML {
 			HTMLFiles = append(HTMLFiles, path)
+			//!strings.Contains(path, "/aA"
 		}
 	})
 
@@ -116,57 +114,8 @@ func generateIndex() []metadata {
 	return metadataSlice
 }
 
-func convertMetadataSliceToJSON(metadataSlice []metadata) []byte {
-	b, err := json.Marshal(metadataSlice)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return b
-}
-
 // GenerateAndInjectIndexToBlogComponent , Is there more needed explanations?
 func GenerateAndInjectIndexToBlogComponent() {
 	index := generateIndex()
-	indexJSON := convertMetadataSliceToJSON(index)
-
-	blogComponent, err := ioutil.ReadFile(blogComponentPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	i := bytes.Index(blogComponent, []byte(injectPosition))
-
-	// Find the first " or '
-	from := bytes.IndexAny(blogComponent[i:], "[")
-	from += i
-
-	cnt := 1
-	to := from + 1
-	for cnt > 0 {
-		if blogComponent[to] == '[' {
-			cnt++
-		} else if blogComponent[to] == ']' {
-			cnt--
-		}
-		to++
-	}
-
-	// to := bytes.IndexAny(blogComponent[from+1:], "]")
-	// to += from + 1
-
-	// log.Println(string(blogComponent[from : to+1]))
-
-	// Remove contents and add new json
-	modifiedComponent := make([]byte, len(blogComponent[0:from]))
-	copy(modifiedComponent, blogComponent[0:from])
-	modifiedComponent = append(modifiedComponent, indexJSON...)
-	modifiedComponent = append(modifiedComponent, blogComponent[to:]...)
-
-	// Write the modifiedComponent vue component
-	err = ioutil.WriteFile(blogComponentPath, modifiedComponent, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Println("(GenerateAndInjectIndexToBlogComponent) Succeeded to inject index to blog components. The number of artcies is", len(index))
+	injectObjectAsJSON(blogComponentPath, index)
 }
