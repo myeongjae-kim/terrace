@@ -20,7 +20,7 @@ update:
 	sudo systemctl stop "terrace.service"
 	echo "The terrace service has been stopped"
 	echo "Building the server"
-	make build
+	make serverbuild
 	echo "Copying built results to 'web' user for security"
 	sudo cp ./bin/webserver /home/web/terrace_deploy/bin/webserver
 	echo "Copying 'website'"
