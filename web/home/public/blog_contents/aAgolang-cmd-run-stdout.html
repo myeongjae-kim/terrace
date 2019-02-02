@@ -1,0 +1,8 @@
+<pre class="go"><code>cmd := exec.Command(&quot;rm&quot;, path)
+// cmd := exec.Command(&quot;pwd&quot;)
+var out bytes.Buffer
+cmd.Stdout = &amp;out
+err := cmd.Run()
+if err != nil {
+  log.Fatal(err)
+}</code></pre>
