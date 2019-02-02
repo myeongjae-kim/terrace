@@ -1,4 +1,4 @@
-./article.sh
+# ./article.sh
 
 # Generate the whole website.
 cd ./home/

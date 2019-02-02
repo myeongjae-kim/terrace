@@ -1,16 +1,19 @@
 run:
-	make build
+	make serverbuild
 	./scripts/local-run.sh
 
-build:
+serverbuild:
 	./scripts/build-webserver.sh
 
 frontbuild:
+	make contentsbuild
 	./scripts/build-front.sh
 
+contentsbuild:
+	./scripts/build-contents.sh
+
 frontdev:
-	cd web/home/
-	npm run serve
+	bash -c "cd ./web/home; npm run serve"
 
 update:
 	echo "Remote Deploy"
