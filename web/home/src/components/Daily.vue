@@ -33,15 +33,15 @@
 
       <article>
         <div class="inner-title-container">
-          <h1>
-            <a :href="currentUri">
-              [{{year}}.{{month}}.{{day}}]
-              <span id="inner-title">{{ title }}</span>
-            </a>
-          </h1>
+          <a :href="currentUri">
+            [{{year}}.{{month}}.{{day}}]
+            <span id="inner-title">{{ title }}</span>
+          </a>
         </div>
         <div id="padding-between-title-and-article"></div>
-        <div id="article-contents" v-html="articleHtmlSource" class="daily-article-contents-text"></div>
+        <div class="daily-article-contents">
+          <div v-html="articleHtmlSource" class="daily-article-contents-text"></div>
+        </div>
       </article>
     </div>
   </div>
@@ -96,31 +96,19 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
-        {
-          relativeId: 1,
-          title: "제목 없음",
-          path: "/daily/2019/02/03/second-journal/",
-          date: {
-            year: "2019",
-            month: "02",
-            monthEng: "February",
-            day: "03",
-            dayEng: "3rd"
-          }
-        },
-        {
-          relativeId: 0,
-          title: "첫 번째 일기",
-          path: "/daily/2019/02/02/first-journal/",
-          date: {
-            year: "2019",
-            month: "02",
-            monthEng: "February",
-            day: "02",
-            dayEng: "2nd"
-          }
-        }
-      ],
+  {
+    "relativeId": 0,
+    "title": "첫 번째 일기",
+    "path": "/daily/2019/02/02/first-journal/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "02",
+      "dayEng": "2nd"
+    }
+  }
+],
       // __INSERTION_POSITION_END__ // DONT CHANGE!!
       year: this.$route.params.year,
       month: this.$route.params.month,
@@ -156,13 +144,13 @@ export default {
 
       // Find all h1 tags, and choose second h1. It is real title of this doc.
       var titles = contents.querySelectorAll("h1");
-      if (titles.length <= 1) {
+      if (titles.length <= 0) {
         return;
       } else {
         // Title exists
         var title = contents.querySelector("#inner-title");
-        title.innerHTML = titles[1].innerHTML;
-        titles[1].style.display = "none";
+        title.innerHTML = titles[0].innerHTML;
+        titles[0].style.display = "none";
 
         // It is for og:title
         this.titleForMeta = title.innerHTML;
@@ -289,26 +277,16 @@ export default {
 
   display: block;
   background: #fafafa;
-  padding: 5px 15px 5px 15px;
-  margin: 0 0 20px;
+  padding: 5px 10px 5px 10px;
+  margin: 20px 0 20px 0;
   position: relative;
-
-  /*Box Shadow - (Optional)*/
-  -moz-box-shadow: 2px 2px 15px #ccc;
-  -webkit-box-shadow: 2px 2px 15px #ccc;
-  box-shadow: 2px 2px 15px #ccc;
 
   font-family: "Iropke Batang", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
     Arial, sans-serif;
+  font-size: 0.9em;
 
+  border: 1px #e0e0e0 solid;
   border-radius: 5px;
-}
-
-#article-contents {
-  text-align: left;
-  width: 500px;
-  max-width: 100%;
-  margin: auto;
 }
 
 .daily-article-contents {
@@ -332,18 +310,22 @@ a {
   width: 100px;
 }
 
-.daily-article-contents-text {
-  margin-top: 25px;
-}
-
 .daily-article-title,
+.inner-title-container,
 button {
   font-family: "Iropke Batang", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
     Arial, sans-serif;
 }
 
-.inner-title-container h1 {
+.inner-title-container {
   margin-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+button {
+  box-shadow: 0px 0px 0px;
+  -moz-box-shadow: 0px 0px 0px;
+  -webkit-box-shadow: 0px 0px 0px;
+  background: #fafafa;
 }
 </style>
