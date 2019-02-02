@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hrzon/go-https-boilerplate/pkg/logger"
-	"github.com/hrzon/go-https-boilerplate/pkg/webserver"
-	"github.com/hrzon/go-https-boilerplate/pkg/webserver/handlers"
+	"github.com/myeongjae-kim/go-https-boilerplate/pkg/logger"
+	"github.com/myeongjae-kim/go-https-boilerplate/pkg/webserver"
+	"github.com/myeongjae-kim/go-https-boilerplate/pkg/webserver/handlers"
 
-	"github.com/hrzon/terrace/internal/pkg/webserver/customhandlers"
+	"github.com/myeongjae-kim/terrace/internal/pkg/webserver/customhandlers"
 )
 
 var (
