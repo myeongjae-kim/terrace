@@ -1,0 +1,349 @@
+<template>
+  <div id="daily">
+    <div id="daily-main" v-if="year === undefined">
+      <div class="expand-close-buttons">
+        <a v-on:click="expandAll()">
+          <button>모두 펼치기</button>
+        </a>
+        <a v-on:click="shrinkAll()">
+          <button>모두 접기</button>
+        </a>
+      </div>
+      <div class="new-daily-article" v-for="i in index" :key="i.path">
+        <table class="daily-article-title">
+          <a v-on:click="toggleContents(i.path)">
+            <tr>
+              <td class="journal-relative-id">{{i.relativeId + 1}}.</td>
+              <td class="journal-date">[{{i.date.year}}.{{i.date.month}}.{{i.date.day}}]</td>
+              <td class="journal-title">{{ i.title }}</td>
+            </tr>
+          </a>
+        </table>
+        <div class="daily-article-contents">
+          <div :id="i.path" style="display: none;" class="daily-article-contents-text">{{i.path}}</div>
+        </div>
+      </div>
+    </div>
+    <div v-else id="contents">
+      <div class="expand-close-buttons">
+        <router-link to="/daily/">
+          <button>전체 보기</button>
+        </router-link>
+      </div>
+
+      <article>
+        <div class="inner-title-container">
+          <h1>
+            <a :href="currentUri">
+              [{{year}}.{{month}}.{{day}}]
+              <span id="inner-title">{{ title }}</span>
+            </a>
+          </h1>
+        </div>
+        <div id="padding-between-title-and-article"></div>
+        <div id="article-contents" v-html="articleHtmlSource" class="daily-article-contents-text"></div>
+      </article>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "daily",
+  metaInfo() {
+    if (this.title === undefined) {
+      return {
+        title: "Daily",
+        meta: [
+          { charset: "utf-8" },
+          {
+            property: "og:title",
+            content: "Daily",
+            template: chunk => `${chunk} :: Myeongjae Kim`,
+            vmid: "og:title"
+          },
+          {
+            property: "og:description",
+            content: "comments to catch thoughts of a day",
+            template: chunk => `${chunk}`,
+            vmid: "og:description"
+          }
+        ]
+      };
+    } else {
+      return {
+        title: this.titleForMeta,
+        meta: [
+          { charset: "utf-8" },
+          {
+            property: "og:title",
+            content: this.title,
+            template: chunk => `${chunk} :: Myeongjae Kim`,
+            vmid: "og:title"
+          },
+          {
+            property: "og:description",
+            content: "Catch thoughts of daily life",
+            template: chunk => `${chunk}`,
+            vmid: "og:description"
+          }
+        ]
+      };
+    }
+  },
+
+  data() {
+    return {
+      // __INSERTION_POSITION__ // DONT CHANGE!!
+      index: [
+        {
+          relativeId: 1,
+          title: "제목 없음",
+          path: "/daily/2019/02/03/second-journal/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "03",
+            dayEng: "3rd"
+          }
+        },
+        {
+          relativeId: 0,
+          title: "첫 번째 일기",
+          path: "/daily/2019/02/02/first-journal/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "02",
+            dayEng: "2nd"
+          }
+        }
+      ],
+      // __INSERTION_POSITION_END__ // DONT CHANGE!!
+      year: this.$route.params.year,
+      month: this.$route.params.month,
+      day: this.$route.params.day,
+      title: this.$route.params.title,
+      titleForMeta: "",
+      articleHtmlSource: "",
+      currentUri: ""
+    };
+  },
+  watch: {
+    $route(to) {
+      this.year = to.params.year;
+      this.month = to.params.month;
+      this.day = to.params.day;
+      this.title = to.params.title;
+      this.getContents();
+    }
+  },
+  mounted: function() {
+    this.getContents();
+    this.loadAllContents();
+  },
+  updated: function() {
+    if (this.year === undefined) {
+      this.loadAllContents();
+    } else {
+      var contents = document.querySelector("#contents");
+      if (contents == null) {
+        this.toTheTop();
+        return;
+      }
+
+      // Find all h1 tags, and choose second h1. It is real title of this doc.
+      var titles = contents.querySelectorAll("h1");
+      if (titles.length <= 1) {
+        return;
+      } else {
+        // Title exists
+        var title = contents.querySelector("#inner-title");
+        title.innerHTML = titles[1].innerHTML;
+        titles[1].style.display = "none";
+
+        // It is for og:title
+        this.titleForMeta = title.innerHTML;
+      }
+    }
+  },
+  methods: {
+    toTheTop: function() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    },
+    loadAllContents: async function() {
+      if (this.year !== undefined) {
+        return;
+      }
+
+      for (var i in this.index) {
+        var path = this.index[i].path;
+        var htmlDocUri = path.replace("daily", "daily_contents") + ".html";
+        htmlDocUri = htmlDocUri.replace("/.", ".");
+
+        await fetch(htmlDocUri)
+          .then(response => response.text())
+          .then(responseText => {
+            var contents = document.getElementById(this.index[i].path);
+            contents.innerHTML = responseText;
+            // hide big title
+            contents.querySelector("h1").style.display = "none";
+          });
+      }
+    },
+    toggleContents: function(id) {
+      var contents = document.getElementById(id);
+      if (contents.style.display === "none") {
+        contents.style.display = "";
+        history.pushState({}, null, id);
+      } else {
+        contents.style.display = "none";
+        history.pushState({}, null, "/daily/");
+      }
+    },
+    expandAll: function() {
+      for (var i in this.index) {
+        document.getElementById(this.index[i].path).style.display = "";
+        history.pushState({}, null, "/daily/");
+      }
+    },
+    shrinkAll: function() {
+      for (var i in this.index) {
+        document.getElementById(this.index[i].path).style.display = "none";
+        history.pushState({}, null, "/daily/");
+      }
+    },
+    getContents: function() {
+      if (this.year === undefined) {
+        return;
+      }
+
+      this.toTheTop();
+
+      var htmlDocUri =
+        "/daily_contents/" +
+        this.year +
+        "/" +
+        this.month +
+        "/" +
+        this.day +
+        "/" +
+        this.title +
+        ".html";
+
+      this.currentUri =
+        "/daily/" +
+        this.year +
+        "/" +
+        this.month +
+        "/" +
+        this.day +
+        "/" +
+        this.title +
+        "/";
+
+      fetch(htmlDocUri)
+        .then(response => response.text())
+        .then(responseText => (this.articleHtmlSource = responseText));
+    }
+  }
+};
+</script>
+
+<style>
+.daily-font {
+  font-family: "Bad Script", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
+    Arial, sans-serif;
+}
+</style>
+
+<style scoped>
+.journal-relative-id {
+  width: 25px;
+  text-align: right;
+}
+
+.journal-date {
+  width: 100px;
+}
+
+.journal-title {
+  width: 200px;
+  text-align: left;
+}
+
+.daily-article-title tr {
+  border: 0;
+}
+.daily-article-title tr td {
+  border: 0;
+  padding: 0;
+}
+
+.daily-article-contents-text {
+  text-indent: 0.5em;
+  opacity: 0.8;
+
+  display: block;
+  background: #fafafa;
+  padding: 5px 15px 5px 15px;
+  margin: 0 0 20px;
+  position: relative;
+
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+
+  font-family: "Iropke Batang", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
+    Arial, sans-serif;
+
+  border-radius: 5px;
+}
+
+#article-contents {
+  text-align: left;
+  width: 500px;
+  max-width: 100%;
+  margin: auto;
+}
+
+.daily-article-contents {
+  text-align: left;
+  width: 500px;
+  max-width: 100%;
+  margin: auto;
+}
+
+a {
+  cursor: pointer;
+}
+
+.expand-close-buttons {
+  padding: 10px 0 30px 0;
+}
+
+.expand-close-buttons button {
+  padding: 0 2px 0 2px;
+  margin: 0 5px 0 5px;
+  width: 100px;
+}
+
+.daily-article-contents-text {
+  margin-top: 25px;
+}
+
+.daily-article-title,
+button {
+  font-family: "Iropke Batang", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
+    Arial, sans-serif;
+}
+
+.inner-title-container h1 {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+</style>

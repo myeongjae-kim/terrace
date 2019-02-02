@@ -23,11 +23,11 @@ type metadata struct {
 	} `json:"date"`
 }
 
-// getHTMLPaths returns an array of html file paths under 'contentsRoot'
-func getHTMLPaths() []string {
+// getHTMLPaths returns an array of html file paths under 'contentsRootDir'
+func getHTMLPaths(contentsRootDir string) []string {
 	var HTMLFiles []string
 
-	diriteration.DirectoryRecursiveIteration(contentsRoot, func(path string) {
+	diriteration.DirectoryRecursiveIteration(contentsRootDir, func(path string) {
 		if (len(path) > len(extHTML)) &&
 			path[len(path)-len(extHTML):] == extHTML {
 			HTMLFiles = append(HTMLFiles, path)
@@ -44,7 +44,11 @@ func getHTMLPaths() []string {
 }
 
 // getMetadata returns an object of 'metadata' generated from 'HTMLArticlePath'
-func getMetadata(HTMLArticlePath string) metadata {
+func getMetadata(
+	HTMLArticlePath string,
+	contentsRootDir string,
+	webRoot string,
+) metadata {
 	var metadata metadata
 
 	article, err := ioutil.ReadFile(HTMLArticlePath)
@@ -71,7 +75,7 @@ func getMetadata(HTMLArticlePath string) metadata {
 	metadata.Path = HTMLArticlePath
 
 	// Replace local directory to web directory
-	metadata.Path = strings.Replace(metadata.Path, contentsRoot, webRoot, 1)
+	metadata.Path = strings.Replace(metadata.Path, contentsRootDir, webRoot, 1)
 	// Remove .html and add trailing slash
 	metadata.Path = metadata.Path[:len(metadata.Path)-len(extHTML)] + "/"
 
@@ -99,14 +103,14 @@ func getMetadata(HTMLArticlePath string) metadata {
 }
 
 // generateIndex returns a slice of metadata
-func generateIndex() []metadata {
+func generateIndex(contentsRootDir string, webRoot string) []metadata {
 	var metadataSlice []metadata
 
-	HTMLPaths := getHTMLPaths()
+	HTMLPaths := getHTMLPaths(contentsRootDir)
 
 	for i, HTMLPath := range HTMLPaths {
-		metadata := getMetadata(HTMLPath)
-		metadata.RelativeID = i
+		metadata := getMetadata(HTMLPath, contentsRootDir, webRoot)
+		metadata.RelativeID = len(HTMLPaths) - i - 1
 
 		metadataSlice = append(metadataSlice, metadata)
 	}
@@ -116,6 +120,12 @@ func generateIndex() []metadata {
 
 // GenerateAndInjectIndexToBlogComponent , Is there more needed explanations?
 func GenerateAndInjectIndexToBlogComponent() {
-	index := generateIndex()
+	index := generateIndex(blogContentsRoot, blogRoot)
 	injectObjectAsJSON(blogComponentPath, index)
+}
+
+// GenerateAndInjectIndexToDailyComponent , Is there more needed explanations?
+func GenerateAndInjectIndexToDailyComponent() {
+	index := generateIndex(dailyContentsRoot, dailyRoot)
+	injectObjectAsJSON(dailyComponentPath, index)
 }

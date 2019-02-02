@@ -9,6 +9,7 @@ const productionPlugins = [
     routes: [
   "/",
   "/blog/",
+  "/daily/",
   "/musings/",
   "/places/",
   "/blog-example/",
@@ -41,7 +42,9 @@ const productionPlugins = [
   "/blog/2016/01/19/가장-오래된-작품들이-가장-덜-낡았다/",
   "/blog/2016/01/14/진정한-교양/",
   "/blog/2016/01/14/독자는-의무가-아닌-애정의-행로를-따라가야-한다/",
-  "/blog/2015/10/17/the-c-programming-language/"
+  "/blog/2015/10/17/the-c-programming-language/",
+  "/daily/2019/02/03/second-journal/",
+  "/daily/2019/02/02/first-journal/"
 ]
     // __INSERTION_POSITION_END__ // DONT CHANGE!!
     ,

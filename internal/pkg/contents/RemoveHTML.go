@@ -9,7 +9,8 @@ import (
 
 // RemoveHTML deletes html files under contents root directory.
 func RemoveHTML() {
-	diriteration.DirectoryRecursiveIteration(contentsRoot, removeHTML)
+	diriteration.DirectoryRecursiveIteration(blogContentsRoot, removeHTML)
+	diriteration.DirectoryRecursiveIteration(dailyContentsRoot, removeHTML)
 }
 
 // removeHTML deletes a file which is located at 'path' argument if the file's extension is ".HTML"
