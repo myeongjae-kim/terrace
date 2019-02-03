@@ -49,7 +49,7 @@
           </a>
         </div>
         <div id="padding-between-title-and-article"></div>
-        <div class="daily-article-contents">
+        <div class="daily-article-contents color-black">
           <div v-html="articleHtmlSource" class="daily-article-contents-text"></div>
         </div>
       </article>
@@ -422,6 +422,10 @@ button {
 
 .color-default {
   color: #2c3e50;
+}
+
+.color-black {
+  color: #000;
 }
 
 .current-article td {
