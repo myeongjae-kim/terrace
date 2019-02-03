@@ -127,31 +127,31 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
-        {
-          relativeId: 1,
-          title: "",
-          path: "/daily/2019/02/03/untitled/",
-          date: {
-            year: "2019",
-            month: "02",
-            monthEng: "February",
-            day: "03",
-            dayEng: "3rd"
-          }
-        },
-        {
-          relativeId: 0,
-          title: "첫 번째 일기",
-          path: "/daily/2019/02/02/first-journal/",
-          date: {
-            year: "2019",
-            month: "02",
-            monthEng: "February",
-            day: "02",
-            dayEng: "2nd"
-          }
-        }
-      ],
+  {
+    "relativeId": 1,
+    "title": "",
+    "path": "/daily/2019/02/03/untitled/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "03",
+      "dayEng": "3rd"
+    }
+  },
+  {
+    "relativeId": 0,
+    "title": "첫 번째 일기",
+    "path": "/daily/2019/02/02/first-journal/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "02",
+      "dayEng": "2nd"
+    }
+  }
+],
       // __INSERTION_POSITION_END__ // DONT CHANGE!!
       year: this.$route.params.year,
       month: this.$route.params.month,
