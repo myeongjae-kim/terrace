@@ -10,18 +10,25 @@
         </a>
       </div>
       <div class="new-daily-article" v-for="i in index" :key="i.path">
-        <table class="daily-article-title">
-          <a v-on:click="toggleContents(i.path)">
+        <router-link :to="i.path">
+          <table class="daily-article-title">
             <tr>
               <td class="journal-relative-id">{{i.relativeId + 1}}.</td>
               <td class="journal-date">[{{i.date.year}}.{{i.date.month}}.{{i.date.day}}]</td>
               <td class="journal-title">{{ i.title }}</td>
             </tr>
-          </a>
-        </table>
-        <div class="daily-article-contents">
-          <div :id="i.path" style="display: none;" class="daily-article-contents-text">{{i.path}}</div>
-        </div>
+          </table>
+          <div class="daily-article-contents color-default">
+            <div
+              :id="i.path"
+              v-bind:class="{ 'display-none' : !isExpanded }"
+              class="daily-article-contents-text"
+            >{{i.path}}</div>
+            <div class="leave-comment-button">
+              <button v-bind:class="{ 'display-none' : !isExpanded }">댓글 남기기</button>
+            </div>
+          </div>
+        </router-link>
       </div>
     </div>
     <div v-else id="contents">
@@ -30,12 +37,13 @@
           <button>전체 보기</button>
         </router-link>
       </div>
-
       <article>
         <div class="inner-title-container">
-          <a :href="currentUri">
-            [{{year}}.{{month}}.{{day}}]
-            <span id="inner-title">{{ title }}</span>
+          <a :href="currentPath">
+            {{currentRelativeId + 1}}. [{{year}}.{{month}}.{{day}}]
+            <span
+              id="inner-title"
+            >{{ title }}</span>
           </a>
         </div>
         <div id="padding-between-title-and-article"></div>
@@ -43,6 +51,25 @@
           <div v-html="articleHtmlSource" class="daily-article-contents-text"></div>
         </div>
       </article>
+
+      <div id="list-below-article">
+        <div
+          class="list-below-article-element"
+          v-for="i in index"
+          :key="i.path"
+          v-bind:class="{ 'current-article' : i.path === currentPath }"
+        >
+          <router-link :to="i.path">
+            <table class="daily-article-title">
+              <tr>
+                <td class="journal-relative-id">{{i.relativeId + 1}}.</td>
+                <td class="journal-date">[{{i.date.year}}.{{i.date.month}}.{{i.date.day}}]</td>
+                <td class="journal-title">{{ i.title }}</td>
+              </tr>
+            </table>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -96,19 +123,43 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
-  {
-    "relativeId": 0,
-    "title": "첫 번째 일기",
-    "path": "/daily/2019/02/02/first-journal/",
-    "date": {
-      "year": "2019",
-      "month": "02",
-      "monthEng": "February",
-      "day": "02",
-      "dayEng": "2nd"
-    }
-  }
-],
+        {
+          relativeId: 2,
+          title: "",
+          path: "/daily/2019/02/03/test2/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "03",
+            dayEng: "3rd"
+          }
+        },
+        {
+          relativeId: 1,
+          title: "test1",
+          path: "/daily/2019/02/03/test1/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "03",
+            dayEng: "3rd"
+          }
+        },
+        {
+          relativeId: 0,
+          title: "첫 번째 일기",
+          path: "/daily/2019/02/02/first-journal/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "02",
+            dayEng: "2nd"
+          }
+        }
+      ],
       // __INSERTION_POSITION_END__ // DONT CHANGE!!
       year: this.$route.params.year,
       month: this.$route.params.month,
@@ -116,7 +167,9 @@ export default {
       title: this.$route.params.title,
       titleForMeta: "",
       articleHtmlSource: "",
-      currentUri: ""
+      currentPath: "",
+      currentRelativeId: null,
+      isExpanded: false
     };
   },
   watch: {
@@ -142,7 +195,7 @@ export default {
         return;
       }
 
-      // Find all h1 tags, and choose second h1. It is real title of this doc.
+      // Find all h1 tags, and choose first h1. It is a real title of this doc.
       var titles = contents.querySelectorAll("h1");
       if (titles.length <= 0) {
         return;
@@ -182,27 +235,11 @@ export default {
           });
       }
     },
-    toggleContents: function(id) {
-      var contents = document.getElementById(id);
-      if (contents.style.display === "none") {
-        contents.style.display = "";
-        history.pushState({}, null, id);
-      } else {
-        contents.style.display = "none";
-        history.pushState({}, null, "/daily/");
-      }
-    },
     expandAll: function() {
-      for (var i in this.index) {
-        document.getElementById(this.index[i].path).style.display = "";
-        history.pushState({}, null, "/daily/");
-      }
+      this.isExpanded = true;
     },
     shrinkAll: function() {
-      for (var i in this.index) {
-        document.getElementById(this.index[i].path).style.display = "none";
-        history.pushState({}, null, "/daily/");
-      }
+      this.isExpanded = false;
     },
     getContents: function() {
       if (this.year === undefined) {
@@ -222,7 +259,7 @@ export default {
         this.title +
         ".html";
 
-      this.currentUri =
+      this.currentPath =
         "/daily/" +
         this.year +
         "/" +
@@ -232,6 +269,14 @@ export default {
         "/" +
         this.title +
         "/";
+
+      // TODO: Remove this ugly for loop
+      for (var i in this.index) {
+        if (this.index[i].path === this.currentPath) {
+          this.currentRelativeId = this.index[i].relativeId;
+          break;
+        }
+      }
 
       fetch(htmlDocUri)
         .then(response => response.text())
@@ -327,5 +372,24 @@ button {
   -moz-box-shadow: 0px 0px 0px;
   -webkit-box-shadow: 0px 0px 0px;
   background: #fafafa;
+}
+
+.color-default {
+  color: #2c3e50;
+}
+
+.current-article td {
+  cursor: default;
+  color: #2c3e50 !important;
+}
+
+.display-none {
+  display: none;
+}
+.leave-comment-button {
+  text-align: center;
+}
+.leave-comment-button button {
+  margin-bottom: 30px;
 }
 </style>
