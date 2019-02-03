@@ -376,7 +376,7 @@ export default {
   font-size: 0.9em;
   line-height: 1.6em;
 
-  border: 1px #e0e0e0 solid;
+  border: 1px #e0e0e0 solid !important;
   border-radius: 5px;
 }
 
