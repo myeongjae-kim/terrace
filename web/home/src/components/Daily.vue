@@ -186,9 +186,7 @@ export default {
     this.loadAllContents();
   },
   updated: function() {
-    if (this.year === undefined) {
-      this.loadAllContents();
-    } else {
+    if (this.year !== undefined) {
       var contents = document.querySelector("#contents");
       if (contents == null) {
         this.toTheTop();
@@ -216,6 +214,7 @@ export default {
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     },
     loadAllContents: async function() {
+      //TODO: This function load lots of data. Let it called rarely.
       if (this.year !== undefined) {
         return;
       }
@@ -237,6 +236,7 @@ export default {
     },
     expandAll: function() {
       this.isExpanded = true;
+      this.loadAllContents();
     },
     shrinkAll: function() {
       this.isExpanded = false;
