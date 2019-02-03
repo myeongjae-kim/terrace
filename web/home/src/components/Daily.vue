@@ -9,26 +9,28 @@
           <button>모두 접기</button>
         </a>
       </div>
-      <div class="new-daily-article" v-for="i in index" :key="i.path">
-        <router-link :to="i.path">
-          <table class="daily-article-title">
-            <tr>
-              <td class="journal-relative-id">{{i.relativeId + 1}}.</td>
-              <td class="journal-date">[{{i.date.year}}.{{i.date.month}}.{{i.date.day}}]</td>
-              <td class="journal-title">{{ i.title }}</td>
-            </tr>
-          </table>
-          <div class="daily-article-contents color-default">
-            <div
-              :id="i.path"
-              v-bind:class="{ 'display-none' : !isExpanded }"
-              class="daily-article-contents-text"
-            >{{i.path}}</div>
-            <div class="leave-comment-button">
-              <button v-bind:class="{ 'display-none' : !isExpanded }">댓글 남기기</button>
+      <div id="daily-article-container">
+        <div v-for="i in index" :key="i.path">
+          <router-link :to="i.path">
+            <table class="daily-article-title">
+              <tr>
+                <td class="journal-relative-id">{{i.relativeId + 1}}.</td>
+                <td class="journal-date">[{{i.date.year}}.{{i.date.month}}.{{i.date.day}}]</td>
+                <td class="journal-title">{{ i.title }}</td>
+              </tr>
+            </table>
+            <div class="daily-article-contents color-default">
+              <div
+                :id="i.path"
+                v-bind:class="{ 'display-none' : !isExpanded }"
+                class="daily-article-contents-text"
+              >{{i.path}}</div>
+              <div class="leave-comment-button">
+                <button v-bind:class="{ 'display-none' : !isExpanded }">댓글 남기기</button>
+              </div>
             </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
     <div v-else id="contents">
@@ -70,6 +72,8 @@
           </router-link>
         </div>
       </div>
+
+      <div id="disqus_thread"></div>
     </div>
   </div>
 </template>
@@ -124,21 +128,9 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
         {
-          relativeId: 2,
-          title: "",
-          path: "/daily/2019/02/03/test2/",
-          date: {
-            year: "2019",
-            month: "02",
-            monthEng: "February",
-            day: "03",
-            dayEng: "3rd"
-          }
-        },
-        {
           relativeId: 1,
-          title: "test1",
-          path: "/daily/2019/02/03/test1/",
+          title: "",
+          path: "/daily/2019/02/03/untitled/",
           date: {
             year: "2019",
             month: "02",
@@ -167,7 +159,9 @@ export default {
       title: this.$route.params.title,
       titleForMeta: "",
       articleHtmlSource: "",
+      domain: "https://myeongjae.kim",
       currentPath: "",
+      currentPermalink: "",
       currentRelativeId: null,
       isExpanded: false
     };
@@ -187,6 +181,7 @@ export default {
   },
   updated: function() {
     if (this.year !== undefined) {
+      this.shrinkAll();
       var contents = document.querySelector("#contents");
       if (contents == null) {
         this.toTheTop();
@@ -207,6 +202,13 @@ export default {
         this.titleForMeta = title.innerHTML;
       }
     }
+
+    this.initDisqus(
+      "myeongjae",
+      this.currentPath, // uri path as an identifier
+      this.title,
+      this.currentPermalink
+    );
   },
   methods: {
     toTheTop: function() {
@@ -270,6 +272,8 @@ export default {
         this.title +
         "/";
 
+      this.currentPermalink = this.domain + this.currentPath;
+
       // TODO: Remove this ugly for loop
       for (var i in this.index) {
         if (this.index[i].path === this.currentPath) {
@@ -281,17 +285,58 @@ export default {
       fetch(htmlDocUri)
         .then(response => response.text())
         .then(responseText => (this.articleHtmlSource = responseText));
+    },
+    initDisqus: function(shortname, identifier, title, url) {
+      //config
+      if (typeof DISQUS === "undefined") {
+        (async () => {
+          var vars_text =
+            'var disqus_shortname  = "' +
+            shortname +
+            '";\n' +
+            'var disqus_title      = "' +
+            title +
+            '";\n' +
+            'var disqus_identifier = "' +
+            identifier +
+            '";\n' +
+            'var disqus_url        = "' +
+            url +
+            '";\n';
+
+          var vars_obj = document.createElement("script");
+          vars_obj.type = "text/javascript";
+          vars_obj.async = true;
+          vars_obj.text = vars_text;
+          (
+            document.getElementsByTagName("head")[0] ||
+            document.getElementsByTagName("body")[0]
+          ).appendChild(vars_obj);
+
+          var dsq = document.createElement("script");
+          dsq.type = "text/javascript";
+          dsq.async = true;
+          dsq.src = "//" + shortname + ".disqus.com/embed.js";
+          (
+            document.getElementsByTagName("head")[0] ||
+            document.getElementsByTagName("body")[0]
+          ).appendChild(dsq);
+        })();
+      } else {
+        // eslint-disable-next-line
+        DISQUS.reset({
+          reload: true,
+          config: function() {
+            this.page.identifier = identifier;
+            this.page.url = url;
+            this.page.title = title;
+          }
+        });
+      }
     }
   }
 };
 </script>
-
-<style>
-.daily-font {
-  font-family: "Bad Script", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
-    Arial, sans-serif;
-}
-</style>
 
 <style scoped>
 .journal-relative-id {
@@ -329,6 +374,7 @@ export default {
   font-family: "Iropke Batang", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
     Arial, sans-serif;
   font-size: 0.9em;
+  line-height: 1.6em;
 
   border: 1px #e0e0e0 solid;
   border-radius: 5px;
@@ -391,5 +437,22 @@ button {
 }
 .leave-comment-button button {
   margin-bottom: 30px;
+}
+
+#disqus_thread {
+  width: 300px;
+  max-width: 100%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+#list-below-article {
+  margin-bottom: 20px;
+}
+
+#daily-article-container {
+  width: 530px;
+  max-width: 100%;
+  margin: auto;
 }
 </style>
