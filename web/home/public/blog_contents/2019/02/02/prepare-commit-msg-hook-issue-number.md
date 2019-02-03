@@ -56,8 +56,12 @@ fi
 - github 하나로 1인 개발 워크플로우 완성하기: 이론 편 | Huskyhoochu (<https://webcache.googleusercontent.com/search?q=cache:Hjnh8Hm7z6wJ:https://www.huskyhoochu.com/issue-based-version-control-101+&cd=1&hl=ko&ct=clnk&gl=kr>)
 - github 하나로 1인 개발 워크플로우 완성하기: 실전 편 | Huskyhoochu (<https://webcache.googleusercontent.com/search?q=cache:pO0lLE31p7kJ:https://www.huskyhoochu.com/issue-based-version-control-201+&cd=2&hl=ko&ct=clnk&gl=kr>)
 
-이것도 언제 막힐지 몰라 pdf로 박제했습니다. 얼른 Huskychoocho님의 블로그가 쾌차하길 빌겠습니다.
+이것도 언제 막힐지 몰라 pdf로 박제했습니다.
 
 - [pdf: husky로 손쉽게 git hook 관리하기 | Huskyhoochu](https://cdn.myeongjae.kim/blog/2019/01/npm-husky-the-git-hook-manager.pdf)
 - [pdf: github 하나로 1인 개발 워크플로우 완성하기: 이론 편 | Huskyhoochu](https://cdn.myeongjae.kim/blog/2019/01/issue-based-version-control-101.pdf)
 - [pdf: github 하나로 1인 개발 워크플로우 완성하기: 실전 편 | Huskyhoochu](https://cdn.myeongjae.kim/blog/2019/01/issue-based-version-control-201.pdf)
+
+---
+
+다른 브라우저에는 접속이 잘 되고, 제 맥의 사파리에서만 접속이 안 되는 것 같습니다. 그래도 누가 제 글이 쓸모가 있어서 pdf로 박제해 놓는다면 기분 좋을테니 그냥 놔두려구요.
