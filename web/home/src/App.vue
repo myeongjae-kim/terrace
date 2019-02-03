@@ -327,8 +327,8 @@ nav > a:hover {
 
 a.router-link-exact-active,
 a.router-link-exact-active:hover {
-  /*color: #367BB7;*/
-  color: #3073b3;
+  color: #367bb7;
+  /* color: #3073b3; */
 }
 
 a {

@@ -19,11 +19,11 @@
                 <td class="journal-title">{{ i.title }}</td>
               </tr>
             </table>
-            <div class="daily-article-contents color-default">
+            <div class="daily-article-contents">
               <div
                 :id="i.path"
                 v-bind:class="{ 'display-none' : !isExpanded }"
-                class="daily-article-contents-text"
+                class="daily-article-contents-text color-default"
               >{{i.path}}</div>
               <div class="leave-comment-button">
                 <button v-bind:class="{ 'display-none' : !isExpanded }">댓글 남기기</button>
@@ -49,8 +49,8 @@
           </a>
         </div>
         <div id="padding-between-title-and-article"></div>
-        <div class="daily-article-contents color-black">
-          <div v-html="articleHtmlSource" class="daily-article-contents-text"></div>
+        <div class="daily-article-contents">
+          <div v-html="articleHtmlSource" class="daily-article-contents-text color-black"></div>
         </div>
       </article>
 
@@ -127,31 +127,31 @@ export default {
     return {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
-  {
-    "relativeId": 1,
-    "title": "",
-    "path": "/daily/2019/02/03/untitled/",
-    "date": {
-      "year": "2019",
-      "month": "02",
-      "monthEng": "February",
-      "day": "03",
-      "dayEng": "3rd"
-    }
-  },
-  {
-    "relativeId": 0,
-    "title": "첫 번째 일기",
-    "path": "/daily/2019/02/02/first-journal/",
-    "date": {
-      "year": "2019",
-      "month": "02",
-      "monthEng": "February",
-      "day": "02",
-      "dayEng": "2nd"
-    }
-  }
-],
+        {
+          relativeId: 1,
+          title: "",
+          path: "/daily/2019/02/03/untitled/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "03",
+            dayEng: "3rd"
+          }
+        },
+        {
+          relativeId: 0,
+          title: "첫 번째 일기",
+          path: "/daily/2019/02/02/first-journal/",
+          date: {
+            year: "2019",
+            month: "02",
+            monthEng: "February",
+            day: "02",
+            dayEng: "2nd"
+          }
+        }
+      ],
       // __INSERTION_POSITION_END__ // DONT CHANGE!!
       year: this.$route.params.year,
       month: this.$route.params.month,
@@ -209,6 +209,24 @@ export default {
       this.title,
       this.currentPermalink
     );
+
+    // add class 'router-link-exact-active' to the blog nav
+    var nav_blog = document.querySelector("nav");
+
+    var isClassAdded = false;
+    [].forEach.call(nav_blog.querySelectorAll("a"), function(el) {
+      // return immediately when target is found and updated.
+      if (isClassAdded) return;
+
+      // Add ' router-link-exact-active' to the class attribute.
+      if (el.getAttribute("href") == "/daily/") {
+        el.setAttribute(
+          "class",
+          el.getAttribute("class") + " router-link-exact-active"
+        );
+        isClassAdded = true;
+      }
+    });
   },
   methods: {
     toTheTop: function() {
