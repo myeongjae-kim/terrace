@@ -3,14 +3,16 @@
     <div id="blog-main" v-if="year === undefined">
       <h1 class="component-title">Articles</h1>
       <!-- Show titles of blog contents -->
-      <div class="blog-article-list" v-for="i in index" :key="i.path">
-        <p class="article-info">
-          <router-link :to="i.path" class="article-title">{{i.title}}</router-link>
-          <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
-          <br>
-          <span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span>
-        </p>
-      </div>
+      <router-link :to="i.path" v-for="i in index" :key="i.path">
+        <div class="blog-article-list-element">
+          <p class="article-info">
+            <span class="article-title">{{i.title}}</span>
+            <!-- <br>{{ i.date.monthEng }} {{ i.date.dayEng }}, {{ i.date.year }}</p> -->
+            <br>
+            <span class="article-date">{{ i.date.year }} / {{ i.date.month }} / {{ i.date.day }}</span>
+          </p>
+        </div>
+      </router-link>
     </div>
     <div id="blog-contents" v-else>
       <article>
@@ -50,7 +52,7 @@
       </div>
       <div id="disqus_thread"></div>
     </div>
-    <a class="back_to_top">&uarr;</a>
+    <a class="back-to-top">&uarr;</a>
   </div>
 </template>
 
@@ -128,9 +130,10 @@ export default {
   updated: function() {
     // Change file name to document's title
     // When the page is an artice page, get blogContents
+    this.toTheTop();
     var blogContents = document.querySelector("#blog-contents");
     if (blogContents == null) {
-      this.toTheTop();
+      // this.toTheTop();
       return;
     }
 
@@ -628,8 +631,7 @@ export default {
       }
     },
     initBackToTopButton: function() {
-      var vue = this;
-      (function() {
+      (() => {
         "use strict";
 
         function trackScroll() {
@@ -637,10 +639,10 @@ export default {
           var coords = document.documentElement.clientHeight / 2;
 
           if (scrolled > coords) {
-            goTopBtn.classList.add("back_to_top-show");
+            goTopBtn.classList.add("back-to-top-show");
           }
           if (scrolled < coords) {
-            goTopBtn.classList.remove("back_to_top-show");
+            goTopBtn.classList.remove("back-to-top-show");
           }
         }
 
@@ -653,11 +655,11 @@ export default {
         }
         */
 
-        var goTopBtn = document.querySelector(".back_to_top");
+        var goTopBtn = document.querySelector(".back-to-top");
 
         window.addEventListener("scroll", trackScroll);
         //goTopBtn.addEventListener('click', backToTop);
-        goTopBtn.addEventListener("click", vue.toTheTop);
+        goTopBtn.addEventListener("click", this.toTheTop);
       })();
     },
     toTheTop: function() {
@@ -690,13 +692,15 @@ export default {
       if (this.year == undefined) return;
 
       // Load page after the scroll is on the top
-      this.toTheTop();
+      //this.toTheTop();
 
       // If it already has had an article, remove it
+      /*
       var article = document.querySelector("#article-content");
       if (article != null) {
         article.innerHTML = "";
       }
+      */
 
       var htmlDocUri =
         "/blog_contents/" +
@@ -735,16 +739,15 @@ export default {
       var uri = htmlDocUri.replace("blog_contents/", "").replace(".html", "");
       this.address = this.domain + uri;
 
-      var vue = this;
       var xhr = new XMLHttpRequest();
       xhr.open("GET", htmlDocUri, true);
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           var str = xhr.responseText.substring(0, 4);
           if (str == "<!DO" || str == "<hea") {
             window.location.href = "/404";
           } else {
-            vue.article = xhr.responseText;
+            this.article = xhr.responseText;
           }
         }
       };
@@ -841,10 +844,12 @@ div#blog {
 
 .article-date {
   font-size: 0.9em;
+  color: #2c3e50;
 }
 
 article {
-  font-size: 1.08em;
+  font-size: 1.05em;
+  margin-bottom: 35px;
 }
 
 #padding-between-title-and-article {
@@ -871,15 +876,24 @@ article {
   text-align: center;
 }
 
-.blog-article-list {
-  max-width: 800px;
-  margin: auto;
-  padding-bottom: 1px;
+.blog-article-list-element {
+  max-width: 600px;
+  margin: 15px auto;
+  padding: 10px 0;
+}
+
+.blog-article-list-element:hover {
+  background-color: #fafafa;
+  border-radius: 5px;
+}
+
+.blog-article-list-element p {
+  margin: 0;
 }
 
 /* begin of Back to Top button  */
 
-.back_to_top {
+.back-to-top {
   position: fixed;
   bottom: 80px;
   right: 40px;
@@ -888,26 +902,24 @@ article {
   height: 30px;
   text-align: center;
   line-height: 30px;
-  background: #fafafa;
-  color: #444;
+  background-color: rgba(250, 250, 250, 0.6);
+  color: #888;
   cursor: pointer;
   border-radius: 2px;
   display: none;
-
-  opacity: 0.5;
 }
 
-.back_to_top:hover {
-  background: #f0f0f0;
+.back-to-top:hover {
+  background-color: rgba(240, 240, 240, 0.6);
 }
 
-.back_to_top-show {
+.back-to-top-show {
   display: block;
 }
 
 /* end of Back to Top button  */
 
-article {
-  margin-bottom: 35px;
+.component-title {
+  padding-bottom: 5px;
 }
 </style>

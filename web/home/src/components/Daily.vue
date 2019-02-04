@@ -128,6 +128,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 2,
+    "title": "React",
+    "path": "/daily/2019/02/04/react/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "04",
+      "dayEng": "4th"
+    }
+  },
+  {
     "relativeId": 1,
     "title": "",
     "path": "/daily/2019/02/03/untitled/",

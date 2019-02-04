@@ -296,6 +296,10 @@ code {
   letter-spacing: 3px;
 }
 
+#site-title a:hover {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 600px) {
   #site-title {
     margin: 0;
@@ -491,7 +495,8 @@ strong {
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
-  opacity: 0.5;
+  background-color: #f8f8f8;
+  /* opacity: 0.5; */
 }
 
 .no-shadow {
