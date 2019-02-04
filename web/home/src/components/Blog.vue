@@ -790,7 +790,7 @@ export default {
 <style>
 #article-content a {
   background-color: #f9fcff !important;
-  padding: 4px;
+  padding: 4px 0;
   border-radius: 5px;
 }
 </style>
