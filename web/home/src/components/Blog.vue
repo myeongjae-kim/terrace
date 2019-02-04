@@ -65,6 +65,7 @@ HighlightJS.registerLanguage(
   "bash",
   require("highlight.js/lib/languages/bash")
 );
+HighlightJS.registerLanguage("cpp", require("highlight.js/lib/languages/cpp"));
 
 import "highlight.js/styles/xcode.css";
 
@@ -204,6 +205,18 @@ export default {
       // The first json array after this line is
       // the position of injecting index json. index MUST have an array.
       index: [
+  {
+    "relativeId": 29,
+    "title": "[웹] Vue를 먼저 공부한 백엔드 개발자의 입장에서 본 React",
+    "path": "/blog/2019/02/04/react-in-a-sight-of-whom-used-to-vue/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "04",
+      "dayEng": "4th"
+    }
+  },
   {
     "relativeId": 28,
     "title": "[Git] Commit 메세지에 자동으로 issue number 추가하기",
@@ -774,6 +787,14 @@ export default {
 };
 </script>
 
+<style>
+#article-content a {
+  background-color: #f9fcff !important;
+  padding: 4px;
+  border-radius: 5px;
+}
+</style>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #blog-contents {
@@ -833,7 +854,7 @@ article {
 #article-content {
   text-align: left;
   color: #000;
-  line-height: 1.6em;
+  line-height: 1.7em;
 }
 
 #share-buttons {

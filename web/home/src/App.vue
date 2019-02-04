@@ -246,10 +246,13 @@ pre {
   padding: 20px;
   line-height: 1.3em;
 
+  /*
   -moz-box-shadow: 2px 2px 15px #ccc;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
+  */
 
+  border: 1px #e0e0e0 solid !important;
   border-radius: 5px;
 }
 
@@ -337,6 +340,7 @@ a {
   -o-transition: color 1s ease-out;
   transition: color 1s ease-out;
   /*color: #367bb7;*/
+
   color: #3073b3;
   text-decoration: none;
 }
@@ -405,12 +409,16 @@ blockquote {
   position: relative;
 
   /*Box Shadow - (Optional)*/
+  /*
   -moz-box-shadow: 2px 2px 15px #ccc;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
+  */
 
   font-family: "Iropke Batang", "Source Sans Pro", "Spoqa Han Sans", Helvetica,
     Arial, sans-serif;
+  border: 1px #e0e0e0 solid !important;
+  /* border: 1px #ffc966 solid !important; */
 
   border-radius: 5px;
 }
@@ -474,6 +482,7 @@ strong {
   -moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+
   border: none;
   text-align: center;
 }

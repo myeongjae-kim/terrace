@@ -14,6 +14,7 @@ const productionPlugins = [
   "/places/",
   "/blog-example/",
   "/404/",
+  "/blog/2019/02/04/react-in-a-sight-of-whom-used-to-vue/",
   "/blog/2019/02/02/prepare-commit-msg-hook-issue-number/",
   "/blog/2018/10/05/웹-spa에서-disqus-적용하기/",
   "/blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs/",
