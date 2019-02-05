@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 3,
+    "title": "다육이",
+    "path": "/daily/2019/02/05/dayuki/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "05",
+      "dayEng": "5th"
+    }
+  },
+  {
     "relativeId": 2,
     "title": "React",
     "path": "/daily/2019/02/04/react/",
@@ -397,7 +409,6 @@ export default {
 
 .daily-article-contents-text {
   text-indent: 0.5em;
-  opacity: 0.8;
 
   display: block;
   background: #fafafa;
