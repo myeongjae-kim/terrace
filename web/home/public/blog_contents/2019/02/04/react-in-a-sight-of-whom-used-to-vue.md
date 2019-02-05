@@ -59,6 +59,7 @@ Typescript와의 호환이라든지
 
 - [https://medium.com/\@FourwingsY/react와-typescript의-미묘한-불일치-b8f0e2bfe05d](https://medium.com/\@FourwingsY/react%EC%99%80-typescript%EC%9D%98-%EB%AF%B8%EB%AC%98%ED%95%9C-%EB%B6%88%EC%9D%BC%EC%B9%98-b8f0e2bfe05d)
 - [https://www.slideshare.net/HeejongAhn/typescript-flow-81799404](https://www.slideshare.net/HeejongAhn/typescript-flow-81799404)
+- <https://medium.com/\@sangboaklee/typescript-현업-적용-후기-caad266c8142>
 
 Next.js라든지
 
