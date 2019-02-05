@@ -73,7 +73,9 @@
         </div>
       </div>
 
-      <div id="disqus_thread"></div>
+      <div id="disqus_wrapper" v-show="title != null && title != undefined">
+        <div id="disqus_thread"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -215,12 +217,14 @@ export default {
       }
     }
 
-    this.initDisqus(
-      "myeongjae",
-      this.currentPath, // uri path as an identifier
-      this.title,
-      this.currentPermalink
-    );
+    if (!(this.title == null || this.title == undefined)) {
+      this.initDisqus(
+        "myeongjae",
+        this.currentPath, // uri path as an identifier
+        this.title,
+        this.currentPermalink
+      );
+    }
 
     // add class 'router-link-exact-active' to the blog nav
     var nav_blog = document.querySelector("nav");

@@ -872,6 +872,7 @@ article {
   text-align: left;
   color: #000;
   line-height: 1.7em;
+  overflow-wrap: break-word;
 }
 
 #share-buttons {

@@ -9,167 +9,202 @@
 
 <url>
   <loc>https://myeongjae.kim/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:18+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:18+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://myeongjae.kim/daily/</loc>
+  <lastmod>2019-02-05T01:21:16+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/musings/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/places/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:18+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://myeongjae.kim/blog/2019/02/04/react-in-a-sight-of-whom-used-to-vue/</loc>
+  <lastmod>2019-02-05T01:21:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://myeongjae.kim/blog/2019/02/02/prepare-commit-msg-hook-issue-number/</loc>
+  <lastmod>2019-02-05T01:21:17+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://myeongjae.kim/blog/2018/10/05/%EC%9B%B9-spa%EC%97%90%EC%84%9C-disqus-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/</loc>
+  <lastmod>2019-02-05T01:21:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
   <loc>https://myeongjae.kim/blog/2018/09/23/single-page-app%EC%9D%98-search-engine-optimizaion%EA%B3%BC-vuejs/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:15+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2018/09/18/%EB%B8%94%EB%A1%9C%EA%B9%85-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:13+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://myeongjae.kim/blog/2017/10/17/rob-pike%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EA%B7%9C%EC%B9%99-5%EA%B0%80%EC%A7%80/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <loc>https://myeongjae.kim/blog/2017/09/17/rob-pike%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EA%B7%9C%EC%B9%99-5%EA%B0%80%EC%A7%80/</loc>
+  <lastmod>2019-02-05T01:21:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/20/vimlinux-13-vim-go%EC%99%80-deoplete-go-go%EC%96%B8%EC%96%B4%EB%A5%BC-%EC%9C%84%ED%95%9C-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:15+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/20/vimlinux-12-%EA%B3%A0%EC%9A%94goyo-%EB%B0%A9%ED%95%B4%EA%B8%88%EC%A7%80-%EB%AA%A8%EB%93%9C-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:15+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/19/vimlinux-11-nerd-commenter-%EC%A3%BC%EC%84%9D-%EB%8B%A8%EC%B6%95%ED%82%A4-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8/</loc>
-  <lastmod>2018-09-26T14:23:27+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:15+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/19/vimlinux-10-deoplete%EA%B3%BC-clang_complete-%EC%9E%90%EB%8F%99-%EC%99%84%EC%84%B1-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/18/vimlinux-9-synatstic-%EB%AC%B8%EB%B2%95-%EC%B2%B4%ED%81%AC-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:16+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/15/vimlinux-8-ultisnip%EA%B3%BC-vim-snippets/</loc>
-  <lastmod>2018-09-26T14:23:26+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:14+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/15/vimlinux-7-delimitmate-%EA%B4%84%ED%98%B8-%EC%9E%90%EB%8F%99-%EC%99%84%EC%84%B1-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8/</loc>
-  <lastmod>2018-09-26T14:23:26+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/14/vimlinux-6-vim-multiple-cursor%EC%99%80-vim-smooth-scroll/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:14+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2017/07/14/vimlinux-5-the-nerd-tree-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:14+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/12/03/%EB%81%9D%EA%B9%8C%EC%A7%80-%EA%B0%80%EC%9E%90/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:13+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/11/02/macos-%EB%A7%A5-%ED%84%B0%EB%AF%B8%EB%84%90%EB%A1%9C-%EC%9A%B0%EB%B6%84%ED%88%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</loc>
-  <lastmod>2018-09-26T14:23:26+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/10/06/vimlinux-4-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8-%EB%A7%A4%EB%8B%88%EC%A0%80%EB%A5%BC-%EC%84%A4%EC%B9%98%ED%95%98%EA%B3%A0-vim-airline-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/10/02/vimlinux-3-vimrc-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/10/01/vimlinux-2-neovim-%EC%84%A4%EC%B9%98%ED%95%98%EA%B3%A0-24bit-%EC%BB%AC%EB%9F%AC-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/10/01/vimlinux-1-vim%EC%9D%84-%EC%99%9C-%EC%93%B0%EB%83%90%EA%B3%A0/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/06/27/%EC%B1%85-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8%EC%97%90%EC%84%9C-%EC%96%B8%EA%B8%89%ED%95%9C-%EC%B1%85-10%EA%B6%8C/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/03/01/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8%EC%A0%95%EC%8B%A0-%EC%84%9C%ED%8F%89/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/03/01/%EB%B0%9C%EC%B7%8C-%EC%83%81%EC%95%84%ED%83%91-%EC%95%84%ED%82%A4%ED%85%8D%ED%8A%B8-%EB%8C%80%EC%B2%98%ED%95%98%EA%B8%B0/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/02/26/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EB%88%84%EA%B0%80-%EC%9D%B4%EB%A0%87-%EA%B0%9C%EB%96%A1-%EA%B0%99%EC%9D%B4-%EB%A7%8C%EB%93%A0%EA%B1%B0%EC%95%BC/</loc>
-  <lastmod>2018-09-26T14:23:26+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/02/10/%EB%A7%88%EC%B4%88%EB%A5%BC-%EB%A7%8C%EB%93%9C%EB%8A%94-%ED%99%98%EA%B2%BD/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/02/10/%EB%82%A8%EC%9E%90%EC%95%84%EC%9D%B4%EA%B0%80-%EB%A7%88%EC%B4%88%EA%B0%80-%EB%90%98%EC%96%B4%EA%B0%80%EB%8A%94-%EA%B3%BC%EC%A0%95/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/01/19/%EA%B0%80%EC%9E%A5-%EC%98%A4%EB%9E%98%EB%90%9C-%EC%9E%91%ED%92%88%EB%93%A4%EC%9D%B4-%EA%B0%80%EC%9E%A5-%EB%8D%9C-%EB%82%A1%EC%95%98%EB%8B%A4/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/01/14/%EC%A7%84%EC%A0%95%ED%95%9C-%EA%B5%90%EC%96%91/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/01/14/%EB%8F%85%EC%9E%90%EB%8A%94-%EC%9D%98%EB%AC%B4%EA%B0%80-%EC%95%84%EB%8B%8C-%EC%95%A0%EC%A0%95%EC%9D%98-%ED%96%89%EB%A1%9C%EB%A5%BC-%EB%94%B0%EB%9D%BC%EA%B0%80%EC%95%BC-%ED%95%9C%EB%8B%A4/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:10+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2015/10/17/the-c-programming-language/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:15+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://myeongjae.kim/daily/2019/02/04/react/</loc>
+  <lastmod>2019-02-05T01:21:16+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://myeongjae.kim/daily/2019/02/03/untitled/</loc>
+  <lastmod>2019-02-05T01:21:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://myeongjae.kim/daily/2019/02/02/first-journal/</loc>
+  <lastmod>2019-02-05T01:21:18+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://myeongjae.kim/blog/2016/03/01/%ec%86%8c%ed%94%84%ed%8a%b8%ec%9b%a8%ec%96%b4-%ec%9e%a5%ec%9d%b8%ec%a0%95%ec%8b%a0-%ec%84%9c%ed%8f%89/</loc>
-  <lastmod>2018-09-26T15:47:33+00:00</lastmod>
+  <lastmod>2019-02-05T01:21:11+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 
