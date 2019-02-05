@@ -28,6 +28,7 @@ const productionPlugins = [
   "/blog/2017/07/15/vimlinux-8-ultisnip과-vim-snippets/",
   "/blog/2017/07/15/vimlinux-7-delimitmate-괄호-자동-완성-플러그인/",
   "/blog/2017/07/14/vimlinux-6-vim-multiple-cursor와-vim-smooth-scroll/",
+  "/blog/2017/07/14/vimlinux-5-the-nerd-tree-설치하기/",
   "/blog/2016/12/03/끝까지-가자/",
   "/blog/2016/11/02/macos-맥-터미널로-우분투-사용하기/",
   "/blog/2016/10/06/vimlinux-4-플러그인-매니저를-설치하고-vim-airline-설치하기/",

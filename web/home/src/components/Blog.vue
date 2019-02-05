@@ -209,7 +209,7 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
-    "relativeId": 29,
+    "relativeId": 30,
     "title": "[웹] Vue를 먼저 공부한 백엔드 개발자의 입장에서 본 React",
     "path": "/blog/2019/02/04/react-in-a-sight-of-whom-used-to-vue/",
     "date": {
@@ -221,7 +221,7 @@ export default {
     }
   },
   {
-    "relativeId": 28,
+    "relativeId": 29,
     "title": "[Git] Commit 메세지에 자동으로 issue number 추가하기",
     "path": "/blog/2019/02/02/prepare-commit-msg-hook-issue-number/",
     "date": {
@@ -233,7 +233,7 @@ export default {
     }
   },
   {
-    "relativeId": 27,
+    "relativeId": 28,
     "title": "[웹] SPA에서 Disqus 적용하기",
     "path": "/blog/2018/10/05/웹-spa에서-disqus-적용하기/",
     "date": {
@@ -245,7 +245,7 @@ export default {
     }
   },
   {
-    "relativeId": 26,
+    "relativeId": 27,
     "title": "[웹] Single Page App의 Search Engine Optimization과 VueJS",
     "path": "/blog/2018/09/23/single-page-app의-search-engine-optimizaion과-vuejs/",
     "date": {
@@ -257,7 +257,7 @@ export default {
     }
   },
   {
-    "relativeId": 25,
+    "relativeId": 26,
     "title": "[웹] 블로깅 시스템을 만들었습니다",
     "path": "/blog/2018/09/18/블로깅-시스템을-만들었습니다/",
     "date": {
@@ -269,7 +269,7 @@ export default {
     }
   },
   {
-    "relativeId": 24,
+    "relativeId": 25,
     "title": "[기술] Rob Pike의 프로그래밍 규칙 5가지",
     "path": "/blog/2017/09/17/rob-pike의-프로그래밍-규칙-5가지/",
     "date": {
@@ -281,7 +281,7 @@ export default {
     }
   },
   {
-    "relativeId": 23,
+    "relativeId": 24,
     "title": "[vim/Linux] 13. vim-go와 deoplete-go, Go언어를 위한 플러그인",
     "path": "/blog/2017/07/20/vimlinux-13-vim-go와-deoplete-go-go언어를-위한-플러그인/",
     "date": {
@@ -293,7 +293,7 @@ export default {
     }
   },
   {
-    "relativeId": 22,
+    "relativeId": 23,
     "title": "[vim/Linux] 12. 고요(Goyo), 방해금지 모드 플러그인",
     "path": "/blog/2017/07/20/vimlinux-12-고요goyo-방해금지-모드-플러그인/",
     "date": {
@@ -305,7 +305,7 @@ export default {
     }
   },
   {
-    "relativeId": 21,
+    "relativeId": 22,
     "title": "[vim/Linux] 11. NERD Commenter, 주석 단축키 플러그인",
     "path": "/blog/2017/07/19/vimlinux-11-nerd-commenter-주석-단축키-플러그인/",
     "date": {
@@ -317,7 +317,7 @@ export default {
     }
   },
   {
-    "relativeId": 20,
+    "relativeId": 21,
     "title": "[vim/Linux] 10. deoplete과 clang_complete, 자동 완성 플러그인",
     "path": "/blog/2017/07/19/vimlinux-10-deoplete과-clang_complete-자동-완성-플러그인/",
     "date": {
@@ -329,7 +329,7 @@ export default {
     }
   },
   {
-    "relativeId": 19,
+    "relativeId": 20,
     "title": "[vim/Linux] 9. Synatstic, 문법 체크 플러그인",
     "path": "/blog/2017/07/18/vimlinux-9-synatstic-문법-체크-플러그인/",
     "date": {
@@ -341,7 +341,7 @@ export default {
     }
   },
   {
-    "relativeId": 18,
+    "relativeId": 19,
     "title": "[vim/Linux] 8. UltiSnip과 vim-snippets",
     "path": "/blog/2017/07/15/vimlinux-8-ultisnip과-vim-snippets/",
     "date": {
@@ -353,7 +353,7 @@ export default {
     }
   },
   {
-    "relativeId": 17,
+    "relativeId": 18,
     "title": "[vim/Linux] 7. delimitMate, 괄호 자동 완성 플러그인",
     "path": "/blog/2017/07/15/vimlinux-7-delimitmate-괄호-자동-완성-플러그인/",
     "date": {
@@ -365,9 +365,21 @@ export default {
     }
   },
   {
-    "relativeId": 16,
+    "relativeId": 17,
     "title": "[vim/Linux] 6. vim-multiple-cursor와 vim-smooth-scroll",
     "path": "/blog/2017/07/14/vimlinux-6-vim-multiple-cursor와-vim-smooth-scroll/",
+    "date": {
+      "year": "2017",
+      "month": "07",
+      "monthEng": "July",
+      "day": "14",
+      "dayEng": "14th"
+    }
+  },
+  {
+    "relativeId": 16,
+    "title": "[vim/Linux] 5. The NERD Tree 설치하기",
+    "path": "/blog/2017/07/14/vimlinux-5-the-nerd-tree-설치하기/",
     "date": {
       "year": "2017",
       "month": "07",
