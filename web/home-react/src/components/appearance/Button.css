@@ -1,0 +1,26 @@
+.mat-button {
+  color: #2c3e50;
+  cursor: pointer;
+
+  display: inline-block;
+  margin: 0.3em;
+  padding: 0.5em 1.5em;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  /*text-transform: uppercase;*/
+  border-radius: 3px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+
+  border: none;
+  text-align: center;
+}
+
+.mat-button:hover {
+  background-color: #f8f8f8;
+  /* opacity: 0.5; */
+}

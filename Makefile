@@ -15,6 +15,9 @@ contentsbuild:
 frontdev:
 	bash -c "cd ./web/home; npm run serve"
 
+reactdev:
+	bash -c "cd ./web/home-react; yarn start"
+
 update:
 	echo "Remote Deploy"
 	sudo systemctl stop "terrace.service"
