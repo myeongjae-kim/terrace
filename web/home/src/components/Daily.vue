@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 5,
+    "title": "버림받는다는 것",
+    "path": "/daily/2019/02/07/abandoned-service/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "07",
+      "dayEng": "7th"
+    }
+  },
+  {
     "relativeId": 4,
     "title": "",
     "path": "/daily/2019/02/06/untitled/",
