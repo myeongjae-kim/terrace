@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 6,
+    "title": "꿈",
+    "path": "/daily/2019/02/08/dream/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "08",
+      "dayEng": "8th"
+    }
+  },
+  {
     "relativeId": 5,
     "title": "버림받는다는 것",
     "path": "/daily/2019/02/07/abandoned-service/",
