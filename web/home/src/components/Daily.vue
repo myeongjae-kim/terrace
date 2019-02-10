@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 7,
+    "title": "삶의 의미",
+    "path": "/daily/2019/02/10/meaning-of-life/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "10",
+      "dayEng": "10th"
+    }
+  },
+  {
     "relativeId": 6,
     "title": "꿈",
     "path": "/daily/2019/02/08/dream/",
