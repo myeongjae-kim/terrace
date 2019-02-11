@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 8,
+    "title": "성찰하는 남자들",
+    "path": "/daily/2019/02/11/feminism/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "11",
+      "dayEng": "11st"
+    }
+  },
+  {
     "relativeId": 7,
     "title": "삶의 의미",
     "path": "/daily/2019/02/10/meaning-of-life/",
@@ -537,7 +549,7 @@ button {
 }
 
 #disqus_thread {
-  width: 300px;
+  width: 500px;
   max-width: 100%;
   margin: auto;
   margin-bottom: 20px;
