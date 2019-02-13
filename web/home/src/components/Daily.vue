@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 9,
+    "title": "퍼스날 데이타베이스",
+    "path": "/daily/2019/02/13/blogs/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "13",
+      "dayEng": "13rd"
+    }
+  },
+  {
     "relativeId": 8,
     "title": "성찰하는 남자들",
     "path": "/daily/2019/02/11/feminism/",
