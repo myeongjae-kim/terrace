@@ -8,9 +8,6 @@
       height="200px"
     >
 
-    <!-- display:none is for firefox. After the image is loaded, change none to initial -->
-    <img id="baedal-move" style="display:none">
-
     <h1>
       <span id="name-eng">Myeongjae Kim</span>
       <span id="name-kor">(김명재)</span>
@@ -63,15 +60,14 @@
     </div>
 
     <footer id="footer">
-      <img class="baedal" :src="baedal_img" style="float: left; opacity:0;">
+      <img class="sign" :src="sign_img" style="float: left; opacity:0;">
       If you like my website, you can copy it from
       <a
         href="https://github.com/hrzon/terrace"
       >here</a>
       .
-      <a href="https://www.woowahan.com/">
-        <img class="baedal" :src="baedal_img" border="0">
-      </a>
+      <img class="sign" :src="sign_img" border="0">
+      <!-- </a> -->
     </footer>
   </div>
 </template>
@@ -81,7 +77,7 @@ export default {
   name: "About",
   data() {
     return {
-      baedal_img: "https://cdn.myeongjae.kim/res/baedal.gif"
+      sign_img: "https://cdn.myeongjae.kim/res/sign.png"
     };
   },
   mounted: function() {
@@ -101,26 +97,10 @@ export default {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
-    this.baedal_img =
+    this.sign_img =
       "https://cdn.myeongjae.kim/res/about_logos/" +
       getRandomInteger(0, 2) +
       ".png";
-
-    // Load moving baedalee asynchronously to show
-    // perfect animation
-    /*
-    (async () => {
-      let img = new Image();
-      let tag = document.getElementById("baedal-move");
-
-      img.onload = function() {
-          tag.src = img.src;
-          tag.style.display = "initial";
-      };
-
-      img.src = "https://cdn.myeongjae.kim/res/baedal_move.png";
-    })();
-    */
   }
 };
 </script>
@@ -187,42 +167,30 @@ footer {
   background: #fff;
 }
 
-.baedal {
+.sign {
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   float: right;
-  width: 70px;
-  margin-top: -40px;
+  width: 50px;
+  margin-top: -20px;
 }
 
-.baedal:hover {
+.sign:hover {
   opacity: 0.5;
 }
 
 @media screen and (max-width: 420px) {
-  .baedal {
-    width: 50px;
-    margin-top: -20px;
+  .sign {
+    width: 40px;
+    margin-top: -10px;
   }
 }
 
 @media screen and (max-width: 350px) {
-  .baedal {
+  .sign {
     display: none;
   }
 }
-
-/*
-#baedal-move {
-  box-shadow: 0 0 0 rgba(0,0,0,0);
-  -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
-  -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
-
-  width:200px;
-  margin-left:-200px;
-  border-radius: 5%;
-}
-*/
 </style>

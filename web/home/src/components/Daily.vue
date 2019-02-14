@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 10,
+    "title": "줄지 않는 것",
+    "path": "/daily/2019/02/14/book/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "14",
+      "dayEng": "14th"
+    }
+  },
+  {
     "relativeId": 9,
     "title": "퍼스날 데이타베이스",
     "path": "/daily/2019/02/13/blogs/",
