@@ -131,7 +131,7 @@ export default {
       index: [
   {
     "relativeId": 10,
-    "title": "줄지 않는 것",
+    "title": "단조증가",
     "path": "/daily/2019/02/14/book/",
     "date": {
       "year": "2019",
