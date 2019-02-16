@@ -76,8 +76,8 @@ func main() {
 	handlerMap := make(webserver.HandlerMap)
 	handlerMap["/"] = customhandlers.RootHandlerWithRedirection
 	handlerMap["book.myeongjae.kim/"] = func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "https://live.myeongjae.kim:1334", http.StatusMovedPermanently)
-		log.Println("Redirect to https://live.myeongjae.kim:1334")
+		http.Redirect(w, r, "https://live.myeongjae.kim:5470", http.StatusMovedPermanently)
+		log.Println("Redirect to https://live.myeongjae.kim:5470")
 
 		/*
 			log.Println("Request URL:", r.URL)
@@ -85,7 +85,7 @@ func main() {
 
 			// Client객체에서 Request 실행
 			r.URL.Scheme = "https"
-			r.URL.Host = "live.myeongjae.kim:1334"
+			r.URL.Host = "live.myeongjae.kim:5470"
 			r.RequestURI = ""
 			client := &http.Client{}
 			resp, err := client.Do(r)

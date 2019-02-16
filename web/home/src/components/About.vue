@@ -63,7 +63,7 @@
       <img class="sign" :src="sign_img" style="float: left; opacity:0;">
       If you like my website, you can copy it from
       <a
-        href="https://github.com/hrzon/terrace"
+        href="https://github.com/myeongjae-kim/terrace"
       >here</a>
       .
       <img class="sign" :src="sign_img" border="0">
