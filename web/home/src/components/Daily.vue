@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 14,
+    "title": "팀원을 평가하는 세 가지 기준",
+    "path": "/daily/2019/02/20/valuate-members/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "20",
+      "dayEng": "20th"
+    }
+  },
+  {
     "relativeId": 13,
     "title": "감사의 글",
     "path": "/daily/2019/02/18/thanks/",
