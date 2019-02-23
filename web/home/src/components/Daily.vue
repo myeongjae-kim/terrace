@@ -130,6 +130,30 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 17,
+    "title": "비극",
+    "path": "/daily/2019/02/23/tragedy/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "23",
+      "dayEng": "23rd"
+    }
+  },
+  {
+    "relativeId": 16,
+    "title": "간담회 후",
+    "path": "/daily/2019/02/22/after-the-conference/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "22",
+      "dayEng": "22nd"
+    }
+  },
+  {
     "relativeId": 15,
     "title": "누구인가?",
     "path": "/daily/2019/02/21/who-am-i/",
