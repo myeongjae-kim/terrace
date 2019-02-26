@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 20,
+    "title": "위빠사나",
+    "path": "/daily/2019/02/26/vipassana/",
+    "date": {
+      "year": "2019",
+      "month": "02",
+      "monthEng": "February",
+      "day": "26",
+      "dayEng": "26th"
+    }
+  },
+  {
     "relativeId": 19,
     "title": "다육이2",
     "path": "/daily/2019/02/25/dayuki2/",
