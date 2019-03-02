@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 23,
+    "title": "퍼블리2",
+    "path": "/daily/2019/03/01/publy2/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "01",
+      "dayEng": "1st"
+    }
+  },
+  {
     "relativeId": 22,
     "title": "책 읽기",
     "path": "/daily/2019/02/28/book-and-primitive-brain/",
