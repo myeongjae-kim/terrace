@@ -209,6 +209,18 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
+    "relativeId": 31,
+    "title": "[웹] 책 ⟨리액트를 다루는 기술⟩의 todo-list + TypeScripts",
+    "path": "/blog/2019/03/02/react-ts-sass-cssmodules-classnames/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "02",
+      "dayEng": "2nd"
+    }
+  },
+  {
     "relativeId": 30,
     "title": "[웹] Vue를 먼저 공부한 백엔드 개발자의 입장에서 본 React",
     "path": "/blog/2019/02/04/react-in-a-sight-of-whom-used-to-vue/",

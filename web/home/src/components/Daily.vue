@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 24,
+    "title": "손 씻기",
+    "path": "/daily/2019/03/02/washing-hands/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "02",
+      "dayEng": "2nd"
+    }
+  },
+  {
     "relativeId": 23,
     "title": "퍼블리2",
     "path": "/daily/2019/03/01/publy2/",

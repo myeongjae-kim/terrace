@@ -1,0 +1,10 @@
+<h1 id="웹-책-리액트를-다루는-기술의-todo-list-typescripts">[웹] 책 ⟨리액트를 다루는 기술⟩의 todo-list + TypeScripts</h1>
+<p>책 <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9791160505238&amp;orderClick=LEA&amp;Kc=">리액트를 다루는 기술</a>을 TypeScript와 함께 공부하고 있습니다. 책은 JavaScript를 사용하지만, <a href="https://facebook.github.io/create-react-app/docs/adding-typescript"><code>create-react-app</code>에 TypeScript를 얹어서</a> 예제 코드를 따라쳐보고 있습니다.</p>
+<p>9장에서 Css Modules, Sass, classnames를 배우고, 10장에서 이 내용을 바탕으로 todo-list를 만듭니다. TypeScript를 적용한 상태로 10장의 프로젝트를 진행하기 위해 삽질한 것 보일러플레이트로 만들어 공유합니다.</p>
+<p><a href="https://github.com/myeongjae-kim/react-ts-sass-cssmodules-classnames" class="uri">https://github.com/myeongjae-kim/react-ts-sass-cssmodules-classnames</a></p>
+<p>책에서는 react 설정 파일들을 eject해서 Css Modules과 Sass를 활성화하지만, <a href="https://velog.io/@velopert/create-react-app-v2"><code>create-react-app</code>이 v2.0이 되면서 그럴 필요가 없어졌습니다</a>. Css Modules는 기본으로 지원하고, Sass는 <a href="https://www.npmjs.com/package/node-sass"><code>node-sass</code></a> 라이브러리를 추가함으로써 적용할 수 있습니다. 아래 커맨드만으로 10장 실습을 진행할 준비를 마칠 수 있습니다.</p>
+<pre class="bash"><code>yarn create react-app styling-react --typescript
+yarn add node-sass
+yarn add classnames
+yarn add @types/classnames</code></pre>
+<p>P.S. Javascript가 아니라 Java<strong>S</strong>cript입니다. Typescript가 아니라 Type<strong>S</strong>cript입니다. P.S.는 Post Script의 약자입니다.</p>
