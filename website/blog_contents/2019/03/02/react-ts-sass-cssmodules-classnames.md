@@ -15,4 +15,6 @@ yarn add classnames
 yarn add @types/classnames
 ```
 
+TypeScript를 사용해 구현한 todo-list입니다: <https://github.com/myeongjae-kim/learn-react-todo-list/tree/ch10>
+
 P.S. Javascript가 아니라 Java**S**cript입니다. Typescript가 아니라 Type**S**cript입니다. P.S.는 Post Script의 약자입니다.

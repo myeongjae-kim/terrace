@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 25,
+    "title": "도",
+    "path": "/daily/2019/03/03/do-you-know-the-road/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "03",
+      "dayEng": "3rd"
+    }
+  },
+  {
     "relativeId": 24,
     "title": "손 씻기",
     "path": "/daily/2019/03/02/washing-hands/",
