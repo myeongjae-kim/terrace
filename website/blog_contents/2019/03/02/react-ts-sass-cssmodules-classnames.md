@@ -1,4 +1,4 @@
-# [웹] 책 ⟨리액트를 다루는 기술⟩의 todo-list + TypeScripts
+# [웹] 책 ⟨리액트를 다루는 기술⟩의 todo-list + TypeScript
 
 책 [리액트를 다루는 기술](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791160505238&orderClick=LEA&Kc=)을 TypeScript와 함께 공부하고 있습니다. 책은 JavaScript를 사용하지만, [`create-react-app`에 TypeScript를 얹어서](https://facebook.github.io/create-react-app/docs/adding-typescript) 예제 코드를 따라쳐보고 있습니다.
 

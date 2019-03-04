@@ -62,12 +62,20 @@ import ClipboardJS from "clipboard";
 import HighlightJS from "highlight.js/lib/highlight.js";
 //var HighlightJS = require("highlight.js/lib/highlight.js");
 
-HighlightJS.registerLanguage("vim", require("highlight.js/lib/languages/vim"));
 HighlightJS.registerLanguage(
   "bash",
   require("highlight.js/lib/languages/bash")
 );
 HighlightJS.registerLanguage("cpp", require("highlight.js/lib/languages/cpp"));
+HighlightJS.registerLanguage(
+  "javascript",
+  require("highlight.js/lib/languages/javascript")
+);
+HighlightJS.registerLanguage(
+  "typescript",
+  require("highlight.js/lib/languages/typescript")
+);
+HighlightJS.registerLanguage("vim", require("highlight.js/lib/languages/vim"));
 
 import "highlight.js/styles/xcode.css";
 
@@ -209,8 +217,20 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
+    "relativeId": 32,
+    "title": "[웹] React + TypeScript 상황에서 SFC의 defaultProps 에러메세지 처리",
+    "path": "/blog/2019/03/04/default-props-react-ts/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "04",
+      "dayEng": "4th"
+    }
+  },
+  {
     "relativeId": 31,
-    "title": "[웹] 책 ⟨리액트를 다루는 기술⟩의 todo-list + TypeScripts",
+    "title": "[웹] 책 ⟨리액트를 다루는 기술⟩의 todo-list + TypeScript",
     "path": "/blog/2019/03/02/react-ts-sass-cssmodules-classnames/",
     "date": {
       "year": "2019",

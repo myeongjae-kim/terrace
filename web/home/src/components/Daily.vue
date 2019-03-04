@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 26,
+    "title": "기술 도서",
+    "path": "/daily/2019/03/04/what-i-have-to-do/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "04",
+      "dayEng": "4th"
+    }
+  },
+  {
     "relativeId": 25,
     "title": "도",
     "path": "/daily/2019/03/03/do-you-know-the-road/",
