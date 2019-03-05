@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 27,
+    "title": "기본소득 → 무상 서비스",
+    "path": "/daily/2019/03/05/free-service/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "05",
+      "dayEng": "5th"
+    }
+  },
+  {
     "relativeId": 26,
     "title": "기술 도서",
     "path": "/daily/2019/03/04/what-i-have-to-do/",

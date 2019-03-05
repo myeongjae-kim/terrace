@@ -47,6 +47,7 @@ const productionPlugins = [
   "/blog/2016/01/14/진정한-교양/",
   "/blog/2016/01/14/독자는-의무가-아닌-애정의-행로를-따라가야-한다/",
   "/blog/2015/10/17/the-c-programming-language/",
+  "/daily/2019/03/05/free-service/",
   "/daily/2019/03/04/what-i-have-to-do/",
   "/daily/2019/03/03/do-you-know-the-road/",
   "/daily/2019/03/02/washing-hands/",
