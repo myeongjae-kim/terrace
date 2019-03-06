@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 28,
+    "title": "",
+    "path": "/daily/2019/03/06/full-stack/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "06",
+      "dayEng": "6th"
+    }
+  },
+  {
     "relativeId": 27,
     "title": "기본소득 → 무상 서비스",
     "path": "/daily/2019/03/05/free-service/",

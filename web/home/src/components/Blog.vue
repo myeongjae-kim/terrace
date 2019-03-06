@@ -217,6 +217,18 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
+    "relativeId": 33,
+    "title": "[웹] 책 ⟨리액트를 다루는 기술⟩의 13장 Counter실습 + TypeScript",
+    "path": "/blog/2019/03/06/counter-redux-typescript/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "06",
+      "dayEng": "6th"
+    }
+  },
+  {
     "relativeId": 32,
     "title": "[웹] React + TypeScript 상황에서 SFC의 defaultProps 에러메세지 처리",
     "path": "/blog/2019/03/04/default-props-react-ts/",
