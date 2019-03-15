@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 30,
+    "title": "",
+    "path": "/daily/2019/03/15/untitled/",
+    "date": {
+      "year": "2019",
+      "month": "03",
+      "monthEng": "March",
+      "day": "15",
+      "dayEng": "15th"
+    }
+  },
+  {
     "relativeId": 29,
     "title": "지옥",
     "path": "/daily/2019/03/11/hell/",
