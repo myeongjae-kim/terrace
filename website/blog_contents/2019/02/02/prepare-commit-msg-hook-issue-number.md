@@ -65,3 +65,35 @@ fi
 ---
 
 다른 브라우저에는 접속이 잘 되고, 제 맥의 사파리에서만 접속이 안 되는 것 같습니다. 그래도 누가 제 글이 쓸모가 있어서 pdf로 박제해 놓는다면 기분 좋을테니 그냥 놔두려구요.
+
+---
+
+아래는 브랜치 이름이 `feature/whatever/SOMEAPI-43` 같은 형태인 경우, 마지막 슬래쉬 이후의 문자(`SOMEAPI-43`)만 남기는 스크립트입니다. `| sed 's/^.*\///'`를 추가했습니다.
+
+```
+#!/bin/sh
+# .git/hooks/prepare-commit-msg
+#
+# Automatically add branch name and branch description to every commit message except merge commit.
+# https://stackoverflow.com/a/18739064
+#
+
+COMMIT_EDITMSG=$1
+
+addBranchNumber() {
+  NAME=$(git branch | grep '*' | sed 's/* //' | sed 's/^.*\///') 
+  DESCRIPTION=$(git config branch."$NAME".description)
+  echo "[$NAME] $(cat $COMMIT_EDITMSG)" > $COMMIT_EDITMSG
+  if [ -n "$DESCRIPTION" ] 
+  then
+     echo "" >> $COMMIT_EDITMSG
+     echo $DESCRIPTION >> $COMMIT_EDITMSG
+  fi 
+}
+
+MERGE=$(cat $COMMIT_EDITMSG|grep -i 'merge'|wc -l)
+
+if [ $MERGE -eq 0 ] ; then
+  addBranchNumber
+fi
+```
