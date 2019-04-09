@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 33,
+    "title": "르몽드 디플로마티크 2월",
+    "path": "/daily/2019/04/09/lemonde_feb/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "09",
+      "dayEng": "9th"
+    }
+  },
+  {
     "relativeId": 32,
     "title": "",
     "path": "/daily/2019/03/23/talking-less/",
