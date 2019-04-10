@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 34,
+    "title": "볼링 100점",
+    "path": "/daily/2019/04/10/bowling/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "10",
+      "dayEng": "10th"
+    }
+  },
+  {
     "relativeId": 33,
     "title": "르몽드 디플로마티크 2월",
     "path": "/daily/2019/04/09/lemonde_feb/",
