@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 35,
+    "title": "“불교에서는 생명 아닌게 없어”",
+    "path": "/daily/2019/04/11/abortion/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "11",
+      "dayEng": "11st"
+    }
+  },
+  {
     "relativeId": 34,
     "title": "볼링 100점",
     "path": "/daily/2019/04/10/bowling/",
