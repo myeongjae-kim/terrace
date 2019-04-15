@@ -130,6 +130,30 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 38,
+    "title": "서구가 만든 중동",
+    "path": "/daily/2019/04/15/arab-made-my-western/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "15",
+      "dayEng": "15th"
+    }
+  },
+  {
+    "relativeId": 37,
+    "title": "나는 간호사, 사람입니다.",
+    "path": "/daily/2019/04/14/nurse/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "14",
+      "dayEng": "14th"
+    }
+  },
+  {
     "relativeId": 36,
     "title": "Our Planet",
     "path": "/daily/2019/04/12/our-planet/",
