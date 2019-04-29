@@ -130,6 +130,30 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 40,
+    "title": "有朋自遠方來 不亦樂乎",
+    "path": "/daily/2019/04/29/friend/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "29",
+      "dayEng": "29th"
+    }
+  },
+  {
+    "relativeId": 39,
+    "title": "에고센트릭 시스템",
+    "path": "/daily/2019/04/27/homepage/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "27",
+      "dayEng": "27th"
+    }
+  },
+  {
     "relativeId": 38,
     "title": "서구가 만든 중동",
     "path": "/daily/2019/04/15/arab-made-my-western/",
