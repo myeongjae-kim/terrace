@@ -217,6 +217,18 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
+    "relativeId": 34,
+    "title": "[책] ⟨코딩을 지탱하는 기술⟩, 클로저Closure, 믹스인Mixin의 어원",
+    "path": "/blog/2019/04/29/name-origin-of-closure-mixin/",
+    "date": {
+      "year": "2019",
+      "month": "04",
+      "monthEng": "April",
+      "day": "29",
+      "dayEng": "29th"
+    }
+  },
+  {
     "relativeId": 33,
     "title": "[웹] 책 ⟨리액트를 다루는 기술⟩의 13장 Counter실습 + TypeScript",
     "path": "/blog/2019/03/06/counter-redux-typescript/",
