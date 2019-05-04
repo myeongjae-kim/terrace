@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 41,
+    "title": "",
+    "path": "/daily/2019/05/04/youtube-ad/",
+    "date": {
+      "year": "2019",
+      "month": "05",
+      "monthEng": "May",
+      "day": "04",
+      "dayEng": "4th"
+    }
+  },
+  {
     "relativeId": 40,
     "title": "有朋自遠方來 不亦樂乎",
     "path": "/daily/2019/04/29/friend/",
