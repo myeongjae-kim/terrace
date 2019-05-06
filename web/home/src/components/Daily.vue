@@ -130,6 +130,30 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 43,
+    "title": "죽편(竹篇) 1 - 여행",
+    "path": "/daily/2019/05/06/subway-poem/",
+    "date": {
+      "year": "2019",
+      "month": "05",
+      "monthEng": "May",
+      "day": "06",
+      "dayEng": "6th"
+    }
+  },
+  {
+    "relativeId": 42,
+    "title": "당신 인생의 이야기",
+    "path": "/daily/2019/05/05/ted-chiang/",
+    "date": {
+      "year": "2019",
+      "month": "05",
+      "monthEng": "May",
+      "day": "05",
+      "dayEng": "5th"
+    }
+  },
+  {
     "relativeId": 41,
     "title": "",
     "path": "/daily/2019/05/04/youtube-ad/",
