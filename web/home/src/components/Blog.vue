@@ -217,6 +217,18 @@ export default {
       // the position of injecting index json. index MUST have an array.
       index: [
   {
+    "relativeId": 35,
+    "title": "Spring Boot에서 ORM으로 DynamoDB 조작하기 (1) - 설정부터 실행까지",
+    "path": "/blog/2019/06/04/spring-data-dynamodb-1/",
+    "date": {
+      "year": "2019",
+      "month": "06",
+      "monthEng": "June",
+      "day": "04",
+      "dayEng": "4th"
+    }
+  },
+  {
     "relativeId": 34,
     "title": "[책] ⟨코딩을 지탱하는 기술⟩, 클로저Closure, 믹스인Mixin의 어원",
     "path": "/blog/2019/04/29/name-origin-of-closure-mixin/",

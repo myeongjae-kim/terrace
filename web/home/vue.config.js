@@ -14,6 +14,7 @@ const productionPlugins = [
   "/places/",
   "/blog-example/",
   "/404/",
+  "/blog/2019/06/04/spring-data-dynamodb-1/",
   "/blog/2019/04/29/name-origin-of-closure-mixin/",
   "/blog/2019/03/06/counter-redux-typescript/",
   "/blog/2019/03/04/default-props-react-ts/",
