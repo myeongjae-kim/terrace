@@ -12,7 +12,7 @@
 > - NoSQL - AWS DynamoDB
 > - CDN - AWS CloudFront
 
-마침 다른 팀원분이 MongoDB로 구현한 API가 있었고, 그 분은 다른 일 떄문에 바빴고, 공교롭게도 저는 진행하던 일의 막바지 작업을 하고 있었고, 디벨롭에 머지를 했고, DynamoDB를 공부할 좋은 기회가 주어졌습니다. 와!
+마침 다른 팀원분이 MongoDB로 구현한 API가 있었고, 그 분은 다른 일 때문에 바빴고, 공교롭게도 저는 진행하던 일의 막바지 작업을 하고 있었고, 디벨롭에 머지를 했고, DynamoDB를 공부할 좋은 기회가 주어졌습니다. 와!
 
 [spring-data-dynamodb](https://github.com/derjust/spring-data-dynamodb)라는 ORM 라이브러리가 있었고 이를 활용한 예제들을 찾을 수 있었지만, DynamoDB SDK가 빠르게 업데이트되고 있던 시기라서 예제들이 정상적으로 작동하지 않았습니다. 영어로 된 정보들도 파편화돠어있었고 한국어로 된 정보들은 더더욱 찾기 힘들었습니다. 하지만 저는 [세계 최고 ORM 입문서](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788960777330&orderClick=LEA&Kc=)를 공부했기 때문에 꼭 DynamoDB를 ORM을 통해서 쓰고싶었습니다. 
 
