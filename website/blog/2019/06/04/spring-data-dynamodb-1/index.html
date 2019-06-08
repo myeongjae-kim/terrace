@@ -2,7 +2,7 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>Spring Boot에서 ORM으로 DynamoDB 조작하기 (1) - 설정부터 실행까지 :: Myeongjae Kim</title><link href="/css/chunk-11f46acf.7afa2778.css" rel="prefetch"><link href="/css/chunk-56479946.59ffc13f.css" rel="prefetch"><link href="/js/chunk-11f46acf.4d30862e.js" rel="prefetch"><link href="/js/chunk-56479946.1d7f29b9.js" rel="prefetch"><link href="/css/app.ca95d3a5.css" rel="preload" as="style"><link href="/js/app.151a1e63.js" rel="preload" as="script"><link href="/js/chunk-vendors.855aa201.js" rel="preload" as="script"><link href="/css/app.ca95d3a5.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-11f46acf.7afa2778.css"><script charset="utf-8" src="/js/chunk-11f46acf.4d30862e.js"></script><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="spring-data-dynamodb-1 :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"><style type="text/css">@font-face {
+    gtag('config', 'UA-126240406-1');</script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>[Spring] Spring Boot에서 Repository로 DynamoDB 조작하기 (1) - 설정부터 실행까지 :: Myeongjae Kim</title><link href="/css/chunk-505caa8e.f5f5c4d4.css" rel="prefetch"><link href="/css/chunk-56479946.59ffc13f.css" rel="prefetch"><link href="/js/chunk-505caa8e.3fc3dac0.js" rel="prefetch"><link href="/js/chunk-56479946.1d7f29b9.js" rel="prefetch"><link href="/css/app.ca95d3a5.css" rel="preload" as="style"><link href="/js/app.2467879c.js" rel="preload" as="script"><link href="/js/chunk-vendors.855aa201.js" rel="preload" as="script"><link href="/css/app.ca95d3a5.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/css/chunk-505caa8e.f5f5c4d4.css"><script charset="utf-8" src="/js/chunk-505caa8e.3fc3dac0.js"></script><meta charset="utf-8" data-vue-meta="true"><meta property="og:image" content="https://avatars2.githubusercontent.com/u/15189621" data-vmid="og:image" data-vue-meta="true"><meta property="og:title" content="spring-data-dynamodb-1 :: Myeongjae Kim" data-vmid="og:title" data-vue-meta="true"><meta property="og:description" content="Thank you for reading my article 🙈" data-vmid="og:description" data-vue-meta="true"><style type="text/css">@font-face {
   font-family: 'Inconsolata';
   font-style: normal;
   font-weight: 400;
@@ -67,25 +67,66 @@
 var disqus_title      = "spring-data-dynamodb-1";
 var disqus_identifier = "/2019/06/04/spring-data-dynamodb-1";
 var disqus_url        = "https://blog.myeongjae.kim/2019/06/04/spring-data-dynamodb-1";
-</script><script type="text/javascript" async="" src="//myeongjae.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.4ca2b8f5ce995b1916c0f691daf84b8d.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.7306fbb45608972e37b2d3948bc46a0b.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.7058e17267f603781c1369bbd2dd1e80.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/daily/" class="mat-button no-shadow">Daily</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-23bf33e3="" id="blog"><div data-v-23bf33e3="" id="blog-contents"><article data-v-23bf33e3=""><div data-v-23bf33e3="" class="inner-title-container"><h1 data-v-23bf33e3=""><a data-v-23bf33e3="" href="https://blog.myeongjae.kim/2019/06/04/spring-data-dynamodb-1" id="inner-title">Spring Boot에서 ORM으로 DynamoDB 조작하기 (1) - 설정부터 실행까지</a></h1><p data-v-23bf33e3="" class="meta">2019 / 06 / 04</p></div><div data-v-23bf33e3="" id="padding-between-title-and-article"></div><div data-v-23bf33e3="" id="article-content"><h1 id="spring-boot에서-orm으로-dynamodb-조작하기-1---설정부터-실행까지" style="display: none;">Spring Boot에서 ORM으로 DynamoDB 조작하기 (1) - 설정부터 실행까지</h1>
-<p>안녕하세요, 미래사업부문 김명재입니다. 작년 10월에 우아한형제들에 입사하고 행복한 주니어 개발자 생활을 하고 있습니다. 현재 개발중인 시스템의 NoSQL DB를 MongoDB에서 DynamoDB로 교체하면서 배운 것을 정리하고 싶어서 글을 쓰게 되었습니다.</p>
-<h2 id="dynamodb를-써야-한다">DynamoDB를 써야 한다!</h2>
-<p>올해 1월달에 다음과 같은 내용의 공지를 이메일로 받았습니다.</p>
-<blockquote>
-<p><strong>자체 운영할 인력이 없다면 되도록 AWS서비스 이용</strong></p>
+</script><script type="text/javascript" async="" src="//myeongjae.disqus.com/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.c268ed5d1c2c6bd5b044fe095da0a0c9.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.7306fbb45608972e37b2d3948bc46a0b.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.2e5bc2439403325e29d259632d7ebd62.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head><body><div id="app"><div id="site-title"><a href="/" class="mat-button no-shadow router-link-active">Myeongjae Kim</a></div><nav><a href="/" class="mat-button no-shadow router-link-active">About</a><a href="/blog/" class="mat-button no-shadow router-link-active router-link-exact-active">Blog</a><a href="/daily/" class="mat-button no-shadow">Daily</a><a href="/musings/" class="mat-button no-shadow">Musings</a><a href="/places/" class="mat-button no-shadow">Places</a></nav><div data-v-561bbc92="" id="blog"><div data-v-561bbc92="" id="blog-contents"><article data-v-561bbc92=""><div data-v-561bbc92="" class="inner-title-container"><h1 data-v-561bbc92=""><a data-v-561bbc92="" href="https://blog.myeongjae.kim/2019/06/04/spring-data-dynamodb-1" id="inner-title">[Spring] Spring Boot에서 Repository로 DynamoDB 조작하기 (1) - 설정부터 실행까지</a></h1><p data-v-561bbc92="" class="meta">2019 / 06 / 04</p></div><div data-v-561bbc92="" id="padding-between-title-and-article"></div><div data-v-561bbc92="" id="article-content"><h1 id="spring-spring-boot에서-repository로-dynamodb-조작하기-1---설정부터-실행까지" style="display: none;">[Spring] Spring Boot에서 Repository로 DynamoDB 조작하기 (1) - 설정부터 실행까지</h1>
+<p>이 글에서는 DynamoDB를 조작하는 다양한 방법들을 예제를 통해 소개합니다. aws cli -&gt; curl -&gt; AmazonDynamoDB 클래스 -&gt; DynamoDBMapper 클래스 -&gt; spring-data-dynamodb 순서로 진행하니, 메서드 쿼리만 궁금하신 분들은 <a href="#spring-data-dynamodb로-쿼리-메서드-사용하기">spring-data-dynamodb로 쿼리 메서드 사용하기</a>부터 보시면 됩니다.</p>
+<h2 id="목차">목차</h2>
 <ul>
-<li>RDS - AWS Aurora</li>
-<li>NoSQL - AWS DynamoDB</li>
-<li>CDN - AWS CloudFront</li>
+<li><a href="#dynamodb를-써야-한다">DynamoDB를 써야 한다!</a></li>
+<li><a href="#dynamodb를-써보자">DynamoDB를 써보자</a>
+<ul>
+<li><a href="#aws-cli로-dynamodb-조작하기">aws cli로 DynamoDB 조작하기</a>
+<ul>
+<li><a href="#테이블-생성">테이블 생성</a></li>
+<li><a href="#항목-추가">항목 추가</a></li>
+<li><a href="#항목-조회">항목 조회</a></li>
+<li><a href="#항목-수정">항목 수정</a></li>
+<li><a href="#항목-삭제">항목 삭제</a></li>
+<li><a href="#테이블-삭제">테이블 삭제</a></li>
+</ul></li>
+<li><a href="#curl로-dynamodb-조작하기">curl로 DynamoDB 조작하기</a>
+<ul>
+<li><a href="#테이블-생성">테이블 생성</a></li>
+<li><a href="#항목-추가">항목 추가</a></li>
+<li><a href="#항목-조회">항목 조회</a></li>
+<li><a href="#항목-수정">항목 수정</a></li>
+<li><a href="#항목-삭제">항목 삭제</a></li>
+<li><a href="#테이블-삭제">테이블 삭제</a></li>
+</ul></li>
+<li><a href="#java-dynamodb-sdk로-dynamodb-조작하기">Java DynamoDB SDK로 DynamoDB 조작하기</a>
+<ul>
+<li><a href="#테이블-생성">테이블 생성</a></li>
+<li><a href="#항목-추가">항목 추가</a></li>
+<li><a href="#항목-조회">항목 조회</a></li>
+<li><a href="#항목-삭제">항목 삭제</a></li>
+</ul></li>
+<li><a href="#dynamodbmapper를-활용해-객체-매핑하기">DynamoDBMapper를 활용해 객체 매핑하기</a>
+<ul>
+<li><a href="#테이블-생성">테이블 생성</a></li>
+<li><a href="#entity에-annotaiton-추가하기">Entity에 Annotaiton 추가하기</a></li>
+<li><a href="#항목-생성">항목 생성</a></li>
+<li><a href="#항목-조회">항목 조회</a></li>
+<li><a href="#항목-수정">항목 수정</a></li>
+<li><a href="#항목-삭제">항목 삭제</a></li>
+<li><a href="#테이블-삭제">테이블 삭제</a></li>
+</ul></li>
+<li><a href="#spring-data-dynamodb로-쿼리-메서드-사용하기">spring-data-dynamodb로 쿼리 메서드 사용하기</a>
+<ul>
+<li><a href="#테이블-생성-삭제-및-항목-추가">테이블 생성, 삭제 및 항목 추가</a></li>
+<li><a href="#항목-조회">항목 조회</a></li>
+<li><a href="#항목-수정">항목 수정</a></li>
+<li><a href="#항목-삭제">항목 삭제</a></li>
+<li><a href="#findallbymentionidorderbycreatedatasc-테스트">findAllByMentionIdOrderByCreatedAtAsc 테스트</a></li>
+</ul></li>
+</ul></li>
 </ul>
-</blockquote>
-<p>마침 다른 팀원분이 MongoDB로 구현한 API가 있었고, 그 분은 다른 일 때문에 바빴고, 공교롭게도 저는 진행하던 일의 막바지 작업을 하고 있었고, 디벨롭에 머지를 했고, DynamoDB를 공부할 좋은 기회가 주어졌습니다. 와!</p>
-<p><a href="https://github.com/derjust/spring-data-dynamodb">spring-data-dynamodb</a>라는 ORM 라이브러리가 있었고 이를 활용한 예제들을 찾을 수 있었지만, DynamoDB SDK가 빠르게 업데이트되고 있던 시기라서 예제들이 정상적으로 작동하지 않았습니다. 영어로 된 정보들도 파편화돠어있었고 한국어로 된 정보들은 더더욱 찾기 힘들었습니다. 하지만 저는 <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788960777330&amp;orderClick=LEA&amp;Kc=">세계 최고 ORM 입문서</a>를 공부했기 때문에 꼭 DynamoDB를 ORM을 통해서 쓰고싶었습니다.</p>
-<p>글을 쓰기 위해서 <a href="https://github.com/myeongjae-kim/guestbook">토이프로젝트</a>를 진행했습니다. 재성 이사님의 <a href="https://www.facebook.com/woowahanTech/photos/a.1925530564354206/2269703193270273/?type=3&amp;theater">TDD 세미나</a>에서 들은 내용으로 TDD를 강박적으로 적용했고, 민태님의 <a href="https://www.facebook.com/woowahanTech/posts/2274019452838647">React &amp; TypeScript 101</a>에서 공부한 것들로 UI도 구현했습니다.</p>
-<figure>
-<img src="https://cdn.myeongjae.kim/blog/2019/06/guestbook.gif" alt="달토끼는 방명록이 갖고싶었다!"><figcaption>달토끼는 방명록이 갖고싶었다!</figcaption>
-</figure>
-<p>간단한 방명록인데요, 기록(Mention)을 남길 수 있고 기록에 대한 댓글(Comment)도 남길 수 있습니다. 기록은 SQL DBMS(embedded h2)로, 댓글은 NoSQL DB(Dynamo DB)를 사용했습니다. <a href="https://github.com/myeongjae-kim/guestbook/tree/before-dynamodb">이 브랜치</a>는 기록 API가 완성된 상태고, 댓글 API는 저장소(Repository) 레이어만 구현해서 DB와 연결해주기만 하면 작동합니다. 일단 기록 API와 웹앱만 실행해봅시다. 개발환경은 macOS 10.14, Java 1.8, node v10.12입니다.</p>
+<h2 id="dynamodb를-써야-한다">DynamoDB를 써야 한다!</h2>
+<p>태초에 MongoDB로 구현한 API가 있었습니다. 아직 개발중인 시스템이지만 훗날 예견되는 운영상의 이유로 인해 MongoDB대신 DynamoDB를 사용하기로 했고, 해당 API의 창조자는 다른 일 때문에 바빴고, 공교롭게도 저는 진행하던 일의 막바지 작업을 하고 있었고, 디벨롭에 머지를 했고, DynamoDB를 공부할 좋은 기회가 주어졌습니다. 와!</p>
+<p><a href="https://github.com/derjust/spring-data-dynamodb">spring-data-dynamodb</a>라는 spring-data 라이브러리가 있었고 이를 활용한 예제들을 찾을 수 있었지만, DynamoDB SDK가 빠르게 업데이트되고 있던 시기라서 예제들이 정상적으로 작동하지 않았습니다. 영어로 된 정보들도 파편화되어있었고 한국어로 된 정보들은 더더욱 찾기 힘들었습니다. 하지만 저는 <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788960777330&amp;orderClick=LEA&amp;Kc=">세계 최고 ORM 입문서</a>를 공부했기 때문에 꼭 DynamoDB를 객체 매핑과 쿼리 메서드를 통해서 쓰고싶었습니다.</p>
+<p>글을 쓰기 위해서 <a href="https://github.com/myeongjae-kim/guestbook">토이프로젝트</a>를 진행했습니다. 포비 박재성님의 <a href="https://www.facebook.com/woowahanTech/photos/a.1925530564354206/2269703193270273/?type=3&amp;theater">TDD 세미나</a>에서 들은 내용으로 TDD를 강박적으로 적용했고, 김민태님의 <a href="https://www.facebook.com/woowahanTech/posts/2274019452838647">React &amp; TypeScript 101</a>에서 공부한 것들로 UI도 구현했습니다.</p>
+<p style="text-align: center">
+<img src="https://cdn.myeongjae.kim/blog/2019/06/guestbook.gif" alt="달토끼는 방명록이 갖고싶었다!" width="480">
+</p>
+<p>간단한 방명록인데요, 기록(Mention)을 남길 수 있고 기록에 대한 댓글(Comment)도 남길 수 있습니다. 기록은 SQL DBMS(embedded h2)로, 댓글은 NoSQL DB(Dynamo DB)를 사용했습니다. <a href="https://github.com/myeongjae-kim/guestbook/tree/before-dynamodb">이 브랜치</a>는 기록 API가 완성된 상태고, 댓글 API는 저장소(Repository) 레이어만 구현해서 DB와 연결해주기만 하면 작동합니다. 일단 기록 API와 웹앱만 실행해봅시다. 개발환경은 macOS 10.14, Java 1.8, node v10.12, Java에서 IntelliJ, TypeScript에서 VS Code를 사용했습니다.</p>
 <pre class="bash"><code class="hljs">git <span class="hljs-built_in">clone</span> -b before-dynamodb --single-branch https://github.com/myeongjae-kim/guestbook.git
 
 <span class="hljs-comment"># guestbook/guestbook-api</span>
@@ -93,15 +134,15 @@ var disqus_url        = "https://blog.myeongjae.kim/2019/06/04/spring-data-dynam
 
 <span class="hljs-comment"># guestbook/guestbook-webapp</span>
 npm install; npm start;</code></pre>
-<p><a href="https://asciinema.org/a/249649"><img src="https://asciinema.org/a/249649.svg" alt="asciicast"></a></p>
+<script id="asciicast-249649" src="https://asciinema.org/a/249649.js" async=""></script>
 <p>댓글 저장소를 구현하기 전에 먼저 DynamoDB를 어떻게 쓰는지부터 알아봐야겠습니다.</p>
 <h2 id="dynamodb를-써보자">DynamoDB를 써보자</h2>
-<p><a href="https://aws.amazon.com/ko/dynamodb/">Amazon DynamoDB는 어떤 규모에서도 10밀리초 미만의 성능을 제공하는 키-값 및 문서 데이터베이스입니다. DynamoDB는 하루에 10조 개 이상의 요청을 처리할 수 있고, 초당 2,000만 개 이상의 피크 요청을 지원할 수 있</a>다고 하지만, 달 방명록에 그렇게 많은 사람이 기록을 남길 것 같진 않습니다. 어쨌든, 비약해서 말하자면 NoSQL DB는 성능좋은 구조체(struct)입니다. SQL DB와의 비교는 <a href="https://aws.amazon.com/ko/nosql/">여기</a>에서 볼 수 있습니다.</p>
+<p><a href="https://aws.amazon.com/ko/dynamodb/">Amazon DynamoDB는 어떤 규모에서도 10밀리초 미만의 성능을 제공하는 키-값 및 문서 데이터베이스입니다. DynamoDB는 하루에 10조 개 이상의 요청을 처리할 수 있고, 초당 2,000만 개 이상의 피크 요청을 지원할 수 있</a>다고 하지만, 달 방명록에 그렇게 많은 사람이 기록을 남길 것 같진 않습니다. SQL DB와의 비교는 <a href="https://aws.amazon.com/ko/nosql/">여기</a>에서 볼 수 있습니다.</p>
 <p>DynamoDB를 쿼리 메서드로 조작하기까지 거치는 레이어는 다음과 같습니다.</p>
 <figure>
 <img src="https://cdn.myeongjae.kim/blog/2019/06/dynamodb-accessing-layer.png" alt="DynamoDB Accessing Layer"><figcaption>DynamoDB Accessing Layer</figcaption>
 </figure>
-<p>이 글에서는 DynamoDB를 조작하는 다양한 방법들을 예제를 통해 소개합니다. aws cli -&gt; curl -&gt; AmazonDynamoDB 클래스 -&gt; DynamoDBMapper 클래스 -&gt; spring-data-dynamodb 순서로 진행하니, 메서드 쿼리만 궁금하신 분들은 <a href="#spring-data-dynamodb로-쿼리-메서드-사용하기">여기</a>부터 보시면 됩니다.</p>
+<p>위에서 말씀드린 것처럼 aws cli -&gt; curl -&gt; AmazonDynamoDB 클래스 -&gt; DynamoDBMapper 클래스 -&gt; spring-data-dynamodb 순서로 진행합니다.</p>
 <p>DynamoDB를 로컬에서 사용하기 위해서 <a href="https://aws.amazon.com/ko/cli/">aws cli</a>와 <a href="https://hub.docker.com/r/amazon/dynamodb-local/">DynamoDB 도커 이미지</a>를 설치해야 합니다. 도커를 설치하고 다음과 같이 DynamoDB를 실행해봅시다.</p>
 <pre class="bash"><code class="hljs"><span class="hljs-meta">#!/usr/bin/env bash
 </span>
@@ -184,7 +225,7 @@ aws dynamodb get-item \
     --table-name Comment \
     --key <span class="hljs-string">'{"id":{"S":"uuid"}}'</span></code></pre>
 <h4 id="항목-수정">항목 수정</h4>
-<p>항목을 수정할 때는 추가할 떄와 같은 명령을 사용합니다.</p>
+<p>항목을 수정할 때는 추가할 때와 같은 명령을 사용합니다.</p>
 <pre class="bash"><code class="hljs"><span class="hljs-meta">#!/usr/bin/env bash
 </span>
 aws dynamodb put-item \
@@ -351,6 +392,7 @@ curl -X POST \
 <p>이번에는 Java DynamoDB SDK를 통해서 DynamoDB를 조작해봅시다.</p>
 <h3 id="java-dynamodb-sdk로-dynamodb-조작하기">Java DynamoDB SDK로 DynamoDB 조작하기</h3>
 <p><code class="hljs">guestbook-api-comments/build.gradle</code>의 <code class="hljs">dependencies</code>에 <code class="hljs bash">implementation <span class="hljs-string">"com.amazonaws:aws-java-sdk-dynamodb:1.11.563"</span></code>을 추가하고, <code class="hljs bash">guestbook-api-comments/src/<span class="hljs-built_in">test</span>/java/guestbook/comments/AwsDynamoDbSdkTestToLearn.java</code> 클래스를 추가합니다.</p>
+<p><em>(이하의 테스트들은 <strong>JUnit5</strong>로 작성했습니다.)</em></p>
 <pre class="java"><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AwsDynamoDbSdkTestToLearn</span> {</span>
     <span class="hljs-keyword">private</span> AmazonDynamoDB amazonDynamoDb;
 
@@ -485,8 +527,8 @@ curl -X POST \
 
     then(getItemResult.getItem()).isNull();
 }</code></pre>
-<h3 id="dynamodbmapper를-활용해-orm하기">DynamoDBMapper를 활용해 ORM하기</h3>
-<p>DynamoDBMapper는 Java DynamoDB SDK에서 제공하는 ORM 도구입니다. 이전과 마찬가지로, DynamoDBMapper를 익히기 위한 테스트를 작성하도록 하겠습니다. <code class="hljs bash">guestbook-api-comments/src/<span class="hljs-built_in">test</span>/java/guestbook/comments/DynamoDbMapperTestToLearn.java</code> 클래스를 추가합니다.</p>
+<h3 id="dynamodbmapper를-활용해-객체-매핑하기">DynamoDBMapper를 활용해 객체 매핑하기</h3>
+<p>DynamoDBMapper는 Java DynamoDB SDK에서 제공하는 객체-테이블 매핑 도구입니다. 이전과 마찬가지로, DynamoDBMapper를 익히기 위한 테스트를 작성하도록 하겠습니다. <code class="hljs bash">guestbook-api-comments/src/<span class="hljs-built_in">test</span>/java/guestbook/comments/DynamoDbMapperTestToLearn.java</code> 클래스를 추가합니다.</p>
 <h4 id="테이블-생성-3">테이블 생성</h4>
 <pre class="java"><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AwsDynamoDbMapperTestToLearn</span> {</span>
     <span class="hljs-keyword">private</span> AmazonDynamoDB amazonDynamoDb;
@@ -519,7 +561,7 @@ curl -X POST \
         then(TableUtils.createTableIfNotExists(amazonDynamoDb, createTableRequest)).isTrue();
     }
 }</code></pre>
-<p><code class="hljs">AmazonDynamoDB</code>객체를 통해서 테스트에 사용할 <code class="hljs">DynamoDBMapper</code>객체를 생성합니다. 이 객체를 통해서 ORM을 할 수 있습니다. <code class="hljs">dynamoDbMapper.generateCreateTableRequest(Comment.class)</code>는 이전에 정의한 <code class="hljs">Comment</code> 클래스를 통해서 테이블 생성 쿼리를 만듭니다.</p>
+<p><code class="hljs">AmazonDynamoDB</code>객체를 통해서 테스트에 사용할 <code class="hljs">DynamoDBMapper</code>객체를 생성합니다. 이 객체를 통해서 테이블 매핑을 할 수 있습니다. <code class="hljs">dynamoDbMapper.generateCreateTableRequest(Comment.class)</code>는 이전에 정의한 <code class="hljs">Comment</code> 클래스를 통해서 테이블 생성 쿼리를 만듭니다.</p>
 <p>테스트를 실행하면 장렬히 실패하는데, <code class="hljs">DynamoDBMapper</code>를 위해 엔티티에 적당한 애노테이션을 추가해야 하기 때문입니다.</p>
 <h4 id="entity에-annotaiton-추가하기">Entity에 Annotaiton 추가하기</h4>
 <pre class="java"><code class="hljs typescript"><span class="hljs-meta">@Getter</span>
@@ -883,6 +925,6 @@ void <span class="hljs-function"><span class="hljs-title">saveAndLoadItem_Should
 }</code></pre>
 <p>Repository 테스트까지 추가했으니 통합 테스트로 모든 레어이가 제대로 작동하는지 확인해봅니다. 저는 <a href="https://github.com/myeongjae-kim/guestbook/blob/complete-first-chapter/guestbook-api/guestbook-api-comments/src/integrationTest/java/guestbook/comments/api/CommentControllerIntTest.java"><code class="hljs">guestbook-api-comments/src/integrationTest/java/guestbook/comments/api/CommentControllerIntTest.java</code>에 테스트를 작성했습니다</a>.</p>
 <p>애플리케이션의 작동을 실제로 확인하진 않았어도 테스트를 통해서 프로그램이 제대로 돌아갈 것이라는 확신을 가질 수 있었습니다. 하지만 불-편…한 부분이, 서버를 실행할 때는 물론 테스트를 하기 위해서도 수동으로 DynamoDB를 실행해야 한다는 것입니다. 2부에서는 Gradle을 통해서 애플리케이션을 실행하거나 테스트를 할 때 DynamoDB를 자동으로 실행·종료해보도록 설정해보겠습니다.</p>
-</div></article><hr data-v-23bf33e3=""><div data-v-23bf33e3="" id="adjacent-articles"><!----><div data-v-23bf33e3="" id="prev-article"><h4 data-v-23bf33e3="">Previous Article</h4><p data-v-23bf33e3=""><a data-v-23bf33e3="" href="/blog/2019/04/29/name-origin-of-closure-mixin/" class="">[책] ⟨코딩을 지탱하는 기술⟩, 클로저Closure, 믹스인Mixin의 어원</a></p></div></div><hr data-v-23bf33e3="" style="margin-top: 28px;"><div data-v-23bf33e3="" id="share-buttons"><button data-v-23bf33e3="" data-clipboard-text="https://blog.myeongjae.kim/2019/06/04/spring-data-dynamodb-1" class="copy-btn">Copy Link</button>
+</div></article><hr data-v-561bbc92=""><div data-v-561bbc92="" id="adjacent-articles"><!----><div data-v-561bbc92="" id="prev-article"><h4 data-v-561bbc92="">Previous Article</h4><p data-v-561bbc92=""><a data-v-561bbc92="" href="/blog/2019/04/29/name-origin-of-closure-mixin/" class="">[책] ⟨코딩을 지탱하는 기술⟩, 클로저Closure, 믹스인Mixin의 어원</a></p></div></div><hr data-v-561bbc92="" style="margin-top: 28px;"><div data-v-561bbc92="" id="share-buttons"><button data-v-561bbc92="" data-clipboard-text="https://blog.myeongjae.kim/2019/06/04/spring-data-dynamodb-1" class="copy-btn">Copy Link</button>
       &nbsp;
-      <a data-v-23bf33e3="" href="/blog/" class="router-link-active"><button data-v-23bf33e3="">Article List</button></a></div><div data-v-23bf33e3="" id="disqus_thread"><iframe id="dsq-app3597" name="dsq-app3597" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=myeongjae&amp;t_i=%2F2019%2F06%2F04%2Fspring-data-dynamodb-1&amp;t_u=https%3A%2F%2Fblog.myeongjae.kim%2F2019%2F06%2F04%2Fspring-data-dynamodb-1&amp;t_e=spring-data-dynamodb-1&amp;t_d=Spring%20Boot%EC%97%90%EC%84%9C%20ORM%EC%9C%BC%EB%A1%9C%20DynamoDB%20%EC%A1%B0%EC%9E%91%ED%95%98%EA%B8%B0%20(1)%20-%20%EC%84%A4%EC%A0%95%EB%B6%80%ED%84%B0%20%EC%8B%A4%ED%96%89%EA%B9%8C%EC%A7%80&amp;t_t=spring-data-dynamodb-1&amp;s_o=default#version=2e31a8bc27d846d9eb2112d76dab5cb5" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div><a data-v-23bf33e3="" class="back-to-top">↑</a></div></div><script src="/js/chunk-vendors.855aa201.js"></script><script src="/js/app.151a1e63.js"></script><iframe style="display: none;"></iframe></body></html>
+      <a data-v-561bbc92="" href="/blog/" class="router-link-active"><button data-v-561bbc92="">Article List</button></a></div><div data-v-561bbc92="" id="disqus_thread"><iframe id="dsq-app8122" name="dsq-app8122" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="https://disqus.com/embed/comments/?base=default&amp;f=myeongjae&amp;t_i=%2F2019%2F06%2F04%2Fspring-data-dynamodb-1&amp;t_u=https%3A%2F%2Fblog.myeongjae.kim%2F2019%2F06%2F04%2Fspring-data-dynamodb-1&amp;t_e=spring-data-dynamodb-1&amp;t_d=%5BSpring%5D%20Spring%20Boot%EC%97%90%EC%84%9C%20Repository%EB%A1%9C%20DynamoDB%20%EC%A1%B0%EC%9E%91%ED%95%98%EA%B8%B0%20(1)%20-%20%EC%84%A4%EC%A0%95%EB%B6%80%ED%84%B0%20%EC%8B%A4%ED%96%89%EA%B9%8C%EC%A7%80&amp;t_t=spring-data-dynamodb-1&amp;s_o=default#version=8a1796648b4a0ed90950910fbd4dbdb6" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 0px !important;"></iframe></div></div><a data-v-561bbc92="" class="back-to-top">↑</a></div></div><script src="/js/chunk-vendors.855aa201.js"></script><script src="/js/app.2467879c.js"></script><iframe style="display: none;"></iframe></body></html>

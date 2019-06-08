@@ -1,26 +1,58 @@
-# Spring Boot에서 ORM으로 DynamoDB 조작하기 (1) - 설정부터 실행까지
+# [Spring] Spring Boot에서 Repository로 DynamoDB 조작하기 (1) - 설정부터 실행까지
 
-안녕하세요, 미래사업부문 김명재입니다. 작년 10월에 우아한형제들에 입사하고 행복한 주니어 개발자 생활을 하고 있습니다. 현재 개발중인 시스템의 NoSQL DB를 MongoDB에서 DynamoDB로 교체하면서 배운 것을 정리하고 싶어서 글을 쓰게 되었습니다.
+이 글에서는 DynamoDB를 조작하는 다양한 방법들을 예제를 통해 소개합니다. aws cli -> curl -> AmazonDynamoDB 클래스 -> DynamoDBMapper 클래스 -> spring-data-dynamodb 순서로 진행하니, 메서드 쿼리만 궁금하신 분들은 [spring-data-dynamodb로 쿼리 메서드 사용하기](#spring-data-dynamodb로-쿼리-메서드-사용하기)부터 보시면 됩니다.
+
+## 목차
+
+  * [DynamoDB를 써야 한다!](#dynamodb를-써야-한다)
+  * [DynamoDB를 써보자](#dynamodb를-써보자)
+    * [aws cli로 DynamoDB 조작하기](#aws-cli로-dynamodb-조작하기)
+      * [테이블 생성](#테이블-생성)
+      * [항목 추가](#항목-추가)
+      * [항목 조회](#항목-조회)
+      * [항목 수정](#항목-수정)
+      * [항목 삭제](#항목-삭제)
+      * [테이블 삭제](#테이블-삭제)
+    * [curl로 DynamoDB 조작하기](#curl로-dynamodb-조작하기)
+      * [테이블 생성](#테이블-생성)
+      * [항목 추가](#항목-추가)
+      * [항목 조회](#항목-조회)
+      * [항목 수정](#항목-수정)
+      * [항목 삭제](#항목-삭제)
+      * [테이블 삭제](#테이블-삭제)
+    * [Java DynamoDB SDK로 DynamoDB 조작하기](#java-dynamodb-sdk로-dynamodb-조작하기)
+      * [테이블 생성](#테이블-생성)
+      * [항목 추가](#항목-추가)
+      * [항목 조회](#항목-조회)
+      * [항목 삭제](#항목-삭제)
+    * [DynamoDBMapper를 활용해 객체 매핑하기](#dynamodbmapper를-활용해-객체-매핑하기)
+      * [테이블 생성](#테이블-생성)
+      * [Entity에 Annotaiton 추가하기](#entity에-annotaiton-추가하기)
+      * [항목 생성](#항목-생성)
+      * [항목 조회](#항목-조회)
+      * [항목 수정](#항목-수정)
+      * [항목 삭제](#항목-삭제)
+      * [테이블 삭제](#테이블-삭제)
+    * [spring-data-dynamodb로 쿼리 메서드 사용하기](#spring-data-dynamodb로-쿼리-메서드-사용하기)
+      * [테이블 생성, 삭제 및 항목 추가](#테이블-생성-삭제-및-항목-추가)
+      * [항목 조회](#항목-조회)
+      * [항목 수정](#항목-수정)
+      * [항목 삭제](#항목-삭제)
+      * [findAllByMentionIdOrderByCreatedAtAsc 테스트](#findallbymentionidorderbycreatedatasc-테스트)
 
 ## DynamoDB를 써야 한다!
 
-올해 1월달에 다음과 같은 내용의 공지를 이메일로 받았습니다.
+태초에 MongoDB로 구현한 API가 있었습니다. 아직 개발중인 시스템이지만 훗날 예견되는 운영상의 이유로 인해 MongoDB대신 DynamoDB를 사용하기로 했고, 해당 API의 창조자는 다른 일 때문에 바빴고, 공교롭게도 저는 진행하던 일의 막바지 작업을 하고 있었고, 디벨롭에 머지를 했고, DynamoDB를 공부할 좋은 기회가 주어졌습니다. 와!
 
-> **자체 운영할 인력이 없다면 되도록 AWS서비스 이용**
->
-> - RDS - AWS Aurora
-> - NoSQL - AWS DynamoDB
-> - CDN - AWS CloudFront
+[spring-data-dynamodb](https://github.com/derjust/spring-data-dynamodb)라는 spring-data 라이브러리가 있었고 이를 활용한 예제들을 찾을 수 있었지만, DynamoDB SDK가 빠르게 업데이트되고 있던 시기라서 예제들이 정상적으로 작동하지 않았습니다. 영어로 된 정보들도 파편화되어있었고 한국어로 된 정보들은 더더욱 찾기 힘들었습니다. 하지만 저는 [세계 최고 ORM 입문서](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788960777330&orderClick=LEA&Kc=)를 공부했기 때문에 꼭 DynamoDB를 객체 매핑과 쿼리 메서드를 통해서 쓰고싶었습니다. 
 
-마침 다른 팀원분이 MongoDB로 구현한 API가 있었고, 그 분은 다른 일 때문에 바빴고, 공교롭게도 저는 진행하던 일의 막바지 작업을 하고 있었고, 디벨롭에 머지를 했고, DynamoDB를 공부할 좋은 기회가 주어졌습니다. 와!
+글을 쓰기 위해서 [토이프로젝트](https://github.com/myeongjae-kim/guestbook)를 진행했습니다. 포비 박재성님의 [TDD 세미나](https://www.facebook.com/woowahanTech/photos/a.1925530564354206/2269703193270273/?type=3&theater)에서 들은 내용으로 TDD를 강박적으로 적용했고, 김민태님의 [React & TypeScript 101](https://www.facebook.com/woowahanTech/posts/2274019452838647)에서 공부한 것들로 UI도 구현했습니다.
 
-[spring-data-dynamodb](https://github.com/derjust/spring-data-dynamodb)라는 ORM 라이브러리가 있었고 이를 활용한 예제들을 찾을 수 있었지만, DynamoDB SDK가 빠르게 업데이트되고 있던 시기라서 예제들이 정상적으로 작동하지 않았습니다. 영어로 된 정보들도 파편화돠어있었고 한국어로 된 정보들은 더더욱 찾기 힘들었습니다. 하지만 저는 [세계 최고 ORM 입문서](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788960777330&orderClick=LEA&Kc=)를 공부했기 때문에 꼭 DynamoDB를 ORM을 통해서 쓰고싶었습니다. 
+<p style="text-align: center">
+<img src="https://cdn.myeongjae.kim/blog/2019/06/guestbook.gif" alt="달토끼는 방명록이 갖고싶었다!" width="480">
+</p>
 
-글을 쓰기 위해서 [토이프로젝트](https://github.com/myeongjae-kim/guestbook)를 진행했습니다. 재성 이사님의 [TDD 세미나](https://www.facebook.com/woowahanTech/photos/a.1925530564354206/2269703193270273/?type=3&theater)에서 들은 내용으로 TDD를 강박적으로 적용했고, 민태님의 [React & TypeScript 101](https://www.facebook.com/woowahanTech/posts/2274019452838647)에서 공부한 것들로 UI도 구현했습니다.
-
-![달토끼는 방명록이 갖고싶었다!](https://cdn.myeongjae.kim/blog/2019/06/guestbook.gif)
-
-간단한 방명록인데요, 기록(Mention)을 남길 수 있고 기록에 대한 댓글(Comment)도 남길 수 있습니다. 기록은 SQL DBMS(embedded h2)로, 댓글은 NoSQL DB(Dynamo DB)를 사용했습니다. [이 브랜치](https://github.com/myeongjae-kim/guestbook/tree/before-dynamodb)는 기록 API가 완성된 상태고, 댓글 API는 저장소(Repository) 레이어만 구현해서 DB와 연결해주기만 하면 작동합니다. 일단 기록 API와 웹앱만 실행해봅시다. 개발환경은 macOS 10.14, Java 1.8, node v10.12입니다.
+간단한 방명록인데요, 기록(Mention)을 남길 수 있고 기록에 대한 댓글(Comment)도 남길 수 있습니다. 기록은 SQL DBMS(embedded h2)로, 댓글은 NoSQL DB(Dynamo DB)를 사용했습니다. [이 브랜치](https://github.com/myeongjae-kim/guestbook/tree/before-dynamodb)는 기록 API가 완성된 상태고, 댓글 API는 저장소(Repository) 레이어만 구현해서 DB와 연결해주기만 하면 작동합니다. 일단 기록 API와 웹앱만 실행해봅시다. 개발환경은 macOS 10.14, Java 1.8, node v10.12,  Java에서 IntelliJ, TypeScript에서 VS Code를 사용했습니다.
 
 ```bash
 git clone -b before-dynamodb --single-branch https://github.com/myeongjae-kim/guestbook.git
@@ -32,19 +64,19 @@ git clone -b before-dynamodb --single-branch https://github.com/myeongjae-kim/gu
 npm install; npm start;
 ```
 
-[![asciicast](https://asciinema.org/a/249649.svg)](https://asciinema.org/a/249649)
+<script id="asciicast-249649" src="https://asciinema.org/a/249649.js" async></script>
 
 댓글 저장소를 구현하기 전에 먼저 DynamoDB를 어떻게 쓰는지부터 알아봐야겠습니다.
 
 ## DynamoDB를 써보자
 
-[Amazon DynamoDB는 어떤 규모에서도 10밀리초 미만의 성능을 제공하는 키-값 및 문서 데이터베이스입니다. DynamoDB는 하루에 10조 개 이상의 요청을 처리할 수 있고, 초당 2,000만 개 이상의 피크 요청을 지원할 수 있](https://aws.amazon.com/ko/dynamodb/)다고 하지만, 달 방명록에 그렇게 많은 사람이 기록을 남길 것 같진 않습니다. 어쨌든, 비약해서 말하자면 NoSQL DB는 성능좋은 구조체(struct)입니다. SQL DB와의 비교는 [여기](https://aws.amazon.com/ko/nosql/)에서 볼 수 있습니다.
+[Amazon DynamoDB는 어떤 규모에서도 10밀리초 미만의 성능을 제공하는 키-값 및 문서 데이터베이스입니다. DynamoDB는 하루에 10조 개 이상의 요청을 처리할 수 있고, 초당 2,000만 개 이상의 피크 요청을 지원할 수 있](https://aws.amazon.com/ko/dynamodb/)다고 하지만, 달 방명록에 그렇게 많은 사람이 기록을 남길 것 같진 않습니다. SQL DB와의 비교는 [여기](https://aws.amazon.com/ko/nosql/)에서 볼 수 있습니다.
 
 DynamoDB를 쿼리 메서드로 조작하기까지 거치는 레이어는 다음과 같습니다.
 
 ![DynamoDB Accessing Layer](https://cdn.myeongjae.kim/blog/2019/06/dynamodb-accessing-layer.png)
 
-이 글에서는 DynamoDB를 조작하는 다양한 방법들을 예제를 통해 소개합니다. aws cli -> curl -> AmazonDynamoDB 클래스 -> DynamoDBMapper 클래스 -> spring-data-dynamodb 순서로 진행하니, 메서드 쿼리만 궁금하신 분들은 [여기](#spring-data-dynamodb로-쿼리-메서드-사용하기)부터 보시면 됩니다.
+위에서 말씀드린 것처럼 aws cli -> curl -> AmazonDynamoDB 클래스 -> DynamoDBMapper 클래스 -> spring-data-dynamodb 순서로 진행합니다.
 
 DynamoDB를 로컬에서 사용하기 위해서 [aws cli](https://aws.amazon.com/ko/cli/)와 [DynamoDB 도커 이미지](https://hub.docker.com/r/amazon/dynamodb-local/)를 설치해야 합니다. 도커를 설치하고 다음과 같이 DynamoDB를 실행해봅시다.
 
@@ -159,7 +191,7 @@ aws dynamodb get-item \
 
 #### 항목 수정
 
-항목을 수정할 때는 추가할 떄와 같은 명령을 사용합니다.
+항목을 수정할 때는 추가할 때와 같은 명령을 사용합니다.
 
 ```bash
 #!/usr/bin/env bash
@@ -369,6 +401,8 @@ aws cli에 의존하지 않고 로컬 DynamoDB와 통신했습니다. aws cli를
 
 `guestbook-api-comments/build.gradle`의 `dependencies`에 `implementation "com.amazonaws:aws-java-sdk-dynamodb:1.11.563"`을 추가하고, `guestbook-api-comments/src/test/java/guestbook/comments/AwsDynamoDbSdkTestToLearn.java` 클래스를 추가합니다.
 
+*(이하의 테스트들은 **JUnit5**로 작성했습니다.)*
+
 ```java
 class AwsDynamoDbSdkTestToLearn {
     private AmazonDynamoDB amazonDynamoDb;
@@ -534,9 +568,9 @@ void getItem_ShouldBeCalledAfterDeletingItem_NullItem() {
 }
 ```
 
-### DynamoDBMapper를 활용해 ORM하기
+### DynamoDBMapper를 활용해 객체 매핑하기
 
-DynamoDBMapper는 Java DynamoDB SDK에서 제공하는 ORM 도구입니다. 이전과 마찬가지로, DynamoDBMapper를 익히기 위한 테스트를 작성하도록 하겠습니다. `guestbook-api-comments/src/test/java/guestbook/comments/DynamoDbMapperTestToLearn.java` 클래스를 추가합니다.
+DynamoDBMapper는 Java DynamoDB SDK에서 제공하는 객체-테이블 매핑 도구입니다. 이전과 마찬가지로, DynamoDBMapper를 익히기 위한 테스트를 작성하도록 하겠습니다. `guestbook-api-comments/src/test/java/guestbook/comments/DynamoDbMapperTestToLearn.java` 클래스를 추가합니다.
 
 #### 테이블 생성
 
@@ -574,7 +608,7 @@ class AwsDynamoDbMapperTestToLearn {
 }
 ```
 
-`AmazonDynamoDB`객체를 통해서 테스트에 사용할 `DynamoDBMapper`객체를 생성합니다. 이 객체를 통해서 ORM을 할 수 있습니다. `dynamoDbMapper.generateCreateTableRequest(Comment.class)`는 이전에 정의한 `Comment` 클래스를 통해서 테이블 생성 쿼리를 만듭니다.
+`AmazonDynamoDB`객체를 통해서 테스트에 사용할 `DynamoDBMapper`객체를 생성합니다. 이 객체를 통해서 테이블 매핑을 할 수 있습니다. `dynamoDbMapper.generateCreateTableRequest(Comment.class)`는 이전에 정의한 `Comment` 클래스를 통해서 테이블 생성 쿼리를 만듭니다.
 
 테스트를 실행하면 장렬히 실패하는데, `DynamoDBMapper`를 위해 엔티티에 적당한 애노테이션을 추가해야 하기 때문입니다.
 

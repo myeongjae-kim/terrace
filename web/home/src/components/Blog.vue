@@ -218,7 +218,7 @@ export default {
       index: [
   {
     "relativeId": 35,
-    "title": "Spring Boot에서 ORM으로 DynamoDB 조작하기 (1) - 설정부터 실행까지",
+    "title": "[Spring] Spring Boot에서 Repository로 DynamoDB 조작하기 (1) - 설정부터 실행까지",
     "path": "/blog/2019/06/04/spring-data-dynamodb-1/",
     "date": {
       "year": "2019",
