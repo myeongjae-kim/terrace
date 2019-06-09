@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 45,
+    "title": "이건 하면서 저건 왜 안해요?",
+    "path": "/daily/2019/06/09/why-dont-you-do-this/",
+    "date": {
+      "year": "2019",
+      "month": "06",
+      "monthEng": "June",
+      "day": "09",
+      "dayEng": "9th"
+    }
+  },
+  {
     "relativeId": 44,
     "title": "존재에 대하여 [有物]",
     "path": "/daily/2019/05/13/subway-poem2/",
