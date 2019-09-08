@@ -1,0 +1,109 @@
+<h1 id="vimlinux-7.-delimitmate-괄호-자동-완성-플러그인">[vim/Linux] 7. delimitMate, 괄호 자동 완성 플러그인</h1>
+<p>대부분의 편집기에서 ‘{‘를 입력하면 ‘}’가 자동으로 추가되는데, delimitMate를 설치하면 vim에서도 같은 기능을 쓸 수 있습니다.</p>
+<p><code>.vimrc</code>에 <code class="vim">Plugin 'Raimondi/delimitMate'</code> 를 추가하고 <code class="vim">:PluginInstall</code>을 합니다.</p>
+<p><code>.vimrc</code>에는 다음과 같이 추가합니다.</p>
+<pre class="vim"><code>&quot; delimitMate
+let delimitMate_expand_cr=1</code></pre>
+<p>왼쪽 괄호, 중괄호, 대괄호를 입력해보면 닫는 괄호들까지 자동으로 추가됩니다.</p>
+<p><img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-15-at-4.06.58-PM-1024x628.png" /></p>
+<p>지금까지 설정한 <code>.vimrc</code>는 다음과 같습니다.</p>
+<pre class="vim"><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+autocmd FileType make setlocal noexpandtab
+ 
+&quot; Key Settings
+nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;
+set pastetoggle=&lt;F2&gt;
+let mapleader = &quot;,&quot;
+nnoremap &lt;leader&gt;q :bp&lt;CR&gt;
+nnoremap &lt;leader&gt;w :bn&lt;CR&gt;
+ 
+&quot; Key Setting - resize windows
+nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;[ :exe &quot;vertical resize -8&quot;&lt;CR&gt;
+ 
+nnoremap &lt;silent&gt; &lt;Leader&gt;+ :exe &quot;resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;_ :exe &quot;resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+ 
+&quot; Vundle
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+ 
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin(&#39;~/some/path/here&#39;)
+ 
+&quot; let Vundle manage Vundle, required
+Plugin &#39;VundleVim/Vundle.vim&#39;
+ 
+&quot; Keep Plugin commands between vundle#begin/end.
+ 
+&quot; vim-airline
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;
+Plugin &#39;terryma/vim-multiple-cursors&#39;
+Plugin &#39;terryma/vim-smooth-scroll&#39;
+Plugin &#39;Raimondi/delimitMate&#39;
+ 
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot; To ignore plugin indent changes, instead use:
+&quot;filetype plugin on
+&quot;
+&quot; Brief help
+&quot; :PluginList       - lists configured plugins
+&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache
+&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+&quot;
+&quot; see :h vundle for more details or wiki for FAQ
+&quot; Put your non-Plugin stuff after this line
+ 
+&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;
+ 
+&quot; vim-multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+&quot; Default mapping
+let g:multi_cursor_next_key=&#39;&lt;C-n&gt;&#39;
+let g:multi_cursor_prev_key=&#39;&lt;C-p&gt;&#39;
+let g:multi_cursor_skip_key=&#39;&lt;C-x&gt;&#39;
+let g:multi_cursor_quit_key=&#39;&lt;Esc&gt;&#39;
+ 
+&quot; vim-smooth-scroll
+noremap &lt;silent&gt; &lt;c-b&gt; :call smooth_scroll#up(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-f&gt; :call smooth_scroll#down(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-u&gt; :call smooth_scroll#up(&amp;scroll, 10, 3)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-d&gt; :call smooth_scroll#down(&amp;scroll, 10, 3)&lt;CR&gt;
+ 
+&quot; delimitMate
+let delimitMate_expand_cr=1</code></pre>
+<h3 id="reference">Reference</h3>
+<p>delimitMate: <a href="https://github.com/Raimondi/delimitMate">github.com/Raimondi/delimitMate</a></p>

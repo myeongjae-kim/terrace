@@ -1,0 +1,232 @@
+<h1 id="vimlinux-13.-vim-go와-deoplete-go-go언어를-위한-플러그인">[vim/Linux] 13. vim-go와 deoplete-go, Go언어를 위한 플러그인</h1>
+<p>Go는 2009년 구글에서 만든 언어인데 최근 점유율이 급성장했습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.47.00-PM.png" alt="https://www.tiobe.com/tiobe-index, 작년에 비해 45단계나 올랐습니다." /><figcaption>https://www.tiobe.com/tiobe-index, 작년에 비해 45단계나 올랐습니다.</figcaption>
+</figure>
+<p>이 언어는 켄 톰슨(데니스 리치와 유닉스를 만들고 C를 만든 그 켄 톰슨), 롭 파이크, 로버트 그리즈머 세 명이 주축이 되어서 만들습니다(존잘님들…). 아래는 제가 만든 <a href="https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/view?usp=sharing">Go언어 소개 PDF</a>입니다.</p>
+<iframe class="shadow" src="https://drive.google.com/file/d/0B_fCUMzieh5fUVB1TldZQUVVakE/preview" width="100%" height="460px" border="0">
+</iframe>
+<p>이전 글에서 deoplete와 clang_complete를 설치해서 C언어에서 코드 자동완성 기능을 추가했습니다. 마찬가지로 deoplete_go와 vim-go를 설치하면 Go언어에서 코드 자동완성 기능을 누릴 수 있습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.46.12-PM.png" alt="fmt 패키지의 함수들입니다." /><figcaption>fmt 패키지의 함수들입니다.</figcaption>
+</figure>
+<p>Go를 설치하고 <code class="bash">.vimrc</code>에 <code class="vim">Plugin 'fatih/vim-go'</code> 와 <code class="vim">Plugin 'zchee/deoplete-go'</code> 를 추가하고 <code class="vim">:PluginInstall</code> 을 합시다. 이후에 <code class="vim">:GoInstallBinaries</code> 을 입력해서 Go관련 실행 파일들을 받습니다.</p>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.32.36-PM.png" alt="Go와 관련된 Binary file들을 받는 중" /><figcaption>Go와 관련된 Binary file들을 받는 중</figcaption>
+</figure>
+<p><code class="bash">.vimrc</code>에 다음과 같이 추가합니다.</p>
+<pre class="vim"><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+autocmd FileType make setlocal noexpandtab
+set scrolloff=999
+autocmd FileType go setlocal noexpandtab</code></pre>
+<p>Google은 indent를 두 칸으로 사용하므로, tabsize를 2로 바꿔줍니다. 그리고 Go는 indent를 space가 아니라 tab을 쓰는 것이 표준입니다(<code class="vim">noexpandtab</code>).</p>
+<p>아래 설정도 <code>.vimrc</code>에 추가하는데, vim-go를 편하게 사용하기 위한 단축키들입니다.</p>
+<pre class="vim"><code>&quot; Go commands
+au FileType go nmap &lt;Leader&gt;gi &lt;Plug&gt;(go-info)
+au FileType go nmap &lt;Leader&gt;gd &lt;Plug&gt;(go-doc)
+au FileType go nmap &lt;Leader&gt;gr &lt;Plug&gt;(go-run)
+au FileType go nmap &lt;Leader&gt;gb &lt;Plug&gt;(go-build)
+au FileType go nmap &lt;Leader&gt;gt :w&lt;CR&gt;&lt;Plug&gt;(go-test)
+au FileType go nmap gd &lt;Plug&gt;(go-def-tab)
+au FileType go nmap &lt;leader&gt;gm :GoImports&lt;CR&gt;</code></pre>
+<figure>
+<img src="https://cdn.myeongjae.kim/blog/2017/07/Screen-Shot-2017-07-20-at-10.46.12-PM.png" alt="fmt 패키지의 함수들입니다." /><figcaption>fmt 패키지의 함수들입니다.</figcaption>
+</figure>
+<p>지금까지 설정한 <code>.vimrc</code>는 다음과 같습니다.</p>
+<pre class="vim"><code>&quot; Basic Settings
+colorscheme CodeSchool3
+set termguicolors
+syntax on
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+autocmd FileType make setlocal noexpandtab
+set scrolloff=999
+autocmd FileType go setlocal noexpandtab
+ 
+&quot; Key Settings
+nnoremap &lt;F2&gt; :set invpaste paste?&lt;CR&gt;
+set pastetoggle=&lt;F2&gt;
+let mapleader = &quot;,&quot;
+nnoremap &lt;leader&gt;q :bp&lt;CR&gt;
+nnoremap &lt;leader&gt;w :bn&lt;CR&gt;
+ 
+&quot; Key Setting - resize windows
+nnoremap &lt;silent&gt; &lt;Leader&gt;= :exe &quot;resize +3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;- :exe &quot;resize -3&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;] :exe &quot;vertical resize +8&quot;&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;[ :exe &quot;vertical resize -8&quot;&lt;CR&gt;
+ 
+nnoremap &lt;silent&gt; &lt;Leader&gt;+ :exe &quot;resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;_ :exe &quot;resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;} :exe &quot;vertical resize &quot; . (winheight(0) * 3/2)&lt;CR&gt;
+nnoremap &lt;silent&gt; &lt;Leader&gt;{ :exe &quot;vertical resize &quot; . (winheight(0) * 2/3)&lt;CR&gt;
+ 
+&quot; Vundle
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+ 
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin(&#39;~/some/path/here&#39;)
+ 
+&quot; let Vundle manage Vundle, required
+Plugin &#39;VundleVim/Vundle.vim&#39;
+ 
+&quot; Keep Plugin commands between vundle#begin/end.
+ 
+Plugin &#39;vim-airline/vim-airline&#39;
+Plugin &#39;vim-airline/vim-airline-themes&#39;
+Plugin &#39;The-NERD-Tree&#39;
+Plugin &#39;terryma/vim-multiple-cursors&#39;
+Plugin &#39;terryma/vim-smooth-scroll&#39;
+Plugin &#39;Raimondi/delimitMate&#39;
+Plugin &#39;SirVer/ultisnips&#39;
+Plugin &#39;honza/vim-snippets&#39;
+Plugin &#39;Syntastic&#39;
+Plugin &#39;Shougo/deoplete.nvim&#39;
+Plugin &#39;Rip-Rip/clang_complete&#39;
+Plugin &#39;scrooloose/nerdcommenter&#39;
+Plugin &#39;junegunn/goyo.vim&#39;
+Plugin &#39;fatih/vim-go&#39;
+Plugin &#39;zchee/deoplete-go&#39;
+ 
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+&quot; To ignore plugin indent changes, instead use:
+&quot;filetype plugin on
+&quot;
+&quot; Brief help
+&quot; :PluginList       - lists configured plugins
+&quot; :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+&quot; :PluginSearch foo - searches for foo; append `!` to refresh local cache
+&quot; :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+&quot;
+&quot; see :h vundle for more details or wiki for FAQ
+&quot; Put your non-Plugin stuff after this line
+ 
+&quot; for vim-airline
+let g:airline#extensions#tabline#enabled = 1 &quot; turn on buffer list
+let g:airline_theme=&#39;hybrid&#39;
+set laststatus=2 &quot; turn on bottom bar
+ 
+&quot; The-NERD-Tree
+autocmd BufEnter * lcd %:p:h
+autocmd VimEnter * if !argc() | NERDTree | endif
+nmap &lt;leader&gt;ne :NERDTreeToggle&lt;cr&gt;
+let NERDTreeShowLineNumbers=1
+let g:NERDTreeWinPos = &quot;right&quot;
+ 
+&quot; vim-multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+&quot; Default mapping
+let g:multi_cursor_next_key=&#39;&lt;C-n&gt;&#39;
+let g:multi_cursor_prev_key=&#39;&lt;C-p&gt;&#39;
+let g:multi_cursor_skip_key=&#39;&lt;C-x&gt;&#39;
+let g:multi_cursor_quit_key=&#39;&lt;Esc&gt;&#39;
+ 
+&quot; vim-smooth-scroll
+noremap &lt;silent&gt; &lt;c-b&gt; :call smooth_scroll#up(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-f&gt; :call smooth_scroll#down(&amp;scroll*2, 10, 5)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-u&gt; :call smooth_scroll#up(&amp;scroll, 10, 3)&lt;CR&gt;
+noremap &lt;silent&gt; &lt;c-d&gt; :call smooth_scroll#down(&amp;scroll, 10, 3)&lt;CR&gt;
+ 
+&quot; delimitMate
+let delimitMate_expand_cr=1
+ 
+&quot; UltiSnips
+let g:UltiSnipsExpandTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpForwardTrigger=&quot;&lt;tab&gt;&quot;
+let g:UltiSnipsJumpBackwardTrigger=&quot;&lt;s-tab&gt;&quot;
+let g:UltiSnipsEditSplit=&quot;vertical&quot;
+ 
+&quot; Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+ 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+ 
+let g:syntastic_cpp_compiler = &#39;g++&#39;
+let g:syntastic_cpp_compiler_options = &quot;-std=c++11 -Wall -Wextra -Wpedantic&quot;
+let g:syntastic_c_compiler_options = &quot;-std=c11 -Wall -Wextra -Wpedantic&quot;
+ 
+&quot; Deoplete.
+let g:deoplete#enable_at_startup = 1
+ 
+&quot; clang_complete
+set completeopt-=preview
+ 
+&quot; NERD Commenter
+&quot; Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+&quot; Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+&quot; Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = &#39;left&#39;
+&quot; Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+&quot; Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { &#39;c&#39;: { &#39;left&#39;: &#39;/**&#39;,&#39;right&#39;: &#39;*/&#39; } }
+&quot; Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+&quot; Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+&quot; customize keymapping
+map &lt;Leader&gt;cc &lt;plug&gt;NERDComToggleComment
+map &lt;Leader&gt;c&lt;space&gt; &lt;plug&gt;NERDComComment
+ 
+&quot; Goyo
+nnoremap &lt;F4&gt; :Goyo &lt;CR&gt;
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set number
+  set rnu
+  &quot; ...
+endfunction
+ 
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=999
+  &quot; ...
+endfunction
+ 
+autocmd! User GoyoEnter nested call &lt;SID&gt;goyo_enter()
+autocmd! User GoyoLeave nested call &lt;SID&gt;goyo_leave()
+ 
+&quot; Go commands
+au FileType go nmap &lt;Leader&gt;gi &lt;Plug&gt;(go-info)
+au FileType go nmap &lt;Leader&gt;gd &lt;Plug&gt;(go-doc)
+au FileType go nmap &lt;Leader&gt;gr &lt;Plug&gt;(go-run)
+au FileType go nmap &lt;Leader&gt;gb &lt;Plug&gt;(go-build)
+au FileType go nmap &lt;Leader&gt;gt :w&lt;CR&gt;&lt;Plug&gt;(go-test)
+au FileType go nmap gd &lt;Plug&gt;(go-def-tab)
+au FileType go nmap &lt;leader&gt;gm :GoImports&lt;CR&gt;</code></pre>
+<h2 id="reference">Reference</h2>
+<p>vim-go: <a href="https://github.com/fatih/vim-go">github.com/fatih/vim-go</a></p>
+<p>deoplete-go: <a href="https://github.com/zchee/deoplete-go">github.com/zchee/deoplete-go</a></p>

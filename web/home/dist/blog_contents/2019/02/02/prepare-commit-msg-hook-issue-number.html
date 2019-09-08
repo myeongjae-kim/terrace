@@ -1,0 +1,81 @@
+<h1 id="git-commit-메세지에-자동으로-issue-number-추가하기">[Git] Commit 메세지에 자동으로 issue number 추가하기</h1>
+<p>본래 <a href="https://www.huskyhoochu.com/npm-husky-the-git-hook-manager">husky로 손쉽게 git hook 관리하기 | Huskyhoochu</a>라는 글에 있던 내용이었습니다. 저 블로그가 갑자기 접속이 안돼서.. 같은 기능을 하는 다른 스크립트를 찾아 제 블로그에 백업용으로 올립니다.</p>
+<pre class="sh"><code>#!/bin/sh
+# .git/hooks/prepare-commit-msg
+#
+# Automatically add branch name and branch description to every commit message except merge commit.
+# https://stackoverflow.com/a/18739064
+#
+
+COMMIT_EDITMSG=$1
+
+addBranchNumber() {
+  NAME=$(git branch | grep &#39;*&#39; | sed &#39;s/* //&#39;) 
+    ISSUE_NUMBER=`echo $NAME | cut -d &#39;-&#39; -f1`
+  DESCRIPTION=$(git config branch.&quot;$NAME&quot;.description)
+  echo &quot;[#$ISSUE_NUMBER] $(cat $COMMIT_EDITMSG)&quot; &gt; $COMMIT_EDITMSG
+  if [ -n &quot;$DESCRIPTION&quot; ] 
+  then
+     echo &quot;&quot; &gt;&gt; $COMMIT_EDITMSG
+     echo $DESCRIPTION &gt;&gt; $COMMIT_EDITMSG
+  fi 
+}
+
+MERGE=$(cat $COMMIT_EDITMSG|grep -i &#39;merge&#39;|wc -l)
+
+if [ $MERGE -eq 0 ] ; then
+  addBranchNumber
+fi</code></pre>
+<p>브랜치 이름을 ’숫자-브랜치이름’형식으로 생성하고 아래 스크립트를 <code>.git/hooks/prepare-commit-msg</code>에 저장한 뒤 실행 가능한 권한(0755 등등)을 부여하고 해당 브랜치에서 <code>git commit</code>을 하면 커밋 메세지에 자동으로 <code>[#숫자]</code>를 추가합니다.</p>
+<p>에를들어 브랜치 이름이 <code>1-sample-branch</code>라면, <code>git commit</code>을 할 때</p>
+<pre><code>[#1] 
+# Please enter the commit message for your changes. Lines starting
+# with &#39;#&#39; will be ignored, and an empty message aborts the commit.
+#
+# On branch 1-sample-branch
+# Your branch is up to date with &#39;origin/1-sample-branch&#39;.
+#
+# Changes to be committed:</code></pre>
+<p>이런식으로 자동으로 <code>[#1]</code>이 붙습니다.</p>
+<hr />
+<p>구글의 저장된 페이지로도 접속이 안 됐는데, 브라우저에서 javascript를 disable하고 접속하니 보입니다.</p>
+<ul>
+<li>husky로 손쉽게 git hook 관리하기 | Huskyhoochu (<a href="https://webcache.googleusercontent.com/search?q=cache:PQzS_HhcjBkJ:https://www.huskyhoochu.com/npm-husky-the-git-hook-manager+&amp;cd=1&amp;hl=ko&amp;ct=clnk&amp;gl=kr" class="uri">https://webcache.googleusercontent.com/search?q=cache:PQzS_HhcjBkJ:https://www.huskyhoochu.com/npm-husky-the-git-hook-manager+&amp;cd=1&amp;hl=ko&amp;ct=clnk&amp;gl=kr</a>)</li>
+<li>github 하나로 1인 개발 워크플로우 완성하기: 이론 편 | Huskyhoochu (<a href="https://webcache.googleusercontent.com/search?q=cache:Hjnh8Hm7z6wJ:https://www.huskyhoochu.com/issue-based-version-control-101+&amp;cd=1&amp;hl=ko&amp;ct=clnk&amp;gl=kr" class="uri">https://webcache.googleusercontent.com/search?q=cache:Hjnh8Hm7z6wJ:https://www.huskyhoochu.com/issue-based-version-control-101+&amp;cd=1&amp;hl=ko&amp;ct=clnk&amp;gl=kr</a>)</li>
+<li>github 하나로 1인 개발 워크플로우 완성하기: 실전 편 | Huskyhoochu (<a href="https://webcache.googleusercontent.com/search?q=cache:pO0lLE31p7kJ:https://www.huskyhoochu.com/issue-based-version-control-201+&amp;cd=2&amp;hl=ko&amp;ct=clnk&amp;gl=kr" class="uri">https://webcache.googleusercontent.com/search?q=cache:pO0lLE31p7kJ:https://www.huskyhoochu.com/issue-based-version-control-201+&amp;cd=2&amp;hl=ko&amp;ct=clnk&amp;gl=kr</a>)</li>
+</ul>
+<p>이것도 언제 막힐지 몰라 pdf로 박제했습니다.</p>
+<ul>
+<li><a href="https://cdn.myeongjae.kim/blog/2019/01/npm-husky-the-git-hook-manager.pdf">pdf: husky로 손쉽게 git hook 관리하기 | Huskyhoochu</a></li>
+<li><a href="https://cdn.myeongjae.kim/blog/2019/01/issue-based-version-control-101.pdf">pdf: github 하나로 1인 개발 워크플로우 완성하기: 이론 편 | Huskyhoochu</a></li>
+<li><a href="https://cdn.myeongjae.kim/blog/2019/01/issue-based-version-control-201.pdf">pdf: github 하나로 1인 개발 워크플로우 완성하기: 실전 편 | Huskyhoochu</a></li>
+</ul>
+<hr />
+<p>다른 브라우저에는 접속이 잘 되고, 제 맥의 사파리에서만 접속이 안 되는 것 같습니다. 그래도 누가 제 글이 쓸모가 있어서 pdf로 박제해 놓는다면 기분 좋을테니 그냥 놔두려구요.</p>
+<hr />
+<p>아래는 브랜치 이름이 <code>feature/whatever/SOMEAPI-43</code> 같은 형태인 경우, 마지막 슬래쉬 이후의 문자(<code>SOMEAPI-43</code>)만 남기는 스크립트입니다. <code>| sed 's/^.*\///'</code>를 추가했습니다.</p>
+<pre><code>#!/bin/sh
+# .git/hooks/prepare-commit-msg
+#
+# Automatically add branch name and branch description to every commit message except merge commit.
+# https://stackoverflow.com/a/18739064
+#
+
+COMMIT_EDITMSG=$1
+
+addBranchNumber() {
+  NAME=$(git branch | grep &#39;*&#39; | sed &#39;s/* //&#39; | sed &#39;s/^.*\///&#39;) 
+  DESCRIPTION=$(git config branch.&quot;$NAME&quot;.description)
+  echo &quot;[$NAME] $(cat $COMMIT_EDITMSG)&quot; &gt; $COMMIT_EDITMSG
+  if [ -n &quot;$DESCRIPTION&quot; ] 
+  then
+     echo &quot;&quot; &gt;&gt; $COMMIT_EDITMSG
+     echo $DESCRIPTION &gt;&gt; $COMMIT_EDITMSG
+  fi 
+}
+
+MERGE=$(cat $COMMIT_EDITMSG|grep -i &#39;merge&#39;|wc -l)
+
+if [ $MERGE -eq 0 ] ; then
+  addBranchNumber
+fi</code></pre>

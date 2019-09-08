@@ -130,6 +130,18 @@ export default {
       // __INSERTION_POSITION__ // DONT CHANGE!!
       index: [
   {
+    "relativeId": 46,
+    "title": "인연 - 피천득",
+    "path": "/daily/2019/09/08/relationship-p/",
+    "date": {
+      "year": "2019",
+      "month": "09",
+      "monthEng": "September",
+      "day": "08",
+      "dayEng": "8th"
+    }
+  },
+  {
     "relativeId": 45,
     "title": "이건 하면서 저건 왜 안해요?",
     "path": "/daily/2019/06/09/why-dont-you-do-this/",
