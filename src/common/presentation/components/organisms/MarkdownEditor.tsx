@@ -1,9 +1,9 @@
 import { CardContent, createStyles, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 import { WrappedFieldProps } from 'redux-form';
-import MutableTextField from '../atmos/MutableTextField';
-import Spacer from '../atmos/Spacer';
 import { MarkdownPreview } from '../molecules';
+import MutableTextField from '../molecules/MutableTextField';
+import Spacer from '../molecules/Spacer';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   spacing: { height: theme.spacing(1) },

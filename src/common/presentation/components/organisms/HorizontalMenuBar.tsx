@@ -4,12 +4,12 @@ import { createStyles, makeStyles, withStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import * as React from 'react';
 import FIRST_DEPTH_PATHS from 'src/common/domain/constants/FIRST_DEPTH_PATHS';
-import Link from '../atmos/Link';
+import { Link } from '../molecules';
 
 const TAB_WIDTH = 110;
 
 interface StyledTabsProps {
-  value: number;
+  value: number
   className: string;
   onChange?(event: React.ChangeEvent<{}>, newValue: number): void;
 }

@@ -1,8 +1,7 @@
 import { AppBar, createStyles, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import * as React from 'react';
-import { Link } from '../../atmos';
-import { MyButton } from '../../molecules';
+import { Link, MyButton } from '../../molecules';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import FIRST_DEPTH_PATHS, { FirstDepthPath } from 'src/common/domain/constants/FIRST_DEPTH_PATHS';
-import HorizontalMenuBar from '../../components/molecules/HorizontalMenuBar';
+import { HorizontalMenuBar } from '../../components/organisms';
 import { RootState } from '../../state-module/root';
 
 interface Props {

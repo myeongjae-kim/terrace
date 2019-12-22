@@ -2,9 +2,8 @@ import { Add } from '@material-ui/icons';
 import * as React from 'react';
 import Page from 'src/common/domain/model/Page';
 import I18NService from 'src/common/domain/service/I18NService';
-import MyTable from "src/common/presentation/components/atmos/MyTable";
-import Spacer from 'src/common/presentation/components/atmos/Spacer';
-import { ErrorTypography, MySpeedDial, SpeedDialActionData } from 'src/common/presentation/components/molecules';
+import { ErrorTypography, MySpeedDial, Spacer, SpeedDialActionData } from 'src/common/presentation/components/molecules';
+import { MyTable } from 'src/common/presentation/components/organisms';
 import Notice from 'src/mother/notice/domain/model/Notice';
 import { createLinkClickHandler } from 'src/util/createLinkClickHandler';
 

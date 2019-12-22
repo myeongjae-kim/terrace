@@ -2,7 +2,7 @@ import { TextField } from '@material-ui/core';
 import { TextFieldProps } from '@material-ui/core/TextField';
 import * as React from 'react';
 import { WrappedFieldProps } from 'redux-form';
-import { ErrorTypography } from '../molecules';
+import { ErrorTypography } from '.';
 
 export default (props: WrappedFieldProps & TextFieldProps) => {
   const { input, rowsMax, fullWidth } = props;

@@ -4,8 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import * as React from 'react';
 import I18NService from 'src/common/domain/service/I18NService';
-import ImmutableTextField from 'src/common/presentation/components/atmos/ImmutableTextField';
-import { ErrorTypography, MarkdownPreview, MySpeedDial, SpeedDialActionData } from 'src/common/presentation/components/molecules';
+import { ErrorTypography, ImmutableTextField, MarkdownPreview, MySpeedDial, SpeedDialActionData } from 'src/common/presentation/components/molecules';
 import Notice from 'src/mother/notice/domain/model/Notice';
 import { createLinkClickHandler } from 'src/util/createLinkClickHandler';
 
