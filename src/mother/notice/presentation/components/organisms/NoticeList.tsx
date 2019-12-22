@@ -4,8 +4,7 @@ import Page from 'src/common/domain/model/Page';
 import I18NService from 'src/common/domain/service/I18NService';
 import MyTable from "src/common/presentation/components/atmos/MyTable";
 import Spacer from 'src/common/presentation/components/atmos/Spacer';
-import ErrorTypography from 'src/common/presentation/components/atmos/typographies/ErrorTypography';
-import MySpeedDial, { SpeedDialActionData } from 'src/common/presentation/components/molecules/MySpeedDial';
+import { ErrorTypography, MySpeedDial, SpeedDialActionData } from 'src/common/presentation/components/molecules';
 import Notice from 'src/mother/notice/domain/model/Notice';
 import { createLinkClickHandler } from 'src/util/createLinkClickHandler';
 

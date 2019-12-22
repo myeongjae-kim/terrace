@@ -4,3 +4,6 @@ export { default as MyButton } from './MyButton'
 
 export * from './MySpeedDial';
 export { default as MySpeedDial } from './MySpeedDial';
+
+export * from './previews'
+export * from './typographies'

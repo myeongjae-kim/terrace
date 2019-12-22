@@ -5,9 +5,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import I18NService from 'src/common/domain/service/I18NService';
 import ImmutableTextField from 'src/common/presentation/components/atmos/ImmutableTextField';
-import MarkdownPreview from 'src/common/presentation/components/atmos/previews/MarkdownPreview';
-import ErrorTypography from 'src/common/presentation/components/atmos/typographies/ErrorTypography';
-import MySpeedDial, { SpeedDialActionData } from 'src/common/presentation/components/molecules/MySpeedDial';
+import { ErrorTypography, MarkdownPreview, MySpeedDial, SpeedDialActionData } from 'src/common/presentation/components/molecules';
 import Notice from 'src/mother/notice/domain/model/Notice';
 import { createLinkClickHandler } from 'src/util/createLinkClickHandler';
 

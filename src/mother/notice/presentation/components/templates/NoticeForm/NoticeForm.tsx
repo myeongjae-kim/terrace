@@ -8,7 +8,7 @@ import { BaseFieldProps, Field, InjectedFormProps, reduxForm } from 'redux-form'
 import I18NService from 'src/common/domain/service/I18NService';
 import MutableTextField from 'src/common/presentation/components/atmos/MutableTextField';
 import Spacer from 'src/common/presentation/components/atmos/Spacer';
-import ErrorTypography from 'src/common/presentation/components/atmos/typographies/ErrorTypography';
+import { ErrorTypography } from 'src/common/presentation/components/molecules';
 import MySpeedDial, { SpeedDialActionData } from 'src/common/presentation/components/molecules/MySpeedDial';
 import MarkdownEditor from 'src/common/presentation/components/organisms/MarkdownEditor';
 import NoticeFormDto from 'src/mother/notice/api/dto/NoticeFormDto';
