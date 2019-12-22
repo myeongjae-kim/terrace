@@ -39,7 +39,7 @@ const TopBar: React.FC = () => {
     className={clsx(classes.appBar)}
   >
     <div className={classes.buttonContainer}>
-      {items.map(({ href, label }, ix) => <Link key={ix} href={href}>
+      {items.map(({ href, label }) => <Link key={href} href={href}>
         <MyButton>
           {label}
         </MyButton>
