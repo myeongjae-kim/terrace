@@ -1,0 +1,24 @@
+{
+  "mother": {
+    "notice": {
+      "get": {
+        "rejected": "Failed to fetch a notice."
+      },
+      "add": {
+        "confirm": "Would you like to add a notice?",
+        "fulfilled": "A notice has been added.",
+        "rejected": "Failed to add a notice."
+      },
+      "edit": {
+        "confirm": "Would you like to edit the notice?",
+        "fulfilled": "The notice has been edited.",
+        "rejected": "Failed to edit the notice."
+      },
+      "delete": {
+        "confirm": "Would you like to delete the notice?",
+        "fulfilled": "The notice has been deleted",
+        "rejected": "Failed to delete the notice.\n\n{{e}}"
+      }
+    }
+  }
+}

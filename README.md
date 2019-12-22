@@ -1,12 +1,28 @@
-# Go Vue Boilerplate
+# Next.js with TypeScript example
 
-## Features
+## How to use
 
-- Web Server
-  - Https support with LetsEncrypt
-  - Google login api
-- Vue-cli 3.0
+Download the example [or clone the repo](https://github.com/mui-org/material-ui):
 
-## References
+```sh
+curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs-with-typescript
+cd nextjs-with-typescript
+```
 
-- Follow [golang standard project layout](https://github.com/golang-standards/project-layout)
+Install it and run:
+
+```sh
+npm install
+npm run dev
+```
+
+or
+
+```sh
+yarn
+yarn dev
+```
+
+## The idea behind the example
+
+[Next.js](https://github.com/zeit/next.js) is a framework for server-rendered React apps.

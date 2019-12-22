@@ -1,0 +1,23 @@
+{
+  "notice": "Notice",
+  "kiworkshop": "kiworkshop",
+  "home": "Home",
+  "board": "Board",
+  "dummy1": "Dummy1",
+  "dummy2": "Dummy2",
+  "dummy3": "Dummy3",
+  "none": "None",
+  "rejected": {
+    "get": "Failed to get data."
+  },
+  "add": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "complete": {
+    "add": "Complete adding",
+    "edit": "Complete editing"
+  },
+  "abort": "Abort",
+  "confirm": "Confirm",
+  "dismiss": "Dismiss"
+}

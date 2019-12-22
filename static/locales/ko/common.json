@@ -1,0 +1,23 @@
+{
+  "notice": "공지사항",
+  "kiworkshop": "광일공방",
+  "home": "홈",
+  "board": "게시판",
+  "dummy1": "더미1",
+  "dummy2": "더미2",
+  "dummy3": "더미3",
+  "none": "없음",
+  "rejected": {
+    "get": "데이터를 불러오지 못했습니다."
+  },
+  "add": "등록",
+  "edit": "수정",
+  "delete": "삭제",
+  "complete": {
+    "add": "등록 완료",
+    "edit": "수정 완료"
+  },
+  "abort": "취소",
+  "confirm": "확인",
+  "dismiss": "확인"
+}

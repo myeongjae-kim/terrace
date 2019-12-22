@@ -1,0 +1,2 @@
+MOTHER_API='http://localhost:8080'
+CONTENT_API='http://localhost:8081'
