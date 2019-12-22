@@ -14,7 +14,7 @@ import theme from 'src/common/presentation/components/theme';
 import ConfirmContainer from 'src/common/presentation/container/molecules/ConfirmContainer';
 import SnackbarContainer from 'src/common/presentation/container/molecules/SnackbarContainer';
 import NotificationCenterContainer from 'src/common/presentation/container/organisms/NotificationCenterContainer';
-import CmsLayoutContainer from 'src/common/presentation/container/templates/CmsLayoutContainer';
+import MainLayoutContainer from 'src/common/presentation/container/templates/MainLayoutContainer';
 import { setPaths } from 'src/common/presentation/state-module/common';
 import { rootReducer, rootSaga, RootState } from 'src/common/presentation/state-module/root';
 
@@ -71,9 +71,9 @@ class MyApp extends App<AppProps> {
 
           <ReduxStoreProvider store={store}>
             <SnackbarProvider style={{ whiteSpace: 'pre' }}>
-              <CmsLayoutContainer>
+              <MainLayoutContainer>
                 <Component {...pageProps} />
-              </CmsLayoutContainer>
+              </MainLayoutContainer>
               <ConfirmContainer />
               <SnackbarContainer />
               <NotificationCenterContainer />
