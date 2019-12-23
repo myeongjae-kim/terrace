@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: `${theme.spacing(2)}px 0`,
   },
   footer: {
     flexShrink: 0,
