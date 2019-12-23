@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   en: {
     fontFamily: 'Bad Script, cursive',
     fontSize: "2rem",
-    fontWeight: 'bold'
+    // fontWeight: 'bold'
   },
   kr: {
     position: 'absolute',

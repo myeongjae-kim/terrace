@@ -1,3 +1,4 @@
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
 import clsx from 'clsx';
 import NextLink, { LinkProps as NextLinkProps } from 'next/link';
@@ -32,9 +33,20 @@ interface LinkPropsBase {
 
 type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, 'ref'>;
 
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  hover: {
+    transition: "color 1s ease-out",
+    "&:hover": {
+      color: theme.palette.primary.light
+    }
+  }
+}))
+
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
 function RouterLink(props: LinkProps) {
+  const classes = useStyles();
   const router = useRouter();
   const {
     activeClassName = 'active',
@@ -56,7 +68,7 @@ function RouterLink(props: LinkProps) {
 
   return <MuiLink
     component={NextComposed}
-    className={className}
+    className={clsx(className, classes.hover)}
     ref={innerRef}
     underline={underline || 'none'}
     color={color}
