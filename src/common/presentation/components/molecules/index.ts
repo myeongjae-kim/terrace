@@ -15,3 +15,4 @@ export { default as MutableTextField } from './MutableTextField';
 export { default as NotificationCenterButton } from './NotificationCenterButton';
 export { default as Spacer } from './Spacer';
 export { default as HeadTitle } from './HeadTitle';
+export { default as PageTitle } from './PageTitle';

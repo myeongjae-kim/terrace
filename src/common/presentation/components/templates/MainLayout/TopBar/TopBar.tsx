@@ -8,7 +8,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: "transparent",
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
+    "@media screen and (max-width: 600px)": {
+      marginTop: theme.spacing(3)
+    }
   },
   center: {
     display: 'flex',

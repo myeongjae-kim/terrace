@@ -1,20 +1,16 @@
-import { createStyles, CssBaseline, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, CssBaseline, makeStyles } from '@material-ui/core';
 import React from 'react';
 import FooterContent from './FooterContent';
 import TopBar from './TopBar';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(createStyles({
   rootContainer: {
-    "@media screen and (max-width: 600px)": {
-      marginTop: theme.spacing(2)
-    },
     height: "100vh",
     display: 'flex',
     flexDirection: 'column'
   },
   content: {
     flexGrow: 1,
-    padding: `${theme.spacing(2)}px 0`,
   },
   footer: {
     flexShrink: 0,

@@ -1,6 +1,7 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { Code, Create, DeveloperBoard, Email, EmojiPeople, Room } from '@material-ui/icons';
+import clsx from 'clsx';
 import * as React from 'react';
 import Descriptions from './Descriptions';
 import Name from './Name';
@@ -44,10 +45,13 @@ const data = {
   },]
 }
 
-const useStyles = makeStyles(createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   center: {
     display: 'flex',
     justifyContent: "center"
+  },
+  imageContainer: {
+    marginTop: theme.spacing(2)
   }
 }))
 
@@ -56,7 +60,7 @@ const About: React.FC = () => {
   const classes = useStyles();
 
   return <>
-    <div className={classes.center}>
+    <div className={clsx(classes.center, classes.imageContainer)}>
       <Profile url={profile} />
     </div>
     <div className={classes.center}>

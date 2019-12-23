@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
     margin: `${theme.spacing(2.5)}px 0`,
     "@media screen and (max-width: 600px)": {
-      margin: `${theme.spacing(0.3)}px 0`
+      marginTop: theme.spacing(1)
     }
   }
 }))
