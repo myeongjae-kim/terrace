@@ -10,11 +10,11 @@ import React from 'react';
 import { Provider as ReduxStoreProvider } from "react-redux";
 import { AnyAction, applyMiddleware, createStore, Middleware, Store } from 'redux';
 import I18NService from 'src/common/domain/service/I18NService';
+import { MainLayout } from 'src/common/presentation/components/templates';
 import theme from 'src/common/presentation/components/theme';
 import ConfirmContainer from 'src/common/presentation/container/molecules/ConfirmContainer';
 import SnackbarContainer from 'src/common/presentation/container/molecules/SnackbarContainer';
 import NotificationCenterContainer from 'src/common/presentation/container/organisms/NotificationCenterContainer';
-import MainLayoutContainer from 'src/common/presentation/container/templates/MainLayoutContainer';
 import { setPaths } from 'src/common/presentation/state-module/common';
 import { rootReducer, rootSaga, RootState } from 'src/common/presentation/state-module/root';
 
@@ -63,7 +63,7 @@ class MyApp extends App<AppProps> {
     return (
       <Container>
         <Head>
-          <title>My page</title>
+          <title>:: Myeongjae Kim</title>
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -71,9 +71,9 @@ class MyApp extends App<AppProps> {
 
           <ReduxStoreProvider store={store}>
             <SnackbarProvider style={{ whiteSpace: 'pre' }}>
-              <MainLayoutContainer>
+              <MainLayout>
                 <Component {...pageProps} />
-              </MainLayoutContainer>
+              </MainLayout>
               <ConfirmContainer />
               <SnackbarContainer />
               <NotificationCenterContainer />

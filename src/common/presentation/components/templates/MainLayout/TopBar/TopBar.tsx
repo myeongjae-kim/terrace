@@ -1,39 +1,35 @@
 import { AppBar, createStyles, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import * as React from 'react';
-import { HomeButton, Link, MyButton } from '../../molecules';
+import HomeButton from './HomeButton';
+import Navigation from './Navigation';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    marginTop: theme.spacing(5)
   },
-  buttonContainer: {
+  center: {
     display: 'flex',
     justifyContent: 'center'
-  },
-  nav: {
-    margin: `${theme.spacing(2.5)}px 0`,
-    "@media screen and (max-width: 600px)": {
-      margin: `${theme.spacing(0.3)}px 0`
-    }
   }
 }))
 
 const items = [{
-  href: "/about",
+  href: ["/about", "/"],
   label: "about"
 }, {
-  href: "/blog",
+  href: ["/blog"],
   label: "blog"
 }, {
-  href: "/daily",
+  href: ["/daily"],
   label: "daily"
 }, {
-  href: "/musings",
+  href: ["/musings"],
   label: "musings"
 }, {
-  href: "/places",
+  href: ["/places"],
   label: "places"
 },]
 
@@ -46,17 +42,13 @@ const TopBar: React.FC = () => {
     position="relative"
     className={clsx(classes.appBar)}
   >
-    <div className={classes.buttonContainer}>
+    <div className={classes.center}>
       <HomeButton />
     </div>
-    <nav className={clsx(classes.buttonContainer, classes.nav)}>
-      {items.map(({ href, label }) => <Link key={href} href={href}>
-        <MyButton>
-          {label}
-        </MyButton>
-      </Link>)}
-    </nav>
-  </AppBar>;
+    <div className={classes.center}>
+      <Navigation items={items} />
+    </div>
+  </AppBar >;
 }
 
 export default TopBar;

@@ -59,7 +59,7 @@ function RouterLink(props: LinkProps) {
     className={className}
     ref={innerRef}
     underline={underline || 'none'}
-    color={color || 'inherit'}
+    color={color}
     {...other} />;
 }
 

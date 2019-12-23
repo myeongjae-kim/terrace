@@ -1,5 +1,6 @@
-import { Button, createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import * as React from 'react';
+import { Link, MyButton } from '../../../molecules';
 
 const useStyles = makeStyles(createStyles({
   button: {
@@ -16,9 +17,11 @@ const useStyles = makeStyles(createStyles({
 
 const HomeButton: React.FC = () => {
   const classes = useStyles();
-  return <Button classes={{
-    root: classes.button
-  }}>myeongjae kim</Button>;
+  return <Link href="/">
+    <MyButton rippleColorPrimary classes={{
+      root: classes.button
+    }}>myeongjae kim</MyButton>
+  </Link>
 }
 
 export default HomeButton;

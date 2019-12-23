@@ -1,6 +1,6 @@
 import React from 'react';
+import AboutPage from './about';
 
-// TODO: create a Home component and call it.
-const MainPage = () => <>Home</>;
+const MainPage = () => <AboutPage />
 
 export default MainPage

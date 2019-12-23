@@ -1,4 +1,5 @@
 import { Button, createStyles, makeStyles, PropTypes, StyledComponentProps, Theme } from '@material-ui/core';
+import { TouchRippleProps } from '@material-ui/core/ButtonBase/TouchRipple';
 import * as React from 'react';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -12,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '&:hover': {
       opacity: 0.6
     }
+  },
+  ripple: {
+    color: theme.palette.primary.dark
   }
 }))
 
@@ -22,6 +26,8 @@ interface Props extends StyledComponentProps {
   href?: string;
   size?: 'small' | 'medium' | 'large';
   variant?: 'text' | 'outlined' | 'contained';
+  TouchRippleProps?: Partial<TouchRippleProps>
+  rippleColorPrimary?: boolean
 }
 
 const MyButton: React.FC<Props> = (props) => {
@@ -30,7 +36,12 @@ const MyButton: React.FC<Props> = (props) => {
   return <Button {...props} classes={{
     root: classes.button,
     ...props.classes
-  }} />;
+  }}
+    TouchRippleProps={{
+      className: props.rippleColorPrimary ? classes.ripple : "",
+      ...props.TouchRippleProps
+    }}
+  />;
 }
 
 export default MyButton;

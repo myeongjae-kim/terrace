@@ -1,31 +1,27 @@
 import { createStyles, CssBaseline, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
-import { WithTranslation } from 'react-i18next';
-import I18NService from 'src/common/domain/service/I18NService';
-import Footer from './Footer';
+import FooterContent from './FooterContent';
 import TopBar from './TopBar';
-
-const { withTranslation } = I18NService;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   rootContainer: {
-    marginTop: theme.spacing(5),
     "@media screen and (max-width: 600px)": {
       marginTop: theme.spacing(2)
-    }
+    },
+    height: "100vh",
+    display: 'flex',
+    flexDirection: 'column'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+  },
+  footer: {
+    flexShrink: 0,
   }
 }));
 
-interface Props extends WithTranslation {
-  paths: string[]
-  open: boolean
-}
-
-const MainLayout: React.FC<Props> = ({ children }) => {
+const MainLayout: React.FC = ({ children }) => {
   const classes = useStyles();
 
   return (
@@ -35,9 +31,11 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       <main className={classes.content}>
         {children}
       </main>
-      <Footer />
+      <footer className={classes.footer}>
+        <FooterContent />
+      </footer>
     </div>
   );
 }
 
-export default withTranslation('common')(MainLayout);
+export default MainLayout;

@@ -14,4 +14,4 @@ export { default as Maybe } from './Maybe';
 export { default as MutableTextField } from './MutableTextField';
 export { default as NotificationCenterButton } from './NotificationCenterButton';
 export { default as Spacer } from './Spacer';
-export { default as HomeButton } from './HomeButton';
+export { default as HeadTitle } from './HeadTitle';
