@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import createSagaMiddleware from "@redux-saga/core";
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
@@ -60,28 +60,26 @@ class MyApp extends App<AppProps> {
     const { Component, pageProps, store, router } = this.props;
     store.dispatch(setPaths({ pathname: router.pathname }))
 
-    return (
-      <Container>
-        <Head>
-          <title>:: Myeongjae Kim</title>
-        </Head>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
+    return <>
+      <Head>
+        <title>:: Myeongjae Kim</title>
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
 
-          <ReduxStoreProvider store={store}>
-            <SnackbarProvider style={{ whiteSpace: 'pre' }}>
-              <MainLayout>
-                <Component {...pageProps} />
-              </MainLayout>
-              <ConfirmContainer />
-              <SnackbarContainer />
-              <NotificationCenterContainer />
-            </SnackbarProvider>
-          </ReduxStoreProvider>
-        </ThemeProvider>
-      </Container>
-    );
+        <ReduxStoreProvider store={store}>
+          <SnackbarProvider style={{ whiteSpace: 'pre' }}>
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
+            <ConfirmContainer />
+            <SnackbarContainer />
+            <NotificationCenterContainer />
+          </SnackbarProvider>
+        </ReduxStoreProvider>
+      </ThemeProvider>
+    </>
   }
 }
 

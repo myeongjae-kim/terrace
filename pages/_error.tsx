@@ -1,5 +1,5 @@
-import { NextPageContext } from 'next-server/dist/lib/utils'
-import Head from 'next-server/head'
+import { NextPageContext } from 'next'
+import Head from 'next/head'
 import React from 'react'
 
 const statusCodes: { [code: number]: string } = {
