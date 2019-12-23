@@ -1,0 +1,24 @@
+// This json is only for compilation.
+// When running node server, `tsconfig.json` of root directory is used by the tsconfig-paths module to resolve paths of `require()`.
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  }
+}
