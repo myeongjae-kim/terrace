@@ -1,7 +1,21 @@
-import { Button, PropTypes } from '@material-ui/core';
+import { Button, createStyles, makeStyles, PropTypes, StyledComponentProps, Theme } from '@material-ui/core';
 import * as React from 'react';
 
-interface Props {
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  button: {
+    textTransform: "capitalize",
+    fontWeight: 300,
+    transition: 'opacity 20ms',
+    minWidth: 0,
+    paddingLeft: theme.spacing(1.2),
+    paddingRight: theme.spacing(1.2),
+    '&:hover': {
+      opacity: 0.6
+    }
+  }
+}))
+
+interface Props extends StyledComponentProps {
   color?: PropTypes.Color;
   disableFocusRipple?: boolean;
   fullWidth?: boolean;
@@ -11,7 +25,12 @@ interface Props {
 }
 
 const MyButton: React.FC<Props> = (props) => {
-  return <Button {...props} />;
+  const classes = useStyles();
+
+  return <Button {...props} classes={{
+    root: classes.button,
+    ...props.classes
+  }} />;
 }
 
 export default MyButton;

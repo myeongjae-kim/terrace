@@ -19,6 +19,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
+      'Source Sans Pro',
       '"Noto Sans KR"',
       '-apple-system',
       'BlinkMacSystemFont',

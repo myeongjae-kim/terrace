@@ -1,14 +1,22 @@
 import { AppBar, createStyles, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import * as React from 'react';
-import { Link, MyButton } from '../../molecules';
+import { HomeButton, Link, MyButton } from '../../molecules';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: "transparent"
   },
   buttonContainer: {
-    display: 'flex'
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  nav: {
+    margin: `${theme.spacing(2.5)}px 0`,
+    "@media screen and (max-width: 600px)": {
+      margin: `${theme.spacing(0.3)}px 0`
+    }
   }
 }))
 
@@ -39,12 +47,15 @@ const TopBar: React.FC = () => {
     className={clsx(classes.appBar)}
   >
     <div className={classes.buttonContainer}>
+      <HomeButton />
+    </div>
+    <nav className={clsx(classes.buttonContainer, classes.nav)}>
       {items.map(({ href, label }) => <Link key={href} href={href}>
         <MyButton>
           {label}
         </MyButton>
       </Link>)}
-    </div>
+    </nav>
   </AppBar>;
 }
 

@@ -10,7 +10,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <link href='/static/fonts_woff2.css' rel='stylesheet' type='text/css' />
-          <link href="https://fonts.googleapis.com/css?family=Inconsolata|Noto+Sans+KR:300,400,700" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700|Inconsolata|Bad+Script|Noto+Sans+KR:300,400,700&display=swap" rel="stylesheet" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
@@ -20,7 +20,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <style>{`
           body {
-            font-family: Noto Sans KR;
+            font-family: Source Sans Pro, Noto Sans KR;
           }
           `}</style>
         </Head>
