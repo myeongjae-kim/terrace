@@ -8,7 +8,9 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    cursor: 'default',
+    userSelect: 'none'
   },
   title: {
     textTransform: "capitalize",

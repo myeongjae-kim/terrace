@@ -8,7 +8,8 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    margin: `${theme.spacing(4)}px 0`
+    margin: `${theme.spacing(4)}px 0`,
+    cursor: 'default',
   },
   en: {
     fontFamily: 'Bad Script, cursive',

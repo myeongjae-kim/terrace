@@ -36,7 +36,7 @@ const data = {
     href: "https://github.com/myeongjae-kim"
   }, {
     icon: <Email style={iconStyle} />,
-    label: "Software Engineer",
+    label: "dev@myeongjae.kim",
     href: "mailto:dev@myeongjae.kim"
   }, {
     icon: <Create style={iconStyle} />,
