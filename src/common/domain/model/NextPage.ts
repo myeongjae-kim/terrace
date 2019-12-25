@@ -4,6 +4,6 @@ interface DefaultCustomProps {
   namespacesRequired?: string[]
 }
 
-type NextPage = _NextPage<DefaultCustomProps>
+type NextPage<T = {}> = _NextPage<T, DefaultCustomProps>
 
 export default NextPage;

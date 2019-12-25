@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "compileServer": "npm run clean; cd server; tsc",
+    "compileServer": "npm run clean && cd server && tsc",
     "dev": "scripts/dev.sh",
     "build": "scripts/build.sh",
     "start": "scripts/start.sh",
@@ -11,7 +11,8 @@
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "jest",
     "report": "jest unit --coverage",
-    "db": "scripts/rundb.sh"
+    "db": "scripts/rundb.sh",
+    "migrate": "cd migration && ./run.sh"
   },
   "dependencies": {
     "@material-ui/core": "4.8.0",
