@@ -25,6 +25,7 @@ export async function getDbConnection() {
     entities,
     synchronize: PROFILE === 'local',
     supportBigNumbers: true,
-    bigNumberStrings: true
+    bigNumberStrings: true,
+    logging: 'all',
   });
 }

@@ -1,0 +1,11 @@
+{
+  "type": "mariadb",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "secret",
+  "database": "demo",
+  "migrations": [
+    "*.js"
+  ]
+}
