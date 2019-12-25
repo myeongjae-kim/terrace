@@ -10,7 +10,9 @@ const PORT = 3000;
 
 const nextApplication = new NextApplication();
 
-nextApplication.run().then(() => {
-  createExpressApp(createInversifyContainer(), errorHandlers).listen(PORT);
-  logger.log("info", `server is running on port:${PORT}`);
-});
+nextApplication.run()
+  .then(createInversifyContainer)
+  .then((inversifyContainer) => {
+    createExpressApp(inversifyContainer, errorHandlers).listen(PORT);
+    logger.log("info", `server is running on port:${PORT}`);
+  });

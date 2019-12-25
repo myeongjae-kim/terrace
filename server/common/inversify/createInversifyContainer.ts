@@ -1,18 +1,22 @@
-import { Container } from 'inversify';
+import { AsyncContainerModule, Container } from 'inversify';
 import { NextApplication } from '../nextjs/NextApplication';
 import { TYPES } from './types';
 
-import "src/common/api/CommonController";
-import "src/mother/api/MotherController";
+const bindings = new AsyncContainerModule(async (bind) => {
+  await require("src/common/api/CommonController");
+  await require("src/mother/api/MotherController");
 
-import "src/about/api/AboutController";
-import "src/blog/api/BlogController";
-import "src/daily/api/DailyController";
-import "src/musings/api/MusingsController";
-import "src/places/api/PlacesController";
+  await require("src/about/api/AboutController");
+  await require("src/blog/api/BlogController");
+  await require("src/daily/api/DailyController");
+  await require("src/musings/api/MusingsController");
+  await require("src/places/api/PlacesController");
 
-export const createInversifyContainer = () => {
+  bind<NextApplication>(TYPES.NextApplication).to(NextApplication);
+})
+
+export const createInversifyContainer = async () => {
   const container = new Container();
-  container.bind<NextApplication>(TYPES.NextApplication).to(NextApplication);
+  await container.loadAsync(bindings);
   return container;
 }
