@@ -3,7 +3,9 @@ import { NextApplication } from '../nextjs/NextApplication';
 import { TYPES } from './types';
 
 import { MusingRepository } from 'src/musings/domain/model';
-import { createMusingRepositoryImpl } from 'src/musings/infrastructure/repositories';
+import { MusingService } from 'src/musings/domain/service';
+import { createMusingRepositoryImpl } from 'src/musings/infrastructure/model';
+import { MusingServiceImpl } from 'src/musings/infrastructure/service';
 import { getDbConnection } from './db';
 
 const bindings = new AsyncContainerModule(async (bind) => {
@@ -24,6 +26,9 @@ const bindings = new AsyncContainerModule(async (bind) => {
   bind<MusingRepository>(TYPES.MusingRepository)
     .toDynamicValue(createMusingRepositoryImpl)
     .inRequestScope();
+
+  bind<MusingService>(TYPES.MusingService)
+    .to(MusingServiceImpl);
 })
 
 export const createInversifyContainer = async () => {

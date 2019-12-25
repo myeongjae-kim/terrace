@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import * as React from 'react';
 import { PageTitle } from 'src/common/presentation/components/molecules';
-import { Musing } from 'src/musings/domain/model';
+import { MusingResponseDto } from 'src/musings/api/dto';
 import EachMusing from './EachMusing'
 
 const useStyles = makeStyles(createStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles(createStyles({
 }))
 
 interface Props {
-  items: Musing[]
+  items: MusingResponseDto[]
 }
 
 const Musings: React.FC<Props> = ({ items }) => {

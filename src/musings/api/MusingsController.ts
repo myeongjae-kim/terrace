@@ -4,16 +4,25 @@ import { controller, httpGet, interfaces, request, response } from "inversify-ex
 import { TYPES } from "server/common/inversify/types";
 import { NextApplication } from "server/common/nextjs/NextApplication";
 import { Endpoints } from "server/common/utils/Constants";
+import { MusingService } from "../domain/service";
 
 const PATH = Endpoints.musings;
 
 @controller(PATH)
 export class MusingsController implements interfaces.Controller {
 
-  constructor(@inject(TYPES.NextApplication) private nextApp: NextApplication) { }
+  constructor(
+    @inject(TYPES.NextApplication) private nextApp: NextApplication,
+    @inject(TYPES.MusingService) private musingService: MusingService
+  ) { }
 
   @httpGet("/")
-  public get(@request() req: Request, @response() res: Response) {
+  public getPage(@request() req: Request, @response() res: Response) {
     return this.nextApp.render(req, res, PATH)
+  }
+
+  @httpGet("/api")
+  public get() {
+    return this.musingService.findAll();
   }
 }
