@@ -7,7 +7,7 @@ import * as commonModule from "src/common/presentation/state-module/common";
 import { RootState } from 'src/common/presentation/state-module/root';
 import Notice from '../../domain/model/Notice';
 import NoticeDetail from '../components/organisms/NoticeDetail';
-import * as detailModule from "../state-module/detail";
+import * as detailModule from "../state-modules/detail";
 
 interface Props {
   id: Id

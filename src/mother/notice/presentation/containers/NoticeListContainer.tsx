@@ -5,7 +5,7 @@ import Page from 'src/common/domain/model/Page';
 import { RootState } from 'src/common/presentation/state-module/root';
 import Notice from '../../domain/model/Notice';
 import NoticeList from '../components/organisms/NoticeList';
-import * as listModule from "../state-module/list"
+import * as listModule from "../state-modules/list"
 
 interface Props {
   page: Page<Notice>

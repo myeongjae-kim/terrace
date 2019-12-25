@@ -15,16 +15,18 @@ const useStyles = makeStyles(createStyles({
 }))
 
 interface Props {
-  items: MusingResponseDto[]
+  musings: MusingResponseDto[]
+  pending: boolean
+  rejected: boolean
 }
 
-const Musings: React.FC<Props> = ({ items }) => {
+const Musings: React.FC<Props> = ({ musings }) => {
   const classes = useStyles();
   return <div>
     <PageTitle title="quotes" />
     <div className={classes.container}>
       <div className={classes.eachItem}>
-        {items.map(i => <EachMusing key={i.from} item={i} />)}
+        {musings.map(i => <EachMusing key={i.from} item={i} />)}
       </div>
     </div>
     <style jsx global>{`

@@ -1,7 +1,12 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { RootState } from 'src/common/presentation/state-module/root';
 import { MusingResponseDto } from 'src/musings/api/dto';
 import Musings from '../components/templates/Musings';
+import * as listModule from "../state-modules/list"
 
+// @ts-ignore
 const items: MusingResponseDto[] = [{
   id: "6",
   quote: `많이 말하지도 말고,
@@ -37,6 +42,34 @@ const items: MusingResponseDto[] = [{
   language: 'KO'
 }]
 
-const MusingsContainer: React.FC = () => <Musings items={items} />
+interface Props {
+  musings: MusingResponseDto[]
+  pending: boolean
+  rejected: boolean
 
-export default MusingsContainer;
+  dispatchers: typeof listModule
+}
+
+const MusingsContainer: React.FC<Props> = ({ musings, pending, rejected, dispatchers }) => {
+  React.useEffect(() => {
+    dispatchers.fetchMusings()
+  }, [])
+
+  React.useEffect(() => () => {
+    dispatchers.reset()
+  }, [])
+
+  return <Musings musings={musings} pending={pending} rejected={rejected} />
+}
+
+const mapStateToProps = ({ musings }: RootState) => ({
+  musings: musings.list.musings,
+  pending: musings.list.pending,
+  rejected: musings.list.rejected
+})
+
+const mapDispatchToProps = (dispatch: Dispatch<listModule.Action>) => ({
+  dispatchers: bindActionCreators(listModule, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MusingsContainer);
