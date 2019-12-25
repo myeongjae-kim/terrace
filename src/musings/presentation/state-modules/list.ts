@@ -8,11 +8,11 @@ import { ActionType, createAsyncAction, createReducer, createStandardAction, get
 
 export const reset = createStandardAction("@musingList/RESET")();
 
-export const fetchMusings = createStandardAction("@musingList/FETCH_MUSING_PAGE")();
+export const fetchMusings = createStandardAction("@musingList/FETCH_MUSING_LIST")();
 const fetchMusingsAsync = createAsyncAction(
-  '@musingList/FETCH_MUSING_PAGE_REQUEST',
-  '@musingList/FETCH_MUSING_PAGE_SUCCESS',
-  '@musingList/FETCH_MUSING_PAGE_FAILURE',
+  '@musingList/FETCH_MUSING_LIST_REQUEST',
+  '@musingList/FETCH_MUSING_LIST_SUCCESS',
+  '@musingList/FETCH_MUSING_LIST_FAILURE',
 )<void, { musings: MusingResponseDto[] }, void>();
 
 export type Action = ActionType<

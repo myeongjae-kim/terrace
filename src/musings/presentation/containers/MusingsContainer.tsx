@@ -52,7 +52,9 @@ interface Props {
 
 const MusingsContainer: React.FC<Props> = ({ musings, pending, rejected, dispatchers }) => {
   React.useEffect(() => {
-    dispatchers.fetchMusings()
+    if (musings.length < 1) {
+      dispatchers.fetchMusings()
+    }
   }, [])
 
   React.useEffect(() => () => {
