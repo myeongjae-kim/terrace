@@ -1,11 +1,11 @@
 import * as React from 'react';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
-import Musings from 'src/musings/api/presentation/components/templates/Musings';
+import MusingsContainer from 'src/musings/presentation/containers/MusingsContainer';
 
 const MusingsPage: NextPage = () => <>
   <HeadTitle title="Musings" />
-  <Musings />
+  <MusingsContainer />
 </>;
 
 MusingsPage.getInitialProps = async () => ({

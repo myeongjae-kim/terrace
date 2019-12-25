@@ -5,12 +5,14 @@ import { Link } from '../../molecules';
 const useStyles = makeStyles(createStyles({
   footer: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    userSelect: 'none',
   },
   sign: {
     width: 50,
     height: 50,
     marginTop: -20,
+    pointerEvents: 'none'
   }
 }));
 
