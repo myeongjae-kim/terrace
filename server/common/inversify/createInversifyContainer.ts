@@ -2,6 +2,10 @@ import { AsyncContainerModule, Container } from 'inversify';
 import { NextApplication } from '../nextjs/NextApplication';
 import { TYPES } from './types';
 
+import { MusingRepository } from 'src/musings/domain/model';
+import { createMusingRepositoryImpl } from 'src/musings/infrastructure/repositories';
+import { getDbConnection } from './db';
+
 const bindings = new AsyncContainerModule(async (bind) => {
   await require("src/common/api/CommonController");
   await require("src/mother/api/MotherController");
@@ -12,7 +16,14 @@ const bindings = new AsyncContainerModule(async (bind) => {
   await require("src/musings/api/MusingsController");
   await require("src/places/api/PlacesController");
 
-  bind<NextApplication>(TYPES.NextApplication).to(NextApplication);
+  await getDbConnection();
+
+  bind<NextApplication>(TYPES.NextApplication)
+    .to(NextApplication);
+
+  bind<MusingRepository>(TYPES.MusingRepository)
+    .toDynamicValue(createMusingRepositoryImpl)
+    .inRequestScope();
 })
 
 export const createInversifyContainer = async () => {
