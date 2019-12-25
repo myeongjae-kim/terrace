@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import * as React from 'react';
 import { PageTitle } from 'src/common/presentation/components/molecules';
-import { Musing } from 'src/musings/domain/model';
+import { MusingResponseDto } from 'src/musings/api/dto';
 import EachMusing from './EachMusing'
 
 const useStyles = makeStyles(createStyles({
@@ -15,16 +15,18 @@ const useStyles = makeStyles(createStyles({
 }))
 
 interface Props {
-  items: Musing[]
+  musings: MusingResponseDto[]
+  pending: boolean
+  rejected: boolean
 }
 
-const Musings: React.FC<Props> = ({ items }) => {
+const Musings: React.FC<Props> = ({ musings }) => {
   const classes = useStyles();
   return <div>
     <PageTitle title="quotes" />
     <div className={classes.container}>
       <div className={classes.eachItem}>
-        {items.map(i => <EachMusing key={i.from} item={i} />)}
+        {musings.map(i => <EachMusing key={i.from} item={i} />)}
       </div>
     </div>
     <style jsx global>{`

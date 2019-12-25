@@ -20,5 +20,10 @@
         "rejected": "Failed to delete the notice.\n\n{{e}}"
       }
     }
+  },
+  "musings": {
+    "findAll": {
+      "rejected": "Failed to fetch notices."
+    }
   }
 }

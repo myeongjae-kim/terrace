@@ -20,5 +20,10 @@
         "rejected": "공지사항을 삭제하지 못했습니다.\n\n{{e}}"
       }
     }
+  },
+  "musings": {
+    "findAll": {
+      "rejected": "Musings를 가져오지 못했습니다."
+    }
   }
 }

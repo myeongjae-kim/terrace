@@ -1,0 +1,13 @@
+version: "3"
+services:
+  db:
+    image: mariadb
+    container_name: terrace_mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: secret
+    ports:
+      - 3306:3306
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']

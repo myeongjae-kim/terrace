@@ -6,7 +6,7 @@ import { NextApplication } from "./common/nextjs/NextApplication";
 import { logger } from "./common/utils";
 import { errorHandlers } from "./errorHandlers";
 
-const PORT = 3000;
+const { PORT } = process.env;
 
 const nextApplication = new NextApplication();
 

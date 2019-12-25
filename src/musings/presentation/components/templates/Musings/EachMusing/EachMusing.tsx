@@ -1,12 +1,12 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import * as React from 'react';
-import { Musing } from 'src/musings/domain/model';
+import { MusingResponseDto } from 'src/musings/api/dto';
 import From from './From';
 import Quote from './Quote';
 
 interface Props {
-  item: Musing
+  item: MusingResponseDto
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

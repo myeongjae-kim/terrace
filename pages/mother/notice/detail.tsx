@@ -7,7 +7,7 @@ import { Store } from 'redux';
 import NextPage from 'src/common/domain/model/NextPage';
 import { RootState } from 'src/common/presentation/state-module/root';
 import NoticeDetailContainer from "src/mother/notice/presentation/containers/NoticeDetailContainer";
-import { fetchNotice } from 'src/mother/notice/presentation/state-module/detail';
+import { fetchNotice } from 'src/mother/notice/presentation/state-modules/detail';
 
 const NoticeDetailPage: NextPage = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import { produce } from 'immer'
 import Router from 'next/router';
 import { call, put, takeLatest } from "redux-saga/effects";
-import { Endpoints } from 'server/common/utils/Constants';
+import { Endpoints } from 'src/common/constants/Constants';
 import Id from 'src/common/domain/model/Id';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';

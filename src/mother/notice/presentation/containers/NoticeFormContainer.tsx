@@ -7,7 +7,7 @@ import * as commonModule from "src/common/presentation/state-module/common";
 import { RootState } from 'src/common/presentation/state-module/root';
 import NoticeFormDto from '../../api/dto/NoticeFormDto';
 import NoticeForm from '../components/templates/NoticeForm';
-import * as formModule from "../state-module/form";
+import * as formModule from "../state-modules/form";
 
 interface Props {
   id?: Id
