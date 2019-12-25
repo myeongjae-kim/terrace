@@ -29,9 +29,7 @@ const MusingsPage: NextPage<Props> = ({ musings, pending, rejected, dispatchers 
 }
 
 MusingsPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
-  if (store.getState().musings.list.musings.length < 1) {
-    store.dispatch(listModule.fetchMusings())
-  }
+  store.dispatch(listModule.fetchMusings())
 
   return {
     namespacesRequired: ['common', 'noti'],
