@@ -10,7 +10,8 @@
     "clean": "bash scripts/clean.sh",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "jest",
-    "report": "jest unit --coverage"
+    "report": "jest unit --coverage",
+    "db": "scripts/rundb.sh"
   },
   "dependencies": {
     "@material-ui/core": "4.8.0",
