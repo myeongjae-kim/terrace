@@ -3,7 +3,7 @@ import { inject } from "inversify";
 import { controller, httpGet, interfaces, request, response } from "inversify-express-utils";
 import { TYPES } from "server/common/inversify/types";
 import { NextApplication } from "server/common/nextjs/NextApplication";
-import { Endpoints } from "server/common/utils/Constants";
+import { Endpoints } from "src/common/constants/Constants";
 import { MusingService } from "../domain/service";
 
 const PATH = Endpoints.musings;

@@ -1,3 +1,5 @@
+import { isServer } from "src/util";
+
 export const Endpoints = {
   "about": "/about",
   "blog": "/blog",
@@ -12,3 +14,4 @@ export const Endpoints = {
 }
 
 export const TITLE_POSTFIX = " :: Myeongjae Kim";
+export const API_HOST = isServer() ? `http://localhost:${process.env.PORT}` : "";

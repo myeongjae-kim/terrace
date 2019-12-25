@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import * as React from 'react';
-import { TITLE_POSTFIX } from 'server/common/utils/Constants';
+import { TITLE_POSTFIX } from 'src/common/constants/Constants';
 
 interface Props {
   title: string
