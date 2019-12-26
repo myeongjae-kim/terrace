@@ -1,5 +1,5 @@
 import * as React from 'react';
-import About from 'src/about/api/presentation/components/templates/About';
+import About from 'src/about/presentation/components/templates/About';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
 
