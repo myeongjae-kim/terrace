@@ -20,12 +20,12 @@ export class Musing {
   @Column({
     type: 'text'
   })
-  public quote: string = '';
+  public quote!: string;
 
   @Column()
-  public from: string = '';
+  public from!: string;
 
   @Column()
-  public language: 'EN' | 'KO' = 'EN';
+  public language!: 'EN' | 'KO';
 
 }

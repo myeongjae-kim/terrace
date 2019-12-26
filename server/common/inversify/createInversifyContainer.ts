@@ -4,8 +4,8 @@ import { TYPES } from './types';
 
 import { MusingRepository } from 'src/musings/domain/model';
 import { MusingService } from 'src/musings/domain/service';
+import { MusingServiceImpl } from 'src/musings/domain/service';
 import { createMusingRepositoryImpl } from 'src/musings/infrastructure/model';
-import { MusingServiceImpl } from 'src/musings/infrastructure/service';
 import { getDbConnection } from './db';
 
 import "src/common/api/CommonController";
