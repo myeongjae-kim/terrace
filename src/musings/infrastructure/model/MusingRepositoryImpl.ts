@@ -1,8 +1,7 @@
-import { MusingRepository } from "src/musings/domain/model";
+import { Musing } from "src/musings/domain/model";
 import { getConnection } from "typeorm";
-import { MusingImpl } from "./MusingImpl";
 
-export const createMusingRepositoryImpl = (): MusingRepository => {
+export const createMusingRepositoryImpl = () => {
   const conn = getConnection();
-  return conn.getRepository(MusingImpl);
+  return conn.getRepository(Musing);
 }
