@@ -25,5 +25,10 @@
     "findAll": {
       "rejected": "Failed to fetch notices."
     }
+  },
+  "daily": {
+    "findAll": {
+      "rejected": "Failed to fetch dailys."
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "server/common/inversify/types";
-import { Daily } from "../model";
+import { createDailyListResponseDtoFrom, DailyListResponseDto } from "src/daily/api";
 import { DailyRepository } from "../model/DailyRepository";
 import { DailyService } from "./DailyService";
 
@@ -11,7 +11,6 @@ export class DailyServiceImpl implements DailyService {
     @inject(TYPES.DailyRepository) private dailyRepository: DailyRepository
   ) { }
 
-  public findAll = (): Promise<Daily[]> => {
-    return this.dailyRepository.find();
-  }
+  public findAll = (): Promise<DailyListResponseDto[]> => this.dailyRepository.find()
+    .then(d => d.map(createDailyListResponseDtoFrom));
 }

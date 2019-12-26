@@ -1,5 +1,6 @@
 import 'reflect-metadata';
-import { Daily } from "src/daily/domain/model";
+import { createDailyListResponseDtoFrom } from "src/daily/api";
+import { Daily } from 'src/daily/domain/model';
 import { DailyRepository } from "src/daily/domain/model/DailyRepository";
 import { DailyService, DailyServiceImpl } from "src/daily/domain/service";
 import { createDailyFixture } from "../model/Daily.unit.test";
@@ -25,6 +26,7 @@ describe('DailyServiceImpl', () => {
     const result = await dailyService.findAll();
 
     // then
-    expect(result).toStrictEqual([daily]);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toStrictEqual(createDailyListResponseDtoFrom(daily));
   })
 })

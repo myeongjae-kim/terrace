@@ -1,5 +1,5 @@
 /**
- * stringify receives any varialbe and return a string
+ * stringify receives any variable and return a string
  */
 export default (a?: any): string => {
   if (!a) {

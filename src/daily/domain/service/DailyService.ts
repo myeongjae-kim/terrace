@@ -1,5 +1,5 @@
-import { Daily } from "../model";
+import { DailyListResponseDto } from "src/daily/api";
 
 export interface DailyService {
-  findAll(): Promise<Daily[]>
+  findAll(): Promise<DailyListResponseDto[]>
 }
