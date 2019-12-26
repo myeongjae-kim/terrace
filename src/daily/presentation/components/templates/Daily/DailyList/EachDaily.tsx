@@ -1,11 +1,25 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
+import { Link } from 'src/common/presentation/components/molecules';
 import { DailyListResponseDto } from 'src/daily/api';
 import { formatDateTime } from 'src/util';
 
-const useStyles = makeStyles(createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    display: 'flex',
+    fontSize: '1rem',
+    fontFamily: 'Noto Serif KR',
+  },
   seq: {
-    textAlign: 'right'
+    textAlign: 'right',
+    width: theme.spacing(3)
+  },
+  date: {
+    textAlign: 'center',
+    width: theme.spacing(12)
+  },
+  title: {
+    width: theme.spacing(25)
   }
 }))
 
@@ -15,11 +29,13 @@ interface Props {
 
 const EachDaily: React.FC<Props> = ({ daily }) => {
   const classes = useStyles();
-  return <tr>
-    <td className={classes.seq}>{daily.seq}.</td>
-    <td>[{formatDateTime(new Date(daily.createdAt), "yyyy.MM.dd")}]</td>
-    <td>{daily.title}</td>
-  </tr>;
+  return <Link href={daily.uri}>
+    <div className={classes.container}>
+      <div className={classes.seq}>{daily.seq}.</div>
+      <div className={classes.date}>[{formatDateTime(daily.createdAt, "YYYY.MM.DD")}]</div>
+      <div className={classes.title}>{daily.title}</div>
+    </div>
+  </Link>
 }
 
 export default EachDaily;

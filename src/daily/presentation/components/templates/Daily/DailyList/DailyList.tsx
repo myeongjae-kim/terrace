@@ -6,10 +6,9 @@ interface Props {
   dailys: DailyListResponseDto[]
 }
 
-const DailyList: React.FC<Props> = ({ dailys }) => {
-  return <table>
-    {dailys.map(daily => <EachDaily key={daily.id} daily={daily} />)}
-  </table>;
-}
+const DailyList: React.FC<Props> = ({ dailys }) => <div>
+  {dailys.map(daily => <EachDaily key={daily.id} daily={daily} />)}
+</div>
+
 
 export default DailyList;

@@ -7,7 +7,8 @@ export const createDailyFixture = (): Daily => {
     createdAt: new Date(),
     updatedAt: new Date(),
     title: 'title',
-    content: 'content'
+    content: 'content',
+    slug: "slug"
   })
   daily.id = "1";
 
@@ -22,7 +23,8 @@ describe('Daily', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       title: 'title',
-      content: 'content'
+      content: 'content',
+      slug: 'slug'
     })
 
     // expect
@@ -30,6 +32,7 @@ describe('Daily', () => {
     expect(daily.seq).toBe(1);
     expect(daily.title).toBe("title");
     expect(daily.content).toBe("content");
+    expect(daily.slug).toBe("slug");
   })
 })
 

@@ -51,7 +51,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: "center"
   },
   imageContainer: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(4.5),
+    "@media screen and (max-width: 600px)": {
+      marginTop: theme.spacing(3)
+    }
   }
 }))
 
