@@ -11,6 +11,6 @@ export class DailyServiceImpl implements DailyService {
     @inject(TYPES.DailyRepository) private dailyRepository: DailyRepository
   ) { }
 
-  public findAll = (): Promise<DailyListResponseDto[]> => this.dailyRepository.find()
+  public findAll = (): Promise<DailyListResponseDto[]> => this.dailyRepository.findAllByOrderBySeqDesc()
     .then(d => d.map(createDailyListResponseDtoFrom));
 }
