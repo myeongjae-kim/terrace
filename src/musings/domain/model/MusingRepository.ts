@@ -1,4 +1,4 @@
 import { Repository } from "typeorm";
-import { Musing } from "./Musing";
+import { Musing } from ".";
 
 export interface MusingRepository extends Repository<Musing> { }

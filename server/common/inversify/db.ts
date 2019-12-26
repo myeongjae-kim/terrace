@@ -1,4 +1,4 @@
-import { Musing } from 'src/musings/domain/model'
+import { MusingImpl } from 'src/musings/infrastructure/model'
 import { createConnection } from "typeorm";
 
 export async function getDbConnection() {
@@ -12,7 +12,7 @@ export async function getDbConnection() {
   } = process.env;
 
   const entities = [
-    Musing
+    MusingImpl
   ];
 
   return await createConnection({
