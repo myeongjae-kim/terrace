@@ -10,12 +10,13 @@ export const dailyFetcher = {
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
   }),
 
-  // find: ({ year, month, day, slug }: DailyDetailRequestDto): Promise<DailyDetailResponseDto> =>
-  //   new Promise((resolve, rejected) => {
-  //     Axios.get<DailyDetailResponseDto>(`${API_HOST}/daily/api/${year}/${month}/${day}/${slug}`)
-  //       .then(res => resolve(res.data))
-  //       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
-  //   }),
+  find: ({ year, month, day, slug }: DailyDetailRequestDto): Promise<DailyDetailResponseDto> =>
+    new Promise((resolve, rejected) => {
+      Axios.get<DailyDetailResponseDto>(`${API_HOST}/daily/api/${year}/${month}/${day}/${slug}`)
+        .then(res => resolve(res.data))
+        .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
+    }),
+  /*
   find: ({ }: DailyDetailRequestDto): Promise<DailyDetailResponseDto> =>
     Promise.resolve({
       id: "1",
@@ -56,4 +57,5 @@ export const dailyFetcher = {
 > 
 > <span>- 송년, 피천득</span>`,
     })
+    */
 }

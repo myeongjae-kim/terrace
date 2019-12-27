@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { inject } from "inversify";
-import { controller, httpGet, interfaces, request, response } from "inversify-express-utils";
+import { controller, httpGet, interfaces, request, requestParam, response } from "inversify-express-utils";
 import { TYPES } from "server/common/inversify/types";
 import { NextApplication } from "server/common/nextjs/NextApplication";
 import { Endpoints } from "src/common/constants/Constants";
@@ -30,5 +30,15 @@ export class DailyController implements interfaces.Controller {
   @httpGet("/api")
   public get() {
     return this.dailyService.findAll();
+  }
+
+  @httpGet("/api/:year/:month/:day/:slug")
+  public getDetail(
+    @requestParam("year") year: string,
+    @requestParam("month") month: string,
+    @requestParam("day") day: string,
+    @requestParam("slug") slug: string,
+  ) {
+    return this.dailyService.find({ year, month, day, slug });
   }
 }
