@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     fontSize: '1rem',
     fontFamily: 'Noto Serif KR',
+    fontWeight: 400
   },
   seq: {
     textAlign: 'right',

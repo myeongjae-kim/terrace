@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { Store } from 'redux';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
+import { PageTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { DailyListResponseDto } from 'src/daily/api';
-import Daily from 'src/daily/presentation/components/templates/Daily';
+import DailyList from 'src/daily/presentation/components/templates/DailyList';
 import * as listModule from "src/daily/presentation/state-modules/list"
 
 interface Props {
@@ -17,7 +18,8 @@ interface Props {
 
 const DailyPage: NextPage<Props> = ({ dailys, pending, rejected }) => <>
   <HeadTitle title="Daily" />
-  <Daily dailys={dailys} pending={pending} rejected={rejected} />
+  <PageTitle title="daily" />
+  <DailyList dailys={dailys} pending={pending} rejected={rejected} />
 </>
 
 DailyPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {

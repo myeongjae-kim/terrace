@@ -1,25 +1,38 @@
 import { NextPageContext } from 'next';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Store } from 'redux';
+import { bindActionCreators, Dispatch, Store } from 'redux';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { DailyListResponseDto } from 'src/daily/api';
-import Daily from 'src/daily/presentation/components/templates/Daily';
-import * as listModule from "src/daily/presentation/state-modules/list"
+import { DailyDetailRequestDto, DailyDetailResponseDto } from 'src/daily/api/dto';
+import DailyDetail from 'src/daily/presentation/components/templates/DailyDetail';
+import DailyList from 'src/daily/presentation/components/templates/DailyList';
+import * as detailModule from "src/daily/presentation/state-modules/detail";
+import * as listModule from "src/daily/presentation/state-modules/list";
 import { redirectFromGetInitialPropsTo } from 'src/util';
 
 interface Props {
+  daily: DailyDetailResponseDto
   dailys: DailyListResponseDto[]
   pending: boolean
   rejected: boolean
+
+  dispatchers: typeof detailModule
 }
 
-const DailyDetailPage: NextPage<Props> = ({ dailys, pending, rejected }) => <>
-  <HeadTitle title="Daily" />
-  <Daily dailys={dailys} pending={pending} rejected={rejected} />
-</>
+const DailyDetailPage: NextPage<Props> = ({ daily, dailys, pending, rejected, dispatchers }) => {
+  React.useEffect(() => () => {
+    dispatchers.reset()
+  }, [])
+
+  return <>
+    <HeadTitle title="Daily" />
+    <DailyDetail daily={daily} pending={pending} rejected={rejected} />
+    <DailyList dailys={dailys} pending={pending} rejected={rejected} />
+  </>
+}
 
 DailyDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<RootState> } & NextPageContext) => {
   if (!asPath) {
@@ -28,11 +41,7 @@ DailyDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<
   }
 
   fetchDailyList(store);
-  // fetchDailyDetail(store, parsePathToDailyDetailRequest(asPath));
-
-  console.log("\n\n\n daily detail page asPath:", parsePathToDailyDetailRequest(asPath));
-
-  // store.dispatch(detailModule.fetchDaily(parsePathToDate(asPath)))
+  fetchDailyDetail(store, parsePathToDailyDetailRequest(asPath));
 
   return { namespacesRequired: ['common'] }
 }
@@ -43,7 +52,11 @@ const fetchDailyList = (store: Store<RootState>): void => {
   }
 }
 
-const parsePathToDailyDetailRequest = (asPath: string) => {
+const fetchDailyDetail = (store: Store<RootState>, req: DailyDetailRequestDto): void => {
+  store.dispatch(detailModule.fetchDaily({ daily: req }))
+}
+
+const parsePathToDailyDetailRequest = (asPath: string): DailyDetailRequestDto => {
   const splitted = asPath.split("/");
   return {
     year: splitted[2],
@@ -54,9 +67,15 @@ const parsePathToDailyDetailRequest = (asPath: string) => {
 }
 
 const mapStateToProps = ({ daily }: RootState) => ({
+  daily: daily.detail.daily,
+  pending: daily.detail.pending,
+  rejected: daily.detail.rejected,
+
   dailys: daily.list.dailys,
-  pending: daily.list.pending,
-  rejected: daily.list.rejected
 })
 
-export default connect(mapStateToProps)(DailyDetailPage);
+const mapDispatchToProps = (dispatch: Dispatch<detailModule.Action>) => ({
+  dispatchers: bindActionCreators(detailModule, dispatch),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DailyDetailPage);

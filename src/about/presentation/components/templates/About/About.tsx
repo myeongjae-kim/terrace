@@ -13,7 +13,7 @@ const iconStyle: CSSProperties = {
 }
 
 const data = {
-  profile: "https://cdn.myeongjae.kim/res/profile.jpeg",
+  profile: "https://cdn.myeongjae.kim/res/profile.jpeg#shadow#round",
   name: {
     en: "Myeongjae Kim",
     kr: "김명재"
