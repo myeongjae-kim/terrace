@@ -29,7 +29,7 @@ interface Props {
 
 const EachDaily: React.FC<Props> = ({ daily }) => {
   const classes = useStyles();
-  return <Link href={daily.uri}>
+  return <Link href="/daily/detail" as={daily.uri}>
     <div className={classes.container}>
       <div className={classes.seq}>{daily.seq}.</div>
       <div className={classes.date}>[{formatDateTime(daily.createdAt, "YYYY.MM.DD")}]</div>

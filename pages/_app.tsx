@@ -58,7 +58,7 @@ class MyApp extends App<AppProps> {
 
   public render() {
     const { Component, pageProps, store, router } = this.props;
-    store.dispatch(setPaths({ pathname: router.pathname }))
+    store.dispatch(setPaths({ pathname: router.asPath }))
 
     return <>
       <Head>
