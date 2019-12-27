@@ -1,3 +1,5 @@
+import { Daily } from "src/daily/domain/model";
+
 export interface DailyDetailResponseDto {
   id: string
   seq: number
@@ -7,3 +9,14 @@ export interface DailyDetailResponseDto {
   slug: string
   content: string
 }
+
+export const createDailyDetailResponseDtoFrom =
+  ({ id, seq, createdAt, updatedAt, title, slug, content }: Daily): DailyDetailResponseDto => ({
+    id,
+    seq,
+    createdAt: createdAt.toISOString(),
+    updatedAt: updatedAt.toISOString(),
+    title,
+    slug,
+    content
+  })

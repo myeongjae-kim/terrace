@@ -9,7 +9,7 @@ const AboutPage: NextPage = () => <>
 </>;
 
 AboutPage.getInitialProps = async () => ({
-  namespacesRequired: ['common'],
+  namespacesRequired: ['common', 'noti'],
 })
 
 export default AboutPage

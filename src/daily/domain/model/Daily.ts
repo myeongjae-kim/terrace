@@ -4,7 +4,14 @@ import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, Update
 @Entity()
 export class Daily {
 
-  public static from({ seq, createdAt, updatedAt, title, content, slug }: Omit<Daily, "id">): Daily {
+  public static from({
+    seq,
+    createdAt,
+    updatedAt,
+    title,
+    content,
+    slug
+  }: Omit<Daily, "id" | "getUri" | "isDateMatched">): Daily {
     const daily = new Daily();
     daily.seq = seq;
     daily.createdAt = createdAt;
@@ -42,4 +49,9 @@ export class Daily {
   public getUri = () => {
     return "/daily" + formatDateTime(this.createdAt, "/YYYY/MM/DD/") + this.slug;
   }
+
+  // TODO: Do not format. It is slow. Create moment object and get year, month, day of seoul time.
+  public isDateMatched = (year: string, month: string, day: string) =>
+    formatDateTime(this.createdAt, "YYYY/MM/DD") === `${year}/${month}/${day}`
+
 }

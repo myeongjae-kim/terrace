@@ -43,7 +43,7 @@ DailyDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<
   fetchDailyList(store);
   fetchDailyDetail(store, parsePathToDailyDetailRequest(asPath));
 
-  return { namespacesRequired: ['common'] }
+  return { namespacesRequired: ['common', 'noti'] }
 }
 
 const fetchDailyList = (store: Store<RootState>): void => {

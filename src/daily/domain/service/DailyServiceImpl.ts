@@ -1,6 +1,7 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "server/common/inversify/types";
-import { createDailyListResponseDtoFrom, DailyDetailRequestDto, DailyDetailResponseDto, DailyListResponseDto } from "src/daily/api";
+import { createDailyDetailResponseDtoFrom, createDailyListResponseDtoFrom, DailyDetailRequestDto, DailyDetailResponseDto, DailyListResponseDto } from "src/daily/api";
+import { DailyDetailNotFoundException } from "src/daily/exceptions";
 import { DailyRepository } from "../model/DailyRepository";
 import { DailyService } from "./DailyService";
 
@@ -14,7 +15,12 @@ export class DailyServiceImpl implements DailyService {
   public findAll = (): Promise<DailyListResponseDto[]> => this.dailyRepository.findAllByOrderBySeqDesc()
     .then(d => d.map(createDailyListResponseDtoFrom));
 
-  public find = ({ }: DailyDetailRequestDto): Promise<DailyDetailResponseDto> => ({} as any)
-  //  this.dailyRepository.findBySlug(slug)
+  public find = async (req: DailyDetailRequestDto): Promise<DailyDetailResponseDto> => {
+    const { year, month, day, slug } = req;
+    const daily = (await this.dailyRepository.findBySlug(slug))
+      .filter(d => d.isDateMatched(year, month, day))
+      .orElseThrow(() => new DailyDetailNotFoundException(req));
 
+    return createDailyDetailResponseDtoFrom(daily!);
+  }
 }

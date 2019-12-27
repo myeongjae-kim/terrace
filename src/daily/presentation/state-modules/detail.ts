@@ -71,7 +71,7 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
     yield put(actions.fetchDailyAsync.failure());
     yield put(enqueueSnackbar({
       snackbar: {
-        message: 'noti:daily.findAll.rejected',
+        message: 'noti:daily.find.rejected',
         messageOptions: { e: stringify(e) },
         variant: 'error'
       }

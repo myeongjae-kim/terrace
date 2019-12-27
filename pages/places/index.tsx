@@ -9,7 +9,7 @@ const PlacesPage: NextPage = () => <>
 </>;
 
 PlacesPage.getInitialProps = async () => ({
-  namespacesRequired: ['common'],
+  namespacesRequired: ['common', 'noti'],
 })
 
 export default PlacesPage

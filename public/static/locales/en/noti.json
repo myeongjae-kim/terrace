@@ -23,12 +23,15 @@
   },
   "musings": {
     "findAll": {
-      "rejected": "Failed to fetch notices."
+      "rejected": "Failed to fetch notices.\n\n{{e}}"
     }
   },
   "daily": {
     "findAll": {
-      "rejected": "Failed to fetch dailys."
+      "rejected": "Failed to fetch dailys.\n\n{{e}}"
+    },
+    "find": {
+      "rejected": "Failed to fetch a daily.\n\n{{e}}"
     }
   }
 }

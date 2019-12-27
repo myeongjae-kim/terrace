@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import * as React from 'react';
-import { Link, MarkdownPreview } from 'src/common/presentation/components/molecules';
+import { HeadTitle, Link, MarkdownPreview } from 'src/common/presentation/components/molecules';
 import { DailyDetailResponseDto } from 'src/daily/api';
 import { formatDateTime } from 'src/util';
 
@@ -64,18 +64,23 @@ const DailyDetail: React.FC<Props> = ({ daily }) => {
     content
   } = daily;
 
-  return <div className={classes.center}>
-    <div className={classes.container}>
-      <div className={classes.center}>
-        <Link href="#">
-          <Typography className={clsx(classes.serif, classes.title)}>{seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}</Typography>
-        </Link>
-      </div>
-      <div className={clsx(classes.center, classes.markdownContainer)}>
-        <MarkdownPreview markdown={content} className={clsx(classes.markdownPreview, classes.serif)} />
+  return <>
+    <HeadTitle title={title} />
+    <div className={classes.center}>
+      <div className={classes.container}>
+        <div className={classes.center}>
+          <Link href="#">
+            <Typography className={clsx(classes.serif, classes.title)}>
+              {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
+            </Typography>
+          </Link>
+        </div>
+        <div className={clsx(classes.center, classes.markdownContainer)}>
+          <MarkdownPreview markdown={content} className={clsx(classes.markdownPreview, classes.serif)} />
+        </div>
       </div>
     </div>
-  </div>;
+  </>;
 }
 
 export default DailyDetail;

@@ -27,7 +27,7 @@ DailyPage.getInitialProps = async ({ store }: { store: Store<RootState> } & Next
     store.dispatch(listModule.fetchDailys())
   }
 
-  return { namespacesRequired: ['common'] }
+  return { namespacesRequired: ['common', 'noti'] }
 }
 
 const mapStateToProps = ({ daily }: RootState) => ({

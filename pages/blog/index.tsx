@@ -9,7 +9,7 @@ const BlogPage: NextPage = () => <>
 </>;
 
 BlogPage.getInitialProps = async () => ({
-  namespacesRequired: ['common'],
+  namespacesRequired: ['common', 'noti'],
 })
 
 export default BlogPage

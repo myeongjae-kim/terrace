@@ -69,7 +69,7 @@ class MyApp extends App<AppProps> {
         <CssBaseline />
 
         <ReduxStoreProvider store={store}>
-          <SnackbarProvider style={{ whiteSpace: 'pre' }}>
+          <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
             <MainLayout>
               <Component {...pageProps} />
             </MainLayout>
