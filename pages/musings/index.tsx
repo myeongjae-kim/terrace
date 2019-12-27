@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, Store } from 'redux';
+import { Store } from 'redux';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
@@ -13,23 +13,18 @@ interface Props {
   musings: MusingResponseDto[]
   pending: boolean
   rejected: boolean
-
-  dispatchers: typeof listModule
 }
 
-const MusingsPage: NextPage<Props> = ({ musings, pending, rejected, dispatchers }) => {
-  React.useEffect(() => () => {
-    dispatchers.reset()
-  }, [])
+const MusingsPage: NextPage<Props> = ({ musings, pending, rejected }) => <>
+  <HeadTitle title="Musings" />
+  <Musings musings={musings} pending={pending} rejected={rejected} />
+</>
 
-  return <>
-    <HeadTitle title="Musings" />
-    <Musings musings={musings} pending={pending} rejected={rejected} />
-  </>
-}
 
 MusingsPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
-  store.dispatch(listModule.fetchMusings())
+  if (store.getState().musings.list.musings.length === 0) {
+    store.dispatch(listModule.fetchMusings())
+  }
 
   return {
     namespacesRequired: ['common', 'noti'],
@@ -42,11 +37,7 @@ const mapStateToProps = ({ musings }: RootState) => ({
   rejected: musings.list.rejected
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<listModule.Action>) => ({
-  dispatchers: bindActionCreators(listModule, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(MusingsPage);
+export default connect(mapStateToProps)(MusingsPage);
 
 // tslint:disable-next-line: no-commented-code
 /*

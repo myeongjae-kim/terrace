@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, Store } from 'redux';
+import { Store } from 'redux';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
@@ -13,23 +13,17 @@ interface Props {
   dailys: DailyListResponseDto[]
   pending: boolean
   rejected: boolean
-
-  dispatchers: typeof listModule
 }
 
-const DailyPage: NextPage<Props> = ({ dailys, pending, rejected, dispatchers }) => {
-  React.useEffect(() => () => {
-    dispatchers.reset();
-  }, [])
-
-  return <>
-    <HeadTitle title="Daily" />
-    <Daily dailys={dailys} pending={pending} rejected={rejected} />
-  </>
-}
+const DailyPage: NextPage<Props> = ({ dailys, pending, rejected }) => <>
+  <HeadTitle title="Daily" />
+  <Daily dailys={dailys} pending={pending} rejected={rejected} />
+</>
 
 DailyPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
-  store.dispatch(listModule.fetchDailys())
+  if (store.getState().daily.list.dailys.length === 0) {
+    store.dispatch(listModule.fetchDailys())
+  }
 
   return { namespacesRequired: ['common'] }
 }
@@ -40,8 +34,4 @@ const mapStateToProps = ({ daily }: RootState) => ({
   rejected: daily.list.rejected
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<listModule.Action>) => ({
-  dispatchers: bindActionCreators(listModule, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(DailyPage);
+export default connect(mapStateToProps)(DailyPage);
