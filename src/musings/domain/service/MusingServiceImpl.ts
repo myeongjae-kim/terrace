@@ -10,7 +10,5 @@ export class MusingServiceImpl implements MusingService {
     @inject(TYPES.MusingRepository) private musingRepository: MusingRepository
   ) { }
 
-  public findAll = (): Promise<MusingResponseDto[]> => {
-    return this.musingRepository.find();
-  }
+  public findAll = (): Promise<MusingResponseDto[]> => this.musingRepository.find();
 }

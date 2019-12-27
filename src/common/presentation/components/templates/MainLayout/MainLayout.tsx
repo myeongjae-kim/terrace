@@ -11,7 +11,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   content: {
     flexGrow: 1,
-    margin: `0 ${theme.spacing(0.5)}px`
+    margin: `0 ${theme.spacing(0.5)}px`,
+    '& img[src*="#shadow"]': {
+      boxShadow: "2px 2px 15px #ccc",
+    },
+    '& img[src*="#round"]': {
+      borderRadius: "5px",
+    },
   },
   footer: {
     flexShrink: 0,

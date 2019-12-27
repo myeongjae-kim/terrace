@@ -3,7 +3,10 @@ import { isServer } from "src/util";
 export const Endpoints = {
   "about": "/about",
   "blog": "/blog",
+
   "daily": "/daily",
+  "daily.detail": "/daily/detail",
+
   "musings": "/musings",
   "places": "/places",
 

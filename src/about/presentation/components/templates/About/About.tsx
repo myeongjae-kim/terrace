@@ -13,7 +13,7 @@ const iconStyle: CSSProperties = {
 }
 
 const data = {
-  profile: "https://cdn.myeongjae.kim/res/profile.jpeg",
+  profile: "https://cdn.myeongjae.kim/res/profile.jpeg#shadow#round",
   name: {
     en: "Myeongjae Kim",
     kr: "김명재"
@@ -51,7 +51,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: "center"
   },
   imageContainer: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(4.5),
+    "@media screen and (max-width: 600px)": {
+      marginTop: theme.spacing(3)
+    }
   }
 }))
 

@@ -22,7 +22,6 @@ export const createExpressApp = (container: Container, errorHandlers?: ErrorRequ
     Optional.ofNullable(errorHandlers)
       .map(handlers => handlers.forEach(h => theApp.use(h)));
 
-
     theApp.use(defaultErrorHandler);
   })
   .build();

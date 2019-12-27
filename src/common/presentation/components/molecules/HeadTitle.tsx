@@ -6,7 +6,7 @@ interface Props {
   title: string
 }
 
-const HeadTitle: React.SFC<Props> = ({ title }) => <Head>
+const HeadTitle: React.FC<Props> = ({ title }) => <Head>
   <title>{title}{TITLE_POSTFIX}</title>
 </Head>
 

@@ -4,6 +4,8 @@ import React from 'react'
 
 const statusCodes: { [code: number]: string } = {
   400: 'Bad Request',
+  401: 'Unauthorized',
+  403: 'Forbidden',
   404: 'This page could not be found',
   405: 'Method Not Allowed',
   500: 'Internal Server Error',
@@ -18,7 +20,7 @@ export interface ErrorProps {
 /**
  * `Error` component used for handling errors.
  */
-export default class Error<P = {}> extends React.Component<P & ErrorProps> {
+export default class ErrorPage<P = {}> extends React.Component<P & ErrorProps> {
   public static displayName = 'ErrorPage'
 
   public static getInitialProps({
@@ -41,7 +43,9 @@ export default class Error<P = {}> extends React.Component<P & ErrorProps> {
       'An unexpected error has occurred'
 
     return (
-      <div style={styles.error}>
+      <div style={{
+        ...styles.error
+      }}>
         <Head>
           <title>
             {statusCode}: {title}
@@ -64,7 +68,8 @@ const styles: { [k: string]: React.CSSProperties } = {
     color: '#000',
     fontFamily:
       '-apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Fira Sans", Avenir, "Helvetica Neue", "Lucida Grande", sans-serif',
-    height: 'calc(100vh - 64px - 31px - 31px - 24px - 24px)',
+    height: 'calc(100vh - 88px - 130px)',
+    marginBottom: 130,
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',

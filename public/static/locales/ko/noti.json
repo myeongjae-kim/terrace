@@ -23,7 +23,15 @@
   },
   "musings": {
     "findAll": {
-      "rejected": "Musings를 가져오지 못했습니다."
+      "rejected": "Musings를 가져오지 못했습니다.\n\n{{e}}"
+    }
+  },
+  "daily": {
+    "findAll": {
+      "rejected": "일상 목록을 가져오지 못했습니다.\n\n{{e}}"
+    },
+    "find": {
+      "rejected": "일상을 가져오지 못했습니다.\n\n{{e}}"
     }
   }
 }

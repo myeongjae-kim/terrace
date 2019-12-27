@@ -6,7 +6,7 @@ import { Link, MyButton } from '../../../molecules';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
-    margin: `${theme.spacing(2.5)}px 0`,
+    marginTop: theme.spacing(2.5),
     "@media screen and (max-width: 600px)": {
       marginTop: theme.spacing(1)
     }
@@ -26,7 +26,7 @@ const Navigation: React.FC<Props> = ({ items, paths }) => {
   const firstPath = paths[0] || "";
 
   return <nav className={classes.nav}>
-    {items.map(({ href, label }) => <Link key={href[0]} href={href[0]}>
+    {items.map(({ href, label }) => <Link key={href[0]} href={href[0]} shallow={true}>
       <MyButton rippleColorPrimary color={href.includes(firstPath) ? "primary" : "default"}>
         {label}
       </MyButton>

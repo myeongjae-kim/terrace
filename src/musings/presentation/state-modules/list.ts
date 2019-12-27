@@ -1,8 +1,7 @@
 import { produce } from 'immer'
 import { call, put, takeLatest } from "redux-saga/effects";
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
-import { MusingResponseDto } from 'src/musings/api/dto';
-import { musingsFetcher } from 'src/musings/api/MusingsFetcher';
+import { MusingResponseDto, musingsFetcher } from 'src/musings/api';
 import stringify from 'src/util/stringify';
 import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
 
