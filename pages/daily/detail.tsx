@@ -18,18 +18,19 @@ interface Props {
   dailys: DailyListResponseDto[]
   pending: boolean
   rejected: boolean
+  statusCode: number
 
   dispatchers: typeof detailModule
 }
 
-const DailyDetailPage: NextPage<Props> = ({ daily, dailys, pending, rejected, dispatchers }) => {
+const DailyDetailPage: NextPage<Props> = ({ daily, dailys, pending, rejected, statusCode, dispatchers }) => {
   React.useEffect(() => () => {
     dispatchers.reset()
   }, [])
 
   return <>
     <HeadTitle title="Daily" />
-    <DailyDetail daily={daily} pending={pending} rejected={rejected} />
+    <DailyDetail daily={daily} pending={pending} rejected={rejected} statusCode={statusCode} />
     <DailyList dailys={dailys} pending={pending} rejected={rejected} />
   </>
 }
@@ -70,6 +71,7 @@ const mapStateToProps = ({ daily }: RootState) => ({
   daily: daily.detail.daily,
   pending: daily.detail.pending,
   rejected: daily.detail.rejected,
+  statusCode: daily.detail.statusCode,
 
   dailys: daily.list.dailys,
 })

@@ -14,7 +14,7 @@ const actions = {
     '@dailyDetail/FETCH_DAILY_DETAIL_REQUEST',
     '@dailyDetail/FETCH_DAILY_DETAIL_SUCCESS',
     '@dailyDetail/FETCH_DAILY_DETAIL_FAILURE',
-  )<void, { daily: DailyDetailResponseDto }, void>()
+  )<void, { daily: DailyDetailResponseDto }, { statusCode: number }>()
 }
 
 export const { reset, fetchDaily } = actions;
@@ -24,6 +24,7 @@ export interface State {
   daily: DailyDetailResponseDto
   pending: boolean
   rejected: boolean
+  statusCode: number
 }
 
 const createInitialState = () => ({
@@ -37,7 +38,8 @@ const createInitialState = () => ({
     content: ""
   },
   pending: true,
-  rejected: false
+  rejected: false,
+  statusCode: 200
 } as State);
 
 export const reducer = createReducer<State, Action>(createInitialState())
@@ -45,16 +47,19 @@ export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(getType(actions.fetchDailyAsync.request), (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     draft.rejected = false;
+    draft.statusCode = 200;
     return draft;
   }))
   .handleAction(getType(actions.fetchDailyAsync.success), (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.daily = action.payload.daily;
+    draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(getType(actions.fetchDailyAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(getType(actions.fetchDailyAsync.failure), (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
+    draft.statusCode = action.payload.statusCode;
     return draft;
   }))
 
@@ -68,7 +73,7 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
     const daily: DailyDetailResponseDto = yield call(dailyFetcher.find, action.payload.daily);
     yield put(actions.fetchDailyAsync.success({ daily }));
   } catch (e) {
-    yield put(actions.fetchDailyAsync.failure());
+    yield put(actions.fetchDailyAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: 'noti:daily.find.rejected',

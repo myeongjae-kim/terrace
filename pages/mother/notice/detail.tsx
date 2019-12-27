@@ -1,6 +1,6 @@
 import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
-import Error from 'pages/_error'
+import ErrorPage from 'pages/_error'
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Store } from 'redux';
@@ -14,7 +14,7 @@ const NoticeDetailPage: NextPage = () => {
   const id = parseInt(String(router.query.id), 10);
 
   if (isNaN(id)) {
-    return <Error statusCode={400} />
+    return <ErrorPage statusCode={400} />
   }
 
   return <NoticeDetailContainer id={id} />;

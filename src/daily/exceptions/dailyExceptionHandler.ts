@@ -9,7 +9,7 @@ export const dailyExceptionHandler: ErrorRequestHandler = (err: Error, _, res, n
   }
 
   if (err instanceof DailyDetailNotFoundException) {
-    res.status(400).send(new ApiError(400, "Bad Request", err.message));
+    res.status(404).send(new ApiError(404, "Not Found", err.message));
     logger.log('error', JSON.stringify(err.stack));
     return;
   }

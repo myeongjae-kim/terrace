@@ -1,7 +1,8 @@
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import clsx from 'clsx';
+import ErrorPage from 'pages/_error';
 import * as React from 'react';
-import { HeadTitle, Link, MarkdownPreview } from 'src/common/presentation/components/molecules';
+import { HeadTitle, Link, MarkdownPreview, Maybe } from 'src/common/presentation/components/molecules';
 import { DailyDetailResponseDto } from 'src/daily/api';
 import { formatDateTime } from 'src/util';
 
@@ -53,9 +54,10 @@ interface Props {
   daily: DailyDetailResponseDto
   pending: boolean
   rejected: boolean
+  statusCode: number
 }
 
-const DailyDetail: React.FC<Props> = ({ daily }) => {
+const DailyDetail: React.FC<Props> = ({ daily, rejected, statusCode }) => {
   const classes = useStyles();
   const {
     seq,
@@ -65,21 +67,26 @@ const DailyDetail: React.FC<Props> = ({ daily }) => {
   } = daily;
 
   return <>
-    <HeadTitle title={title} />
-    <div className={classes.center}>
-      <div className={classes.container}>
-        <div className={classes.center}>
-          <Link href="#">
-            <Typography className={clsx(classes.serif, classes.title)}>
-              {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
-            </Typography>
-          </Link>
-        </div>
-        <div className={clsx(classes.center, classes.markdownContainer)}>
-          <MarkdownPreview markdown={content} className={clsx(classes.markdownPreview, classes.serif)} />
+    <Maybe test={!rejected}>
+      <HeadTitle title={title} />
+      <div className={classes.center}>
+        <div className={classes.container}>
+          <div className={classes.center}>
+            <Link href="#">
+              <Typography className={clsx(classes.serif, classes.title)}>
+                {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
+              </Typography>
+            </Link>
+          </div>
+          <div className={clsx(classes.center, classes.markdownContainer)}>
+            <MarkdownPreview markdown={content} className={clsx(classes.markdownPreview, classes.serif)} />
+          </div>
         </div>
       </div>
-    </div>
+    </Maybe>
+    <Maybe test={rejected}>
+      <ErrorPage statusCode={statusCode} />
+    </Maybe>
   </>;
 }
 
