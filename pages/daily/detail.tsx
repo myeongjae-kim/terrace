@@ -31,6 +31,7 @@ DailyDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<
   // fetchDailyDetail(store, parsePathToDailyDetailRequest(asPath));
 
   console.log("\n\n\n daily detail page asPath:", parsePathToDailyDetailRequest(asPath));
+
   // store.dispatch(detailModule.fetchDaily(parsePathToDate(asPath)))
 
   return { namespacesRequired: ['common'] }

@@ -7,6 +7,7 @@ import { Endpoints } from "src/common/constants/Constants";
 import { DailyService } from "../domain/service";
 
 const PATH = Endpoints.daily;
+const PATH_DETAIL = Endpoints["daily.detail"];
 
 @controller(PATH)
 export class DailyController implements interfaces.Controller {
@@ -17,8 +18,13 @@ export class DailyController implements interfaces.Controller {
   ) { }
 
   @httpGet("/")
-  public getPage(@request() req: Request, @response() res: Response) {
+  public getListPage(@request() req: Request, @response() res: Response) {
     return this.nextApp.render(req, res, PATH)
+  }
+
+  @httpGet("/:year/:month/:date/:slug")
+  public getDetailPage(@request() req: Request, @response() res: Response) {
+    return this.nextApp.render(req, res, PATH_DETAIL);
   }
 
   @httpGet("/api")
