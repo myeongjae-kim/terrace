@@ -2,7 +2,7 @@ import { BlogArticle } from "src/blog/domain/model/BlogArticle"
 import { getSeoulDateFrom } from "src/util";
 import { doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesExcept } from "src/util/test"
 
-export const createBlogArticleFixture = (): BlogArticle => {
+export const createBlogArticleFixture = (id = "1"): BlogArticle => {
   const blogArticle = BlogArticle.from({
     seq: 1,
     createdAt: new Date('2019-12-29T13:28:03.601+09:00'),
@@ -11,7 +11,7 @@ export const createBlogArticleFixture = (): BlogArticle => {
     content: 'content',
     slug: "slug"
   })
-  blogArticle.id = "1";
+  blogArticle.id = id;
 
   return blogArticle;
 }

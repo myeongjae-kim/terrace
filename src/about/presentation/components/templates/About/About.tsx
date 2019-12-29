@@ -13,7 +13,7 @@ const iconStyle: CSSProperties = {
 }
 
 const data = {
-  profile: "https://cdn.myeongjae.kim/res/profile.jpeg#shadow#round",
+  profile: "https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=400#shadow#round",
   name: {
     en: "Myeongjae Kim",
     kr: "김명재"
