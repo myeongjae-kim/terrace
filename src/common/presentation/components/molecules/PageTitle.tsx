@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     userSelect: 'none'
   },
   title: {
+    fontSize: '2em',
+    fontWeight: 100,
     textTransform: "capitalize",
     margin: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px 0`,
     "@media screen and (max-width: 600px)": {

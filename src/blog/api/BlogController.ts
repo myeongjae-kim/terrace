@@ -7,6 +7,7 @@ import { Endpoints } from "src/common/constants/Constants";
 import { BlogArticleService } from "../domain/service";
 
 const PATH = Endpoints.blog;
+const PATH_DETAIL = Endpoints["blog.detail"];
 
 @controller(PATH)
 export class BlogController implements interfaces.Controller {
@@ -19,6 +20,11 @@ export class BlogController implements interfaces.Controller {
   @httpGet("/")
   public getPage(@request() req: Request, @response() res: Response) {
     return this.nextApp.render(req, res, PATH)
+  }
+
+  @httpGet("/:year/:month/:date/:slug")
+  public getDetailPage(@request() req: Request, @response() res: Response) {
+    return this.nextApp.render(req, res, PATH_DETAIL);
   }
 
   @httpGet("/api")

@@ -8,7 +8,7 @@ import { ActionType, createAsyncAction, createReducer, createStandardAction, get
 const actions = {
   reset: createStandardAction("@blogArticleDetail/RESET")(),
   fetchBlogArticle: createStandardAction("@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL")<{
-    blog: BlogArticleDetailRequestDto
+    blogArticle: BlogArticleDetailRequestDto
   }>(),
   fetchBlogArticleAsync: createAsyncAction(
     '@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL_REQUEST',
@@ -82,7 +82,7 @@ export function* saga() {
 function* sagaFetchBlogArticle(action: ActionType<typeof actions.fetchBlogArticle>) {
   yield put(actions.fetchBlogArticleAsync.request())
   try {
-    const blog: BlogArticleDetailResponseDto = yield call(blogArticleFetcher.find, action.payload.blog);
+    const blog: BlogArticleDetailResponseDto = yield call(blogArticleFetcher.find, action.payload.blogArticle);
     yield put(actions.fetchBlogArticleAsync.success({ blog }));
   } catch (e) {
     yield put(actions.fetchBlogArticleAsync.failure({ statusCode: e.status }));
