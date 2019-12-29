@@ -33,5 +33,13 @@
     "find": {
       "rejected": "Failed to fetch a daily.\n\n{{e}}"
     }
+  },
+  "blogArticle": {
+    "findAll": {
+      "rejected": "Failed to fetch blog articles.\n\n{{e}}"
+    },
+    "find": {
+      "rejected": "Failed to fetch a blog article.\n\n{{e}}"
+    }
   }
 }

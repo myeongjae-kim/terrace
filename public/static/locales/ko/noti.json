@@ -33,5 +33,13 @@
     "find": {
       "rejected": "일상을 가져오지 못했습니다.\n\n{{e}}"
     }
+  },
+  "blogArticle": {
+    "findAll": {
+      "rejected": "블로그 글 목록을 가져오지 못했습니다.\n\n{{e}}"
+    },
+    "find": {
+      "rejected": "블로그 글을 가져오지 못했습니다.\n\n{{e}}"
+    }
   }
 }
