@@ -18,7 +18,7 @@ describe('BlogArticleDetailResponseDto', () => {
     expect(doesObjectHasNoUndefinedProperties(result.next)).toBeTruthy();
 
     expect(result.id).toBe("2");
-    expect(result.prev).toBe("1");
-    expect(result.next).toBe("3");
+    expect(result.prev.id).toBe("1");
+    expect(result.next.id).toBe("3");
   })
 })

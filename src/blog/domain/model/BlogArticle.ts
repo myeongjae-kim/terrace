@@ -23,6 +23,20 @@ export class BlogArticle {
     return article;
   }
 
+  public static empty() {
+    const article = BlogArticle.from({
+      seq: -1,
+      createdAt: new Date("1970-01-01T00:00:00.000Z"),
+      updatedAt: new Date("1970-01-01T00:00:00.000Z"),
+      title: "",
+      content: "",
+      slug: "",
+    });
+    article.id = ""
+
+    return article;
+  }
+
   @PrimaryGeneratedColumn()
   public id!: string
 

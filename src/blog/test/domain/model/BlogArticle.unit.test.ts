@@ -68,6 +68,18 @@ describe('BlogArticle', () => {
   it('should return valid uri', () => {
     expect(blogArticle.getUri()).toBe("/blog/2019/12/29/slug")
   })
+
+  it('should return empty value', () => {
+    const empty = BlogArticle.empty();
+
+    expect(empty.id).toBe("");
+    expect(empty.seq).toBe(-1);
+    expect(empty.createdAt.valueOf()).toBe(0);
+    expect(empty.updatedAt.valueOf()).toBe(0);
+    expect(empty.title).toBe("");
+    expect(empty.content).toBe("");
+    expect(empty.slug).toBe("");
+  })
 })
 
 describe("createBlogArticleFixture", () => {
