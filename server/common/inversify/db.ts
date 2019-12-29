@@ -1,3 +1,4 @@
+import { BlogArticle } from 'src/blog/domain/model'
 import { Daily } from 'src/daily/domain/model';
 import { Musing } from 'src/musings/domain/model'
 import { createConnection } from "typeorm";
@@ -13,7 +14,7 @@ export async function getDbConnection() {
   } = process.env;
 
   const entities = [
-    Musing, Daily
+    BlogArticle, Musing, Daily
   ];
 
   return await createConnection({
