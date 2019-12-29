@@ -1,2 +1,2 @@
 export * from './DailyDetailNotFoundException';
-export * from './DailyExceptionHandler';
+export * from './dailyExceptionHandler';
