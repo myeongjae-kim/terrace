@@ -1,5 +1,18 @@
 {
   "presets": [
     "next/babel"
+  ],
+  "plugins": [
+    [
+      "prismjs",
+      {
+        "languages": [
+          "tsx",
+          "java"
+        ],
+        "plugins": [],
+        "css": false
+      }
+    ]
   ]
 }

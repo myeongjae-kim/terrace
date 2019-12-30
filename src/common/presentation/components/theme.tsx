@@ -19,6 +19,25 @@ const theme = createMuiTheme({
   },
   typography: {
     fontWeightRegular: 300,
+    h1: {
+      fontSize: '3rem',
+      fontWeight: 100,
+    },
+    h2: {
+      fontSize: '2.375rem'
+    },
+    h3: {
+      fontSize: '2rem'
+    },
+    h4: {
+      fontSize: '1.5rem'
+    },
+    h5: {
+      fontSize: '1.25rem'
+    },
+    h6: {
+      fontSize: '1.125rem'
+    },
     fontFamily: [
       'Source Sans Pro',
       '"Noto Sans KR"',

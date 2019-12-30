@@ -25,20 +25,22 @@ export interface State {
 }
 
 // Initial State
-const createInitialState = () => ({
+const createInitialState = (): State => ({
   dailys: [],
   pending: true,
   rejected: false
-} as State);
+});
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(getType(actions.reset), createInitialState)
   .handleAction(getType(actions.fetchDailysAsync.request), (state) => produce<State, State>(state, draft => {
     draft.pending = true;
+    draft.rejected = false;
     return draft;
   }))
   .handleAction(getType(actions.fetchDailysAsync.success), (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
+    draft.rejected = false;
     draft.dailys = action.payload.dailys;
     return draft;
   }))

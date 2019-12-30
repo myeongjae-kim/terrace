@@ -31,7 +31,7 @@ const DailyDetailPage: NextPage<Props> = ({ daily, dailys, pending, rejected, st
   return <>
     <HeadTitle title="Daily" />
     <DailyDetail daily={daily} pending={pending} rejected={rejected} statusCode={statusCode} />
-    <DailyList dailys={dailys} pending={pending} rejected={rejected} />
+    <DailyList dailys={dailys} pending={pending} rejected={rejected} currentDaily={daily} />
   </>
 }
 

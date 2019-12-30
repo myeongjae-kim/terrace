@@ -6,6 +6,7 @@ import { Link, MyButton } from '../../../molecules';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
+    fontWeight: 100,
     marginTop: theme.spacing(2.5),
     "@media screen and (max-width: 600px)": {
       marginTop: theme.spacing(1)

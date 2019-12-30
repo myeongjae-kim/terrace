@@ -33,12 +33,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     borderRadius: 5,
   },
   markdownPreview: {
-    '& img[src*="#width-250"]': {
-      width: 250,
-    },
-    '& p.center': {
-      textAlign: "center",
-    },
     '& blockquote': {
       textIndent: 'initial',
       backgroundColor: "#fff",
@@ -63,6 +57,7 @@ const DailyDetail: React.FC<Props> = ({ daily, rejected, statusCode }) => {
     seq,
     createdAt,
     title,
+    slug,
     content
   } = daily;
 
@@ -72,7 +67,7 @@ const DailyDetail: React.FC<Props> = ({ daily, rejected, statusCode }) => {
       <div className={classes.center}>
         <div className={classes.container}>
           <div className={classes.center}>
-            <Link href="#">
+            <Link href="/daily/detail" as={"./" + slug}>
               <Typography className={clsx(classes.serif, classes.title)}>
                 {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
               </Typography>

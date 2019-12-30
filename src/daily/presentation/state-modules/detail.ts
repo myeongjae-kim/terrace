@@ -27,9 +27,9 @@ export interface State {
   statusCode: number
 }
 
-const createInitialState = () => ({
+const createInitialState = (): State => ({
   daily: {
-    id: "-1",
+    id: "",
     seq: -1,
     createdAt: "",
     updatedAt: "",
@@ -40,7 +40,7 @@ const createInitialState = () => ({
   pending: true,
   rejected: false,
   statusCode: 200
-} as State);
+});
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(getType(reset), createInitialState)

@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
-import { DailyListResponseDto } from 'src/daily/api';
+import { DailyDetailResponseDto, DailyListResponseDto } from 'src/daily/api';
 import EachDaily from './EachDaily';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -15,13 +15,19 @@ interface Props {
   dailys: DailyListResponseDto[]
   pending: boolean
   rejected: boolean
+
+  currentDaily?: DailyDetailResponseDto
 }
 
-const DailyList: React.FC<Props> = ({ dailys }) => {
+const DailyList: React.FC<Props> = ({ dailys, currentDaily }) => {
   const classes = useStyles();
   return <div className={classes.dailyList}>
     <div>
-      {dailys.map(daily => <EachDaily key={daily.id} daily={daily} />)}
+      {dailys.map(daily => <EachDaily
+        key={daily.id}
+        daily={daily}
+        isLinkDisabled={daily.id === currentDaily?.id}
+      />)}
     </div>
   </div>
 }

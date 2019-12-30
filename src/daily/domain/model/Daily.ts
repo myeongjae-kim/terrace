@@ -1,4 +1,4 @@
-import { formatDateTime } from "src/util";
+import { formatDateTime, getSeoulDateFrom } from "src/util";
 import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -50,8 +50,10 @@ export class Daily {
     return "/daily" + formatDateTime(this.createdAt, "/YYYY/MM/DD/") + this.slug;
   }
 
-  // TODO: Do not format. It is slow. Create moment object and get year, month, day of seoul time.
-  public isDateMatched = (year: string, month: string, day: string) =>
-    formatDateTime(this.createdAt, "YYYY/MM/DD") === `${year}/${month}/${day}`
-
+  public isDateMatched = (year: string, month: string, day: string) => {
+    const date = getSeoulDateFrom(this.createdAt);
+    return date.year() === Number(year) &&
+      date.month() === (Number(month) - 1) &&
+      date.date() === Number(day);
+  }
 }
