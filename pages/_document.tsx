@@ -22,6 +22,9 @@ class MyDocument extends Document {
           body {
             font-family: Source Sans Pro, Noto Sans KR;
           }
+          code, pre {
+            font-family: Inconsolata; 
+          }
           h1 {
             font-size: 3rem;
           }

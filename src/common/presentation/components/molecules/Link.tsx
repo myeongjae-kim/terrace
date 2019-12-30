@@ -33,7 +33,6 @@ interface LinkPropsBase {
 
 type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, 'ref'>;
 
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
   hover: {
     transition: "color 1s ease-out",
