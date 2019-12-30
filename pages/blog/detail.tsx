@@ -1,3 +1,4 @@
+import { useTheme } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -5,9 +6,11 @@ import { bindActionCreators, Dispatch, Store } from 'redux';
 import { BlogArticleDetailRequestDto, BlogArticleDetailResponseDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
+import { DOMAIN_BLOG } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
+import { Disqus } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
-import { redirectFromGetInitialPropsTo } from 'src/util';
+import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
 interface Props {
   blogArticle: BlogArticleDetailResponseDto
@@ -19,15 +22,30 @@ interface Props {
 }
 
 const BlogArticleDetailPage: NextPage<Props> = ({ blogArticle, pending, rejected, statusCode, dispatchers }) => {
+  const theme = useTheme();
   React.useEffect(() => () => {
     dispatchers.reset()
   }, [])
 
-  return <BlogArticleDetail
-    blogArticle={blogArticle}
-    pending={pending}
-    rejected={rejected}
-    statusCode={statusCode} />
+  const { title, createdAt, slug, } = blogArticle;
+  const uri = `/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
+
+  return <>
+    <BlogArticleDetail
+      blogArticle={blogArticle}
+      pending={pending}
+      rejected={rejected}
+      statusCode={statusCode} />
+    <Disqus
+      title={title}
+      identifier={uri}
+      url={`${DOMAIN_BLOG}${uri}`} />
+    <style jsx global>{`
+#disqus_thread {
+  max-width: ${theme.spacing(100)}px;
+}
+    `}</style>
+  </>
 
 }
 

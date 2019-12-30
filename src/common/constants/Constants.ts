@@ -1,5 +1,8 @@
 import { isServer } from "src/util";
 
+export const DOMAIN = process.env.DOMAIN;
+export const DOMAIN_BLOG = process.env.DOMAIN_BLOG;
+
 export const Endpoints = {
   "about": "/about",
 
