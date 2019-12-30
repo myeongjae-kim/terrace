@@ -1,6 +1,6 @@
 import { BlogArticle } from "src/blog/domain/model";
 
-interface PrevOrNext {
+export interface BlogArticlePrevOrNext {
   id: string
   createdAt: string
   title: string
@@ -15,8 +15,8 @@ export interface BlogArticleDetailResponseDto {
   title: string
   slug: string
   content: string
-  prev: PrevOrNext
-  next: PrevOrNext
+  prev: BlogArticlePrevOrNext
+  next: BlogArticlePrevOrNext
 }
 
 export const createBlogArticleDetailResponseDtoFrom = (args: {

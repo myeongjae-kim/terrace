@@ -54,6 +54,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       '&:hover': {
         color: theme.palette.primary.light
       }
+    },
+    '& hr': {
+      border: 0,
+      height: 1,
+      background: '#333',
+      backgroundImage: 'linear-gradient(90deg, #ccc,#333, #ccc)',
+      opacity: .7
     }
   },
   footer: {

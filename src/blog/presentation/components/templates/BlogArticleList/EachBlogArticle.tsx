@@ -7,7 +7,7 @@ import { formatDateTime } from 'src/util';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     padding: `${theme.spacing(1.5)}px 0`,
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
     '&:hover': {
       background: 'rgba(230, 230, 230, 0.23) !important'
     },
