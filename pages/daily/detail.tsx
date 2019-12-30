@@ -1,9 +1,12 @@
+import { useTheme } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, Store } from 'redux';
+import { DOMAIN } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
+import { Disqus } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { DailyListResponseDto } from 'src/daily/api';
 import { DailyDetailRequestDto, DailyDetailResponseDto } from 'src/daily/api/dto';
@@ -11,7 +14,7 @@ import DailyDetail from 'src/daily/presentation/components/templates/DailyDetail
 import DailyList from 'src/daily/presentation/components/templates/DailyList';
 import * as detailModule from "src/daily/presentation/state-modules/detail";
 import * as listModule from "src/daily/presentation/state-modules/list";
-import { redirectFromGetInitialPropsTo } from 'src/util';
+import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
 interface Props {
   daily: DailyDetailResponseDto
@@ -28,10 +31,23 @@ const DailyDetailPage: NextPage<Props> = ({ daily, dailys, pending, rejected, st
     dispatchers.reset()
   }, [])
 
+  const theme = useTheme();
+  const { title, createdAt, slug } = daily;
+  const uri = `/daily/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
+
   return <>
     <HeadTitle title="Daily" />
     <DailyDetail daily={daily} pending={pending} rejected={rejected} statusCode={statusCode} />
     <DailyList dailys={dailys} pending={pending} rejected={rejected} currentDaily={daily} />
+    <Disqus
+      title={title}
+      identifier={uri}
+      url={`${DOMAIN}${uri}`} />
+    <style jsx global>{`
+#disqus_thread {
+  max-width: ${theme.spacing(62.5)}px;
+}
+    `}</style>
   </>
 }
 
