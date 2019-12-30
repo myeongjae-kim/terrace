@@ -1,3 +1,4 @@
+import { useTheme } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -14,7 +15,6 @@ import DailyList from 'src/daily/presentation/components/templates/DailyList';
 import * as detailModule from "src/daily/presentation/state-modules/detail";
 import * as listModule from "src/daily/presentation/state-modules/list";
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
-import { useTheme } from '@material-ui/core';
 
 interface Props {
   daily: DailyDetailResponseDto
