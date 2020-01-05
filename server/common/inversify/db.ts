@@ -31,5 +31,6 @@ export async function getDbConnection() {
     bigNumberStrings: true,
     logging: 'all',
     namingStrategy: new SnakeNamingStrategy(),
+    charset: 'utf8mb4'
   });
 }
