@@ -23,6 +23,9 @@ class MyDocument extends Document {
             font-family: Source Sans Pro, Noto Sans KR;
             letter-spacing: -0.02em;
           }
+          img {
+            max-width: 100%;
+          }
           code, pre {
             font-family: Inconsolata; 
           }
