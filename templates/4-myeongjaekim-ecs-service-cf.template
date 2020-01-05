@@ -175,7 +175,7 @@
                                 ]
                             ]
                         },
-                        "Memory": 1920,
+                        "Memory": 900,
                         "Name": {
                             "Fn::Select": [
                                 0,
