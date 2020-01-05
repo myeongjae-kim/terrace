@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: theme.spacing(12)
   },
   title: {
-    width: theme.spacing(25)
+    width: theme.spacing(28)
   }
 }))
 
