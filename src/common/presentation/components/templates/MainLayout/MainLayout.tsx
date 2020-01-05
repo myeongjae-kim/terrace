@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& p.center': {
       textAlign: "center",
     },
+    '& .no-indent': {
+      textIndent: 0
+    },
     '& blockquote': {
       fontFamily: 'Noto Serif KR',
       textIndent: ".5em",
