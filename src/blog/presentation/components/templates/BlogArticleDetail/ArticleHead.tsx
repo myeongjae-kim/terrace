@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   head: {
     marginBottom: theme.spacing(2),
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
+    wordBreak: 'keep-all',
   },
   date: {
     fontSize: theme.typography.subtitle1.fontSize,
