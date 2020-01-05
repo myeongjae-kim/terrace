@@ -22,6 +22,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& img[src*="#width-250"]': {
       width: 250,
     },
+    '& img[src*="#width-100percent"]': {
+      width: "100%",
+    },
+    '& img[src*="#width-400"]': {
+      width: 400,
+    },
     '& p.center': {
       textAlign: "center",
     },
