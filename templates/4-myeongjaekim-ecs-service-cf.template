@@ -1,0 +1,203 @@
+{
+    "Description": "myeongjae.kim: ECS service",
+    "Parameters": {
+        "NodeEnv": {
+            "Default": "",
+            "Description": "Runtime environment variables",
+            "Type": "String"
+        },
+        "Tag": {
+            "Default": "latest",
+            "Description": "Tag to deploy",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "ServiceRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ecs.amazonaws.com"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole"
+                ],
+                "Path": "/"
+            },
+            "Type": "AWS::IAM::Role"
+        },
+        "service": {
+            "Properties": {
+                "Cluster": {
+                    "Fn::ImportValue": {
+                        "Fn::Join": [
+                            "-",
+                            [
+                                {
+                                    "Fn::Select": [
+                                        0,
+                                        {
+                                            "Fn::Split": [
+                                                "-",
+                                                {
+                                                    "Ref": "AWS::StackName"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Fn::Select": [
+                                        1,
+                                        {
+                                            "Fn::Split": [
+                                                "-",
+                                                {
+                                                    "Ref": "AWS::StackName"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "cluster-id"
+                            ]
+                        ]
+                    }
+                },
+                "DesiredCount": 1,
+                "LoadBalancers": [
+                    {
+                        "ContainerName": {
+                            "Fn::Select": [
+                                0,
+                                {
+                                    "Fn::Split": [
+                                        "-",
+                                        {
+                                            "Ref": "AWS::StackName"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "ContainerPort": 80,
+                        "TargetGroupArn": {
+                            "Fn::ImportValue": {
+                                "Fn::Join": [
+                                    "-",
+                                    [
+                                        {
+                                            "Fn::Select": [
+                                                0,
+                                                {
+                                                    "Fn::Split": [
+                                                        "-",
+                                                        {
+                                                            "Ref": "AWS::StackName"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "Fn::Select": [
+                                                1,
+                                                {
+                                                    "Fn::Split": [
+                                                        "-",
+                                                        {
+                                                            "Ref": "AWS::StackName"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "alb-target-group"
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "Role": {
+                    "Ref": "ServiceRole"
+                },
+                "TaskDefinition": {
+                    "Ref": "task"
+                }
+            },
+            "Type": "AWS::ECS::Service"
+        },
+        "task": {
+            "Properties": {
+                "ContainerDefinitions": [
+                    {
+                        "Cpu": 2048,
+                        "Environment": [
+                            {
+                                "Name": "node_env",
+                                "Value": {
+                                    "Ref": "NodeEnv"
+                                }
+                            }
+                        ],
+                        "Image": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Ref": "AWS::AccountId"
+                                    },
+                                    ".dkr.ecr.",
+                                    {
+                                        "Ref": "AWS::Region"
+                                    },
+                                    ".amazonaws.com",
+                                    "/",
+                                    {
+                                        "Fn::ImportValue": "myeongjaekim-repo"
+                                    },
+                                    ":",
+                                    {
+                                        "Ref": "Tag"
+                                    }
+                                ]
+                            ]
+                        },
+                        "Memory": 512,
+                        "Name": {
+                            "Fn::Select": [
+                                0,
+                                {
+                                    "Fn::Split": [
+                                        "-",
+                                        {
+                                            "Ref": "AWS::StackName"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "PortMappings": [
+                            {
+                                "ContainerPort": 80
+                            }
+                        ]
+                    }
+                ]
+            },
+            "Type": "AWS::ECS::TaskDefinition"
+        }
+    }
+}
