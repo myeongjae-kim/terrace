@@ -2,6 +2,7 @@ import { BlogArticle } from 'src/blog/domain/model'
 import { Daily } from 'src/daily/domain/model';
 import { Musing } from 'src/musings/domain/model'
 import { createConnection } from "typeorm";
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export async function getDbConnection() {
   const {
@@ -29,5 +30,6 @@ export async function getDbConnection() {
     supportBigNumbers: true,
     bigNumberStrings: true,
     logging: 'all',
+    namingStrategy: new SnakeNamingStrategy(),
   });
 }

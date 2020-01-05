@@ -6,8 +6,8 @@ export class CreateTableDaily1577352554667 implements MigrationInterface {
         await queryRunner.query('CREATE TABLE `daily` (\
             `id` int NOT NULL AUTO_INCREMENT,\
             `seq` int NOT NULL,\
-            `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),\
-            `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),\
+            `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),\
+            `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),\
             `title` varchar(255) NOT NULL,\
             `slug` varchar(255) NOT NULL,\
             `content` text NOT NULL,\
