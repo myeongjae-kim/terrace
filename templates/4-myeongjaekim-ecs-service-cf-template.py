@@ -56,7 +56,7 @@ t.add_resource(TaskDefinition(
                 ImportValue("myeongjaekim-repo"),
                 ":",
                 Ref("Tag")]),
-            Memory=512,
+            Memory=1920,
             Cpu=2048,
             Name=Select(0, Split("-", Ref("AWS::StackName"))),
             Environment=[Environment(
