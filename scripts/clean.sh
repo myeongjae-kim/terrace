@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 find src -name "*.js" -type f
 find server -name "*.js" -type f
 
