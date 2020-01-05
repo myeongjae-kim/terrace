@@ -9,7 +9,8 @@
         "languages": [
           "tsx",
           "java",
-          "bash"
+          "bash",
+          "vim"
         ],
         "plugins": [],
         "css": false
