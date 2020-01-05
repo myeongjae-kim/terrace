@@ -21,7 +21,7 @@ class MyDocument extends Document {
           <style>{`
           body {
             font-family: Source Sans Pro, Noto Sans KR;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.02em;
           }
           code, pre {
             font-family: Inconsolata; 
