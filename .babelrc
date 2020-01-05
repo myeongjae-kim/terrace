@@ -10,8 +10,7 @@
           "tsx",
           "java",
           "bash",
-          "vim",
-          "sh"
+          "vim"
         ],
         "plugins": [],
         "css": false
