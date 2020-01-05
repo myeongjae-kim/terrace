@@ -2,7 +2,7 @@
 
 python3 ./2-ecs-cluster-cf-template.py > 2-ecs-cluster-cf.template
 
-awsecr cloudformation create-stack \
+awsecr cloudformation update-stack \
 --stack-name myeongjaekim-staging-cluster \
 --capabilities CAPABILITY_IAM \
 --template-body file://2-ecs-cluster-cf.template \
