@@ -8,7 +8,8 @@
       {
         "languages": [
           "tsx",
-          "java"
+          "java",
+          "bash"
         ],
         "plugins": [],
         "css": false
