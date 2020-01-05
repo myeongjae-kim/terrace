@@ -7,7 +7,7 @@
     "dev": "scripts/dev.sh",
     "build": "scripts/build.sh",
     "start": "scripts/start.sh",
-    "clean": "bash scripts/clean.sh",
+    "clean": "scripts/clean.sh",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "jest",
     "report": "jest unit --coverage",
