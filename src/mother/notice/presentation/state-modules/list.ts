@@ -3,13 +3,13 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import Page from 'src/common/domain/model/Page';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 import Notice from "../../domain/model/Notice";
 import { noticeService } from '../../infrastructure/service/NoticeServiceImpl';
 
-export const reset = createStandardAction("@noticeList/RESET")();
+export const reset = createAction("@noticeList/RESET")();
 
-export const fetchNoticePage = createStandardAction("@noticeList/FETCH_NOTICE_PAGE")();
+export const fetchNoticePage = createAction("@noticeList/FETCH_NOTICE_PAGE")();
 const fetchNoticePageAsync = createAsyncAction(
   '@noticeList/FETCH_NOTICE_PAGE_REQUEST',
   '@noticeList/FETCH_NOTICE_PAGE_SUCCESS',
@@ -38,17 +38,17 @@ const createInitialState = () => ({
 } as State);
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(reset), createInitialState)
-  .handleAction(getType(fetchNoticePageAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(reset, createInitialState)
+  .handleAction(fetchNoticePageAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(fetchNoticePageAsync.success), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(fetchNoticePageAsync.success, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.page = action.payload.page;
     return draft;
   }))
-  .handleAction(getType(fetchNoticePageAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(fetchNoticePageAsync.failure, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;

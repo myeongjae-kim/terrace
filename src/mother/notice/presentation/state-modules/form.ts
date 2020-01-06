@@ -5,30 +5,30 @@ import { Endpoints } from 'src/common/constants/Constants';
 import Id from 'src/common/domain/model/Id';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 import NoticeFormDto from '../../api/dto/NoticeFormDto';
 import NoticeRequestDto from '../../api/dto/NoticeRequestDto';
 import Notice from "../../domain/model/Notice";
 import { noticeService } from '../../infrastructure/service/NoticeServiceImpl';
 
-export const reset = createStandardAction("@noticeForm/RESET")();
-export const setPendingFalse = createStandardAction("@noticeForm/SET_PENDING_FALSE")();
+export const reset = createAction("@noticeForm/RESET")();
+export const setPendingFalse = createAction("@noticeForm/SET_PENDING_FALSE")();
 
-export const fetchInitialNotice = createStandardAction("@noticeForm/FETCH_INITIAL_NOTICE")<{ id: Id }>();
+export const fetchInitialNotice = createAction("@noticeForm/FETCH_INITIAL_NOTICE")<{ id: Id }>();
 const fetchInitialNoticeAsync = createAsyncAction(
   '@noticeForm/FETCH_INITIAL_NOTICE_REQUEST',
   '@noticeForm/FETCH_INITIAL_NOTICE_SUCCESS',
   '@noticeForm/FETCH_INITIAL_NOTICE_FAILURE',
 )<void, { initialNoticeFormDto: NoticeFormDto }, void>();
 
-export const postNotice = createStandardAction("@noticeForm/POST_NOTICE")<{ noticeFormDto: NoticeFormDto }>();
+export const postNotice = createAction("@noticeForm/POST_NOTICE")<{ noticeFormDto: NoticeFormDto }>();
 const postNoticeAsync = createAsyncAction(
   '@noticeForm/POST_NOTICE_REQUEST',
   '@noticeForm/POST_NOTICE_SUCCESS',
   '@noticeForm/POST_NOTICE_FAILURE',
 )<void, void, void>();
 
-export const putNotice = createStandardAction("@noticeForm/PUT_NOTICE")<{ id: Id, noticeFormDto: NoticeFormDto }>();
+export const putNotice = createAction("@noticeForm/PUT_NOTICE")<{ id: Id, noticeFormDto: NoticeFormDto }>();
 const putNoticeAsync = createAsyncAction(
   '@noticeForm/PUT_NOTICE_REQUEST',
   '@noticeForm/PUT_NOTICE_SUCCESS',
@@ -70,47 +70,47 @@ const createInitialState = () => ({
 } as State);
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(reset), createInitialState)
-  .handleAction(getType(setPendingFalse), (state) => produce(state, draft => {
+  .handleAction(reset, createInitialState)
+  .handleAction(setPendingFalse, (state) => produce(state, draft => {
     draft.pending = false;
     return draft;
   }))
-  .handleAction(getType(fetchInitialNoticeAsync.request), (state) => produce(state, draft => {
+  .handleAction(fetchInitialNoticeAsync.request, (state) => produce(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(fetchInitialNoticeAsync.success), (state, action) => produce(state, draft => {
+  .handleAction(fetchInitialNoticeAsync.success, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.initialNoticeFormDto = action.payload.initialNoticeFormDto;
     return draft;
   }))
-  .handleAction(getType(fetchInitialNoticeAsync.failure), (state) => produce(state, draft => {
+  .handleAction(fetchInitialNoticeAsync.failure, (state) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;
   }))
-  .handleAction(getType(postNoticeAsync.request), (state) => produce(state, draft => {
+  .handleAction(postNoticeAsync.request, (state) => produce(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(postNoticeAsync.success), (state) => produce(state, draft => {
+  .handleAction(postNoticeAsync.success, (state) => produce(state, draft => {
     draft.pending = false;
     return draft;
   }))
-  .handleAction(getType(postNoticeAsync.failure), (state) => produce(state, draft => {
+  .handleAction(postNoticeAsync.failure, (state) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;
   }))
-  .handleAction(getType(putNoticeAsync.request), (state) => produce(state, draft => {
+  .handleAction(putNoticeAsync.request, (state) => produce(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(putNoticeAsync.success), (state) => produce(state, draft => {
+  .handleAction(putNoticeAsync.success, (state) => produce(state, draft => {
     draft.pending = false;
     return draft;
   }))
-  .handleAction(getType(putNoticeAsync.failure), (state) => produce(state, draft => {
+  .handleAction(putNoticeAsync.failure, (state) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;

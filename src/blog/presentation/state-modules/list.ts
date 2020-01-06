@@ -3,11 +3,11 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { blogArticleFetcher, BlogArticleListResponseDto } from 'src/blog/api';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
-  reset: createStandardAction("@blogArticleList/RESET")(),
-  fetchBlogArticles: createStandardAction("@blogArticleList/FETCH_BLOG_ARTICLE_LIST")(),
+  reset: createAction("@blogArticleList/RESET")(),
+  fetchBlogArticles: createAction("@blogArticleList/FETCH_BLOG_ARTICLE_LIST")(),
   fetchBlogArticlesAsync: createAsyncAction(
     '@blogArticleList/FETCH_BLOG_ARTICLE_LIST_REQUEST',
     '@blogArticleList/FETCH_BLOG_ARTICLE_LIST_SUCCESS',
@@ -32,19 +32,19 @@ const createInitialState = (): State => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(actions.reset), createInitialState)
-  .handleAction(getType(actions.fetchBlogArticlesAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.reset, createInitialState)
+  .handleAction(actions.fetchBlogArticlesAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     return draft;
   }))
-  .handleAction(getType(actions.fetchBlogArticlesAsync.success), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchBlogArticlesAsync.success, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = false;
     draft.blogArticles = action.payload.blogArticles;
     return draft;
   }))
-  .handleAction(getType(actions.fetchBlogArticlesAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchBlogArticlesAsync.failure, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;

@@ -3,11 +3,11 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import { dailyFetcher, DailyListResponseDto } from 'src/daily/api';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
-  reset: createStandardAction("@dailyList/RESET")(),
-  fetchDailys: createStandardAction("@dailyList/FETCH_DAILY_LIST")(),
+  reset: createAction("@dailyList/RESET")(),
+  fetchDailys: createAction("@dailyList/FETCH_DAILY_LIST")(),
   fetchDailysAsync: createAsyncAction(
     '@dailyList/FETCH_DAILY_LIST_REQUEST',
     '@dailyList/FETCH_DAILY_LIST_SUCCESS',
@@ -32,19 +32,19 @@ const createInitialState = (): State => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(actions.reset), createInitialState)
-  .handleAction(getType(actions.fetchDailysAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.reset, createInitialState)
+  .handleAction(actions.fetchDailysAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     return draft;
   }))
-  .handleAction(getType(actions.fetchDailysAsync.success), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailysAsync.success, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = false;
     draft.dailys = action.payload.dailys;
     return draft;
   }))
-  .handleAction(getType(actions.fetchDailysAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailysAsync.failure, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;
