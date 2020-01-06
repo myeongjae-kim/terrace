@@ -2,7 +2,7 @@ import { TOptions } from "i18next";
 import produce from "immer";
 import { OptionsObject, VariantType } from "notistack";
 import Optional from "optional-js";
-import { ActionType, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createReducer } from "typesafe-actions";
 import uuid from 'uuid';
 
 export interface SnackbarOptionsObject extends OptionsObject {
@@ -25,14 +25,14 @@ export interface Snackbar {
   options?: SnackbarOptionsObject
 }
 
-export const reset = createStandardAction("@snackbar/RESET")();
+export const reset = createAction("@snackbar/RESET")();
 
-export const enqueueSnackbar = createStandardAction("@snackbar/ENQUEUE_SNACKBAR")<{ snackbar: SnackbarEnqueuePayload }>();
-export const dismissSnackbar = createStandardAction("@snackbar/DISMISS_SNACKBAR")<{ key: string }>();
-export const removeSnackbar = createStandardAction("@snackbar/REMOVE_SNACKBAR")<{ key: string }>();
+export const enqueueSnackbar = createAction("@snackbar/ENQUEUE_SNACKBAR")<{ snackbar: SnackbarEnqueuePayload }>();
+export const dismissSnackbar = createAction("@snackbar/DISMISS_SNACKBAR")<{ key: string }>();
+export const removeSnackbar = createAction("@snackbar/REMOVE_SNACKBAR")<{ key: string }>();
 
-export const openNotificationCenter = createStandardAction("@snackbar/OPEN_NOTIFICATION_CENTER")();
-export const closeNotificationCenter = createStandardAction("@snackbar/CLOSE_NOTIFICATION_CENTER")();
+export const openNotificationCenter = createAction("@snackbar/OPEN_NOTIFICATION_CENTER")();
+export const closeNotificationCenter = createAction("@snackbar/CLOSE_NOTIFICATION_CENTER")();
 
 export type Action = ActionType<
   typeof reset |
@@ -54,7 +54,7 @@ const createInitialState = (): State => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(enqueueSnackbar), (state, action) => produce(state, draft => {
+  .handleAction(enqueueSnackbar, (state, action) => produce(state, draft => {
     const { snackbar } = action.payload;
     draft.snackbars.push({
       ...snackbar,
@@ -66,23 +66,23 @@ export const reducer = createReducer<State, Action>(createInitialState())
     });
     return draft
   }))
-  .handleAction(getType(dismissSnackbar), (state, action) => produce(state, draft => {
+  .handleAction(dismissSnackbar, (state, action) => produce(state, draft => {
     const { key } = action.payload;
 
     Optional.ofNullable(draft.snackbars.find(s => s.key === key))
       .map(s => s.dismissed = true);
     return draft
   }))
-  .handleAction(getType(removeSnackbar), (state, action) => produce(state, draft => {
+  .handleAction(removeSnackbar, (state, action) => produce(state, draft => {
     const { key } = action.payload;
     draft.snackbars = draft.snackbars.filter(s => s.key !== key);
     return draft
   }))
-  .handleAction(getType(openNotificationCenter), (state) => produce(state, draft => {
+  .handleAction(openNotificationCenter, (state) => produce(state, draft => {
     draft.isNotificationCenterOpened = true;
     return draft;
   }))
-  .handleAction(getType(closeNotificationCenter), (state) => produce(state, draft => {
+  .handleAction(closeNotificationCenter, (state) => produce(state, draft => {
     draft.isNotificationCenterOpened = false;
     return draft;
   }))

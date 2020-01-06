@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { ActionType, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createReducer } from "typesafe-actions";
 
 export interface ConfirmPayload {
   title?: string
@@ -7,10 +7,10 @@ export interface ConfirmPayload {
   onClick?(e?: React.MouseEvent): void
 }
 
-export const setPaths = createStandardAction("@common/SET_PATHS")<{ pathname: string }>();
+export const setPaths = createAction("@common/SET_PATHS")<{ pathname: string }>();
 
-export const openConfirmDialog = createStandardAction("@common/OPEN_CONFIRM_DIALOG")<ConfirmPayload>();
-export const closeConfirmDialog = createStandardAction("@common/CLOSE_CONFIRM_DIALOG")();
+export const openConfirmDialog = createAction("@common/OPEN_CONFIRM_DIALOG")<ConfirmPayload>();
+export const closeConfirmDialog = createAction("@common/CLOSE_CONFIRM_DIALOG")();
 
 export type Action = ActionType<
   typeof setPaths |
@@ -37,19 +37,19 @@ const createInitialState = (): State => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(setPaths), (state, action) => produce(state, draft => {
+  .handleAction(setPaths, (state, action) => produce(state, draft => {
     draft.paths = action.payload.pathname.split("/").slice(1);
     draft.paths[0] = "/" + draft.paths[0];
     return draft
   }))
-  .handleAction(getType(openConfirmDialog), (state, action) => produce(state, draft => {
+  .handleAction(openConfirmDialog, (state, action) => produce(state, draft => {
     draft.isConfirmOpened = true;
     draft.confirmData = {
       ...action.payload
     }
     return draft;
   }))
-  .handleAction(getType(closeConfirmDialog), (state) => produce(state, draft => {
+  .handleAction(closeConfirmDialog, (state) => produce(state, draft => {
     draft.isConfirmOpened = false;
     return draft;
   }))

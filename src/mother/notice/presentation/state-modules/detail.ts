@@ -5,20 +5,20 @@ import { Endpoints } from 'src/common/constants/Constants';
 import Id from 'src/common/domain/model/Id';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 import Notice from "../../domain/model/Notice";
 import { noticeService } from '../../infrastructure/service/NoticeServiceImpl';
 
-export const reset = createStandardAction("@noticeDetail/RESET")();
+export const reset = createAction("@noticeDetail/RESET")();
 
-export const fetchNotice = createStandardAction("@noticeDetail/FETCH_NOTICE")<{ id: Id }>();
+export const fetchNotice = createAction("@noticeDetail/FETCH_NOTICE")<{ id: Id }>();
 const fetchNoticeAsync = createAsyncAction(
   '@noticeDetail/FETCH_NOTICE_REQUEST',
   '@noticeDetail/FETCH_NOTICE_SUCCESS',
   '@noticeDetail/FETCH_NOTICE_FAILURE',
 )<void, { notice: Notice }, void>();
 
-export const deleteNotice = createStandardAction("@noticeDetail/DELETE_NOTICE")<{ id: Id }>();
+export const deleteNotice = createAction("@noticeDetail/DELETE_NOTICE")<{ id: Id }>();
 const deleteNoticeAsync = createAsyncAction(
   '@noticeDetail/DELETE_NOTICE_REQUEST',
   '@noticeDetail/DELETE_NOTICE_SUCCESS',
@@ -54,30 +54,30 @@ const createInitialState = () => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(reset), createInitialState)
-  .handleAction(getType(fetchNoticeAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(reset, createInitialState)
+  .handleAction(fetchNoticeAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(fetchNoticeAsync.success), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(fetchNoticeAsync.success, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.notice = action.payload.notice;
     return draft;
   }))
-  .handleAction(getType(fetchNoticeAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(fetchNoticeAsync.failure, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;
   }))
-  .handleAction(getType(deleteNoticeAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(deleteNoticeAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(deleteNoticeAsync.success), (state) => produce<State, State>(state, draft => {
+  .handleAction(deleteNoticeAsync.success, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     return draft;
   }))
-  .handleAction(getType(deleteNoticeAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(deleteNoticeAsync.failure, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;

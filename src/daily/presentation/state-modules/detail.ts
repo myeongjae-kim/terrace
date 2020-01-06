@@ -3,11 +3,11 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from 'src/daily/api';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
-  reset: createStandardAction("@dailyDetail/RESET")(),
-  fetchDaily: createStandardAction("@dailyDetail/FETCH_DAILY_DETAIL")<{
+  reset: createAction("@dailyDetail/RESET")(),
+  fetchDaily: createAction("@dailyDetail/FETCH_DAILY_DETAIL")<{
     daily: DailyDetailRequestDto
   }>(),
   fetchDailyAsync: createAsyncAction(
@@ -43,20 +43,20 @@ const createInitialState = (): State => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(reset), createInitialState)
-  .handleAction(getType(actions.fetchDailyAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(reset, createInitialState)
+  .handleAction(actions.fetchDailyAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(getType(actions.fetchDailyAsync.success), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailyAsync.success, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.daily = action.payload.daily;
     draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(getType(actions.fetchDailyAsync.failure), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailyAsync.failure, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     draft.statusCode = action.payload.statusCode;

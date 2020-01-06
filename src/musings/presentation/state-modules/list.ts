@@ -3,11 +3,11 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import { MusingResponseDto, musingsFetcher } from 'src/musings/api';
 import stringify from 'src/util/stringify';
-import { ActionType, createAsyncAction, createReducer, createStandardAction, getType } from "typesafe-actions";
+import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
-export const reset = createStandardAction("@musingList/RESET")();
+export const reset = createAction("@musingList/RESET")();
 
-export const fetchMusings = createStandardAction("@musingList/FETCH_MUSING_LIST")();
+export const fetchMusings = createAction("@musingList/FETCH_MUSING_LIST")();
 const fetchMusingsAsync = createAsyncAction(
   '@musingList/FETCH_MUSING_LIST_REQUEST',
   '@musingList/FETCH_MUSING_LIST_SUCCESS',
@@ -36,17 +36,17 @@ const createInitialState = () => ({
 } as State);
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(getType(reset), createInitialState)
-  .handleAction(getType(fetchMusingsAsync.request), (state) => produce<State, State>(state, draft => {
+  .handleAction(reset, createInitialState)
+  .handleAction(fetchMusingsAsync.request, (state) => produce<State, State>(state, draft => {
     draft.pending = true;
     return draft;
   }))
-  .handleAction(getType(fetchMusingsAsync.success), (state, action) => produce<State, State>(state, draft => {
+  .handleAction(fetchMusingsAsync.success, (state, action) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.musings = action.payload.musings;
     return draft;
   }))
-  .handleAction(getType(fetchMusingsAsync.failure), (state) => produce<State, State>(state, draft => {
+  .handleAction(fetchMusingsAsync.failure, (state) => produce<State, State>(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;
