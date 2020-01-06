@@ -154,15 +154,15 @@ states = {
     }
 }
 
-for reservation in {"CPU", "Memory"}:
+for utilization in {"CPU", "Memory"}:
     for state, value in states.items():
         t.add_resource(Alarm(
-            "{}ReservationToo{}".format(reservation, state),
-            AlarmDescription="Alarm if {} reservation too {}".format(
-                reservation,
+            "{}UtilizationToo{}".format(utilization, state),
+            AlarmDescription="Alarm if {} utilization too {}".format(
+                utilization,
                 state),
             Namespace="AWS/ECS",
-            MetricName="{}Reservation".format(reservation),
+            MetricName="{}Utilization".format(utilization),
             Dimensions=[
                 MetricDimension(
                     Name="ClusterName",
@@ -175,10 +175,10 @@ for reservation in {"CPU", "Memory"}:
             Threshold=value['threshold'],
             ComparisonOperator=value['operator'],
             AlarmActions=[
-                Ref("{}{}".format(value['alarmPrefix'], reservation))]
+                Ref("{}{}".format(value['alarmPrefix'], utilization))]
         ))
         t.add_resource(ScalingPolicy(
-            "{}{}".format(value['alarmPrefix'], reservation),
+            "{}{}".format(value['alarmPrefix'], utilization),
             ScalingAdjustment=value['adjustment'],
             AutoScalingGroupName=Ref("ECSAutoScalingGroup"),
             AdjustmentType="ChangeInCapacity",
