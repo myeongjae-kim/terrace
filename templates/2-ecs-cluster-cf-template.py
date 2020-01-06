@@ -126,7 +126,7 @@ t.add_resource(LaunchConfiguration(
     # Security group sg-06c3ae.. is for a database.
     SecurityGroups=[Ref("SecurityGroup"), "sg-06c3ae770a78d7179"],
     IamInstanceProfile=Ref('EC2InstanceProfile'),
-    InstanceType='t3.micro',
+    InstanceType='t3.small',
     AssociatePublicIpAddress='true',
 ))
 
@@ -141,13 +141,13 @@ t.add_resource(AutoScalingGroup(
 
 states = {
     "High": {
-        "threshold": "75",
+        "threshold": "80",
         "alarmPrefix": "ScaleUpPolicyFor",
         "operator": "GreaterThanThreshold",
         "adjustment": "1"
     },
     "Low": {
-        "threshold": "30",
+        "threshold": "40",
         "alarmPrefix": "ScaleDownPolicyFor",
         "operator": "LessThanThreshold",
         "adjustment": "-1"
