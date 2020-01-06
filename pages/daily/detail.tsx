@@ -14,23 +14,21 @@ import DailyDetail from 'src/daily/presentation/components/templates/DailyDetail
 import { DailyDetailProps } from 'src/daily/presentation/components/templates/DailyDetail/DailyDetail';
 import DailyList from 'src/daily/presentation/components/templates/DailyList';
 import { DailyListProps } from 'src/daily/presentation/components/templates/DailyList/DailyList';
-import * as dailyModule from "src/daily/presentation/state-modules";
 import * as detailModule from "src/daily/presentation/state-modules/detail";
 import * as listModule from "src/daily/presentation/state-modules/list";
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
-import { StateType } from 'typesafe-actions';
 
 interface DailyDetailPageStates {
   dailyListProps: DailyListProps,
   dailyDetailProps: DailyDetailProps
 }
 
-type DailyModuleState = StateType<typeof dailyModule.reducer>;
-const selector = createSelector<RootState, DailyModuleState, DailyDetailPageStates>(
-  root => root.daily,
-  d => ({
-    dailyListProps: d.list,
-    dailyDetailProps: d.detail,
+const selector = createSelector<RootState, listModule.State, detailModule.State, DailyDetailPageStates>(
+  root => root.daily.list,
+  root => root.daily.detail,
+  (list, detail) => ({
+    dailyListProps: list,
+    dailyDetailProps: detail,
   }));
 
 const DailyDetailPage: NextPage = () => {
