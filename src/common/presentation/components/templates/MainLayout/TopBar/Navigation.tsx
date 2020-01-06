@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { Link, MyButton } from '../../../molecules';
 
@@ -15,14 +15,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 interface Props {
-  paths: string[]
   items: Array<{
     href: string[]
     label: string
   }>
 }
 
-const Navigation: React.FC<Props> = ({ items, paths }) => {
+const Navigation: React.FC<Props> = ({ items }) => {
+  const paths = useSelector<RootState, string[]>(({ common }) => common.paths);
+
   const classes = useStyles();
   const firstPath = paths[0] || "";
 
@@ -35,8 +36,4 @@ const Navigation: React.FC<Props> = ({ items, paths }) => {
   </nav>;
 }
 
-const mapStateToProps = (state: RootState) => ({
-  paths: state.common.paths
-})
-
-export default connect(mapStateToProps)(Navigation);
+export default Navigation;

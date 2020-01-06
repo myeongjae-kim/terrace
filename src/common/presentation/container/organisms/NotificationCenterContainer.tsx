@@ -1,41 +1,26 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
 import NotificationCenter from '../../components/organisms/NotificationCenter';
+import { NotificationCenterProps } from '../../components/organisms/NotificationCenter/NotificationCenter';
 import { RootState } from '../../state-module/root';
 import * as snackbarModule from '../../state-module/snackbar';
-import { Snackbar } from '../../state-module/snackbar';
 
-interface Props {
-  isNotificationCenterOpened: boolean
-  snackbars: Snackbar[]
-  dispatchers: typeof snackbarModule
-}
+const NotificationCenterContainer: React.FC = () => {
+  const props = useSelector<RootState, Omit<NotificationCenterProps, "handleClose" | "handleRemove">>(({ snackbar }) => ({
+    snackbars: snackbar.snackbars,
+    opened: snackbar.isNotificationCenterOpened
+  }));
+  const dispatch = useDispatch<Dispatch<snackbarModule.Action>>();
 
-const NotificationCenterContainer: React.FC<Props> = ({
-  isNotificationCenterOpened: opened,
-  snackbars,
-  dispatchers,
-}) => {
-  const handleClose = dispatchers.closeNotificationCenter;
-  const handleRemove = (key: string) => dispatchers.removeSnackbar({ key });
+  const handleClose = () => { dispatch(snackbarModule.closeNotificationCenter()) };
+  const handleRemove = (key: string) => { dispatch(snackbarModule.removeSnackbar({ key })) };
 
   return <NotificationCenter
-    snackbars={snackbars}
-    opened={opened}
+    {...props}
     handleClose={handleClose}
     handleRemove={handleRemove}
   />
 }
 
-
-const mapStateToProps = ({ snackbar }: RootState) => ({
-  isNotificationCenterOpened: snackbar.isNotificationCenterOpened,
-  snackbars: snackbar.snackbars
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<snackbarModule.Action>) => ({
-  dispatchers: bindActionCreators(snackbarModule, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationCenterContainer);
+export default NotificationCenterContainer;

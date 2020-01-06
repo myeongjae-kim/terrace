@@ -12,14 +12,14 @@ const useStyles = makeStyles(createStyles({
   }
 }))
 
-interface Props {
+export interface NotificationCenterProps {
   snackbars: Snackbar[]
   opened: boolean
-  handleClose(): any
-  handleRemove(key: string): any
+  handleClose(): void
+  handleRemove(key: string): void
 }
 
-const NotificationCenter: React.SFC<Props> = ({ snackbars, opened, handleClose, handleRemove }) => {
+const NotificationCenter: React.SFC<NotificationCenterProps> = ({ snackbars, opened, handleClose, handleRemove }) => {
   const classes = useStyles();
 
   return <Drawer

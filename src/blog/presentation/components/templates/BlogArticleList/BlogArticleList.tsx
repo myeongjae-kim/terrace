@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-interface Props {
+export interface BlogArticleListProps {
   blogArticles: BlogArticleListResponseDto[]
   pending: boolean
   rejected: boolean
 }
 
-const BlogArticleList: React.FC<Props> = ({ blogArticles }) => {
+const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles }) => {
   const classes = useStyles();
   return <div>
     <div className={classes.container}>

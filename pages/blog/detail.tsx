@@ -3,8 +3,9 @@ import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
-import { BlogArticleDetailRequestDto, BlogArticleDetailResponseDto } from 'src/blog/api/dto';
+import { BlogArticleDetailRequestDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
+import { BlogArticleDetailProps } from 'src/blog/presentation/components/templates/BlogArticleDetail/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
 import { DOMAIN_BLOG } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
@@ -12,20 +13,8 @@ import { Disqus } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
-interface SelectedState {
-  blogArticle: BlogArticleDetailResponseDto
-  pending: boolean
-  rejected: boolean
-  statusCode: number
-}
-
 const BlogArticleDetailPage: NextPage = () => {
-  const { blogArticle, pending, rejected, statusCode } = useSelector<RootState, SelectedState>(({ blog }: RootState) => ({
-    blogArticle: blog.detail.blogArticle,
-    pending: blog.detail.pending,
-    rejected: blog.detail.rejected,
-    statusCode: blog.detail.statusCode,
-  }))
+  const props = useSelector<RootState, BlogArticleDetailProps>(({ blog }) => blog.detail)
   const dispatch = useDispatch<Dispatch<detailModule.Action>>();
 
   const theme = useTheme();
@@ -33,15 +22,11 @@ const BlogArticleDetailPage: NextPage = () => {
     dispatch(detailModule.reset());
   }, [])
 
-  const { title, createdAt, slug, } = blogArticle;
+  const { title, createdAt, slug } = props.blogArticle;
   const uri = `/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
 
   return <>
-    <BlogArticleDetail
-      blogArticle={blogArticle}
-      pending={pending}
-      rejected={rejected}
-      statusCode={statusCode} />
+    <BlogArticleDetail {...props} />
     <Disqus
       title={title}
       identifier={uri}

@@ -1,8 +1,8 @@
 import { Button, createStyles, makeStyles } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 import * as snackbarModule from '../../state-module/snackbar';
 
 const useStyles = makeStyles(createStyles({
@@ -12,15 +12,14 @@ const useStyles = makeStyles(createStyles({
   }
 }))
 
-interface Props {
-  dispatchers: typeof snackbarModule
-}
-
-const NotificationCenterButton: React.FC<Props> = ({ dispatchers }) => {
+const NotificationCenterButton: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch<Dispatch<snackbarModule.Action>>();
+
+  const onClick = () => { dispatch(snackbarModule.openNotificationCenter()) }
 
   return <Button
-    onClick={dispatchers.openNotificationCenter}
+    onClick={onClick}
     className={classes.icon}
     size="small"
   >
@@ -28,8 +27,4 @@ const NotificationCenterButton: React.FC<Props> = ({ dispatchers }) => {
   </Button>
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<snackbarModule.Action>) => ({
-  dispatchers: bindActionCreators(snackbarModule, dispatch)
-})
-
-export default connect(null, mapDispatchToProps)(NotificationCenterButton);
+export default NotificationCenterButton;

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-interface Props {
+export interface ConfirmProps {
   isConfirmOpened: boolean
   confirmData: ConfirmPayload
   closeConfirmDialog(): void
@@ -33,7 +33,7 @@ interface Props {
 
 const { useTranslation } = I18NService;
 
-const Confirm: React.FC<Props> = ({ isConfirmOpened, confirmData, closeConfirmDialog }) => {
+const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeConfirmDialog }) => {
   const classes = useStyles();
   const { t } = useTranslation("common");
   const { title, content, onClick } = confirmData;

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-interface Props {
+export interface DailyListProps {
   dailys: DailyListResponseDto[]
   pending: boolean
   rejected: boolean
@@ -20,7 +20,7 @@ interface Props {
   currentDaily?: DailyDetailResponseDto
 }
 
-const DailyList: React.FC<Props> = ({ dailys, currentDaily }) => {
+const DailyList: React.FC<DailyListProps> = ({ dailys, currentDaily }) => {
   const classes = useStyles();
   return <div className={classes.dailyList}>
     <div>
