@@ -1,8 +1,8 @@
 import { useTheme } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, Store } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, Store } from 'redux';
 import { BlogArticleDetailRequestDto, BlogArticleDetailResponseDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
@@ -12,19 +12,25 @@ import { Disqus } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
-interface Props {
+interface SelectedState {
   blogArticle: BlogArticleDetailResponseDto
   pending: boolean
   rejected: boolean
   statusCode: number
-
-  dispatchers: typeof detailModule
 }
 
-const BlogArticleDetailPage: NextPage<Props> = ({ blogArticle, pending, rejected, statusCode, dispatchers }) => {
+const BlogArticleDetailPage: NextPage = () => {
+  const { blogArticle, pending, rejected, statusCode } = useSelector<RootState, SelectedState>(({ blog }: RootState) => ({
+    blogArticle: blog.detail.blogArticle,
+    pending: blog.detail.pending,
+    rejected: blog.detail.rejected,
+    statusCode: blog.detail.statusCode,
+  }))
+  const dispatch = useDispatch<Dispatch<detailModule.Action>>();
+
   const theme = useTheme();
   React.useEffect(() => () => {
-    dispatchers.reset()
+    dispatch(detailModule.reset());
   }, [])
 
   const { title, createdAt, slug, } = blogArticle;
@@ -74,15 +80,4 @@ const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticleDetailR
   }
 }
 
-const mapStateToProps = ({ blog }: RootState) => ({
-  blogArticle: blog.detail.blogArticle,
-  pending: blog.detail.pending,
-  rejected: blog.detail.rejected,
-  statusCode: blog.detail.statusCode,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<detailModule.Action>) => ({
-  dispatchers: bindActionCreators(detailModule, dispatch),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(BlogArticleDetailPage);
+export default BlogArticleDetailPage;
