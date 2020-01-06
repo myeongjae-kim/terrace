@@ -43,6 +43,7 @@
     "redux-form": "^8.2.6",
     "redux-saga": "^1.1.3",
     "reflect-metadata": "^0.1.13",
+    "reselect": "^4.0.0",
     "tsconfig-paths": "3.9.0",
     "typeorm": "^0.2.22",
     "typeorm-naming-strategies": "^1.1.0",

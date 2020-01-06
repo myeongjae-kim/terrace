@@ -3,6 +3,7 @@ import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
+import { createSelector } from 'reselect';
 import { DOMAIN } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
@@ -22,12 +23,17 @@ interface DailyDetailPageStates {
   dailyDetailProps: DailyDetailProps
 }
 
+const selector = createSelector<RootState, listModule.State, detailModule.State, DailyDetailPageStates>(
+  root => root.daily.list,
+  root => root.daily.detail,
+  (list, detail) => ({
+    dailyListProps: list,
+    dailyDetailProps: detail,
+  }));
+
 const DailyDetailPage: NextPage = () => {
   const theme = useTheme();
-  const dailyProps = useSelector<RootState, DailyDetailPageStates>(({ daily: dailyStates }) => ({
-    dailyListProps: dailyStates.list,
-    dailyDetailProps: dailyStates.detail,
-  }));
+  const dailyProps = useSelector<RootState, DailyDetailPageStates>(selector);
   const { dailyListProps, dailyDetailProps } = dailyProps;
   const { daily } = dailyDetailProps;
 
