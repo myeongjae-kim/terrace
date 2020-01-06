@@ -126,7 +126,7 @@ t.add_resource(LaunchConfiguration(
     # Security group sg-06c3ae.. is for a database.
     SecurityGroups=[Ref("SecurityGroup"), "sg-06c3ae770a78d7179"],
     IamInstanceProfile=Ref('EC2InstanceProfile'),
-    InstanceType='t3.small',
+    InstanceType='t3.xlarge',
     AssociatePublicIpAddress='true',
 ))
 
