@@ -3,6 +3,7 @@ import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
+import { createSelector } from 'reselect';
 import { DOMAIN } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
@@ -13,21 +14,28 @@ import DailyDetail from 'src/daily/presentation/components/templates/DailyDetail
 import { DailyDetailProps } from 'src/daily/presentation/components/templates/DailyDetail/DailyDetail';
 import DailyList from 'src/daily/presentation/components/templates/DailyList';
 import { DailyListProps } from 'src/daily/presentation/components/templates/DailyList/DailyList';
+import * as dailyModule from "src/daily/presentation/state-modules";
 import * as detailModule from "src/daily/presentation/state-modules/detail";
 import * as listModule from "src/daily/presentation/state-modules/list";
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
+import { StateType } from 'typesafe-actions';
 
 interface DailyDetailPageStates {
   dailyListProps: DailyListProps,
   dailyDetailProps: DailyDetailProps
 }
 
+type DailyModuleState = StateType<typeof dailyModule.reducer>;
+const selector = createSelector<RootState, DailyModuleState, DailyDetailPageStates>(
+  root => root.daily,
+  d => ({
+    dailyListProps: d.list,
+    dailyDetailProps: d.detail,
+  }));
+
 const DailyDetailPage: NextPage = () => {
   const theme = useTheme();
-  const dailyProps = useSelector<RootState, DailyDetailPageStates>(({ daily: dailyStates }) => ({
-    dailyListProps: dailyStates.list,
-    dailyDetailProps: dailyStates.detail,
-  }));
+  const dailyProps = useSelector<RootState, DailyDetailPageStates>(selector);
   const { dailyListProps, dailyDetailProps } = dailyProps;
   const { daily } = dailyDetailProps;
 
