@@ -14,13 +14,13 @@ const useStyles = makeStyles(createStyles({
   }
 }))
 
-interface Props {
+export interface MusingsProps {
   musings: MusingResponseDto[]
   pending: boolean
   rejected: boolean
 }
 
-const Musings: React.FC<Props> = ({ musings }) => {
+const Musings: React.FC<MusingsProps> = ({ musings }) => {
   const classes = useStyles();
   return <div>
     <PageTitle title="quotes" />

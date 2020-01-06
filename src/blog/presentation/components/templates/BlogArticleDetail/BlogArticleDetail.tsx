@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-interface Props {
+export interface BlogArticleDetailProps {
   blogArticle: BlogArticleDetailResponseDto
   pending: boolean
   rejected: boolean
   statusCode: number
 }
 
-const BlogArticleDetail: React.FC<Props> = ({ blogArticle, rejected, statusCode }) => {
+const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, rejected, statusCode }) => {
   const classes = useStyles();
   const { title, slug, content, createdAt, prev, next } = blogArticle;
   return <>

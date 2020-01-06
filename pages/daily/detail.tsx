@@ -1,44 +1,48 @@
 import { useTheme } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, Store } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, Store } from 'redux';
 import { DOMAIN } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
 import { Disqus } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
-import { DailyListResponseDto } from 'src/daily/api';
-import { DailyDetailRequestDto, DailyDetailResponseDto } from 'src/daily/api/dto';
+import { DailyDetailRequestDto } from 'src/daily/api/dto';
 import DailyDetail from 'src/daily/presentation/components/templates/DailyDetail';
+import { DailyDetailProps } from 'src/daily/presentation/components/templates/DailyDetail/DailyDetail';
 import DailyList from 'src/daily/presentation/components/templates/DailyList';
+import { DailyListProps } from 'src/daily/presentation/components/templates/DailyList/DailyList';
 import * as detailModule from "src/daily/presentation/state-modules/detail";
 import * as listModule from "src/daily/presentation/state-modules/list";
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
-interface Props {
-  daily: DailyDetailResponseDto
-  dailys: DailyListResponseDto[]
-  pending: boolean
-  rejected: boolean
-  statusCode: number
-
-  dispatchers: typeof detailModule
+interface DailyDetailPageStates {
+  dailyListProps: DailyListProps,
+  dailyDetailProps: DailyDetailProps
 }
 
-const DailyDetailPage: NextPage<Props> = ({ daily, dailys, pending, rejected, statusCode, dispatchers }) => {
+const DailyDetailPage: NextPage = () => {
+  const theme = useTheme();
+  const dailyProps = useSelector<RootState, DailyDetailPageStates>(({ daily: dailyStates }) => ({
+    dailyListProps: dailyStates.list,
+    dailyDetailProps: dailyStates.detail,
+  }));
+  const { dailyListProps, dailyDetailProps } = dailyProps;
+  const { daily } = dailyDetailProps;
+
+  const dispatch = useDispatch<Dispatch<detailModule.Action>>();
   React.useEffect(() => () => {
-    dispatchers.reset()
+    dispatch(detailModule.reset());
   }, [])
 
-  const theme = useTheme();
   const { title, createdAt, slug } = daily;
   const uri = `/daily/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
 
   return <>
     <HeadTitle title="Daily" />
-    <DailyDetail daily={daily} pending={pending} rejected={rejected} statusCode={statusCode} />
-    <DailyList dailys={dailys} pending={pending} rejected={rejected} currentDaily={daily} />
+    <DailyDetail {...dailyDetailProps} />
+    <DailyList {...dailyListProps} currentDaily={daily} />
     <Disqus
       title={title}
       identifier={uri}
@@ -83,17 +87,4 @@ const parsePathToDailyDetailRequest = (asPath: string): DailyDetailRequestDto =>
   }
 }
 
-const mapStateToProps = ({ daily }: RootState) => ({
-  daily: daily.detail.daily,
-  pending: daily.detail.pending,
-  rejected: daily.detail.rejected,
-  statusCode: daily.detail.statusCode,
-
-  dailys: daily.list.dailys,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<detailModule.Action>) => ({
-  dispatchers: bindActionCreators(detailModule, dispatch),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(DailyDetailPage);
+export default DailyDetailPage;

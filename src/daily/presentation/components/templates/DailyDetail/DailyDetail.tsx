@@ -44,14 +44,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-interface Props {
+export interface DailyDetailProps {
   daily: DailyDetailResponseDto
   pending: boolean
   rejected: boolean
   statusCode: number
 }
 
-const DailyDetail: React.FC<Props> = ({ daily, rejected, statusCode }) => {
+const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode }) => {
   const classes = useStyles();
   const {
     seq,
