@@ -126,7 +126,7 @@ t.add_resource(LaunchConfiguration(
     # Security group sg-06c3ae.. is for a database.
     SecurityGroups=[Ref("SecurityGroup"), "sg-06c3ae770a78d7179"],
     IamInstanceProfile=Ref('EC2InstanceProfile'),
-    InstanceType='t3.micro',
+    InstanceType='t3.small',
     AssociatePublicIpAddress='true',
 ))
 
@@ -154,15 +154,15 @@ states = {
     }
 }
 
-for utilization in {"CPU", "Memory"}:
+for reservation in {"CPU", "Memory"}:
     for state, value in states.items():
         t.add_resource(Alarm(
-            "{}UtilizationToo{}".format(utilization, state),
-            AlarmDescription="Alarm if {} utilization too {}".format(
-                utilization,
+            "{}ReservationToo{}".format(reservation, state),
+            AlarmDescription="Alarm if {} reservation too {}".format(
+                reservation,
                 state),
             Namespace="AWS/ECS",
-            MetricName="{}Utilization".format(utilization),
+            MetricName="{}Reservation".format(reservation),
             Dimensions=[
                 MetricDimension(
                     Name="ClusterName",
@@ -175,10 +175,10 @@ for utilization in {"CPU", "Memory"}:
             Threshold=value['threshold'],
             ComparisonOperator=value['operator'],
             AlarmActions=[
-                Ref("{}{}".format(value['alarmPrefix'], utilization))]
+                Ref("{}{}".format(value['alarmPrefix'], reservation))]
         ))
         t.add_resource(ScalingPolicy(
-            "{}{}".format(value['alarmPrefix'], utilization),
+            "{}{}".format(value['alarmPrefix'], reservation),
             ScalingAdjustment=value['adjustment'],
             AutoScalingGroupName=Ref("ECSAutoScalingGroup"),
             AdjustmentType="ChangeInCapacity",

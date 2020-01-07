@@ -57,7 +57,7 @@ t.add_resource(TaskDefinition(
                 ":",
                 Ref("Tag")]),
             Memory=957,
-            Cpu=2048,
+            Cpu=1024,
             Name=Select(0, Split("-", Ref("AWS::StackName"))),
             Environment=[Environment(
                 Name="node_env",
