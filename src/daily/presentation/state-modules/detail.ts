@@ -44,19 +44,19 @@ const createInitialState = (): State => ({
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(reset, createInitialState)
-  .handleAction(actions.fetchDailyAsync.request, (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailyAsync.request, (state) => produce(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(actions.fetchDailyAsync.success, (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailyAsync.success, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.daily = action.payload.daily;
     draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(actions.fetchDailyAsync.failure, (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailyAsync.failure, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     draft.statusCode = action.payload.statusCode;

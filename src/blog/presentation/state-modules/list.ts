@@ -33,18 +33,18 @@ const createInitialState = (): State => ({
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(actions.reset, createInitialState)
-  .handleAction(actions.fetchBlogArticlesAsync.request, (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchBlogArticlesAsync.request, (state) => produce(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     return draft;
   }))
-  .handleAction(actions.fetchBlogArticlesAsync.success, (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchBlogArticlesAsync.success, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = false;
     draft.blogArticles = action.payload.blogArticles;
     return draft;
   }))
-  .handleAction(actions.fetchBlogArticlesAsync.failure, (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchBlogArticlesAsync.failure, (state) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;

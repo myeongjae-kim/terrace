@@ -33,18 +33,18 @@ const createInitialState = (): State => ({
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(actions.reset, createInitialState)
-  .handleAction(actions.fetchDailysAsync.request, (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailysAsync.request, (state) => produce(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     return draft;
   }))
-  .handleAction(actions.fetchDailysAsync.success, (state, action) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailysAsync.success, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = false;
     draft.dailys = action.payload.dailys;
     return draft;
   }))
-  .handleAction(actions.fetchDailysAsync.failure, (state) => produce<State, State>(state, draft => {
+  .handleAction(actions.fetchDailysAsync.failure, (state) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     return draft;
