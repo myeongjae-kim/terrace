@@ -13,6 +13,6 @@ export class CommonController implements interfaces.Controller {
 
   @httpGet("/")
   public get(@request() req: Request, @response() res: Response) {
-    return this.nextApplication.render(req, res, PATH)
+    return this.nextApplication.render(true, req, res, PATH)
   }
 }

@@ -19,12 +19,12 @@ export class BlogController implements interfaces.Controller {
 
   @httpGet("/")
   public getPage(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(req, res, PATH)
+    return this.nextApp.render(true, req, res, PATH)
   }
 
   @httpGet("/:year/:month/:date/:slug")
   public getDetailPage(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(req, res, PATH_DETAIL);
+    return this.nextApp.render(true, req, res, PATH_DETAIL);
   }
 
   @httpGet("/api")

@@ -9,6 +9,8 @@ const TYPES = {
 
   DailyRepository: Symbol.for("DailyRepository"),
   DailyService: Symbol.for("DailyService"),
+
+  CacheRenderingService: Symbol.for("CacheRenderingService"),
 };
 
 export { TYPES };
