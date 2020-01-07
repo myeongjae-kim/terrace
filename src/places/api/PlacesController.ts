@@ -14,6 +14,6 @@ export class PlacesController implements interfaces.Controller {
 
   @httpGet("/")
   public get(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(req, res, PATH)
+    return this.nextApp.render(true, req, res, PATH)
   }
 }
