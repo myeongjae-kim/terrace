@@ -9,6 +9,9 @@ import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { Provider as ReduxStoreProvider } from "react-redux";
 import { AnyAction, applyMiddleware, createStore, Middleware, Store } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage'
 import I18NService from 'src/common/domain/service/I18NService';
 import { MainLayout } from 'src/common/presentation/components/templates';
 import theme from 'src/common/presentation/components/theme';
@@ -17,6 +20,7 @@ import SnackbarContainer from 'src/common/presentation/container/molecules/Snack
 import NotificationCenterContainer from 'src/common/presentation/container/organisms/NotificationCenterContainer';
 import { setPaths } from 'src/common/presentation/state-module/common';
 import { rootReducer, rootSaga, RootState } from 'src/common/presentation/state-module/root';
+import { isServer } from 'src/util';
 
 const { appWithTranslation } = I18NService;
 
@@ -32,15 +36,31 @@ const makeStore = (preloadedState = {} as RootState) => {
 
   const sagaMiddleware = createSagaMiddleware();
 
-  const reduxStore: Store<RootState, AnyAction> = createStore(
-    rootReducer,
+  if (isServer()) {
+    const serverStore: Store<RootState, AnyAction> = createStore(
+      rootReducer,
+      preloadedState,
+      bindMiddleware([sagaMiddleware]));
+    (serverStore as any).sagaTask = sagaMiddleware.run(rootSaga);
+
+    return serverStore;
+  }
+
+  const persistedReducer = persistReducer({
+    key: 'root',
+    storage,
+  }, rootReducer);
+
+  const browserStore: Store<RootState, AnyAction> = createStore(
+    persistedReducer,
     preloadedState,
     bindMiddleware([sagaMiddleware])
   );
 
-  (reduxStore as any).sagaTask = sagaMiddleware.run(rootSaga);
+  (browserStore as any).sagaTask = sagaMiddleware.run(rootSaga);
+  (browserStore as any).__PERSISTOR = persistStore(browserStore);
 
-  return reduxStore
+  return browserStore;
 };
 
 interface AppProps {
@@ -69,14 +89,16 @@ class MyApp extends App<AppProps> {
         <CssBaseline />
 
         <ReduxStoreProvider store={store}>
-          <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
-            <ConfirmContainer />
-            <SnackbarContainer />
-            <NotificationCenterContainer />
-          </SnackbarProvider>
+          <PersistGate loading={null} persistor={(store as any).__PERSISTOR}>
+            <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
+              <MainLayout>
+                <Component {...pageProps} />
+              </MainLayout>
+              <ConfirmContainer />
+              <SnackbarContainer />
+              <NotificationCenterContainer />
+            </SnackbarProvider>
+          </PersistGate>
         </ReduxStoreProvider>
       </ThemeProvider>
     </>
