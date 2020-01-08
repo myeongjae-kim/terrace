@@ -143,7 +143,7 @@
             "Properties": {
                 "ContainerDefinitions": [
                     {
-                        "Cpu": 1024,
+                        "Cpu": 2048,
                         "Environment": [
                             {
                                 "Name": "node_env",
@@ -175,7 +175,7 @@
                                 ]
                             ]
                         },
-                        "Memory": 977,
+                        "Memory": 957,
                         "Name": {
                             "Fn::Select": [
                                 0,
