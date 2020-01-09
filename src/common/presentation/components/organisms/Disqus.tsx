@@ -12,7 +12,7 @@ const DisqusContent: React.FC<Props> = ({ title, identifier, url }) => {
     initDisqus('myeongjae', identifier, title, url)
   }, [identifier])
 
-  return <div hidden={!title}>
+  return <div hidden={!identifier}>
     <div id="disqus_thread" />
     <style jsx global>{`
 #disqus_thread {
