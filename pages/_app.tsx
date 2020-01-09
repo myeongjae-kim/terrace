@@ -1,10 +1,9 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import createSagaMiddleware from "@redux-saga/core";
-import { NextPage } from 'next';
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
-import { AppProps } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
@@ -44,41 +43,44 @@ const makeStore = (preloadedState = {} as RootState) => {
   return reduxStore
 };
 
-interface Props {
+interface AppProps {
   store: Store<RootState>
 }
 
-const MyApp: NextPage<AppProps & Props> = ({ Component, pageProps, store, router }) => {
-  React.useEffect(() => {
+class MyApp extends App<AppProps> {
+  public componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentNode!.removeChild(jssStyles);
     }
-  }, [])
+  }
 
-  store.dispatch(setPaths({ pathname: router.asPath }))
+  public render() {
+    const { Component, pageProps, store, router } = this.props;
+    store.dispatch(setPaths({ pathname: router.asPath }))
 
-  return <>
-    <Head>
-      <title>:: Myeongjae Kim</title>
-    </Head>
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
+    return <>
+      <Head>
+        <title>:: Myeongjae Kim</title>
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
 
-      <ReduxStoreProvider store={store}>
-        <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
-          <MainLayout>
-            <Component {...pageProps} />
-          </MainLayout>
-          <ConfirmContainer />
-          <SnackbarContainer />
-          <NotificationCenterContainer />
-        </SnackbarProvider>
-      </ReduxStoreProvider>
-    </ThemeProvider>
-  </>
+        <ReduxStoreProvider store={store}>
+          <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
+            <ConfirmContainer />
+            <SnackbarContainer />
+            <NotificationCenterContainer />
+          </SnackbarProvider>
+        </ReduxStoreProvider>
+      </ThemeProvider>
+    </>
+  }
 }
 
 export default withRedux(makeStore)(withReduxSaga(appWithTranslation(MyApp)))
