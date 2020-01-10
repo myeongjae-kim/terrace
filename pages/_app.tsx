@@ -7,6 +7,7 @@ import App from 'next/app';
 import Head from 'next/head';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Provider as ReduxStoreProvider } from "react-redux";
 import { AnyAction, applyMiddleware, createStore, Middleware, Store } from 'redux';
 import I18NService from 'src/common/domain/service/I18NService';
@@ -17,6 +18,9 @@ import SnackbarContainer from 'src/common/presentation/container/molecules/Snack
 import NotificationCenterContainer from 'src/common/presentation/container/organisms/NotificationCenterContainer';
 import { setPaths } from 'src/common/presentation/state-module/common';
 import { rootReducer, rootSaga, RootState } from 'src/common/presentation/state-module/root';
+import { isServer } from 'src/util';
+
+ReactGA.initialize('UA-126240406-1');
 
 const { appWithTranslation } = I18NService;
 
@@ -54,6 +58,14 @@ class MyApp extends App<AppProps> {
     if (jssStyles) {
       jssStyles.parentNode!.removeChild(jssStyles);
     }
+  }
+
+  public componentDidUpdate() {
+    if (isServer()) {
+      return;
+    }
+    ReactGA.set({ page: window.location.pathname });
+    ReactGA.pageview(window.location.pathname);
   }
 
   public render() {
