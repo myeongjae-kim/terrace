@@ -9,7 +9,6 @@ class MyDocument extends Document {
       <html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link href='/static/fonts_woff2.css' rel='stylesheet' type='text/css' />
           <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|Inconsolata|Bad+Script|Noto+Sans+KR:100,300,400,700|Noto+Serif+KR:300,400,700&display=swap" rel="stylesheet" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
