@@ -9,7 +9,7 @@ interface Props {
 
 const DisqusContent: React.FC<Props> = ({ title, identifier, url }) => {
   React.useEffect(() => {
-    initDisqus('myeongjae', identifier, title, url)
+    initDisqus('myeongjae-new', identifier, title, url)
   }, [identifier])
 
   return <div hidden={!identifier}>
@@ -47,6 +47,7 @@ function initDisqus(shortname: string, identifier: string, title: string, url: s
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(varsObj);
 
       const dsq = document.createElement('script');
+      dsq.id = 'dsq-count-scr';
       dsq.type = 'text/javascript';
       dsq.async = true;
       dsq.src = '//' + shortname + '.disqus.com/embed.js';
