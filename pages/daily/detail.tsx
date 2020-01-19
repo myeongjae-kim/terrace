@@ -4,10 +4,9 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
 import { createSelector } from 'reselect';
-import { DOMAIN } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
-import { Disqus } from 'src/common/presentation/components/organisms';
+import { Comment } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { DailyDetailRequestDto } from 'src/daily/api/dto';
 import DailyDetail from 'src/daily/presentation/components/templates/DailyDetail';
@@ -42,19 +41,16 @@ const DailyDetailPage: NextPage = () => {
     dispatch(detailModule.reset());
   }, [])
 
-  const { title, createdAt, slug } = daily;
+  const { createdAt, slug } = daily;
   const uri = `/daily/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
 
   return <>
     <HeadTitle title="Daily" />
     <DailyDetail {...dailyDetailProps} />
     <DailyList {...dailyListProps} currentDaily={daily} />
-    <Disqus
-      title={title}
-      identifier={uri}
-      url={`${DOMAIN}${uri}`} />
+    <Comment identifier={uri} />
     <style jsx global>{`
-#disqus_thread {
+#comment-container {
   max-width: ${theme.spacing(62.5)}px;
 }
     `}</style>

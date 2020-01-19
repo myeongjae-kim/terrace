@@ -33,10 +33,10 @@ class MyDocument extends Document {
             font-size: 3rem;
           }
           h2 {
-            font-size: 2.375rem;
+            font-size: 2rem;
           }
           h3 {
-            font-size: 2rem;
+            font-size: 1.75rem;
           }
           h4 {
             font-size: 1.5rem;

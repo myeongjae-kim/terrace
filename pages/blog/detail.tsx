@@ -8,9 +8,8 @@ import { BlogArticleDetailRequestDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
 import { BlogArticleDetailProps } from 'src/blog/presentation/components/templates/BlogArticleDetail/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
-import { DOMAIN } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
-import { Disqus } from 'src/common/presentation/components/organisms';
+import { Comment } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
@@ -28,17 +27,14 @@ const BlogArticleDetailPage: NextPage = () => {
     dispatch(detailModule.reset());
   }, [])
 
-  const { title, createdAt, slug } = props.blogArticle;
+  const { createdAt, slug } = props.blogArticle;
   const uri = `/blog/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
 
   return <>
     <BlogArticleDetail {...props} />
-    <Disqus
-      title={title}
-      identifier={uri}
-      url={`${DOMAIN}${uri}`} />
+    <Comment identifier={uri} />
     <style jsx global>{`
-#disqus_thread {
+#comment-container {
   max-width: ${theme.spacing(100)}px;
 }
     `}</style>
