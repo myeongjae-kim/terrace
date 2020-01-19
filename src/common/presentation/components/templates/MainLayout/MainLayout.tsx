@@ -70,6 +70,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       background: '#333',
       backgroundImage: 'linear-gradient(90deg, #ccc,#333, #ccc)',
       opacity: .7
+    },
+    '& figure': {
+      textAlgin: 'center',
+      fontSize: '0.8em',
+      opacity: 0.7
     }
   },
   footer: {
