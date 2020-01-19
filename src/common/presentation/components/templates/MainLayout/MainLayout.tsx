@@ -72,7 +72,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       opacity: .7
     },
     '& figure': {
-      textAlgin: 'center',
+      textAlign: 'center',
+    },
+    '& figcaption': {
       fontSize: '0.8em',
       opacity: 0.7
     }
