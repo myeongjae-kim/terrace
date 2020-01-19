@@ -13,13 +13,10 @@ const DisqusContent: React.FC<Props> = ({ title, identifier, url }) => {
   }, [identifier])
 
   return <div hidden={!identifier}>
-    <div id="disqus_thread" />
-    <style jsx global>{`
-#disqus_thread {
-  margin: auto;
-  margin-bottom: 20px;
-}
-`}</style>
+    <div id="utterances-container" style={{
+      margin: 'auto',
+      marginBottom: 20
+    }} />
   </div>;
 }
 
@@ -31,37 +28,16 @@ const Disqus: React.SFC<Props> = (props) => {
 
 export default Disqus;
 
-function initDisqus(shortname: string, identifier: string, title: string, url: string) {
-  // @ts-ignore
-  if (typeof (DISQUS) === 'undefined') {
-    (async () => {
-      const varsText = "var disqus_shortname  = \"" + shortname + "\";\n" +
-        "var disqus_title      = \"" + title + "\";\n" +
-        "var disqus_identifier = \"" + identifier + "\";\n" +
-        "var disqus_url        = \"" + url + "\";\n";
+function initDisqus(_: string, __: string, ___: string, ____: string) {
+  const utterancesContainer = document.querySelector("#utterances-container");
+  utterancesContainer?.childNodes.forEach(v => { v.remove() })
 
-      const varsObj = document.createElement("script");
-      varsObj.type = "text/javascript";
-      varsObj.async = true;
-      varsObj.text = varsText;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(varsObj);
-
-      const dsq = document.createElement('script');
-      dsq.id = 'dsq-count-scr';
-      dsq.type = 'text/javascript';
-      dsq.async = true;
-      dsq.src = '//' + shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  } else {
-    // @ts-ignore
-    DISQUS.reset({
-      reload: true,
-      config() {
-        this.page.identifier = identifier;
-        this.page.url = url;
-        this.page.title = title;
-      }
-    });
-  }
+  const utterances = document.createElement('script');
+  utterances.setAttribute("src", 'https://utteranc.es/client.js');
+  utterances.setAttribute("repo", 'myeongjae-kim/terrace-utterances');
+  utterances.setAttribute("issue-term", 'pathname');
+  utterances.setAttribute("theme", 'github-light');
+  utterances.setAttribute("crossorigin", 'anonymous');
+  utterances.async = true;
+  utterancesContainer?.appendChild(utterances);
 }
