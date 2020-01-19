@@ -31,6 +31,6 @@ COPY templates templates/
 
 COPY .babelrc jest.config.js next-env.d.ts next.config.js nodemon.json package-lock.json package.json tsconfig.json tslint.json ./
 
-RUN npm install && npm run build && rm -rf node_modules && npm install --production
+RUN export $(echo $browser_env) > /dev/null && npm install && npm run build && rm -rf node_modules && npm install --production
 
-ENTRYPOINT [ "sh", "-c", "nohup nginx -g 'daemon off;' & export $(echo $node_env) && npm run start" ]
+ENTRYPOINT [ "sh", "-c", "nohup nginx -g 'daemon off;' & export $(echo $node_env) > /dev/null && npm run start" ]
