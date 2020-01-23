@@ -15,7 +15,8 @@ const TYPES = {
 
   CacheRenderingService: Symbol.for("CacheRenderingService"),
 
-  PasswordEncoder: Symbol.for("PasswordEncoder")
+  PasswordEncoder: Symbol.for("PasswordEncoder"),
+  TokenService: Symbol.for("TokenService"),
 };
 
 export { TYPES };

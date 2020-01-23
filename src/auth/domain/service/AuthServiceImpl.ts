@@ -6,6 +6,7 @@ import { LoginRequestDto } from "../../api/dto/LoginRequestDto";
 import { LoginResponseDto } from "../../api/dto/LoginResponseDto";
 import { UserRepository } from "../model";
 import { AuthService } from "./AuthService";
+import { TokenService } from "./TokenService";
 
 @injectable()
 export class AuthServiceImpl implements AuthService {
@@ -13,6 +14,7 @@ export class AuthServiceImpl implements AuthService {
   public constructor(
     @inject(TYPES.UserRepository) private userRepository: UserRepository,
     @inject(TYPES.PasswordEncoder) private passwordEncoder: PasswordEncoder,
+    @inject(TYPES.TokenService) private tokenService: TokenService<any>,
   ) { }
 
   public login = async (loginRequestDto: LoginRequestDto): Promise<LoginResponseDto> => {
@@ -26,6 +28,10 @@ export class AuthServiceImpl implements AuthService {
       throw new UnauthorizedException();
     }
 
-    return { token: JSON.stringify(user) };
+    const token = await this.tokenService.generate({
+      email: user.email
+    })
+
+    return { token };
   }
 }

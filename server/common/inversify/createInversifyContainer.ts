@@ -26,6 +26,8 @@ import { CacheRenderingServiceImpl } from 'src/common/infrastructure/service';
 
 import { BCryptPasswordEncoder, PasswordEncoder } from 'src/auth/config/injectables';
 
+import { JsonWebTokenService, TokenService } from 'src/auth/domain/service';
+
 import "src/common/api/CommonController";
 
 import "src/auth/api/AuthController";
@@ -48,6 +50,9 @@ const bindings = new AsyncContainerModule(async (bind) => {
 
   bind<PasswordEncoder>(TYPES.PasswordEncoder)
     .to(BCryptPasswordEncoder);
+
+  bind<TokenService<any>>(TYPES.TokenService)
+    .to(JsonWebTokenService);
 
   bindAuth(bind);
   bindBlog(bind);
