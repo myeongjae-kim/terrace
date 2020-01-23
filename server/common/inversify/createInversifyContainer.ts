@@ -13,6 +13,10 @@ import { DailyRepository } from 'src/daily/domain/model';
 import { DailyService, DailyServiceImpl } from 'src/daily/domain/service';
 import { createDailyRepositoryImpl } from 'src/daily/infrastructure/model';
 
+import { UserRepository } from 'src/auth/domain/model';
+import { AuthService, AuthServiceImpl } from 'src/auth/domain/service';
+import { createUserRepositoryImpl } from 'src/auth/infrastructure/model';
+
 import { BlogArticleRepository } from 'src/blog/domain/model';
 import { BlogArticleService, BlogArticleServiceImpl } from 'src/blog/domain/service';
 import { createBlogArticleRepositoryImpl } from 'src/blog/infrastructure/model';
@@ -21,7 +25,8 @@ import { CacheRenderingService } from 'src/common/domain/service';
 import { CacheRenderingServiceImpl } from 'src/common/infrastructure/service';
 
 import "src/common/api/CommonController";
-import "src/mother/api/MotherController";
+
+import "src/auth/api/AuthController";
 
 import "src/about/api/AboutController";
 import "src/blog/api/BlogController";
@@ -39,6 +44,7 @@ const bindings = new AsyncContainerModule(async (bind) => {
   await getDbConnection();
   await bindNextApplication(bind);
 
+  bindAuth(bind);
   bindBlog(bind);
   bindMusings(bind);
   bindDaily(bind);
@@ -62,6 +68,15 @@ const bindNextApplication = async (bind: interfaces.Bind) => {
 const bindCacheRenderingService = (bind: interfaces.Bind, cacheRenderingService: CacheRenderingService) => {
   bind<CacheRenderingService>(TYPES.CacheRenderingService)
     .toConstantValue(cacheRenderingService);
+}
+
+const bindAuth = (bind: interfaces.Bind) => {
+  bind<UserRepository>(TYPES.UserRepository)
+    .toDynamicValue(createUserRepositoryImpl)
+    .inRequestScope();
+
+  bind<AuthService>(TYPES.AuthService)
+    .to(AuthServiceImpl);
 }
 
 const bindBlog = (bind: interfaces.Bind) => {

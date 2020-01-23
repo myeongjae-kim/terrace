@@ -1,6 +1,9 @@
 const TYPES = {
   NextApplication: Symbol.for("NextApplication"),
 
+  AuthService: Symbol.for("AuthService"),
+  UserRepository: Symbol.for("UserRepository"),
+
   BlogArticleRepository: Symbol.for("BlogArticleRepository"),
   BlogArticleService: Symbol.for("BlogArticleService"),
 

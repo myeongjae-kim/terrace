@@ -15,10 +15,7 @@ export const Endpoints = {
   "musings": "/musings",
   "places": "/places",
 
-  "mother": "/mother",
-  "mother.notice": "/mother/notice",
-  "content": "/content",
-  "content.mjArticle": "/content/mj-article"
+  "login": "/login",
 }
 
 export const TITLE_POSTFIX = " :: Myeongjae Kim";
