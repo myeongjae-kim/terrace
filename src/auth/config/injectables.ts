@@ -57,6 +57,9 @@ export class AuthProviderImpl implements interfaces.AuthProvider {
   // TODO: make filter class.
   private protectPaths = async (req: express.Request, principal: Principal): Promise<void> => {
     const authenticated = await principal.isAuthenticated();
+    if (authenticated) {
+      return;
+    }
 
     const protectedPaths: Array<{
       method: string,
@@ -67,10 +70,6 @@ export class AuthProviderImpl implements interfaces.AuthProvider {
     }]
 
     protectedPaths.forEach(p => {
-      if (authenticated) {
-        return;
-      }
-
       if (req.method === p.method && req.path === p.path) {
         throw new UnauthorizedException();
       }
