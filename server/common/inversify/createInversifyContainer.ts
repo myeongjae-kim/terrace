@@ -24,6 +24,8 @@ import { createBlogArticleRepositoryImpl } from 'src/blog/infrastructure/model';
 import { CacheRenderingService } from 'src/common/domain/service';
 import { CacheRenderingServiceImpl } from 'src/common/infrastructure/service';
 
+import { BCryptPasswordEncoder, PasswordEncoder } from 'src/auth/config/injectables';
+
 import "src/common/api/CommonController";
 
 import "src/auth/api/AuthController";
@@ -43,6 +45,9 @@ export const createInversifyContainer = async () => {
 const bindings = new AsyncContainerModule(async (bind) => {
   await getDbConnection();
   await bindNextApplication(bind);
+
+  bind<PasswordEncoder>(TYPES.PasswordEncoder)
+    .to(BCryptPasswordEncoder);
 
   bindAuth(bind);
   bindBlog(bind);

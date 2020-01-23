@@ -14,6 +14,8 @@ const TYPES = {
   DailyService: Symbol.for("DailyService"),
 
   CacheRenderingService: Symbol.for("CacheRenderingService"),
+
+  PasswordEncoder: Symbol.for("PasswordEncoder")
 };
 
 export { TYPES };
