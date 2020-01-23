@@ -4,7 +4,7 @@ import { PasswordEncoder } from "src/auth/config/injectables";
 import { UnauthorizedException } from "src/auth/exceptions";
 import { LoginRequestDto } from "../../api/dto/LoginRequestDto";
 import { LoginResponseDto } from "../../api/dto/LoginResponseDto";
-import { UserRepository } from "../model";
+import { User, UserRepository } from "../model";
 import { AuthService } from "./AuthService";
 import { TokenService } from "./TokenService";
 
@@ -14,7 +14,7 @@ export class AuthServiceImpl implements AuthService {
   public constructor(
     @inject(TYPES.UserRepository) private userRepository: UserRepository,
     @inject(TYPES.PasswordEncoder) private passwordEncoder: PasswordEncoder,
-    @inject(TYPES.TokenService) private tokenService: TokenService<any>,
+    @inject(TYPES.TokenService) private tokenService: TokenService<Pick<User, "email">>,
   ) { }
 
   public login = async (loginRequestDto: LoginRequestDto): Promise<LoginResponseDto> => {
@@ -34,4 +34,7 @@ export class AuthServiceImpl implements AuthService {
 
     return { token };
   }
+
+  public getEmailFrom = (token: string): Promise<string> =>
+    this.tokenService.verify(token).then(user => user.email);
 }

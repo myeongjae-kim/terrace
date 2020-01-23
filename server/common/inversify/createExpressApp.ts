@@ -4,12 +4,13 @@ import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import nextI18NextMiddleware from 'next-i18next/middleware';
 import Optional from 'optional-js';
+import { AuthProviderImpl } from 'src/auth/config/injectables';
 import I18NService from 'src/common/domain/service/I18NService';
 import { defaultErrorHandler } from "../error/DefaultErrorHandler";
 import { NextApplication } from '../nextjs/NextApplication';
 import { TYPES } from './types';
 
-export const createExpressApp = (container: Container, errorHandlers?: ErrorRequestHandler[]) => new InversifyExpressServer(container)
+export const createExpressApp = (container: Container, errorHandlers?: ErrorRequestHandler[]) => new InversifyExpressServer(container, null, null, null, AuthProviderImpl)
   .setConfig((theApp) => {
     theApp.use(bodyParser.urlencoded({ extended: true }));
     theApp.use(bodyParser.json());
