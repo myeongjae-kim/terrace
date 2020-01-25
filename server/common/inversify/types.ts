@@ -1,6 +1,11 @@
 const TYPES = {
   NextApplication: Symbol.for("NextApplication"),
 
+  AuthService: Symbol.for("AuthService"),
+  AccessFilter: Symbol.for("AccessFilter"),
+
+  UserRepository: Symbol.for("UserRepository"),
+
   BlogArticleRepository: Symbol.for("BlogArticleRepository"),
   BlogArticleService: Symbol.for("BlogArticleService"),
 
@@ -11,6 +16,9 @@ const TYPES = {
   DailyService: Symbol.for("DailyService"),
 
   CacheRenderingService: Symbol.for("CacheRenderingService"),
+
+  PasswordEncoder: Symbol.for("PasswordEncoder"),
+  TokenService: Symbol.for("TokenService"),
 };
 
 export { TYPES };
