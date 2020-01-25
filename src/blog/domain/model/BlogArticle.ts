@@ -6,16 +6,12 @@ export class BlogArticle {
 
   public static from({
     seq,
-    createdAt,
-    updatedAt,
     title,
     content,
     slug
-  }: Omit<BlogArticle, "id" | "getUri" | "isDateMatched">): BlogArticle {
+  }: Pick<BlogArticle, "seq" | "title" | "content" | "slug">): BlogArticle {
     const article = new BlogArticle();
     article.seq = seq;
-    article.createdAt = createdAt;
-    article.updatedAt = updatedAt;
     article.title = title;
     article.content = content;
     article.slug = slug;
@@ -26,13 +22,13 @@ export class BlogArticle {
   public static empty() {
     const article = BlogArticle.from({
       seq: -1,
-      createdAt: new Date("1970-01-01T00:00:00.000Z"),
-      updatedAt: new Date("1970-01-01T00:00:00.000Z"),
       title: "",
       content: "",
       slug: "",
     });
     article.id = ""
+    article.createdAt = new Date("1970-01-01T00:00:00.000Z");
+    article.updatedAt = new Date("1970-01-01T00:00:00.000Z");
 
     return article;
   }
@@ -59,6 +55,12 @@ export class BlogArticle {
 
   @Column('text')
   public content!: string
+  public update({ seq, title, content, slug }: BlogArticle) {
+    this.seq = seq;
+    this.title = title;
+    this.content = content;
+    this.slug = slug;
+  }
 
   public getUri = () => {
     return "/blog" + formatDateTime(this.createdAt, "/YYYY/MM/DD/") + this.slug;

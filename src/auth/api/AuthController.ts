@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { inject } from 'inversify';
 import { controller, httpPost, interfaces, requestBody, response } from "inversify-express-utils";
 import { TYPES } from 'server/common/inversify/types';
-import { Endpoints, JWT_MAX_AGE } from "src/common/constants/Constants";
+import { Endpoints, JWT_COOKIE_DOMAIN, JWT_COOKIE_KEY, JWT_COOKIE_SECURE, JWT_MAX_AGE } from "src/common/constants/Constants";
 import { AuthService } from '../domain/service';
 import { SignInRequestDto } from "./dto/SignInRequestDto";
 
@@ -24,11 +24,11 @@ export class AuthController implements interfaces.Controller {
 
     return this.authService.login(signInRequestDto)
       .then(token => {
-        res.cookie('myeongjae-kim-auth', token, {
+        res.cookie(JWT_COOKIE_KEY, token, {
           maxAge: Number(JWT_MAX_AGE) || 0,
           httpOnly: true,
-          domain: ".myeongjae.kim",
-          secure: true,
+          domain: JWT_COOKIE_DOMAIN,
+          secure: JWT_COOKIE_SECURE,
           sameSite: 'lax'
         })
       });

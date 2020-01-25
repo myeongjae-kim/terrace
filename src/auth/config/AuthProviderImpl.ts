@@ -1,7 +1,9 @@
 import express from 'express';
 import { inject, injectable } from "inversify";
 import { interfaces } from "inversify-express-utils";
+import Optional from 'optional-js';
 import { TYPES } from "server/common/inversify/types";
+import { JWT_COOKIE_KEY } from 'src/common/constants/Constants';
 import { Principal } from "../domain/model";
 import { AuthService } from "../domain/service";
 import { AccessFilter } from './AccessFilter';
@@ -16,7 +18,19 @@ export class AuthProviderImpl implements interfaces.AuthProvider {
     _: express.Response,
     next: express.NextFunction
   ): Promise<interfaces.Principal> => {
-    const token = req.headers.authorization?.toString();
+    const token = Optional.of(req)
+      .map(r => r.headers)
+      .map(h => h.cookie)
+      .map(cookies => cookies.split(";"))
+      .map(cookies => cookies
+        .map(c => c.trim())
+        .filter(c => c.startsWith(JWT_COOKIE_KEY)))
+      .map(cookies => cookies[0])
+      .map(c => c.replace(JWT_COOKIE_KEY + "=", ""))
+      .orElse("");
+
+    console.log("request cookies: ", req.headers)
+    console.log("found token: ", token)
 
     let principal: interfaces.Principal = Principal.empty();
 
