@@ -20,3 +20,6 @@ export const Endpoints = {
 
 export const TITLE_POSTFIX = " :: Myeongjae Kim";
 export const API_HOST = isServer() ? `http://localhost:${process.env.PORT}` : "";
+
+export const JWT_MAX_AGE = process.env.JWT_MAX_AGE;
+export const JWT_SECRET = process.env.JWT_SECRET!;
