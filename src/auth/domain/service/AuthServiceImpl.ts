@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "server/common/inversify/types";
-import { PasswordEncoder } from "src/auth/config/injectables";
+import { PasswordEncoder } from "src/auth/config/PasswordEncoder";
 import { UnauthorizedException } from "src/auth/exceptions";
 import { LoginRequestDto } from "../../api/dto/LoginRequestDto";
 import { LoginResponseDto } from "../../api/dto/LoginResponseDto";

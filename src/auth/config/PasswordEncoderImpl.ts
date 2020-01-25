@@ -2,11 +2,7 @@
 
 import bcrypt from "bcryptjs";
 import { injectable } from "inversify";
-
-export interface PasswordEncoder {
-  encode(input: string): Promise<string>
-  match(actual: string, encoded: string): Promise<boolean>
-}
+import { PasswordEncoder } from ".";
 
 @injectable()
 export class BCryptPasswordEncoder implements PasswordEncoder {

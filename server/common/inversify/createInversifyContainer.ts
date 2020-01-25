@@ -24,10 +24,8 @@ import { createBlogArticleRepositoryImpl } from 'src/blog/infrastructure/model';
 import { CacheRenderingService } from 'src/common/domain/service';
 import { CacheRenderingServiceImpl } from 'src/common/infrastructure/service';
 
-import { BCryptPasswordEncoder, PasswordEncoder } from 'src/auth/config/injectables';
+import { AccessFilter, AccessFilterImpl, BCryptPasswordEncoder, PasswordEncoder } from 'src/auth/config';
 
-import { AccessFilter } from 'src/auth/config/AccessFilter';
-import { AccessFilterImpl } from 'src/auth/config/AccessFilterImpl';
 import { JsonWebTokenService, TokenService } from 'src/auth/domain/service';
 
 import "src/common/api/CommonController";
