@@ -1,12 +1,12 @@
 import assert from 'assert-plus';
 import { inject } from 'inversify';
-import { controller, httpGet, httpPost, interfaces, principal, requestBody } from "inversify-express-utils";
+import { controller, httpPost, interfaces, requestBody } from "inversify-express-utils";
 import { TYPES } from 'server/common/inversify/types';
 import { Endpoints } from "src/common/constants/Constants";
 import { AuthService } from '../domain/service';
-import { LoginRequestDto } from "./dto/LoginRequestDto";
+import { SignInRequestDto } from "./dto/SignInRequestDto";
 
-const PATH = Endpoints.login;
+const PATH = Endpoints.auth;
 
 @controller(PATH)
 export class AuthController implements interfaces.Controller {
@@ -15,17 +15,12 @@ export class AuthController implements interfaces.Controller {
     @inject(TYPES.AuthService) private authService: AuthService,
   ) { }
 
-  @httpPost("/")
-  public login(@requestBody() loginRequestDto: LoginRequestDto) {
-    assert.bool(!!loginRequestDto, "loginRequestDto must not be undefined.");
-    assert.bool(!!loginRequestDto.email, "loginRequestDto.email must not be empty.");
-    assert.bool(!!loginRequestDto.password, "loginRequestDto.password must not be empty.");
+  @httpPost("/sign-in")
+  public signIn(@requestBody() signInRequestDto: SignInRequestDto) {
+    assert.bool(!!signInRequestDto, "signInRequestDto must not be undefined.");
+    assert.bool(!!signInRequestDto.email, "signInRequestDto.email must not be empty.");
+    assert.bool(!!signInRequestDto.password, "signInRequestDto.password must not be empty.");
 
-    return this.authService.login(loginRequestDto);
-  }
-
-  @httpGet("/test")
-  public test(@principal() p: interfaces.Principal) {
-    return JSON.stringify(p);
+    return this.authService.login(signInRequestDto);
   }
 }

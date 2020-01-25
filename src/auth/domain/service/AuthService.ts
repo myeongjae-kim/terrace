@@ -1,7 +1,7 @@
-import { LoginRequestDto } from "../../api/dto/LoginRequestDto";
-import { LoginResponseDto } from "../../api/dto/LoginResponseDto";
+import { SignInRequestDto } from "../../api/dto/SignInRequestDto";
+import { SignInResponseDto } from "../../api/dto/SignInResponseDto";
 
 export interface AuthService {
-  login(loginRequestDto: LoginRequestDto): Promise<LoginResponseDto>
+  login(loginRequestDto: SignInRequestDto): Promise<SignInResponseDto>
   getEmailFrom(token: string): Promise<string>
 }

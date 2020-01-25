@@ -2,8 +2,8 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "server/common/inversify/types";
 import { PasswordEncoder } from "src/auth/config/PasswordEncoder";
 import { UnauthorizedException } from "src/auth/exceptions";
-import { LoginRequestDto } from "../../api/dto/LoginRequestDto";
-import { LoginResponseDto } from "../../api/dto/LoginResponseDto";
+import { SignInRequestDto } from "../../api/dto/SignInRequestDto";
+import { SignInResponseDto } from "../../api/dto/SignInResponseDto";
 import { User, UserRepository } from "../model";
 import { AuthService } from "./AuthService";
 import { TokenService } from "./TokenService";
@@ -17,7 +17,7 @@ export class AuthServiceImpl implements AuthService {
     @inject(TYPES.TokenService) private tokenService: TokenService<Pick<User, "email">>,
   ) { }
 
-  public login = async (loginRequestDto: LoginRequestDto): Promise<LoginResponseDto> => {
+  public login = async (loginRequestDto: SignInRequestDto): Promise<SignInResponseDto> => {
     const user = (await this.userRepository
       .findByEmail(loginRequestDto.email))
       .orElseThrow(() => new UnauthorizedException());
