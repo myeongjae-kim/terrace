@@ -13,7 +13,8 @@ export class BlogArticleServiceImpl implements BlogArticleService {
     @inject(TYPES.BlogArticleRepository) private blogArticleRepository: BlogArticleRepository
   ) { }
 
-  public findAll = (): Promise<BlogArticleListResponseDto[]> => this.blogArticleRepository.findAllByOrderBySeqDesc()
+  public findAll = (): Promise<BlogArticleListResponseDto[]> => this.blogArticleRepository
+    .findAllByOrderBySeqDesc()
     .then(d => d.map(createBlogArticleListResponseDtoFrom));
 
   public find = async (req: BlogArticlePathDto): Promise<BlogArticleDetailResponseDto> => {

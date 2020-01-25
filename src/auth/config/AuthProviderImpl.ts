@@ -29,9 +29,6 @@ export class AuthProviderImpl implements interfaces.AuthProvider {
       .map(c => c.replace(JWT_COOKIE_KEY + "=", ""))
       .orElse("");
 
-    console.log("request cookies: ", req.headers)
-    console.log("found token: ", token)
-
     let principal: interfaces.Principal = Principal.empty();
 
     if (token) {
