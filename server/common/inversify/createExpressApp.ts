@@ -4,7 +4,7 @@ import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import nextI18NextMiddleware from 'next-i18next/middleware';
 import Optional from 'optional-js';
-import { AuthProviderImpl } from 'src/auth/config/injectables';
+import { AuthProviderImpl } from 'src/auth/config/AuthProviderImpl';
 import I18NService from 'src/common/domain/service/I18NService';
 import { defaultErrorHandler } from "../error/DefaultErrorHandler";
 import { NextApplication } from '../nextjs/NextApplication';

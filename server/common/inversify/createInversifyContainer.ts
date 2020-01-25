@@ -26,6 +26,8 @@ import { CacheRenderingServiceImpl } from 'src/common/infrastructure/service';
 
 import { BCryptPasswordEncoder, PasswordEncoder } from 'src/auth/config/injectables';
 
+import { AccessFilter } from 'src/auth/config/AccessFilter';
+import { AccessFilterImpl } from 'src/auth/config/AccessFilterImpl';
 import { JsonWebTokenService, TokenService } from 'src/auth/domain/service';
 
 import "src/common/api/CommonController";
@@ -87,6 +89,9 @@ const bindAuth = (bind: interfaces.Bind) => {
 
   bind<AuthService>(TYPES.AuthService)
     .to(AuthServiceImpl);
+
+  bind<AccessFilter>(TYPES.AccessFilter)
+    .to(AccessFilterImpl);
 }
 
 const bindBlog = (bind: interfaces.Bind) => {
