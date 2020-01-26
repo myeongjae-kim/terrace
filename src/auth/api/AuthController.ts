@@ -17,7 +17,7 @@ export class AuthController implements interfaces.Controller {
     @inject(TYPES.AuthService) private authService: AuthService,
   ) { }
 
-  @httpPost("/sign-in")
+  @httpPost("/api/sign-in")
   public signIn(@requestBody() signInRequestDto: SignInRequestDto, @response() res: Response) {
     assert.bool(!!signInRequestDto, "signInRequestDto must not be undefined.");
     assert.bool(!!signInRequestDto.email, "signInRequestDto.email must not be empty.");
@@ -35,7 +35,7 @@ export class AuthController implements interfaces.Controller {
       });
   }
 
-  @httpPost("/token")
+  @httpPost("/api/token")
   public checkToken(@requestHeaders("cookie") cookie: string) {
     const token = parseCookie(cookie).get(JWT_COOKIE_KEY) || "";
 
