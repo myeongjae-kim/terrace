@@ -13,7 +13,7 @@ export interface SpeedDialActionData {
 
 const useStyles = makeStyles((theme: Theme) => ({
   speedDial: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(6),
     right: theme.spacing(3),
   },

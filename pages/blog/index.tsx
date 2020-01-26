@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Store } from 'redux';
 import { createSelector } from 'reselect';
+import * as meModule from "src/auth/presentation/state-modules/me"
 import BlogArticleList from 'src/blog/presentation/components/templates/BlogArticleList';
 import { BlogArticleListProps } from 'src/blog/presentation/components/templates/BlogArticleList/BlogArticleList';
 import * as listModule from "src/blog/presentation/state-modules/list"
@@ -11,9 +12,10 @@ import { HeadTitle } from 'src/common/presentation/components/molecules';
 import { PageTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
 
-const selector = createSelector<RootState, listModule.State, BlogArticleListProps>(
+const selector = createSelector<RootState, listModule.State, meModule.State, BlogArticleListProps>(
   root => root.blog.list,
-  list => list
+  root => root.auth.me,
+  (list, me) => ({ ...list, isSignedIn: me.isSignedIn })
 );
 
 const BlogArticlePage: NextPage = () => {

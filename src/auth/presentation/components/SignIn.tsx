@@ -3,12 +3,9 @@ import * as React from 'react';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    display: "flex",
-    alignItems: 'center',
     maxWidth: theme.spacing(37.5)
   },
   form: {
-    paddingBottom: theme.spacing(8),
     "& > div": {
       margin: `${theme.spacing(1)}px 0`
     }

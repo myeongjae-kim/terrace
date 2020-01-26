@@ -10,8 +10,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexDirection: 'column'
   },
   content: {
-    display: 'flex',
-    justifyContent: 'center',
     flexGrow: 1,
     margin: `0 ${theme.spacing(0.5)}px`,
     lineHeight: 1.6,
