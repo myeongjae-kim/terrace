@@ -1,4 +1,9 @@
 {
+  "auth": {
+    "signIn": {
+      "rejected": "Check your email and password.\n\n{{e}}"
+    }
+  },
   "mother": {
     "notice": {
       "get": {
