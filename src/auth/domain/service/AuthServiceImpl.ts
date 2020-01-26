@@ -16,7 +16,7 @@ export class AuthServiceImpl implements AuthService {
     @inject(TYPES.TokenService) private tokenService: TokenService<Pick<User, "email">>,
   ) { }
 
-  public login = async (loginRequestDto: SignInRequestDto): Promise<string> => {
+  public signIn = async (loginRequestDto: SignInRequestDto): Promise<string> => {
     const user = (await this.userRepository
       .findByEmail(loginRequestDto.email))
       .orElseThrow(() => new UnauthorizedException());
@@ -32,6 +32,5 @@ export class AuthServiceImpl implements AuthService {
     })
   }
 
-  public getEmailFrom = (token: string): Promise<string> =>
-    this.tokenService.verify(token).then(user => user.email);
+  public checkToken = (token: string): Promise<Pick<User, "email">> => this.tokenService.verify(token)
 }
