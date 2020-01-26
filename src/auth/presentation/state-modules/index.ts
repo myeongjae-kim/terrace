@@ -1,11 +1,14 @@
 import { combineReducers } from "redux";
 import { fork } from "redux-saga/effects";
-import * as signInModule from "./sign-in";
+import * as meModule from "./me";
+import * as signModule from "./sign";
 
 export const reducer = combineReducers({
-  signIn: signInModule.reducer,
+  me: meModule.reducer,
+  signIn: signModule.reducer,
 });
 
 export function* saga() {
-  yield fork(signInModule.saga);
+  yield fork(meModule.saga);
+  yield fork(signModule.saga);
 }

@@ -32,7 +32,7 @@ const data = {
     href: ""
   }, {
     icon: <Code style={iconStyle} />,
-    label: "g.com/myeongjae-kim",
+    label: "github/myeongjae-kim",
     href: "https://github.com/myeongjae-kim"
   }, {
     icon: <Email style={iconStyle} />,

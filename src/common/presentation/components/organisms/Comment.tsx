@@ -26,7 +26,10 @@ export default Comment;
 
 const initComment = () => {
   const utterancesContainer = document.querySelector("#comment-container");
-  utterancesContainer?.childNodes.forEach(v => { v.remove() })
+  if (!utterancesContainer) {
+    return;
+  }
+  utterancesContainer.childNodes.forEach(v => { v.remove() })
 
   const utterances = document.createElement('script');
   utterances.setAttribute("src", 'https://utteranc.es/client.js');
@@ -35,5 +38,5 @@ const initComment = () => {
   utterances.setAttribute("theme", 'github-light');
   utterances.setAttribute("crossorigin", 'anonymous');
   utterances.async = true;
-  utterancesContainer?.appendChild(utterances);
+  utterancesContainer.appendChild(utterances);
 }
