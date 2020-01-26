@@ -18,10 +18,10 @@ const selector = createSelector<RootState, listModule.State, MusingsProps>(
 const MusingsPage: NextPage = () => {
   const props = useSelector<RootState, MusingsProps>(selector)
 
-  return <>
+  return <div>
     <HeadTitle title="Musings" />
     <Musings {...props} />
-  </>
+  </div>
 }
 
 

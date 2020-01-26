@@ -44,7 +44,7 @@ const DailyDetailPage: NextPage = () => {
   const { createdAt, slug } = daily;
   const uri = `/daily/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
 
-  return <>
+  return <div>
     <HeadTitle title="Daily" />
     <DailyDetail {...dailyDetailProps} />
     <DailyList {...dailyListProps} currentDaily={daily} />
@@ -54,7 +54,7 @@ const DailyDetailPage: NextPage = () => {
   max-width: ${theme.spacing(62.5)}px;
 }
     `}</style>
-  </>
+  </div>
 }
 
 DailyDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<RootState> } & NextPageContext) => {

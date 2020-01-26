@@ -19,11 +19,11 @@ const selector = createSelector<RootState, listModule.State, BlogArticleListProp
 const BlogArticlePage: NextPage = () => {
   const props = useSelector<RootState, BlogArticleListProps>(selector);
 
-  return <>
+  return <div>
     <HeadTitle title="Blog" />
     <PageTitle title="articles" />
     <BlogArticleList {...props} />
-  </>
+  </div>
 }
 
 BlogArticlePage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {

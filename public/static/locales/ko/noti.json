@@ -1,4 +1,9 @@
 {
+  "auth": {
+    "signIn": {
+      "rejected": "이메일과 비밀번호를 확인해주세요.\n\n{{e}}"
+    }
+  },
   "mother": {
     "notice": {
       "get": {

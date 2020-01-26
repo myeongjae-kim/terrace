@@ -18,11 +18,11 @@ const selector = createSelector<RootState, listModule.State, DailyListProps>(
 const DailyPage: NextPage = () => {
   const props = useSelector<RootState, DailyListProps>(selector);
 
-  return <>
+  return <div>
     <HeadTitle title="Daily" />
     <PageTitle title="daily" />
     <DailyList {...props} />
-  </>
+  </div>
 }
 
 DailyPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
