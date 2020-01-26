@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
 import { createSelector } from 'reselect';
-import { BlogArticleDetailRequestDto } from 'src/blog/api/dto';
+import { BlogArticlePathDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
 import { BlogArticleDetailProps } from 'src/blog/presentation/components/templates/BlogArticleDetail/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
@@ -52,11 +52,11 @@ BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }: { store: 
   return { namespacesRequired: ['common', 'noti'] }
 }
 
-const fetchBlogArticleDetail = (store: Store<RootState>, req: BlogArticleDetailRequestDto): void => {
+const fetchBlogArticleDetail = (store: Store<RootState>, req: BlogArticlePathDto): void => {
   store.dispatch(detailModule.fetchBlogArticle({ blogArticle: req }))
 }
 
-const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticleDetailRequestDto => {
+const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto => {
   const splitted = asPath.split("/");
   return {
     year: splitted[2],

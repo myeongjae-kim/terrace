@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import { call, put, takeLatest } from "redux-saga/effects";
-import { BlogArticleDetailRequestDto, BlogArticleDetailResponseDto, blogArticleFetcher } from 'src/blog/api';
+import { BlogArticleDetailResponseDto, blogArticleFetcher, BlogArticlePathDto } from 'src/blog/api';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
@@ -8,7 +8,7 @@ import { ActionType, createAction, createAsyncAction, createReducer, getType } f
 const actions = {
   reset: createAction("@blogArticleDetail/RESET")(),
   fetchBlogArticle: createAction("@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL")<{
-    blogArticle: BlogArticleDetailRequestDto
+    blogArticle: BlogArticlePathDto
   }>(),
   fetchBlogArticleAsync: createAsyncAction(
     '@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL_REQUEST',

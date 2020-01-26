@@ -1,4 +1,4 @@
-export interface BlogArticleDetailRequestDto {
+export interface BlogArticlePathDto {
   year: string
   month: string
   day: string

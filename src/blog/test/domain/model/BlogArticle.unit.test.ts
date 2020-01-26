@@ -5,13 +5,14 @@ import { doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesE
 export const createBlogArticleFixture = (id = "1"): BlogArticle => {
   const blogArticle = BlogArticle.from({
     seq: 1,
-    createdAt: new Date('2019-12-29T13:28:03.601+09:00'),
-    updatedAt: new Date('2019-12-29T13:28:03.601+09:00'),
     title: 'title',
     content: 'content',
     slug: "slug"
   })
   blogArticle.id = id;
+  blogArticle.createdAt = new Date("1970-01-01T00:00:00.000Z");
+  blogArticle.updatedAt = new Date("1970-01-01T00:00:00.000Z");
+
 
   return blogArticle;
 }
@@ -27,8 +28,6 @@ describe('BlogArticle', () => {
     // given
     const result = BlogArticle.from({
       seq: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
       title: 'title',
       content: 'content',
       slug: 'slug'
@@ -66,7 +65,8 @@ describe('BlogArticle', () => {
   });
 
   it('should return valid uri', () => {
-    expect(blogArticle.getUri()).toBe("/blog/2019/12/29/slug")
+    blogArticle.createdAt = new Date("1970-01-01T00:00:00.000Z");
+    expect(blogArticle.getUri()).toBe("/blog/1970/01/01/slug")
   })
 
   it('should return empty value', () => {
@@ -80,6 +80,32 @@ describe('BlogArticle', () => {
     expect(empty.content).toBe("");
     expect(empty.slug).toBe("");
   })
+
+  it('is created by static factory method.', () => {
+    // given
+    const result = BlogArticle.from({
+      seq: 1,
+      title: 'title',
+      content: 'content',
+      slug: 'slug'
+    })
+
+    const toUpdate = BlogArticle.from({
+      seq: 2,
+      title: 'title2',
+      content: 'content2',
+      slug: 'slug2'
+    })
+
+    result.update(toUpdate);
+
+    // expect
+    expect(doesObjectHasNoUndefinedPropertiesExcept(result, "id")).toBeTruthy();
+    expect(result.seq).toBe(2);
+    expect(result.title).toBe("title2");
+    expect(result.content).toBe("content2");
+    expect(result.slug).toBe("slug2");
+  });
 })
 
 describe("createBlogArticleFixture", () => {

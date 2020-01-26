@@ -1,12 +1,14 @@
 import assert from 'assert-plus';
+import { Response } from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet, httpPost, interfaces, principal, requestBody } from "inversify-express-utils";
+import { controller, httpPost, interfaces, requestBody, requestHeaders, response } from "inversify-express-utils";
 import { TYPES } from 'server/common/inversify/types';
-import { Endpoints } from "src/common/constants/Constants";
+import { Endpoints, JWT_COOKIE_DOMAIN, JWT_COOKIE_KEY, JWT_COOKIE_SECURE, JWT_MAX_AGE } from "src/common/constants/Constants";
+import { parseCookie } from 'src/util/parseCookie';
 import { AuthService } from '../domain/service';
-import { LoginRequestDto } from "./dto/LoginRequestDto";
+import { SignInRequestDto } from "./dto/SignInRequestDto";
 
-const PATH = Endpoints.login;
+const PATH = Endpoints.auth;
 
 @controller(PATH)
 export class AuthController implements interfaces.Controller {
@@ -15,17 +17,28 @@ export class AuthController implements interfaces.Controller {
     @inject(TYPES.AuthService) private authService: AuthService,
   ) { }
 
-  @httpPost("/")
-  public login(@requestBody() loginRequestDto: LoginRequestDto) {
-    assert.bool(!!loginRequestDto, "loginRequestDto must not be undefined.");
-    assert.bool(!!loginRequestDto.email, "loginRequestDto.email must not be empty.");
-    assert.bool(!!loginRequestDto.password, "loginRequestDto.password must not be empty.");
+  @httpPost("/sign-in")
+  public signIn(@requestBody() signInRequestDto: SignInRequestDto, @response() res: Response) {
+    assert.bool(!!signInRequestDto, "signInRequestDto must not be undefined.");
+    assert.bool(!!signInRequestDto.email, "signInRequestDto.email must not be empty.");
+    assert.bool(!!signInRequestDto.password, "signInRequestDto.password must not be empty.");
 
-    return this.authService.login(loginRequestDto);
+    return this.authService.signIn(signInRequestDto)
+      .then(token => {
+        res.cookie(JWT_COOKIE_KEY, token, {
+          maxAge: Number(JWT_MAX_AGE) || 0,
+          httpOnly: true,
+          domain: JWT_COOKIE_DOMAIN,
+          secure: JWT_COOKIE_SECURE,
+          sameSite: 'lax'
+        })
+      });
   }
 
-  @httpGet("/test")
-  public test(@principal() p: interfaces.Principal) {
-    return JSON.stringify(p);
+  @httpPost("/token")
+  public checkToken(@requestHeaders("cookie") cookie: string) {
+    const token = parseCookie(cookie).get(JWT_COOKIE_KEY) || "";
+
+    return this.authService.checkToken(token);
   }
 }

@@ -1,7 +1,7 @@
-import { LoginRequestDto } from "../../api/dto/LoginRequestDto";
-import { LoginResponseDto } from "../../api/dto/LoginResponseDto";
+import { SignInRequestDto } from "../../api/dto/SignInRequestDto";
+import { User } from "../model";
 
 export interface AuthService {
-  login(loginRequestDto: LoginRequestDto): Promise<LoginResponseDto>
-  getEmailFrom(token: string): Promise<string>
+  signIn(loginRequestDto: SignInRequestDto): Promise<string>
+  checkToken(token: string): Promise<Pick<User, "email">>
 }
