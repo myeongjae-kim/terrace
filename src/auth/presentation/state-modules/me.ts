@@ -17,7 +17,7 @@ const actions = {
   resetMe: createAction("@me/resetMe")()
 }
 
-export const { me } = actions;
+export const { me, resetMe } = actions;
 export type Action = ActionType<typeof actions>;
 
 export interface State {

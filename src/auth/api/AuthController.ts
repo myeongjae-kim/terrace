@@ -1,5 +1,5 @@
 import assert from 'assert-plus';
-import { Request, Response } from 'express';
+import { CookieOptions, Request, Response } from 'express';
 import { inject } from 'inversify';
 import { controller, httpGet, httpPost, interfaces, request, requestBody, requestHeaders, response } from "inversify-express-utils";
 import { TYPES } from 'server/common/inversify/types';
@@ -13,6 +13,14 @@ const PATH = Endpoints.auth;
 
 @controller(PATH)
 export class AuthController implements interfaces.Controller {
+
+  private readonly cookieOptions: CookieOptions = {
+    maxAge: Number(JWT_MAX_AGE) || 0,
+    httpOnly: true,
+    domain: JWT_COOKIE_DOMAIN,
+    secure: JWT_COOKIE_SECURE,
+    sameSite: 'lax'
+  }
 
   public constructor(
     @inject(TYPES.NextApplication) private nextApp: NextApplication,
@@ -32,19 +40,13 @@ export class AuthController implements interfaces.Controller {
 
     return this.authService.signIn(signInRequestDto)
       .then(token => {
-        res.cookie(JWT_COOKIE_KEY, token, {
-          maxAge: Number(JWT_MAX_AGE) || 0,
-          httpOnly: true,
-          domain: JWT_COOKIE_DOMAIN,
-          secure: JWT_COOKIE_SECURE,
-          sameSite: 'lax'
-        })
+        res.cookie(JWT_COOKIE_KEY, token, this.cookieOptions);
       });
   }
 
   @httpPost("/api/sign-out")
   public signOut(@response() res: Response) {
-    res.clearCookie(JWT_COOKIE_KEY);
+    res.clearCookie(JWT_COOKIE_KEY, this.cookieOptions);
   }
 
   @httpPost("/api/token")
