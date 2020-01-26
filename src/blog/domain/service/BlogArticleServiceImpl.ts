@@ -41,6 +41,18 @@ export class BlogArticleServiceImpl implements BlogArticleService {
     await this.blogArticleRepository.save(current);
   }
 
+  public create = async (body: BlogArticleRequestDto): Promise<string> => {
+    const toCreate = BlogArticle.from(body);
+
+    return this.blogArticleRepository.save(toCreate).then(a => a.id);
+  }
+
+  public delete = async (req: BlogArticlePathDto): Promise<void> => {
+    const id = (await this.findByPath(req)).id;
+
+    await this.blogArticleRepository.delete(id);
+  }
+
   private findByPath = async (req: BlogArticlePathDto): Promise<BlogArticle> => {
     const { year, month, day, slug } = req;
 
