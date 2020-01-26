@@ -30,7 +30,7 @@ const BlogArticleDetailPage: NextPage = () => {
   const { createdAt, slug } = props.blogArticle;
   const uri = `/blog/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
 
-  return <>
+  return <div>
     <BlogArticleDetail {...props} />
     <Comment identifier={uri} />
     <style jsx global>{`
@@ -38,7 +38,7 @@ const BlogArticleDetailPage: NextPage = () => {
   max-width: ${theme.spacing(100)}px;
 }
     `}</style>
-  </>
+  </div>
 }
 
 BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<RootState> } & NextPageContext) => {
