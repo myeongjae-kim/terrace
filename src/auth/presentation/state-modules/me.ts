@@ -22,6 +22,7 @@ export type Action = ActionType<typeof actions>;
 
 export interface State {
   me: MeResponse
+  isSignedIn: boolean
   pending: boolean
   rejected: boolean
   statusCode: number
@@ -31,6 +32,7 @@ const createInitialState = (): State => ({
   me: {
     email: ""
   },
+  isSignedIn: false,
   pending: false,
   rejected: false,
   statusCode: 200
@@ -47,6 +49,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
     draft.pending = false;
     draft.rejected = false;
     draft.me = action.payload;
+    draft.isSignedIn = !!draft.me.email;
     draft.statusCode = 200;
     return draft;
   }))
@@ -58,6 +61,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
   .handleAction(actions.resetMe, state => produce(state, draft => {
     draft.me = { email: "" };
+    draft.isSignedIn = false;
     return draft;
   }))
 

@@ -47,9 +47,9 @@ const items = [{
   label: "places"
 },]
 
-const selector = createSelector<RootState, meModule.State, string>(
+const selector = createSelector<RootState, meModule.State, boolean>(
   root => root.auth.me,
-  me => me.me.email
+  me => me.isSignedIn
 );
 
 const TopBar: React.FC = () => {
@@ -63,7 +63,7 @@ const TopBar: React.FC = () => {
     dispatch(signModule.signOut())
   }, [])
 
-  const email = useSelector(selector);
+  const isSignedIn = useSelector(selector);
 
   return <AppBar
     elevation={0}
@@ -73,7 +73,7 @@ const TopBar: React.FC = () => {
   >
     <div className={classes.center}>
       <HomeButton />
-      <Maybe test={email}>
+      <Maybe test={isSignedIn}>
         <Button onClick={signOut} className={classes.signOutButton}>sign-out</Button>
       </Maybe>
     </div>
