@@ -42,6 +42,11 @@ export class AuthController implements interfaces.Controller {
       });
   }
 
+  @httpPost("/api/sign-out")
+  public signOut(@response() res: Response) {
+    res.clearCookie(JWT_COOKIE_KEY);
+  }
+
   @httpPost("/api/token")
   public checkToken(@requestHeaders("cookie") cookie: string) {
     const token = parseCookie(cookie).get(JWT_COOKIE_KEY) || "";
