@@ -2,7 +2,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import * as React from 'react';
 import { BlogArticleListResponseDto } from 'src/blog/api';
+import { Endpoints } from 'src/common/constants/Constants';
 import { Maybe, MySpeedDial } from 'src/common/presentation/components/molecules';
+import { createLinkClickHandler } from 'src/util';
 import EachBlogArticle from './EachBlogArticle';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -31,7 +33,9 @@ const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles, isSigne
       <MySpeedDial actions={[{
         icon: <Add />,
         name: "등록",
-        handleClick: () => { alert('hi') }
+        handleClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+          createLinkClickHandler(Endpoints["blog.create"])(e)
+        }
       }]} />
     </Maybe>
   </div>
