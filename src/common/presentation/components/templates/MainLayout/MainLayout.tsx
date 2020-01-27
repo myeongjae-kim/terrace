@@ -1,5 +1,6 @@
 import { createStyles, CssBaseline, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
+import { SignOutButton } from '../../molecules';
 import FooterContent from './FooterContent';
 import TopBar from './TopBar';
 
@@ -91,6 +92,7 @@ const MainLayout: React.FC = ({ children }) => {
     <div className={classes.rootContainer}>
       <CssBaseline />
       <TopBar />
+      <SignOutButton />
       <main className={classes.content}>
         {children}
       </main>

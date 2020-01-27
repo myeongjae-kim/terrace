@@ -1,13 +1,6 @@
-import { AppBar, Button, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { AppBar, createStyles, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
-import { createSelector } from 'reselect';
-import * as meModule from 'src/auth/presentation/state-modules/me';
-import * as signModule from 'src/auth/presentation/state-modules/sign';
-import { RootState } from 'src/common/presentation/state-module/root';
-import { Maybe } from '../../../molecules';
 import HomeButton from './HomeButton';
 import Navigation from './Navigation';
 
@@ -24,10 +17,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center'
   },
-  signOutButton: {
-    position: 'absolute',
-    right: 1
-  }
 }))
 
 const items = [{
@@ -47,24 +36,8 @@ const items = [{
   label: "places"
 },]
 
-const selector = createSelector<RootState, meModule.State, boolean>(
-  root => root.auth.me,
-  me => me.isSignedIn
-);
-
 const TopBar: React.FC = () => {
   const classes = useStyles();
-
-  const dispatch = useDispatch<Dispatch<meModule.Action | signModule.Action>>();
-  React.useEffect(() => {
-    dispatch(meModule.me());
-  }, [])
-  const signOut = React.useCallback(() => {
-    dispatch(signModule.signOut())
-  }, [])
-
-  const isSignedIn = useSelector(selector);
-
   return <AppBar
     elevation={0}
     color="inherit"
@@ -73,9 +46,6 @@ const TopBar: React.FC = () => {
   >
     <div className={classes.center}>
       <HomeButton />
-      <Maybe test={isSignedIn}>
-        <Button onClick={signOut} className={classes.signOutButton}>sign-out</Button>
-      </Maybe>
     </div>
     <div className={classes.center}>
       <Navigation items={items} />
