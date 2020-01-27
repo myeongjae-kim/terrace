@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     textAlign: 'center',
     fontWeight: 100,
-    margin: `${theme.spacing(2)}px 0`
+    margin: `${theme.spacing(2)}px 0`,
+    userSelect: 'none'
   },
   shortFieldContainer: {
     maxWidth: theme.spacing(50),
@@ -23,10 +24,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 interface Props {
-
+  pending: boolean
+  rejected: boolean
+  onSubmit(request: BlogArticleRequestDto): Promise<void>
 }
 
-const BlogArticleForm: React.FC<Props> = () => {
+const BlogArticleForm: React.FC<Props> = ({ pending, onSubmit }) => {
   const classes = useStyles();
 
   return <Formik<BlogArticleRequestDto>
@@ -36,10 +39,7 @@ const BlogArticleForm: React.FC<Props> = () => {
       slug: "",
       content: ""
     }}
-    onSubmit={async (values) => {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      console.log(values);
-    }}
+    onSubmit={onSubmit}
   >
     {props => {
       const { values, handleChange, handleBlur, isSubmitting } = props;
@@ -99,7 +99,7 @@ const BlogArticleForm: React.FC<Props> = () => {
             <ErrorMessage name="content" component="div" />
           </div>
         </div>
-        <MySpeedDial disabled={isSubmitting} actions={[{
+        <MySpeedDial disabled={isSubmitting || pending} actions={[{
           name: "완료",
           icon: <Check />
         }]} />

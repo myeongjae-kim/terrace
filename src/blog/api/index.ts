@@ -1,2 +1,2 @@
 export * from './dto';
-export * from './BlogFetcher';
+export * from './blogArticleApi';

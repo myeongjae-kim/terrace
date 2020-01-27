@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import { call, put, takeLatest } from "redux-saga/effects";
-import { blogArticleFetcher, BlogArticleListResponseDto } from 'src/blog/api';
+import { blogArticleApi, BlogArticleListResponseDto } from 'src/blog/api';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
@@ -57,7 +57,7 @@ export function* saga() {
 function* sagaFetchBlogArticle() {
   yield put(actions.fetchBlogArticlesAsync.request())
   try {
-    const blogArticles: BlogArticleListResponseDto[] = yield call(blogArticleFetcher.findAll);
+    const blogArticles: BlogArticleListResponseDto[] = yield call(blogArticleApi.findAll);
     yield put(actions.fetchBlogArticlesAsync.success({ blogArticles }));
   } catch (e) {
     yield put(actions.fetchBlogArticlesAsync.failure());
