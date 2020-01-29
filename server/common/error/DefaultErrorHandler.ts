@@ -1,5 +1,6 @@
 import { AssertionError } from "assert-plus";
 import { ErrorRequestHandler } from "express-serve-static-core";
+import { QueryFailedError } from "typeorm";
 import { logger } from "../utils";
 import { ApiError } from "./ApiError";
 
@@ -9,6 +10,10 @@ export const defaultErrorHandler: ErrorRequestHandler = (err: Error, _, res, nex
   }
 
   if (err instanceof AssertionError) {
+    res.status(400).send(new ApiError(400, "Bad Request", err.message));
+  }
+
+  if (err instanceof QueryFailedError) {
     res.status(400).send(new ApiError(400, "Bad Request", err.message));
   }
 

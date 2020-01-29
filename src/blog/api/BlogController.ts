@@ -12,6 +12,7 @@ import { BlogArticleRequestDto } from "./dto";
 const PATH = Endpoints.blog;
 const PATH_DETAIL = Endpoints["blog.detail"];
 const PATH_CREATE = Endpoints["blog.create"];
+const PATH_UPDATE = Endpoints["blog.update"];
 
 @controller(PATH)
 export class BlogController implements interfaces.Controller {
@@ -34,6 +35,11 @@ export class BlogController implements interfaces.Controller {
   @httpGet("/create")
   public getCreatePage(@request() req: Request, @response() res: Response) {
     return this.nextApp.render(true, req, res, PATH_CREATE);
+  }
+
+  @httpGet("/update/:year/:month/:date/:slug")
+  public getUpdatePage(@request() req: Request, @response() res: Response) {
+    return this.nextApp.render(true, req, res, PATH_UPDATE);
   }
 
   @httpPost("/api")

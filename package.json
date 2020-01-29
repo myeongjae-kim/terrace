@@ -79,6 +79,7 @@
     "@types/redux-logger": "^3.0.7",
     "@types/uuid": "^3.4.6",
     "@types/winston": "^2.4.4",
+    "@types/yup": "^0.26.29",
     "babel-plugin-prismjs": "^1.1.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",

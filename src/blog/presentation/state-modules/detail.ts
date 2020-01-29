@@ -1,23 +1,35 @@
 import { produce } from 'immer';
+import Router from 'next/router';
 import { call, put, takeLatest } from "redux-saga/effects";
 import { blogArticleApi, BlogArticleDetailResponseDto, BlogArticlePathDto } from 'src/blog/api';
+import { Endpoints } from 'src/common/constants/Constants';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
   reset: createAction("@blogArticleDetail/RESET")(),
+
   fetchBlogArticle: createAction("@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL")<{
-    blogArticle: BlogArticlePathDto
+    blogArticlePathDto: BlogArticlePathDto
   }>(),
   fetchBlogArticleAsync: createAsyncAction(
     '@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL_REQUEST',
     '@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL_SUCCESS',
     '@blogArticleDetail/FETCH_BLOG_ARTICLE_DETAIL_FAILURE',
-  )<void, { blog: BlogArticleDetailResponseDto }, { statusCode: number }>()
+  )<void, { blog: BlogArticleDetailResponseDto }, { statusCode: number }>(),
+
+  deleteBlogArticle: createAction("@blogArticleDetail/DELETE_BLOG_ARTICLE_DETAIL")<{
+    blogArticlePathDto: BlogArticlePathDto
+  }>(),
+  deleteBlogArticleAsync: createAsyncAction(
+    '@blogArticleDetail/DELETE_BLOG_ARTICLE_DETAIL_REQUEST',
+    '@blogArticleDetail/DELETE_BLOG_ARTICLE_DETAIL_SUCCESS',
+    '@blogArticleDetail/DELETE_BLOG_ARTICLE_DETAIL_FAILURE',
+  )<void, void, { statusCode: number }>()
 }
 
-export const { reset, fetchBlogArticle } = actions;
+export const { reset, fetchBlogArticle, deleteBlogArticle } = actions;
 export type Action = ActionType<typeof actions>;
 
 export interface State {
@@ -56,7 +68,10 @@ const createInitialState = (): State => ({
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(actions.reset, createInitialState)
-  .handleAction(actions.fetchBlogArticleAsync.request, (state) => produce(state, draft => {
+  .handleAction([
+    actions.fetchBlogArticleAsync.request,
+    actions.deleteBlogArticleAsync.request,
+  ], (state) => produce(state, draft => {
     draft.pending = true;
     draft.rejected = false;
     draft.statusCode = 200;
@@ -68,7 +83,15 @@ export const reducer = createReducer<State, Action>(createInitialState())
     draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(actions.fetchBlogArticleAsync.failure, (state, action) => produce(state, draft => {
+  .handleAction(actions.deleteBlogArticleAsync.success, (state) => produce(state, draft => {
+    draft.pending = false;
+    draft.statusCode = 200;
+    return draft;
+  }))
+  .handleAction([
+    actions.fetchBlogArticleAsync.failure,
+    actions.deleteBlogArticleAsync.failure
+  ], (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
     draft.statusCode = action.payload.statusCode;
@@ -77,18 +100,45 @@ export const reducer = createReducer<State, Action>(createInitialState())
 
 export function* saga() {
   yield takeLatest(getType(fetchBlogArticle), sagaFetchBlogArticle);
+  yield takeLatest(getType(deleteBlogArticle), sagaDeleteBlogArticle);
 }
 
 function* sagaFetchBlogArticle(action: ActionType<typeof actions.fetchBlogArticle>) {
   yield put(actions.fetchBlogArticleAsync.request())
   try {
-    const blog: BlogArticleDetailResponseDto = yield call(blogArticleApi.find, action.payload.blogArticle);
+    const blog: BlogArticleDetailResponseDto = yield call(blogArticleApi.find, action.payload.blogArticlePathDto);
     yield put(actions.fetchBlogArticleAsync.success({ blog }));
   } catch (e) {
     yield put(actions.fetchBlogArticleAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: 'noti:blogArticle.find.rejected',
+        messageOptions: { e: stringify(e) },
+        variant: 'error'
+      }
+    }))
+  }
+}
+
+function* sagaDeleteBlogArticle(action: ActionType<typeof actions.deleteBlogArticle>) {
+  yield put(actions.deleteBlogArticleAsync.request())
+  try {
+    yield call(blogArticleApi.delete, action.payload.blogArticlePathDto);
+    yield put(actions.deleteBlogArticleAsync.success());
+
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: 'noti:blogArticle.delete.fulfilled',
+        variant: 'success'
+      }
+    }))
+
+    Router.push(Endpoints.blog)
+  } catch (e) {
+    yield put(actions.deleteBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: 'noti:blogArticle.delete.rejected',
         messageOptions: { e: stringify(e) },
         variant: 'error'
       }

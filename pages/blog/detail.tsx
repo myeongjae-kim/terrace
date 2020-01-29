@@ -4,34 +4,64 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
 import { createSelector } from 'reselect';
-import { BlogArticlePathDto } from 'src/blog/api/dto';
+import * as meModule from 'src/auth/presentation/state-modules/me';
+import { BlogArticleDetailResponseDto, BlogArticlePathDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
-import { BlogArticleDetailProps } from 'src/blog/presentation/components/templates/BlogArticleDetail/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
+import { Endpoints } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { Comment } from 'src/common/presentation/components/organisms';
+import * as commonModule from "src/common/presentation/state-module/common";
 import { RootState } from 'src/common/presentation/state-module/root';
-import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
+import { createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
-const selector = createSelector<RootState, detailModule.State, BlogArticleDetailProps>(
+const selector = createSelector<RootState, detailModule.State, meModule.State, {
+  blogArticle: BlogArticleDetailResponseDto
+  isSignedIn: boolean
+  pending: boolean
+  rejected: boolean
+  statusCode: number
+}>(
   root => root.blog.detail,
-  detail => detail
+  root => root.auth.me,
+  (detail, me) => ({
+    ...detail,
+    isSignedIn: me.isSignedIn
+  })
 );
 
-const BlogArticleDetailPage: NextPage = () => {
-  const props = useSelector<RootState, BlogArticleDetailProps>(selector)
-  const dispatch = useDispatch<Dispatch<detailModule.Action>>();
+interface Props {
+  blogArticlePathDto: BlogArticlePathDto
+}
+
+const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
+  const props = useSelector(selector)
+  const dispatch = useDispatch<Dispatch<detailModule.Action | commonModule.Action>>();
+
+  const { createdAt, slug } = props.blogArticle;
+  const uri = `${Endpoints["blog.update"]}${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}/`;
+
+  const update = React.useCallback((e: React.MouseEvent) => {
+    createLinkClickHandler(
+      Endpoints["blog.update"],
+      uri
+    )(e);
+  }, [createdAt, slug])
+
+  const del = React.useCallback(() => {
+    dispatch(commonModule.openConfirmDialog({
+      "content": "정말로 삭제하시겠습니까?",
+      onClick: () => dispatch(detailModule.deleteBlogArticle({ blogArticlePathDto }))
+    }))
+  }, [])
 
   const theme = useTheme();
   React.useEffect(() => () => {
     dispatch(detailModule.reset());
   }, [])
 
-  const { createdAt, slug } = props.blogArticle;
-  const uri = `/blog/${formatDateTime(createdAt, "YYYY/MM/DD")}/${slug}/`;
-
   return <div>
-    <BlogArticleDetail {...props} />
+    <BlogArticleDetail {...props} update={update} del={del} />
     <Comment identifier={uri} />
     <style jsx global>{`
 #comment-container {
@@ -47,13 +77,15 @@ BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }: { store: 
     return {}
   }
 
-  fetchBlogArticleDetail(store, parsePathToBlogArticleDetailRequest(asPath));
+  const blogArticlePathDto = parsePathToBlogArticleDetailRequest(asPath);
 
-  return { namespacesRequired: ['common', 'noti'] }
+  fetchBlogArticleDetail(store, blogArticlePathDto);
+
+  return { namespacesRequired: ['common', 'noti'], blogArticlePathDto }
 }
 
 const fetchBlogArticleDetail = (store: Store<RootState>, req: BlogArticlePathDto): void => {
-  store.dispatch(detailModule.fetchBlogArticle({ blogArticle: req }))
+  store.dispatch(detailModule.fetchBlogArticle({ blogArticlePathDto: req }))
 }
 
 const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto => {

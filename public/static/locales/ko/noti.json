@@ -53,7 +53,16 @@
       "rejected": "블로그 글을 가져오지 못했습니다.\n\n{{e}}"
     },
     "create": {
+      "fulfilled": "블로그 글을 생성했습니다.",
       "rejected": "블로그 글을 생성하지 못했습니다.\n\n{{e}}"
+    },
+    "update": {
+      "fulfilled": "블로그 글을 수정했습니다.",
+      "rejected": "블로그 글을 수정하지 못했습니다.\n\n{{e}}"
+    },
+    "delete": {
+      "fulfilled": "블로그 글을 삭제했습니다.",
+      "rejected": "블로그 글을 삭제하지 못했습니다.\n\n{{e}}"
     }
   }
 }

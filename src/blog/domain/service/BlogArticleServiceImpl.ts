@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "server/common/inversify/types";
 import { BlogArticleDetailResponseDto, BlogArticleListResponseDto, BlogArticlePathDto, BlogArticleRequestDto, createBlogArticleDetailResponseDtoFrom, createBlogArticleListResponseDtoFrom } from "src/blog/api";
 import { BlogArticleDetailNotFoundException } from "src/blog/exceptions";
+import { getSeoulDateFrom } from "src/util";
 import { BlogArticle } from "../model";
 import { BlogArticleRepository } from "../model/BlogArticleRepository";
 import { BlogArticleService } from "./BlogArticleService";
@@ -44,7 +45,8 @@ export class BlogArticleServiceImpl implements BlogArticleService {
   public create = async (body: BlogArticleRequestDto): Promise<string> => {
     const toCreate = BlogArticle.from(body);
 
-    return this.blogArticleRepository.save(toCreate).then(a => a.id);
+    return this.blogArticleRepository.save(toCreate)
+      .then(a => '/blog/' + getSeoulDateFrom(a.createdAt).format("YYYY/MM/DD/") + a.slug);
   }
 
   public delete = async (req: BlogArticlePathDto): Promise<void> => {
