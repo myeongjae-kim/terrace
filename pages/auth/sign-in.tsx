@@ -1,3 +1,4 @@
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -5,7 +6,17 @@ import SignIn from 'src/auth/presentation/components/SignIn';
 import * as signModule from 'src/auth/presentation/state-modules/sign';
 import NextPage from 'src/common/domain/model/NextPage';
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(10)
+  }
+}))
+
 const SignInPage: NextPage = () => {
+  const classes = useStyles();
+
   const dispatch = useDispatch<Dispatch<signModule.Action>>();
   const [email, updateEmail] = React.useState("");
   const [password, updatePassword] = React.useState("");
@@ -29,7 +40,9 @@ const SignInPage: NextPage = () => {
     submit(email, password);
   }
 
-  return <SignIn onChangeEmail={onChangeEmail} onChangePassword={onChangePassword} onSubmit={onSubmit} />;
+  return <div className={classes.container}>
+    <SignIn onChangeEmail={onChangeEmail} onChangePassword={onChangePassword} onSubmit={onSubmit} />
+  </div>
 }
 
 SignInPage.getInitialProps = async () => {

@@ -51,6 +51,9 @@
     },
     "find": {
       "rejected": "Failed to fetch a blog article.\n\n{{e}}"
+    },
+    "create": {
+      "rejected": "Failed to creat a blog article.\n\n{{e}}"
     }
   }
 }

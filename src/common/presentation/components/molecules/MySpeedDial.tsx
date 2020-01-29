@@ -8,13 +8,13 @@ import React from 'react';
 export interface SpeedDialActionData {
   icon: JSX.Element
   name: string
-  handleClick(e: React.BaseSyntheticEvent<MouseEvent, any, any>): any
+  handleClick?(e: React.MouseEvent<HTMLElement, MouseEvent>): any
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   speedDial: {
-    position: 'absolute',
-    bottom: theme.spacing(6),
+    position: 'fixed',
+    bottom: theme.spacing(15),
     right: theme.spacing(3),
   },
 }));
@@ -22,9 +22,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   actions: SpeedDialActionData[]
+  disabled?: boolean
+  type?: 'submit' | 'reset' | 'button'
 }
 
-const MySpeedDial: React.FC<Props> = ({ actions }) => {
+const MySpeedDial: React.FC<Props> = ({ actions, disabled, type }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -45,6 +47,8 @@ const MySpeedDial: React.FC<Props> = ({ actions }) => {
       <div>
         <Tooltip title={actions[0].name} placement="left">
           <Fab
+            type={type || "submit"}
+            disabled={disabled}
             aria-label="MySpeedDial"
             color="primary"
             className={classes.speedDial}
@@ -69,7 +73,7 @@ const MySpeedDial: React.FC<Props> = ({ actions }) => {
         onFocus={handleOpen}
         onMouseEnter={handleOpen}
         onMouseLeave={handleClose}
-        open={open}
+        open={!disabled && open}
       >
         {actions.map(action => (
           <SpeedDialAction

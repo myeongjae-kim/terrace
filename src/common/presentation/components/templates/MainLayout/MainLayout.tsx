@@ -1,5 +1,6 @@
 import { createStyles, CssBaseline, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
+import { SignOutButton } from '../../molecules';
 import FooterContent from './FooterContent';
 import TopBar from './TopBar';
 
@@ -10,8 +11,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexDirection: 'column'
   },
   content: {
-    display: 'flex',
-    justifyContent: 'center',
     flexGrow: 1,
     margin: `0 ${theme.spacing(0.5)}px`,
     lineHeight: 1.6,
@@ -93,6 +92,7 @@ const MainLayout: React.FC = ({ children }) => {
     <div className={classes.rootContainer}>
       <CssBaseline />
       <TopBar />
+      <SignOutButton />
       <main className={classes.content}>
         {children}
       </main>

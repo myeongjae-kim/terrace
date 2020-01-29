@@ -22,14 +22,14 @@ const useStyles = makeStyles(createStyles({
 const FooterContent: React.FC = () => {
   const classes = useStyles();
 
-  const currentMe = useSelector((state: RootState) => state.auth.me.me);
+  const isSignedIn = useSelector((state: RootState) => state.auth.me.isSignedIn);
   const signIn = React.useCallback(() => {
-    if (currentMe.email) {
+    if (isSignedIn) {
       return;
     }
 
     Router.push("/auth/sign-in");
-  }, [currentMe])
+  }, [isSignedIn])
 
   return <div className={classes.footer}>
     <img onClick={signIn} src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} style={{ opacity: 0, pointerEvents: "all" }} />

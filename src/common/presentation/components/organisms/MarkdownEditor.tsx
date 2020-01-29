@@ -1,11 +1,9 @@
-import { CardContent, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { CardContent, makeStyles, TextField, TextFieldProps, Theme } from '@material-ui/core';
 import * as React from 'react';
-import { WrappedFieldProps } from 'redux-form';
 import { MarkdownPreview } from '../molecules';
-import MutableTextField from '../molecules/MutableTextField';
 import Spacer from '../molecules/Spacer';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   spacing: { height: theme.spacing(1) },
   flex: {
     display: 'flex',
@@ -15,7 +13,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     background: theme.palette.primary.contrastText
   },
   previewContainer: {
-    marginRight: 20
+    margin: theme.spacing(1),
+    minWidth: theme.spacing(40),
+    width: `calc(50% - ${theme.spacing(2)}px)`
+  },
+  fieldContainer: {
+    margin: theme.spacing(1),
+    minWidth: theme.spacing(40),
+    width: `calc(50% - ${theme.spacing(2)}px)`
   },
   preview: {
     boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.1)',
@@ -23,23 +28,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const MarkdownEditor: React.FC<WrappedFieldProps> = (props) => {
+const MarkdownEditor: React.FC<TextFieldProps> = (props) => {
   const classes = useStyles();
-  const { input } = props;
-  const [previewWidth] = React.useState(320);
-  const [textFieldWidth] = React.useState(320);
+  const { value } = props;
   return <div className={classes.flex}>
     <div className={classes.previewContainer}>
       <Spacer size={2.5} />
       <CardContent className={classes.preview}>
-        <MarkdownPreview markdown={input.value} style={{
-          width: previewWidth
-        }} />
+        <MarkdownPreview markdown={value as string} />
       </CardContent>
     </div>
-    <div>
-      <CardContent style={{ width: textFieldWidth }}>
-        <MutableTextField
+    <div className={classes.fieldContainer}>
+      <CardContent>
+        <TextField
           {...props}
           multiline
         />
