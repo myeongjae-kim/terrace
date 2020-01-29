@@ -24,9 +24,15 @@ export const blogArticleApi = {
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
   }),
 
-  update: (request: BlogArticleRequestDto, path: string): Promise<CreationResponse> => new Promise((resolve, rejected) => {
-    Axios.put<CreationResponse>(`${API_HOST}${Endpoints.blog}/api${path}`, request)
+  update: (request: BlogArticleRequestDto, path: string): Promise<void> => new Promise((resolve, rejected) => {
+    Axios.put<void>(`${API_HOST}${Endpoints.blog}/api${path}`, request)
       .then(res => resolve(res.data))
+      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
+  }),
+
+  delete: ({ year, month, day, slug }: BlogArticlePathDto): Promise<void> => new Promise((resolve, rejected) => {
+    Axios.delete<void>(`${API_HOST}${Endpoints.blog}/api/${year}/${month}/${day}/${slug}`)
+      .then(() => resolve())
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
   }),
 }

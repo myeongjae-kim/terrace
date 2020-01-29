@@ -59,6 +59,10 @@
     "update": {
       "fulfilled": "The blog article has been updated",
       "rejected": "Failed to update a blog article.\n\n{{e}}"
+    },
+    "delete": {
+      "fulfilled": "The blog article has been deleted",
+      "rejected": "Failed to delete a blog article.\n\n{{e}}"
     }
   }
 }

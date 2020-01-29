@@ -8,8 +8,7 @@ import BlogArticleList from 'src/blog/presentation/components/templates/BlogArti
 import { BlogArticleListProps } from 'src/blog/presentation/components/templates/BlogArticleList/BlogArticleList';
 import * as listModule from "src/blog/presentation/state-modules/list"
 import NextPage from 'src/common/domain/model/NextPage';
-import { HeadTitle } from 'src/common/presentation/components/molecules';
-import { PageTitle } from 'src/common/presentation/components/molecules';
+import { HeadTitle, PageTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
 
 const selector = createSelector<RootState, listModule.State, meModule.State, BlogArticleListProps>(
@@ -29,9 +28,7 @@ const BlogArticlePage: NextPage = () => {
 }
 
 BlogArticlePage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
-  if (store.getState().blog.list.blogArticles.length === 0) {
-    store.dispatch(listModule.fetchBlogArticles())
-  }
+  store.dispatch(listModule.fetchBlogArticles())
 
   return { namespacesRequired: ['common', 'noti'] }
 }
