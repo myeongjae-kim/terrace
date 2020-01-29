@@ -63,6 +63,7 @@ function* sagaCreateBlogArticle(action: ActionType<typeof actions.createBlogArti
   try {
     const creationResponse: CreationResponse = yield call(blogArticleApi.create, action.payload.request);
     yield put(actions.createBlogArticleAsync.success());
+    // tslint:disable-next-line: no-console
     console.log(creationResponse);
   } catch (e) {
     yield put(actions.createBlogArticleAsync.failure({ statusCode: e.status }));
