@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
 import { createSelector } from 'reselect';
+import * as meModule from 'src/auth/presentation/state-modules/me';
 import { BlogArticlePathDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
 import { BlogArticleDetailProps } from 'src/blog/presentation/components/templates/BlogArticleDetail/BlogArticleDetail';
@@ -13,9 +14,13 @@ import { Comment } from 'src/common/presentation/components/organisms';
 import { RootState } from 'src/common/presentation/state-module/root';
 import { formatDateTime, redirectFromGetInitialPropsTo } from 'src/util';
 
-const selector = createSelector<RootState, detailModule.State, BlogArticleDetailProps>(
+const selector = createSelector<RootState, detailModule.State, meModule.State, BlogArticleDetailProps>(
   root => root.blog.detail,
-  detail => detail
+  root => root.auth.me,
+  (detail, me) => ({
+    ...detail,
+    isSignedIn: me.isSignedIn
+  })
 );
 
 const BlogArticleDetailPage: NextPage = () => {
