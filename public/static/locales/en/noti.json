@@ -55,6 +55,10 @@
     "create": {
       "fulfilled": "A blog article has been created",
       "rejected": "Failed to creat a blog article.\n\n{{e}}"
+    },
+    "update": {
+      "fulfilled": "The blog article has been updated",
+      "rejected": "Failed to update a blog article.\n\n{{e}}"
     }
   }
 }

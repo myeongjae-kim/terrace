@@ -19,12 +19,26 @@ const selector = createSelector<RootState, formModule.State, {
   ({ initialValues, pending, rejected }) => ({ initialValues, pending, rejected })
 )
 
-const BlogArticleUpdatePage: NextPage = () => {
+const parsePathToPathDto = (asPath: string): BlogArticlePathDto => {
+  const splitted = asPath.split("/");
+  return {
+    year: splitted[3],
+    month: splitted[4],
+    day: splitted[5],
+    slug: splitted[6],
+  }
+}
+
+const BlogArticleUpdatePage: NextPage<{ asPath: string }> = ({ asPath }) => {
   const dispatch = useDispatch<Dispatch<formModule.Action>>();
   const props = useSelector(selector);
 
+  React.useEffect(() => {
+    dispatch(formModule.fetchBlogArticle({ blogArticlePathDto: parsePathToPathDto(asPath) }))
+  }, [])
+
   const onSubmit = React.useCallback((request: BlogArticleRequestDto) => {
-    dispatch(formModule.createBlogArticle({ request }))
+    dispatch(formModule.updateBlogArticle({ request }))
     return Promise.resolve();
   }, [])
 
@@ -33,29 +47,13 @@ const BlogArticleUpdatePage: NextPage = () => {
   </div>
 }
 
-BlogArticleUpdatePage.getInitialProps = async ({ store, asPath, res }: { store: Store<RootState> } & NextPageContext) => {
+BlogArticleUpdatePage.getInitialProps = async ({ asPath, res }: { store: Store<RootState> } & NextPageContext) => {
   if (!asPath) {
     redirectFromGetInitialPropsTo("/404", res);
     return {}
   }
 
-  fetchBlogArticleDetail(store, parsePathToBlogArticleDetailRequest(asPath));
-
-  return { namespacesRequired: ['common', 'noti'] }
-}
-
-const fetchBlogArticleDetail = (store: Store<RootState>, req: BlogArticlePathDto): void => {
-  store.dispatch(formModule.fetchBlogArticle({ blogArticle: req }))
-}
-
-const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto => {
-  const splitted = asPath.split("/");
-  return {
-    year: splitted[3],
-    month: splitted[4],
-    day: splitted[5],
-    slug: splitted[6],
-  }
+  return { namespacesRequired: ['common', 'noti'], asPath }
 }
 
 export default BlogArticleUpdatePage;

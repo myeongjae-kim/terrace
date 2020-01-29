@@ -2,9 +2,10 @@ import { makeStyles, TextField, Theme, Typography } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
 import clsx from 'clsx';
 import { ErrorMessage, Form, Formik } from 'formik';
+import Optional from 'optional-js';
 import * as React from 'react';
 import { BlogArticleDetailResponseDto, BlogArticleRequestDto } from 'src/blog/api';
-import { DisplayProps, ErrorTypography, MySpeedDial } from 'src/common/presentation/components/molecules';
+import { ErrorTypography, MySpeedDial } from 'src/common/presentation/components/molecules';
 import { MarkdownEditor } from 'src/common/presentation/components/organisms';
 import * as Yup from "yup";
 
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   isUpdating?: boolean
-  initialValues: BlogArticleDetailResponseDto
+  initialValues?: BlogArticleDetailResponseDto
   pending: boolean
   rejected: boolean
   onSubmit(request: BlogArticleRequestDto): Promise<void>
@@ -42,10 +43,10 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
   return <Formik<BlogArticleRequestDto>
     enableReinitialize
     initialValues={{
-      seq: initialValues.seq,
-      title: initialValues.title,
-      slug: initialValues.slug,
-      content: initialValues.content
+      seq: Optional.ofNullable(initialValues).map(iv => iv.seq).orElse(0),
+      title: Optional.ofNullable(initialValues).map(iv => iv.title).orElse(""),
+      slug: Optional.ofNullable(initialValues).map(iv => iv.slug).orElse(""),
+      content: Optional.ofNullable(initialValues).map(iv => iv.content).orElse("")
     }}
     onSubmit={onSubmit}
     validationSchema={Yup.object().shape({
@@ -136,7 +137,6 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
           name: "완료",
           icon: <Check />
         }]} />
-        <DisplayProps {...props} />
       </Form>
     }}
   </Formik>;

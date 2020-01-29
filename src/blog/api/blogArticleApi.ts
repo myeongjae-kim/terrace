@@ -23,4 +23,10 @@ export const blogArticleApi = {
       .then(res => resolve(res.data))
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
   }),
+
+  update: (request: BlogArticleRequestDto, path: string): Promise<CreationResponse> => new Promise((resolve, rejected) => {
+    Axios.put<CreationResponse>(`${API_HOST}${Endpoints.blog}/api${path}`, request)
+      .then(res => resolve(res.data))
+      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)))
+  }),
 }

@@ -1,9 +1,11 @@
 import { produce } from 'immer';
 import Router from 'next/router';
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 import { blogArticleApi, BlogArticleDetailResponseDto, BlogArticlePathDto, BlogArticleRequestDto } from 'src/blog/api';
 import { CreationResponse } from 'src/common/api/dto/CreationResponse';
+import { RootState } from 'src/common/presentation/state-module/root';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
+import { getSeoulDateFrom } from 'src/util';
 import stringify from 'src/util/stringify';
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
@@ -11,7 +13,7 @@ const actions = {
   reset: createAction("@blogArticleForm/RESET")(),
 
   fetchBlogArticle: createAction("@blogArticleForm/FETCH_BLOG_ARTICLE_DETAIL")<{
-    blogArticle: BlogArticlePathDto
+    blogArticlePathDto: BlogArticlePathDto
   }>(),
   fetchBlogArticleAsync: createAsyncAction(
     '@blogArticleForm/FETCH_BLOG_ARTICLE_DETAIL_REQUEST',
@@ -27,9 +29,18 @@ const actions = {
     '@blogArticleForm/CREATE_BLOG_ARTICLE_DETAIL_SUCCESS',
     '@blogArticleForm/CREATE_BLOG_ARTICLE_DETAIL_FAILURE',
   )<void, void, { statusCode: number }>(),
+
+  updateBlogArticle: createAction("@blogArticleForm/UPDATE_BLOG_ARTICLE_DETAIL")<{
+    request: BlogArticleRequestDto,
+  }>(),
+  updateBlogArticleAsync: createAsyncAction(
+    '@blogArticleForm/UPDATE_BLOG_ARTICLE_DETAIL_REQUEST',
+    '@blogArticleForm/UPDATE_BLOG_ARTICLE_DETAIL_SUCCESS',
+    '@blogArticleForm/UPDATE_BLOG_ARTICLE_DETAIL_FAILURE',
+  )<void, void, { statusCode: number }>(),
 }
 
-export const { reset, createBlogArticle, fetchBlogArticle } = actions;
+export const { reset, fetchBlogArticle, createBlogArticle, updateBlogArticle } = actions;
 export type Action = ActionType<typeof actions>;
 
 export interface State {
@@ -73,6 +84,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction([
     actions.fetchBlogArticleAsync.request,
     actions.createBlogArticleAsync.request,
+    actions.updateBlogArticleAsync.request,
   ], (state) => produce(state, draft => {
     draft.pending = true;
     draft.rejected = false;
@@ -87,7 +99,10 @@ export const reducer = createReducer<State, Action>(createInitialState())
     draft.statusCode = 200;
     return draft;
   }))
-  .handleAction(actions.createBlogArticleAsync.success, (state) => produce(state, draft => {
+  .handleAction([
+    actions.createBlogArticleAsync.success,
+    actions.updateBlogArticleAsync.success,
+  ], (state) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = false;
     draft.statusCode = 200;
@@ -95,7 +110,8 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
   .handleAction([
     actions.fetchBlogArticleAsync.failure,
-    actions.createBlogArticleAsync.failure
+    actions.createBlogArticleAsync.failure,
+    actions.updateBlogArticleAsync.failure
   ], (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
@@ -106,12 +122,13 @@ export const reducer = createReducer<State, Action>(createInitialState())
 export function* saga() {
   yield takeLatest(getType(fetchBlogArticle), sagaFetchBlogArticle);
   yield takeLatest(getType(createBlogArticle), sagaCreateBlogArticle);
+  yield takeLatest(getType(updateBlogArticle), sagaUpdateBlogArticle);
 }
 
 function* sagaFetchBlogArticle(action: ActionType<typeof actions.fetchBlogArticle>) {
   yield put(actions.fetchBlogArticleAsync.request())
   try {
-    const blog: BlogArticleDetailResponseDto = yield call(blogArticleApi.find, action.payload.blogArticle);
+    const blog: BlogArticleDetailResponseDto = yield call(blogArticleApi.find, action.payload.blogArticlePathDto);
     yield put(actions.fetchBlogArticleAsync.success({ blog }));
   } catch (e) {
     yield put(actions.fetchBlogArticleAsync.failure({ statusCode: e.status }));
@@ -143,6 +160,36 @@ function* sagaCreateBlogArticle(action: ActionType<typeof actions.createBlogArti
     yield put(enqueueSnackbar({
       snackbar: {
         message: 'noti:blogArticle.create.rejected',
+        messageOptions: { e: stringify(e) },
+        variant: 'error'
+      }
+    }))
+  }
+}
+
+function* sagaUpdateBlogArticle(action: ActionType<typeof actions.updateBlogArticle>) {
+  yield put(actions.updateBlogArticleAsync.request())
+  const { request } = action.payload;
+  const initialValues: BlogArticleDetailResponseDto = yield select((root: RootState) => root.blog.form.initialValues);
+  const oldPath = getSeoulDateFrom(initialValues.createdAt).format("/YYYY/MM/DD/") + initialValues.slug;
+  const newPath = getSeoulDateFrom(initialValues.createdAt).format("/YYYY/MM/DD/") + request.slug;
+
+  try {
+    yield call(blogArticleApi.update, request, oldPath);
+    yield put(actions.updateBlogArticleAsync.success());
+    Router.push("/blog/detail", `/blog${newPath}`)
+
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: 'noti:blogArticle.update.fulfilled',
+        variant: 'success'
+      }
+    }))
+  } catch (e) {
+    yield put(actions.updateBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: 'noti:blogArticle.update.rejected',
         messageOptions: { e: stringify(e) },
         variant: 'error'
       }
