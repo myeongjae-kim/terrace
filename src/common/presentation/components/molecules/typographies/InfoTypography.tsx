@@ -5,7 +5,9 @@ import * as React from 'react';
 
 const useStyles = makeStyles(createStyles({
   typography: {
-    whiteSpace: 'pre-wrap'
+    whiteSpace: 'pre-wrap',
+    display: 'flex',
+    alignItems: 'center'
   },
   icon: {
     fontSize: 13,

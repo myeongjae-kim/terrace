@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import Router from 'next/router';
 import { call, put, takeLatest } from "redux-saga/effects";
 import { blogArticleApi, BlogArticleRequestDto } from 'src/blog/api';
 import { CreationResponse } from 'src/common/api/dto/CreationResponse';
@@ -63,8 +64,14 @@ function* sagaCreateBlogArticle(action: ActionType<typeof actions.createBlogArti
   try {
     const creationResponse: CreationResponse = yield call(blogArticleApi.create, action.payload.request);
     yield put(actions.createBlogArticleAsync.success());
-    // tslint:disable-next-line: no-console
-    console.log(creationResponse);
+    Router.push("/blog/detail", creationResponse.id)
+
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: 'noti:blogArticle.create.fulfilled',
+        variant: 'success'
+      }
+    }))
   } catch (e) {
     yield put(actions.createBlogArticleAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({

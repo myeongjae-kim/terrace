@@ -4,8 +4,9 @@ import clsx from 'clsx';
 import { ErrorMessage, Form, Formik } from 'formik';
 import * as React from 'react';
 import { BlogArticleRequestDto } from 'src/blog/api';
-import { DisplayProps, MySpeedDial } from 'src/common/presentation/components/molecules';
+import { DisplayProps, ErrorTypography, MySpeedDial } from 'src/common/presentation/components/molecules';
 import { MarkdownEditor } from 'src/common/presentation/components/organisms';
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& > div": {
       margin: theme.spacing(1)
     }
+  },
+  errorMessageCenter: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 }))
 
@@ -40,9 +45,27 @@ const BlogArticleForm: React.FC<Props> = ({ pending, onSubmit }) => {
       content: ""
     }}
     onSubmit={onSubmit}
+    validationSchema={Yup.object().shape({
+      seq: Yup.number().moreThan(0, "양수를 입력하세요."),
+      title: Yup.string().required("제목을 입력하세요."),
+      slug: Yup.string().required("슬러그를 입력하세요."),
+      content: Yup.string().required("내용을 입력하세요."),
+    })}
   >
     {props => {
       const { values, handleChange, handleBlur, isSubmitting } = props;
+
+      const handleSlugChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        e.target.value = e.target.value
+          .replace("/", "")
+          .replace(" ", "")
+          .replace("#", "")
+          .replace("%", "")
+          .replace("&", "");
+
+        handleChange(e);
+      }, [])
+
       return <Form>
         <Typography variant="h2" className={classes.title}>블로그 글 등록</Typography>
         <div className={clsx(classes.shortFieldContainer)}>
@@ -52,11 +75,12 @@ const BlogArticleForm: React.FC<Props> = ({ pending, onSubmit }) => {
               type="number"
               name="seq"
               fullWidth
+              required
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.seq}
             />
-            <ErrorMessage name="seq" component="div" />
+            <ErrorMessage name="seq" component={ErrorTypography} />
           </div>
           <div>
             <TextField
@@ -64,11 +88,12 @@ const BlogArticleForm: React.FC<Props> = ({ pending, onSubmit }) => {
               type="text"
               name="title"
               fullWidth
+              required
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.title}
             />
-            <ErrorMessage name="title" component="div" />
+            <ErrorMessage name="title" component={ErrorTypography} />
           </div>
           <div>
             <TextField
@@ -76,15 +101,16 @@ const BlogArticleForm: React.FC<Props> = ({ pending, onSubmit }) => {
               type="text"
               name="slug"
               fullWidth
-              onChange={handleChange}
+              required
+              helperText="입력 불가능한 특수문자: #%&"
+              onChange={handleSlugChange}
               onBlur={handleBlur}
               value={values.slug}
             />
-            <ErrorMessage name="slug" component="div" />
+            <ErrorMessage name="slug" component={ErrorTypography} />
           </div>
         </div>
         <div>
-
           <div>
             <MarkdownEditor
               label="내용"
@@ -92,11 +118,15 @@ const BlogArticleForm: React.FC<Props> = ({ pending, onSubmit }) => {
               name="content"
               fullWidth
               multiline
+              required
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.content}
             />
-            <ErrorMessage name="content" component="div" />
+            <ErrorMessage
+              name="content"
+              className={classes.errorMessageCenter}
+              component={ErrorTypography} />
           </div>
         </div>
         <MySpeedDial disabled={isSubmitting || pending} actions={[{
