@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   fieldContainer: {
     margin: theme.spacing(1),
     minWidth: theme.spacing(40),
-    width: `calc(50% - ${theme.spacing(2)}px)`
+    width: `calc(50% - ${theme.spacing(2)}px)`,
+    '& textarea': {
+      lineHeight: '1.6em'
+    }
   },
   preview: {
     boxShadow: '0px 0px 0px 3px rgba(0,0,0,0.1)',
