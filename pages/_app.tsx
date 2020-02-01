@@ -1,6 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import createSagaMiddleware from "@redux-saga/core";
+import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
 import App from 'next/app';
@@ -77,19 +78,21 @@ class MyApp extends App<AppProps> {
         <title>:: Myeongjae Kim</title>
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
+        <EmotionThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
 
-        <ReduxStoreProvider store={store}>
-          <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
-            <ConfirmContainer />
-            <SnackbarContainer />
-            <NotificationCenterContainer />
-          </SnackbarProvider>
-        </ReduxStoreProvider>
+          <ReduxStoreProvider store={store}>
+            <SnackbarProvider style={{ whiteSpace: 'pre-wrap' }}>
+              <MainLayout>
+                <Component {...pageProps} />
+              </MainLayout>
+              <ConfirmContainer />
+              <SnackbarContainer />
+              <NotificationCenterContainer />
+            </SnackbarProvider>
+          </ReduxStoreProvider>
+        </EmotionThemeProvider>
       </ThemeProvider>
     </>
   }
