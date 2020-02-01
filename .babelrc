@@ -4,6 +4,9 @@
   ],
   "plugins": [
     [
+      "emotion"
+    ],
+    [
       "prismjs",
       {
         "languages": [

@@ -15,6 +15,8 @@
     "migrate": "cd migration && ./run.sh"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
     "@material-ui/core": "4.8.0",
     "@material-ui/icons": "4.5.1",
     "@material-ui/lab": "4.0.0-alpha.36",
@@ -80,6 +82,7 @@
     "@types/uuid": "^3.4.6",
     "@types/winston": "^2.4.4",
     "@types/yup": "^0.26.29",
+    "babel-plugin-emotion": "^10.0.27",
     "babel-plugin-prismjs": "^1.1.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
