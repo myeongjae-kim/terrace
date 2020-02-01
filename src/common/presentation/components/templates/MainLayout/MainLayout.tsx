@@ -78,6 +78,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& figcaption': {
       fontSize: '0.8em',
       opacity: 0.7
+    },
+    '& code': {
+      background: 'rgba(83, 173, 241, 0.1)'
     }
   },
   footer: {
