@@ -81,6 +81,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     '& code': {
       background: 'rgba(83, 173, 241, 0.1)'
+    },
+    '& pre code': {
+      background: 'initial'
     }
   },
   footer: {
