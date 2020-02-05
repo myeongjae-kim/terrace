@@ -1,5 +1,6 @@
 import { useTheme } from '@material-ui/core';
 import { NextPageContext } from 'next';
+import { NextSeo } from 'next-seo';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
@@ -8,7 +9,7 @@ import * as meModule from 'src/auth/presentation/state-modules/me';
 import { BlogArticleDetailResponseDto, BlogArticlePathDto } from 'src/blog/api/dto';
 import BlogArticleDetail from 'src/blog/presentation/components/templates/BlogArticleDetail';
 import * as detailModule from "src/blog/presentation/state-modules/detail";
-import { Endpoints } from 'src/common/constants/Constants';
+import { DOMAIN, Endpoints } from 'src/common/constants/Constants';
 import NextPage from 'src/common/domain/model/NextPage';
 import { Comment } from 'src/common/presentation/components/organisms';
 import * as commonModule from "src/common/presentation/state-module/common";
@@ -38,13 +39,14 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
   const props = useSelector(selector)
   const dispatch = useDispatch<Dispatch<detailModule.Action | commonModule.Action>>();
 
-  const { createdAt, slug } = props.blogArticle;
-  const uri = `${Endpoints["blog.update"]}${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}/`;
+  const { title, content, createdAt, slug } = props.blogArticle;
+  const subPath = `${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}`;
+  const updateUri = `${Endpoints["blog.update"]}${subPath}/`;
 
   const update = React.useCallback((e: React.MouseEvent) => {
     createLinkClickHandler(
       Endpoints["blog.update"],
-      uri
+      updateUri
     )(e);
   }, [createdAt, slug])
 
@@ -61,8 +63,14 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
   }, [])
 
   return <div>
+    <NextSeo
+      title={title}
+      description={content.substr(0, 512)}
+      canonical={`${DOMAIN}${Endpoints.blog}${subPath}`}
+    />
+
     <BlogArticleDetail {...props} update={update} del={del} />
-    <Comment identifier={uri} />
+    <Comment identifier={updateUri} />
     <style jsx global>{`
 #comment-container {
   max-width: ${theme.spacing(100)}px;

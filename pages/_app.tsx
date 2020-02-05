@@ -3,6 +3,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import createSagaMiddleware from "@redux-saga/core";
 import withReduxSaga from 'next-redux-saga';
 import withRedux from 'next-redux-wrapper';
+import { DefaultSeo } from 'next-seo';
 import App from 'next/app';
 import Head from 'next/head';
 import { SnackbarProvider } from 'notistack';
@@ -10,6 +11,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import { Provider as ReduxStoreProvider } from "react-redux";
 import { AnyAction, applyMiddleware, createStore, Middleware, Store } from 'redux';
+import { DOMAIN } from 'src/common/constants/Constants';
 import I18NService from 'src/common/domain/service/I18NService';
 import { MainLayout } from 'src/common/presentation/components/templates';
 import theme from 'src/common/presentation/components/theme';
@@ -76,6 +78,26 @@ class MyApp extends App<AppProps> {
       <Head>
         <title>:: Myeongjae Kim</title>
       </Head>
+
+      <DefaultSeo
+        openGraph={{
+          type: 'website',
+          locale: 'ko_KR',
+          url: DOMAIN,
+          site_name: 'Myeongjae Kim',
+          images: [{
+            url: 'https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=800',
+            width: 400,
+            height: 400,
+            alt: 'Myeongjae Kim',
+          }]
+        }}
+        twitter={{
+          handle: '@myeongjae_kim',
+          site: '@myeongjae_kim',
+          cardType: 'summary',
+        }}
+      />
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
