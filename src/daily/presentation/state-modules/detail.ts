@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLeading } from "redux-saga/effects";
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from 'src/daily/api';
 import stringify from 'src/util/stringify';
@@ -64,7 +64,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
 
 export function* saga() {
-  yield takeLatest(getType(fetchDaily), sagaFetchDaily);
+  yield takeLeading(getType(fetchDaily), sagaFetchDaily);
 }
 
 function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
