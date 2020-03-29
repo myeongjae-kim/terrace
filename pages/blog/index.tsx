@@ -1,12 +1,10 @@
-import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from 'redux';
 import { createSelector } from 'reselect';
-import * as meModule from "src/auth/presentation/state-modules/me"
+import * as meModule from "src/auth/presentation/state-modules/me";
 import BlogArticleList from 'src/blog/presentation/components/templates/BlogArticleList';
 import { BlogArticleListProps } from 'src/blog/presentation/components/templates/BlogArticleList/BlogArticleList';
-import * as listModule from "src/blog/presentation/state-modules/list"
+import * as listModule from "src/blog/presentation/state-modules/list";
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle, PageTitle } from 'src/common/presentation/components/molecules';
 import { RootState } from 'src/common/presentation/state-module/root';
@@ -27,7 +25,7 @@ const BlogArticlePage: NextPage = () => {
   </div>
 }
 
-BlogArticlePage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
+BlogArticlePage.getInitialProps = async ({ store }) => {
   store.dispatch(listModule.fetchBlogArticles())
 
   return { namespacesRequired: ['common', 'noti'] }

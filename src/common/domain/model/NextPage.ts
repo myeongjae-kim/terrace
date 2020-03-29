@@ -1,9 +1,15 @@
-import { NextPage as _NextPage } from 'next';
+import { NextComponentType, NextPageContext } from "next";
+import { Store } from "redux";
+import { RootState } from "src/common/presentation/state-module/root";
 
-interface DefaultCustomProps {
-  namespacesRequired?: string[]
+interface IDefaultCustomProps {
+  namespacesRequired?: string[];
 }
 
-type NextPage<P = {}, IP = P> = _NextPage<P, IP | DefaultCustomProps>
+interface INextPageContextWithStore extends NextPageContext {
+  store: Store<RootState>;
+}
+
+type NextPage<P = {}, IP = P> = NextComponentType<INextPageContextWithStore, IP | IDefaultCustomProps, P>
 
 export default NextPage;

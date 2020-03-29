@@ -1,7 +1,5 @@
-import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from 'redux';
 import { createSelector } from 'reselect';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle } from 'src/common/presentation/components/molecules';
@@ -25,7 +23,7 @@ const MusingsPage: NextPage = () => {
 }
 
 
-MusingsPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
+MusingsPage.getInitialProps = async ({ store }) => {
   if (store.getState().musings.list.musings.length === 0) {
     store.dispatch(listModule.fetchMusings())
   }
