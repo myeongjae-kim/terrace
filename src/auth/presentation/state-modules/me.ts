@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLeading } from "redux-saga/effects";
 import { authApi } from 'src/auth/api';
 import { MeResponse } from 'src/auth/api/dto/MeResponse';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
@@ -66,7 +66,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
 
 export function* saga() {
-  yield takeLatest(getType(me), sagaMe);
+  yield takeLeading(getType(me), sagaMe);
 }
 
 function* sagaMe() {

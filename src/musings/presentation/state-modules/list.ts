@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLeading } from "redux-saga/effects";
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import { MusingResponseDto, musingsFetcher } from 'src/musings/api';
 import stringify from 'src/util/stringify';
@@ -53,7 +53,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
 
 export function* saga() {
-  yield takeLatest(getType(fetchMusings), sagaFetchMusing);
+  yield takeLeading(getType(fetchMusings), sagaFetchMusing);
 }
 
 function* sagaFetchMusing() {

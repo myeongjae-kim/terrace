@@ -1,5 +1,4 @@
 import { useTheme } from '@material-ui/core';
-import { NextPageContext } from 'next';
 import { NextSeo } from 'next-seo';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -79,7 +78,7 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
   </div>
 }
 
-BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<RootState> } & NextPageContext) => {
+BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }) => {
   if (!asPath) {
     redirectFromGetInitialPropsTo("/404", res);
     return {}

@@ -1,7 +1,5 @@
-import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from 'redux';
 import { createSelector } from 'reselect';
 import NextPage from 'src/common/domain/model/NextPage';
 import { HeadTitle, PageTitle } from 'src/common/presentation/components/molecules';
@@ -25,7 +23,7 @@ const DailyPage: NextPage = () => {
   </div>
 }
 
-DailyPage.getInitialProps = async ({ store }: { store: Store<RootState> } & NextPageContext) => {
+DailyPage.getInitialProps = async ({ store }) => {
   if (store.getState().daily.list.dailys.length === 0) {
     store.dispatch(listModule.fetchDailys())
   }

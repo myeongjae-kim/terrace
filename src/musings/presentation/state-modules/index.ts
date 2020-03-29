@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { fork } from "redux-saga/effects";
+import { spawn } from "redux-saga/effects";
 import * as listModule from "./list";
 
 export const reducer = combineReducers({
@@ -7,5 +7,5 @@ export const reducer = combineReducers({
 });
 
 export function* saga() {
-  yield fork(listModule.saga);
+  yield spawn(listModule.saga);
 }

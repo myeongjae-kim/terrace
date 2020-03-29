@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import Router from 'next/router';
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLeading } from "redux-saga/effects";
 import { authApi } from 'src/auth/api';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
 import stringify from 'src/util/stringify';
@@ -68,8 +68,8 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
 
 export function* saga() {
-  yield takeLatest(getType(signIn), sagaSignIn);
-  yield takeLatest(getType(signOut), sagaSignOut);
+  yield takeLeading(getType(signIn), sagaSignIn);
+  yield takeLeading(getType(signOut), sagaSignOut);
 }
 
 function* sagaSignIn(action: ActionType<typeof actions.signIn>) {

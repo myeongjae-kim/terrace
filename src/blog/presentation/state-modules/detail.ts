@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import Router from 'next/router';
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLeading } from "redux-saga/effects";
 import { blogArticleApi, BlogArticleDetailResponseDto, BlogArticlePathDto } from 'src/blog/api';
 import { Endpoints } from 'src/common/constants/Constants';
 import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
@@ -99,8 +99,8 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
 
 export function* saga() {
-  yield takeLatest(getType(fetchBlogArticle), sagaFetchBlogArticle);
-  yield takeLatest(getType(deleteBlogArticle), sagaDeleteBlogArticle);
+  yield takeLeading(getType(fetchBlogArticle), sagaFetchBlogArticle);
+  yield takeLeading(getType(deleteBlogArticle), sagaDeleteBlogArticle);
 }
 
 function* sagaFetchBlogArticle(action: ActionType<typeof actions.fetchBlogArticle>) {

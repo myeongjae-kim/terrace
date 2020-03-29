@@ -1,5 +1,4 @@
 import { useTheme } from '@material-ui/core';
-import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Store } from 'redux';
@@ -57,7 +56,7 @@ const DailyDetailPage: NextPage = () => {
   </div>
 }
 
-DailyDetailPage.getInitialProps = async ({ store, asPath, res }: { store: Store<RootState> } & NextPageContext) => {
+DailyDetailPage.getInitialProps = async ({ store, asPath, res }) => {
   if (!asPath) {
     redirectFromGetInitialPropsTo("/404", res);
     return {}

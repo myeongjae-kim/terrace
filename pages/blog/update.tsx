@@ -1,7 +1,6 @@
-import { NextPageContext } from 'next';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, Store } from 'redux';
+import { Dispatch } from 'redux';
 import { createSelector } from 'reselect';
 import { BlogArticleDetailResponseDto, BlogArticlePathDto, BlogArticleRequestDto } from 'src/blog/api';
 import { BlogArticleForm } from 'src/blog/presentation/components/templates';
@@ -47,7 +46,7 @@ const BlogArticleUpdatePage: NextPage<{ asPath: string }> = ({ asPath }) => {
   </div>
 }
 
-BlogArticleUpdatePage.getInitialProps = async ({ asPath, res }: { store: Store<RootState> } & NextPageContext) => {
+BlogArticleUpdatePage.getInitialProps = async ({ asPath, res }) => {
   if (!asPath) {
     redirectFromGetInitialPropsTo("/404", res);
     return {}
