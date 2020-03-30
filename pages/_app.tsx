@@ -21,32 +21,35 @@ import ConfirmContainer from "src/common/presentation/container/molecules/Confir
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
 import { setPaths } from "src/common/presentation/state-module/common";
-import { rootReducer, rootSaga, RootState } from "src/common/presentation/state-module/root";
+import { rootReducer, rootSaga, RootState, rootEpic } from "src/common/presentation/state-module/root";
 import { isServer } from "src/util";
+import { createEpicMiddleware } from "redux-observable";
 
 ReactGA.initialize("UA-126240406-1");
 
 const { appWithTranslation } = I18NService;
 
 const makeStore = (preloadedState = {} as RootState) => {
-  const bindMiddleware = (middlewares: Middleware[]) => {
+  const bindMiddleware = (...middlewares: Middleware[]) => {
     if (process.env.NODE_ENV !== "production") {
       const { composeWithDevTools } = require("redux-devtools-extension");
       const { createLogger } = require("redux-logger");
-      return composeWithDevTools(applyMiddleware(createLogger(), ...middlewares));
+      return composeWithDevTools(applyMiddleware(createLogger({ collapsed: true }), ...middlewares));
     }
     return applyMiddleware(...middlewares);
   };
 
   const sagaMiddleware = createSagaMiddleware();
+  const epicMiddleware = createEpicMiddleware();
 
   const reduxStore: Store<RootState, AnyAction> = createStore(
     rootReducer,
     preloadedState,
-    bindMiddleware([sagaMiddleware])
+    bindMiddleware(sagaMiddleware, epicMiddleware)
   );
 
   (reduxStore as any).sagaTask = sagaMiddleware.run(rootSaga);
+  epicMiddleware.run(rootEpic as any);
 
   return reduxStore;
 };

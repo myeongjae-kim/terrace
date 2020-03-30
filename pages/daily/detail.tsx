@@ -75,7 +75,7 @@ const fetchDailyList = (store: Store<RootState>): void => {
 };
 
 const fetchDailyDetail = (store: Store<RootState>, req: DailyDetailRequestDto): void => {
-  store.dispatch(detailModule.fetchDaily({ daily: req }));
+  store.dispatch(detailModule.fetchDailyRx({ daily: req }));
 };
 
 const parsePathToDailyDetailRequest = (asPath: string): DailyDetailRequestDto => {

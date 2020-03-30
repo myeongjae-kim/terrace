@@ -4,6 +4,11 @@ import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
 import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
+import { Observable, of } from "rxjs";
+import { ofType, combineEpics, StateObservable } from "redux-observable";
+import { mergeMap, map, catchError } from "rxjs/operators";
+import { request } from "universal-rxjs-ajax";
+import { API_HOST } from "src/common/constants/Constants";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
@@ -14,10 +19,15 @@ const actions = {
     "@dailyDetail/FETCH_DAILY_DETAIL_REQUEST",
     "@dailyDetail/FETCH_DAILY_DETAIL_SUCCESS",
     "@dailyDetail/FETCH_DAILY_DETAIL_FAILURE",
-  )<void, { daily: DailyDetailResponseDto }, { statusCode: number }>()
+  )<void, { daily: DailyDetailResponseDto }, { statusCode: number }>(),
+
+
+  fetchDailyRx: createAction("@dailyDetail/FETCH_DAILY_DETAIL_RX")<{
+    daily: DailyDetailRequestDto;
+  }>(),
 };
 
-export const { reset, fetchDaily } = actions;
+export const { reset, fetchDaily, fetchDailyRx } = actions;
 export type Action = ActionType<typeof actions>;
 
 export interface State {
@@ -83,3 +93,25 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
     }));
   }
 }
+
+
+const epicFetchDaily = (action$: Observable<ActionType<typeof actions.fetchDailyRx>>, _$: StateObservable<State>) =>
+  action$.pipe(
+    ofType(getType(actions.fetchDailyRx)),
+    mergeMap(action => {
+      const { year, month, day, slug } = action.payload.daily;
+      return request({
+        url: `${API_HOST}/daily/api/${year}/${month}/${day}/${slug}`
+      }).pipe(
+        map(response => actions.fetchDailyAsync.success({
+          "daily": response as any
+        })),
+        catchError(_ =>
+          of(
+            actions.fetchDailyAsync.failure({ statusCode: 600 })
+          )));
+    })
+  );
+
+
+export const epic = combineEpics(epicFetchDaily);

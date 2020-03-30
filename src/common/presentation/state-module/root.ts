@@ -8,6 +8,7 @@ import * as musingsModule from "src/musings/presentation/state-modules";
 import { StateType } from "typesafe-actions";
 import * as commonModule from "./common";
 import * as snackbarModule from "./snackbar";
+import { combineEpics } from "redux-observable";
 
 export const rootReducer = combineReducers({
   form: formReducer,
@@ -29,3 +30,6 @@ export function* rootSaga() {
 }
 
 export type RootState = StateType<typeof rootReducer>;
+export type RootAction = dailyModule.Action;
+
+export const rootEpic = combineEpics(dailyModule.epic);
