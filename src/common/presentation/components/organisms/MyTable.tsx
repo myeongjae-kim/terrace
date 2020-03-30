@@ -39,10 +39,7 @@ const tableIcons: Icons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-// tslint:disable-next-line: no-empty-interface
-type Props = MaterialTableProps<T>;
-
-const MyTable = <T extends object>(props: React.PropsWithChildren<Props<T>>) =>
+const MyTable = <T extends object>(props: React.PropsWithChildren<MaterialTableProps<T>>) =>
   <MaterialTable<T>
     icons={tableIcons}
     {...props}
