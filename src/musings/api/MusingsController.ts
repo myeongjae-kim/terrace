@@ -18,7 +18,7 @@ export class MusingsController implements interfaces.Controller {
 
   @httpGet("/")
   public getPage(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(true, req, res, PATH)
+    return this.nextApp.render(true, req, res, PATH);
   }
 
   @httpGet("/api")

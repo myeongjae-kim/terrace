@@ -1,16 +1,16 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import { Code, Create, DeveloperBoard, Email, EmojiPeople, Room } from '@material-ui/icons';
-import clsx from 'clsx';
-import * as React from 'react';
-import Descriptions from './Descriptions';
-import Name from './Name';
-import Profile from './Profile';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import { Code, Create, DeveloperBoard, Email, EmojiPeople, Room } from "@material-ui/icons";
+import clsx from "clsx";
+import * as React from "react";
+import Descriptions from "./Descriptions";
+import Name from "./Name";
+import Profile from "./Profile";
 
 const iconStyle: CSSProperties = {
   fontSize: 17,
   marginBottom: -3
-}
+};
 
 const data = {
   profile: "https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=400#shadow#round",
@@ -43,11 +43,11 @@ const data = {
     label: "blog.myeongjae.kim",
     href: "https://blog.myeongjae.kim"
   },]
-}
+};
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   center: {
-    display: 'flex',
+    display: "flex",
     justifyContent: "center"
   },
   imageContainer: {
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       marginTop: theme.spacing(3)
     }
   }
-}))
+}));
 
 const About: React.FC = () => {
   const { profile, name, descriptions } = data;
@@ -73,6 +73,6 @@ const About: React.FC = () => {
       <Descriptions items={descriptions} />
     </div>
   </>;
-}
+};
 
 export default About;

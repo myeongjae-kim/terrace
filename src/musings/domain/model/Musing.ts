@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Musing {
@@ -13,12 +13,12 @@ export class Musing {
   }
 
   @PrimaryGeneratedColumn({
-    type: 'bigint'
+    type: "bigint"
   })
   public id!: string;
 
   @Column({
-    type: 'text'
+    type: "text"
   })
   public quote!: string;
 
@@ -26,6 +26,6 @@ export class Musing {
   public from!: string;
 
   @Column()
-  public language!: 'EN' | 'KO';
+  public language!: "EN" | "KO";
 
 }

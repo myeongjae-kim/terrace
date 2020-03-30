@@ -5,7 +5,7 @@ import { EntityRepository, getConnection, Repository } from "typeorm";
 export const createDailyRepositoryImpl = () => {
   const conn = getConnection();
   return conn.getCustomRepository(DailyRepositoryImpl);
-}
+};
 
 @EntityRepository(Daily)
 class DailyRepositoryImpl extends Repository<Daily> implements DailyRepository {
@@ -16,5 +16,5 @@ class DailyRepositoryImpl extends Repository<Daily> implements DailyRepository {
   public findBySlug = (slug: string) => this.createQueryBuilder("daily")
     .where("daily.slug = :slug", { slug })
     .getOne()
-    .then(Optional.ofNullable)
+    .then(Optional.ofNullable);
 }

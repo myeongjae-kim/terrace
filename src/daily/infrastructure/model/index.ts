@@ -1,1 +1,1 @@
-export * from './DailyRepositoryImpl';
+export * from "./DailyRepositoryImpl";

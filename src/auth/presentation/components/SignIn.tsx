@@ -1,5 +1,5 @@
-import { Button, createStyles, makeStyles, TextField, Theme } from '@material-ui/core';
-import * as React from 'react';
+import { Button, createStyles, makeStyles, TextField, Theme } from "@material-ui/core";
+import * as React from "react";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     justifyContent: "center"
   }
-}))
+}));
 
 interface Props {
-  onChangeEmail(e: React.ChangeEvent<HTMLTextAreaElement>): void
-  onChangePassword(e: React.ChangeEvent<HTMLTextAreaElement>): void
-  onSubmit(e: React.FormEvent<HTMLFormElement>): void
+  onChangeEmail(e: React.ChangeEvent<HTMLTextAreaElement>): void;
+  onChangePassword(e: React.ChangeEvent<HTMLTextAreaElement>): void;
+  onSubmit(e: React.FormEvent<HTMLFormElement>): void;
 }
 
 const SignIn: React.FC<Props> = ({ onChangeEmail, onChangePassword, onSubmit }) => {
@@ -60,6 +60,6 @@ const SignIn: React.FC<Props> = ({ onChangeEmail, onChangePassword, onSubmit }) 
       </div>
     </form>
   </div>;
-}
+};
 
 export default SignIn;

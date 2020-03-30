@@ -1,15 +1,15 @@
-import { makeStyles, Typography } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
-import { Warning } from '@material-ui/icons';
-import { createStyles } from '@material-ui/styles';
-import * as React from 'react';
+import { makeStyles, Typography } from "@material-ui/core";
+import { orange } from "@material-ui/core/colors";
+import { Warning } from "@material-ui/icons";
+import { createStyles } from "@material-ui/styles";
+import * as React from "react";
 
 const useStyles = makeStyles(createStyles({
   typography: {
     color: orange[700],
-    whiteSpace: 'pre-wrap',
-    display: 'flex',
-    alignItems: 'center'
+    whiteSpace: "pre-wrap",
+    display: "flex",
+    alignItems: "center"
   },
   icon: {
     fontSize: 13,
@@ -19,7 +19,7 @@ const useStyles = makeStyles(createStyles({
 }));
 
 interface Props {
-  hidden?: boolean
+  hidden?: boolean;
 }
 
 const InfoTypography: React.FC<Props> = ({ children, hidden }) => {
@@ -29,7 +29,7 @@ const InfoTypography: React.FC<Props> = ({ children, hidden }) => {
       <Warning className={classes.icon} />&nbsp;
       {children}
     </Typography>
-  </div>
-}
+  </div>;
+};
 
 export default InfoTypography;

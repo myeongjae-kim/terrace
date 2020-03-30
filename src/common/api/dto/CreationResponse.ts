@@ -1,3 +1,3 @@
 export interface CreationResponse {
-  id: string
+  id: string;
 }

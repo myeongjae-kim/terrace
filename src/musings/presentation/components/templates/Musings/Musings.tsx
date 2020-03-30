@@ -1,23 +1,23 @@
-import { createStyles, makeStyles } from '@material-ui/core';
-import * as React from 'react';
-import { PageTitle } from 'src/common/presentation/components/molecules';
-import { MusingResponseDto } from 'src/musings/api/dto';
-import EachMusing from './EachMusing'
+import { createStyles, makeStyles } from "@material-ui/core";
+import * as React from "react";
+import { PageTitle } from "src/common/presentation/components/molecules";
+import { MusingResponseDto } from "src/musings/api/dto";
+import EachMusing from "./EachMusing";
 
 const useStyles = makeStyles(createStyles({
   container: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
   eachItem: {
     maxWidth: 450,
   }
-}))
+}));
 
 export interface MusingsProps {
-  musings: MusingResponseDto[]
-  pending: boolean
-  rejected: boolean
+  musings: MusingResponseDto[];
+  pending: boolean;
+  rejected: boolean;
 }
 
 const Musings: React.FC<MusingsProps> = ({ musings }) => {
@@ -38,7 +38,7 @@ const Musings: React.FC<MusingsProps> = ({ musings }) => {
         }
       `}
     </style>
-  </div>
-}
+  </div>;
+};
 
 export default Musings;

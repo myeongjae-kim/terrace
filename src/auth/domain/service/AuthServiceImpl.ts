@@ -29,8 +29,8 @@ export class AuthServiceImpl implements AuthService {
 
     return this.tokenService.generate({
       email: user.email
-    })
-  }
+    });
+  };
 
-  public checkToken = (token: string): Promise<Pick<User, "email">> => this.tokenService.verify(token)
+  public checkToken = (token: string): Promise<Pick<User, "email">> => this.tokenService.verify(token);
 }

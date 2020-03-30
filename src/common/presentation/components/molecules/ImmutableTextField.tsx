@@ -1,9 +1,9 @@
-import { createStyles, TextField } from '@material-ui/core';
-import { TextFieldProps } from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/styles';
-import clsx from 'clsx'
-import * as React from 'react';
-import I18NService from 'src/common/domain/service/I18NService';
+import { createStyles, TextField } from "@material-ui/core";
+import { TextFieldProps } from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/styles";
+import clsx from "clsx";
+import * as React from "react";
+import I18NService from "src/common/domain/service/I18NService";
 
 const useStyles = makeStyles(createStyles({
   root: {
@@ -28,7 +28,7 @@ const ImmutableTextField: React.FC<TextFieldProps> = (props) => {
     placeholder={placeholder || t("none")}
     disabled={disabled || (!value && value !== 0)}
   />;
-}
+};
 
 
 export default ImmutableTextField;

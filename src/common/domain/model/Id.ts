@@ -1,2 +1,2 @@
 type Id = number;
-export default Id
+export default Id;

@@ -14,8 +14,8 @@ export const parseCookie = (cookie?: string): Map<string, string> => {
           return;
         }
         map.set(ary[1], ary[2]);
-      })
+      });
       return map;
     })
     .orElse(new Map<string, string>());
-}
+};

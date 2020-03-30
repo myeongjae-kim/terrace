@@ -5,4 +5,4 @@ export default (data: any): AxiosError => ({
   response: {
     data
   }
-} as any)
+} as any);

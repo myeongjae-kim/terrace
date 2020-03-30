@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import * as meModule from "src/auth/presentation/state-modules/me";
-import BlogArticleList from 'src/blog/presentation/components/templates/BlogArticleList';
-import { BlogArticleListProps } from 'src/blog/presentation/components/templates/BlogArticleList/BlogArticleList';
+import BlogArticleList from "src/blog/presentation/components/templates/BlogArticleList";
+import { BlogArticleListProps } from "src/blog/presentation/components/templates/BlogArticleList/BlogArticleList";
 import * as listModule from "src/blog/presentation/state-modules/list";
-import NextPage from 'src/common/domain/model/NextPage';
-import { HeadTitle, PageTitle } from 'src/common/presentation/components/molecules';
-import { RootState } from 'src/common/presentation/state-module/root';
+import NextPage from "src/common/domain/model/NextPage";
+import { HeadTitle, PageTitle } from "src/common/presentation/components/molecules";
+import { RootState } from "src/common/presentation/state-module/root";
 
 const selector = createSelector<RootState, listModule.State, meModule.State, BlogArticleListProps>(
   root => root.blog.list,
@@ -22,13 +22,13 @@ const BlogArticlePage: NextPage = () => {
     <HeadTitle title="Blog" />
     <PageTitle title="articles" />
     <BlogArticleList {...props} />
-  </div>
-}
+  </div>;
+};
 
 BlogArticlePage.getInitialProps = async ({ store }) => {
-  store.dispatch(listModule.fetchBlogArticles())
+  store.dispatch(listModule.fetchBlogArticles());
 
-  return { namespacesRequired: ['common', 'noti'] }
-}
+  return { namespacesRequired: ["common", "noti"] };
+};
 
 export default BlogArticlePage;

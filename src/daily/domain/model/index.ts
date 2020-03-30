@@ -1,2 +1,2 @@
-export * from './Daily';
-export * from './DailyRepository';
+export * from "./Daily";
+export * from "./DailyRepository";

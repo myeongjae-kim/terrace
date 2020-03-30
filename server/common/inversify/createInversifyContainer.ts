@@ -1,32 +1,32 @@
-import { AsyncContainerModule, Container, interfaces } from 'inversify';
-import next from 'next';
-import { NextApplication } from '../nextjs/NextApplication';
-import { TYPES } from './types';
+import { AsyncContainerModule, Container, interfaces } from "inversify";
+import next from "next";
+import { NextApplication } from "../nextjs/NextApplication";
+import { TYPES } from "./types";
 
-import { getDbConnection } from './db';
+import { getDbConnection } from "./db";
 
-import { MusingRepository } from 'src/musings/domain/model';
-import { MusingService, MusingServiceImpl } from 'src/musings/domain/service';
-import { createMusingRepositoryImpl } from 'src/musings/infrastructure/model';
+import { MusingRepository } from "src/musings/domain/model";
+import { MusingService, MusingServiceImpl } from "src/musings/domain/service";
+import { createMusingRepositoryImpl } from "src/musings/infrastructure/model";
 
-import { DailyRepository } from 'src/daily/domain/model';
-import { DailyService, DailyServiceImpl } from 'src/daily/domain/service';
-import { createDailyRepositoryImpl } from 'src/daily/infrastructure/model';
+import { DailyRepository } from "src/daily/domain/model";
+import { DailyService, DailyServiceImpl } from "src/daily/domain/service";
+import { createDailyRepositoryImpl } from "src/daily/infrastructure/model";
 
-import { UserRepository } from 'src/auth/domain/model';
-import { AuthService, AuthServiceImpl } from 'src/auth/domain/service';
-import { createUserRepositoryImpl } from 'src/auth/infrastructure/model';
+import { UserRepository } from "src/auth/domain/model";
+import { AuthService, AuthServiceImpl } from "src/auth/domain/service";
+import { createUserRepositoryImpl } from "src/auth/infrastructure/model";
 
-import { BlogArticleRepository } from 'src/blog/domain/model';
-import { BlogArticleService, BlogArticleServiceImpl } from 'src/blog/domain/service';
-import { createBlogArticleRepositoryImpl } from 'src/blog/infrastructure/model';
+import { BlogArticleRepository } from "src/blog/domain/model";
+import { BlogArticleService, BlogArticleServiceImpl } from "src/blog/domain/service";
+import { createBlogArticleRepositoryImpl } from "src/blog/infrastructure/model";
 
-import { CacheRenderingService } from 'src/common/domain/service';
-import { CacheRenderingServiceImpl } from 'src/common/infrastructure/service';
+import { CacheRenderingService } from "src/common/domain/service";
+import { CacheRenderingServiceImpl } from "src/common/infrastructure/service";
 
-import { AccessFilter, AccessFilterImpl, BCryptPasswordEncoder, PasswordEncoder } from 'src/auth/config';
+import { AccessFilter, AccessFilterImpl, BCryptPasswordEncoder, PasswordEncoder } from "src/auth/config";
 
-import { JsonWebTokenService, TokenService } from 'src/auth/domain/service';
+import { JsonWebTokenService, TokenService } from "src/auth/domain/service";
 
 import "src/common/api/CommonController";
 
@@ -42,7 +42,7 @@ export const createInversifyContainer = async () => {
   const container = new Container();
   await container.loadAsync(bindings);
   return container;
-}
+};
 
 const bindings = new AsyncContainerModule(async (bind) => {
   await getDbConnection();
@@ -58,13 +58,13 @@ const bindings = new AsyncContainerModule(async (bind) => {
   bindBlog(bind);
   bindMusings(bind);
   bindDaily(bind);
-})
+});
 
 const bindNextApplication = async (bind: interfaces.Bind) => {
   const cacheRenderingService: CacheRenderingService = new CacheRenderingServiceImpl();
   bindCacheRenderingService(bind, cacheRenderingService);
 
-  const app = next({ dev: process.env.NODE_ENV !== 'production' });
+  const app = next({ dev: process.env.NODE_ENV !== "production" });
   await app.prepare();
   const nextApplication = new NextApplication(
     cacheRenderingService,
@@ -73,12 +73,12 @@ const bindNextApplication = async (bind: interfaces.Bind) => {
 
   bind<NextApplication>(TYPES.NextApplication)
     .toConstantValue(nextApplication);
-}
+};
 
 const bindCacheRenderingService = (bind: interfaces.Bind, cacheRenderingService: CacheRenderingService) => {
   bind<CacheRenderingService>(TYPES.CacheRenderingService)
     .toConstantValue(cacheRenderingService);
-}
+};
 
 const bindAuth = (bind: interfaces.Bind) => {
   bind<UserRepository>(TYPES.UserRepository)
@@ -90,7 +90,7 @@ const bindAuth = (bind: interfaces.Bind) => {
 
   bind<AccessFilter>(TYPES.AccessFilter)
     .to(AccessFilterImpl);
-}
+};
 
 const bindBlog = (bind: interfaces.Bind) => {
   bind<BlogArticleRepository>(TYPES.BlogArticleRepository)
@@ -99,7 +99,7 @@ const bindBlog = (bind: interfaces.Bind) => {
 
   bind<BlogArticleService>(TYPES.BlogArticleService)
     .to(BlogArticleServiceImpl);
-}
+};
 
 const bindMusings = (bind: interfaces.Bind) => {
   bind<MusingRepository>(TYPES.MusingRepository)
@@ -108,7 +108,7 @@ const bindMusings = (bind: interfaces.Bind) => {
 
   bind<MusingService>(TYPES.MusingService)
     .to(MusingServiceImpl);
-}
+};
 
 const bindDaily = (bind: interfaces.Bind) => {
   bind<DailyRepository>(TYPES.DailyRepository)
@@ -117,4 +117,4 @@ const bindDaily = (bind: interfaces.Bind) => {
 
   bind<DailyService>(TYPES.DailyService)
     .to(DailyServiceImpl);
-}
+};

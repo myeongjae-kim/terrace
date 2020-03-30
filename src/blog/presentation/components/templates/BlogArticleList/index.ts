@@ -1,1 +1,1 @@
-export { default } from './BlogArticleList';
+export { default } from "./BlogArticleList";

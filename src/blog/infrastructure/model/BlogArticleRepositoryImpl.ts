@@ -5,7 +5,7 @@ import { EntityRepository, getConnection, Repository } from "typeorm";
 export const createBlogArticleRepositoryImpl = () => {
   const conn = getConnection();
   return conn.getCustomRepository(BlogArticleRepositoryImpl);
-}
+};
 
 @EntityRepository(BlogArticle)
 class BlogArticleRepositoryImpl extends Repository<BlogArticle> implements BlogArticleRepository {
@@ -18,20 +18,20 @@ class BlogArticleRepositoryImpl extends Repository<BlogArticle> implements BlogA
     this.createQueryBuilder("blog_article")
       .where("blog_article.slug = :slug", { slug })
       .getOne()
-      .then(Optional.ofNullable)
+      .then(Optional.ofNullable);
 
   public findFirstBySeqBeforeOrderBySeqDesc = (seq: number): Promise<Optional<BlogArticle>> =>
     this.createQueryBuilder("blog_article")
       .where("blog_article.seq < :seq", { seq })
       .orderBy("blog_article.seq", "DESC")
       .getOne()
-      .then(Optional.ofNullable)
+      .then(Optional.ofNullable);
 
   public findFirstBySeqAfterOrderBySeqAsc = (seq: number): Promise<Optional<BlogArticle>> =>
     this.createQueryBuilder("blog_article")
       .where("blog_article.seq > :seq", { seq })
       .orderBy("blog_article.seq", "ASC")
       .getOne()
-      .then(Optional.ofNullable)
+      .then(Optional.ofNullable);
 
 }

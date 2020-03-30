@@ -1,12 +1,12 @@
-import express from 'express';
+import express from "express";
 import { inject, injectable } from "inversify";
 import { interfaces } from "inversify-express-utils";
 import { TYPES } from "server/common/inversify/types";
-import { JWT_COOKIE_KEY } from 'src/common/constants/Constants';
-import { parseCookie } from 'src/util/parseCookie';
+import { JWT_COOKIE_KEY } from "src/common/constants/Constants";
+import { parseCookie } from "src/util/parseCookie";
 import { Principal } from "../domain/model";
 import { AuthService } from "../domain/service";
-import { AccessFilter } from './AccessFilter';
+import { AccessFilter } from "./AccessFilter";
 
 @injectable()
 export class AuthProviderImpl implements interfaces.AuthProvider {
@@ -32,5 +32,5 @@ export class AuthProviderImpl implements interfaces.AuthProvider {
       .catch(next);
 
     return principal;
-  }
+  };
 }

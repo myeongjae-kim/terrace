@@ -1,2 +1,2 @@
-export * from './BlogArticleService';
-export * from './BlogArticleServiceImpl'
+export * from "./BlogArticleService";
+export * from "./BlogArticleServiceImpl";

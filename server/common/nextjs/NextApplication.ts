@@ -1,9 +1,9 @@
-import { Request } from 'express';
-import { ServerResponse } from 'http';
-import { injectable } from 'inversify';
-import Server from 'next/dist/next-server/server/next-server';
-import { ParsedUrlQuery } from 'querystring';
-import { CacheRenderingService } from 'src/common/domain/service';
+import { Request } from "express";
+import { ServerResponse } from "http";
+import { injectable } from "inversify";
+import Server from "next/dist/next-server/server/next-server";
+import { ParsedUrlQuery } from "querystring";
+import { CacheRenderingService } from "src/common/domain/service";
 
 @injectable()
 export class NextApplication {
@@ -33,13 +33,13 @@ export class NextApplication {
     }
 
     const path = req.path;
-    const cached = this.cacheRenderingService.findByPath(path)
+    const cached = this.cacheRenderingService.findByPath(path);
 
     if (cached.isPresent()) {
-      res.setHeader('X-Cache', 'HIT');
+      res.setHeader("X-Cache", "HIT");
       return cached.get();
     } else {
-      res.setHeader('X-Cache', 'MISS');
+      res.setHeader("X-Cache", "MISS");
     }
 
     const html = await renderToHTML();
@@ -48,5 +48,5 @@ export class NextApplication {
     }
 
     return html;
-  }
+  };
 }

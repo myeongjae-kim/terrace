@@ -7,8 +7,8 @@ export const getRepositoryErrorFixture = () => {
     error: "Server Internal Error",
     status: 500,
     message: "An internal error has been occurred",
-  }))
-}
+  }));
+};
 
 describe("RepositoryError test", () => {
   test("RepositoryError_NoInput_DefaultObject", () => {
@@ -18,7 +18,7 @@ describe("RepositoryError test", () => {
     expect(repositoryError.status).toBe(-1);
     expect(repositoryError.error).toBe("Unknown error.");
     expect(repositoryError.message).toBe("Unknown message.");
-  })
+  });
 
   test("RepositoryError_ValidInput_ValidOutput", () => {
     const timestamp = new Date().toISOString();
@@ -31,11 +31,11 @@ describe("RepositoryError test", () => {
       error,
       status,
       message
-    }))
+    }));
 
     expect(repositoryError.timestamp).toBe(timestamp);
     expect(repositoryError.error).toBe(error);
     expect(repositoryError.status).toBe(status);
     expect(repositoryError.message).toBe(message);
-  })
-})
+  });
+});

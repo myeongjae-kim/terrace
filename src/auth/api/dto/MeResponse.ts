@@ -1,3 +1,3 @@
 export interface MeResponse {
-  email: string
+  email: string;
 }

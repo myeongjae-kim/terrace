@@ -1,8 +1,8 @@
-import { AppBar, createStyles, makeStyles, Theme } from '@material-ui/core';
-import clsx from 'clsx';
-import * as React from 'react';
-import HomeButton from './HomeButton';
-import Navigation from './Navigation';
+import { AppBar, createStyles, makeStyles, Theme } from "@material-ui/core";
+import clsx from "clsx";
+import * as React from "react";
+import HomeButton from "./HomeButton";
+import Navigation from "./Navigation";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {
@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
   },
   center: {
-    display: 'flex',
-    justifyContent: 'center'
+    display: "flex",
+    justifyContent: "center"
   },
-}))
+}));
 
 const items = [{
   href: ["/about", "/"],
@@ -34,7 +34,7 @@ const items = [{
 }, {
   href: ["/places"],
   label: "places"
-},]
+},];
 
 const TopBar: React.FC = () => {
   const classes = useStyles();
@@ -51,6 +51,6 @@ const TopBar: React.FC = () => {
       <Navigation items={items} />
     </div>
   </AppBar >;
-}
+};
 
 export default TopBar;

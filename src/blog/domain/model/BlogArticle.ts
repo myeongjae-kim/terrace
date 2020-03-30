@@ -26,7 +26,7 @@ export class BlogArticle {
       content: "",
       slug: "",
     });
-    article.id = ""
+    article.id = "";
     article.createdAt = new Date("1970-01-01T00:00:00.000Z");
     article.updatedAt = new Date("1970-01-01T00:00:00.000Z");
 
@@ -34,27 +34,27 @@ export class BlogArticle {
   }
 
   @PrimaryGeneratedColumn()
-  public id!: string
+  public id!: string;
 
   @Column()
   @Index("ux_blog_article_seq", { unique: true })
-  public seq!: number
+  public seq!: number;
 
   @CreateDateColumn()
-  public createdAt!: Date
+  public createdAt!: Date;
 
   @UpdateDateColumn()
-  public updatedAt!: Date
+  public updatedAt!: Date;
 
   @Column()
-  public title!: string
+  public title!: string;
 
   @Column()
   @Index("ux_blog_article_slug", { unique: true })
-  public slug!: string
+  public slug!: string;
 
-  @Column('text')
-  public content!: string
+  @Column("text")
+  public content!: string;
   public update({ seq, title, content, slug }: BlogArticle) {
     this.seq = seq;
     this.title = title;
@@ -64,12 +64,12 @@ export class BlogArticle {
 
   public getUri = () => {
     return "/blog" + formatDateTime(this.createdAt, "/YYYY/MM/DD/") + this.slug;
-  }
+  };
 
   public isDateMatched = (year: string, month: string, day: string) => {
     const date = getSeoulDateFrom(this.createdAt);
     return date.year() === Number(year) &&
       date.month() === (Number(month) - 1) &&
       date.date() === Number(day);
-  }
+  };
 }

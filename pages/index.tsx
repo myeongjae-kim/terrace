@@ -1,6 +1,6 @@
-import React from 'react';
-import AboutPage from './about';
+import React from "react";
+import AboutPage from "./about";
 
-const MainPage = () => <AboutPage />
+const MainPage = () => <AboutPage />;
 
-export default MainPage
+export default MainPage;

@@ -23,5 +23,5 @@ export class DailyServiceImpl implements DailyService {
       .orElseThrow(() => new DailyDetailNotFoundException(req)) as unknown as Daily;
 
     return createDailyDetailResponseDtoFrom(daily);
-  }
+  };
 }

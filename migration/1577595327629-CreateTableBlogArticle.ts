@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class CreateTableBlogArticle1577595327629 implements MigrationInterface {
 
-    public async up(queryRunner: QueryRunner): Promise<any> {
-        await queryRunner.query('CREATE TABLE `blog_article` (\
+  public async up(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.query("CREATE TABLE `blog_article` (\
             `id` int NOT NULL AUTO_INCREMENT,\
             `seq` int NOT NULL,\
             `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),\
@@ -13,11 +13,11 @@ export class CreateTableBlogArticle1577595327629 implements MigrationInterface {
             `content` text NOT NULL,\
             UNIQUE INDEX `ux_blog_article_seq` (`seq`),\
             UNIQUE INDEX `ux_blog_article_slug` (`slug`),\
-            PRIMARY KEY (`id`))')
-    }
+            PRIMARY KEY (`id`))");
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<any> {
-        await queryRunner.dropTable('blog_article');
-    }
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropTable("blog_article");
+  }
 
 }

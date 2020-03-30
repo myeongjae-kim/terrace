@@ -1,9 +1,9 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
-import clsx from 'clsx';
-import NextLink, { LinkProps as NextLinkProps } from 'next/link';
-import { useRouter } from 'next/router';
-import * as React from 'react';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import MuiLink, { LinkProps as MuiLinkProps } from "@material-ui/core/Link";
+import clsx from "clsx";
+import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import { useRouter } from "next/router";
+import * as React from "react";
 
 type NextComposedProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & NextLinkProps;
 
@@ -31,7 +31,7 @@ interface LinkPropsBase {
   naked?: boolean;
 }
 
-type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, 'ref'>;
+type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, "ref">;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   hover: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       color: theme.palette.primary.light
     }
   }
-}))
+}));
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
@@ -48,7 +48,7 @@ function RouterLink(props: LinkProps) {
   const classes = useStyles();
   const router = useRouter();
   const {
-    activeClassName = 'active',
+    activeClassName = "active",
     className: classNameProps,
     innerRef,
     naked,
@@ -69,7 +69,7 @@ function RouterLink(props: LinkProps) {
     component={NextComposed}
     className={clsx(className, classes.hover)}
     ref={innerRef}
-    underline={underline || 'none'}
+    underline={underline || "none"}
     color={color}
     {...other} />;
 }

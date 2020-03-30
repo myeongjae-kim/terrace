@@ -6,10 +6,10 @@ export const createDailyDetatilRequestDtoFixture = (): DailyDetailRequestDto => 
   month: "01",
   day: "01",
   slug: "slug"
-})
+});
 
-describe('createDailyDetailRequestDtoFixture', () => {
-  it('should return valid fixture', () => {
+describe("createDailyDetailRequestDtoFixture", () => {
+  it("should return valid fixture", () => {
     expect(doesObjectHasNoUndefinedProperties(createDailyDetatilRequestDtoFixture())).toBeTruthy();
-  })
+  });
 });

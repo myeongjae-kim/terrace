@@ -4,4 +4,4 @@ import { getConnection } from "typeorm";
 export const createMusingRepositoryImpl = () => {
   const conn = getConnection();
   return conn.getRepository(Musing);
-}
+};

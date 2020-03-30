@@ -1,9 +1,9 @@
-import { User } from 'src/auth/domain/model';
-import { BlogArticle } from 'src/blog/domain/model'
-import { Daily } from 'src/daily/domain/model';
-import { Musing } from 'src/musings/domain/model'
+import { User } from "src/auth/domain/model";
+import { BlogArticle } from "src/blog/domain/model";
+import { Daily } from "src/daily/domain/model";
+import { Musing } from "src/musings/domain/model";
 import { createConnection } from "typeorm";
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 export async function getDbConnection() {
   const {
@@ -27,11 +27,11 @@ export async function getDbConnection() {
     password: DATABASE_PASSWORD,
     database: DATABASE_DB,
     entities,
-    synchronize: PROFILE === 'local',
+    synchronize: PROFILE === "local",
     supportBigNumbers: true,
     bigNumberStrings: true,
-    logging: 'all',
+    logging: "all",
     namingStrategy: new SnakeNamingStrategy(),
-    charset: 'utf8mb4'
+    charset: "utf8mb4"
   });
 }

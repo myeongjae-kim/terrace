@@ -1,11 +1,11 @@
 import { BlogArticle } from "src/blog/domain/model";
 
 export interface BlogArticleListResponseDto {
-  id: string
-  seq: number
-  createdAt: string
-  uri: string
-  title: string
+  id: string;
+  seq: number;
+  createdAt: string;
+  uri: string;
+  title: string;
 }
 
 export const createBlogArticleListResponseDtoFrom = (daily: BlogArticle) => {
@@ -17,5 +17,5 @@ export const createBlogArticleListResponseDtoFrom = (daily: BlogArticle) => {
     createdAt: createdAt.toISOString(),
     uri: daily.getUri(),
     title
-  }
-}
+  };
+};

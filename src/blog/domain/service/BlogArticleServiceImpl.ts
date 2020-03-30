@@ -22,16 +22,16 @@ export class BlogArticleServiceImpl implements BlogArticleService {
     const current = await this.findByPath(req);
 
     const prev = (await this.blogArticleRepository.findFirstBySeqBeforeOrderBySeqDesc(current.seq))
-      .orElseGet(BlogArticle.empty)
+      .orElseGet(BlogArticle.empty);
     const next = (await this.blogArticleRepository.findFirstBySeqAfterOrderBySeqAsc(current.seq))
-      .orElseGet(BlogArticle.empty)
+      .orElseGet(BlogArticle.empty);
 
     return createBlogArticleDetailResponseDtoFrom({
       current,
       prev,
       next,
     });
-  }
+  };
 
   public update = async (req: BlogArticlePathDto, body: BlogArticleRequestDto): Promise<void> => {
     const toUpdate = BlogArticle.from(body);
@@ -40,26 +40,26 @@ export class BlogArticleServiceImpl implements BlogArticleService {
     current.update(toUpdate);
 
     await this.blogArticleRepository.save(current);
-  }
+  };
 
   public create = async (body: BlogArticleRequestDto): Promise<string> => {
     const toCreate = BlogArticle.from(body);
 
     return this.blogArticleRepository.save(toCreate)
-      .then(a => '/blog/' + getSeoulDateFrom(a.createdAt).format("YYYY/MM/DD/") + a.slug);
-  }
+      .then(a => "/blog/" + getSeoulDateFrom(a.createdAt).format("YYYY/MM/DD/") + a.slug);
+  };
 
   public delete = async (req: BlogArticlePathDto): Promise<void> => {
     const id = (await this.findByPath(req)).id;
 
     await this.blogArticleRepository.delete(id);
-  }
+  };
 
   private findByPath = async (req: BlogArticlePathDto): Promise<BlogArticle> => {
     const { year, month, day, slug } = req;
 
     return (await this.blogArticleRepository.findBySlug(slug))
       .filter(d => d.isDateMatched(year, month, day))
-      .orElseThrow(() => new BlogArticleDetailNotFoundException(req)) as unknown as BlogArticle
-  }
+      .orElseThrow(() => new BlogArticleDetailNotFoundException(req)) as unknown as BlogArticle;
+  };
 }
