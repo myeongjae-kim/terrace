@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from '@material-ui/core';
-import * as React from 'react';
-import { Link, Maybe } from 'src/common/presentation/components/molecules';
+import { createStyles, makeStyles } from "@material-ui/core";
+import * as React from "react";
+import { Link, Maybe } from "src/common/presentation/components/molecules";
 
 const useStyles = makeStyles(createStyles({
   list: {
@@ -13,12 +13,12 @@ const useStyles = makeStyles(createStyles({
     fontFamily: "inconsolata",
     marginLeft: 7
   }
-}))
+}));
 
 interface Description {
-  icon: JSX.Element
-  label: string
-  href: string
+  icon: JSX.Element;
+  label: string;
+  href: string;
 }
 
 const EachDescription: React.FC<Description> = ({ icon, label, href }) => {
@@ -34,11 +34,11 @@ const EachDescription: React.FC<Description> = ({ icon, label, href }) => {
       <span className={classes.label}>{label}</span>
     </Maybe>
   </li>;
-}
+};
 
 
 interface Props {
-  items: Description[]
+  items: Description[];
 }
 
 const Descriptions: React.FC<Props> = ({ items }) => {
@@ -46,6 +46,6 @@ const Descriptions: React.FC<Props> = ({ items }) => {
   return <ul className={classes.list}>
     {items.map(i => <EachDescription key={i.label} icon={i.icon} label={i.label} href={i.href} />)}
   </ul>;
-}
+};
 
 export default Descriptions;

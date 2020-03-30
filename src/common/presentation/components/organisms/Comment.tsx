@@ -1,26 +1,26 @@
-import { NoSsr } from '@material-ui/core';
-import * as React from 'react';
+import { NoSsr } from "@material-ui/core";
+import * as React from "react";
 
 interface Props {
-  identifier: string
+  identifier: string;
 }
 
 const Utterances: React.FC<Props> = ({ identifier }) => {
   React.useEffect(() => {
     initComment();
-  }, [identifier])
+  }, [identifier]);
 
   return <div id="comment-container" style={{
-    margin: 'auto',
+    margin: "auto",
     marginBottom: 20
   }} />;
-}
+};
 
 const Comment: React.FC<Props> = (props) => {
   return <NoSsr>
     <Utterances {...props} />
   </NoSsr>;
-}
+};
 
 export default Comment;
 
@@ -29,14 +29,14 @@ const initComment = () => {
   if (!utterancesContainer) {
     return;
   }
-  utterancesContainer.childNodes.forEach(v => { v.remove() })
+  utterancesContainer.childNodes.forEach(v => { v.remove(); });
 
-  const utterances = document.createElement('script');
-  utterances.setAttribute("src", 'https://utteranc.es/client.js');
-  utterances.setAttribute("repo", 'myeongjae-kim/terrace-utterances');
-  utterances.setAttribute("issue-term", 'pathname');
-  utterances.setAttribute("theme", 'github-light');
-  utterances.setAttribute("crossorigin", 'anonymous');
+  const utterances = document.createElement("script");
+  utterances.setAttribute("src", "https://utteranc.es/client.js");
+  utterances.setAttribute("repo", "myeongjae-kim/terrace-utterances");
+  utterances.setAttribute("issue-term", "pathname");
+  utterances.setAttribute("theme", "github-light");
+  utterances.setAttribute("crossorigin", "anonymous");
   utterances.async = true;
   utterancesContainer.appendChild(utterances);
-}
+};

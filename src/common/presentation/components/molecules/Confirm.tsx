@@ -1,11 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Theme } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import { fade } from '@material-ui/core/styles';
-import { createStyles, makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
-import * as React from 'react';
-import I18NService from 'src/common/domain/service/I18NService';
-import { ConfirmPayload } from '../../state-module/common';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Theme } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
+import { fade } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/styles";
+import clsx from "clsx";
+import * as React from "react";
+import I18NService from "src/common/domain/service/I18NService";
+import { ConfirmPayload } from "../../state-module/common";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   spacing: { height: theme.spacing(1) },
@@ -13,22 +13,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   dialogActions: { paddingTop: 0 },
   confirmButton: {
     color: theme.palette.primary.dark,
-    '&:focus': {
+    "&:focus": {
       background: fade(theme.palette.primary.dark, 0.1),
     }
   },
   abortButton: {
     color: red[500],
-    '&:focus': {
+    "&:focus": {
       background: fade(red[500], 0.1),
     }
   }
-}))
+}));
 
 export interface ConfirmProps {
-  isConfirmOpened: boolean
-  confirmData: ConfirmPayload
-  closeConfirmDialog(): void
+  isConfirmOpened: boolean;
+  confirmData: ConfirmPayload;
+  closeConfirmDialog(): void;
 }
 
 const { useTranslation } = I18NService;
@@ -39,14 +39,14 @@ const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeCo
   const { title, content, onClick } = confirmData;
   const abort = () => {
     closeConfirmDialog();
-  }
+  };
 
   const confirm = (e: React.MouseEvent) => {
     closeConfirmDialog();
     if (onClick) {
       onClick(e);
     }
-  }
+  };
 
   return (
     <Dialog
@@ -64,14 +64,14 @@ const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeCo
       </DialogContent>
       <DialogActions className={clsx({ [classes.dialogActions]: !title })}>
         <Button onClick={abort} className={classes.abortButton}>
-          {t('abort')}
+          {t("abort")}
         </Button>
         <Button onClick={confirm} className={classes.confirmButton} autoFocus>
-          <strong> {t('confirm')} </strong>
+          <strong> {t("confirm")} </strong>
         </Button>
       </DialogActions>
     </Dialog>
   );
-}
+};
 
 export default Confirm;

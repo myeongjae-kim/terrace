@@ -1,10 +1,10 @@
-import assert from 'assert-plus';
+import assert from "assert-plus";
 import { Request, Response } from "express";
 import { inject } from "inversify";
 import { controller, httpDelete, httpGet, httpPost, httpPut, interfaces, request, requestBody, requestParam, response } from "inversify-express-utils";
 import { TYPES } from "server/common/inversify/types";
 import { NextApplication } from "server/common/nextjs/NextApplication";
-import { CreationResponse } from 'src/common/api/dto/CreationResponse';
+import { CreationResponse } from "src/common/api/dto/CreationResponse";
 import { Endpoints } from "src/common/constants/Constants";
 import { BlogArticleService } from "../domain/service";
 import { BlogArticleRequestDto } from "./dto";
@@ -24,7 +24,7 @@ export class BlogController implements interfaces.Controller {
 
   @httpGet("/")
   public getPage(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(true, req, res, PATH)
+    return this.nextApp.render(true, req, res, PATH);
   }
 
   @httpGet("/:year/:month/:date/:slug")
@@ -55,7 +55,7 @@ export class BlogController implements interfaces.Controller {
 
     return {
       id: await this.blogArticleService.create(body)
-    }
+    };
   }
 
   @httpGet("/api")

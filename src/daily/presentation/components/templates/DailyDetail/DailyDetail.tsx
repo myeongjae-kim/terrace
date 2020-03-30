@@ -1,10 +1,10 @@
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
-import clsx from 'clsx';
-import ErrorPage from 'pages/_error';
-import * as React from 'react';
-import { HeadTitle, Link, MarkdownPreview, Maybe } from 'src/common/presentation/components/molecules';
-import { DailyDetailResponseDto } from 'src/daily/api';
-import { formatDateTime } from 'src/util';
+import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import clsx from "clsx";
+import ErrorPage from "pages/_error";
+import * as React from "react";
+import { HeadTitle, Link, MarkdownPreview, Maybe } from "src/common/presentation/components/molecules";
+import { DailyDetailResponseDto } from "src/daily/api";
+import { formatDateTime } from "src/util";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: `${theme.spacing(3)}px 0 ${theme.spacing(4)}px 0`,
   },
   serif: {
-    fontFamily: 'Noto Serif KR',
+    fontFamily: "Noto Serif KR",
     fontWeight: 400,
   },
   center: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
   markdownContainer: {
     textIndent: ".5em",
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     borderRadius: 5,
   },
   markdownPreview: {
-    '& blockquote': {
-      textIndent: 'initial',
+    "& blockquote": {
+      textIndent: "initial",
       backgroundColor: "#fff",
       border: "1px solid #e0e0e0!important",
       borderRadius: 5,
@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: "0 20px",
     }
   }
-}))
+}));
 
 export interface DailyDetailProps {
-  daily: DailyDetailResponseDto
-  pending: boolean
-  rejected: boolean
-  statusCode: number
+  daily: DailyDetailResponseDto;
+  pending: boolean;
+  rejected: boolean;
+  statusCode: number;
 }
 
 const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode }) => {
@@ -83,6 +83,6 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode }
       <ErrorPage statusCode={statusCode} />
     </Maybe>
   </>;
-}
+};
 
 export default DailyDetail;

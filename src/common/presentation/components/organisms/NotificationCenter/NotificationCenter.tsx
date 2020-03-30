@@ -1,22 +1,22 @@
-import { createStyles, Drawer, makeStyles } from '@material-ui/core';
-import * as React from 'react';
-import { Snackbar } from '../../../state-module/snackbar';
-import RenderNotification from './RenderNotification';
+import { createStyles, Drawer, makeStyles } from "@material-ui/core";
+import * as React from "react";
+import { Snackbar } from "../../../state-module/snackbar";
+import RenderNotification from "./RenderNotification";
 
 const useStyles = makeStyles(createStyles({
   drawerItems: {
     width: 340
   },
   paper: {
-    background: 'rgba(70, 70, 70, 0.8)',
+    background: "rgba(70, 70, 70, 0.8)",
   }
-}))
+}));
 
 export interface NotificationCenterProps {
-  snackbars: Snackbar[]
-  opened: boolean
-  handleClose(): void
-  handleRemove(key: string): void
+  snackbars: Snackbar[];
+  opened: boolean;
+  handleClose(): void;
+  handleRemove(key: string): void;
 }
 
 const NotificationCenter: React.SFC<NotificationCenterProps> = ({ snackbars, opened, handleClose, handleRemove }) => {
@@ -39,7 +39,7 @@ const NotificationCenter: React.SFC<NotificationCenterProps> = ({ snackbars, ope
           handleRemove={() => handleRemove(s.key)}
         />)}
     </div>
-  </Drawer >
-}
+  </Drawer >;
+};
 
 export default NotificationCenter;

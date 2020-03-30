@@ -1,13 +1,13 @@
-import { makeStyles, Typography } from '@material-ui/core';
-import { Error } from '@material-ui/icons';
-import { createStyles } from '@material-ui/styles';
-import * as React from 'react';
+import { makeStyles, Typography } from "@material-ui/core";
+import { Error } from "@material-ui/icons";
+import { createStyles } from "@material-ui/styles";
+import * as React from "react";
 
 const useStyles = makeStyles(createStyles({
   typography: {
-    whiteSpace: 'pre-wrap',
-    display: 'flex',
-    alignItems: 'center'
+    whiteSpace: "pre-wrap",
+    display: "flex",
+    alignItems: "center"
   },
   icon: {
     fontSize: 13,
@@ -16,8 +16,8 @@ const useStyles = makeStyles(createStyles({
 }));
 
 interface Props {
-  hidden?: boolean
-  className?: string
+  hidden?: boolean;
+  className?: string;
 }
 
 const ErrorTypography: React.FC<Props> = ({ children, hidden, className }) => {
@@ -27,7 +27,7 @@ const ErrorTypography: React.FC<Props> = ({ children, hidden, className }) => {
       <Error className={classes.icon} />&nbsp;
       {children}
     </Typography>
-  </div>
-}
+  </div>;
+};
 
 export default ErrorTypography;

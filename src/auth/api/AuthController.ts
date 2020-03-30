@@ -1,12 +1,12 @@
-import assert from 'assert-plus';
-import { CookieOptions, Request, Response } from 'express';
-import { inject } from 'inversify';
+import assert from "assert-plus";
+import { CookieOptions, Request, Response } from "express";
+import { inject } from "inversify";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, requestHeaders, response } from "inversify-express-utils";
-import { TYPES } from 'server/common/inversify/types';
-import { NextApplication } from 'server/common/nextjs/NextApplication';
+import { TYPES } from "server/common/inversify/types";
+import { NextApplication } from "server/common/nextjs/NextApplication";
 import { Endpoints, JWT_COOKIE_DOMAIN, JWT_COOKIE_KEY, JWT_COOKIE_SECURE, JWT_MAX_AGE } from "src/common/constants/Constants";
-import { parseCookie } from 'src/util/parseCookie';
-import { AuthService } from '../domain/service';
+import { parseCookie } from "src/util/parseCookie";
+import { AuthService } from "../domain/service";
 import { SignInRequestDto } from "./dto/SignInRequestDto";
 
 const PATH = Endpoints.auth;
@@ -19,8 +19,8 @@ export class AuthController implements interfaces.Controller {
     httpOnly: true,
     domain: JWT_COOKIE_DOMAIN,
     secure: JWT_COOKIE_SECURE,
-    sameSite: 'lax'
-  }
+    sameSite: "lax"
+  };
 
   public constructor(
     @inject(TYPES.NextApplication) private nextApp: NextApplication,
@@ -29,7 +29,7 @@ export class AuthController implements interfaces.Controller {
 
   @httpGet("/sign-in")
   public signInPage(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(true, req, res, `${PATH}/sign-in`)
+    return this.nextApp.render(true, req, res, `${PATH}/sign-in`);
   }
 
   @httpPost("/api/sign-in")

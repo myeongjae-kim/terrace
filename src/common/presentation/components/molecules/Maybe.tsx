@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-export default ({ children, test, shallow }: React.PropsWithChildren<{ test: any, shallow?: boolean }>) => {
+export default ({ children, test, shallow }: React.PropsWithChildren<{ test: any; shallow?: boolean }>) => {
   if (shallow) {
-    return <div hidden={!test}>{children}</div>
+    return <div hidden={!test}>{children}</div>;
   }
 
-  return <>{test && children}</>
-}
+  return <>{test && children}</>;
+};

@@ -4,7 +4,7 @@ import CommonErrorServiceImpl from "src/common/infrastructure/service/CommonErro
 import { MeResponse } from "./dto/MeResponse";
 
 export const authApi = {
-  signIn: (request: { email: string, password: string }): Promise<void> => new Promise((resolve, reject) => {
+  signIn: (request: { email: string; password: string }): Promise<void> => new Promise((resolve, reject) => {
     Axios.post<void>(`${API_HOST}${Endpoints.auth}/api/sign-in`, request)
       .then(() => resolve())
       .catch(e => reject(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
@@ -19,4 +19,4 @@ export const authApi = {
       .then(({ data }) => resolve(data))
       .catch(e => reject(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
   })
-}
+};

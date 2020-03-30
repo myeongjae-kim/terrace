@@ -1,19 +1,19 @@
-import { Fab, Tooltip } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
-import React from 'react';
+import { Fab, Tooltip } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import React from "react";
 
 export interface SpeedDialActionData {
-  icon: JSX.Element
-  name: string
-  handleClick?(e: React.MouseEvent<HTMLElement, MouseEvent>): any
+  icon: JSX.Element;
+  name: string;
+  handleClick?(e: React.MouseEvent<HTMLElement, MouseEvent>): any;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   speedDial: {
-    position: 'fixed',
+    position: "fixed",
     bottom: theme.spacing(15),
     right: theme.spacing(3),
   },
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 interface Props {
-  actions: SpeedDialActionData[]
-  disabled?: boolean
-  type?: 'submit' | 'reset' | 'button'
+  actions: SpeedDialActionData[];
+  disabled?: boolean;
+  type?: "submit" | "reset" | "button";
 }
 
 const MySpeedDial: React.FC<Props> = ({ actions, disabled, type }) => {
@@ -86,6 +86,6 @@ const MySpeedDial: React.FC<Props> = ({ actions, disabled, type }) => {
       </SpeedDial>
     </div>
   );
-}
+};
 
-export default MySpeedDial
+export default MySpeedDial;

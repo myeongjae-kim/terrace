@@ -9,6 +9,6 @@ export class RequestMatcher {
     this.path = new RegExp(path);
   }
 
-  public match = (req: { method: string, path: string }): boolean =>
-    this.method === req.method && this.path.test(req.path)
+  public match = (req: { method: string; path: string }): boolean =>
+    this.method === req.method && this.path.test(req.path);
 }

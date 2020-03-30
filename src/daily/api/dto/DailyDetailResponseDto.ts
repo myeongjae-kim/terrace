@@ -1,13 +1,13 @@
 import { Daily } from "src/daily/domain/model";
 
 export interface DailyDetailResponseDto {
-  id: string
-  seq: number
-  createdAt: string
-  updatedAt: string
-  title: string
-  slug: string
-  content: string
+  id: string;
+  seq: number;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  slug: string;
+  content: string;
 }
 
 export const createDailyDetailResponseDtoFrom =
@@ -19,4 +19,4 @@ export const createDailyDetailResponseDtoFrom =
     title,
     slug,
     content
-  })
+  });

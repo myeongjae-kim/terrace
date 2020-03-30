@@ -1,8 +1,8 @@
-import { AxiosError } from 'axios';
-import Optional from 'optional-js'
-import { ApiError } from 'server/common/error/ApiError';
+import { AxiosError } from "axios";
+import Optional from "optional-js";
+import { ApiError } from "server/common/error/ApiError";
 
-export interface RepositoryErrorData extends AxiosError<ApiError> { }
+export type RepositoryErrorData = AxiosError<ApiError>;
 
 export default class RepositoryError {
 
@@ -27,9 +27,9 @@ export default class RepositoryError {
   }
 
   private _timestamp: string = new Date().toISOString();
-  private _status: number = -1;
-  private _error: string = "Unknown error.";
-  private _message: string = "Unknown message.";
+  private _status = -1;
+  private _error = "Unknown error.";
+  private _message = "Unknown message.";
 
   private constructor(e?: RepositoryErrorData) {
     if (!e) {
@@ -37,7 +37,7 @@ export default class RepositoryError {
     }
 
     if (!e.isAxiosError || !e.response || !e.response.data) {
-      this._message = e.message
+      this._message = e.message;
       return;
     }
 
@@ -52,5 +52,5 @@ export default class RepositoryError {
   public toString = () => `Error: ${this.error}
 Status: ${this.status}
 Message: ${this.message}
-Timestamp: ${this.timestamp}`
+Timestamp: ${this.timestamp}`;
 }

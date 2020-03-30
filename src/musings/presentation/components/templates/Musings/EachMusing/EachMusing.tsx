@@ -1,29 +1,29 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import clsx from 'clsx';
-import * as React from 'react';
-import { MusingResponseDto } from 'src/musings/api/dto';
-import From from './From';
-import Quote from './Quote';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import clsx from "clsx";
+import * as React from "react";
+import { MusingResponseDto } from "src/musings/api/dto";
+import From from "./From";
+import Quote from "./Quote";
 
 interface Props {
-  item: MusingResponseDto
+  item: MusingResponseDto;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   musing: {
     fontWeight: 400,
-    textAlign: 'center',
-    whiteSpace: 'pre-wrap',
+    textAlign: "center",
+    whiteSpace: "pre-wrap",
     marginBottom: theme.spacing(5)
   },
   en: {
-    fontFamily: 'Bad Script, cursive',
+    fontFamily: "Bad Script, cursive",
   },
   ko: {
-    fontFamily: 'Noto Serif KR, serif',
-    fontStyle: 'italic',
+    fontFamily: "Noto Serif KR, serif",
+    fontStyle: "italic",
   }
-}))
+}));
 
 const EachMusing: React.SFC<Props> = ({ item }) => {
   const classes = useStyles();
@@ -34,6 +34,6 @@ const EachMusing: React.SFC<Props> = ({ item }) => {
     <Quote quote={item.quote} />
     <From from={item.from} />
   </div>;
-}
+};
 
 export default EachMusing;

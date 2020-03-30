@@ -3,5 +3,5 @@ import { Repository } from "typeorm";
 import { User } from ".";
 
 export interface UserRepository extends Repository<User> {
-  findByEmail(email: string): Promise<Optional<User>>
+  findByEmail(email: string): Promise<Optional<User>>;
 }

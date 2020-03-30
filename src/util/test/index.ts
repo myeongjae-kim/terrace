@@ -1,1 +1,1 @@
-export * from './expectUndefinedProperty';
+export * from "./expectUndefinedProperty";

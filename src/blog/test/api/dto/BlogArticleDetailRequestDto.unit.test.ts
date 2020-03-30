@@ -6,10 +6,10 @@ export const createBlogArticleDetatilRequestDtoFixture = (): BlogArticlePathDto 
   month: "01",
   day: "01",
   slug: "slug"
-})
+});
 
-describe('createBlogArticleDetailRequestDtoFixture', () => {
-  it('should return valid fixture', () => {
+describe("createBlogArticleDetailRequestDtoFixture", () => {
+  it("should return valid fixture", () => {
     expect(doesObjectHasNoUndefinedProperties(createBlogArticleDetatilRequestDtoFixture())).toBeTruthy();
-  })
+  });
 });

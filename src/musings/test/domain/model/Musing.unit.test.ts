@@ -1,4 +1,4 @@
-import { Musing } from "src/musings/domain/model"
+import { Musing } from "src/musings/domain/model";
 import { doesObjectHasAllUndefinedProperties, doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesExcept } from "src/util/test/";
 
 export const createMusingFixture = (): Musing => {
@@ -6,19 +6,19 @@ export const createMusingFixture = (): Musing => {
     "quote": "quote",
     "from": "from",
     "language": "EN"
-  })
+  });
 
   m.id = "1";
   return m;
-}
+};
 
-test('createMusingFixture_ValidInput_ValidOutput', () => {
+test("createMusingFixture_ValidInput_ValidOutput", () => {
   const m = createMusingFixture();
   expect(doesObjectHasNoUndefinedProperties(m));
-})
+});
 
-describe('Musing', () => {
-  it('is created by static factory method.', () => {
+describe("Musing", () => {
+  it("is created by static factory method.", () => {
     // expect
     const musing = Musing.from({
       "quote": "quote",
@@ -31,10 +31,10 @@ describe('Musing', () => {
     expect(musing.quote).toEqual("quote");
     expect(musing.from).toEqual("from");
     expect(musing.language).toEqual("EN");
-  })
+  });
 
-  it('is created by the constructor', () => {
+  it("is created by the constructor", () => {
     const musing = new Musing();
     expect(doesObjectHasAllUndefinedProperties(musing)).toBeTruthy();
-  })
-})
+  });
+});

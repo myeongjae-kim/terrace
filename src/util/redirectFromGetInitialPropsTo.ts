@@ -5,9 +5,9 @@ export const redirectFromGetInitialPropsTo = (location: string, res?: ServerResp
   if (res) {
     res.writeHead(302, {
       Location: location
-    })
-    res.end()
+    });
+    res.end();
   } else {
-    Router.push(location)
+    Router.push(location);
   }
-}
+};

@@ -1,31 +1,31 @@
-import { produce } from 'immer'
+import { produce } from "immer";
 import { call, put, takeLeading } from "redux-saga/effects";
-import { authApi } from 'src/auth/api';
-import { MeResponse } from 'src/auth/api/dto/MeResponse';
-import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
-import stringify from 'src/util/stringify';
+import { authApi } from "src/auth/api";
+import { MeResponse } from "src/auth/api/dto/MeResponse";
+import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
+import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
   me: createAction("@me/me")(),
   meAsync: createAsyncAction(
-    '@me/ME_REQUEST',
-    '@me/ME_SUCCESS',
-    '@me/ME_FAILURE',
+    "@me/ME_REQUEST",
+    "@me/ME_SUCCESS",
+    "@me/ME_FAILURE",
   )<void, MeResponse, { statusCode: number }>(),
 
   resetMe: createAction("@me/resetMe")()
-}
+};
 
 export const { me, resetMe } = actions;
 export type Action = ActionType<typeof actions>;
 
 export interface State {
-  me: MeResponse
-  isSignedIn: boolean
-  pending: boolean
-  rejected: boolean
-  statusCode: number
+  me: MeResponse;
+  isSignedIn: boolean;
+  pending: boolean;
+  rejected: boolean;
+  statusCode: number;
 }
 
 const createInitialState = (): State => ({
@@ -63,14 +63,14 @@ export const reducer = createReducer<State, Action>(createInitialState())
     draft.me = { email: "" };
     draft.isSignedIn = false;
     return draft;
-  }))
+  }));
 
 export function* saga() {
   yield takeLeading(getType(me), sagaMe);
 }
 
 function* sagaMe() {
-  yield put(actions.meAsync.request())
+  yield put(actions.meAsync.request());
   try {
     const res: MeResponse = yield call(authApi.me);
     yield put(actions.meAsync.success(res));
@@ -82,10 +82,10 @@ function* sagaMe() {
     }
     yield put(enqueueSnackbar({
       snackbar: {
-        message: 'noti:auth.me.rejected',
+        message: "noti:auth.me.rejected",
         messageOptions: { e: stringify(e) },
-        variant: 'error'
+        variant: "error"
       }
-    }))
+    }));
   }
 }

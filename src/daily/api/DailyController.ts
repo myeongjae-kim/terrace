@@ -19,7 +19,7 @@ export class DailyController implements interfaces.Controller {
 
   @httpGet("/")
   public getListPage(@request() req: Request, @response() res: Response) {
-    return this.nextApp.render(true, req, res, PATH)
+    return this.nextApp.render(true, req, res, PATH);
   }
 
   @httpGet("/:year/:month/:date/:slug")

@@ -1,24 +1,24 @@
-import { Card, createStyles, Fade, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { blue, green, grey, orange, red } from '@material-ui/core/colors';
-import { Cancel } from '@material-ui/icons';
-import { VariantType } from 'notistack';
-import Optional from 'optional-js';
-import * as React from 'react';
-import { Snackbar } from 'src/common/presentation/state-module/snackbar';
+import { Card, createStyles, Fade, makeStyles, Theme, useTheme } from "@material-ui/core";
+import { blue, green, grey, orange, red } from "@material-ui/core/colors";
+import { Cancel } from "@material-ui/icons";
+import { VariantType } from "notistack";
+import Optional from "optional-js";
+import * as React from "react";
+import { Snackbar } from "src/common/presentation/state-module/snackbar";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   card: {
     margin: theme.spacing(1.5),
-    background: 'rgba(0, 0, 0, 0.35)',
+    background: "rgba(0, 0, 0, 0.35)",
     color: theme.palette.primary.contrastText,
-    border: '0.5px solid #333',
-    cursor: 'default',
-    fontSize: '0.8rem'
+    border: "0.5px solid #333",
+    cursor: "default",
+    fontSize: "0.8rem"
   },
   titleWrapper: {
-    background: 'rgba(0, 0, 0, 0.20)',
-    display: 'flex',
-    justifyContent: 'space-between'
+    background: "rgba(0, 0, 0, 0.20)",
+    display: "flex",
+    justifyContent: "space-between"
   },
   title: {
     "& span:first-child": {
@@ -43,17 +43,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   cancel: {
     color: grey[400],
-    fontSize: '1rem',
-    margin: '5px 8px 0px 5px',
-    '&:active': {
+    fontSize: "1rem",
+    margin: "5px 8px 0px 5px",
+    "&:active": {
       color: "#fff"
     }
   }
-}))
+}));
 
 interface Props {
-  snackbar: Snackbar
-  handleRemove(): any
+  snackbar: Snackbar;
+  handleRemove(): any;
 }
 
 const colorMap = new Map<VariantType, string>();
@@ -107,11 +107,11 @@ const RenderNotification: React.FC<Props> = ({ snackbar, handleRemove }) => {
         if (!ref.current) {
           return;
         }
-        ref.current.style.height = (initialHeight - deltaHeight * i) + "px"
-        ref.current.style.margin = (initialMargin - deltaMargin * i) + "px"
+        ref.current.style.height = (initialHeight - deltaHeight * i) + "px";
+        ref.current.style.margin = (initialMargin - deltaMargin * i) + "px";
       }, i);
     }
-  }
+  };
 
   return <>
     <Fade in={checked}>
@@ -141,6 +141,6 @@ const RenderNotification: React.FC<Props> = ({ snackbar, handleRemove }) => {
       </Card>
     </Fade>
   </>;
-}
+};
 
 export default RenderNotification;

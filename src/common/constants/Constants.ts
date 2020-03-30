@@ -18,7 +18,7 @@ export const Endpoints = {
 
   "musings": "/musings",
   "places": "/places",
-}
+};
 
 export const TITLE_POSTFIX = " :: Myeongjae Kim";
 export const API_HOST = isServer() ? `http://localhost:${process.env.PORT}` : "";

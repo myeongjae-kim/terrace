@@ -5,7 +5,7 @@ import { EntityRepository, getConnection, Repository } from "typeorm";
 export const createUserRepositoryImpl = () => {
   const conn = getConnection();
   return conn.getCustomRepository(UserRepositoryImpl);
-}
+};
 
 @EntityRepository(User)
 class UserRepositoryImpl extends Repository<User> implements UserRepository {
@@ -13,5 +13,5 @@ class UserRepositoryImpl extends Repository<User> implements UserRepository {
     this.createQueryBuilder("user")
       .where("user.email = :email", { email })
       .getOne()
-      .then(Optional.ofNullable)
+      .then(Optional.ofNullable);
 }

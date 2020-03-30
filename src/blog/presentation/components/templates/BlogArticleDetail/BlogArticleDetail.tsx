@@ -1,29 +1,29 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons';
-import ErrorPage from 'pages/_error';
-import * as React from 'react';
-import { BlogArticleDetailResponseDto } from 'src/blog/api';
-import { HeadTitle, Maybe, MySpeedDial } from 'src/common/presentation/components/molecules';
-import ArticleContent from './ArticleContent';
-import ArticleHead from './ArticleHead';
-import ArticlePrevAndNext from './ArticlePrevAndNext';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { Delete, Edit } from "@material-ui/icons";
+import ErrorPage from "pages/_error";
+import * as React from "react";
+import { BlogArticleDetailResponseDto } from "src/blog/api";
+import { HeadTitle, Maybe, MySpeedDial } from "src/common/presentation/components/molecules";
+import ArticleContent from "./ArticleContent";
+import ArticleHead from "./ArticleHead";
+import ArticlePrevAndNext from "./ArticlePrevAndNext";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     maxWidth: theme.spacing(100),
-    margin: 'auto'
+    margin: "auto"
   }
-}))
+}));
 
 export interface BlogArticleDetailProps {
-  blogArticle: BlogArticleDetailResponseDto
-  isSignedIn: boolean
-  pending: boolean
-  rejected: boolean
-  statusCode: number
+  blogArticle: BlogArticleDetailResponseDto;
+  isSignedIn: boolean;
+  pending: boolean;
+  rejected: boolean;
+  statusCode: number;
 
-  update(e: React.MouseEvent): void
-  del(): void
+  update(e: React.MouseEvent): void;
+  del(): void;
 }
 
 const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, isSignedIn, rejected, statusCode, update, del }) => {
@@ -54,6 +54,6 @@ const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, isSi
       <ErrorPage statusCode={statusCode} />
     </Maybe>
   </>;
-}
+};
 
 export default BlogArticleDetail;

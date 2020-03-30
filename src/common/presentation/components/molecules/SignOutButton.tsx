@@ -1,27 +1,27 @@
-import { createStyles, Fab, makeStyles, Theme, Tooltip } from '@material-ui/core';
-import { purple } from '@material-ui/core/colors';
-import { ExitToApp } from '@material-ui/icons';
-import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
-import { createSelector } from 'reselect';
-import * as meModule from 'src/auth/presentation/state-modules/me';
-import * as signModule from 'src/auth/presentation/state-modules/sign';
-import { Maybe } from '.';
-import { RootState } from '../../state-module/root';
+import { createStyles, Fab, makeStyles, Theme, Tooltip } from "@material-ui/core";
+import { purple } from "@material-ui/core/colors";
+import { ExitToApp } from "@material-ui/icons";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
+import { createSelector } from "reselect";
+import * as meModule from "src/auth/presentation/state-modules/me";
+import * as signModule from "src/auth/presentation/state-modules/sign";
+import { Maybe } from ".";
+import { RootState } from "../../state-module/root";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
-    position: 'fixed',
+    position: "fixed",
     bottom: theme.spacing(6),
     right: theme.spacing(3),
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: purple[500],
-    '&:hover': {
+    "&:hover": {
       backgroundColor: purple[700],
     },
   }
-}))
+}));
 
 const selector = createSelector<RootState, meModule.State, boolean>(
   root => root.auth.me,
@@ -34,10 +34,10 @@ const SignOutButton: React.FC = () => {
   const dispatch = useDispatch<Dispatch<meModule.Action | signModule.Action>>();
   React.useEffect(() => {
     dispatch(meModule.me());
-  }, [])
+  }, [dispatch]);
   const signOut = React.useCallback(() => {
-    dispatch(signModule.signOut())
-  }, [])
+    dispatch(signModule.signOut());
+  }, [dispatch]);
 
   const isSignedIn = useSelector(selector);
 
@@ -50,6 +50,6 @@ const SignOutButton: React.FC = () => {
       </Tooltip>
     </Maybe>
   </>;
-}
+};
 
 export default SignOutButton;

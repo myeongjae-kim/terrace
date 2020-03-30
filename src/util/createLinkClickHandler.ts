@@ -1,9 +1,9 @@
 import Router from "next/router";
-import Optional from 'optional-js';
+import Optional from "optional-js";
 
 interface Options {
-  shallow?: boolean
-  scroll?: boolean
+  shallow?: boolean;
+  scroll?: boolean;
 }
 
 /**
@@ -23,13 +23,13 @@ export const createLinkClickHandler = (href?: string, as?: string, method: "push
   (e: React.MouseEvent<any, MouseEvent>): Promise<boolean> => {
     if (e.nativeEvent.metaKey || e.nativeEvent.shiftKey || e.nativeEvent.ctrlKey) {
       if (as || href) {
-        e.preventDefault()
-        window.open(as || href, "_blank")
+        e.preventDefault();
+        window.open(as || href, "_blank");
       }
       return Promise.resolve(false);
     }
 
-    e.preventDefault()
+    e.preventDefault();
 
     if (!href) {
       return Promise.resolve(false);
@@ -42,8 +42,8 @@ export const createLinkClickHandler = (href?: string, as?: string, method: "push
     })
       .then((succeeded) => {
         if (window && succeeded && Optional.ofNullable(options!).map(o => o.scroll).orElse(true)) {
-          window.scrollTo(0, 0)
+          window.scrollTo(0, 0);
         }
         return succeeded;
-      })
-  }
+      });
+  };

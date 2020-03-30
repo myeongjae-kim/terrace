@@ -1,17 +1,17 @@
-import { produce } from 'immer'
+import { produce } from "immer";
 import { call, put, takeLeading } from "redux-saga/effects";
-import { enqueueSnackbar } from 'src/common/presentation/state-module/snackbar';
-import { MusingResponseDto, musingsFetcher } from 'src/musings/api';
-import stringify from 'src/util/stringify';
+import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
+import { MusingResponseDto, musingsFetcher } from "src/musings/api";
+import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 export const reset = createAction("@musingList/RESET")();
 
 export const fetchMusings = createAction("@musingList/FETCH_MUSING_LIST")();
 const fetchMusingsAsync = createAsyncAction(
-  '@musingList/FETCH_MUSING_LIST_REQUEST',
-  '@musingList/FETCH_MUSING_LIST_SUCCESS',
-  '@musingList/FETCH_MUSING_LIST_FAILURE',
+  "@musingList/FETCH_MUSING_LIST_REQUEST",
+  "@musingList/FETCH_MUSING_LIST_SUCCESS",
+  "@musingList/FETCH_MUSING_LIST_FAILURE",
 )<void, { musings: MusingResponseDto[] }, void>();
 
 export type Action = ActionType<
@@ -20,12 +20,12 @@ export type Action = ActionType<
   typeof fetchMusingsAsync.request |
   typeof fetchMusingsAsync.success |
   typeof fetchMusingsAsync.failure
->
+>;
 
 export interface State {
-  musings: MusingResponseDto[]
-  pending: boolean
-  rejected: boolean
+  musings: MusingResponseDto[];
+  pending: boolean;
+  rejected: boolean;
 }
 
 // Initial State
@@ -50,14 +50,14 @@ export const reducer = createReducer<State, Action>(createInitialState())
     draft.pending = false;
     draft.rejected = true;
     return draft;
-  }))
+  }));
 
 export function* saga() {
   yield takeLeading(getType(fetchMusings), sagaFetchMusing);
 }
 
 function* sagaFetchMusing() {
-  yield put(fetchMusingsAsync.request())
+  yield put(fetchMusingsAsync.request());
   try {
     const musings: MusingResponseDto[] = yield call(musingsFetcher.findAll);
     yield put(fetchMusingsAsync.success({ musings }));
@@ -65,10 +65,10 @@ function* sagaFetchMusing() {
     yield put(fetchMusingsAsync.failure());
     yield put(enqueueSnackbar({
       snackbar: {
-        message: 'noti:musings.findAll.rejected',
+        message: "noti:musings.findAll.rejected",
         messageOptions: { e: stringify(e) },
-        variant: 'error'
+        variant: "error"
       }
-    }))
+    }));
   }
 }

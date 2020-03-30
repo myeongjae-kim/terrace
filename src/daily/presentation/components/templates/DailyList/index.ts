@@ -1,1 +1,1 @@
-export { default } from './DailyList';
+export { default } from "./DailyList";

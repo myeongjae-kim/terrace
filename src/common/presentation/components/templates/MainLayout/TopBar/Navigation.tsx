@@ -1,8 +1,8 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/common/presentation/state-module/root';
-import { Link, MyButton } from '../../../molecules';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "src/common/presentation/state-module/root";
+import { Link, MyButton } from "../../../molecules";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       marginTop: theme.spacing(1)
     }
   }
-}))
+}));
 
 interface Props {
   items: Array<{
-    href: string[]
-    label: string
-  }>
+    href: string[];
+    label: string;
+  }>;
 }
 
 const Navigation: React.FC<Props> = ({ items }) => {
@@ -34,6 +34,6 @@ const Navigation: React.FC<Props> = ({ items }) => {
       </MyButton>
     </Link>)}
   </nav>;
-}
+};
 
 export default Navigation;

@@ -11,4 +11,4 @@ export default (a?: any): string => {
   }
 
   return JSON.stringify(a);
-}
+};

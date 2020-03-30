@@ -1,6 +1,6 @@
 export interface BlogArticlePathDto {
-  year: string
-  month: string
-  day: string
-  slug: string
+  year: string;
+  month: string;
+  day: string;
+  slug: string;
 }

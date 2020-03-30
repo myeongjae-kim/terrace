@@ -1,40 +1,40 @@
-import { makeStyles, TextField, Theme, Typography } from '@material-ui/core';
-import { Check } from '@material-ui/icons';
-import clsx from 'clsx';
-import { ErrorMessage, Form, Formik } from 'formik';
-import Optional from 'optional-js';
-import * as React from 'react';
-import { BlogArticleDetailResponseDto, BlogArticleRequestDto } from 'src/blog/api';
-import { ErrorTypography, MySpeedDial } from 'src/common/presentation/components/molecules';
-import { MarkdownEditor } from 'src/common/presentation/components/organisms';
+import { makeStyles, TextField, Theme, Typography } from "@material-ui/core";
+import { Check } from "@material-ui/icons";
+import clsx from "clsx";
+import { ErrorMessage, Form, Formik } from "formik";
+import Optional from "optional-js";
+import * as React from "react";
+import { BlogArticleDetailResponseDto, BlogArticleRequestDto } from "src/blog/api";
+import { ErrorTypography, MySpeedDial } from "src/common/presentation/components/molecules";
+import { MarkdownEditor } from "src/common/presentation/components/organisms";
 import * as Yup from "yup";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
-    textAlign: 'center',
+    textAlign: "center",
     fontWeight: 100,
     margin: `${theme.spacing(2)}px 0`,
-    userSelect: 'none'
+    userSelect: "none"
   },
   shortFieldContainer: {
     maxWidth: theme.spacing(50),
-    margin: 'auto',
+    margin: "auto",
     "& > div": {
       margin: theme.spacing(1)
     }
   },
   errorMessageCenter: {
-    display: 'flex',
-    justifyContent: 'center'
+    display: "flex",
+    justifyContent: "center"
   }
-}))
+}));
 
 interface Props {
-  isUpdating?: boolean
-  initialValues?: BlogArticleDetailResponseDto
-  pending: boolean
-  rejected: boolean
-  onSubmit(request: BlogArticleRequestDto): Promise<void>
+  isUpdating?: boolean;
+  initialValues?: BlogArticleDetailResponseDto;
+  pending: boolean;
+  rejected: boolean;
+  onSubmit(request: BlogArticleRequestDto): Promise<void>;
 }
 
 const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, onSubmit }) => {
@@ -59,7 +59,7 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
     {props => {
       const { values, handleChange, handleBlur, isSubmitting } = props;
 
-      const handleSlugChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.target.value = e.target.value
           .replace("/", "")
           .replace(" ", "")
@@ -68,7 +68,7 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
           .replace("&", "");
 
         handleChange(e);
-      }, [])
+      };
 
       return <Form>
         <Typography variant="h2" className={classes.title}>블로그 글 {isUpdating ? "수정" : "등록"}</Typography>
@@ -137,9 +137,9 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
           name: "완료",
           icon: <Check />
         }]} />
-      </Form>
+      </Form>;
     }}
   </Formik>;
-}
+};
 
 export default BlogArticleForm;

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 import { logger } from "../utils";
 
 export class ApiError {
@@ -10,6 +10,6 @@ export class ApiError {
     public message: string,
   ) {
     this.timestamp = moment().tz("Asia/Seoul").toISOString(true);
-    logger.log('error', JSON.stringify(this));
+    logger.log("error", JSON.stringify(this));
   }
 }

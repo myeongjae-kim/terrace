@@ -19,18 +19,18 @@ export class User {
   }
 
   @PrimaryGeneratedColumn()
-  public id!: string
+  public id!: string;
 
   @CreateDateColumn()
-  public createdAt!: Date
+  public createdAt!: Date;
 
   @UpdateDateColumn()
-  public updatedAt!: Date
+  public updatedAt!: Date;
 
   @Column()
   @Index("ux_user_email", { unique: true })
-  public email!: string
+  public email!: string;
 
   @Column()
-  public password!: string
+  public password!: string;
 }

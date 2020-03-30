@@ -1,19 +1,19 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import * as React from 'react';
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import * as React from "react";
 
 interface Props {
-  title: string
+  title: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    display: 'flex',
-    justifyContent: 'center',
-    cursor: 'default',
-    userSelect: 'none'
+    display: "flex",
+    justifyContent: "center",
+    cursor: "default",
+    userSelect: "none"
   },
   title: {
-    fontSize: '2em',
+    fontSize: "2em",
     fontWeight: 100,
     textTransform: "capitalize",
     margin: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px 0`,
@@ -29,8 +29,8 @@ const PageTitle: React.FC<Props> = ({ title }) => {
     <h1 className={classes.title}>
       {title}
     </h1>
-  </div>
-}
+  </div>;
+};
 
 
 export default PageTitle;

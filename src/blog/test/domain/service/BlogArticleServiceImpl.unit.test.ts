@@ -1,15 +1,15 @@
-import Optional from 'optional-js';
-import 'reflect-metadata';
+import Optional from "optional-js";
+import "reflect-metadata";
 import { createBlogArticleListResponseDtoFrom } from "src/blog/api";
-import { BlogArticle } from 'src/blog/domain/model';
+import { BlogArticle } from "src/blog/domain/model";
 import { BlogArticleRepository } from "src/blog/domain/model/BlogArticleRepository";
 import { BlogArticleService, BlogArticleServiceImpl } from "src/blog/domain/service";
-import { formatDateTime } from 'src/util';
-import { doesObjectHasNoUndefinedProperties } from 'src/util/test';
-import { createBlogArticleDetatilRequestDtoFixture } from '../../api/dto/BlogArticleDetailRequestDto.unit.test';
+import { formatDateTime } from "src/util";
+import { doesObjectHasNoUndefinedProperties } from "src/util/test";
+import { createBlogArticleDetatilRequestDtoFixture } from "../../api/dto/BlogArticleDetailRequestDto.unit.test";
 import { createBlogArticleFixture } from "../model/BlogArticle.unit.test";
 
-describe('BlogArticleServiceImpl', () => {
+describe("BlogArticleServiceImpl", () => {
   let blogArticleRepository: Pick<BlogArticleRepository,
     "findAllByOrderBySeqDesc" |
     "findBySlug" |
@@ -24,12 +24,12 @@ describe('BlogArticleServiceImpl', () => {
       findBySlug: jest.fn(),
       findFirstBySeqAfterOrderBySeqAsc: jest.fn(),
       findFirstBySeqBeforeOrderBySeqDesc: jest.fn(),
-    }
+    };
 
     blogArticleService = new BlogArticleServiceImpl(blogArticleRepository as BlogArticleRepository);
-  })
+  });
 
-  it('should return found blog article list.', async () => {
+  it("should return found blog article list.", async () => {
     // given
     const blogArticle = createBlogArticleFixture();
     (blogArticleRepository.findAllByOrderBySeqDesc as jest.Mock<Promise<BlogArticle[]>>).mockResolvedValue([blogArticle]);
@@ -40,9 +40,9 @@ describe('BlogArticleServiceImpl', () => {
     // then
     expect(result).toHaveLength(1);
     expect(result[0]).toStrictEqual(createBlogArticleListResponseDtoFrom(blogArticle));
-  })
+  });
 
-  it('should return found single blog article.', async () => {
+  it("should return found single blog article.", async () => {
     // given
     const req = createBlogArticleDetatilRequestDtoFixture();
     const current = createBlogArticleFixture("2");
@@ -68,9 +68,9 @@ describe('BlogArticleServiceImpl', () => {
     expect(result.id).toBe("2");
     expect(result.prev.id).toBe("1");
     expect(result.next.id).toBe("3");
-  })
+  });
 
-  it('should throw an exception when a blog article has not been found.', async () => {
+  it("should throw an exception when a blog article has not been found.", async () => {
     // given
     const req = createBlogArticleDetatilRequestDtoFixture();
 
@@ -79,9 +79,9 @@ describe('BlogArticleServiceImpl', () => {
     // expect
     await expect(blogArticleService.find(req)).rejects
       .toThrow(`A blog article has not been found by request: ${JSON.stringify(req)}`);
-  })
+  });
 
-  it('should throw an exception when a blog article has invalid date.', async () => {
+  it("should throw an exception when a blog article has invalid date.", async () => {
     // given
     const req = createBlogArticleDetatilRequestDtoFixture();
     const blogArticle = createBlogArticleFixture();
@@ -94,5 +94,5 @@ describe('BlogArticleServiceImpl', () => {
     // expect
     await expect(blogArticleService.find(req)).rejects
       .toThrow(`A blog article has not been found by request: ${JSON.stringify(req)}`);
-  })
-})
+  });
+});

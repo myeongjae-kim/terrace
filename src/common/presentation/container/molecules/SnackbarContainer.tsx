@@ -1,18 +1,18 @@
-import { IconButton } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
-import * as React from 'react';
-import { WithTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import I18NService from 'src/common/domain/service/I18NService';
-import { RootState } from '../../state-module/root';
-import * as snackbarModule from '../../state-module/snackbar';
-import { Snackbar } from '../../state-module/snackbar';
+import { IconButton } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
+import { withSnackbar, WithSnackbarProps } from "notistack";
+import * as React from "react";
+import { WithTranslation } from "react-i18next";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
+import I18NService from "src/common/domain/service/I18NService";
+import { RootState } from "../../state-module/root";
+import * as snackbarModule from "../../state-module/snackbar";
+import { Snackbar } from "../../state-module/snackbar";
 
 interface Props extends WithSnackbarProps, WithTranslation {
-  snackbars: Snackbar[]
-  dispatchers: typeof snackbarModule
+  snackbars: Snackbar[];
+  dispatchers: typeof snackbarModule;
 }
 
 const { withTranslation } = I18NService;
@@ -81,9 +81,9 @@ const mapStateToProps = ((state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<snackbarModule.Action>) => ({
   dispatchers: bindActionCreators(snackbarModule, dispatch)
-})
+});
 
-export default withTranslation('noti')(withSnackbar(connect(
+export default withTranslation("noti")(withSnackbar(connect(
   mapStateToProps,
   mapDispatchToProps,
 )(SnackbarContainer)));

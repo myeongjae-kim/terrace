@@ -1,32 +1,32 @@
-import { createStyles, makeStyles } from '@material-ui/core'
-import clsx from 'clsx'
-import { NextPageContext } from 'next'
-import Head from 'next/head'
-import React from 'react'
-import NextPage from 'src/common/domain/model/NextPage'
+import { createStyles, makeStyles } from "@material-ui/core";
+import clsx from "clsx";
+import { NextPageContext } from "next";
+import Head from "next/head";
+import React from "react";
+import NextPage from "src/common/domain/model/NextPage";
 
 const statusTexts: { [code: number]: string } = {
-  400: 'Bad Request',
-  401: 'Unauthorized',
-  403: 'Forbidden',
-  404: 'Not Found',
-  405: 'Method Not Allowed',
-  500: 'Internal Server Error',
-}
+  400: "Bad Request",
+  401: "Unauthorized",
+  403: "Forbidden",
+  404: "Not Found",
+  405: "Method Not Allowed",
+  500: "Internal Server Error",
+};
 
 const useStyles = makeStyles(createStyles({
   container: {
-    color: '#aaa',
-    height: 'calc(100vh - 88px - 130px)',
+    color: "#aaa",
+    height: "calc(100vh - 88px - 130px)",
     marginBottom: 130,
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   statusCode: {
-    fontSize: '3.3em',
+    fontSize: "3.3em",
     fontWeight: 700
   },
   statusText: {
@@ -35,33 +35,33 @@ const useStyles = makeStyles(createStyles({
   poem: {
     fontFamily: "'Noto Serif KR','Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif",
     margin: 0,
-    fontSize: '1.1em',
-    fontStyle: 'italic',
+    fontSize: "1.1em",
+    fontStyle: "italic",
     lineHeight: 0.3,
   },
   statusCodeContainer: {
     fontWeight: 200,
-    fontSize: '2.2em',
-    textTransform: 'uppercase',
+    fontSize: "2.2em",
+    textTransform: "uppercase",
     lineHeight: 1,
-    textRendering: 'optimizeLegibility',
-    textAlign: 'center',
-    width: '100%',
-    '& > p': {
-      margin: '-12px 0 0 0'
+    textRendering: "optimizeLegibility",
+    textAlign: "center",
+    width: "100%",
+    "& > p": {
+      margin: "-12px 0 0 0"
     }
   }
 }));
 
 export interface ErrorProps {
-  statusCode: number
-  title?: string
-  namespacesRequired?: string[]
+  statusCode: number;
+  title?: string;
+  namespacesRequired?: string[];
 }
 
 const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => {
   React.useEffect(() => {
-    [].forEach.call(document.querySelectorAll('.text'), (el: HTMLElement) => {
+    [].forEach.call(document.querySelectorAll(".text"), (el: HTMLElement) => {
       const origin = el.innerHTML;
       let newHtml = "";
       for (const c of origin) {
@@ -69,13 +69,13 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
       }
       el.innerHTML = newHtml;
     });
-  }, [])
+  }, []);
 
   const classes = useStyles();
   const title =
     titleOrigin ||
     statusTexts[statusCode] ||
-    'An unexpected error has occurred'
+    "An unexpected error has occurred";
 
   return (
     <div className={classes.container}>
@@ -85,7 +85,7 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
         </title>
       </Head>
 
-      <div style={{ userSelect: 'none' }}>
+      <div style={{ userSelect: "none" }}>
         <div className={classes.statusCodeContainer}>
           <p className={clsx("text", "color-text-flow", classes.statusCode)}>{statusCode}</p>
           <p className={clsx("text", "color-text-flow", classes.statusText)}>{statusTexts[statusCode]}</p>
@@ -666,16 +666,16 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
 }
     `}</style>
     </div >
-  )
-}
+  );
+};
 
 ErrorPage.getInitialProps = ({ res, err, }: NextPageContext): Promise<ErrorProps> | ErrorProps => {
   const statusCode =
-    res && res.statusCode ? res.statusCode : err ? err.statusCode! : 404
+    res && res.statusCode ? res.statusCode : err ? err.statusCode! : 404;
   return {
     statusCode,
-    namespacesRequired: ['common'],
-  }
-}
+    namespacesRequired: ["common"],
+  };
+};
 
 export default ErrorPage;

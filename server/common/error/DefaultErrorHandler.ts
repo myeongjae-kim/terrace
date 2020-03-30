@@ -6,7 +6,7 @@ import { ApiError } from "./ApiError";
 
 export const defaultErrorHandler: ErrorRequestHandler = (err: Error, _, res, next) => {
   if (res.headersSent) {
-    return next(err)
+    return next(err);
   }
 
   if (err instanceof AssertionError) {
@@ -18,5 +18,5 @@ export const defaultErrorHandler: ErrorRequestHandler = (err: Error, _, res, nex
   }
 
   res.status(500).send(err.stack);
-  logger.log('error', JSON.stringify(err.stack));
-}
+  logger.log("error", JSON.stringify(err.stack));
+};

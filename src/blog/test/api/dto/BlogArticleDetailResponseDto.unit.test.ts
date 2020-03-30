@@ -1,9 +1,9 @@
 import { createBlogArticleDetailResponseDtoFrom } from "src/blog/api/dto/BlogArticleDetailResponseDto";
 import { doesObjectHasNoUndefinedProperties } from "src/util/test";
-import { createBlogArticleFixture } from "../../domain/model/BlogArticle.unit.test"
+import { createBlogArticleFixture } from "../../domain/model/BlogArticle.unit.test";
 
-describe('BlogArticleDetailResponseDto', () => {
-  it('should return valid response dto.', () => {
+describe("BlogArticleDetailResponseDto", () => {
+  it("should return valid response dto.", () => {
     // given
     const current = createBlogArticleFixture("2");
     const prev = createBlogArticleFixture("1");
@@ -20,5 +20,5 @@ describe('BlogArticleDetailResponseDto', () => {
     expect(result.id).toBe("2");
     expect(result.prev.id).toBe("1");
     expect(result.next.id).toBe("3");
-  })
-})
+  });
+});
