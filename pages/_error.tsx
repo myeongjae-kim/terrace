@@ -4,6 +4,7 @@ import { NextPageContext } from "next";
 import Head from "next/head";
 import React from "react";
 import NextPage from "src/common/domain/model/NextPage";
+import Optional from "optional-js";
 
 const statusTexts: { [code: number]: string } = {
   400: "Bad Request",
@@ -669,9 +670,15 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
   );
 };
 
-ErrorPage.getInitialProps = ({ res, err, }: NextPageContext): Promise<ErrorProps> | ErrorProps => {
-  const statusCode =
-    res && res.statusCode ? res.statusCode : err ? err.statusCode! : 404;
+ErrorPage.getInitialProps = ({ res, err }: NextPageContext): Promise<ErrorProps> | ErrorProps => {
+  const errorStatusCode = Optional.ofNullable(err)
+    .map(e => e.statusCode)
+    .orElse(404);
+
+  const statusCode = Optional.ofNullable(res)
+    .map(r => r.statusCode)
+    .orElse(errorStatusCode);
+
   return {
     statusCode,
     namespacesRequired: ["common"],

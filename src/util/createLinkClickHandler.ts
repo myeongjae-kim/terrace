@@ -36,12 +36,12 @@ export const createLinkClickHandler = (href?: string, as?: string, method: "push
     }
 
     return Router[method](href, as, {
-      shallow: Optional.ofNullable(options!)
+      shallow: Optional.ofNullable(options)
         .map(o => o.shallow)
         .orElse(false)
     })
       .then((succeeded) => {
-        if (window && succeeded && Optional.ofNullable(options!).map(o => o.scroll).orElse(true)) {
+        if (window && succeeded && Optional.ofNullable(options).map(o => o.scroll).orElse(true)) {
           window.scrollTo(0, 0);
         }
         return succeeded;

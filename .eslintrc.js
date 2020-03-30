@@ -35,13 +35,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": [ // TODO: Remove this setting
       "off"
     ],
-    "@typescript-eslint/no-non-null-assertion": [ // TODO: Remove this setting
-      "off"
-    ],
     "@typescript-eslint/no-explicit-any": [ // TODO: Remove this setting.
-      "off"
-    ],
-    "@typescript-eslint/ban-ts-ignore": [ // TODO: Remove this setting
       "off"
     ],
     "indent": [
