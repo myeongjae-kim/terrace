@@ -1,14 +1,14 @@
 import { produce } from "immer";
+import { combineEpics, Epic } from "redux-observable";
 import { call, put, takeLeading } from "redux-saga/effects";
+import { of } from "rxjs";
+import { catchError, filter, map, mergeMap } from "rxjs/operators";
+import { API_HOST } from "src/common/constants/Constants";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
 import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
 import stringify from "src/util/stringify";
-import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
-import { Observable, of } from "rxjs";
-import { ofType, combineEpics, StateObservable } from "redux-observable";
-import { mergeMap, map, catchError } from "rxjs/operators";
+import { ActionType, createAction, createAsyncAction, createReducer, getType, isOfType } from "typesafe-actions";
 import { request } from "universal-rxjs-ajax";
-import { API_HOST } from "src/common/constants/Constants";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
@@ -95,16 +95,16 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
 }
 
 
-const epicFetchDaily = (action$: Observable<ActionType<typeof actions.fetchDailyRx>>, _$: StateObservable<State>) =>
+const epicFetchDaily: Epic<Action, Action, State> = (action$, _$) =>
   action$.pipe(
-    ofType(getType(actions.fetchDailyRx)),
+    filter(isOfType(getType(actions.fetchDailyRx))),
     mergeMap(action => {
       const { year, month, day, slug } = action.payload.daily;
       return request({
         url: `${API_HOST}/daily/api/${year}/${month}/${day}/${slug}`
       }).pipe(
         map(response => actions.fetchDailyAsync.success({
-          "daily": response as any
+          "daily": response.response as any
         })),
         catchError(_ =>
           of(
