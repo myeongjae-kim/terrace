@@ -29,7 +29,7 @@ COPY server server/
 COPY src src/
 COPY templates templates/
 
-COPY .babelrc jest.config.js next-env.d.ts next.config.js nodemon.json package-lock.json package.json tsconfig.json tslint.json ./
+COPY .babelrc jest.config.js next-env.d.ts next.config.js nodemon.json package-lock.json package.json tsconfig.json .eslintrc.js ./
 
 RUN export $(echo $browser_env) > /dev/null && npm install && npm run build && rm -rf node_modules && npm install --production
 

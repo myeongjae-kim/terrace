@@ -21,13 +21,8 @@ export class NextApplication {
     res: ServerResponse,
     pathname: string,
     query?: ParsedUrlQuery,
-    amp?: {
-      amphtml?: boolean;
-      hasAmp?: boolean;
-      dataOnly?: boolean;
-    }
   ): Promise<string | null> => {
-    const renderToHTML = () => this.app.renderToHTML(req, res, pathname, query, amp);
+    const renderToHTML = () => this.app.renderToHTML(req, res, pathname, query);
     if (!isCacheRenderingEnabled) {
       return renderToHTML();
     }
