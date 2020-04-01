@@ -1,14 +1,13 @@
 import { produce } from "immer";
-import { combineEpics, Epic } from "redux-observable";
+import { combineEpics, Epic, ofType } from "redux-observable";
 import { call, put, takeLeading } from "redux-saga/effects";
-import { of } from "rxjs";
-import { catchError, filter, map, mergeMap } from "rxjs/operators";
-import { API_HOST } from "src/common/constants/Constants";
+import { from } from "rxjs";
+import { catchError, filter, map, switchMap, takeUntil } from "rxjs/operators";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
 import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
+import { dailyApi } from "src/daily/api/dailyApi";
 import stringify from "src/util/stringify";
-import { ActionType, createAction, createAsyncAction, createReducer, getType, isOfType } from "typesafe-actions";
-import { request } from "universal-rxjs-ajax";
+import { ActionType, createAction, createAsyncAction, createReducer, getType, isActionOf } from "typesafe-actions";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
@@ -19,8 +18,8 @@ const actions = {
     "@dailyDetail/FETCH_DAILY_DETAIL_REQUEST",
     "@dailyDetail/FETCH_DAILY_DETAIL_SUCCESS",
     "@dailyDetail/FETCH_DAILY_DETAIL_FAILURE",
-  )<void, { daily: DailyDetailResponseDto }, { statusCode: number }>(),
-
+    "@dailyDetail/FETCH_DAILY_DETAIL_CANCEL",
+  )<void, DailyDetailResponseDto, { statusCode: number }, void>(),
 
   fetchDailyRx: createAction("@dailyDetail/FETCH_DAILY_DETAIL_RX")<{
     daily: DailyDetailRequestDto;
@@ -62,7 +61,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
   }))
   .handleAction(actions.fetchDailyAsync.success, (state, action) => produce(state, draft => {
     draft.pending = false;
-    draft.daily = action.payload.daily;
+    draft.daily = action.payload;
     draft.statusCode = 200;
     return draft;
   }))
@@ -81,7 +80,7 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
   yield put(actions.fetchDailyAsync.request());
   try {
     const daily: DailyDetailResponseDto = yield call(dailyFetcher.find, action.payload.daily);
-    yield put(actions.fetchDailyAsync.success({ daily }));
+    yield put(actions.fetchDailyAsync.success(daily));
   } catch (e) {
     yield put(actions.fetchDailyAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
@@ -94,24 +93,11 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
   }
 }
 
-
-const epicFetchDaily: Epic<Action, Action, State> = (action$, _$) =>
-  action$.pipe(
-    filter(isOfType(getType(actions.fetchDailyRx))),
-    mergeMap(action => {
-      const { year, month, day, slug } = action.payload.daily;
-      return request({
-        url: `${API_HOST}/daily/api/${year}/${month}/${day}/${slug}`
-      }).pipe(
-        map(response => actions.fetchDailyAsync.success({
-          "daily": response.response as any
-        })),
-        catchError(_ =>
-          of(
-            actions.fetchDailyAsync.failure({ statusCode: 600 })
-          )));
-    })
-  );
-
+const epicFetchDaily: Epic<Action, Action, State> = (action$, _$) => action$.pipe(
+  filter(isActionOf(actions.fetchDailyRx)),
+  switchMap(action => from(dailyApi.find(action.payload.daily)).pipe(
+    map(daily => actions.fetchDailyAsync.success(daily)),
+    catchError(err => ofType(actions.fetchDailyAsync.failure({ statusCode: err.status }))),
+    takeUntil(action$.pipe(filter(isActionOf(actions.fetchDailyAsync.cancel)))))));
 
 export const epic = combineEpics(epicFetchDaily);
