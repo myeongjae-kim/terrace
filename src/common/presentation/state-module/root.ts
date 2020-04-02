@@ -26,7 +26,6 @@ export function* rootSaga() {
   yield fork(authModule.saga);
   yield fork(blogModule.saga);
   yield fork(musingsModule.saga);
-  yield fork(dailyModule.saga);
 }
 
 export type RootState = StateType<typeof rootReducer>;

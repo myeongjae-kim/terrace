@@ -1,9 +1,10 @@
 import { produce } from "immer";
-import { call, put, takeLeading } from "redux-saga/effects";
-import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
-import { dailyFetcher, DailyListResponseDto } from "src/daily/api";
-import stringify from "src/util/stringify";
-import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
+import { combineEpics, Epic, ofType } from "redux-observable";
+import { concat, from, of } from "rxjs";
+import { catchError, filter, map, switchMap, takeUntil } from "rxjs/operators";
+import { DailyListResponseDto } from "src/daily/api";
+import { dailyApi } from "src/daily/api/dailyApi";
+import { ActionType, createAction, createAsyncAction, createReducer, isActionOf } from "typesafe-actions";
 
 const actions = {
   reset: createAction("@dailyList/RESET")(),
@@ -12,7 +13,8 @@ const actions = {
     "@dailyList/FETCH_DAILY_LIST_REQUEST",
     "@dailyList/FETCH_DAILY_LIST_SUCCESS",
     "@dailyList/FETCH_DAILY_LIST_FAILURE",
-  )<void, { dailys: DailyListResponseDto[] }, void>()
+    "@dailyList/FETCH_DAILY_LIST_CANCEL",
+  )<void, DailyListResponseDto[], {statusCode: number}, void>()
 };
 
 export const { reset, fetchDailys } = actions;
@@ -22,13 +24,15 @@ export interface State {
   dailys: DailyListResponseDto[];
   pending: boolean;
   rejected: boolean;
+  statusCode: number;
 }
 
 // Initial State
 const createInitialState = (): State => ({
   dailys: [],
   pending: true,
-  rejected: false
+  rejected: false,
+  statusCode: 0,
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
@@ -41,32 +45,24 @@ export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(actions.fetchDailysAsync.success, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = false;
-    draft.dailys = action.payload.dailys;
+    draft.dailys = action.payload;
     return draft;
   }))
-  .handleAction(actions.fetchDailysAsync.failure, (state) => produce(state, draft => {
+  .handleAction(actions.fetchDailysAsync.failure, (state, action) => produce(state, draft => {
     draft.pending = false;
     draft.rejected = true;
+    draft.statusCode = action.payload.statusCode;
     return draft;
   }));
 
-export function* saga() {
-  yield takeLeading(getType(fetchDailys), sagaFetchDaily);
-}
+const epicFetchDailys: Epic<Action, Action, State> = (action$, _$) => action$.pipe(
+  filter(isActionOf(actions.fetchDailys)),
+  switchMap(() => concat(
+    of(actions.fetchDailysAsync.request()),
+    from(dailyApi.findAll()).pipe(
+      map(daily => actions.fetchDailysAsync.success(daily)),
+      catchError(err => ofType(actions.fetchDailysAsync.failure({ statusCode: err.status }))),
+      takeUntil(action$.pipe(filter(isActionOf(actions.fetchDailysAsync.cancel)))),
+    ))));
 
-function* sagaFetchDaily() {
-  yield put(actions.fetchDailysAsync.request());
-  try {
-    const dailys: DailyListResponseDto[] = yield call(dailyFetcher.findAll);
-    yield put(actions.fetchDailysAsync.success({ dailys }));
-  } catch (e) {
-    yield put(actions.fetchDailysAsync.failure());
-    yield put(enqueueSnackbar({
-      snackbar: {
-        message: "noti:daily.findAll.rejected",
-        messageOptions: { e: stringify(e) },
-        variant: "error"
-      }
-    }));
-  }
-}
+export const epic = combineEpics(epicFetchDailys);
