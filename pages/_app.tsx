@@ -21,7 +21,7 @@ import ConfirmContainer from "src/common/presentation/container/molecules/Confir
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
 import { setPaths } from "src/common/presentation/state-module/common";
-import { rootReducer, rootSaga, RootState, rootEpic, RootAction } from "src/common/presentation/state-module/root";
+import { rootReducer, rootSaga, RootState, rootEpic } from "src/common/presentation/state-module/root";
 import { isServer } from "src/util";
 import { createEpicMiddleware } from "redux-observable";
 
@@ -49,7 +49,7 @@ const makeStore = (preloadedState = {} as RootState) => {
   );
 
   (reduxStore as any).sagaTask = sagaMiddleware.run(rootSaga);
-  epicMiddleware.run(rootEpic);
+  epicMiddleware.run(rootEpic as any);
 
   return reduxStore;
 };

@@ -30,6 +30,5 @@ export function* rootSaga() {
 }
 
 export type RootState = StateType<typeof rootReducer>;
-export type RootAction = dailyModule.Action;
 
 export const rootEpic = combineEpics(dailyModule.epic);
