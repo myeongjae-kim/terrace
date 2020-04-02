@@ -10,9 +10,7 @@ export const reducer = combineReducers({
 });
 
 export function* saga() {
-  yield fork(detailModule.saga);
   yield fork(listModule.saga);
 }
 
 export const epic = combineEpics(detailModule.epic);
-export type Action = detailModule.Action;

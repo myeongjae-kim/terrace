@@ -21,10 +21,9 @@ import ConfirmContainer from "src/common/presentation/container/molecules/Confir
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
 import { setPaths } from "src/common/presentation/state-module/common";
-import { rootReducer, rootSaga, RootState, rootEpic } from "src/common/presentation/state-module/root";
+import { rootReducer, rootSaga, RootState, rootEpic, RootAction } from "src/common/presentation/state-module/root";
 import { isServer } from "src/util";
 import { createEpicMiddleware } from "redux-observable";
-import {Action, State} from "src/daily/presentation/state-modules/detail";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -41,7 +40,7 @@ const makeStore = (preloadedState = {} as RootState) => {
   };
 
   const sagaMiddleware = createSagaMiddleware();
-  const epicMiddleware = createEpicMiddleware<Action, Action, State>();
+  const epicMiddleware = createEpicMiddleware();
 
   const reduxStore: Store<RootState, AnyAction> = createStore(
     rootReducer,
