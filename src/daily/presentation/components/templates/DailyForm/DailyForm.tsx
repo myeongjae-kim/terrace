@@ -71,7 +71,7 @@ const DailyForm: React.FC<Props> = ({ isUpdating, initialValues, pending, onSubm
       };
 
       return <Form>
-        <Typography variant="h2" className={classes.title}>블로그 글 {isUpdating ? "수정" : "등록"}</Typography>
+        <Typography variant="h2" className={classes.title}>일상 글 {isUpdating ? "수정" : "등록"}</Typography>
         <div className={clsx(classes.shortFieldContainer)}>
           <div>
             <TextField

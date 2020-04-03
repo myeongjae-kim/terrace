@@ -11,6 +11,8 @@ import assert from "assert-plus";
 
 const PATH = Endpoints.daily;
 const PATH_DETAIL = Endpoints["daily.detail"];
+const PATH_CREATE = Endpoints["daily.create"];
+const PATH_UPDATE = Endpoints["daily.update"];
 
 @controller(PATH)
 export class DailyController implements interfaces.Controller {
@@ -28,6 +30,16 @@ export class DailyController implements interfaces.Controller {
   @httpGet("/:year/:month/:date/:slug")
   public getDetailPage(@request() req: Request, @response() res: Response) {
     return this.nextApp.render(true, req, res, PATH_DETAIL);
+  }
+
+  @httpGet("/create")
+  public getCreatePage(@request() req: Request, @response() res: Response) {
+    return this.nextApp.render(true, req, res, PATH_CREATE);
+  }
+
+  @httpGet("/update/:year/:month/:date/:slug")
+  public getUpdatePage(@request() req: Request, @response() res: Response) {
+    return this.nextApp.render(true, req, res, PATH_UPDATE);
   }
 
   @httpPost("/api")

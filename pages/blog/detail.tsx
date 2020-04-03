@@ -69,7 +69,7 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
     />
 
     <BlogArticleDetail {...props} update={update} del={del} />
-    <Comment identifier={updateUri} />
+    <Comment identifier={updateUri} /> {/* Do not change this... why is it updateUri? */}
     <style jsx global>{`
 #comment-container {
   max-width: ${theme.spacing(100)}px;

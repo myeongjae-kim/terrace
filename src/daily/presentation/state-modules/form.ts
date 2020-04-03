@@ -8,6 +8,7 @@ import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
 import { getSeoulDateFrom } from "src/util";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
+import * as listModule from "./list";
 
 const actions = {
   reset: createAction("@dailyForm/RESET")(),
@@ -143,6 +144,7 @@ function* sagaCreateDaily(action: ActionType<typeof actions.createDaily>) {
         variant: "success"
       }
     }));
+    yield put(listModule.fetchDailys());
   } catch (e) {
     yield put(actions.createDailyAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
@@ -173,6 +175,7 @@ function* sagaUpdateDaily(action: ActionType<typeof actions.updateDaily>) {
         variant: "success"
       }
     }));
+    yield put(listModule.fetchDailys());
   } catch (e) {
     yield put(actions.updateDailyAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({

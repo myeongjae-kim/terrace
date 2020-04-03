@@ -1,1 +1,1 @@
-export { default } from "./DailyForm";
+export { default as DailyForm } from "./DailyForm";
