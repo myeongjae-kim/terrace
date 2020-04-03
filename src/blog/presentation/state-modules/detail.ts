@@ -133,7 +133,7 @@ function* sagaDeleteBlogArticle(action: ActionType<typeof actions.deleteBlogArti
       }
     }));
 
-    Router.push(Endpoints.blog);
+    yield call(Router.push, Endpoints.blog);
   } catch (e) {
     yield put(actions.deleteBlogArticleAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
