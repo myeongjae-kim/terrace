@@ -5,7 +5,7 @@ import { TYPES } from "server/common/inversify/types";
 import { NextApplication } from "server/common/nextjs/NextApplication";
 import { Endpoints } from "src/common/constants/Constants";
 import { DailyService } from "../domain/service";
-import { DailyDetailRequestDto } from "./dto/DailyDetailRequestDto";
+import { DailyRequestDto } from "./dto/DailyRequestDto";
 import { CreationResponse } from "src/common/api/dto/CreationResponse";
 import assert from "assert-plus";
 
@@ -32,7 +32,7 @@ export class DailyController implements interfaces.Controller {
 
   @httpPost("/api")
   public async postDetail(
-    @requestBody() body: DailyDetailRequestDto
+    @requestBody() body: DailyRequestDto
   ): Promise<CreationResponse> {
     assert.object(body, "body must be an object.");
     assert.number(body.seq, "body.seq must be a number.");
@@ -67,7 +67,7 @@ export class DailyController implements interfaces.Controller {
     @requestParam("month") month: string,
     @requestParam("day") day: string,
     @requestParam("slug") slug: string,
-    @requestBody() body: DailyDetailRequestDto
+    @requestBody() body: DailyRequestDto
   ) {
     assert.object(body, "body must be an object.");
     assert.number(body.seq, "body.seq must be a number.");

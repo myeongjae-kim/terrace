@@ -6,7 +6,7 @@ import { DailyRepository } from "src/daily/domain/model/DailyRepository";
 import { DailyService, DailyServiceImpl } from "src/daily/domain/service";
 import { formatDateTime } from "src/util";
 import { doesObjectHasNoUndefinedProperties } from "src/util/test";
-import { createDailyDetatilPathDtoFixture } from "../../api/dto/DailyDetailPathDto.unit.test";
+import { createDailyDetatilPathDtoFixture } from "../../api/dto/DailyPathDto.unit.test";
 import { createDailyFixture } from "../model/Daily.unit.test";
 
 describe("DailyServiceImpl", () => {

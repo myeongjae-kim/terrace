@@ -1,4 +1,4 @@
-export interface DailyDetailRequestDto {
+export interface DailyRequestDto {
   seq: number;
   title: string;
   slug: string;

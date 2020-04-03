@@ -7,7 +7,7 @@ import NextPage from "src/common/domain/model/NextPage";
 import { HeadTitle } from "src/common/presentation/components/molecules";
 import { Comment } from "src/common/presentation/components/organisms";
 import { RootState } from "src/common/presentation/state-module/root";
-import { DailyDetailPathDto } from "src/daily/api/dto";
+import { DailyPathDto } from "src/daily/api/dto";
 import DailyDetail from "src/daily/presentation/components/templates/DailyDetail";
 import { DailyDetailProps } from "src/daily/presentation/components/templates/DailyDetail/DailyDetail";
 import DailyList from "src/daily/presentation/components/templates/DailyList";
@@ -74,11 +74,11 @@ const fetchDailyList = (store: Store<RootState>): void => {
   }
 };
 
-const fetchDailyDetail = (store: Store<RootState>, req: DailyDetailPathDto): void => {
+const fetchDailyDetail = (store: Store<RootState>, req: DailyPathDto): void => {
   store.dispatch(detailModule.fetchDaily({ daily: req }));
 };
 
-const parsePathToDailyDetailRequest = (asPath: string): DailyDetailPathDto => {
+const parsePathToDailyDetailRequest = (asPath: string): DailyPathDto => {
   const splitted = asPath.split("/");
   return {
     year: splitted[2],

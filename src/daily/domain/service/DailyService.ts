@@ -1,10 +1,10 @@
-import { DailyDetailPathDto, DailyDetailResponseDto, DailyListResponseDto } from "src/daily/api";
-import { DailyDetailRequestDto } from "src/daily/api/dto/DailyDetailRequestDto";
+import { DailyPathDto, DailyDetailResponseDto, DailyListResponseDto } from "src/daily/api";
+import { DailyRequestDto } from "src/daily/api/dto/DailyRequestDto";
 
 export interface DailyService {
   findAll(): Promise<DailyListResponseDto[]>;
-  find(req: DailyDetailPathDto): Promise<DailyDetailResponseDto>;
-  update(req: DailyDetailPathDto, body: DailyDetailRequestDto): Promise<void>;
-  create(body: DailyDetailRequestDto): Promise<string>;
-  delete(req: DailyDetailPathDto): Promise<void>;
+  find(req: DailyPathDto): Promise<DailyDetailResponseDto>;
+  update(req: DailyPathDto, body: DailyRequestDto): Promise<void>;
+  create(body: DailyRequestDto): Promise<string>;
+  delete(req: DailyPathDto): Promise<void>;
 }

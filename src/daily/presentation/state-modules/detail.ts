@@ -1,14 +1,14 @@
 import { produce } from "immer";
 import { call, put, takeLeading } from "redux-saga/effects";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
-import { DailyDetailPathDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
+import { DailyPathDto, DailyDetailResponseDto, dailyApi } from "src/daily/api";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
   fetchDaily: createAction("@dailyDetail/FETCH_DAILY_DETAIL")<{
-    daily: DailyDetailPathDto;
+    daily: DailyPathDto;
   }>(),
   fetchDailyAsync: createAsyncAction(
     "@dailyDetail/FETCH_DAILY_DETAIL_REQUEST",
@@ -70,7 +70,7 @@ export function* saga() {
 function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
   yield put(actions.fetchDailyAsync.request());
   try {
-    const daily: DailyDetailResponseDto = yield call(dailyFetcher.find, action.payload.daily);
+    const daily: DailyDetailResponseDto = yield call(dailyApi.find, action.payload.daily);
     yield put(actions.fetchDailyAsync.success({ daily }));
   } catch (e) {
     yield put(actions.fetchDailyAsync.failure({ statusCode: e.status }));

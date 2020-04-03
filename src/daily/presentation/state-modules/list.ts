@@ -1,7 +1,7 @@
 import { produce } from "immer";
 import { call, put, takeLeading } from "redux-saga/effects";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
-import { dailyFetcher, DailyListResponseDto } from "src/daily/api";
+import { dailyApi, DailyListResponseDto } from "src/daily/api";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
@@ -57,7 +57,7 @@ export function* saga() {
 function* sagaFetchDaily() {
   yield put(actions.fetchDailysAsync.request());
   try {
-    const dailys: DailyListResponseDto[] = yield call(dailyFetcher.findAll);
+    const dailys: DailyListResponseDto[] = yield call(dailyApi.findAll);
     yield put(actions.fetchDailysAsync.success({ dailys }));
   } catch (e) {
     yield put(actions.fetchDailysAsync.failure());
