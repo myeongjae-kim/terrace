@@ -1,14 +1,14 @@
 import { produce } from "immer";
 import { call, put, takeLeading } from "redux-saga/effects";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
-import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
+import { DailyDetailPathDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
   fetchDaily: createAction("@dailyDetail/FETCH_DAILY_DETAIL")<{
-    daily: DailyDetailRequestDto;
+    daily: DailyDetailPathDto;
   }>(),
   fetchDailyAsync: createAsyncAction(
     "@dailyDetail/FETCH_DAILY_DETAIL_REQUEST",

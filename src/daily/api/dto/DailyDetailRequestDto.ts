@@ -1,6 +1,6 @@
 export interface DailyDetailRequestDto {
-  year: string;
-  month: string;
-  day: string;
+  seq: number;
+  title: string;
   slug: string;
+  content: string;
 }

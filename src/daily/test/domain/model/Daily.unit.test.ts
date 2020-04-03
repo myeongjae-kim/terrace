@@ -5,13 +5,13 @@ import { doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesE
 export const createDailyFixture = (): Daily => {
   const daily = Daily.from({
     seq: 1,
-    createdAt: new Date("2019-12-29T13:28:03.601+09:00"),
-    updatedAt: new Date("2019-12-29T13:28:03.601+09:00"),
     title: "title",
     content: "content",
     slug: "slug"
   });
   daily.id = "1";
+  daily.createdAt = new Date();
+  daily.updatedAt = new Date();
 
   return daily;
 };
@@ -27,8 +27,6 @@ describe("Daily", () => {
     // given
     const result = Daily.from({
       seq: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
       title: "title",
       content: "content",
       slug: "slug"
@@ -66,7 +64,10 @@ describe("Daily", () => {
   });
 
   it("should return valid uri", () => {
-    expect(daily.getUri()).toBe("/daily/2019/12/29/slug");
+    const now = new Date();
+    daily.createdAt = now;
+
+    expect(daily.getUri()).toBe(`/daily/${getSeoulDateFrom(now).format("YYYY/MM/DD")}/slug`);
   });
 });
 
