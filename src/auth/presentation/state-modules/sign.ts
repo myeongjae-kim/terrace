@@ -78,7 +78,7 @@ function* sagaSignIn(action: ActionType<typeof actions.signIn>) {
   try {
     yield call(authApi.signIn, request);
     yield put(actions.signInAsync.success());
-    Router.back();
+    yield call(Router.back);
     yield put(me());
   } catch (e) {
     yield put(actions.signInAsync.failure({ statusCode: e.status }));

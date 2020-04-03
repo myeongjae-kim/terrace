@@ -1,23 +1,35 @@
 import { produce } from "immer";
 import { call, put, takeLeading } from "redux-saga/effects";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
-import { DailyDetailRequestDto, DailyDetailResponseDto, dailyFetcher } from "src/daily/api";
+import { DailyPathDto, DailyDetailResponseDto, dailyApi } from "src/daily/api";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
+import Router from "next/router";
+import { Endpoints } from "src/common/constants/Constants";
+import * as listModule from "./list";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
   fetchDaily: createAction("@dailyDetail/FETCH_DAILY_DETAIL")<{
-    daily: DailyDetailRequestDto;
+    daily: DailyPathDto;
   }>(),
   fetchDailyAsync: createAsyncAction(
     "@dailyDetail/FETCH_DAILY_DETAIL_REQUEST",
     "@dailyDetail/FETCH_DAILY_DETAIL_SUCCESS",
     "@dailyDetail/FETCH_DAILY_DETAIL_FAILURE",
-  )<void, { daily: DailyDetailResponseDto }, { statusCode: number }>()
+  )<void, { daily: DailyDetailResponseDto }, { statusCode: number }>(),
+
+  deleteDaily: createAction("@dailyDetail/DELETE_DAILY_DETAIL")<{
+    dailyPathDto: DailyPathDto;
+  }>(),
+  deleteDailyAsync: createAsyncAction(
+    "@dailyDetail/DELETE_DAILY_DETAIL_REQUEST",
+    "@dailyDetail/DELETE_DAILY_DETAIL_SUCCESS",
+    "@dailyDetail/DELETE_DAILY_DETAIL_FAILURE",
+  )<void, void, { statusCode: number }>()
 };
 
-export const { reset, fetchDaily } = actions;
+export const { reset, fetchDaily, deleteDaily } = actions;
 export type Action = ActionType<typeof actions>;
 
 export interface State {
@@ -65,18 +77,46 @@ export const reducer = createReducer<State, Action>(createInitialState())
 
 export function* saga() {
   yield takeLeading(getType(fetchDaily), sagaFetchDaily);
+  yield takeLeading(getType(deleteDaily), sagaDeleteDaily);
 }
 
 function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
   yield put(actions.fetchDailyAsync.request());
   try {
-    const daily: DailyDetailResponseDto = yield call(dailyFetcher.find, action.payload.daily);
+    const daily: DailyDetailResponseDto = yield call(dailyApi.find, action.payload.daily);
     yield put(actions.fetchDailyAsync.success({ daily }));
   } catch (e) {
     yield put(actions.fetchDailyAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:daily.find.rejected",
+        messageOptions: { e: stringify(e) },
+        variant: "error"
+      }
+    }));
+  }
+}
+
+function* sagaDeleteDaily(action: ActionType<typeof actions.deleteDaily>) {
+  yield put(actions.deleteDailyAsync.request());
+  try {
+    yield call(dailyApi.delete, action.payload.dailyPathDto);
+    yield put(actions.deleteDailyAsync.success());
+
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: "noti:daily.delete.fulfilled",
+        variant: "success"
+      }
+    }));
+
+    yield call(Router.push, Endpoints.daily);
+    yield put(listModule.fetchDailys());
+  } catch (e) {
+    yield put(actions.deleteDailyAsync.failure({ statusCode: e.status }));
+    yield put(enqueueSnackbar({
+      snackbar: {
+        message: "noti:daily.delete.rejected",
         messageOptions: { e: stringify(e) },
         variant: "error"
       }

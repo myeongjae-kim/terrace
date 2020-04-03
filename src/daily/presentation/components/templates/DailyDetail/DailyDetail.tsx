@@ -2,9 +2,10 @@ import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import ErrorPage from "pages/_error";
 import * as React from "react";
-import { HeadTitle, Link, MarkdownPreview, Maybe } from "src/common/presentation/components/molecules";
+import { HeadTitle, Link, MarkdownPreview, Maybe, MySpeedDial } from "src/common/presentation/components/molecules";
 import { DailyDetailResponseDto } from "src/daily/api";
 import { formatDateTime } from "src/util";
+import { Edit, Delete } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -46,12 +47,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export interface DailyDetailProps {
   daily: DailyDetailResponseDto;
+  isSignedIn: boolean;
   pending: boolean;
   rejected: boolean;
   statusCode: number;
+
+  update(e: React.MouseEvent): void;
+  del(): void;
 }
 
-const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode }) => {
+const DailyDetail: React.FC<DailyDetailProps> = ({ daily, isSignedIn, rejected, statusCode, update, del }) => {
   const classes = useStyles();
   const {
     seq,
@@ -78,6 +83,17 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode }
           </div>
         </div>
       </div>
+      <Maybe test={isSignedIn}>
+        <MySpeedDial actions={[{
+          name: "수정",
+          icon: <Edit />,
+          handleClick: update
+        }, {
+          name: "삭제",
+          icon: <Delete />,
+          handleClick: del
+        }]} />
+      </Maybe>
     </Maybe>
     <Maybe test={rejected}>
       <ErrorPage statusCode={statusCode} />

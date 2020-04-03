@@ -147,7 +147,7 @@ function* sagaCreateBlogArticle(action: ActionType<typeof actions.createBlogArti
   try {
     const creationResponse: CreationResponse = yield call(blogArticleApi.create, action.payload.request);
     yield put(actions.createBlogArticleAsync.success());
-    Router.push("/blog/detail", creationResponse.id);
+    yield call(Router.push, "/blog/detail", creationResponse.id);
 
     yield put(enqueueSnackbar({
       snackbar: {
@@ -177,7 +177,7 @@ function* sagaUpdateBlogArticle(action: ActionType<typeof actions.updateBlogArti
   try {
     yield call(blogArticleApi.update, request, oldPath);
     yield put(actions.updateBlogArticleAsync.success());
-    Router.push("/blog/detail", `/blog${newPath}`);
+    yield call(Router.push, "/blog/detail", `/blog${newPath}`);
 
     yield put(enqueueSnackbar({
       snackbar: {

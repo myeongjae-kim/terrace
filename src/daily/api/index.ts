@@ -1,2 +1,2 @@
-export * from "./DailyFetcher";
+export * from "./dailyApi";
 export * from "./dto";

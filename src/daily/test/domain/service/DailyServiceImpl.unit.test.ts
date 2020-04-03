@@ -6,7 +6,7 @@ import { DailyRepository } from "src/daily/domain/model/DailyRepository";
 import { DailyService, DailyServiceImpl } from "src/daily/domain/service";
 import { formatDateTime } from "src/util";
 import { doesObjectHasNoUndefinedProperties } from "src/util/test";
-import { createDailyDetatilRequestDtoFixture } from "../../api/dto/DailyDetailRequestDto.unit.test";
+import { createDailyDetatilPathDtoFixture } from "../../api/dto/DailyPathDto.unit.test";
 import { createDailyFixture } from "../model/Daily.unit.test";
 
 describe("DailyServiceImpl", () => {
@@ -37,7 +37,7 @@ describe("DailyServiceImpl", () => {
 
   it("should return found single daily.", async () => {
     // given
-    const req = createDailyDetatilRequestDtoFixture();
+    const req = createDailyDetatilPathDtoFixture();
     const daily = createDailyFixture();
 
     req.year = formatDateTime(daily.createdAt, "YYYY");
@@ -55,7 +55,7 @@ describe("DailyServiceImpl", () => {
 
   it("should throw an exception when a daily has not been found.", async () => {
     // given
-    const req = createDailyDetatilRequestDtoFixture();
+    const req = createDailyDetatilPathDtoFixture();
 
     (dailyRepository.findBySlug as jest.Mock<Promise<Optional<Daily>>>).mockResolvedValue(Optional.empty());
 
@@ -66,7 +66,7 @@ describe("DailyServiceImpl", () => {
 
   it("should throw an exception when a daily has invalid date.", async () => {
     // given
-    const req = createDailyDetatilRequestDtoFixture();
+    const req = createDailyDetatilPathDtoFixture();
     const daily = createDailyFixture();
 
     req.year = "9876";

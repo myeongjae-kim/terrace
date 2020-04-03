@@ -6,16 +6,12 @@ export class Daily {
 
   public static from({
     seq,
-    createdAt,
-    updatedAt,
     title,
     content,
     slug
-  }: Omit<Daily, "id" | "getUri" | "isDateMatched">): Daily {
+  }: Pick<Daily, "seq" | "title" | "content" | "slug">): Daily {
     const daily = new Daily();
     daily.seq = seq;
-    daily.createdAt = createdAt;
-    daily.updatedAt = updatedAt;
     daily.title = title;
     daily.content = content;
     daily.slug = slug;
@@ -55,5 +51,12 @@ export class Daily {
     return date.year() === Number(year) &&
       date.month() === (Number(month) - 1) &&
       date.date() === Number(day);
+  };
+
+  public update = ({seq, title, content, slug}: Daily): void => {
+    this.seq = seq;
+    this.title = title;
+    this.content = content;
+    this.slug = slug;
   };
 }

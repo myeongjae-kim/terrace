@@ -1,3 +1,4 @@
 export * from "./DailyListResponseDto";
-export * from "./DailyDetailRequestDto";
+export * from "./DailyPathDto";
 export * from "./DailyDetailResponseDto";
+export * from "./DailyRequestDto";

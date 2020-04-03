@@ -15,6 +15,8 @@ export const Endpoints = {
 
   "daily": "/daily",
   "daily.detail": "/daily/detail",
+  "daily.create": "/daily/create",
+  "daily.update": "/daily/update",
 
   "musings": "/musings",
   "places": "/places",

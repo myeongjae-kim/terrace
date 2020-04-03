@@ -5,16 +5,28 @@ import NextPage from "src/common/domain/model/NextPage";
 import { HeadTitle, PageTitle } from "src/common/presentation/components/molecules";
 import { RootState } from "src/common/presentation/state-module/root";
 import DailyList from "src/daily/presentation/components/templates/DailyList";
-import { DailyListProps } from "src/daily/presentation/components/templates/DailyList/DailyList";
 import * as listModule from "src/daily/presentation/state-modules/list";
+import * as meModule from "src/auth/presentation/state-modules/me";
+import { DailyListResponseDto } from "src/daily/api";
 
-const selector = createSelector<RootState, listModule.State, DailyListProps>(
+interface DailyListPageProps {
+  dailys: DailyListResponseDto[];
+  pending: boolean;
+  rejected: boolean;
+  isSignedIn: boolean;
+}
+
+const selector = createSelector<RootState, listModule.State, meModule.State, DailyListPageProps>(
   root => root.daily.list,
-  list => list
+  root => root.auth.me,
+  (list, me) => ({
+    ...list,
+    isSignedIn: me.isSignedIn
+  })
 );
 
 const DailyPage: NextPage = () => {
-  const props = useSelector<RootState, DailyListProps>(selector);
+  const props = useSelector<RootState, DailyListPageProps>(selector);
 
   return <div>
     <HeadTitle title="Daily" />

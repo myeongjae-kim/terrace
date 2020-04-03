@@ -1,4 +1,4 @@
-export interface DailyDetailRequestDto {
+export interface DailyPathDto {
   year: string;
   month: string;
   day: string;

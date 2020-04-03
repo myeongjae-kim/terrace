@@ -6,7 +6,7 @@ import { BlogArticleRepository } from "src/blog/domain/model/BlogArticleReposito
 import { BlogArticleService, BlogArticleServiceImpl } from "src/blog/domain/service";
 import { formatDateTime } from "src/util";
 import { doesObjectHasNoUndefinedProperties } from "src/util/test";
-import { createBlogArticleDetatilRequestDtoFixture } from "../../api/dto/BlogArticleDetailRequestDto.unit.test";
+import { createBlogArticleDetatilRequestDtoFixture } from "../../api/dto/BlogArticleRequestDto.unit.test";
 import { createBlogArticleFixture } from "../model/BlogArticle.unit.test";
 
 describe("BlogArticleServiceImpl", () => {

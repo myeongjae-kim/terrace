@@ -43,6 +43,18 @@
     },
     "find": {
       "rejected": "Failed to fetch a daily.\n\n{{e}}"
+    },
+    "create": {
+      "fulfilled": "A daily has been created",
+      "rejected": "Failed to creat a daily.\n\n{{e}}"
+    },
+    "update": {
+      "fulfilled": "The daily has been updated",
+      "rejected": "Failed to update a daily.\n\n{{e}}"
+    },
+    "delete": {
+      "fulfilled": "The daily has been deleted",
+      "rejected": "Failed to delete a daily.\n\n{{e}}"
     }
   },
   "blogArticle": {
