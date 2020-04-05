@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       background: "#f5f5f5",
       padding: "15px 20px",
       margin: "0 20px",
-      border: "1px solid #e0e0e0 !important",
+      border: "1px solid #e0e0e0",
       borderRadius: 5,
     },
     "& pre": {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       background: "#f5f5f5",
       padding: 20,
       lineHeight: "1.3em",
-      border: "1px solid #e0e0e0 !important",
+      border: "1px solid #e0e0e0",
       borderRadius: 5,
     },
     "& strong, b": {

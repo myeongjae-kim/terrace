@@ -1,15 +1,15 @@
-import * as React from "react";
 import dynamic from "next/dynamic";
-import { EditorProps } from "@toast-ui/react-editor";
-import { TuiEditorWithForwardedProps } from "./EditorWarpper";
+import * as React from "react";
+import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
+import { TuiEditorWithForwardedProps } from "./TuiEditorWrapper";
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
 }
 
-const Editor = dynamic<TuiEditorWithForwardedProps>(() => import("./EditorWarpper"), { ssr: false });
-const EditorWithForwardedRef = React.forwardRef<any, EditorPropsWithHandlers>((props, ref) => (
-  <Editor {...props} forwardedRef={ref as any} />
+const Editor = dynamic<TuiEditorWithForwardedProps>(() => import("./TuiEditorWrapper"), { ssr: false });
+const EditorWithForwardedRef = React.forwardRef<EditorType | undefined, EditorPropsWithHandlers>((props, ref) => (
+  <Editor {...props} forwardedRef={ref as React.MutableRefObject<EditorType>} />
 ));
 
 interface Props extends EditorProps {
@@ -21,13 +21,13 @@ interface Props extends EditorProps {
 const WysiwygEditor: React.FC<Props> = (props) => {
   const { initialValue, previewStyle, height, initialEditType, useCommandShortcut } = props;
 
-  const editorRef = React.useRef<typeof Editor>();
+  const editorRef = React.useRef<EditorType>();
   const handleChange = React.useCallback(() => {
     if (!editorRef.current) {
       return;
     }
 
-    const instance = (editorRef.current as any).getInstance();
+    const instance = editorRef.current.getInstance();
     const valueType = props.valueType || "markdown";
 
     props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHtml());
@@ -38,7 +38,7 @@ const WysiwygEditor: React.FC<Props> = (props) => {
       {...props}
       initialValue={initialValue || "hello react editor world!"}
       previewStyle={previewStyle || "vertical"}
-      height={height || "600px"}
+      height={height || "calc(100vh - 56px)"}
       initialEditType={initialEditType || "markdown"}
       useCommandShortcut={useCommandShortcut || true}
       ref={editorRef}

@@ -7,7 +7,6 @@ import { BlogArticleForm } from "src/blog/presentation/components/templates";
 import * as formModule from "src/blog/presentation/state-modules/form";
 import NextPage from "src/common/domain/model/NextPage";
 import { RootState } from "src/common/presentation/state-module/root";
-import { WysiwygEditor } from "src/common/presentation/components/organisms";
 
 const selector = createSelector<RootState, formModule.State, { pending: boolean; rejected: boolean }>(
   root => root.blog.form,
@@ -25,11 +24,6 @@ const BlogArticleCreatePage: NextPage = () => {
 
   return <div>
     <BlogArticleForm onSubmit={onSubmit} {...props} />
-    <WysiwygEditor
-      // eslint-disable-next-line no-console
-      valueType="html"
-      onChange={(value) => console.log(value)}
-    />
   </div>;
 };
 
