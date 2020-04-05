@@ -2,12 +2,12 @@ import * as React from "react";
 import dynamic from "next/dynamic";
 import { EditorProps } from "@toast-ui/react-editor";
 
-const Editor = dynamic<EditorProps>(() => import("@toast-ui/react-editor").then(m => m.Editor), { ssr: false });
+const Editor = dynamic<EditorProps>(() => import("./EditorWarpper"), { ssr: false });
 
 const WysiwygEditor: React.FC<EditorProps> = (props) => {
   const { initialValue, previewStyle, height, initialEditType, useCommandShortcut } = props;
 
-  const editorRef = React.useRef<object>();
+  const editorRef = React.useRef<typeof Editor>();
 
   return <div>
     <Editor
@@ -23,7 +23,7 @@ const WysiwygEditor: React.FC<EditorProps> = (props) => {
     {/* eslint-disable-next-line no-console */}
     <div onClick={() => {
       // @ts-ignore
-      console.log(editorRef.current && editorRef.current.getInstance());
+      console.log(editorRef.current);
     }}>aaa</div>
     <br />
     <br />
