@@ -25,7 +25,11 @@ const BlogArticleCreatePage: NextPage = () => {
 
   return <div>
     <BlogArticleForm onSubmit={onSubmit} {...props} />
-    <WysiwygEditor />
+    <WysiwygEditor
+      // eslint-disable-next-line no-console
+      valueType="html"
+      onChange={(value) => console.log(value)}
+    />
   </div>;
 };
 
