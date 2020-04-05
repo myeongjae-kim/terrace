@@ -57,4 +57,8 @@ class EditorWrapper extends React.Component<any, any> {
   }
 }
 
-export default EditorWrapper;
+export default (props: any) => (
+  <EditorWrapper {...props} ref={props.forwardedRef} />
+);
+
+// export default EditorWrapper;

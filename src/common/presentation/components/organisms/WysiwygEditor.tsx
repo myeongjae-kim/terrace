@@ -3,6 +3,10 @@ import dynamic from "next/dynamic";
 import { EditorProps } from "@toast-ui/react-editor";
 
 const Editor = dynamic<EditorProps>(() => import("./EditorWarpper"), { ssr: false });
+const ForwardedRefComponent = React.forwardRef<any, EditorProps>((props, ref) => (
+  // @ts-ignore
+  <Editor {...props} forwardedRef={ref} />
+));
 
 const WysiwygEditor: React.FC<EditorProps> = (props) => {
   const { initialValue, previewStyle, height, initialEditType, useCommandShortcut } = props;
@@ -10,7 +14,7 @@ const WysiwygEditor: React.FC<EditorProps> = (props) => {
   const editorRef = React.useRef<typeof Editor>();
 
   return <div>
-    <Editor
+    <ForwardedRefComponent
       {...props}
       initialValue={initialValue || "hello react editor world!"}
       previewStyle={previewStyle || "vertical"}
