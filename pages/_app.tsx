@@ -1,5 +1,3 @@
-import "codemirror/lib/codemirror.css";
-import "@toast-ui/editor/dist/toastui-editor.css";
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import CssBaseline from "@material-ui/core/CssBaseline";
