@@ -9,7 +9,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => createStyles({
   content: {
     fontSize: "1.1em",
-    lineHeight: 2.2,
+    lineHeight: 1.9,
     fontFamily: "Noto Serif KR",
     margin: `0 ${theme.spacing(1)}px`,
   }

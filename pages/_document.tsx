@@ -22,6 +22,7 @@ class MyDocument extends Document {
             font-family: Source Sans Pro, Noto Sans KR;
             letter-spacing: -0.01em;
             word-spacing: 0.05em;
+            overflow-wrap: break-word;
           }
           img {
             max-width: 100%;

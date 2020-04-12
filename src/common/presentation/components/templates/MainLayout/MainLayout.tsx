@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       opacity: .8,
       background: "#f5f5f5",
       padding: "15px 20px",
-      margin: "0 20px",
+      margin: "0",
       border: "1px solid #e0e0e0 !important",
       borderRadius: 5,
     },
