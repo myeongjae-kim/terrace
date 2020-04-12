@@ -8,6 +8,7 @@ import { BlogArticleDetailResponseDto, BlogArticleRequestDto } from "src/blog/ap
 import { ErrorTypography, MySpeedDial } from "src/common/presentation/components/molecules";
 import { MarkdownEditor } from "src/common/presentation/components/organisms";
 import * as Yup from "yup";
+import { ArticleContent } from "../../organisms";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -126,6 +127,7 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.content}
+              PreviewComponent={ArticleContent}
             />
             <ErrorMessage
               name="content"
