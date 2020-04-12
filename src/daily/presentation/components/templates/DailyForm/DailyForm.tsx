@@ -8,6 +8,7 @@ import { DailyDetailResponseDto, DailyRequestDto } from "src/daily/api";
 import { ErrorTypography, MySpeedDial } from "src/common/presentation/components/molecules";
 import { MarkdownEditor } from "src/common/presentation/components/organisms";
 import * as Yup from "yup";
+import { DailyContent } from "../../organisms";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -126,6 +127,7 @@ const DailyForm: React.FC<Props> = ({ isUpdating, initialValues, pending, onSubm
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.content}
+              PreviewComponent={DailyContent}
             />
             <ErrorMessage
               name="content"

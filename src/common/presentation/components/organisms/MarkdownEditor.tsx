@@ -1,6 +1,5 @@
 import { CardContent, makeStyles, TextField, TextFieldProps, Theme } from "@material-ui/core";
 import * as React from "react";
-import { MarkdownPreview } from "../molecules";
 import Spacer from "../molecules/Spacer";
 import clsx from "clsx";
 
@@ -32,14 +31,19 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const MarkdownEditor: React.FC<TextFieldProps> = (props) => {
+interface Props {
+  PreviewComponent: React.ComponentType<{content: string}>;
+}
+
+
+const MarkdownEditor: React.FC<TextFieldProps & Props> = (props) => {
   const classes = useStyles();
   const { value } = props;
   return <div className={classes.flex}>
     <div className={classes.container}>
       <Spacer size={2.5} />
       <CardContent className={classes.preview}>
-        <MarkdownPreview markdown={value as string} />
+        <props.PreviewComponent content={value as string} />
       </CardContent>
     </div>
     <div className={clsx(classes.container, classes.fieldContainer)}>
@@ -47,6 +51,9 @@ const MarkdownEditor: React.FC<TextFieldProps> = (props) => {
         <TextField
           {...props}
           multiline
+          style={{
+            fontFamily: "Noto Serif KR"
+          }}
         />
       </CardContent>
     </div>

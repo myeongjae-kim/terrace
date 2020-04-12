@@ -4,7 +4,7 @@ import ErrorPage from "pages/_error";
 import * as React from "react";
 import { BlogArticleDetailResponseDto } from "src/blog/api";
 import { HeadTitle, Maybe, MySpeedDial } from "src/common/presentation/components/molecules";
-import ArticleContent from "./ArticleContent";
+import { ArticleContent } from "../../organisms";
 import ArticleHead from "./ArticleHead";
 import ArticlePrevAndNext from "./ArticlePrevAndNext";
 

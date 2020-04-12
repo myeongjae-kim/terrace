@@ -2,10 +2,11 @@ import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import ErrorPage from "pages/_error";
 import * as React from "react";
-import { HeadTitle, Link, MarkdownPreview, Maybe, MySpeedDial } from "src/common/presentation/components/molecules";
+import { HeadTitle, Link, Maybe, MySpeedDial } from "src/common/presentation/components/molecules";
 import { DailyDetailResponseDto } from "src/daily/api";
 import { formatDateTime } from "src/util";
 import { Edit, Delete } from "@material-ui/icons";
+import { DailyContent } from "../../organisms";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -23,26 +24,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     justifyContent: "center",
   },
-  markdownContainer: {
-    textIndent: ".5em",
-    background: "#f4f4f4",
-    padding: "5px 10px 5px 10px",
-    margin: `0 ${theme.spacing(0.5)}px`,
-    fontSize: ".9em",
-    lineHeight: "1.6em",
-    border: "1px solid #e0e0e0!important",
-    borderRadius: 5,
-  },
-  markdownPreview: {
-    "& blockquote": {
-      textIndent: "initial",
-      backgroundColor: "#fff",
-      border: "1px solid #e0e0e0!important",
-      borderRadius: 5,
-      margin: "5px 0",
-      padding: "0 20px",
-    }
-  }
 }));
 
 export interface DailyDetailProps {
@@ -78,8 +59,8 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, isSignedIn, rejected, 
               </Typography>
             </Link>
           </div>
-          <div className={clsx(classes.center, classes.markdownContainer)}>
-            <MarkdownPreview markdown={content} className={clsx(classes.markdownPreview, classes.serif)} />
+          <div className={clsx(classes.center)}>
+            <DailyContent content={content} />
           </div>
         </div>
       </div>
