@@ -1,6 +1,6 @@
 import * as React from "react";
-import { IconButton, makeStyles, createStyles } from "@material-ui/core";
-import { Brightness5, Brightness4 } from "@material-ui/icons";
+import { IconButton, makeStyles, createStyles, NoSsr } from "@material-ui/core";
+import { Brightness7, Brightness4 } from "@material-ui/icons";
 
 interface Props {
   isDark: boolean;
@@ -20,9 +20,11 @@ const useStyles = makeStyles(theme => createStyles({
 const ColorModeChangeButton: React.FC<Props> = ({isDark, toggle}) => {
   const classes = useStyles();
 
-  return <IconButton className={classes.icon} onClick={toggle}>
-    {isDark ? <Brightness5 /> : <Brightness4 />}
-  </IconButton>;
+  return <NoSsr>
+    <IconButton className={classes.icon} onClick={toggle}>
+      {isDark ? <Brightness7 /> : <Brightness4 />}
+    </IconButton>
+  </NoSsr>;
 };
  
 export default ColorModeChangeButton;

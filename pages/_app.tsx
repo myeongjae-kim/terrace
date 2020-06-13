@@ -25,8 +25,8 @@ import { isServer } from "src/util";
 import { NextComponentType } from "next";
 import { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
-import { useMediaQuery } from "@material-ui/core";
 import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
+import { usePersistentDarkModePreference } from "src/common/domain/model/usePersistentDarkModePreferences";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -85,8 +85,8 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
 
   store.dispatch(setPaths({ pathname: router.asPath }));
 
-  const [prefersDarkMode, setPrefersDarkMode] = React.useState(useMediaQuery("(prefers-color-scheme: dark)"));
-  const toggleColorMode = React.useCallback(() => setPrefersDarkMode(!prefersDarkMode), [prefersDarkMode]);
+  const [prefersDarkMode, toggleColorMode] =
+     usePersistentDarkModePreference("@myeongjae.kim/PREFERS_DARK_MODE");
 
   const theme = React.useMemo(() => themeCreator(prefersDarkMode), [prefersDarkMode]);
 
