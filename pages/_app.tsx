@@ -122,13 +122,15 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
 
       <ReduxStoreProvider store={store}>
         <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
-          <MainLayout>
-            <ColorModeChangeButton isDark={prefersDarkMode} toggle={toggleColorMode} />
-            <Component {...pageProps} />
-          </MainLayout>
-          <ConfirmContainer />
-          <SnackbarContainer />
-          <NotificationCenterContainer />
+          <>
+            <MainLayout>
+              <ColorModeChangeButton isDark={prefersDarkMode} toggle={toggleColorMode} />
+              <Component {...pageProps} />
+            </MainLayout>
+            <ConfirmContainer />
+            <SnackbarContainer />
+            <NotificationCenterContainer />
+          </>
         </SnackbarProvider>
       </ReduxStoreProvider>
     </ThemeProvider>

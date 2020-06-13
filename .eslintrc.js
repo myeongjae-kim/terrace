@@ -32,10 +32,16 @@ module.exports = {
     "@typescript-eslint"
   ],
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": [ // TODO: Remove this setting
+    "@typescript-eslint/explicit-module-boundary-types": [ // TODO: Remove this setting
+      "off"
+    ],
+    "@typescript-eslint/no-non-null-assertion": [ // TODO: Remove this setting
       "off"
     ],
     "@typescript-eslint/no-explicit-any": [ // TODO: Remove this setting.
+      "off"
+    ],
+    "@typescript-eslint/ban-ts-ignore": [ // TODO: Remove this setting
       "off"
     ],
     "indent": [
@@ -50,18 +56,16 @@ module.exports = {
       "error",
       "double"
     ],
+    "semi": [
+      "error",
+      "always"
+    ],
 
     "semi": "off",
     "@typescript-eslint/semi": ["error", "always"],
     "no-extra-semi": "off",
     "@typescript-eslint/no-extra-semi": ["error"],
 
-    "@typescript-eslint/interface-name-prefix": [
-      "error",
-      {
-        "prefixWithI": "never"
-      }
-    ],
     "@typescript-eslint/no-use-before-define": [
       "off"
     ],
