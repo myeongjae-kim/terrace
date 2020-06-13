@@ -15,7 +15,7 @@ import { AnyAction, applyMiddleware, createStore, Middleware, Store } from "redu
 import { DOMAIN } from "src/common/constants/Constants";
 import I18NService from "src/common/domain/service/I18NService";
 import { MainLayout } from "src/common/presentation/components/templates";
-import theme from "src/common/presentation/components/theme";
+import themeCreator from "src/common/presentation/components/themeCreator";
 import ConfirmContainer from "src/common/presentation/container/molecules/ConfirmContainer";
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
@@ -25,6 +25,7 @@ import { isServer } from "src/util";
 import { NextComponentType } from "next";
 import { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
+import { useMediaQuery } from "@material-ui/core";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -82,6 +83,9 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
   useEveryUpdate();
 
   store.dispatch(setPaths({ pathname: router.asPath }));
+
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const theme = React.useMemo(() => themeCreator(prefersDarkMode), [prefersDarkMode]);
 
   return <>
     <Head>

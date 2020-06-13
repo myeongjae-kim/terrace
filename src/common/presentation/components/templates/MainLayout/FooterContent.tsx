@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "src/common/presentation/state-module/root";
 import { Link } from "../../molecules";
 
-const useStyles = makeStyles(createStyles({
+const useStyles = makeStyles(theme => createStyles({
   footer: {
     display: "flex",
     justifyContent: "space-between",
@@ -15,7 +15,8 @@ const useStyles = makeStyles(createStyles({
     width: 50,
     height: 50,
     marginTop: -20,
-    pointerEvents: "none"
+    pointerEvents: "none",
+    opacity: theme.palette.type === "dark" ? 0 : "initial"
   }
 }));
 
