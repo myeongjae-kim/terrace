@@ -26,6 +26,7 @@ import { NextComponentType } from "next";
 import { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
 import { useMediaQuery } from "@material-ui/core";
+import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -84,7 +85,9 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
 
   store.dispatch(setPaths({ pathname: router.asPath }));
 
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [prefersDarkMode, setPrefersDarkMode] = React.useState(useMediaQuery("(prefers-color-scheme: dark)"));
+  const toggleColorMode = React.useCallback(() => setPrefersDarkMode(!prefersDarkMode), [prefersDarkMode]);
+
   const theme = React.useMemo(() => themeCreator(prefersDarkMode), [prefersDarkMode]);
 
   return <>
@@ -118,6 +121,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
       <ReduxStoreProvider store={store}>
         <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
           <MainLayout>
+            <ColorModeChangeButton isDark={prefersDarkMode} toggle={toggleColorMode} />
             <Component {...pageProps} />
           </MainLayout>
           <ConfirmContainer />
