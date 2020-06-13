@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: "100%",
     textAlign: "justify",
     border: 0,
-    boxShadow: "2px 2px 15px #ccc",
+    boxShadow: `2px 2px 15px ${theme.palette.type === "dark" ? "#000" : "#ccc"}`,
     display: "block",
     margin: "auto"
   },

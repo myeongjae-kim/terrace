@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: `0 ${theme.spacing(0.5)}px`,
     lineHeight: 1.6,
     "& img[src*=\"#shadow\"]": {
-      boxShadow: "2px 2px 15px #ccc",
+      boxShadow: `2px 2px 15px ${theme.palette.type === "dark" ? "#000" : "#ccc"}`,
     },
     "& img[src*=\"#round\"]": {
       borderRadius: "5px",
@@ -39,19 +39,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       fontFamily: "Noto Serif KR",
       textIndent: ".5em",
       opacity: .8,
-      background: "#f5f5f5",
+      background: theme.palette.background.paper,
       padding: "15px 20px",
       margin: "0",
-      border: "1px solid #e0e0e0 !important",
+      border: `1px solid ${theme.palette.divider} !important`,
       borderRadius: 5,
     },
     "& pre": {
       whiteSpace: "pre-wrap",
       wordWrap: "break-word",
-      background: "#f5f5f5",
+      background: theme.palette.background.paper,
       padding: 20,
       lineHeight: "1.3em",
-      border: "1px solid #e0e0e0 !important",
+      border: `1px solid ${theme.palette.divider} !important`,
       borderRadius: 5,
     },
     "& strong, b": {
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       opacity: 0.7
     },
     "& code": {
-      background: "rgba(83, 173, 241, 0.1)"
+      background: theme.palette.background.paper,
     },
     "& pre code": {
       background: "initial"

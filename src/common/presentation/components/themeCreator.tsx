@@ -1,21 +1,21 @@
 import red from "@material-ui/core/colors/red";
 import { createMuiTheme } from "@material-ui/core/styles";
+import { teal, lightBlue } from "@material-ui/core/colors";
+
+const primary = {
+  light: "#53adf1",
+  main: "#3073b3",
+  dark: "#00498f",
+  contrastText: "#fff"
+};
 
 // Create a theme instance.
-const theme = createMuiTheme({
+const themeCreator = (prefersDarkMode: boolean) => createMuiTheme({
   palette: {
-    primary: {
-      light: "#53adf1",
-      main: "#3073b3",
-      dark: "#00498f",
-      contrastText: "#fff"
-    },
-    secondary: {
-      main: "#19857b",
-    },
-    error: {
-      main: red.A400,
-    },
+    type: prefersDarkMode ? "dark" : "light",
+    primary: prefersDarkMode ? lightBlue : primary,
+    secondary: teal,
+    error: red,
   },
   typography: {
     fontWeightRegular: 300,
@@ -54,4 +54,4 @@ const theme = createMuiTheme({
   },
 });
 
-export default theme;
+export default themeCreator;

@@ -1,7 +1,6 @@
 import { ServerStyleSheets } from "@material-ui/styles";
 import Document, { Head, Main, NextScript } from "next/document";
 import React from "react";
-import theme from "../src/common/presentation/components/theme";
 
 class MyDocument extends Document {
   public render() {
@@ -16,7 +15,7 @@ class MyDocument extends Document {
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content="#3073b3" />
           <style>{`
           body {
             font-family: Source Sans Pro, Noto Sans KR;

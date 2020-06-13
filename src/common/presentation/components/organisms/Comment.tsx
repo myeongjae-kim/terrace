@@ -1,4 +1,4 @@
-import { NoSsr } from "@material-ui/core";
+import { NoSsr, useTheme, PaletteType } from "@material-ui/core";
 import * as React from "react";
 
 interface Props {
@@ -6,9 +6,11 @@ interface Props {
 }
 
 const Utterances: React.FC<Props> = ({ identifier }) => {
+  const theme = useTheme();
+
   React.useEffect(() => {
-    initComment();
-  }, [identifier]);
+    initComment(theme.palette.type);
+  }, [identifier, theme.palette.type]);
 
   return <div id="comment-container" style={{
     margin: "auto",
@@ -24,7 +26,7 @@ const Comment: React.FC<Props> = (props) => {
 
 export default Comment;
 
-const initComment = () => {
+const initComment = (paletteType: PaletteType) => {
   const utterancesContainer = document.querySelector("#comment-container");
   if (!utterancesContainer) {
     return;
@@ -35,7 +37,7 @@ const initComment = () => {
   utterances.setAttribute("src", "https://utteranc.es/client.js");
   utterances.setAttribute("repo", "myeongjae-kim/terrace-utterances");
   utterances.setAttribute("issue-term", "pathname");
-  utterances.setAttribute("theme", "github-light");
+  utterances.setAttribute("theme", paletteType === "dark" ? "photon-dark" : "github-light");
   utterances.setAttribute("crossorigin", "anonymous");
   utterances.async = true;
   utterancesContainer.appendChild(utterances);
