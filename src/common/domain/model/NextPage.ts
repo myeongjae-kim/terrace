@@ -10,6 +10,6 @@ interface NextPageContextWithStore extends NextPageContext {
   store: Store<RootState>;
 }
 
-type NextPage<P = {}, IP = P> = NextComponentType<NextPageContextWithStore, IP | DefaultCustomProps, P>;
+type NextPage<P = Record<string, unknown>, IP = P> = NextComponentType<NextPageContextWithStore, IP | DefaultCustomProps, P>;
 
 export default NextPage;

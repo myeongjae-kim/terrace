@@ -20,5 +20,6 @@
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-  }
+    "skipLibCheck": true
+  },
 }

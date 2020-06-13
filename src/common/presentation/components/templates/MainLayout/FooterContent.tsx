@@ -1,9 +1,8 @@
-import { createStyles, makeStyles, Typography } from "@material-ui/core";
+import { createStyles, Link, makeStyles, Typography } from "@material-ui/core";
 import Router from "next/router";
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/common/presentation/state-module/root";
-import { Link } from "../../molecules";
 
 const useStyles = makeStyles(theme => createStyles({
   footer: {
