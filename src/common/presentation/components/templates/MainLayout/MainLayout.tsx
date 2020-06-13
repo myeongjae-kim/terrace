@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       border: 0,
       height: 1,
       background: "#333",
-      backgroundImage: "linear-gradient(90deg, #ccc,#333, #ccc)",
+      backgroundImage: `linear-gradient(90deg, ${theme.palette.type === "dark" ? "#333,#ccc,#333" : "#ccc,#333,#ccc"})`,
       opacity: .7
     },
     "& figure": {
