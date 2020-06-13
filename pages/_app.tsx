@@ -27,6 +27,7 @@ import { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
 import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
 import { usePersistentDarkModePreference } from "src/common/domain/model/usePersistentDarkModePreferences";
+import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -117,6 +118,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
+      <PrismjsThemeSupport />
 
       <ReduxStoreProvider store={store}>
         <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
