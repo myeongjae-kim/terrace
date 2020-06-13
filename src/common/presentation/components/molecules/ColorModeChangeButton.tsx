@@ -9,7 +9,7 @@ interface Props {
  
 const useStyles = makeStyles(theme => createStyles({
   icon: {
-    position: "fixed",
+    position: "absolute",
     top: theme.spacing(2),
     right: theme.spacing(2),
     opacity: 0.5,
