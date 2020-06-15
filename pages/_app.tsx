@@ -103,7 +103,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Componen
         url: DOMAIN,
         site_name: "Myeongjae Kim",
         images: [{
-          url: "https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=800",
+          url: "https://cdn.myeongjae.kim/blog/default-thumbnail.png",
           width: 400,
           height: 400,
           alt: "Myeongjae Kim",
