@@ -5,22 +5,19 @@ ARG browser_env
 ENV browser_env $browser_env
 
 # nginx
-RUN apk update && apk add nginx
-
-RUN rm -rf /etc/nginx/conf.d/default.conf
-RUN mkdir -p /myeongjae/logs/nginx/
-RUN mkdir -p /myeongjae/service/static
+RUN apk update && apk add nginx &&\
+  rm -rf /etc/nginx/conf.d/default.conf &&\
+  mkdir -p /myeongjae/logs/nginx/ &&\
+  mkdir -p /myeongjae/service/static &&\
+  mkdir -p /usr/local/helloworld/ &&\
+  cd /usr/local/helloworld/ &&\
+  mkdir -p pages public scripts server src templates
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-# app
-RUN mkdir -p /usr/local/helloworld/
-
 WORKDIR /usr/local/helloworld/
-
-RUN mkdir -p pages public scripts server src templates
 
 COPY pages pages/
 COPY public public/
