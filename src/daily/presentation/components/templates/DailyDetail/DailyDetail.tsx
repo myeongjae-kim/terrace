@@ -11,7 +11,7 @@ import { DailyContent } from "../../organisms";
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     maxWidth: theme.spacing(62.5),
-    marginBottom: theme.spacing(3),
+    margin: `auto auto ${theme.spacing(3)} auto`
   },
   title: {
     margin: `${theme.spacing(3)}px 0 ${theme.spacing(4)}px 0`,
@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: 400,
   },
   center: {
-    display: "flex",
-    justifyContent: "center",
+    textAlign: "center"
   },
 }));
 
@@ -50,18 +49,16 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, isSignedIn, rejected, 
   return <>
     <Maybe test={!rejected}>
       <HeadTitle title={title} />
-      <div className={classes.center}>
-        <div className={classes.container}>
-          <div className={classes.center}>
-            <Link href="/daily/detail" as={"./" + slug}>
-              <Typography className={clsx(classes.serif, classes.title)}>
-                {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
-              </Typography>
-            </Link>
-          </div>
-          <div className={clsx(classes.center)}>
-            <DailyContent content={content} />
-          </div>
+      <div className={classes.container}>
+        <div className={classes.center}>
+          <Link href="/daily/detail" as={"./" + slug}>
+            <Typography className={clsx(classes.serif, classes.title)}>
+              {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
+            </Typography>
+          </Link>
+        </div>
+        <div>
+          <DailyContent content={content} />
         </div>
       </div>
       <Maybe test={isSignedIn}>
