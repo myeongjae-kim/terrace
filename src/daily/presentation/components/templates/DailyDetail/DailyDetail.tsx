@@ -11,7 +11,7 @@ import { DailyContent } from "../../organisms";
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     maxWidth: theme.spacing(62.5),
-    margin: `auto auto ${theme.spacing(3)} auto`
+    margin: `auto auto ${theme.spacing(3)}px auto`
   },
   title: {
     margin: `${theme.spacing(3)}px 0 ${theme.spacing(4)}px 0`,
