@@ -21,13 +21,14 @@ const themeCreator = (prefersDarkMode: boolean) => createMuiTheme({
     fontWeightRegular: 300,
     h1: {
       fontSize: "3rem",
-      fontWeight: 100,
+      fontWeight: 100
     },
     h2: {
-      fontSize: "2.375rem"
+      fontSize: "2rem",
+      fontWeight: 100
     },
     h3: {
-      fontSize: "2rem"
+      fontSize: "1.75rem"
     },
     h4: {
       fontSize: "1.5rem"

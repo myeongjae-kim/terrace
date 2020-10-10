@@ -30,22 +30,46 @@ class MyDocument extends Document {
             font-family: Inconsolata; 
           }
           h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
+            font-weight: 100;
+            font-family: Noto Sans KR;
+            margin-top: 1.2em;
+            margin-bottom: 8px;
           }
           h2 {
-            font-size: 2rem;
+            font-size: 2.25rem;
+            font-weight: 100;
+            font-family: Noto Sans KR;
+            margin-top: 1.2em;
+            margin-bottom: 8px;
           }
           h3 {
-            font-size: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            font-family: Noto Sans KR;
+            margin-top: 1.2em;
+            margin-bottom: 8px;
           }
           h4 {
-            font-size: 1.5rem;
+            font-size: 1.125rem;
+            font-weight: bold;
+            font-family: Noto Sans KR;
+            margin-top: 1.2em;
+            margin-bottom: 8px;
           }
           h5 {
-            font-size: 1.25rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: Noto Sans KR;
+            margin-top: 1.2em;
+            margin-bottom: 8px;
           }
           h6 {
-            font-size: 1.125rem;
+            font-size: 0.875rem;
+            font-weight: bold;
+            font-family: Noto Sans KR;
+            margin-top: 1.2em;
+            margin-bottom: 8px;
           }
         `}</style>
         </Head>
