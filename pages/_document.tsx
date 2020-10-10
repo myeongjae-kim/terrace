@@ -35,6 +35,7 @@ class MyDocument extends Document {
             font-family: Noto Sans KR;
             margin-top: 1.2em;
             margin-bottom: 8px;
+            line-height: 1.4;
           }
           h2 {
             font-size: 2.25rem;
@@ -42,6 +43,7 @@ class MyDocument extends Document {
             font-family: Noto Sans KR;
             margin-top: 1.2em;
             margin-bottom: 8px;
+            line-height: 1.4;
           }
           h3 {
             font-size: 1.25rem;
@@ -49,6 +51,7 @@ class MyDocument extends Document {
             font-family: Noto Sans KR;
             margin-top: 1.2em;
             margin-bottom: 8px;
+            line-height: 1.4;
           }
           h4 {
             font-size: 1.125rem;
@@ -56,6 +59,7 @@ class MyDocument extends Document {
             font-family: Noto Sans KR;
             margin-top: 1.2em;
             margin-bottom: 8px;
+            line-height: 1.4;
           }
           h5 {
             font-size: 1rem;
@@ -63,6 +67,7 @@ class MyDocument extends Document {
             font-family: Noto Sans KR;
             margin-top: 1.2em;
             margin-bottom: 8px;
+            line-height: 1.4;
           }
           h6 {
             font-size: 0.875rem;
@@ -70,6 +75,7 @@ class MyDocument extends Document {
             font-family: Noto Sans KR;
             margin-top: 1.2em;
             margin-bottom: 8px;
+            line-height: 1.4;
           }
         `}</style>
         </Head>
