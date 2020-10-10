@@ -11,7 +11,9 @@
           "java",
           "bash",
           "vim",
-          "yaml"
+          "yaml",
+          "kotlin",
+          "c"
         ],
         "plugins": [],
         "css": false
