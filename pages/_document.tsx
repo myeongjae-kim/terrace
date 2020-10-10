@@ -38,7 +38,7 @@ class MyDocument extends Document {
             line-height: 1.4;
           }
           h2 {
-            font-size: 2.25rem;
+            font-size: 2rem;
             font-weight: 100;
             font-family: Noto Sans KR;
             margin-top: 1.2em;
