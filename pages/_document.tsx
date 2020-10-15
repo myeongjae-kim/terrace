@@ -36,6 +36,7 @@ class MyDocument extends Document {
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
+            cursor: default;
           }
           h2 {
             font-size: 2rem;
@@ -44,6 +45,7 @@ class MyDocument extends Document {
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
+            cursor: default;
           }
           h3 {
             font-size: 1.25rem;
@@ -52,6 +54,7 @@ class MyDocument extends Document {
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
+            cursor: default;
           }
           h4 {
             font-size: 1.125rem;
@@ -60,6 +63,7 @@ class MyDocument extends Document {
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
+            cursor: default;
           }
           h5 {
             font-size: 1rem;
@@ -68,6 +72,7 @@ class MyDocument extends Document {
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
+            cursor: default;
           }
           h6 {
             font-size: 0.875rem;
@@ -76,6 +81,7 @@ class MyDocument extends Document {
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
+            cursor: default;
           }
         `}</style>
         </Head>
