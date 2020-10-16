@@ -1,5 +1,19 @@
 # Full Stack Next.js with TypeScript sample (https://myeongjae.kim)
 
+## Initialize local database
+
+```bash
+docker-compose up
+npm run db
+mysql -u root -p # password is 'secret'
+
+CREATE DATABASE myeongjaekim
+GRANT ALL PRIVILEGES ON database_name.* TO 'mariadb'@'%'
+
+# exit to local
+npm run migrate
+```
+
 ## 기술 스택
 
 - Server Side Rednering with Next.js
