@@ -85,6 +85,7 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
       statusCode={statusCode}
       update={update}
       del={del} />
+    <Comment identifier={uri} />
     <DailyList
       dailys={dailyList}
       pending={false}
@@ -92,7 +93,6 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
       isSignedIn={isSignedIn}
       currentDaily={dailyDetail}
     />
-    <Comment identifier={uri} />
     <style jsx global>{`
 #comment-container {
   max-width: ${theme.spacing(62.5)}px;
