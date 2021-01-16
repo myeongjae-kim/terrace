@@ -4,26 +4,28 @@ export const DOMAIN = process.env.DOMAIN;
 export const DOMAIN_BLOG = process.env.DOMAIN_BLOG;
 
 export const Endpoints = {
-  "auth": "/auth",
+  auth: "/auth",
 
-  "about": "/about",
+  about: "/about",
 
-  "blog": "/blog",
+  blog: "/blog",
   "blog.detail": "/blog/detail",
   "blog.create": "/blog/create",
   "blog.update": "/blog/update",
 
-  "daily": "/daily",
+  daily: "/daily",
   "daily.detail": "/daily/detail",
   "daily.create": "/daily/create",
   "daily.update": "/daily/update",
 
-  "musings": "/musings",
-  "places": "/places",
+  musings: "/musings",
+  places: "/places",
 };
 
-export const TITLE_POSTFIX = " :: Myeongjae Kim";
-export const API_HOST = isServer() ? `http://localhost:${process.env.PORT}` : "";
+export const TITLE_POSTFIX = " :: 김명재, Myeongjae Kim";
+export const API_HOST = isServer()
+  ? `http://localhost:${process.env.PORT}`
+  : "";
 
 export const JWT_COOKIE_KEY = process.env.JWT_COOKIE_KEY || "";
 export const JWT_MAX_AGE = process.env.JWT_MAX_AGE || "";

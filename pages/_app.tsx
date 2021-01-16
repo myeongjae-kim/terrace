@@ -11,7 +11,13 @@ import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactGA from "react-ga";
 import { Provider as ReduxStoreProvider } from "react-redux";
-import { AnyAction, applyMiddleware, createStore, Middleware, Store } from "redux";
+import {
+  AnyAction,
+  applyMiddleware,
+  createStore,
+  Middleware,
+  Store,
+} from "redux";
 import { DOMAIN } from "src/common/constants/Constants";
 import I18NService from "src/common/domain/service/I18NService";
 import { MainLayout } from "src/common/presentation/components/templates";
@@ -20,7 +26,11 @@ import ConfirmContainer from "src/common/presentation/container/molecules/Confir
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
 import { setPaths } from "src/common/presentation/state-module/common";
-import { rootReducer, rootSaga, RootState } from "src/common/presentation/state-module/root";
+import {
+  rootReducer,
+  rootSaga,
+  RootState,
+} from "src/common/presentation/state-module/root";
 import { isServer } from "src/util";
 import { NextComponentType } from "next";
 import { AppContext, AppInitialProps, AppProps } from "next/app";
@@ -38,7 +48,9 @@ const makeStore = (preloadedState = {} as RootState) => {
     if (process.env.NODE_ENV !== "production") {
       const { composeWithDevTools } = require("redux-devtools-extension");
       const { createLogger } = require("redux-logger");
-      return composeWithDevTools(applyMiddleware(createLogger(), ...middlewares));
+      return composeWithDevTools(
+        applyMiddleware(createLogger(), ...middlewares)
+      );
     }
     return applyMiddleware(...middlewares);
   };
@@ -71,7 +83,7 @@ const useInit = () => {
 };
 
 const useEveryUpdate = () => {
-  React.useEffect(() =>  {
+  React.useEffect(() => {
     if (isServer()) {
       return;
     }
@@ -80,61 +92,76 @@ const useEveryUpdate = () => {
   });
 };
 
-const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({ Component, pageProps, store, router }) => {
+const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
+  Component,
+  pageProps,
+  store,
+  router,
+}) => {
   useInit();
   useEveryUpdate();
 
   store.dispatch(setPaths({ pathname: router.asPath }));
 
-  const [prefersDarkMode, toggleColorMode] =
-     usePersistentDarkModePreference("@myeongjae.kim/PREFERS_DARK_MODE");
+  const [prefersDarkMode, toggleColorMode] = usePersistentDarkModePreference(
+    "@myeongjae.kim/PREFERS_DARK_MODE"
+  );
 
-  const theme = React.useMemo(() => themeCreator(prefersDarkMode), [prefersDarkMode]);
+  const theme = React.useMemo(() => themeCreator(prefersDarkMode), [
+    prefersDarkMode,
+  ]);
 
-  return <>
-    <Head>
-      <title>:: Myeongjae Kim</title>
-    </Head>
+  return (
+    <>
+      <Head>
+        <title>:: 김명재, Myeongjae Kim</title>
+      </Head>
 
-    <DefaultSeo
-      openGraph={{
-        type: "website",
-        locale: "ko_KR",
-        url: DOMAIN,
-        site_name: "Myeongjae Kim",
-        images: [{
-          url: "https://cdn.myeongjae.kim/blog/default-thumbnail.png",
-          width: 400,
-          height: 400,
-          alt: "Myeongjae Kim",
-        }]
-      }}
-      twitter={{
-        handle: "@myeongjae_kim",
-        site: "@myeongjae_kim",
-        cardType: "summary",
-      }}
-    />
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
-      <PrismjsThemeSupport />
+      <DefaultSeo
+        openGraph={{
+          type: "website",
+          locale: "ko_KR",
+          url: DOMAIN,
+          site_name: "김명재, Myeongjae Kim",
+          images: [
+            {
+              url: "https://cdn.myeongjae.kim/blog/default-thumbnail.png",
+              width: 400,
+              height: 400,
+              alt: "김명재, Myeongjae Kim",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@myeongjae_kim",
+          site: "@myeongjae_kim",
+          cardType: "summary",
+        }}
+      />
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <PrismjsThemeSupport />
 
-      <ReduxStoreProvider store={store}>
-        <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
-          <>
-            <MainLayout>
-              <ColorModeChangeButton isDark={prefersDarkMode} toggle={toggleColorMode} />
-              <Component {...pageProps} />
-            </MainLayout>
-            <ConfirmContainer />
-            <SnackbarContainer />
-            <NotificationCenterContainer />
-          </>
-        </SnackbarProvider>
-      </ReduxStoreProvider>
-    </ThemeProvider>
-  </>;
+        <ReduxStoreProvider store={store}>
+          <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
+            <>
+              <MainLayout>
+                <ColorModeChangeButton
+                  isDark={prefersDarkMode}
+                  toggle={toggleColorMode}
+                />
+                <Component {...pageProps} />
+              </MainLayout>
+              <ConfirmContainer />
+              <SnackbarContainer />
+              <NotificationCenterContainer />
+            </>
+          </SnackbarProvider>
+        </ReduxStoreProvider>
+      </ThemeProvider>
+    </>
+  );
 };
 
 MyApp.getInitialProps = async (appContext) => {
