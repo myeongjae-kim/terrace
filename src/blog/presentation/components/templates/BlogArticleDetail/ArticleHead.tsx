@@ -29,7 +29,7 @@ const ArticleHead: React.FC<Props> = ({ title, slug, createdAt }) => {
   const classes = useStyles();
   return <div className={classes.container}>
     <div className={classes.head}>
-      <Link href="/blog/detail" as={"./" + slug} color="textPrimary" shallow={true}>
+      <Link href={"/blog" + formatDateTime(createdAt, "/YYYY/MM/DD/") + slug} color="textPrimary" shallow={true}>
         <Typography variant="h1">{title}</Typography>
       </Link>
     </div >

@@ -49,7 +49,7 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode})
       <HeadTitle title={title} />
       <div className={classes.container}>
         <div className={classes.center}>
-          <Link href="/daily/detail" as={"./" + slug}>
+          <Link href={"/daily" + formatDateTime(createdAt, "/YYYY/MM/DD/") + slug} shallow={true}>
             <Typography className={clsx(classes.serif, classes.title)}>
               {seq}. [{formatDateTime(createdAt, "YYYY.MM.DD")}] {title}
             </Typography>
