@@ -1,5 +1,3 @@
-import { isServer } from "src/util";
-
 export const DOMAIN = process.env.DOMAIN;
 export const DOMAIN_BLOG = process.env.DOMAIN_BLOG;
 
@@ -8,7 +6,7 @@ export const Endpoints = {
 
   about: "/about",
 
-  blog: "/blog",
+  blog: "/blog-articles",
   "blog.detail": "/blog/detail",
   "blog.create": "/blog/create",
   "blog.update": "/blog/update",
@@ -23,9 +21,7 @@ export const Endpoints = {
 };
 
 export const TITLE_POSTFIX = " :: 김명재, Myeongjae Kim";
-export const API_HOST = isServer()
-  ? `http://localhost:${process.env.PORT}`
-  : "";
+export const API_HOST = "https://myeongjae-kim.herokuapp.com/api";
 
 export const JWT_COOKIE_KEY = process.env.JWT_COOKIE_KEY || "";
 export const JWT_MAX_AGE = process.env.JWT_MAX_AGE || "";

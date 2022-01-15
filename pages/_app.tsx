@@ -38,8 +38,11 @@ import App from "next/app";
 import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
 import { usePersistentDarkModePreference } from "src/common/domain/model/usePersistentDarkModePreferences";
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
+import Axios from "axios";
 
 ReactGA.initialize("UA-126240406-1");
+
+Axios.defaults.headers.common["Authorization"] = "Bearer " + "5a70017af2167b32423da52e7151e5f224afff44ca00142e65456116b1fa546eb43b585d9f7833da5f436f86eb93249ad25a2e9c78f7d7336aaccaac098edf8e328a1671d91cd9c3e301bd1c1cc21ed15f8f136f537af1fcd37d06eb7ca0d3ff5a8060e76d98d96ddf2611fe151ea3ea6589dfe7011cd4f72143d2bcc8becf3e";
 
 const { appWithTranslation } = I18NService;
 

@@ -25,3 +25,5 @@ yarn-error.log*
 .browser-env
 
 report.html
+
+.idea
