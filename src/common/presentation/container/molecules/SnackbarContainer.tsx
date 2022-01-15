@@ -5,7 +5,7 @@ import * as React from "react";
 import { WithTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import I18NService from "src/common/domain/service/I18NService";
+import { withTranslation } from "next-i18next";
 import { RootState } from "../../state-module/root";
 import * as snackbarModule from "../../state-module/snackbar";
 import { Snackbar } from "../../state-module/snackbar";
@@ -14,8 +14,6 @@ interface Props extends WithSnackbarProps, WithTranslation {
   snackbars: Snackbar[];
   dispatchers: typeof snackbarModule;
 }
-
-const { withTranslation } = I18NService;
 
 class SnackbarContainer extends React.Component<Props> {
   private displayed: string[] = [];

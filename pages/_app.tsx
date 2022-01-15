@@ -19,7 +19,7 @@ import {
   Store,
 } from "redux";
 import { DOMAIN } from "src/common/constants/Constants";
-import I18NService from "src/common/domain/service/I18NService";
+import { appWithTranslation } from "next-i18next";
 import { MainLayout } from "src/common/presentation/components/templates";
 import themeCreator from "src/common/presentation/components/themeCreator";
 import ConfirmContainer from "src/common/presentation/container/molecules/ConfirmContainer";
@@ -45,8 +45,6 @@ ReactGA.initialize("UA-126240406-1");
 // const publicToken = "df80bef2f1ad95d594de95adba4302dad3aec91341c53ea197fc44858ccc412341af11ce5c601ef8c698524625b5a6a8df45866ee4c36ffc4c17012b4db36cbf55d49b0f0b26a3cf07f602549b654562822679579d33d796f28f86dd6c2401f2919b90efe0046e026fa475b1955939ca92ede6c2e93a7f3031282be648cf9904";
 const publicToken = "7c0c551d5d1dfb5be967280eb1ff59175c851ad8a77dec1e8b837b43dadddab65e1e692d27c13d040f9f88e13ff7f9caee78c7fc4f2be847ea2739b379008dd19f516a548827824dfe5483a57e34b4160cb845cdebf16ce3063ce5f560773e89e3c43db40fbb2a4db34df02ac33b7823961a7bb677742e67d191a90922ba2a0d";
 Axios.defaults.headers.common["Authorization"] = "Bearer " + publicToken;
-
-const { appWithTranslation } = I18NService;
 
 const makeStore = (preloadedState = {} as RootState) => {
   const bindMiddleware = (middlewares: Middleware[]) => {

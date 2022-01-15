@@ -3,15 +3,13 @@ import { TextFieldProps } from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import * as React from "react";
-import I18NService from "src/common/domain/service/I18NService";
+import { useTranslation } from "next-i18next";
 
 const useStyles = makeStyles(createStyles({
   root: {
     margin: 0
   }
 }));
-
-const { useTranslation } = I18NService;
 
 const ImmutableTextField: React.FC<TextFieldProps> = (props) => {
   const classes = useStyles();

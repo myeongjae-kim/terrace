@@ -1,10 +1,9 @@
-import { TOptions } from "i18next";
+import {TOptions} from "i18next";
 import produce from "immer";
-import { OptionsObject, VariantType } from "notistack";
+import {OptionsObject, VariantType} from "notistack";
 import Optional from "optional-js";
-import { ActionType, createAction, createReducer } from "typesafe-actions";
-import { v4 as uuidv4} from "uuid";
-import {WritableDraft} from "immer/dist/types/types-external";
+import {ActionType, createAction, createReducer} from "typesafe-actions";
+import {v4 as uuidv4} from "uuid";
 
 export interface SnackbarOptionsObject extends OptionsObject {
   onClose?: any;
@@ -55,14 +54,14 @@ const createInitialState = (): State => ({
 });
 
 export const reducer = createReducer<State, Action>(createInitialState())
-  .handleAction(enqueueSnackbar, (state, action) => produce(state, draft => {
+  .handleAction(enqueueSnackbar, (state, action) => produce<State, State>(state, draft => {
     const { snackbar } = action.payload;
     draft.snackbars.push({
       ...snackbar,
       options: {
         ...snackbar.options,
         variant: snackbar.variant
-      } as unknown as WritableDraft<Snackbar>, // TODO: fix typing
+      },
       key: uuidv4(),
     });
     return draft;

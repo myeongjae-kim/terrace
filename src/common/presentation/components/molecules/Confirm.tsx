@@ -4,7 +4,7 @@ import { fade } from "@material-ui/core/styles";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import * as React from "react";
-import I18NService from "src/common/domain/service/I18NService";
+import { useTranslation } from "next-i18next";
 import { ConfirmPayload } from "../../state-module/common";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -30,8 +30,6 @@ export interface ConfirmProps {
   confirmData: ConfirmPayload;
   closeConfirmDialog(): void;
 }
-
-const { useTranslation } = I18NService;
 
 const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeConfirmDialog }) => {
   const classes = useStyles();
