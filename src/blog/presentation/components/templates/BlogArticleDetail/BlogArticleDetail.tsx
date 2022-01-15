@@ -23,9 +23,10 @@ export interface BlogArticleDetailProps {
 
   update(e: React.MouseEvent): void;
   del(): void;
+  reset(): void;
 }
 
-const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, rejected, statusCode}) => {
+const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, rejected, statusCode, reset}) => {
   const classes = useStyles();
   const { title, slug, content, createdAt, prev, next } = blogArticle;
   return <>
@@ -34,7 +35,7 @@ const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, reje
       <div className={classes.container}>
         <ArticleHead title={title} slug={slug} createdAt={createdAt} />
         <ArticleContent content={content} />
-        <ArticlePrevAndNext prev={prev} next={next} />
+        <ArticlePrevAndNext prev={prev} next={next} reset={reset} />
       </div>
     </Maybe>
 
