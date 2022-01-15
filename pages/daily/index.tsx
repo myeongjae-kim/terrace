@@ -25,7 +25,7 @@ const DailyPage: NextPage = () => {
   return <div>
     <HeadTitle title="Daily" />
     <PageTitle title="daily" />
-    <DailyList {...props} />
+    <DailyList {...props} resetDetail={() => {}} />
   </div>;
 };
 

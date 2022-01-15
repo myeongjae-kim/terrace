@@ -4,6 +4,7 @@ import { OptionsObject, VariantType } from "notistack";
 import Optional from "optional-js";
 import { ActionType, createAction, createReducer } from "typesafe-actions";
 import { v4 as uuidv4} from "uuid";
+import {WritableDraft} from "immer/dist/types/types-external";
 
 export interface SnackbarOptionsObject extends OptionsObject {
   onClose?: any;
@@ -61,7 +62,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
       options: {
         ...snackbar.options,
         variant: snackbar.variant
-      },
+      } as unknown as WritableDraft<Snackbar>, // TODO: fix typing
       key: uuidv4(),
     });
     return draft;
