@@ -35,7 +35,7 @@ export const blogArticleApi = {
     Axios.get<{data: BlogArticleListStrapi[]}>(`${API_HOST}${Endpoints.blog}`, {params: {
       fields: ["seq", "title", "slug"],
       sort: ["seq:desc"],
-      "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현
+      "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현, 최대 100개밖에 안 온다.
     }})
       .then(res => resolve(res.data.data.map(it => ({
         id: "" + it.id,

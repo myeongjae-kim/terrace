@@ -11,7 +11,7 @@ export const Endpoints = {
   "blog.create": "/blog/create",
   "blog.update": "/blog/update",
 
-  daily: "/daily",
+  daily: "/dailies",
   "daily.detail": "/daily/detail",
   "daily.create": "/daily/create",
   "daily.update": "/daily/update",
