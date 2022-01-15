@@ -20,8 +20,14 @@ const getPersisted = (key: string) => {
 let initialized = false;
 
 export const usePersistentDarkModePreference = (persistentKey: string): [boolean, () => void] => {
+  let systemDefault : boolean | null = null;
+  if (!isServer()) {
+    const mediaQuery = "(prefers-color-scheme: dark)";
+    systemDefault = window.matchMedia(mediaQuery).matches;
+  }
+
   const [prefersDarkMode, setDarkModePreference] = React.useState(
-    true // useMediaQuery("(prefers-color-scheme: dark)")
+    systemDefault == null ? true : systemDefault
   );
   const persisted = getPersisted(persistentKey);
 
