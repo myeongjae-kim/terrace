@@ -14,7 +14,7 @@ export const createBlogArticleListResponseDtoFrom = (daily: BlogArticle) => {
   return {
     id,
     seq,
-    createdAt: createdAt.toISOString(),
+    createdAt: createdAt,
     uri: daily.getUri(),
     title
   };

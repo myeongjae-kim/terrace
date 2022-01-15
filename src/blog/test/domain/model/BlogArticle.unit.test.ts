@@ -10,8 +10,8 @@ export const createBlogArticleFixture = (id = "1"): BlogArticle => {
     slug: "slug"
   });
   blogArticle.id = id;
-  blogArticle.createdAt = new Date("1970-01-01T00:00:00.000Z");
-  blogArticle.updatedAt = new Date("1970-01-01T00:00:00.000Z");
+  blogArticle.createdAt = "1970-01-01T00:00:00.000Z";
+  blogArticle.updatedAt = "1970-01-01T00:00:00.000Z";
 
 
   return blogArticle;
@@ -56,7 +56,7 @@ describe("BlogArticle", () => {
       blogArticle.createdAt = getSeoulDateFrom()
         .year(Number(year))
         .month(Number(month) - 1)
-        .date(Number(day)).toDate();
+        .date(Number(day)).toISOString();
       expect(getSeoulDateFrom(blogArticle.createdAt).format("YYYY.MM.DD")).toBe(args.join("."));
 
       // then
@@ -65,7 +65,7 @@ describe("BlogArticle", () => {
   });
 
   it("should return valid uri", () => {
-    blogArticle.createdAt = new Date("1970-01-01T00:00:00.000Z");
+    blogArticle.createdAt = "1970-01-01T00:00:00.000Z";
     expect(blogArticle.getUri()).toBe("/blog/1970/01/01/slug");
   });
 
@@ -74,8 +74,8 @@ describe("BlogArticle", () => {
 
     expect(empty.id).toBe("");
     expect(empty.seq).toBe(-1);
-    expect(empty.createdAt.valueOf()).toBe(0);
-    expect(empty.updatedAt.valueOf()).toBe(0);
+    expect(empty.createdAt).toBe("1970-01-01T00:00:00.000Z");
+    expect(empty.updatedAt).toBe("1970-01-01T00:00:00.000Z");
     expect(empty.title).toBe("");
     expect(empty.content).toBe("");
     expect(empty.slug).toBe("");
