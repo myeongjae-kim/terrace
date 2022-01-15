@@ -29,7 +29,7 @@
     "inversify-express-utils": "^6.3.2",
     "jsonwebtoken": "^8.5.1",
     "lru-cache": "^5.1.1",
-    "marked": "^1.1.0",
+    "marked": "^4.0.10",
     "material-table": "^1.60.0",
     "moment-timezone": "^0.5.31",
     "mysql": "^2.18.1",
