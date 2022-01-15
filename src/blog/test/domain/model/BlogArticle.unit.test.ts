@@ -1,6 +1,6 @@
-import { BlogArticle } from "src/blog/domain/model/BlogArticle";
-import { getSeoulDateFrom } from "src/util";
-import { doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesExcept } from "src/util/test";
+import {BlogArticle} from "src/blog/domain/model/BlogArticle";
+import {getSeoulDateFrom} from "src/util";
+import {doesObjectHasNoUndefinedProperties} from "src/util/test";
 
 export const createBlogArticleFixture = (id = "1"): BlogArticle => {
   const blogArticle = BlogArticle.from({
@@ -34,7 +34,6 @@ describe("BlogArticle", () => {
     });
 
     // expect
-    expect(doesObjectHasNoUndefinedPropertiesExcept(result, "id")).toBeTruthy();
     expect(result.seq).toBe(1);
     expect(result.title).toBe("title");
     expect(result.content).toBe("content");
@@ -100,7 +99,6 @@ describe("BlogArticle", () => {
     result.update(toUpdate);
 
     // expect
-    expect(doesObjectHasNoUndefinedPropertiesExcept(result, "id")).toBeTruthy();
     expect(result.seq).toBe(2);
     expect(result.title).toBe("title2");
     expect(result.content).toBe("content2");

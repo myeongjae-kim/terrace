@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const DisplayProps = <T extends unknown>(props: T) =>
+const DisplayProps = <T,>(props: T) =>
   <div style={{ margin: "1rem 0" }}>
     <h3 style={{ fontFamily: "monospace" }} />
     <pre

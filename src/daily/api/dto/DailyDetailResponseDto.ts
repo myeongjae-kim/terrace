@@ -14,8 +14,8 @@ export const createDailyDetailResponseDtoFrom =
   ({ id, seq, createdAt, updatedAt, title, slug, content }: Daily): DailyDetailResponseDto => ({
     id,
     seq,
-    createdAt: createdAt.toISOString(),
-    updatedAt: updatedAt.toISOString(),
+    createdAt,
+    updatedAt,
     title,
     slug,
     content

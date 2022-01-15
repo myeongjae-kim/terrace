@@ -14,7 +14,7 @@ export const createDailyListResponseDtoFrom = (daily: Daily) => {
   return {
     id,
     seq,
-    createdAt: createdAt.toISOString(),
+    createdAt: createdAt,
     uri: daily.getUri(),
     title
   };

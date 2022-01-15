@@ -19,8 +19,8 @@ export class Daily {
 
   public id!: string;
   public seq!: number;
-  public createdAt!: Date;
-  public updatedAt!: Date;
+  public createdAt!: string;
+  public updatedAt!: string;
   public title!: string;
   public slug!: string;
   public content!: string;

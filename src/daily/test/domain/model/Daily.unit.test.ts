@@ -1,6 +1,6 @@
-import { Daily } from "src/daily/domain/model/Daily";
-import { getSeoulDateFrom } from "src/util";
-import { doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesExcept } from "src/util/test";
+import {Daily} from "src/daily/domain/model/Daily";
+import {getSeoulDateFrom} from "src/util";
+import {doesObjectHasNoUndefinedProperties} from "src/util/test";
 
 export const createDailyFixture = (): Daily => {
   const daily = Daily.from({
@@ -10,8 +10,8 @@ export const createDailyFixture = (): Daily => {
     slug: "slug"
   });
   daily.id = "1";
-  daily.createdAt = new Date();
-  daily.updatedAt = new Date();
+  daily.createdAt = "1970-01-01T00:00:00.000Z";
+  daily.updatedAt = "1970-01-01T00:00:00.000Z";
 
   return daily;
 };
@@ -21,23 +21,6 @@ describe("Daily", () => {
 
   beforeEach(() => {
     daily = createDailyFixture();
-  });
-
-  it("is created by static factory method.", () => {
-    // given
-    const result = Daily.from({
-      seq: 1,
-      title: "title",
-      content: "content",
-      slug: "slug"
-    });
-
-    // expect
-    expect(doesObjectHasNoUndefinedPropertiesExcept(result, "id")).toBeTruthy();
-    expect(result.seq).toBe(1);
-    expect(result.title).toBe("title");
-    expect(result.content).toBe("content");
-    expect(result.slug).toBe("slug");
   });
 
   [
@@ -55,7 +38,7 @@ describe("Daily", () => {
       daily.createdAt = getSeoulDateFrom()
         .year(Number(year))
         .month(Number(month) - 1)
-        .date(Number(day)).toDate();
+        .date(Number(day)).toISOString();
       expect(getSeoulDateFrom(daily.createdAt).format("YYYY.MM.DD")).toBe(args.join("."));
 
       // then
@@ -64,7 +47,7 @@ describe("Daily", () => {
   });
 
   it("should return valid uri", () => {
-    const now = new Date();
+    const now = new Date().toISOString();
     daily.createdAt = now;
 
     expect(daily.getUri()).toBe(`/daily/${getSeoulDateFrom(now).format("YYYY/MM/DD")}/slug`);
