@@ -1,5 +1,4 @@
-export const DOMAIN = process.env.DOMAIN;
-export const DOMAIN_BLOG = process.env.DOMAIN_BLOG;
+export const DOMAIN = "https://myeongjae.kim";
 
 export const Endpoints = {
   auth: "/auth",
@@ -22,9 +21,3 @@ export const Endpoints = {
 
 export const TITLE_POSTFIX = " :: 김명재, Myeongjae Kim";
 export const API_HOST = "https://myeongjae-kim.herokuapp.com/api";
-
-export const JWT_COOKIE_KEY = process.env.JWT_COOKIE_KEY || "";
-export const JWT_MAX_AGE = process.env.JWT_MAX_AGE || "";
-export const JWT_SECRET = process.env.JWT_SECRET || "";
-export const JWT_COOKIE_DOMAIN = process.env.JWT_COOKIE_DOMAIN || "";
-export const JWT_COOKIE_SECURE = process.env.JWT_COOKIE_SECURE !== "false";

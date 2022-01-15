@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import Optional from "optional-js";
-import { ApiError } from "server/common/error/ApiError";
+import { ApiError } from "src/common/error/ApiError";
 
 export type RepositoryErrorData = AxiosError<ApiError>;
 

@@ -3,16 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "compileServer": "npm run clean && cd server && tsc",
-    "dev": "scripts/dev.sh",
-    "build": "scripts/build.sh",
-    "start": "scripts/start.sh",
-    "clean": "scripts/clean.sh",
+    "dev": "next dev",
+    "build": "npm run lint && npm run report && next build",
+    "start": "NODE_ENV=production next start",
     "lint": "eslint . --ext .ts,.tsx --fix && tsc --noEmit",
     "test": "jest",
-    "report": "jest unit --coverage",
-    "db": "scripts/rundb.sh",
-    "migrate": "cd migration && ./run.sh"
+    "report": "jest unit --coverage"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -46,7 +42,6 @@
     "tsconfig-paths": "3.9.0",
     "typesafe-actions": "5.1.0",
     "uuid": "^8.1.0",
-    "winston": "^3.2.1",
     "yup": "^0.29.3"
   },
   "devDependencies": {
@@ -76,7 +71,6 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "jest": "^26.0.1",
-    "nodemon": "^2.0.4",
     "react-test-renderer": "^16.13.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
