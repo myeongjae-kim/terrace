@@ -15,7 +15,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "assert-plus": "^1.0.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.2",
     "clsx": "^1.1.1",
     "formik": "^2.1.4",
     "immer": "^7.0.1",
