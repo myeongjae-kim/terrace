@@ -1,22 +1,17 @@
 import { ServerStyleSheets } from "@material-ui/styles";
-import Document, { Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 
 class MyDocument extends Document {
   public render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|Inconsolata|Bad+Script|Noto+Sans+KR:100,300,400,700|Noto+Serif+KR:300,400,700&display=swap" rel="stylesheet" />
-          {/* Use minimum-scale=1 to enable GPU rasterization */}
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          />
           {/* PWA primary color */}
-          <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-          <meta name="theme-color" content="#303030" media="(prefers-color-scheme: dark)">
+          <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+          <meta name="theme-color" content="#303030" media="(prefers-color-scheme: dark)" />
           <style>{`
           body {
             font-family: Source Sans Pro, Noto Sans KR;
@@ -90,7 +85,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
