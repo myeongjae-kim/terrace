@@ -13,11 +13,5 @@ if [ $? != 0 ]
   exit 1
 fi
 
-npm run compileServer
-if [ $? != 0 ]
-  then echo '>> failed to compile server <<'
-  exit 1
-fi
-
 export $(egrep -v '^#' .browser-env | xargs) > /dev/null
 next build
