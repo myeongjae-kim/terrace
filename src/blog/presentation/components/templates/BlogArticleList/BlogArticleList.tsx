@@ -3,6 +3,7 @@ import * as React from "react";
 import {BlogArticleListResponseDto} from "src/blog/api";
 import EachBlogArticle from "./EachBlogArticle";
 import Loading from "src/Loading";
+import {Maybe} from "src/common/presentation/components/molecules";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -23,9 +24,12 @@ const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles }) => {
   const classes = useStyles();
   return <div>
     <div className={classes.container}>
-      {blogArticles.length === 0
-        ? <Loading />
-        : blogArticles.map(b => <EachBlogArticle key={b.id} blogArticle={b} />)}
+      <Maybe test={blogArticles.length === 0}>
+        <Loading />
+      </Maybe>
+      <Maybe test={blogArticles.length !== 0}>
+        {blogArticles.map(b => <EachBlogArticle key={b.id} blogArticle={b} />)}
+      </Maybe>
     </div>
   </div>;
 };

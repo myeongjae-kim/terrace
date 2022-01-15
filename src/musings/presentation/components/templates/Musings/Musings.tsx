@@ -1,8 +1,9 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import * as React from "react";
-import { PageTitle } from "src/common/presentation/components/molecules";
+import {Maybe, PageTitle} from "src/common/presentation/components/molecules";
 import { MusingResponseDto } from "src/musings/api/dto";
 import EachMusing from "./EachMusing";
+import Loading from "../../../../../Loading";
 
 const useStyles = makeStyles(createStyles({
   container: {
@@ -26,7 +27,12 @@ const Musings: React.FC<MusingsProps> = ({ musings }) => {
     <PageTitle title="quotes" />
     <div className={classes.container}>
       <div className={classes.eachItem}>
-        {musings.map(i => <EachMusing key={i.from} item={i} />)}
+        <Maybe test={musings.length === 0}>
+          <Loading />
+        </Maybe>
+        <Maybe test={musings.length !== 0}>
+          {musings.map(i => <EachMusing key={i.from} item={i} />)}
+        </Maybe>
       </div>
     </div>
     <style jsx global>{`
