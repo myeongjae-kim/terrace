@@ -9,5 +9,4 @@ module.exports = {
     DOMAIN: process.env.DOMAIN,
     DOMAIN_BLOG: process.env.DOMAIN_BLOG,
   },
-  useFileSystemPublicRoutes: false,
 };
