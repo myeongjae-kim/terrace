@@ -1,7 +1,5 @@
 import { formatDateTime, getSeoulDateFrom } from "src/util";
-import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity()
 export class BlogArticle {
 
   public static from({
@@ -33,27 +31,13 @@ export class BlogArticle {
     return article;
   }
 
-  @PrimaryGeneratedColumn()
   public id!: string;
-
-  @Column()
-  @Index("ux_blog_article_seq", { unique: true })
   public seq!: number;
-
-  @CreateDateColumn()
   public createdAt!: Date;
-
-  @UpdateDateColumn()
   public updatedAt!: Date;
-
-  @Column()
   public title!: string;
-
-  @Column()
-  @Index("ux_blog_article_slug", { unique: true })
   public slug!: string;
 
-  @Column("text")
   public content!: string;
   public update({ seq, title, content, slug }: BlogArticle) {
     this.seq = seq;
