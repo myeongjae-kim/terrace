@@ -1,25 +1,10 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core";
 import clsx from "clsx";
-import { NextPageContext } from "next";
-import Head from "next/head";
-import React from "react";
-import NextPage from "src/common/domain/model/NextPage";
-import Optional from "optional-js";
-
-const statusTexts: { [code: number]: string } = {
-  400: "Bad Request",
-  401: "Unauthorized",
-  403: "Forbidden",
-  404: "Not Found",
-  405: "Method Not Allowed",
-  500: "Internal Server Error",
-};
+import React, {CSSProperties} from "react";
 
 const useStyles = makeStyles(createStyles({
   container: {
     color: "#aaa",
-    height: "calc(100vh - 88px - 130px)",
-    marginBottom: 130,
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
@@ -54,13 +39,16 @@ const useStyles = makeStyles(createStyles({
   }
 }));
 
-export interface ErrorProps {
-  statusCode: number;
-  title?: string;
-  namespacesRequired?: string[];
+export interface LoadingProps {
+  line1: string;
+  line2: string;
+  line3: string;
+  line4: string;
+  style?: CSSProperties;
 }
 
-const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => {
+const RainbowText: React.FC<LoadingProps> = (props) => {
+  const { line1, line2, line3, line4 } = props;
   React.useEffect(() => {
     [].forEach.call(document.querySelectorAll(".text"), (el: HTMLElement) => {
       const origin = el.innerHTML;
@@ -73,27 +61,17 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
   }, []);
 
   const classes = useStyles();
-  const title =
-    titleOrigin ||
-    statusTexts[statusCode] ||
-    "An unexpected error has occurred";
 
   return (
-    <div className={classes.container}>
-      <Head>
-        <title>
-          {statusCode}: {title}
-        </title>
-      </Head>
-
+    <div className={classes.container} style={props.style}>
       <div style={{ userSelect: "none" }}>
         <div className={classes.statusCodeContainer}>
-          <p className={clsx("text", "color-text-flow", classes.statusCode)}>{statusCode}</p>
-          <p className={clsx("text", "color-text-flow", classes.statusText)}>{statusTexts[statusCode]}</p>
+          <p className={clsx("text", "color-text-flow", classes.statusCode)}>{line1}</p>
+          <p className={clsx("text", "color-text-flow", classes.statusText)}>{line2}</p>
         </div>
         <div id="poem-flower" className={classes.poem}>
-          <p className="text color-text-flow">모든 경계에는 꽃이 핀다.</p>
-          <p className="text color-text-flow">- 함민복, [꽃]</p>
+          <p className="text color-text-flow">{line3}</p>
+          <p className="text color-text-flow">{line4}</p>
         </div>
       </div>
 
@@ -670,19 +648,4 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
   );
 };
 
-ErrorPage.getInitialProps = ({ res, err }: NextPageContext): Promise<ErrorProps> | ErrorProps => {
-  const errorStatusCode = Optional.ofNullable(err)
-    .map(e => e.statusCode)
-    .orElse(404);
-
-  const statusCode = Optional.ofNullable(res)
-    .map(r => r.statusCode)
-    .orElse(errorStatusCode);
-
-  return {
-    statusCode,
-    namespacesRequired: ["common"],
-  };
-};
-
-export default ErrorPage;
+export default RainbowText;

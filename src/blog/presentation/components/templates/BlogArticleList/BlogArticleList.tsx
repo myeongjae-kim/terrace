@@ -2,6 +2,7 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
 import {BlogArticleListResponseDto} from "src/blog/api";
 import EachBlogArticle from "./EachBlogArticle";
+import Loading from "src/Loading";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -22,7 +23,9 @@ const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles }) => {
   const classes = useStyles();
   return <div>
     <div className={classes.container}>
-      {blogArticles.map(b => <EachBlogArticle key={b.id} blogArticle={b} />)}
+      {blogArticles.length === 0
+        ? <Loading />
+        : blogArticles.map(b => <EachBlogArticle key={b.id} blogArticle={b} />)}
     </div>
   </div>;
 };

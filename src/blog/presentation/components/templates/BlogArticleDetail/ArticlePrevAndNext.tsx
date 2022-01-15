@@ -37,7 +37,7 @@ const Each: React.FC<{ label: string; article: BlogArticlePrevOrNext }> = ({ lab
 
   return <div className={classes.eachContainer} hidden={!article.id}>
     <Typography variant="subtitle2" className={classes.label}>{label}</Typography>
-    <Link href="/blog/detail" as={article.uri}>{article.title}</Link>
+    <Link href={article.uri}>{article.title}</Link>
   </div>;
 
 };
