@@ -25,16 +25,16 @@ export class BlogArticle {
       slug: "",
     });
     article.id = "";
-    article.createdAt = new Date("1970-01-01T00:00:00.000Z");
-    article.updatedAt = new Date("1970-01-01T00:00:00.000Z");
+    article.createdAt = "1970-01-01T00:00:00.000Z";
+    article.updatedAt = "1970-01-01T00:00:00.000Z";
 
     return article;
   }
 
   public id!: string;
   public seq!: number;
-  public createdAt!: Date;
-  public updatedAt!: Date;
+  public createdAt!: string;
+  public updatedAt!: string;
   public title!: string;
   public slug!: string;
 
@@ -47,7 +47,7 @@ export class BlogArticle {
   }
 
   public getUri = () => {
-    return "/blog" + formatDateTime(this.createdAt, "/YYYY/MM/DD/") + this.slug;
+    return BlogArticle.createUri({createdAt: this.createdAt, slug: this.slug});
   };
 
   public isDateMatched = (year: string, month: string, day: string) => {
@@ -56,4 +56,7 @@ export class BlogArticle {
       date.month() === (Number(month) - 1) &&
       date.date() === Number(day);
   };
+
+  public static createUri = ({createdAt, slug}: {createdAt: string, slug: string}) =>
+    "/blog" + formatDateTime(createdAt, "/YYYY/MM/DD/") + slug;
 }

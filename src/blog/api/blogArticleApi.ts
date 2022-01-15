@@ -8,8 +8,9 @@ import {
   BlogArticlePathDto,
   BlogArticleRequestDto
 } from "./dto";
-import {formatDateTime} from "../../util";
 import RepositoryError from "../../common/domain/model/RepositoryError";
+import Optional from "optional-js";
+import {BlogArticle} from "../domain/model";
 
 interface BlogAttributes {
   seq: number;
@@ -30,6 +31,13 @@ interface BlogArticleStrapi {
   attributes: BlogAttributes
 }
 
+const defaultPrevOrNext = {
+  id: "",
+  createdAt: "",
+  title: "",
+  uri: "",
+};
+
 export const blogArticleApi = {
   findAll: (): Promise<BlogArticleListResponseDto[]> => new Promise((resolve, rejected) => {
     Axios.get<{data: BlogArticleListStrapi[]}>(`${API_HOST}${Endpoints.blog}`, {params: {
@@ -41,49 +49,65 @@ export const blogArticleApi = {
         id: "" + it.id,
         seq: it.attributes.seq,
         createdAt: it.attributes.createdAt,
-        uri: "/blog" + formatDateTime(it.attributes.createdAt, "/YYYY/MM/DD/") + it.attributes.slug,
+        uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
         title: it.attributes.title,
       }))))
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
   }),
 
-  find: ({ slug }: BlogArticlePathDto): Promise<BlogArticleDetailResponseDto> =>
-    new Promise((resolve, rejected) => {
-      Axios.get<{data: BlogArticleStrapi[]}>(`${API_HOST}${Endpoints.blog}`, {params: {
-        "filters[slug][$eq]": slug
-      }})
-        .then(res => res.data.data.map(it => ({
-          id: "" + it.id,
-          seq: it.attributes.seq,
-          createdAt: it.attributes.createdAt,
-          updatedAt: it.attributes.updatedAt,
-          title: it.attributes.title,
-          slug: it.attributes.slug,
-          content: it.attributes.content,
-          // TODO: prev, next 가져오기.. 어떻게 가져오지?
-          prev: {
-            id: "-1",
-            createdAt: "",
-            title: "",
-            uri: "",
-          },
-          next: {
-            id: "-1",
-            createdAt: "",
-            title: "",
-            uri: "",
-          }
-        })))
-        .then(it => {
-          const response: BlogArticleDetailResponseDto | undefined = it[0];
-          if (typeof response === "undefined") {
-            rejected(RepositoryError.of()); // TODO: 상세한 에러정보 추가
-          } else {
-            resolve(response);
-          }
-        })
-        .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
-    }),
+  find: async ({ slug }: BlogArticlePathDto): Promise<BlogArticleDetailResponseDto> => {
+    const article: BlogArticleStrapi | undefined =
+      await Axios.get<{ data: BlogArticleStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+        params: {
+          "filters[slug][$eq]": slug
+        }
+      }).then(it => it.data.data[0]);
+    if (typeof article === "undefined") {
+      throw RepositoryError.of();
+    }
+
+    const promiseToGetPrev: Promise<BlogArticleStrapi | undefined> =
+      Axios.get<{ data: BlogArticleStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+        params: {
+          "filters[seq][$lt]": article.attributes.seq,
+          "sort": ["seq:desc"],
+          "pagination[pageSize]": 1
+        }
+      }).then(it => it.data.data[0]);
+
+    const promiseToGetNext:Promise<BlogArticleStrapi | undefined> =
+      Axios.get<{ data: BlogArticleStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+        params: {
+          "filters[seq][$gt]": article.attributes.seq,
+          "sort": ["seq:asc"],
+          "pagination[pageSize]": 1
+        }
+      }).then(it => it.data.data[0]);
+
+    const [prev, next] = await Promise.all([promiseToGetPrev, promiseToGetNext]);
+
+    return {
+      id: "" + article.id,
+      seq: article.attributes.seq,
+      createdAt: article.attributes.createdAt,
+      updatedAt: article.attributes.updatedAt,
+      title: article.attributes.title,
+      slug: article.attributes.slug,
+      content: article.attributes.content,
+      prev: Optional.ofNullable(prev).map(it => ({
+        id: "" + it.id,
+        createdAt: it.attributes.createdAt,
+        title: it.attributes.title,
+        uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
+      })).orElse(defaultPrevOrNext),
+      next: Optional.ofNullable(next).map(it => ({
+        id: "" + it.id,
+        createdAt: it.attributes.createdAt,
+        title: it.attributes.title,
+        uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
+      })).orElse(defaultPrevOrNext)
+    };
+  },
 
   create: (request: BlogArticleRequestDto): Promise<CreationResponse> => new Promise((resolve, rejected) => {
     Axios.post<CreationResponse>(`${API_HOST}${Endpoints.blog}/api`, request)
