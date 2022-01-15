@@ -5,9 +5,6 @@
     },
     "signOut": {
       "rejected": "로그아웃을 실패했습니다.\n\n{{e}}"
-    },
-    "me": {
-      "rejected": "사용자 정보를 가져오지 못했습니다.\n\n{{e}}"
     }
   },
   "mother": {

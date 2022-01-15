@@ -5,7 +5,6 @@ import { authApi } from "src/auth/api";
 import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
-import { me } from "./me";
 
 const actions = {
   signIn: createAction("@sign/SIGN_IN")<{ email: string; password: string }>(),
@@ -79,7 +78,6 @@ function* sagaSignIn(action: ActionType<typeof actions.signIn>) {
     yield call(authApi.signIn, request);
     yield put(actions.signInAsync.success());
     yield call(Router.back);
-    yield put(me());
   } catch (e) {
     yield put(actions.signInAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
@@ -97,7 +95,6 @@ function* sagaSignOut() {
   try {
     yield call(authApi.signOut);
     yield put(actions.signOutAsync.success());
-    yield put(me());
   } catch (e) {
     yield put(actions.signOutAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({

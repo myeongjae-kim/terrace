@@ -16,5 +16,4 @@ export { default as NotificationCenterButton } from "./NotificationCenterButton"
 export { default as Spacer } from "./Spacer";
 export { default as HeadTitle } from "./HeadTitle";
 export { default as PageTitle } from "./PageTitle";
-export { default as SignOutButton } from "./SignOutButton";
 export { default as DisplayProps } from "./DisplayProps";

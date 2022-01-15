@@ -5,9 +5,6 @@
     },
     "signOut": {
       "rejected": "Failed to sign out.\n\n{{e}}"
-    },
-    "me": {
-      "rejected": "Failed to fetch user information.\n\n{{e}}"
     }
   },
   "mother": {

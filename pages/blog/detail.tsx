@@ -1,32 +1,28 @@
-import { useTheme } from "@material-ui/core";
-import { NextSeo } from "next-seo";
+import {useTheme} from "@material-ui/core";
+import {NextSeo} from "next-seo";
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch, Store } from "redux";
-import { createSelector } from "reselect";
-import * as meModule from "src/auth/presentation/state-modules/me";
-import { BlogArticleDetailResponseDto, BlogArticlePathDto } from "src/blog/api/dto";
+import {useDispatch, useSelector} from "react-redux";
+import {Dispatch, Store} from "redux";
+import {createSelector} from "reselect";
+import {BlogArticleDetailResponseDto, BlogArticlePathDto} from "src/blog/api/dto";
 import BlogArticleDetail from "src/blog/presentation/components/templates/BlogArticleDetail";
 import * as detailModule from "src/blog/presentation/state-modules/detail";
-import { DOMAIN, Endpoints } from "src/common/constants/Constants";
+import {DOMAIN, Endpoints} from "src/common/constants/Constants";
 import NextPage from "src/common/domain/model/NextPage";
-import { Comment } from "src/common/presentation/components/organisms";
+import {Comment} from "src/common/presentation/components/organisms";
 import * as commonModule from "src/common/presentation/state-module/common";
-import { RootState } from "src/common/presentation/state-module/root";
-import { createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo } from "src/util";
+import {RootState} from "src/common/presentation/state-module/root";
+import {createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo} from "src/util";
 
-const selector = createSelector<RootState, detailModule.State, meModule.State, {
+const selector = createSelector<RootState, detailModule.State, {
   blogArticle: BlogArticleDetailResponseDto;
-  isSignedIn: boolean;
   pending: boolean;
   rejected: boolean;
   statusCode: number;
 }>(
   root => root.blog.detail,
-  root => root.auth.me,
-  (detail, me) => ({
+  (detail) => ({
     ...detail,
-    isSignedIn: me.isSignedIn
   })
 );
 

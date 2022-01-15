@@ -1,8 +1,6 @@
-import { createStyles, Link, makeStyles, Typography } from "@material-ui/core";
+import {createStyles, Link, makeStyles, Typography} from "@material-ui/core";
 import Router from "next/router";
 import * as React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "src/common/presentation/state-module/root";
 
 const useStyles = makeStyles(theme => createStyles({
   footer: {
@@ -22,14 +20,9 @@ const useStyles = makeStyles(theme => createStyles({
 const FooterContent: React.FC = () => {
   const classes = useStyles();
 
-  const isSignedIn = useSelector((state: RootState) => state.auth.me.isSignedIn);
   const signIn = React.useCallback(() => {
-    if (isSignedIn) {
-      return;
-    }
-
-    Router.push("/auth/sign-in");
-  }, [isSignedIn]);
+    Router.push("/editors"); // TODO: editors 페이지 추가, 편집화면 그대로.
+  }, []);
 
   return <div className={classes.footer}>
     <img onClick={signIn} src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} style={{ opacity: 0, pointerEvents: "all" }} />
