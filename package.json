@@ -29,7 +29,7 @@
     "next-seo": "^4.11.0",
     "notistack": "^0.9.17",
     "optional-js": "^2.1.1",
-    "prismjs": "^1.20.0",
+    "prismjs": "^1.25.0",
     "react": "^16.13.1",
     "react-dom": "16.13.1",
     "react-ga": "^3.0.0",
