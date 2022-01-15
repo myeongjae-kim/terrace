@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   seq: {
     textAlign: "right",
-    width: theme.spacing(3)
+    width: theme.spacing(4)
   },
   date: {
     textAlign: "center",
