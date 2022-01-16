@@ -1,8 +1,8 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
-import { Link, Maybe } from "src/common/presentation/components/molecules";
-import { DailyListResponseDto } from "src/daily/api";
-import { formatDateTime } from "src/util";
+import {Link} from "src/common/presentation/components/molecules";
+import {DailyListResponseDto} from "src/daily/api";
+import {formatDateTime} from "src/util";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   daily: DailyListResponseDto;
-  isLinkDisabled?: boolean;
 }
 
 const EachDailyContent: React.FC<{
@@ -41,17 +40,10 @@ const EachDailyContent: React.FC<{
   </div>;
 };
 
-const EachDaily: React.FC<Props> = ({ daily, isLinkDisabled }) => {
-  return <>
-    <Maybe test={!isLinkDisabled}>
-      <Link href={daily.uri}>
-        <EachDailyContent daily={daily} />
-      </Link>
-    </Maybe>
-    <Maybe test={!!isLinkDisabled}>
-      <EachDailyContent daily={daily} userSelectNone />
-    </Maybe>
-  </>;
+const EachDaily: React.FC<Props> = ({ daily }) => {
+  return <Link href={daily.uri}>
+    <EachDailyContent daily={daily} />
+  </Link>;
 };
 
 export default EachDaily;

@@ -7,17 +7,14 @@ import NextPage from "src/common/domain/model/NextPage";
 import {HeadTitle} from "src/common/presentation/components/molecules";
 import {Comment} from "src/common/presentation/components/organisms";
 import {RootState} from "src/common/presentation/state-module/root";
-import {DailyDetailResponseDto, DailyListResponseDto, DailyPathDto} from "src/daily/api/dto";
+import {DailyDetailResponseDto, DailyPathDto} from "src/daily/api/dto";
 import DailyDetail from "src/daily/presentation/components/templates/DailyDetail";
-import DailyList from "src/daily/presentation/components/templates/DailyList";
 import * as detailModule from "src/daily/presentation/state-modules/detail";
-import * as listModule from "src/daily/presentation/state-modules/list";
 import {createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo} from "src/util";
 import {Endpoints} from "src/common/constants/Constants";
 import * as commonModule from "src/common/presentation/state-module/common";
 
 interface DailyDetailPageStates {
-  dailyList: DailyListResponseDto[];
   dailyDetail: DailyDetailResponseDto;
 
   pending: boolean;
@@ -25,11 +22,9 @@ interface DailyDetailPageStates {
   statusCode: number;
 }
 
-const selector = createSelector<RootState, listModule.State, detailModule.State, DailyDetailPageStates>(
-  root => root.daily.list,
+const selector = createSelector<RootState, detailModule.State, DailyDetailPageStates>(
   root => root.daily.detail,
-  (list, detail) => ({
-    dailyList: list.dailys,
+  (detail) => ({
     dailyDetail: detail.daily,
 
     pending: detail.pending,
@@ -45,7 +40,7 @@ interface Props {
 const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
   const theme = useTheme();
   const dailyPageProps = useSelector<RootState, DailyDetailPageStates>(selector);
-  const { dailyList, dailyDetail, pending, rejected, statusCode } = dailyPageProps;
+  const { dailyDetail, pending, rejected, statusCode } = dailyPageProps;
 
   const dispatch = useDispatch<Dispatch<detailModule.Action | commonModule.Action>>();
   React.useEffect(() => () => {
@@ -81,12 +76,6 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
       update={update}
       del={del} />
     <Comment identifier={uri} />
-    <DailyList
-      dailys={dailyList}
-      pending={false}
-      rejected={false}
-      currentDaily={dailyDetail}
-    />
     <style jsx global>{`
 #comment-container {
   max-width: ${theme.spacing(62.5)}px;
@@ -101,18 +90,10 @@ DailyDetailPage.getInitialProps = async ({ store, asPath, res }) => {
     return {};
   }
 
-  fetchDailyList(store);
-
   const dailyPathDto = parsePathToDailyDetailRequest(asPath);
   fetchDailyDetail(store, dailyPathDto);
 
   return { namespacesRequired: ["common", "noti"], dailyPathDto };
-};
-
-const fetchDailyList = (store: Store<RootState>): void => {
-  if (store.getState().daily.list.dailys.length === 0) {
-    store.dispatch(listModule.fetchDailys());
-  }
 };
 
 const fetchDailyDetail = (store: Store<RootState>, req: DailyPathDto): void => {

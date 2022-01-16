@@ -16,6 +16,6 @@ const DisplayProps = <T,>(props: T) => {
       {JSON.stringify(props, null, 2)}
     </pre>
   </div>;
-}
+};
 
 export default DisplayProps;

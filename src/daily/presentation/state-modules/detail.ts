@@ -1,12 +1,11 @@
-import { produce } from "immer";
-import { call, put, takeLeading } from "redux-saga/effects";
-import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
-import { DailyPathDto, DailyDetailResponseDto, dailyApi } from "src/daily/api";
+import {produce} from "immer";
+import {call, put, takeLeading} from "redux-saga/effects";
+import {enqueueSnackbar} from "src/common/presentation/state-module/snackbar";
+import {dailyApi, DailyDetailResponseDto, DailyPathDto} from "src/daily/api";
 import stringify from "src/util/stringify";
-import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
+import {ActionType, createAction, createAsyncAction, createReducer, getType} from "typesafe-actions";
 import Router from "next/router";
-import { Endpoints } from "src/common/constants/Constants";
-import * as listModule from "./list";
+import {Endpoints} from "src/common/constants/Constants";
 
 const actions = {
   reset: createAction("@dailyDetail/RESET")(),
@@ -111,7 +110,6 @@ function* sagaDeleteDaily(action: ActionType<typeof actions.deleteDaily>) {
     }));
 
     yield call(Router.push, Endpoints.daily);
-    yield put(listModule.fetchDailys());
   } catch (e) {
     yield put(actions.deleteDailyAsync.failure({ statusCode: e.status }));
     yield put(enqueueSnackbar({
