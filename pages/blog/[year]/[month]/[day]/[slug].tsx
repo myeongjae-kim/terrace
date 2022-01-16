@@ -100,8 +100,6 @@ BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }) => {
   }
 
   const blogArticlePathDto = parsePathToBlogArticleDetailRequest(asPath);
-  console.log("\n\n\nasPath", asPath);
-  console.log("\n\n\npathDto", blogArticlePathDto);
 
   fetchBlogArticleDetail(store, blogArticlePathDto);
 
