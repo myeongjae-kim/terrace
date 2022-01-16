@@ -13,8 +13,7 @@ const Utterances: React.FC<Props> = ({ identifier }) => {
   }, [identifier, theme.palette.type]);
 
   return <div id="comment-container" style={{
-    margin: "auto",
-    marginBottom: 20
+    margin: "auto"
   }} />;
 };
 

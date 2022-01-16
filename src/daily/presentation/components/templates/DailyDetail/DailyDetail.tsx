@@ -35,10 +35,9 @@ export interface DailyDetailProps {
   del(): void;
 }
 
-const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode}) => {
+const DailyDetail: React.FC<DailyDetailProps> = ({ daily, pending, rejected, statusCode}) => {
   const classes = useStyles();
   const {
-    id,
     seq,
     createdAt,
     title,
@@ -47,7 +46,7 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode})
   } = daily;
 
   return <>
-    <Maybe test={!rejected && id}>
+    <Maybe test={!rejected && !pending}>
       <HeadTitle title={title} />
       <div className={classes.container}>
         <div className={classes.center}>
@@ -63,7 +62,7 @@ const DailyDetail: React.FC<DailyDetailProps> = ({ daily, rejected, statusCode})
       </div>
     </Maybe>
 
-    <Maybe test={!id}>
+    <Maybe test={pending}>
       <Loading style={{paddingTop: "calc(30vh)", paddingBottom: "calc(50vh)"}} />
     </Maybe>
 

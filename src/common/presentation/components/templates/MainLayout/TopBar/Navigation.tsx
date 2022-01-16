@@ -28,7 +28,7 @@ const Navigation: React.FC<Props> = ({ items }) => {
   const firstPath = paths[0] || "";
 
   return <nav className={classes.nav}>
-    {items.map(({ href, label }) => <Link key={href[0]} href={href[0]} shallow={true}>
+    {items.map(({ href, label }) => <Link key={href[0]} href={href[0]}>
       <MyButton rippleColorPrimary color={href.includes(firstPath) ? "primary" : "default"}>
         {label}
       </MyButton>

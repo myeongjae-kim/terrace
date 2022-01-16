@@ -71,10 +71,6 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
     }));
   }, [blogArticlePathDto, dispatch]);
 
-  const reset = React.useCallback(() => {
-    dispatch(detailModule.reset());
-  }, [dispatch]);
-
   const theme = useTheme();
   React.useEffect(() => () => {
     dispatch(detailModule.reset());
@@ -87,7 +83,7 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
       canonical={`${DOMAIN}${Endpoints.blog}${subPath}`}
     />
 
-    <BlogArticleDetail {...props} update={update} del={del} reset={reset} />
+    <BlogArticleDetail {...props} update={update} del={del} />
     <Comment identifier={updateUri} /> {/* Do not change this... why is it updateUri? */}
     <style jsx global>{`
 #comment-container {

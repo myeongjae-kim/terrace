@@ -23,23 +23,22 @@ export interface BlogArticleDetailProps {
 
   update(e: React.MouseEvent): void;
   del(): void;
-  reset(): void;
 }
 
-const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, rejected, statusCode, reset}) => {
+const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle, pending, rejected, statusCode}) => {
   const classes = useStyles();
   const { title, slug, content, createdAt, prev, next } = blogArticle;
   return <>
-    <Maybe test={!rejected && title}>
+    <Maybe test={!rejected && !pending}>
       <HeadTitle title={title} />
       <div className={classes.container}>
         <ArticleHead title={title} slug={slug} createdAt={createdAt} />
         <ArticleContent content={content} />
-        <ArticlePrevAndNext prev={prev} next={next} reset={reset} />
+        <ArticlePrevAndNext prev={prev} next={next} />
       </div>
     </Maybe>
 
-    <Maybe test={!title}>
+    <Maybe test={pending}>
       <Loading style={{paddingTop: "calc(30vh)", paddingBottom: "calc(50vh)"}} />
     </Maybe>
 

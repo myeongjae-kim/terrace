@@ -71,10 +71,6 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
     }));
   }, [dailyPathDto, dispatch]);
 
-  const resetDetail = React.useCallback(() => {
-    dispatch(detailModule.reset());
-  }, [dispatch]);
-
   return <div>
     <HeadTitle title="Daily" />
     <DailyDetail
@@ -90,7 +86,6 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
       pending={false}
       rejected={false}
       currentDaily={dailyDetail}
-      resetDetail={resetDetail}
     />
     <style jsx global>{`
 #comment-container {

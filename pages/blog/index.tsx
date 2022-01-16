@@ -9,6 +9,7 @@ import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules
 import {RootState} from "src/common/presentation/state-module/root";
 import {useRouter} from "next/router";
 import MyPagination from "src/common/presentation/components/organisms/MyPagination";
+import {pageContainerStyle} from "../../src/common/styles/pageContainerStyle";
 
 const selector = createSelector<RootState, listModule.State, BlogArticleListProps>(
   root => root.blog.list,
@@ -23,11 +24,17 @@ const BlogArticlePage: NextPage<{pageNumber: number}> = () => {
     return `${router.pathname}?page=${page}`;
   }, [router.pathname]);
 
-  return <div>
-    <HeadTitle title="Blog" />
-    <PageTitle title="articles" />
-    <div><MyPagination pagination={props.pagination} hrefGenerator={hrefGenerator} /></div>
-    <BlogArticleList {...props} />
+  return <div style={pageContainerStyle}>
+    <div>
+      <HeadTitle title="Blog" />
+      <PageTitle title="articles" />
+      <BlogArticleList {...props} />
+    </div>
+    <div style={{display: "flex", justifyContent: "center"}}>
+      <div>
+        <MyPagination pagination={props.pagination} hrefGenerator={hrefGenerator} />
+      </div>
+    </div>
   </div>;
 };
 

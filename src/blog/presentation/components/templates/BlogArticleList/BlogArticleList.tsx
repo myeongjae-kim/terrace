@@ -22,14 +22,14 @@ export interface BlogArticleListProps {
   rejected: boolean;
 }
 
-const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles }) => {
+const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles, pending }) => {
   const classes = useStyles();
   return <div>
     <div className={classes.container}>
-      <Maybe test={blogArticles.length === 0}>
+      <Maybe test={pending}>
         <Loading />
       </Maybe>
-      <Maybe test={blogArticles.length !== 0}>
+      <Maybe test={!pending}>
         {blogArticles.map(b => <EachBlogArticle key={b.id} blogArticle={b} />)}
       </Maybe>
     </div>

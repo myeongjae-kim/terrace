@@ -18,12 +18,11 @@ export interface DailyListProps {
   dailys: DailyListResponseDto[];
   pending: boolean;
   rejected: boolean;
-  resetDetail: () => void;
 
   currentDaily?: DailyDetailResponseDto;
 }
 
-const DailyList: React.FC<DailyListProps> = ({ dailys, currentDaily , resetDetail}) => {
+const DailyList: React.FC<DailyListProps> = ({ dailys, currentDaily }) => {
   const classes = useStyles();
   return <div className={classes.dailyList}>
     <div>
@@ -35,7 +34,6 @@ const DailyList: React.FC<DailyListProps> = ({ dailys, currentDaily , resetDetai
           key={daily.id}
           daily={daily}
           isLinkDisabled={daily.id === Optional.ofNullable(currentDaily).map(d => d.id).orElse("")}
-          resetDetail={resetDetail}
         />)}
       </Maybe>
     </div>

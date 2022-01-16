@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   daily: DailyListResponseDto;
-  resetDetail: () => void;
   isLinkDisabled?: boolean;
 }
 
@@ -42,10 +41,10 @@ const EachDailyContent: React.FC<{
   </div>;
 };
 
-const EachDaily: React.FC<Props> = ({ daily, isLinkDisabled , resetDetail}) => {
+const EachDaily: React.FC<Props> = ({ daily, isLinkDisabled }) => {
   return <>
     <Maybe test={!isLinkDisabled}>
-      <Link href={daily.uri} onClick={resetDetail}>
+      <Link href={daily.uri}>
         <EachDailyContent daily={daily} />
       </Link>
     </Maybe>
