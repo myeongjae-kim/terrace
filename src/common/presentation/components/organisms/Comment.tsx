@@ -7,7 +7,6 @@ interface Props {
 
 const Utterances: React.FC<Props> = ({ identifier }) => {
   const theme = useTheme();
-  console.log("\n\n\nidentifier: ", identifier);
 
   React.useEffect(() => {
     initComment(theme.palette.type);
