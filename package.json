@@ -2,6 +2,7 @@
   "name": "community-web",
   "version": "0.0.1",
   "private": true,
+  "cacheDirectories": [".next/cache"],
   "scripts": {
     "dev": "next dev",
     "build": "npm run lint && npm run test && next build",
