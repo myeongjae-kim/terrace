@@ -4,6 +4,7 @@ import {BlogArticleListResponseDto} from "src/blog/api";
 import EachBlogArticle from "./EachBlogArticle";
 import Loading from "src/Loading";
 import {Maybe} from "src/common/presentation/components/molecules";
+import {StrapiPagination} from "../../../../../common/domain/model/StrapiPagination";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export interface BlogArticleListProps {
   blogArticles: BlogArticleListResponseDto[];
+  pagination: StrapiPagination,
   pending: boolean;
   rejected: boolean;
 }

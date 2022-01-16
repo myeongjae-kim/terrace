@@ -5,36 +5,38 @@ import BlogArticleList from "src/blog/presentation/components/templates/BlogArti
 import {BlogArticleListProps} from "src/blog/presentation/components/templates/BlogArticleList/BlogArticleList";
 import * as listModule from "src/blog/presentation/state-modules/list";
 import NextPage from "src/common/domain/model/NextPage";
-import {HeadTitle, Link, PageTitle} from "src/common/presentation/components/molecules";
+import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules";
 import {RootState} from "src/common/presentation/state-module/root";
 import {useRouter} from "next/router";
+import MyPagination from "src/common/presentation/components/organisms/MyPagination";
 
 const selector = createSelector<RootState, listModule.State, BlogArticleListProps>(
   root => root.blog.list,
   (list) => ({ ...list })
 );
 
-const BlogArticlePage: NextPage<{pageNumber: number}> = (pageProps) => {
+const BlogArticlePage: NextPage<{pageNumber: number}> = () => {
   const props = useSelector<RootState, BlogArticleListProps>(selector);
-  const {pageNumber} = pageProps;
   const router = useRouter();
+
+  const hrefGenerator = React.useCallback((page: number) => {
+    return `${router.pathname}?page=${page}`;
+  }, [router.pathname]);
 
   return <div>
     <HeadTitle title="Blog" />
     <PageTitle title="articles" />
-    <div>{pageNumber}</div>
-    <div><Link href={`${router.pathname}?page=${pageNumber + 1}`}>nextPage</Link></div>
+    <div><MyPagination pagination={props.pagination} hrefGenerator={hrefGenerator} /></div>
     <BlogArticleList {...props} />
   </div>;
 };
 
 BlogArticlePage.getInitialProps = async (initialProps) => {
   const {store, query} = initialProps;
-  store.dispatch(listModule.fetchBlogArticles());
+  const page = parseInt("" + query["page"]) || 1;
+  store.dispatch(listModule.fetchBlogArticles({page}));
 
-  const pageNumber = parseInt("" + query["page"]) || 1;
-
-  return { namespacesRequired: ["common", "noti"], pageNumber };
+  return { namespacesRequired: ["common", "noti"] };
 };
 
 export default BlogArticlePage;

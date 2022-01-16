@@ -50,19 +50,24 @@ const convertListToPrevOrNext = (list: BlogArticleListStrapi | undefined): BlogA
   })).orElse(defaultPrevOrNext);
 
 export const blogArticleApi = {
-  findAll: (): Promise<BlogArticleListResponseDto[]> => new Promise((resolve, rejected) => {
+  findAll: (page = 1): Promise<StrapiResponse<BlogArticleListResponseDto>> => new Promise((resolve, rejected) => {
     Axios.get<StrapiResponse<BlogArticleListStrapi>>(`${API_HOST}${Endpoints.blog}`, {params: {
       fields: listFields,
       sort: ["seq:desc"],
-      "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현, 최대 100개밖에 안 온다.
+      "pagination[page]": page,
+      "pagination[pageSize]": 25
     }})
-      .then(res => resolve(res.data.data.map(it => ({
-        id: "" + it.id,
-        seq: it.attributes.seq,
-        createdAt: it.attributes.createdAt,
-        uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
-        title: it.attributes.title,
-      }))))
+      .then(res => ({
+        data: res.data.data.map(it => ({
+          id: "" + it.id,
+          seq: it.attributes.seq,
+          createdAt: it.attributes.createdAt,
+          uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
+          title: it.attributes.title,
+        })),
+        meta: res.data.meta,
+      }))
+      .then(res => resolve(res))
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
   }),
 

@@ -1,11 +1,13 @@
 import * as React from "react";
+import {useTheme} from "@material-ui/core";
 
-const DisplayProps = <T,>(props: T) =>
-  <div style={{ margin: "1rem 0" }}>
-    <h3 style={{ fontFamily: "monospace" }} />
+const DisplayProps = <T,>(props: T) => {
+  const theme = useTheme();
+  return <div style={{margin: "1rem 0"}}>
+    <h3 style={{fontFamily: "monospace"}}/>
     <pre
       style={{
-        background: "#f6f8fa",
+        background: theme.palette.background.paper,
         fontSize: ".65rem",
         padding: ".5rem",
       }}
@@ -14,5 +16,6 @@ const DisplayProps = <T,>(props: T) =>
       {JSON.stringify(props, null, 2)}
     </pre>
   </div>;
+}
 
 export default DisplayProps;
