@@ -26,12 +26,31 @@ const selector = createSelector<RootState, detailModule.State, {
   })
 );
 
+const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDetailResponseDto) => {
+  const dispatch = useDispatch<Dispatch<detailModule.Action>>();
+  const { id, seq, prev, next } = article;
+
+  // prev and next does not rendered on ssr for performance.
+  // fetch prev and next if article is fetched and prev or next are not fetched.
+  // call just only once.
+  const [isFirst, updateFirst] = React.useState(true);
+  React.useEffect(() => {
+    if (isFirst && id && !(prev.id || next.id)) {
+      dispatch(detailModule.fetchPrev({seq}));
+      dispatch(detailModule.fetchNext({seq}));
+    }
+    updateFirst(false);
+  }, [id, seq, prev, next, isFirst, dispatch]);
+};
+
 interface Props {
   blogArticlePathDto: BlogArticlePathDto;
 }
 
 const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
   const props = useSelector(selector);
+  useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR(props.blogArticle);
+
   const dispatch = useDispatch<Dispatch<detailModule.Action | commonModule.Action>>();
 
   const { title, content, createdAt, slug } = props.blogArticle;
@@ -96,12 +115,12 @@ const fetchBlogArticleDetail = (store: Store<RootState>, req: BlogArticlePathDto
 };
 
 const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto => {
-  const splitted = asPath.split("/");
+  const split = asPath.split("/");
   return {
-    year: splitted[2],
-    month: splitted[3],
-    day: splitted[4],
-    slug: splitted[5],
+    year: split[2],
+    month: split[3],
+    day: split[4],
+    slug: split[5],
   };
 };
 

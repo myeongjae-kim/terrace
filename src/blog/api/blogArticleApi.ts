@@ -76,26 +76,6 @@ export const blogArticleApi = {
       throw RepositoryError.of();
     }
 
-    const promiseToGetPrev: Promise<BlogArticleStrapi | undefined> =
-      Axios.get<{ data: BlogArticleStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
-        params: {
-          "filters[seq][$lt]": article.attributes.seq,
-          "sort": ["seq:desc"],
-          "pagination[pageSize]": 1
-        }
-      }).then(it => it.data.data[0]);
-
-    const promiseToGetNext:Promise<BlogArticleStrapi | undefined> =
-      Axios.get<{ data: BlogArticleStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
-        params: {
-          "filters[seq][$gt]": article.attributes.seq,
-          "sort": ["seq:asc"],
-          "pagination[pageSize]": 1
-        }
-      }).then(it => it.data.data[0]);
-
-    const [prev, next] = await Promise.all([promiseToGetPrev, promiseToGetNext]);
-
     return {
       id: "" + article.id,
       seq: article.attributes.seq,
@@ -104,8 +84,8 @@ export const blogArticleApi = {
       title: article.attributes.title,
       slug: article.attributes.slug,
       content: article.attributes.content,
-      prev: convertListToPrevOrNext(prev),
-      next: convertListToPrevOrNext(next)
+      prev: defaultPrevOrNext, // redux module에서 prev와 next를 불러온다
+      next: defaultPrevOrNext
     };
   },
 
@@ -127,7 +107,7 @@ export const blogArticleApi = {
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
   }),
 
-  getPrevOf: async (seq: string): Promise<BlogArticlePrevOrNext> => {
+  getPrevOf: async (seq: number): Promise<BlogArticlePrevOrNext> => {
     const prev: BlogArticleListStrapi | undefined =
       await Axios.get<{ data: BlogArticleListStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
         params: {
@@ -141,7 +121,7 @@ export const blogArticleApi = {
     return convertListToPrevOrNext(prev);
   },
 
-  getNextOf: async (seq: string): Promise<BlogArticlePrevOrNext> => {
+  getNextOf: async (seq: number): Promise<BlogArticlePrevOrNext> => {
     const prev: BlogArticleListStrapi | undefined =
       await Axios.get<{ data: BlogArticleListStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
         params: {

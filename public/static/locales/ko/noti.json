@@ -61,6 +61,12 @@
     "find": {
       "rejected": "블로그 글을 가져오지 못했습니다.\n\n{{e}}"
     },
+    "prev": {
+      "rejected": "이전 글을 가져오지 못했습니다.\n\n{{e}}"
+    },
+    "next": {
+      "rejected": "다음 글을 가져오지 못했습니다.\n\n{{e}}"
+    },
     "create": {
       "fulfilled": "블로그 글을 생성했습니다.",
       "rejected": "블로그 글을 생성하지 못했습니다.\n\n{{e}}"
