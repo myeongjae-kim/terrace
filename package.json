@@ -2,7 +2,9 @@
   "name": "community-web",
   "version": "0.0.1",
   "private": true,
-  "cacheDirectories": [".next/cache"],
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "npm run lint && npm run test && next build",
@@ -14,9 +16,15 @@
     "report": "jest unit --coverage"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/lab": "^5.0.0-alpha.64",
+    "@mui/material": "^5.2.8",
+    "@mui/styles": "^5.2.3",
     "assert-plus": "^1.0.0",
     "axios": "^0.21.2",
     "clsx": "^1.1.1",
