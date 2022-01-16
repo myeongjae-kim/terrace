@@ -23,7 +23,6 @@ interface Props {
 
 const Navigation: React.FC<Props> = ({ items }) => {
   const paths = useSelector<RootState, string[]>(({ common }) => common.paths);
-
   const classes = useStyles();
   const firstPath = paths[0] || "";
 

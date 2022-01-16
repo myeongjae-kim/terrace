@@ -38,7 +38,7 @@ const createInitialState = (): State => ({
 
 export const reducer = createReducer<State, Action>(createInitialState())
   .handleAction(setPaths, (state, action) => produce(state, draft => {
-    draft.paths = action.payload.pathname.split("/").slice(1);
+    draft.paths = action.payload.pathname.split("?")[0].split("/").slice(1);
     draft.paths[0] = "/" + draft.paths[0];
     return draft;
   }))
