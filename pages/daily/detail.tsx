@@ -111,7 +111,7 @@ DailyDetailPage.getInitialProps = async ({ store, asPath, res }) => {
 
 const fetchDailyList = (store: Store<RootState>): void => {
   if (store.getState().daily.list.dailys.length === 0) {
-    store.dispatch(listModule.fetchDailys());
+    store.dispatch(listModule.fetchDailys({page: 1}));
   }
 };
 

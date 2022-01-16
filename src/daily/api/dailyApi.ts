@@ -5,6 +5,7 @@ import {DailyDetailResponseDto, DailyListResponseDto, DailyPathDto, DailyRequest
 import {CreationResponse} from "src/common/api/dto/CreationResponse";
 import {formatDateTime} from "../../util";
 import RepositoryError from "../../common/domain/model/RepositoryError";
+import {StrapiResponse} from "../../common/api/dto/StrapiResponse";
 
 interface DailyAttributes {
   seq: number;
@@ -26,19 +27,24 @@ interface DailyArticleStrapi {
 }
 
 export const dailyApi = {
-  findAll: (): Promise<DailyListResponseDto[]> => new Promise((resolve, rejected) => {
-    Axios.get<{data: DailyArticleListStrapi[]}>(`${API_HOST}${Endpoints.daily}`, {params: {
+  findAll: (page = 1): Promise<StrapiResponse<DailyListResponseDto>> => new Promise((resolve, rejected) => {
+    Axios.get<StrapiResponse<DailyArticleListStrapi>>(`${API_HOST}${Endpoints.daily}`, {params: {
       fields: ["seq", "title", "slug"],
       sort: ["seq:desc"],
-      "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현, 최대 100개밖에 안 온다.
+      "pagination[page]": page,
+      "pagination[pageSize]": 20,
     }})
-      .then(res => resolve(res.data.data.map(it => ({
-        id: "" + it.id,
-        seq: it.attributes.seq,
-        createdAt: it.attributes.createdAt,
-        uri: "/daily" + formatDateTime(it.attributes.createdAt, "/YYYY/MM/DD/") + it.attributes.slug,
-        title: it.attributes.title,
-      }))))
+      .then(res => ({
+        data: res.data.data.map(it => ({
+          id: "" + it.id,
+          seq: it.attributes.seq,
+          createdAt: it.attributes.createdAt,
+          uri: "/daily" + formatDateTime(it.attributes.createdAt, "/YYYY/MM/DD/") + it.attributes.slug,
+          title: it.attributes.title,
+        })),
+        meta: res.data.meta
+      }))
+      .then(res => resolve(res))
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
   }),
 

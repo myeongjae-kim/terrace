@@ -4,15 +4,17 @@ import { enqueueSnackbar } from "src/common/presentation/state-module/snackbar";
 import { dailyApi, DailyListResponseDto } from "src/daily/api";
 import stringify from "src/util/stringify";
 import { ActionType, createAction, createAsyncAction, createReducer, getType } from "typesafe-actions";
+import {StrapiResponse} from "../../../common/api/dto/StrapiResponse";
+import {StrapiPagination, strapiPaginationDefault} from "../../../common/domain/model/StrapiPagination";
 
 const actions = {
   reset: createAction("@dailyList/RESET")(),
-  fetchDailys: createAction("@dailyList/FETCH_DAILY_LIST")(),
+  fetchDailys: createAction("@dailyList/FETCH_DAILY_LIST")<{page: number}>(),
   fetchDailysAsync: createAsyncAction(
     "@dailyList/FETCH_DAILY_LIST_REQUEST",
     "@dailyList/FETCH_DAILY_LIST_SUCCESS",
     "@dailyList/FETCH_DAILY_LIST_FAILURE",
-  )<void, { dailys: DailyListResponseDto[] }, void>()
+  )<void, { dailys: DailyListResponseDto[], pagination: StrapiPagination }, void>()
 };
 
 export const { reset, fetchDailys } = actions;
@@ -20,6 +22,7 @@ export type Action = ActionType<typeof actions>;
 
 export interface State {
   dailys: DailyListResponseDto[];
+  pagination: StrapiPagination;
   pending: boolean;
   rejected: boolean;
 }
@@ -27,6 +30,7 @@ export interface State {
 // Initial State
 const createInitialState = (): State => ({
   dailys: [],
+  pagination: strapiPaginationDefault,
   pending: true,
   rejected: false
 });
@@ -42,6 +46,7 @@ export const reducer = createReducer<State, Action>(createInitialState())
     draft.pending = false;
     draft.rejected = false;
     draft.dailys = action.payload.dailys;
+    draft.pagination = action.payload.pagination;
     return draft;
   }))
   .handleAction(actions.fetchDailysAsync.failure, (state) => produce(state, draft => {
@@ -54,11 +59,11 @@ export function* saga() {
   yield takeLeading(getType(fetchDailys), sagaFetchDaily);
 }
 
-function* sagaFetchDaily() {
+function* sagaFetchDaily(action: ActionType<typeof actions.fetchDailys>) {
   yield put(actions.fetchDailysAsync.request());
   try {
-    const dailys: DailyListResponseDto[] = yield call(dailyApi.findAll);
-    yield put(actions.fetchDailysAsync.success({ dailys }));
+    const response: StrapiResponse<DailyListResponseDto> = yield call(dailyApi.findAll, action.payload.page);
+    yield put(actions.fetchDailysAsync.success({ dailys: response.data, pagination: response.meta.pagination }));
   } catch (e) {
     yield put(actions.fetchDailysAsync.failure());
     yield put(enqueueSnackbar({

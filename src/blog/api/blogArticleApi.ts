@@ -55,7 +55,7 @@ export const blogArticleApi = {
       fields: listFields,
       sort: ["seq:desc"],
       "pagination[page]": page,
-      "pagination[pageSize]": 15
+      "pagination[pageSize]": 10
     }})
       .then(res => ({
         data: res.data.data.map(it => ({

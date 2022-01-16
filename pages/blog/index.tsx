@@ -7,7 +7,6 @@ import * as listModule from "src/blog/presentation/state-modules/list";
 import NextPage from "src/common/domain/model/NextPage";
 import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules";
 import {RootState} from "src/common/presentation/state-module/root";
-import {useRouter} from "next/router";
 import MyPagination from "src/common/presentation/components/organisms/MyPagination";
 import {pageContainerStyle} from "../../src/common/styles/pageContainerStyle";
 
@@ -18,11 +17,6 @@ const selector = createSelector<RootState, listModule.State, BlogArticleListProp
 
 const BlogArticlePage: NextPage<{pageNumber: number}> = () => {
   const props = useSelector<RootState, BlogArticleListProps>(selector);
-  const router = useRouter();
-
-  const hrefGenerator = React.useCallback((page: number) => {
-    return `${router.pathname}?page=${page}`;
-  }, [router.pathname]);
 
   return <div style={pageContainerStyle}>
     <div>
@@ -32,7 +26,7 @@ const BlogArticlePage: NextPage<{pageNumber: number}> = () => {
     </div>
     <div style={{display: "flex", justifyContent: "center"}}>
       <div>
-        <MyPagination pagination={props.pagination} hrefGenerator={hrefGenerator} />
+        <MyPagination pagination={props.pagination} />
       </div>
     </div>
   </div>;
