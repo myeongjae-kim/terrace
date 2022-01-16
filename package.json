@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run lint && npm run test && next build",
-    "start": "[[ $PORT ]] || PORT=3000 && NODE_ENV=production next start -p $PORT",
+    "start": "NODE_ENV=production next start -p $PORT",
     "lint": "eslint . --ext .ts,.tsx --fix && tsc --noEmit",
     "test": "jest",
     "report": "jest unit --coverage"
