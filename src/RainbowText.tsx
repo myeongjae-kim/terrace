@@ -58,7 +58,7 @@ const RainbowText: React.FC<LoadingProps> = (props) => {
       }
       el.innerHTML = newHtml;
     });
-  }, []);
+  }, [props]);
 
   const classes = useStyles();
 
