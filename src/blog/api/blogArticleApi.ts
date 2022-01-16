@@ -5,7 +5,7 @@ import CommonErrorServiceImpl from "src/common/infrastructure/service/CommonErro
 import {
   BlogArticleDetailResponseDto,
   BlogArticleListResponseDto,
-  BlogArticlePathDto,
+  BlogArticlePathDto, BlogArticlePrevOrNext,
   BlogArticleRequestDto
 } from "./dto";
 import RepositoryError from "../../common/domain/model/RepositoryError";
@@ -26,22 +26,32 @@ interface BlogArticleListStrapi {
   attributes: Omit<BlogAttributes, "content">
 }
 
+const listFields = ["seq", "title", "slug"];
+
 interface BlogArticleStrapi {
   id: number;
   attributes: BlogAttributes
 }
 
-const defaultPrevOrNext = {
+const defaultPrevOrNext: BlogArticlePrevOrNext = {
   id: "",
   createdAt: "",
   title: "",
   uri: "",
 };
 
+const convertListToPrevOrNext = (list: BlogArticleListStrapi | undefined): BlogArticlePrevOrNext =>
+  Optional.ofNullable(list).map(it => ({
+    id: "" + it.id,
+    createdAt: it.attributes.createdAt,
+    title: it.attributes.title,
+    uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
+  })).orElse(defaultPrevOrNext);
+
 export const blogArticleApi = {
   findAll: (): Promise<BlogArticleListResponseDto[]> => new Promise((resolve, rejected) => {
     Axios.get<{data: BlogArticleListStrapi[]}>(`${API_HOST}${Endpoints.blog}`, {params: {
-      fields: ["seq", "title", "slug"],
+      fields: listFields,
       sort: ["seq:desc"],
       "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현, 최대 100개밖에 안 온다.
     }})
@@ -94,18 +104,8 @@ export const blogArticleApi = {
       title: article.attributes.title,
       slug: article.attributes.slug,
       content: article.attributes.content,
-      prev: Optional.ofNullable(prev).map(it => ({
-        id: "" + it.id,
-        createdAt: it.attributes.createdAt,
-        title: it.attributes.title,
-        uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
-      })).orElse(defaultPrevOrNext),
-      next: Optional.ofNullable(next).map(it => ({
-        id: "" + it.id,
-        createdAt: it.attributes.createdAt,
-        title: it.attributes.title,
-        uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
-      })).orElse(defaultPrevOrNext)
+      prev: convertListToPrevOrNext(prev),
+      next: convertListToPrevOrNext(next)
     };
   },
 
@@ -126,4 +126,32 @@ export const blogArticleApi = {
       .then(() => resolve())
       .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
   }),
+
+  getPrevOf: async (seq: string): Promise<BlogArticlePrevOrNext> => {
+    const prev: BlogArticleListStrapi | undefined =
+      await Axios.get<{ data: BlogArticleListStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+        params: {
+          "filters[seq][$lt]": seq,
+          "sort": ["seq:desc"],
+          "pagination[pageSize]": 1,
+          "fields": listFields
+        }
+      }).then(it => it.data.data[0]);
+
+    return convertListToPrevOrNext(prev);
+  },
+
+  getNextOf: async (seq: string): Promise<BlogArticlePrevOrNext> => {
+    const prev: BlogArticleListStrapi | undefined =
+      await Axios.get<{ data: BlogArticleListStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+        params: {
+          "filters[seq][$gt]": seq,
+          "sort": ["seq:asc"],
+          "pagination[pageSize]": 1,
+          "fields": listFields
+        }
+      }).then(it => it.data.data[0]);
+
+    return convertListToPrevOrNext(prev);
+  }
 };
