@@ -1,9 +1,9 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {Maybe, PageTitle} from "src/common/presentation/components/molecules";
 import { MusingResponseDto } from "src/musings/api/dto";
 import EachMusing from "./EachMusing";
-import Loading from "../../../../../Loading";
+import Loading from "src/Loading";
 
 const useStyles = makeStyles(createStyles({
   container: {

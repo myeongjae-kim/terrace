@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import * as React from "react";
 import Maybe from "./Maybe";
 import { i18n } from "next-i18next";

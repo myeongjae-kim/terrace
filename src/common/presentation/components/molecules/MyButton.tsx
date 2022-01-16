@@ -1,6 +1,7 @@
-import { Button, createStyles, makeStyles, PropTypes, StyledComponentProps, Theme } from "@material-ui/core";
-import { TouchRippleProps } from "@material-ui/core/ButtonBase/TouchRipple";
+import {Button, PropTypes, StyledComponentProps, Theme} from "@mui/material";
 import * as React from "react";
+import { TouchRippleProps } from "@mui/material/ButtonBase/TouchRipple";
+import {createStyles, makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
@@ -33,7 +34,8 @@ interface Props extends StyledComponentProps {
 const MyButton: React.FC<Props> = (props) => {
   const classes = useStyles();
 
-  return <Button {...props} classes={{
+  // TODO: fix any
+  return <Button {...props as any} classes={{
     root: classes.button,
     ...props.classes
   }}

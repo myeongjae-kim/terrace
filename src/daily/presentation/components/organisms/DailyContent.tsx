@@ -1,6 +1,7 @@
 import * as React from "react";
-import { MarkdownPreview } from "src/common/presentation/components/molecules";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import {MarkdownPreview} from "src/common/presentation/components/molecules";
+import {Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 
 interface Props {
   content: string;
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontFamily: "Noto Serif KR",
     fontWeight: 400,
     textIndent: ".5em",
-    background: theme.palette.type === "dark" ? theme.palette.background.paper : "#f4f4f4",
+    background: theme.palette.mode === "dark" ? theme.palette.background.paper : "#f4f4f4",
     padding: "5px 10px 5px 10px",
     margin: `0 ${theme.spacing(0.5)}px`,
     fontSize: ".9em",
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
     "& blockquote": {
       textIndent: "initial",
-      backgroundColor: theme.palette.type === "dark" ? "#000" : "#fff",
+      backgroundColor: theme.palette.mode === "dark" ? "#000" : "#fff",
       border: `1px solid ${theme.palette.divider} !important`,
       borderRadius: 5,
       margin: "5px 0",

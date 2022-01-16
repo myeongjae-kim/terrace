@@ -1,6 +1,7 @@
-import { createStyles, makeStyles, Link as MuiLink } from "@material-ui/core";
+import {Link as MuiLink} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
-import { Link, Maybe } from "src/common/presentation/components/molecules";
+import {Link, Maybe} from "src/common/presentation/components/molecules";
 
 const useStyles = makeStyles(createStyles({
   list: {

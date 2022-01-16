@@ -1,4 +1,5 @@
-import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
+import {Theme, Typography} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import clsx from "clsx";
 import ErrorPage from "pages/_error";
 import * as React from "react";
@@ -6,7 +7,7 @@ import {HeadTitle, Link, Maybe} from "src/common/presentation/components/molecul
 import {DailyDetailResponseDto} from "src/daily/api";
 import {formatDateTime} from "src/util";
 import {DailyContent} from "../../organisms";
-import Loading from "../../../../../Loading";
+import Loading from "src/Loading";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

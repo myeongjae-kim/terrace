@@ -1,4 +1,4 @@
-import {useTheme} from "@material-ui/core";
+import {useTheme} from "@mui/material";
 import {NextSeo} from "next-seo";
 import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";

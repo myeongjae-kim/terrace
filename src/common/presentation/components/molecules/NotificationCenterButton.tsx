@@ -1,9 +1,10 @@
-import { Button, createStyles, makeStyles } from "@material-ui/core";
-import { Notifications } from "@material-ui/icons";
+import { Button } from "@mui/material";
+import { Notifications } from "@mui/icons-material";
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import * as snackbarModule from "../../state-module/snackbar";
+import {createStyles, makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles(createStyles({
   icon: {

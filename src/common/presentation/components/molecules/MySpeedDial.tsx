@@ -1,8 +1,5 @@
-import { Fab, Tooltip } from "@material-ui/core";
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import SpeedDial from "@material-ui/lab/SpeedDial";
-import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import {Fab, SpeedDial, SpeedDialAction, SpeedDialIcon, Theme, Tooltip} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 export interface SpeedDialActionData {

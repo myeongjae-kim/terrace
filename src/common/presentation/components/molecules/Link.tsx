@@ -1,8 +1,9 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
-import MuiLink, { LinkProps as MuiLinkProps } from "@material-ui/core/Link";
+import {Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
+import MuiLink, {LinkProps as MuiLinkProps} from "@mui/material/Link";
 import clsx from "clsx";
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import { useRouter } from "next/router";
+import NextLink, {LinkProps as NextLinkProps} from "next/link";
+import {useRouter} from "next/router";
 import * as React from "react";
 
 type NextComposedProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & NextLinkProps;

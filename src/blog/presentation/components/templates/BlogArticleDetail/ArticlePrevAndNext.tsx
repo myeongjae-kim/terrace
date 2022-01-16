@@ -1,7 +1,8 @@
-import { Button, createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import {Button, Theme, Typography} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
-import { BlogArticlePrevOrNext } from "src/blog/api";
-import { Link } from "src/common/presentation/components/molecules";
+import {BlogArticlePrevOrNext} from "src/blog/api";
+import {Link} from "src/common/presentation/components/molecules";
 
 const useEachStyles = makeStyles((theme: Theme) => createStyles({
   eachContainer: {

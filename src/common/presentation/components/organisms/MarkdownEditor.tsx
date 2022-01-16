@@ -1,4 +1,5 @@
-import { CardContent, makeStyles, TextField, TextFieldProps, Theme } from "@material-ui/core";
+import {CardContent, TextField, TextFieldProps, Theme} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 import * as React from "react";
 import Spacer from "../molecules/Spacer";
 import clsx from "clsx";

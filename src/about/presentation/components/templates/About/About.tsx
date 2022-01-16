@@ -1,11 +1,12 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
-import { Code, Create, DeveloperBoard, Email, EmojiPeople, Room } from "@material-ui/icons";
+import { Theme } from "@mui/material";
+import { Code, Create, DeveloperBoard, Email, EmojiPeople, Room } from "@mui/icons-material";
 import clsx from "clsx";
 import * as React from "react";
 import Descriptions from "./Descriptions";
 import Name from "./Name";
 import Profile from "./Profile";
+import {CSSProperties} from "react";
+import {createStyles, makeStyles} from "@mui/styles";
 
 const iconStyle: CSSProperties = {
   fontSize: 17,

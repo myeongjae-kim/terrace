@@ -1,4 +1,4 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
 import ErrorPage from "pages/_error";
 import * as React from "react";
 import {BlogArticleDetailResponseDto} from "src/blog/api";
@@ -6,7 +6,8 @@ import {HeadTitle, Maybe} from "src/common/presentation/components/molecules";
 import {ArticleContent} from "../../organisms";
 import ArticleHead from "./ArticleHead";
 import ArticlePrevAndNext from "./ArticlePrevAndNext";
-import Loading from "../../../../../Loading";
+import Loading from "src/Loading";
+import {createStyles, makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

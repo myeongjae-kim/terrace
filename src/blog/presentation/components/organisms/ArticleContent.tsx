@@ -1,6 +1,7 @@
 import * as React from "react";
-import { MarkdownPreview } from "src/common/presentation/components/molecules";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import {MarkdownPreview} from "src/common/presentation/components/molecules";
+import {Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 
 interface Props {
   content: string;

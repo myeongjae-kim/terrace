@@ -1,6 +1,5 @@
-import { createStyles, TextField } from "@material-ui/core";
-import { TextFieldProps } from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/styles";
+import {createStyles, TextField, TextFieldProps} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import * as React from "react";
 import { useTranslation } from "next-i18next";

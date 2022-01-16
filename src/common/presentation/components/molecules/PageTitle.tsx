@@ -1,5 +1,6 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { Theme } from "@mui/material";
 import * as React from "react";
+import {createStyles, makeStyles} from "@mui/styles";
 
 interface Props {
   title: string;

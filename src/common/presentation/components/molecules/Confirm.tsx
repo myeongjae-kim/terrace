@@ -1,11 +1,19 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Theme } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
-import { alpha } from "@material-ui/core/styles";
-import { createStyles, makeStyles } from "@material-ui/styles";
+import {
+  alpha,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Theme
+} from "@mui/material";
+import {red} from "@mui/material/colors";
+import {createStyles, makeStyles} from "@mui/styles";
 import clsx from "clsx";
 import * as React from "react";
-import { useTranslation } from "next-i18next";
-import { ConfirmPayload } from "../../state-module/common";
+import {useTranslation} from "next-i18next";
+import {ConfirmPayload} from "../../state-module/common";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   spacing: { height: theme.spacing(1) },

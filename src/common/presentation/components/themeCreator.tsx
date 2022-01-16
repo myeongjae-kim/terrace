@@ -1,6 +1,5 @@
-import red from "@material-ui/core/colors/red";
-import { createTheme } from "@material-ui/core/styles";
-import { teal, lightBlue } from "@material-ui/core/colors";
+import {lightBlue, red, teal} from "@mui/material/colors";
+import {createTheme} from "@mui/material";
 
 const primary = {
   light: "#53adf1",
@@ -12,7 +11,7 @@ const primary = {
 // Create a theme instance.
 const themeCreator = (prefersDarkMode: boolean) => createTheme({
   palette: {
-    type: prefersDarkMode ? "dark" : "light",
+    mode: prefersDarkMode ? "dark" : "light",
     primary: prefersDarkMode ? lightBlue : primary,
     secondary: teal,
     error: red,

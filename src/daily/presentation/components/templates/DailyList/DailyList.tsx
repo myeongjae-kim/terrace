@@ -1,9 +1,10 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
 import * as React from "react";
 import {DailyListResponseDto} from "src/daily/api";
 import EachDaily from "./EachDaily";
 import {Maybe} from "src/common/presentation/components/molecules";
 import Loading from "../../../../../Loading";
+import {makeStyles,createStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   dailyList: {

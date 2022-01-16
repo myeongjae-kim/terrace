@@ -1,13 +1,14 @@
 import * as React from "react";
-import { IconButton, makeStyles, createStyles, NoSsr } from "@material-ui/core";
-import { Brightness7, Brightness4 } from "@material-ui/icons";
+import {IconButton, NoSsr, Theme} from "@mui/material";
+import {Brightness4, Brightness7} from "@mui/icons-material";
+import {createStyles, makeStyles} from "@mui/styles";
 
 interface Props {
   isDark: boolean;
   toggle(): void;
 }
  
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   icon: {
     position: "absolute",
     top: theme.spacing(2),

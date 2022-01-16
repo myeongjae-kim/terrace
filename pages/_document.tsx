@@ -1,4 +1,4 @@
-import { ServerStyleSheets } from "@material-ui/styles";
+import { ServerStyleSheets } from "@mui/styles";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 

@@ -1,5 +1,3 @@
-import { IconButton } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
 import { withSnackbar, WithSnackbarProps } from "notistack";
 import * as React from "react";
 import { WithTranslation } from "react-i18next";
@@ -9,6 +7,8 @@ import { withTranslation } from "next-i18next";
 import { RootState } from "../../state-module/root";
 import * as snackbarModule from "../../state-module/snackbar";
 import { Snackbar } from "../../state-module/snackbar";
+import {IconButton} from "@mui/material";
+import {Close} from "@mui/icons-material";
 
 interface Props extends WithSnackbarProps, WithTranslation {
   snackbars: Snackbar[];

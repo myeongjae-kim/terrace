@@ -1,4 +1,5 @@
-import {createStyles, CssBaseline, makeStyles, Theme} from "@material-ui/core";
+import {CssBaseline, Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import React from "react";
 import FooterContent from "./FooterContent";
 import TopBar from "./TopBar";
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: `0 ${theme.spacing(0.5)}px`,
     lineHeight: 1.6,
     "& img[src*=\"#shadow\"]": {
-      boxShadow: `2px 2px 15px ${theme.palette.type === "dark" ? "#000" : "#ccc"}`,
+      boxShadow: `2px 2px 15px ${theme.palette.mode === "dark" ? "#000" : "#ccc"}`,
     },
     "& img[src*=\"#round\"]": {
       borderRadius: "5px",
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       border: 0,
       height: 1,
       background: "#333",
-      backgroundImage: `linear-gradient(90deg, ${theme.palette.type === "dark" ? "#333,#ccc,#333" : "#ccc,#333,#ccc"})`,
+      backgroundImage: `linear-gradient(90deg, ${theme.palette.mode === "dark" ? "#333,#ccc,#333" : "#ccc,#333,#ccc"})`,
       opacity: .7
     },
     "& figure": {

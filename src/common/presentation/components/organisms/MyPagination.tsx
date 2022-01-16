@@ -1,9 +1,9 @@
-import {StrapiPagination} from "../../../domain/model/StrapiPagination";
+import {StrapiPagination} from "src/common/domain/model/StrapiPagination";
 import React from "react";
 import {Link} from "src/common/presentation/components/molecules";
-import {Pagination, PaginationItem} from "@material-ui/lab";
 import {useRouter} from "next/router";
-import {usePaginationHrefGenerator} from "../../../../util/usePaginationHrefGenerator";
+import {usePaginationHrefGenerator} from "src/util/usePaginationHrefGenerator";
+import {Pagination, PaginationItem} from "@mui/material";
 
 interface Props {
   pagination: StrapiPagination

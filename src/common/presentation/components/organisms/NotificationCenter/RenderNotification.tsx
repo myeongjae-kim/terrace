@@ -1,10 +1,11 @@
-import { Card, createStyles, Fade, makeStyles, Theme, useTheme } from "@material-ui/core";
-import { blue, green, grey, orange, red } from "@material-ui/core/colors";
-import { Cancel } from "@material-ui/icons";
-import { VariantType } from "notistack";
+import {Card, Fade, Theme, useTheme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
+import {blue, green, grey, orange, red} from "@mui/material/colors";
+import {Cancel} from "@mui/icons-material";
+import {VariantType} from "notistack";
 import Optional from "optional-js";
 import * as React from "react";
-import { Snackbar } from "src/common/presentation/state-module/snackbar";
+import {Snackbar} from "src/common/presentation/state-module/snackbar";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   card: {
@@ -91,7 +92,7 @@ const RenderNotification: React.FC<Props> = ({ snackbar, handleRemove }) => {
     const initialHeight = ref.current.offsetHeight;
     const deltaHeight = initialHeight / leavingScreen;
 
-    const initialMargin = theme.spacing(1.5);
+    const initialMargin = Number(theme.spacing(1.5));
     const deltaMargin = initialMargin / leavingScreen;
 
     ref.current.style.height = initialHeight + "px";

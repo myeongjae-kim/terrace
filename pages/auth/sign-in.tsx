@@ -1,7 +1,8 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import {Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "redux";
+import {useDispatch} from "react-redux";
+import {Dispatch} from "redux";
 import SignIn from "src/auth/presentation/components/SignIn";
 import * as signModule from "src/auth/presentation/state-modules/sign";
 import NextPage from "src/common/domain/model/NextPage";

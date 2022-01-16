@@ -7,6 +7,7 @@ import {v4 as uuidv4} from "uuid";
 
 export interface SnackbarOptionsObject extends OptionsObject {
   onClose?: any;
+  title?: string;
   remove?(): void;
 }
 

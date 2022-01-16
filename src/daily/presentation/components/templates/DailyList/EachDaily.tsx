@@ -1,4 +1,5 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {Link} from "src/common/presentation/components/molecules";
 import {DailyListResponseDto} from "src/daily/api";

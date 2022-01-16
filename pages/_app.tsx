@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider } from "@mui/styles";
 import createSagaMiddleware from "@redux-saga/core";
 import withReduxSaga from "next-redux-saga";
 import withRedux from "next-redux-wrapper";
@@ -39,6 +38,7 @@ import ColorModeChangeButton from "src/common/presentation/components/molecules/
 import { usePersistentDarkModePreference } from "src/common/domain/model/usePersistentDarkModePreferences";
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
+import {CssBaseline} from "@mui/material";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -151,8 +151,8 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
         <PrismjsThemeSupport />
 
         <ReduxStoreProvider store={store}>
-          <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
-            <>
+          <SnackbarProvider>
+            <div style={{ whiteSpace: "pre-wrap" }}>
               <MainLayout>
                 <ColorModeChangeButton
                   isDark={prefersDarkMode}
@@ -163,7 +163,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
               <ConfirmContainer />
               <SnackbarContainer />
               <NotificationCenterContainer />
-            </>
+            </div>
           </SnackbarProvider>
         </ReduxStoreProvider>
       </ThemeProvider>

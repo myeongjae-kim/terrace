@@ -1,7 +1,8 @@
-import { createStyles, Drawer, makeStyles } from "@material-ui/core";
+import { Drawer } from "@mui/material";
 import * as React from "react";
 import { Snackbar } from "../../../state-module/snackbar";
 import RenderNotification from "./RenderNotification";
+import {createStyles, makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles(createStyles({
   drawerItems: {

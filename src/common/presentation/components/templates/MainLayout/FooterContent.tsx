@@ -1,8 +1,9 @@
-import {createStyles, Link, makeStyles, Typography} from "@material-ui/core";
+import {Link, Theme, Typography} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import Router from "next/router";
 import * as React from "react";
 
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   footer: {
     display: "flex",
     justifyContent: "space-between",
@@ -13,7 +14,7 @@ const useStyles = makeStyles(theme => createStyles({
     height: 50,
     marginTop: -20,
     pointerEvents: "none",
-    opacity: theme.palette.type === "dark" ? 0 : "initial"
+    opacity: theme.palette.mode === "dark" ? 0 : "initial"
   }
 }));
 

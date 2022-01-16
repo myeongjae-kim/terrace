@@ -1,8 +1,9 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import {Theme} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
-import { BlogArticleListResponseDto } from "src/blog/api";
-import { Link } from "src/common/presentation/components/molecules";
-import { formatDateTime } from "src/util";
+import {BlogArticleListResponseDto} from "src/blog/api";
+import {Link} from "src/common/presentation/components/molecules";
+import {formatDateTime} from "src/util";
 
 const hoverBackgroundBrightColor = "230, 230, 230";
 const hoverBackgroundDarkColor = "60, 60, 60";
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: `${theme.spacing(1.5)}px 0`,
     marginBottom: theme.spacing(1),
     "&:hover": {
-      background: `rgba(${theme.palette.type === "dark"
+      background: `rgba(${theme.palette.mode === "dark"
         ? hoverBackgroundDarkColor
         : hoverBackgroundBrightColor }, 0.23) !important`
     },
@@ -32,7 +33,7 @@ interface Props {
   blogArticle: BlogArticleListResponseDto;
 }
 
-const EachBlogArticle: React.SFC<Props> = ({ blogArticle }) => {
+const EachBlogArticle: React.FC<Props> = ({ blogArticle }) => {
   const { title, createdAt, uri } = blogArticle;
   const classes = useStyles();
   return <>

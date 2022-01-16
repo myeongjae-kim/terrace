@@ -1,8 +1,7 @@
-import Link from "@material-ui/core/Link";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import SvgIcon, { SvgIconProps } from "@material-ui/core/SvgIcon";
-import Typography from "@material-ui/core/Typography";
+import Link from "@mui/material/Link";
+import { createStyles, makeStyles } from "@mui/styles";
 import React from "react";
+import {SvgIcon, SvgIconProps, Theme, Typography} from "@mui/material";
 
 function LightBulbIcon(props: SvgIconProps) {
   return (

@@ -1,7 +1,7 @@
-import { makeStyles, Typography } from "@material-ui/core";
-import { orange } from "@material-ui/core/colors";
-import { Warning } from "@material-ui/icons";
-import { createStyles } from "@material-ui/styles";
+import { Typography } from "@mui/material";
+import { orange } from "@mui/material/colors";
+import { Warning } from "@mui/icons-material";
+import { makeStyles, createStyles } from "@mui/styles";
 import * as React from "react";
 
 const useStyles = makeStyles(createStyles({
