@@ -12,10 +12,10 @@ import Loading from "src/Loading";
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     maxWidth: theme.spacing(62.5),
-    margin: `auto auto ${theme.spacing(3)}px auto`
+    margin: `auto auto ${theme.spacing(3)} auto`
   },
   title: {
-    margin: `${theme.spacing(3)}px 0 ${theme.spacing(4)}px 0`,
+    margin: `${theme.spacing(3)} 0 ${theme.spacing(4)} 0`,
   },
   serif: {
     fontFamily: "Noto Serif KR",

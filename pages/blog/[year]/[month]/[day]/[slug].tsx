@@ -87,7 +87,7 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
     <Comment identifier={`blog${subPath}`} />
     <style jsx global>{`
 #comment-container {
-  max-width: ${theme.spacing(100)}px;
+  max-width: ${theme.spacing(100)};
 }
     `}</style>
   </div>;

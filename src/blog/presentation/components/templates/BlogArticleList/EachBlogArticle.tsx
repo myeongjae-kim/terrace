@@ -10,7 +10,7 @@ const hoverBackgroundDarkColor = "60, 60, 60";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    padding: `${theme.spacing(1.5)}px 0`,
+    padding: `${theme.spacing(1.5)} 0`,
     marginBottom: theme.spacing(1),
     "&:hover": {
       background: `rgba(${theme.palette.mode === "dark"

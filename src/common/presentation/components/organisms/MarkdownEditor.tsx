@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     margin: theme.spacing(1),
     minWidth: theme.spacing(40),
-    width: `calc(50% - ${theme.spacing(2)}px)`,
-    height: `calc(100vh - ${theme.spacing(7)}px)`,
+    width: `calc(50% - ${theme.spacing(2)})`,
+    height: `calc(100vh - ${theme.spacing(7)})`,
     overflowY: "scroll",
     padding: theme.spacing(1)
   },

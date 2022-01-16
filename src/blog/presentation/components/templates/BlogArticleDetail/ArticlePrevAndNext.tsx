@@ -6,7 +6,7 @@ import {Link} from "src/common/presentation/components/molecules";
 
 const useEachStyles = makeStyles((theme: Theme) => createStyles({
   eachContainer: {
-    margin: `${theme.spacing(1)}px 0`,
+    margin: `${theme.spacing(1)} 0`,
   },
   label: {
     marginBottom: theme.spacing(0.5),
@@ -17,14 +17,14 @@ const useEachStyles = makeStyles((theme: Theme) => createStyles({
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    margin: `${theme.spacing(4)}px 0`,
+    margin: `${theme.spacing(4)} 0`,
     textAlign: "center"
   },
   hrUpper: {
     marginBottom: theme.spacing(2)
   },
   hrLower: {
-    margin: `${theme.spacing(2)}px 0`
+    margin: `${theme.spacing(2)} 0`
   }
 }));
 

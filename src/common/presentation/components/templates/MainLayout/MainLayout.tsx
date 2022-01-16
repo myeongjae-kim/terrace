@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
-    margin: `0 ${theme.spacing(0.5)}px`,
+    margin: `0 ${theme.spacing(0.5)}`,
     lineHeight: 1.6,
     "& img[src*=\"#shadow\"]": {
       boxShadow: `2px 2px 15px ${theme.palette.mode === "dark" ? "#000" : "#ccc"}`,

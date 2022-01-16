@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
   },
   notiContent: {
-    margin: `${theme.spacing(1.3)}px ${theme.spacing(2)}px`
+    margin: `${theme.spacing(1.3)} ${theme.spacing(2)}`
   },
   message: {
     marginBottom: theme.spacing(1)
@@ -92,7 +92,7 @@ const RenderNotification: React.FC<Props> = ({ snackbar, handleRemove }) => {
     const initialHeight = ref.current.offsetHeight;
     const deltaHeight = initialHeight / leavingScreen;
 
-    const initialMargin = Number(theme.spacing(1.5));
+    const initialMargin = Number(theme.spacing(1.5).replace("px", ""));
     const deltaMargin = initialMargin / leavingScreen;
 
     ref.current.style.height = initialHeight + "px";

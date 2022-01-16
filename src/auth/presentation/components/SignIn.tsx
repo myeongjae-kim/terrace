@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   form: {
     "& > div": {
-      margin: `${theme.spacing(1)}px 0`
+      margin: `${theme.spacing(1)} 0`
     }
   },
   buttonContainer: {

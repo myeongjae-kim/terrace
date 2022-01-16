@@ -1,5 +1,5 @@
 import {lightBlue, red, teal} from "@mui/material/colors";
-import {createTheme} from "@mui/material";
+import {createTheme} from "@mui/material/styles";
 
 const primary = {
   light: "#53adf1",
@@ -7,6 +7,20 @@ const primary = {
   dark: "#00498f",
   contrastText: "#fff"
 };
+
+const fontFamily = [
+  "Source Sans Pro",
+  "\"Noto Sans KR\"",
+  "-apple-system",
+  "BlinkMacSystemFont",
+  "\"Segoe UI\"",
+  "\"Helvetica Neue\"",
+  "Arial",
+  "sans-serif",
+  "\"Apple Color Emoji\"",
+  "\"Segoe UI Emoji\"",
+  "\"Segoe UI Symbol\"",
+].join(",");
 
 // Create a theme instance.
 const themeCreator = (prefersDarkMode: boolean) => createTheme({
@@ -20,37 +34,37 @@ const themeCreator = (prefersDarkMode: boolean) => createTheme({
     fontWeightRegular: 300,
     h1: {
       fontSize: "3rem",
-      fontWeight: 100
+      fontWeight: 100,
+      fontFamily
     },
     h2: {
       fontSize: "2rem",
-      fontWeight: 100
+      fontWeight: 100,
+      fontFamily
     },
     h3: {
-      fontSize: "1.75rem"
+      fontSize: "1.75rem",
+      fontFamily
     },
     h4: {
-      fontSize: "1.5rem"
+      fontSize: "1.5rem",
+      fontFamily
     },
     h5: {
-      fontSize: "1.25rem"
+      fontSize: "1.25rem",
+      fontFamily
     },
     h6: {
-      fontSize: "1.125rem"
+      fontSize: "1.125rem",
+      fontFamily
     },
-    fontFamily: [
-      "Source Sans Pro",
-      "\"Noto Sans KR\"",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      "\"Segoe UI\"",
-      "\"Helvetica Neue\"",
-      "Arial",
-      "sans-serif",
-      "\"Apple Color Emoji\"",
-      "\"Segoe UI Emoji\"",
-      "\"Segoe UI Symbol\"",
-    ].join(","),
+    caption: {
+      fontFamily
+    },
+    button: {
+      fontFamily
+    },
+    fontFamily,
   },
 });
 

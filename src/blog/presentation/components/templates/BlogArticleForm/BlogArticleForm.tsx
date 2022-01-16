@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     textAlign: "center",
     fontWeight: 100,
-    margin: `${theme.spacing(2)}px 0`,
+    margin: `${theme.spacing(2)} 0`,
     userSelect: "none"
   },
   shortFieldContainer: {

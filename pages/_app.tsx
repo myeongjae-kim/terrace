@@ -1,41 +1,31 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import { ThemeProvider } from "@mui/styles";
+import "src/common/styles/style.css";
+import {ThemeProvider} from "@mui/material/styles";
 import createSagaMiddleware from "@redux-saga/core";
 import withReduxSaga from "next-redux-saga";
 import withRedux from "next-redux-wrapper";
-import { DefaultSeo } from "next-seo";
+import {DefaultSeo} from "next-seo";
 import Head from "next/head";
-import { SnackbarProvider } from "notistack";
+import {SnackbarProvider} from "notistack";
 import React from "react";
 import ReactGA from "react-ga";
-import { Provider as ReduxStoreProvider } from "react-redux";
-import {
-  AnyAction,
-  applyMiddleware,
-  createStore,
-  Middleware,
-  Store,
-} from "redux";
-import { DOMAIN } from "src/common/constants/Constants";
-import { appWithTranslation } from "next-i18next";
-import { MainLayout } from "src/common/presentation/components/templates";
+import {Provider as ReduxStoreProvider} from "react-redux";
+import {AnyAction, applyMiddleware, createStore, Middleware, Store,} from "redux";
+import {DOMAIN} from "src/common/constants/Constants";
+import {appWithTranslation} from "next-i18next";
+import {MainLayout} from "src/common/presentation/components/templates";
 import themeCreator from "src/common/presentation/components/themeCreator";
 import ConfirmContainer from "src/common/presentation/container/molecules/ConfirmContainer";
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
-import { setPaths } from "src/common/presentation/state-module/common";
-import {
-  rootReducer,
-  rootSaga,
-  RootState,
-} from "src/common/presentation/state-module/root";
-import { isServer } from "src/util";
-import { NextComponentType } from "next";
-import { AppContext, AppInitialProps, AppProps } from "next/app";
-import App from "next/app";
+import {setPaths} from "src/common/presentation/state-module/common";
+import {rootReducer, rootSaga, RootState,} from "src/common/presentation/state-module/root";
+import {isServer} from "src/util";
+import {NextComponentType} from "next";
+import App, {AppContext, AppInitialProps, AppProps} from "next/app";
 import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
-import { usePersistentDarkModePreference } from "src/common/domain/model/usePersistentDarkModePreferences";
+import {usePersistentDarkModePreference} from "src/common/domain/model/usePersistentDarkModePreferences";
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
 import {CssBaseline} from "@mui/material";

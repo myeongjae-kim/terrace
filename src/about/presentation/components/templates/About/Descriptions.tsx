@@ -1,4 +1,3 @@
-import {Link as MuiLink} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {Link, Maybe} from "src/common/presentation/components/molecules";
@@ -27,13 +26,9 @@ const EachDescription: React.FC<Description> = ({ icon, label, href }) => {
   return <li>
     {icon}
     <Maybe test={!!href}>
-      {href.startsWith("/")
-        ? <Link href={href}>
-          <span className={classes.label}>{label}</span>
-        </Link>
-        : <MuiLink href={href}>
-          <span className={classes.label}>{label}</span>
-        </MuiLink>}
+      <Link href={href}>
+        <span className={classes.label}>{label}</span>
+      </Link>
     </Maybe>
     <Maybe test={!href}>
       <span className={classes.label}>{label}</span>

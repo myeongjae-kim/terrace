@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textIndent: ".5em",
     background: theme.palette.mode === "dark" ? theme.palette.background.paper : "#f4f4f4",
     padding: "5px 10px 5px 10px",
-    margin: `0 ${theme.spacing(0.5)}px`,
+    margin: `0 ${theme.spacing(0.5)}`,
     fontSize: ".9em",
     lineHeight: "1.9em",
     border: `1px solid ${theme.palette.divider} !important`,

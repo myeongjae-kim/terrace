@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: "2em",
     fontWeight: 100,
     textTransform: "capitalize",
-    margin: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px 0`,
+    margin: `${theme.spacing(3)} 0 ${theme.spacing(5)} 0`,
     "@media screen and (max-width: 600px)": {
-      margin: `${theme.spacing(1.5)}px 0 ${theme.spacing(2.5)}px 0`
+      margin: `${theme.spacing(1.5)} 0 ${theme.spacing(2.5)} 0`
     }
   }
 }));

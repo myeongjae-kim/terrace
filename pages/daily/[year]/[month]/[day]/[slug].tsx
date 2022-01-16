@@ -77,7 +77,7 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
     <Comment identifier={`daily${subPath}`} />
     <style jsx global>{`
 #comment-container {
-  max-width: ${theme.spacing(62.5)}px;
+  max-width: ${theme.spacing(62.5)};
 }
     `}</style>
   </div>;

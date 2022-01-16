@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: "1.1em",
     lineHeight: 1.9,
     fontFamily: "Noto Serif KR",
-    margin: `0 ${theme.spacing(1)}px`,
+    margin: `0 ${theme.spacing(1)}`,
   }
 }));
 
