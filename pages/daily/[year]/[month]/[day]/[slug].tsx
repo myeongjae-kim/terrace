@@ -105,7 +105,7 @@ const parsePathToDailyDetailRequest = (asPath: string): DailyPathDto => {
     year: splitted[2],
     month: splitted[3],
     day: splitted[4],
-    slug: splitted[5],
+    slug: decodeURIComponent(splitted[5]),
   };
 };
 
