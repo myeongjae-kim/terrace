@@ -47,31 +47,34 @@ export interface LoadingProps {
   style?: CSSProperties;
 }
 
+const wrapEachCharWithSpan = (line: string): string => {
+  let wrapped = "";
+  for (const c of line) {
+    wrapped += `<span>${c}</span>`;
+  }
+  return wrapped;
+};
+
 const RainbowText: React.FC<LoadingProps> = (props) => {
   const { line1, line2, line3, line4 } = props;
-  React.useEffect(() => {
-    [].forEach.call(document.querySelectorAll(".text"), (el: HTMLElement) => {
-      const origin = el.innerHTML;
-      let newHtml = "";
-      for (const c of origin) {
-        newHtml += `<span>${c}</span>`;
-      }
-      el.innerHTML = newHtml;
-    });
-  }, [props]);
-
   const classes = useStyles();
 
   return (
     <div className={classes.container} style={props.style}>
       <div style={{ userSelect: "none" }}>
         <div className={classes.statusCodeContainer}>
-          <p className={clsx("text", "color-text-flow", classes.statusCode)}>{line1}</p>
-          <p className={clsx("text", "color-text-flow", classes.statusText)}>{line2}</p>
+          <p
+            className={clsx("text", "color-text-flow", classes.statusCode)}
+            dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan(line1)}}
+          />
+          <p
+            className={clsx("text", "color-text-flow", classes.statusText)}
+            dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan(line2)}}
+          />
         </div>
         <div id="poem-flower" className={classes.poem}>
-          <p className="text color-text-flow">{line3}</p>
-          <p className="text color-text-flow">{line4}</p>
+          <p className="text color-text-flow" dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan(line3)}} />
+          <p className="text color-text-flow" dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan(line4)}} />
         </div>
       </div>
 

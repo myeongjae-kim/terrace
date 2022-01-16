@@ -60,18 +60,15 @@ export interface ErrorProps {
   namespacesRequired?: string[];
 }
 
-const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => {
-  React.useEffect(() => {
-    [].forEach.call(document.querySelectorAll(".text"), (el: HTMLElement) => {
-      const origin = el.innerHTML;
-      let newHtml = "";
-      for (const c of origin) {
-        newHtml += `<span>${c}</span>`;
-      }
-      el.innerHTML = newHtml;
-    });
-  }, []);
+const wrapEachCharWithSpan = (line: string): string => {
+  let wrapped = "";
+  for (const c of line) {
+    wrapped += `<span>${c}</span>`;
+  }
+  return wrapped;
+};
 
+const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => {
   const classes = useStyles();
   const title =
     titleOrigin ||
@@ -88,12 +85,18 @@ const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => 
 
       <div style={{ userSelect: "none" }}>
         <div className={classes.statusCodeContainer}>
-          <p className={clsx("text", "color-text-flow", classes.statusCode)}>{statusCode}</p>
-          <p className={clsx("text", "color-text-flow", classes.statusText)}>{statusTexts[statusCode]}</p>
+          <p
+            className={clsx("text", "color-text-flow", classes.statusCode)}
+            dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan("" + statusCode)}}
+          />
+          <p
+            className={clsx("text", "color-text-flow", classes.statusText)}
+            dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan(statusTexts[statusCode])}}
+          />
         </div>
         <div id="poem-flower" className={classes.poem}>
-          <p className="text color-text-flow">모든 경계에는 꽃이 핀다.</p>
-          <p className="text color-text-flow">- 함민복, [꽃]</p>
+          <p className="text color-text-flow" dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan("모든 경계에는 꽃이 핀다.")}} />
+          <p className="text color-text-flow" dangerouslySetInnerHTML={{__html: wrapEachCharWithSpan("- 함민복, [꽃]")}} />
         </div>
       </div>
 
