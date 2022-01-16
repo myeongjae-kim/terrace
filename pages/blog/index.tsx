@@ -35,7 +35,10 @@ const BlogArticlePage: NextPage<{pageNumber: number}> = () => {
 BlogArticlePage.getInitialProps = async (initialProps) => {
   const {store, query} = initialProps;
   const page = parseInt("" + query["page"]) || 1;
-  store.dispatch(listModule.fetchBlogArticles({page}));
+
+  if (store.getState().blog.list.blogArticles.length === 0 || store.getState().blog.list.pagination.page !== page) {
+    store.dispatch(listModule.fetchBlogArticles({page}));
+  }
 
   return { namespacesRequired: ["common", "noti"] };
 };

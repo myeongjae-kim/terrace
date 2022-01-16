@@ -19,14 +19,14 @@ export interface DailyListProps {
   rejected: boolean;
 }
 
-const DailyList: React.FC<DailyListProps> = ({ dailys }) => {
+const DailyList: React.FC<DailyListProps> = ({ dailys , pending}) => {
   const classes = useStyles();
   return <div className={classes.dailyList}>
     <div>
-      <Maybe test={dailys.length === 0}>
+      <Maybe test={pending}>
         <Loading />
       </Maybe>
-      <Maybe test={dailys.length !== 0}>
+      <Maybe test={!pending}>
         {dailys.map(daily => <EachDaily
           key={daily.id}
           daily={daily}
