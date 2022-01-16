@@ -26,10 +26,12 @@ interface DailyArticleStrapi {
   attributes: DailyAttributes
 }
 
+const listFields = ["seq", "title", "slug", "created_at"];
+
 export const dailyApi = {
   findAll: (page = 1): Promise<StrapiResponse<DailyListResponseDto>> => new Promise((resolve, rejected) => {
     Axios.get<StrapiResponse<DailyArticleListStrapi>>(`${API_HOST}${Endpoints.daily}`, {params: {
-      fields: ["seq", "title", "slug"],
+      fields: listFields,
       sort: ["seq:desc"],
       "pagination[page]": page,
       "pagination[pageSize]": 20,

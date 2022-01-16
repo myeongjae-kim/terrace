@@ -27,7 +27,7 @@ interface BlogArticleListStrapi {
   attributes: Omit<BlogAttributes, "content">
 }
 
-const listFields = ["seq", "title", "slug"];
+const listFields = ["seq", "title", "slug", "created_at"];
 
 interface BlogArticleStrapi {
   id: number;

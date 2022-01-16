@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Theme } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
-import { fade } from "@material-ui/core/styles";
+import { alpha } from "@material-ui/core/styles";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import * as React from "react";
@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   confirmButton: {
     color: theme.palette.primary.dark,
     "&:focus": {
-      background: fade(theme.palette.primary.dark, 0.1),
+      background: alpha(theme.palette.primary.dark, 0.1),
     }
   },
   abortButton: {
     color: red[500],
     "&:focus": {
-      background: fade(red[500], 0.1),
+      background: alpha(red[500], 0.1),
     }
   }
 }));

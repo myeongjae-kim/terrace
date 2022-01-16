@@ -49,7 +49,6 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
 
   const { createdAt, slug } = dailyDetail;
   const subPath = `${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}`;
-  const uri = `${Endpoints["daily"]}${subPath}`;
   const updateUri = `${Endpoints["daily.update"]}${subPath}`;
 
   const update = React.useCallback((e: React.MouseEvent) => {
@@ -75,7 +74,7 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
       statusCode={statusCode}
       update={update}
       del={del} />
-    <Comment identifier={uri} />
+    <Comment identifier={`daily${subPath}`} />
     <style jsx global>{`
 #comment-container {
   max-width: ${theme.spacing(62.5)}px;
