@@ -1,9 +1,9 @@
-import {Theme} from "@mui/material";
+import {Button, Theme} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "src/common/presentation/state-module/root";
-import {Link, MyButton} from "../../../molecules";
+import {Link} from "../../../molecules";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
@@ -29,9 +29,9 @@ const Navigation: React.FC<Props> = ({ items }) => {
 
   return <nav className={classes.nav}>
     {items.map(({ href, label }) => <Link key={href[0]} href={href[0]}>
-      <MyButton rippleColorPrimary color={href.includes(firstPath) ? "primary" : "default"}>
+      <Button color={href.includes(firstPath) ? "primary" : "inherit"}>
         {label}
-      </MyButton>
+      </Button>
     </Link>)}
   </nav>;
 };
