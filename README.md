@@ -1,5 +1,15 @@
 # Full Stack Next.js with TypeScript sample (https://myeongjae.kim)
 
+## Infrastructure
+
+- Backend (Strapi on Heroku)
+  - https://myeongjae-kim.herokuapp.com
+- Frontend (Nextjs on Heroku)
+  - https://myeongjae.kim
+    - origin: http://myeongjae-kim-frontend.herokuapp.com
+    - alias1: http://heroku.myeongjae.kim (Heroku)
+    - alias2: https://heroku-secure.myeongjae.kim (AWS Cloudfront)
+
 ## 기술 스택
 
 - Server Side Rednering with Next.js
