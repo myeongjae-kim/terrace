@@ -7,6 +7,16 @@ const persist = (key: string, value: boolean) => {
   }
 };
 
+const isPersisted = (key: string) => {
+  if (isServer()) {
+    return null;
+  }
+
+  const value = localStorage.getItem(key);
+
+  return null != value;
+};
+
 const getPersisted = (key: string) => {
   if (isServer()) {
     return null;
@@ -26,18 +36,22 @@ export const usePersistentDarkModePreference = (persistentKey: string): [boolean
     systemDefault = window.matchMedia(mediaQuery).matches;
   }
 
-  const [prefersDarkMode, setDarkModePreference] = React.useState(
-    systemDefault == null ? true : systemDefault
-  );
-  const persisted = getPersisted(persistentKey);
-
-  if (!initialized && persisted) {
-    setDarkModePreference(persisted);
+  let darkMode: null | boolean = null;
+  if (!initialized) {
+    if (isPersisted(persistentKey)) {
+      darkMode = getPersisted(persistentKey);
+    } else {
+      darkMode = systemDefault;
+      persist(persistentKey, darkMode as boolean);
+    }
+    initialized = true;
   }
 
-  initialized = true;
-  persist(persistentKey, prefersDarkMode);
+  const [prefersDarkMode, setDarkModePreference] = React.useState(darkMode as boolean);
 
-  const toggle = React.useCallback(() => setDarkModePreference(!prefersDarkMode), [prefersDarkMode]);
+  const toggle = React.useCallback(() => {
+    setDarkModePreference(!prefersDarkMode);
+    persist(persistentKey, !prefersDarkMode);
+  }, [prefersDarkMode, persistentKey]);
   return [prefersDarkMode, toggle];
 };
