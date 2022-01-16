@@ -1,5 +1,5 @@
 import {lightBlue, red, teal} from "@mui/material/colors";
-import {createTheme} from "@mui/material/styles";
+import {createTheme} from "@mui/material";
 
 const primary = {
   light: "#53adf1",
