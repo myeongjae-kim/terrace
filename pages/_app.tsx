@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import "src/common/styles/style.css";
 import {ThemeProvider} from "@mui/material/styles";
 import createSagaMiddleware from "@redux-saga/core";
 import withReduxSaga from "next-redux-saga";
