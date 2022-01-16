@@ -11,6 +11,7 @@ import {
 import RepositoryError from "../../common/domain/model/RepositoryError";
 import Optional from "optional-js";
 import {BlogArticle} from "../domain/model";
+import {StrapiResponse} from "../../common/api/dto/StrapiResponse";
 
 interface BlogAttributes {
   seq: number;
@@ -50,7 +51,7 @@ const convertListToPrevOrNext = (list: BlogArticleListStrapi | undefined): BlogA
 
 export const blogArticleApi = {
   findAll: (): Promise<BlogArticleListResponseDto[]> => new Promise((resolve, rejected) => {
-    Axios.get<{data: BlogArticleListStrapi[]}>(`${API_HOST}${Endpoints.blog}`, {params: {
+    Axios.get<StrapiResponse<BlogArticleListStrapi>>(`${API_HOST}${Endpoints.blog}`, {params: {
       fields: listFields,
       sort: ["seq:desc"],
       "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현, 최대 100개밖에 안 온다.
