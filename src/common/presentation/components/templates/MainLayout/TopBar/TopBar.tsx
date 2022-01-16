@@ -22,19 +22,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const items = [{
   href: ["/about", "/"],
-  label: "about"
+  label: "About"
 }, {
   href: ["/blog"],
-  label: "blog"
+  label: "Blog"
 }, {
   href: ["/daily"],
-  label: "daily"
+  label: "Daily"
 }, {
   href: ["/musings"],
-  label: "musings"
+  label: "Musings"
 }, {
   href: ["/places"],
-  label: "places"
+  label: "Places"
 },];
 
 const TopBar: React.FC = () => {

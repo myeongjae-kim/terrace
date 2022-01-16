@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     maxWidth: theme.spacing(75),
     margin: "auto",
     textAlign: "center",
-    marginTop: -theme.spacing(1.5)
+    marginTop: "-" + theme.spacing(1.5)
   }
 }));
 

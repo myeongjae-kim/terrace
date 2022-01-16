@@ -11,7 +11,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: theme.spacing(2.5),
     "@media screen and (max-width: 600px)": {
       marginTop: theme.spacing(1)
-    }
+    },
+  },
+  buttonRoot: {
+    fontFamily: "Inconsolata",
+    minWidth: 0,
+    textTransform: "inherit",
+    letterSpacing: "-0.02em",
+    opacity: "75%",
+  },
+  buttonInherit: {
+    color: theme.palette.text.primary
   }
 }));
 
@@ -29,7 +39,10 @@ const Navigation: React.FC<Props> = ({ items }) => {
 
   return <nav className={classes.nav}>
     {items.map(({ href, label }) => <Link key={href[0]} href={href[0]}>
-      <Button color={href.includes(firstPath) ? "primary" : "inherit"}>
+      <Button color={href.includes(firstPath) ? "primary" : "inherit"} classes={{
+        root: classes.buttonRoot,
+        textInherit: classes.buttonInherit
+      }}>
         {label}
       </Button>
     </Link>)}
