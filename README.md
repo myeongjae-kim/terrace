@@ -10,6 +10,12 @@
     - alias1: http://heroku.myeongjae.kim (Heroku)
     - alias2: https://heroku-secure.myeongjae.kim (AWS Cloudfront)
 
+## Initialize Githook
+
+```shell
+git config core.hooksPath .githooks
+```
+
 ## 기술 스택
 
 - Server Side Rednering with Next.js

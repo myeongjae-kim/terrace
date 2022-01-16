@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "[pre-push] Lint..."
+
+# Validate code
+npm run lint
+
+if [ "$?" = 0 ] ; then
+    echo "[pre-push] no issues found. Proceeding with commit."
+    exit 0
+else
+    echo 1>&2 "[pre-push] lint failed. you need to fix before push."
+    exit 1
+fi
