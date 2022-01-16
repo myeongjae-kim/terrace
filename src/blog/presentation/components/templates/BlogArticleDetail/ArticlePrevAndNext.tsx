@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   hrLower: {
     margin: `${theme.spacing(2)} 0`
+  },
+  button: {
+    color: theme.palette.text.primary,
+    border: "1px solid rgba(255, 255, 255, 0.23)"
   }
 }));
 
@@ -52,7 +56,12 @@ const ArticlePrevAndNext: React.FC<Props> = ({ prev, next }) => {
     <hr className={classes.hrLower} />
 
     <Link href="/blog">
-      <Button variant="outlined" style={{ textTransform: "capitalize" }}>Article List</Button>
+      <Button
+        classes={{root: classes.button}}
+        color="inherit"
+        variant="outlined"
+        style={{ textTransform: "capitalize" }}
+      >Article List</Button>
     </Link>
   </div>;
 };

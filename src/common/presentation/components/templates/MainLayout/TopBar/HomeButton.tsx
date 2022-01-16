@@ -1,9 +1,9 @@
 import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {Link} from "../../../molecules";
-import {Button} from "@mui/material";
+import {Button, Theme} from "@mui/material";
 
-const useStyles = makeStyles(createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
     textTransform: "uppercase",
     fontFamily: "inconsolata",
@@ -13,14 +13,18 @@ const useStyles = makeStyles(createStyles({
     "&:hover": {
       opacity: 0.6
     }
+  },
+  buttonInherit: {
+    color: theme.palette.text.primary
   }
 }));
 
 const HomeButton: React.FC = () => {
   const classes = useStyles();
   return <Link href="/">
-    <Button classes={{
-      root: classes.button
+    <Button color={"inherit"} classes={{
+      root: classes.button,
+      textInherit: classes.buttonInherit
     }}>myeongjae kim</Button>
   </Link>;
 };

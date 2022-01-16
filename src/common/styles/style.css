@@ -5,6 +5,9 @@ body {
     overflow-wrap: break-word;
     font-size: 0.875rem;
 }
+div {
+    white-space: initial;
+}
 img {
     max-width: 100%;
 }

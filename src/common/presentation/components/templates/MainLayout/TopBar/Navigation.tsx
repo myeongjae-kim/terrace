@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textTransform: "inherit",
     letterSpacing: "-0.02em",
     opacity: "75%",
+    transition: "opacity 20ms",
+    "&:hover": {
+      opacity: 0.6
+    }
   },
   buttonInherit: {
     color: theme.palette.text.primary
