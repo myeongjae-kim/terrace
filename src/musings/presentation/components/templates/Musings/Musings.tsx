@@ -36,7 +36,7 @@ const Musings: React.FC<MusingsProps> = ({ musings }) => {
       </div>
     </div>
     <style jsx global>{`
-        nav > a > button, h1 {
+        h1 {
           font-family: 'Bad Script' !important;
         }
         h1 {
