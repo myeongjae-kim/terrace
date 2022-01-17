@@ -12,7 +12,6 @@ import ReactGA from "react-ga";
 import {Provider as ReduxStoreProvider} from "react-redux";
 import {AnyAction, applyMiddleware, createStore, Middleware, Store,} from "redux";
 import {DOMAIN} from "src/common/constants/Constants";
-import {appWithTranslation} from "next-i18next";
 import {MainLayout} from "src/common/presentation/components/templates";
 import {lightTheme, darkTheme} from "src/common/presentation/components/themes";
 import ConfirmContainer from "src/common/presentation/container/molecules/ConfirmContainer";
@@ -169,4 +168,4 @@ MyApp.getInitialProps = async (appContext) => {
   return { ...appProps };
 };
 
-export default withRedux(makeStore)(withReduxSaga(appWithTranslation(MyApp)));
+export default withRedux(makeStore)(withReduxSaga(MyApp));

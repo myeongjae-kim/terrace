@@ -1,16 +1,14 @@
 import { withSnackbar, WithSnackbarProps } from "notistack";
 import * as React from "react";
-import { WithTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import { withTranslation } from "next-i18next";
 import { RootState } from "../../state-module/root";
 import * as snackbarModule from "../../state-module/snackbar";
 import { Snackbar } from "../../state-module/snackbar";
 import {IconButton} from "@mui/material";
 import {Close} from "@mui/icons-material";
 
-interface Props extends WithSnackbarProps, WithTranslation {
+interface Props extends WithSnackbarProps {
   snackbars: Snackbar[];
   dispatchers: typeof snackbarModule;
 }
@@ -42,13 +40,13 @@ class SnackbarContainer extends React.Component<Props> {
   }
 
   public componentDidUpdate() {
-    const { snackbars = [], t } = this.props;
+    const { snackbars = [] } = this.props;
 
     snackbars.forEach(({ key, message, messageOptions, options = {} }) => {
       // Do nothing if snackbar is already displayed
       if (this.displayed.includes(key)) { return; }
       // Display snackbar using notistack
-      this.props.enqueueSnackbar(t(message, messageOptions), {
+      this.props.enqueueSnackbar(message + JSON.stringify(messageOptions), {
         ...options,
         persist: options.variant === "error" ? true : false,
         action: keyToDismiss => (
@@ -81,7 +79,7 @@ const mapDispatchToProps = (dispatch: Dispatch<snackbarModule.Action>) => ({
   dispatchers: bindActionCreators(snackbarModule, dispatch)
 });
 
-export default withTranslation("noti")(withSnackbar(connect(
+export default withSnackbar(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SnackbarContainer)));
+)(SnackbarContainer));
