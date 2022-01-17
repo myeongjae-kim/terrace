@@ -85,7 +85,7 @@ function* sagaFetchDaily(action: ActionType<typeof actions.fetchDaily>) {
     const daily: DailyDetailResponseDto = yield call(dailyApi.find, action.payload.daily);
     yield put(actions.fetchDailyAsync.success({ daily }));
   } catch (e) {
-    yield put(actions.fetchDailyAsync.failure({ statusCode: e.status }));
+    yield put(actions.fetchDailyAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:daily.find.rejected",
@@ -111,7 +111,7 @@ function* sagaDeleteDaily(action: ActionType<typeof actions.deleteDaily>) {
 
     yield call(Router.push, Endpoints.daily);
   } catch (e) {
-    yield put(actions.deleteDailyAsync.failure({ statusCode: e.status }));
+    yield put(actions.deleteDailyAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:daily.delete.rejected",

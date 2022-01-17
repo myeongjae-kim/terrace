@@ -141,7 +141,7 @@ function* sagaFetchBlogArticle(action: ActionType<typeof actions.fetchBlogArticl
     yield put(actions.fetchPrev({seq: blog.seq}));
     yield put(actions.fetchNext({seq: blog.seq}));
   } catch (e) {
-    yield put(actions.fetchBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(actions.fetchBlogArticleAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.find.rejected",
@@ -158,7 +158,7 @@ function* sagaFetchPrev(action: ActionType<typeof actions.fetchPrev>) {
     const prev: BlogArticlePrevOrNext = yield call(blogArticleApi.getPrevOf, action.payload.seq);
     yield put(actions.fetchPrevAsync.success({ prev }));
   } catch (e) {
-    yield put(actions.fetchPrevAsync.failure({ statusCode: e.status }));
+    yield put(actions.fetchPrevAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.prev.rejected",
@@ -175,7 +175,7 @@ function* sagaFetchNext(action: ActionType<typeof actions.fetchNext>) {
     const next: BlogArticlePrevOrNext = yield call(blogArticleApi.getNextOf, action.payload.seq);
     yield put(actions.fetchNextAsync.success({ next }));
   } catch (e) {
-    yield put(actions.fetchNextAsync.failure({ statusCode: e.status }));
+    yield put(actions.fetchNextAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.prev.rejected",
@@ -201,7 +201,7 @@ function* sagaDeleteBlogArticle(action: ActionType<typeof actions.deleteBlogArti
 
     yield call(Router.push, Endpoints.blog);
   } catch (e) {
-    yield put(actions.deleteBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(actions.deleteBlogArticleAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.delete.rejected",

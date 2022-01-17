@@ -131,7 +131,7 @@ function* sagaFetchBlogArticle(action: ActionType<typeof actions.fetchBlogArticl
     const blog: BlogArticleDetailResponseDto = yield call(blogArticleApi.find, action.payload.blogArticlePathDto);
     yield put(actions.fetchBlogArticleAsync.success({ blog }));
   } catch (e) {
-    yield put(actions.fetchBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(actions.fetchBlogArticleAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.find.rejected",
@@ -156,7 +156,7 @@ function* sagaCreateBlogArticle(action: ActionType<typeof actions.createBlogArti
       }
     }));
   } catch (e) {
-    yield put(actions.createBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(actions.createBlogArticleAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.create.rejected",
@@ -186,7 +186,7 @@ function* sagaUpdateBlogArticle(action: ActionType<typeof actions.updateBlogArti
       }
     }));
   } catch (e) {
-    yield put(actions.updateBlogArticleAsync.failure({ statusCode: e.status }));
+    yield put(actions.updateBlogArticleAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:blogArticle.update.rejected",

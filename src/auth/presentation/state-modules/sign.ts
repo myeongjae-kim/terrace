@@ -79,7 +79,7 @@ function* sagaSignIn(action: ActionType<typeof actions.signIn>) {
     yield put(actions.signInAsync.success());
     yield call(Router.back);
   } catch (e) {
-    yield put(actions.signInAsync.failure({ statusCode: e.status }));
+    yield put(actions.signInAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:auth.signIn.rejected",
@@ -96,7 +96,7 @@ function* sagaSignOut() {
     yield call(authApi.signOut);
     yield put(actions.signOutAsync.success());
   } catch (e) {
-    yield put(actions.signOutAsync.failure({ statusCode: e.status }));
+    yield put(actions.signOutAsync.failure({ statusCode: (e as any).status }));
     yield put(enqueueSnackbar({
       snackbar: {
         message: "noti:auth.signOut.rejected",
