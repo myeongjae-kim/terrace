@@ -27,3 +27,4 @@ yarn-error.log*
 report.html
 
 .idea
+tsconfig.tsbuildinfo

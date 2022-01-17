@@ -29,7 +29,7 @@
     "moment-timezone": "^0.5.31",
     "next": "^12.0.8",
     "next-redux-saga": "^4.1.2",
-    "next-redux-wrapper": "^4.0.1",
+    "next-redux-wrapper": "^5.0.0",
     "next-seo": "^4.11.0",
     "notistack": "^1.0.6-next.3",
     "optional-js": "^2.1.1",
