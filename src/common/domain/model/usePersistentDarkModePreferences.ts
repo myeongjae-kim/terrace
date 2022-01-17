@@ -30,18 +30,15 @@ const getPersisted = (key: string) => {
 let initialized = false;
 
 export const usePersistentDarkModePreference = (persistentKey: string): [boolean, () => void] => {
-  let systemDefault : boolean | null = true;
+  let darkMode : boolean | null = true;
   if (!isServer()) {
-    const mediaQuery = "(prefers-color-scheme: dark)";
-    systemDefault = window.matchMedia(mediaQuery).matches;
+    darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
 
-  let darkMode: null | boolean = null;
   if (!initialized) {
     if (isPersisted(persistentKey)) {
       darkMode = getPersisted(persistentKey);
     } else {
-      darkMode = systemDefault;
       persist(persistentKey, darkMode as boolean);
     }
     initialized = true;
