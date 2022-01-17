@@ -31,7 +31,7 @@
     "next-redux-saga": "^4.1.2",
     "next-redux-wrapper": "^4.0.1",
     "next-seo": "^4.11.0",
-    "notistack": "^0.9.17",
+    "notistack": "^1.0.6-next.3",
     "optional-js": "^2.1.1",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
