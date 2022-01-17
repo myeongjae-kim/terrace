@@ -19,7 +19,7 @@ export interface NotificationCenterProps {
   handleRemove(key: string): void;
 }
 
-const NotificationCenter: React.SFC<NotificationCenterProps> = ({ snackbars, opened, handleClose, handleRemove }) => {
+const NotificationCenter: React.FC<NotificationCenterProps> = ({ snackbars, opened, handleClose, handleRemove }) => {
   const classes = useStyles();
 
   return <Drawer

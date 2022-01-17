@@ -32,7 +32,7 @@ interface Props {
   blogArticle: BlogArticleListResponseDto;
 }
 
-const EachBlogArticle: React.SFC<Props> = ({ blogArticle }) => {
+const EachBlogArticle: React.FC<Props> = ({ blogArticle }) => {
   const { title, createdAt, uri } = blogArticle;
   const classes = useStyles();
   return <>
