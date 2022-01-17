@@ -1,4 +1,4 @@
-import marked from "marked";
+import {marked} from "marked";
 import Prism from "prismjs";
 import * as React from "react";
 import HtmlPreview from "./HtmlPreview";
