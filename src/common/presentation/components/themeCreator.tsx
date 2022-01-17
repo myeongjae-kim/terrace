@@ -23,6 +23,9 @@ const themeCreator = (prefersDarkMode: boolean) => createMuiTheme({
   },
   typography: {
     fontWeightRegular: 300,
+    body2: {
+      fontSize: "0.9rem",
+    },
     h1: {
       fontSize: "3rem",
       fontWeight: 100
