@@ -4,7 +4,7 @@ import * as React from "react";
 const useStyles = makeStyles(createStyles({
   quote: {
     fontSize: "1.2em",
-    lineHeight: "2.4em",
+    lineHeight: "2",
     wordBreak: "keep-all",
   }
 }));
