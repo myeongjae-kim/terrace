@@ -1,9 +1,12 @@
-import {TOptions} from "i18next";
 import produce from "immer";
 import {OptionsObject, VariantType} from "notistack";
 import Optional from "optional-js";
 import {ActionType, createAction, createReducer} from "typesafe-actions";
 import {v4 as uuidv4} from "uuid";
+
+export interface TOptions {
+  e: string
+}
 
 export interface SnackbarOptionsObject extends OptionsObject {
   onClose?: any;

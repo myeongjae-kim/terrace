@@ -4,7 +4,6 @@ import { alpha } from "@material-ui/core/styles";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import * as React from "react";
-import { useTranslation } from "next-i18next";
 import { ConfirmPayload } from "../../state-module/common";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -33,7 +32,6 @@ export interface ConfirmProps {
 
 const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeConfirmDialog }) => {
   const classes = useStyles();
-  const { t } = useTranslation("common");
   const { title, content, onClick } = confirmData;
   const abort = () => {
     closeConfirmDialog();
@@ -62,10 +60,10 @@ const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeCo
       </DialogContent>
       <DialogActions className={clsx({ [classes.dialogActions]: !title })}>
         <Button onClick={abort} className={classes.abortButton}>
-          {t("abort")}
+          {"abort"}
         </Button>
         <Button onClick={confirm} className={classes.confirmButton} autoFocus>
-          <strong> {t("confirm")} </strong>
+          <strong> {"confirm"} </strong>
         </Button>
       </DialogActions>
     </Dialog>
