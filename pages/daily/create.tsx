@@ -8,9 +8,14 @@ import * as formModule from "src/daily/presentation/state-modules/form";
 import NextPage from "src/common/domain/model/NextPage";
 import { RootState } from "src/common/presentation/state-module/root";
 
-const selector = createSelector<RootState, formModule.State, { pending: boolean; rejected: boolean }>(
-  root => root.daily.form,
-  ({ pending, rejected }) => ({ pending, rejected })
+interface SelectorReturn {
+  pending: boolean;
+  rejected: boolean;
+}
+
+const selector = createSelector(
+  (root: RootState) => root.daily.form,
+  ({ pending, rejected }: formModule.State): SelectorReturn => ({ pending, rejected })
 );
 
 const DailyCreatePage: NextPage = () => {

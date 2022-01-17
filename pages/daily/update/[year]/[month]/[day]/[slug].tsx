@@ -9,13 +9,15 @@ import NextPage from "src/common/domain/model/NextPage";
 import { RootState } from "src/common/presentation/state-module/root";
 import { redirectFromGetInitialPropsTo } from "src/util";
 
-const selector = createSelector<RootState, formModule.State, {
+interface SelectorReturn {
   initialValues: DailyDetailResponseDto;
   pending: boolean;
   rejected: boolean;
-}>(
-  root => root.daily.form,
-  ({ initialValues, pending, rejected }) => ({ initialValues, pending, rejected })
+}
+
+const selector = createSelector(
+  (root: RootState) => root.daily.form,
+  ({ initialValues, pending, rejected }: formModule.State): SelectorReturn => ({ initialValues, pending, rejected })
 );
 
 const parsePathToPathDto = (asPath: string): DailyPathDto => {

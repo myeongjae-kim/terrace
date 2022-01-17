@@ -14,14 +14,16 @@ import * as commonModule from "src/common/presentation/state-module/common";
 import {RootState} from "src/common/presentation/state-module/root";
 import {createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo} from "src/util";
 
-const selector = createSelector<RootState, detailModule.State, {
+interface SelectorReturn {
   blogArticle: BlogArticleDetailResponseDto;
   pending: boolean;
   rejected: boolean;
   statusCode: number;
-}>(
-  root => root.blog.detail,
-  (detail) => ({
+}
+
+const selector = createSelector(
+  (root: RootState) => root.blog.detail,
+  (detail: detailModule.State): SelectorReturn => ({
     ...detail,
   })
 );

@@ -18,9 +18,9 @@ interface DailyListPageProps {
   rejected: boolean;
 }
 
-const selector = createSelector<RootState, listModule.State, DailyListPageProps>(
-  root => root.daily.list,
-  (list ) => ({ ...list })
+const selector = createSelector(
+  (root: RootState) => root.daily.list,
+  (list : listModule.State): DailyListPageProps => ({ ...list })
 );
 
 const DailyPage: NextPage = () => {

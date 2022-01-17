@@ -22,9 +22,9 @@ interface DailyDetailPageStates {
   statusCode: number;
 }
 
-const selector = createSelector<RootState, detailModule.State, DailyDetailPageStates>(
-  root => root.daily.detail,
-  (detail) => ({
+const selector = createSelector(
+  (root: RootState) => root.daily.detail,
+  (detail: detailModule.State): DailyDetailPageStates => ({
     dailyDetail: detail.daily,
 
     pending: detail.pending,

@@ -10,9 +10,9 @@ import {RootState} from "src/common/presentation/state-module/root";
 import MyPagination from "src/common/presentation/components/organisms/MyPagination";
 import {pageContainerStyle} from "../../src/common/styles/pageContainerStyle";
 
-const selector = createSelector<RootState, listModule.State, BlogArticleListProps>(
-  root => root.blog.list,
-  (list) => ({ ...list })
+const selector = createSelector(
+  (root: RootState) => root.blog.list,
+  (list: listModule.State): BlogArticleListProps => ({ ...list })
 );
 
 const BlogArticlePage: NextPage<{pageNumber: number}> = () => {

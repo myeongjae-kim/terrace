@@ -8,9 +8,9 @@ import Musings from "src/musings/presentation/components/templates/Musings";
 import { MusingsProps } from "src/musings/presentation/components/templates/Musings/Musings";
 import * as listModule from "src/musings/presentation/state-modules/list";
 
-const selector = createSelector<RootState, listModule.State, MusingsProps>(
-  root => root.musings.list,
-  list => list
+const selector = createSelector(
+  (root: RootState) => root.musings.list,
+  (list: listModule.State): MusingsProps => list
 );
 
 const MusingsPage: NextPage = () => {
