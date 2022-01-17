@@ -163,7 +163,7 @@ pre[class*="language-"] {
 	word-break: normal;
 	word-wrap: normal;
 	color: #eee;
-	background: #252b31;
+	background: #001830;
 	font-family: Inconsolata, Roboto Mono, monospace;
 	font-size: 1em;
 	line-height: 1.5;
