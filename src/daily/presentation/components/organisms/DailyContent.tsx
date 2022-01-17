@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
     "& blockquote": {
       textIndent: "initial",
-      backgroundColor: theme.palette.type === "dark" ? "#000" : "#fff",
+      backgroundColor: theme.palette.background.default,
       border: `1px solid ${theme.palette.divider} !important`,
       borderRadius: 5,
       margin: "5px 0",

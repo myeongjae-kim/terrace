@@ -16,6 +16,10 @@ const themeCreator = (prefersDarkMode: boolean) => createMuiTheme({
     primary: prefersDarkMode ? lightBlue : primary,
     secondary: teal,
     error: red,
+    background: {
+      default: prefersDarkMode ? "#0a1929" : "#fafafa",
+      paper: prefersDarkMode ? "#001e3c" : "#fafafa",
+    }
   },
   typography: {
     fontWeightRegular: 300,

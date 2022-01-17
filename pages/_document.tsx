@@ -11,7 +11,7 @@ class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|Inconsolata|Bad+Script|Noto+Sans+KR:100,300,400,700|Noto+Serif+KR:300,400,700&display=swap" rel="stylesheet" />
           {/* PWA primary color */}
           <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
-          <meta name="theme-color" content="#303030" media="(prefers-color-scheme: dark)" />
+          <meta name="theme-color" content="#0d1928" media="(prefers-color-scheme: dark)" />
           <style>{`
           body {
             font-family: Source Sans Pro, Noto Sans KR;
