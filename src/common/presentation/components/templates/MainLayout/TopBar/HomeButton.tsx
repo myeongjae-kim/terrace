@@ -1,8 +1,8 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import {Button, createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
-import { Link, MyButton } from "../../../molecules";
+import { Link } from "../../../molecules";
 
-const useStyles = makeStyles(createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
     textTransform: "uppercase",
     fontFamily: "inconsolata",
@@ -12,15 +12,19 @@ const useStyles = makeStyles(createStyles({
     "&:hover": {
       opacity: 0.6
     }
+  },
+  buttonInherit: {
+    color: theme.palette.text.primary
   }
 }));
 
 const HomeButton: React.FC = () => {
   const classes = useStyles();
   return <Link href="/">
-    <MyButton rippleColorPrimary classes={{
-      root: classes.button
-    }}>myeongjae kim</MyButton>
+    <Button color="inherit" classes={{
+      root: classes.button,
+      colorInherit: classes.buttonInherit
+    }}>myeongjae kim</Button>
   </Link>;
 };
 

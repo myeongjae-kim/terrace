@@ -4,7 +4,7 @@ import { useTheme } from "@material-ui/core";
 const PrismjsThemeSupport: React.FC = () => {
   const isDark = useTheme().palette.type === "dark";
   return <>
-    <style global>
+    <style global={true}>
       {isDark ? dark : bright}
     </style>
   </>;

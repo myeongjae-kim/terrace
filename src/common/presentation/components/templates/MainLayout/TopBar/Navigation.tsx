@@ -1,8 +1,8 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import {Button, createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/common/presentation/state-module/root";
-import { Link, MyButton } from "../../../molecules";
+import { Link } from "../../../molecules";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
@@ -10,7 +10,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: theme.spacing(2.5),
     "@media screen and (max-width: 600px)": {
       marginTop: theme.spacing(1)
+    },
+  },
+  buttonRoot: {
+    fontFamily: "Inconsolata",
+    minWidth: 0,
+    textTransform: "inherit",
+    letterSpacing: "-0.02em",
+    opacity: "75%",
+    transition: "opacity 20ms",
+    "&:hover": {
+      opacity: 0.6
     }
+  },
+  buttonInherit: {
+    color: theme.palette.text.primary
   }
 }));
 
@@ -28,9 +42,12 @@ const Navigation: React.FC<Props> = ({ items }) => {
 
   return <nav className={classes.nav}>
     {items.map(({ href, label }) => <Link key={href[0]} href={href[0]}>
-      <MyButton rippleColorPrimary color={href.includes(firstPath) ? "primary" : "default"}>
+      <Button color={href.includes(firstPath) ? "primary" : "inherit"} classes={{
+        root: classes.buttonRoot,
+        colorInherit: classes.buttonInherit
+      }}>
         {label}
-      </MyButton>
+      </Button>
     </Link>)}
   </nav>;
 };
