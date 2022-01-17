@@ -43,10 +43,9 @@
     "redux-saga": "^1.1.3",
     "reflect-metadata": "^0.1.13",
     "reselect": "^4.1.5",
-    "tsconfig-paths": "3.9.0",
     "typesafe-actions": "5.1.0",
     "uuid": "^8.1.0",
-    "yup": "^0.29.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/assert-plus": "^1.0.4",
