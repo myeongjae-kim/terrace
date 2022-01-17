@@ -28,11 +28,17 @@ import {usePersistentDarkModePreference} from "src/common/domain/model/usePersis
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
 import {CssBaseline} from "@mui/material";
+import createEmotionCache from "../src/createEmotionCache";
+import {EmotionCache} from "@emotion/utils";
+import {CacheProvider} from "@emotion/react";
 
 ReactGA.initialize("UA-126240406-1");
 
 const publicToken = "5f5da4885cc60c4007a770e20bcb499584306df76f7024786943770d87d10ec647588ed508a328726c03144cecb04e65377865e992cf557c9398f280355f1b5d66816bd18b466c4c973d90a93c5a04b3635a518688b2e49c468eca9c92bf0098dc6851481cd51bc9d60b33c4b7c65e81885b6dd53990b7e0397451b59cd000e6";
 Axios.defaults.headers.common["Authorization"] = "Bearer " + publicToken;
+
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
 const makeStore = (preloadedState = {} as RootState) => {
   const bindMiddleware = (middlewares: Middleware[]) => {
@@ -61,6 +67,7 @@ const makeStore = (preloadedState = {} as RootState) => {
 
 interface Props extends AppProps {
   store: Store<RootState>;
+  emotionCache?: EmotionCache;
 }
 
 const useInit = () => {
@@ -85,6 +92,7 @@ const useEveryUpdate = () => {
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
   Component,
+  emotionCache = clientSideEmotionCache,
   pageProps,
   store,
   router,
@@ -99,7 +107,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
   );
 
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         {/* Use minimum-scale=1 to enable GPU rasterization */}
         <meta
@@ -152,7 +160,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
           </SnackbarProvider>
         </ReduxStoreProvider>
       </ThemeProvider>
-    </>
+    </CacheProvider>
   );
 };
 
