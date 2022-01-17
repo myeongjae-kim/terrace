@@ -57,4 +57,5 @@ const themeCreator = (prefersDarkMode: boolean) => createTheme({
   },
 });
 
-export default themeCreator;
+export const lightTheme = themeCreator(false);
+export const darkTheme = themeCreator(true);

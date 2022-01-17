@@ -14,7 +14,7 @@ import {AnyAction, applyMiddleware, createStore, Middleware, Store,} from "redux
 import {DOMAIN} from "src/common/constants/Constants";
 import {appWithTranslation} from "next-i18next";
 import {MainLayout} from "src/common/presentation/components/templates";
-import themeCreator from "src/common/presentation/components/themeCreator";
+import {lightTheme, darkTheme} from "src/common/presentation/components/themes";
 import ConfirmContainer from "src/common/presentation/container/molecules/ConfirmContainer";
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
@@ -98,10 +98,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
     "@myeongjae.kim/PREFERS_DARK_MODE"
   );
 
-  const theme = React.useMemo(() => themeCreator(prefersDarkMode), [
-    prefersDarkMode,
-  ]);
-
   return (
     <>
       <Head>
@@ -134,7 +130,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
           cardType: "summary",
         }}
       />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={prefersDarkMode ? darkTheme : lightTheme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <PrismjsThemeSupport />
