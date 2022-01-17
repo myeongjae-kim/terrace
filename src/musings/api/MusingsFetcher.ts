@@ -20,7 +20,8 @@ interface MusingStrapi {
 export const musingsFetcher = {
   findAll: (): Promise<MusingResponseDto[]> => new Promise((resolve, rejected) => {
     Axios.get<{data: MusingStrapi[]}>(`${API_HOST}${Endpoints.musings}`, {params: {
-      "pagination[pageSize]": 10000 // TODO: 페이지네이션 구현, 최대 100개밖에 안 온다.
+      "sort[0]": "id:asc",
+      "pagination[pageSize]": 100 // 최대 100개.
     }})
       .then(res => resolve(res.data.data.map(it => ({
         id: "" + it.id,

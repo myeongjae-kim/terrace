@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   en: {
     fontFamily: "Bad Script, cursive",
+    letterSpacing: "initial"
   },
   ko: {
     fontFamily: "Noto Serif KR, serif",
