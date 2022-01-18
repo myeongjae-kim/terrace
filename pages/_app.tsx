@@ -27,6 +27,7 @@ import ColorModeChangeButton from "src/common/presentation/components/molecules/
 import {usePersistentDarkModePreference} from "src/common/domain/model/usePersistentDarkModePreferences";
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
+import {isEditablePage} from "../src/util/isEditablePage";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -90,6 +91,27 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
 }) => {
   useInit();
   useEveryUpdate();
+
+  // first rendering
+  React.useEffect(() => {
+    router.beforePopState(() => {
+      if (isEditablePage(router.asPath)) {
+        return confirm("정말 이 페이지에서 나가시겠어요?");
+      }
+      return true;
+    });
+  }, []);
+
+  // every update
+  React.useEffect(() => {
+    if (window && isEditablePage(router.asPath)) {
+      window.onbeforeunload = (e: any) => {
+        e.returnValue = "정말 이 페이지에서 나가시겠어요?";
+      };
+    } else {
+      window.onbeforeunload = null;
+    }
+  });
 
   store.dispatch(setPaths({ pathname: router.asPath }));
 

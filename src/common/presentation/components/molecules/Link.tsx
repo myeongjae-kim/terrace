@@ -4,6 +4,7 @@ import clsx from "clsx";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
+import {isEditablePage} from "src/util/isEditablePage";
 
 type NextComposedProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & NextLinkProps;
 
@@ -61,8 +62,17 @@ function RouterLink(props: LinkProps) {
     [activeClassName]: router.pathname === props.href && activeClassName,
   });
 
+  const onClick: (e: React.MouseEvent) => Promise<boolean> = React.useCallback((e) => {
+    if (isEditablePage(router.asPath) && !confirm("정말 이 페이지에서 나가시겠어요?")) {
+      e.preventDefault();
+      return Promise.resolve(false);
+    }
+
+    return Promise.resolve(true);
+  }, [router]);
+
   if (naked) {
-    return <NextComposed className={className} ref={innerRef} {...other} />;
+    return <NextComposed className={className} ref={innerRef} {...other} onClick={props.onClick || onClick} />;
   }
 
   return <MuiLink
@@ -71,7 +81,9 @@ function RouterLink(props: LinkProps) {
     ref={innerRef}
     underline={underline || "none"}
     color={color}
-    {...other} />;
+    {...other}
+    onClick={props.onClick || onClick}
+  />;
 }
 
 export default React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
