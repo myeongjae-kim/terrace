@@ -1,6 +1,6 @@
 import red from "@material-ui/core/colors/red";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { teal, lightBlue } from "@material-ui/core/colors";
+import {createTheme} from "@material-ui/core/styles";
+import {lightBlue, teal} from "@material-ui/core/colors";
 
 const primary = {
   light: "#53adf1",
@@ -10,7 +10,7 @@ const primary = {
 };
 
 // Create a theme instance.
-const themeCreator = (prefersDarkMode: boolean) => createMuiTheme({
+const themes = (prefersDarkMode: boolean) => createTheme({
   palette: {
     type: prefersDarkMode ? "dark" : "light",
     primary: prefersDarkMode ? lightBlue : primary,
@@ -62,4 +62,5 @@ const themeCreator = (prefersDarkMode: boolean) => createMuiTheme({
   },
 });
 
-export default themeCreator;
+export const darkTheme = themes(true);
+export const brightTheme = themes(false);
