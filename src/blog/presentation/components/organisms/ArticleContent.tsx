@@ -1,6 +1,8 @@
 import * as React from "react";
 import { MarkdownPreview } from "src/common/presentation/components/molecules";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import {makeStyles, Theme, createStyles, useMediaQuery} from "@material-ui/core";
+import {useTheme} from "@material-ui/core";
+import clsx from "clsx";
 
 interface Props {
   content: string;
@@ -12,12 +14,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     lineHeight: 1.9,
     fontFamily: "Noto Serif KR",
     margin: `0 ${theme.spacing(1)}px`,
+  },
+  contentSmallWidth: {
+    fontSize: "0.95em"
   }
 }));
 
 const ArticleContent: React.FC<Props> = ({ content }) => {
   const classes = useStyles();
-  return <MarkdownPreview className={classes.content} markdown={content} />;
+  const theme = useTheme();
+  const smallWidth = useMediaQuery(theme.breakpoints.down("xs"));
+
+  return <MarkdownPreview className={clsx(classes.content, {[classes.contentSmallWidth]: smallWidth})} markdown={content} />;
 };
 
 export default ArticleContent;

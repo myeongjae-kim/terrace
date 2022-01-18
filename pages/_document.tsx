@@ -18,6 +18,7 @@ class MyDocument extends Document {
             letter-spacing: -0.01em;
             word-spacing: 0.05em;
             overflow-wrap: break-word;
+            word-break: keep-all;
           }
           img {
             max-width: 100%;
