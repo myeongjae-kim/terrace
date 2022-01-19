@@ -79,7 +79,7 @@ function RouterLink(props: LinkProps) {
     }
 
     return Promise.resolve(true);
-  }, [router]);
+  }, [props.as, props.href, router.asPath]);
 
   if (naked) {
     return <NextComposed className={className} ref={innerRef} {...other} onClick={props.onClick || onClick} />;
