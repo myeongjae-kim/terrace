@@ -1,6 +1,7 @@
 import { ServerStyleSheets } from "@material-ui/styles";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
+import {darkTheme} from "../src/common/presentation/components/themes";
 
 class MyDocument extends Document {
   public render() {
@@ -79,6 +80,21 @@ class MyDocument extends Document {
             margin-bottom: 8px;
             line-height: 1.4;
             cursor: default;
+          }
+          table {
+            border: 1px solid ${darkTheme.palette.divider};
+            border-radius: 5px;
+            margin-left:auto;
+            margin-right:auto;
+          }
+          th {
+            padding: ${darkTheme.spacing(1)}px ${darkTheme.spacing(2)}px;
+          }
+          td {
+            padding: 0 ${darkTheme.spacing(2)}px;
+          }
+          tr:last-child td {
+            padding-bottom: ${darkTheme.spacing(1)}px;
           }
         `}</style>
         </Head>

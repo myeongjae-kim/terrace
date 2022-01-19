@@ -63,9 +63,19 @@ function RouterLink(props: LinkProps) {
   });
 
   const onClick: (e: React.MouseEvent) => Promise<boolean> = React.useCallback((e) => {
-    if (isEditablePage(router.asPath) && !confirm("정말 이 페이지에서 나가시겠어요?")) {
-      e.preventDefault();
-      return Promise.resolve(false);
+    if (isEditablePage(router.asPath)) {
+      if (e.metaKey || e.shiftKey || e.ctrlKey) {
+        if (props.as || props.href) {
+          e.preventDefault();
+          window.open("" + (props.as || props.href), "_blank");
+        }
+        return Promise.resolve(false);
+      }
+
+      if (!confirm("정말 이 페이지에서 나가시겠어요?")) {
+        e.preventDefault();
+        return Promise.resolve(false);
+      }
     }
 
     return Promise.resolve(true);

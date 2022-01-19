@@ -82,10 +82,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       opacity: 0.7
     },
     "& code": {
-      background: theme.palette.background.paper,
-    },
-    "& pre code": {
-      background: "initial"
+      background: "initial",
     }
   },
   footer: {

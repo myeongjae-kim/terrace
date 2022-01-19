@@ -100,7 +100,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
       }
       return true;
     });
-  }, []);
+  }, [router]);
 
   // every update
   React.useEffect(() => {

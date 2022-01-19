@@ -35,14 +35,12 @@ interface Props {
 const EachBlogArticle: React.FC<Props> = ({ blogArticle }) => {
   const { title, createdAt, uri } = blogArticle;
   const classes = useStyles();
-  return <>
-    <Link href={uri}>
-      <div className={classes.container}>
-        <div className={classes.title}>{title}</div>
-        <div className={classes.date}>{formatDateTime(createdAt, "YYYY / MM / DD")}</div>
-      </div>
-    </Link >
-  </>;
+  return <Link href={uri}>
+    <div className={classes.container}>
+      <div className={classes.title}>{title}</div>
+      <div className={classes.date}>{formatDateTime(createdAt, "YYYY / MM / DD")}</div>
+    </div>
+  </Link >;
 };
 
 export default EachBlogArticle;

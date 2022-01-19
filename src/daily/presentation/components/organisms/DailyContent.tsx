@@ -19,13 +19,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     border: `1px solid ${theme.palette.divider} !important`,
     borderRadius: 5,
 
-    "& blockquote": {
-      textIndent: "initial",
+    "& blockquote, pre": {
       backgroundColor: theme.palette.background.default,
       border: `1px solid ${theme.palette.divider} !important`,
-      borderRadius: 5,
-      margin: "5px 0",
+      margin: `${theme.spacing(2)}px 0`,
+    },
+
+    "& blockquote": {
+      textIndent: "initial",
       padding: "0 20px",
+    },
+
+    "& table": {
+      border: `1px solid ${theme.palette.divider}`
     }
   }
 }));
