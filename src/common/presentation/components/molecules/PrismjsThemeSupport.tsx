@@ -20,7 +20,7 @@ const bright = `/**
 code {
   padding: .1em;
   border-radius: .3em;
-  white-space: normal;
+  white-space: pre;
 }
 
 code[class*="language-"] {
