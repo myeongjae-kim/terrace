@@ -81,9 +81,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       fontSize: "0.8em",
       opacity: 0.7
     },
-    "& code": {
-      background: "initial",
-    }
   },
   footer: {
     flexShrink: 0,
