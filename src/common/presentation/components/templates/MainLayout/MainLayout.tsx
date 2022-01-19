@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       lineHeight: "1.3em",
       border: `1px solid ${theme.palette.divider} !important`,
       borderRadius: 5,
+      overflowY: "auto"
     },
     "& strong, b": {
       fontWeight: 700
