@@ -1,6 +1,7 @@
 import RainbowText from "./RainbowText";
 import * as React from "react";
 import {CSSProperties} from "react";
+import {useTheme} from "@material-ui/core";
 
 interface Poets {
   title: string
@@ -31,6 +32,7 @@ const poets: Poets[] = [{
 }];
 
 const Loading: React.FC<{style?: CSSProperties}> = ({style}) => {
+  const theme = useTheme();
   const {title, phrase, poet} = poets[Math.floor(Math.random() * poets.length)];
 
   return <RainbowText
@@ -38,7 +40,7 @@ const Loading: React.FC<{style?: CSSProperties}> = ({style}) => {
     line2={"..Loading.."}
     line3={phrase}
     line4={`- ${poet}, [${title}]`}
-    style={style}
+    style={{...style, paddingBottom : style?.paddingBottom || theme.spacing(8)}}
   />;
 };
 
