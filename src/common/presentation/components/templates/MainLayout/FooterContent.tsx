@@ -1,5 +1,5 @@
 import {createStyles, Link, makeStyles, Typography} from "@material-ui/core";
-import Router from "next/router";
+import {useRouter} from "next/router";
 import * as React from "react";
 
 const useStyles = makeStyles(theme => createStyles({
@@ -19,19 +19,25 @@ const useStyles = makeStyles(theme => createStyles({
 
 const FooterContent: React.FC = () => {
   const classes = useStyles();
+  const router = useRouter();
 
-  const signIn = React.useCallback(() => {
-    Router.push("/editors"); // TODO: editors 페이지 추가, 편집화면 그대로.
-  }, []);
+  const createOrEdit = React.useCallback(() => {
+    const splitPath = router.asPath.split("/").slice(1);
+    if (splitPath.length === 1) {
+      router.push(router.pathname + "/create").then(); // url에서 쿼리를 제외하고 사용하기 위해 pathname 사용
+    } else if (splitPath.length > 1) {
+      router.push("/" + splitPath[0] + "/update/" + splitPath.slice(1).join("/")).then();
+    }
+  }, [router.asPath, router.pathname]);
 
   return <div className={classes.footer}>
-    <img onClick={signIn} src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} style={{ opacity: 0, pointerEvents: "all" }} />
+    <img alt="ignorable" onClick={createOrEdit} src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} style={{ opacity: 0, pointerEvents: "all" }} />
 
     <Typography variant="caption">
       If you like my website, you can copy it from <Link href="https://github.com/myeongjae-kim/terrace">here</Link>.
     </Typography>
 
-    <img src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} />
+    <img alt="ignorable" src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} />
   </div>;
 };
 
