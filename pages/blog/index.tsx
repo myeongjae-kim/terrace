@@ -19,10 +19,11 @@ const BlogArticlePage: NextPage<{pageNumber: number}> = () => {
   const props = useSelector<RootState, BlogArticleListProps>(selector);
 
   return <div style={pageContainerStyle}>
-    <div>
+    <div style={pageContainerStyle}>
       <HeadTitle title="Blog" />
       <PageTitle title="articles" />
       <BlogArticleList {...props} />
+      <div /> {/* Loading 컴포넌트를 가운데로 맞추기 위한 empty div */}
     </div>
     <div style={{display: "flex", justifyContent: "center"}}>
       <div>

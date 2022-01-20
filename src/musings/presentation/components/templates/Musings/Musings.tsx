@@ -1,9 +1,10 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core";
 import * as React from "react";
-import {Maybe, PageTitle} from "src/common/presentation/components/molecules";
-import { MusingResponseDto } from "src/musings/api/dto";
+import {Maybe} from "src/common/presentation/components/molecules";
+import {MusingResponseDto} from "src/musings/api/dto";
 import EachMusing from "./EachMusing";
-import Loading from "../../../../../Loading";
+import Loading from "src/Loading";
+import {pageContainerStyle} from "src/common/styles/pageContainerStyle";
 
 const useStyles = makeStyles(createStyles({
   container: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles(createStyles({
   },
   eachItem: {
     maxWidth: 450,
-  }
+  },
 }));
 
 export interface MusingsProps {
@@ -21,19 +22,22 @@ export interface MusingsProps {
   rejected: boolean;
 }
 
-const Musings: React.FC<MusingsProps> = ({ musings }) => {
+const Musings: React.FC<MusingsProps> = ({ musings, pending }) => {
   const classes = useStyles();
   return <div>
-    <PageTitle title="quotes" />
-    <div className={classes.container}>
-      <div className={classes.eachItem}>
-        <Maybe test={musings.length === 0}>
-          <Loading />
-        </Maybe>
-        <Maybe test={musings.length !== 0}>
-          {musings.map(i => <EachMusing key={i.from} item={i} />)}
-        </Maybe>
+    <div style={pageContainerStyle}>
+      <div/>
+      <div className={classes.container}>
+        <div className={classes.eachItem}>
+          <Maybe test={pending}>
+            <Loading />
+          </Maybe>
+          <Maybe test={!pending}>
+            {musings.map(i => <EachMusing key={i.from} item={i} />)}
+          </Maybe>
+        </div>
       </div>
+      <div/>
     </div>
     <style jsx global>{`
         h1 {

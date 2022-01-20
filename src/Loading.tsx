@@ -38,7 +38,7 @@ const Loading: React.FC<{style?: CSSProperties}> = ({style}) => {
     line2={"..Loading.."}
     line3={phrase}
     line4={`- ${poet}, [${title}]`}
-    style={style || {paddingTop: "calc(-100px + 30vh)"}}
+    style={style}
   />;
 };
 

@@ -27,10 +27,11 @@ const DailyPage: NextPage = () => {
   const props = useSelector<RootState, DailyListPageProps>(selector);
 
   return <div style={pageContainerStyle}>
-    <div>
+    <div style={pageContainerStyle}>
       <HeadTitle title="Daily" />
       <PageTitle title="daily" />
       <DailyList {...props} />
+      <div /> {/* Loading 컴포넌트를 가운데로 맞추기 위한 empty div */}
     </div>
     <div style={{display: "flex", justifyContent: "center"}}>
       <div>

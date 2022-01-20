@@ -3,10 +3,10 @@ import * as React from "react";
 import {DailyListResponseDto} from "src/daily/api";
 import EachDaily from "./EachDaily";
 import {Maybe} from "src/common/presentation/components/molecules";
-import Loading from "../../../../../Loading";
+import Loading from "src/Loading";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  dailyList: {
+  container: {
     display: "flex",
     justifyContent: "center",
     marginBottom: theme.spacing(3),
@@ -21,7 +21,7 @@ export interface DailyListProps {
 
 const DailyList: React.FC<DailyListProps> = ({ dailys , pending}) => {
   const classes = useStyles();
-  return <div className={classes.dailyList}>
+  return <div className={classes.container}>
     <div>
       <Maybe test={pending}>
         <Loading />
