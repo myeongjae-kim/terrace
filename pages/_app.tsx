@@ -22,7 +22,7 @@ import {setPaths} from "src/common/presentation/state-module/common";
 import {rootReducer, rootSaga, RootState,} from "src/common/presentation/state-module/root";
 import {isServer} from "src/util";
 import {NextComponentType} from "next";
-import App, {AppContext, AppInitialProps, AppProps} from "next/app";
+import {AppContext, AppInitialProps, AppProps} from "next/app";
 import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
 import {usePersistentDarkModePreference} from "src/common/domain/model/usePersistentDarkModePreferences";
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
@@ -181,9 +181,5 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
   );
 };
 
-MyApp.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  return { ...appProps };
-};
-
+// TODO: remove withReduxSaga
 export default withRedux(makeStore)(withReduxSaga(MyApp));
