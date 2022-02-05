@@ -1,41 +1,56 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
-import NextPage from "src/common/domain/model/NextPage";
 import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules";
-import { RootState } from "src/common/presentation/state-module/root";
 import Musings from "src/musings/presentation/components/templates/Musings";
-import { MusingsProps } from "src/musings/presentation/components/templates/Musings/Musings";
-import * as listModule from "src/musings/presentation/state-modules/list";
+import {MusingsProps} from "src/musings/presentation/components/templates/Musings/Musings";
 import {pageContainerStyle} from "../../src/common/styles/pageContainerStyle";
 import {useTheme} from "@material-ui/core";
+import {MusingResponseDto, musingsFetcher} from "../../src/musings/api";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import useSWR, {SWRConfig} from "swr";
 
-const selector = createSelector(
-  (root: RootState) => root.musings.list,
-  (list: listModule.State): MusingsProps => list
-);
+interface Props {
+  fallback: {[x: string]: MusingResponseDto[]}
+}
 
-const MusingsPage: NextPage = () => {
+const getApiKey = () => "@musings";
+
+const MusingsPage = () => {
   const theme = useTheme();
-  const props = useSelector<RootState, MusingsProps>(selector);
+
+  const res = useSWR<MusingResponseDto[]>(getApiKey(), () => musingsFetcher.findAll());
+
+  const musingsProps: MusingsProps = {
+    musings: res.data || [],
+    pending: !res.data,
+    rejected: !!res.error
+  };
 
   return <div style={pageContainerStyle}>
     <HeadTitle title="Musings" />
     <PageTitle title="quotes" />
-    <Musings {...props} />
+    <Musings {...musingsProps} />
     <div style={{padding: `${theme.spacing(1.5)}px 0`}}/> {/* Loading 컴포넌트를 가운데로 맞추기 위한 empty div */}
   </div>;
 };
 
+const MusingsPageWrapper = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return <SWRConfig value={{fallback: props.fallback}}>
+    <MusingsPage />
+  </SWRConfig>;
+};
 
-MusingsPage.getInitialProps = async ({ store }) => {
-  if (store.getState().musings.list.musings.length === 0) {
-    store.dispatch(listModule.fetchMusings());
-  }
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const props: MusingResponseDto[] = await musingsFetcher.findAll();
+
+  const key = getApiKey();
 
   return {
-    namespacesRequired: ["common", "noti"],
+    props: {
+      fallback: {
+        [key]: props
+      }
+    }
   };
 };
 
-export default MusingsPage;
+export default MusingsPageWrapper;
