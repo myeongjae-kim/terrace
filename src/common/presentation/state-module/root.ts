@@ -1,7 +1,6 @@
 import { combineReducers, } from "redux";
 import { reducer as formReducer } from "redux-form";
 import { fork } from "redux-saga/effects";
-import * as authModule from "src/auth/presentation/state-modules";
 import * as blogModule from "src/blog/presentation/state-modules";
 import * as dailyModule from "src/daily/presentation/state-modules";
 import * as musingsModule from "src/musings/presentation/state-modules";
@@ -12,7 +11,6 @@ import * as snackbarModule from "./snackbar";
 export const rootReducer = combineReducers({
   form: formReducer,
 
-  auth: authModule.reducer,
   common: commonModule.reducer,
   snackbar: snackbarModule.reducer,
 
@@ -22,7 +20,6 @@ export const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield fork(authModule.saga);
   yield fork(blogModule.saga);
   yield fork(musingsModule.saga);
   yield fork(dailyModule.saga);
