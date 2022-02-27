@@ -44,6 +44,9 @@ module.exports = {
     "@typescript-eslint/ban-ts-ignore": [ // TODO: Remove this setting
       "off"
     ],
+    "@typescript-eslint/no-empty-interface": [
+      "off"
+    ],
     "indent": [
       "error",
       2
