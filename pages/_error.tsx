@@ -1,9 +1,8 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core";
 import clsx from "clsx";
-import { NextPageContext } from "next";
+import {NextPageContext} from "next";
 import Head from "next/head";
 import React from "react";
-import NextPage from "src/common/domain/model/NextPage";
 import Optional from "optional-js";
 
 const statusTexts: { [code: number]: string } = {
@@ -68,7 +67,7 @@ const wrapEachCharWithSpan = (line: string): string => {
   return wrapped;
 };
 
-const ErrorPage: NextPage<ErrorProps> = ({ statusCode, title: titleOrigin }) => {
+const ErrorPage = ({ statusCode, title: titleOrigin }: ErrorProps) => {
   const classes = useStyles();
   const title =
     titleOrigin ||
