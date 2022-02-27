@@ -5,7 +5,6 @@ import {ThemeProvider} from "@material-ui/styles";
 import withRedux from "next-redux-wrapper";
 import {DefaultSeo} from "next-seo";
 import Head from "next/head";
-import {SnackbarProvider} from "notistack";
 import React from "react";
 import ReactGA from "react-ga";
 import {Provider as ReduxStoreProvider} from "react-redux";
@@ -13,9 +12,6 @@ import {AnyAction, applyMiddleware, createStore, Middleware, Store,} from "redux
 import {DOMAIN} from "src/common/constants/Constants";
 import {MainLayout} from "src/common/presentation/components/templates";
 import {brightTheme, darkTheme} from "src/common/presentation/components/themes";
-import ConfirmContainer from "src/common/presentation/container/molecules/ConfirmContainer";
-import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
-import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
 import {setPaths} from "src/common/presentation/state-module/common";
 import {rootReducer, RootState,} from "src/common/presentation/state-module/root";
 import {isServer} from "src/util";
@@ -158,20 +154,15 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
         <PrismjsThemeSupport />
 
         <ReduxStoreProvider store={store}>
-          <SnackbarProvider style={{ whiteSpace: "pre-wrap" }}>
-            <>
-              <MainLayout>
-                <ColorModeChangeButton
-                  isDark={prefersDarkMode}
-                  toggle={toggleColorMode}
-                />
-                <Component {...pageProps} />
-              </MainLayout>
-              <ConfirmContainer />
-              <SnackbarContainer />
-              <NotificationCenterContainer />
-            </>
-          </SnackbarProvider>
+          <>
+            <MainLayout>
+              <ColorModeChangeButton
+                isDark={prefersDarkMode}
+                toggle={toggleColorMode}
+              />
+              <Component {...pageProps} />
+            </MainLayout>
+          </>
         </ReduxStoreProvider>
       </ThemeProvider>
     </>
