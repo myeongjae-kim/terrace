@@ -28,7 +28,7 @@ const FooterContent: React.FC = () => {
     } else if (splitPath.length > 1) {
       router.push("/" + splitPath[0] + "/update/" + splitPath.slice(1).join("/")).then();
     }
-  }, [router.asPath, router.pathname]);
+  }, [router]);
 
   return <div className={classes.footer}>
     <img alt="ignorable" onClick={createOrEdit} src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} style={{ opacity: 0, pointerEvents: "all" }} />
