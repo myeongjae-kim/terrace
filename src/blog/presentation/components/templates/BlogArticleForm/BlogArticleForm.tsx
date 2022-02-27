@@ -1,14 +1,13 @@
-import { makeStyles, TextField, Theme, Typography } from "@material-ui/core";
-import { Check } from "@material-ui/icons";
+import {makeStyles, TextField, Theme, Typography} from "@material-ui/core";
 import clsx from "clsx";
-import { ErrorMessage, Form, Formik } from "formik";
+import {ErrorMessage, Form, Formik} from "formik";
 import Optional from "optional-js";
 import * as React from "react";
-import { BlogArticleDetailResponseDto, BlogArticleRequestDto } from "src/blog/api";
-import { ErrorTypography, MySpeedDial } from "src/common/presentation/components/molecules";
-import { MarkdownEditor } from "src/common/presentation/components/organisms";
+import {BlogArticleDetailResponseDto, BlogArticleRequestDto} from "src/blog/api";
+import {ErrorTypography} from "src/common/presentation/components/molecules";
+import {MarkdownEditor} from "src/common/presentation/components/organisms";
 import * as Yup from "yup";
-import { ArticleContent } from "../../organisms";
+import {ArticleContent} from "../../organisms";
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -56,7 +55,7 @@ const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
     })}
   >
     {props => {
-      const { values, handleChange, handleBlur, isSubmitting } = props;
+      const { values, handleChange, handleBlur } = props;
 
       const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.target.value = e.target.value
@@ -133,10 +132,6 @@ const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
               component={ErrorTypography} />
           </div>
         </div>
-        <MySpeedDial disabled={isSubmitting} actions={[{
-          name: "완료",
-          icon: <Check />
-        }]} />
       </Form>;
     }}
   </Formik>;
