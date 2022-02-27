@@ -20,7 +20,7 @@ const data = {
   },
   descriptions: [{
     icon: <EmojiPeople style={iconStyle} />,
-    label: "Software Developer",
+    label: "Coder",
     href: ""
   }, {
     icon: <Room style={iconStyle} />,

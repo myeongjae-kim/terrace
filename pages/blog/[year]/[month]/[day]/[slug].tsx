@@ -81,7 +81,7 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
   return <div>
     <NextSeo
       title={title}
-      description={content.substr(0, 512)}
+      description={content.substring(0, 512)}
       canonical={`${DOMAIN}${Endpoints.blog}${subPath}`}
     />
 
