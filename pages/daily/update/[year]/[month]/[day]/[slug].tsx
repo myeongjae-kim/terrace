@@ -1,24 +1,15 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
-import { createSelector } from "reselect";
-import { DailyDetailResponseDto, DailyPathDto, DailyRequestDto } from "src/daily/api";
-import { DailyForm } from "src/daily/presentation/components/templates";
-import * as formModule from "src/daily/presentation/state-modules/form";
-import NextPage from "src/common/domain/model/NextPage";
-import { RootState } from "src/common/presentation/state-module/root";
-import { redirectFromGetInitialPropsTo } from "src/util";
+import {dailyApi, DailyDetailResponseDto, DailyPathDto} from "src/daily/api";
+import {DailyForm} from "src/daily/presentation/components/templates";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import useSWR, {SWRConfig} from "swr";
+import {useRouter} from "next/router";
 
-interface SelectorReturn {
-  initialValues: DailyDetailResponseDto;
-  pending: boolean;
-  rejected: boolean;
+const getApiKey = (slug: string) => `@daily/${slug}`;
+
+interface Props {
+  fallback: {[x: string]: DailyDetailResponseDto}
 }
-
-const selector = createSelector(
-  (root: RootState) => root.daily.form,
-  ({ initialValues, pending, rejected }: formModule.State): SelectorReturn => ({ initialValues, pending, rejected })
-);
 
 const parsePathToPathDto = (asPath: string): DailyPathDto => {
   const splitted = asPath.split("/");
@@ -30,31 +21,55 @@ const parsePathToPathDto = (asPath: string): DailyPathDto => {
   };
 };
 
-const DailyUpdatePage: NextPage<{ asPath: string }> = ({ asPath }) => {
-  const dispatch = useDispatch<Dispatch<formModule.Action>>();
-  const props = useSelector(selector);
+const DailyUpdatePage = () => {
+  const router = useRouter();
+  const dailyRequest = parsePathToPathDto(router.asPath);
 
-  React.useEffect(() => {
-    dispatch(formModule.fetchDaily({ dailyPathDto: parsePathToPathDto(asPath) }));
-  }, [asPath, dispatch]);
-
-  const onSubmit = React.useCallback((request: DailyRequestDto) => {
-    dispatch(formModule.updateDaily({ request }));
-    return Promise.resolve();
-  }, [dispatch]);
+  const res = useSWR<DailyDetailResponseDto>(getApiKey(dailyRequest.slug), () => dailyApi.find(dailyRequest));
+  const dailyDetail = res.data || {
+    id: "",
+    seq: -1,
+    createdAt: "",
+    updatedAt: "",
+    title: "",
+    slug: "",
+    content: ""
+  };
+  const pending = !res.data;
+  const rejected = !!res.error;
 
   return <div>
-    <DailyForm onSubmit={onSubmit} isUpdating {...props} />
+    <DailyForm
+      onSubmit={() => Promise.resolve()}
+      isUpdating={true}
+      initialValues={dailyDetail}
+      pending={pending}
+      rejected={rejected}
+    />
   </div>;
 };
 
-DailyUpdatePage.getInitialProps = async ({ asPath, res }) => {
-  if (!asPath) {
-    redirectFromGetInitialPropsTo("/404", res);
-    return {};
-  }
-
-  return { namespacesRequired: ["common", "noti"], asPath };
+const DailyUpdatePageWrapper = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return <SWRConfig value={{fallback: props.fallback}}>
+    <DailyUpdatePage />
+  </SWRConfig>;
 };
 
-export default DailyUpdatePage;
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  // https://nodejs.org/api/http.html#messageurl
+  const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
+  const dailyRequest = parsePathToPathDto(pathname);
+
+  const props: DailyDetailResponseDto = await dailyApi.find(dailyRequest);
+  const key = getApiKey(dailyRequest.slug);
+
+  return {
+    props: {
+      fallback: {
+        [key]: props
+      }
+    }
+  };
+};
+
+export default DailyUpdatePageWrapper;

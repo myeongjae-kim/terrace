@@ -1,8 +1,7 @@
 import {Button, createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "src/common/presentation/state-module/root";
-import { Link } from "../../../molecules";
+import {Link} from "../../../molecules";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   nav: {
@@ -35,8 +34,15 @@ interface Props {
   }>;
 }
 
+const usePaths = (): string[] => {
+  const {pathname} = useRouter();
+  const paths = pathname.split("?")[0].split("/").slice(1);
+  paths[0] = "/" + paths[0];
+  return paths;
+};
+
 const Navigation: React.FC<Props> = ({ items }) => {
-  const paths = useSelector<RootState, string[]>(({ common }) => common.paths);
+  const paths = usePaths();
   const classes = useStyles();
   const firstPath = paths[0] || "";
 
