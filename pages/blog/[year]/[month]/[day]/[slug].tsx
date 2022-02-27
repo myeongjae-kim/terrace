@@ -1,7 +1,12 @@
 import {useTheme} from "@material-ui/core";
 import {NextSeo} from "next-seo";
 import * as React from "react";
-import {BlogArticleDetailResponseDto, BlogArticlePathDto, BlogArticlePrevOrNext} from "src/blog/api/dto";
+import {
+  BlogArticleDetailResponseDto,
+  BlogArticlePathDto,
+  BlogArticlePrevOrNext,
+  defaultBlogArticleDetailResponseDto
+} from "src/blog/api/dto";
 import BlogArticleDetail from "src/blog/presentation/components/templates/BlogArticleDetail";
 import {DOMAIN, Endpoints} from "src/common/constants/Constants";
 import {Comment} from "src/common/presentation/components/organisms";
@@ -45,29 +50,7 @@ const BlogDetailPage = () => {
   const blogRequest = parsePathToBlogArticleDetailRequest(router.asPath);
 
   const res = useSWR<BlogArticleDetailResponseDto>(getApiKey(blogRequest.slug), () => blogArticleApi.find(blogRequest));
-  const blogDetail = res.data || {
-    id: "",
-    seq: -1,
-    createdAt: "",
-    updatedAt: "",
-    title: "",
-    slug: "",
-    content: "",
-    prev: {
-      id: "",
-      createdAt: "",
-      title: "",
-      uri: ""
-    },
-    next: {
-      id: "",
-      createdAt: "",
-      title: "",
-      uri: ""
-    },
-  };
-  const pending = !res.data;
-  const rejected = !!res.error;
+  const blogDetail = res.data || defaultBlogArticleDetailResponseDto;
 
   const {prev, next} = useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR(blogDetail);
 
@@ -85,11 +68,7 @@ const BlogDetailPage = () => {
 
     <BlogArticleDetail
       blogArticle={{...blogDetail, prev, next}}
-      pending={pending}
-      rejected={rejected}
-      statusCode={-1}
-      update={() => {}}
-      del={() => {}} />
+    />
     <Comment identifier={`blog${subPath}`} />
     <style jsx global>{`
 #comment-container {

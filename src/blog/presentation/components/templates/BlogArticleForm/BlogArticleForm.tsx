@@ -33,12 +33,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   isUpdating?: boolean;
   initialValues?: BlogArticleDetailResponseDto;
-  pending: boolean;
-  rejected: boolean;
   onSubmit(request: BlogArticleRequestDto): Promise<void>;
 }
 
-const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, onSubmit }) => {
+const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
   const classes = useStyles();
 
   return <Formik<BlogArticleRequestDto>
@@ -135,7 +133,7 @@ const BlogArticleForm: React.FC<Props> = ({ isUpdating, initialValues, pending, 
               component={ErrorTypography} />
           </div>
         </div>
-        <MySpeedDial disabled={isSubmitting || pending} actions={[{
+        <MySpeedDial disabled={isSubmitting} actions={[{
           name: "완료",
           icon: <Check />
         }]} />

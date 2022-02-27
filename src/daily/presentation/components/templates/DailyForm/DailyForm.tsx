@@ -33,12 +33,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   isUpdating?: boolean;
   initialValues?: DailyDetailResponseDto;
-  pending: boolean;
-  rejected: boolean;
   onSubmit(request: DailyRequestDto): Promise<void>;
 }
 
-const DailyForm: React.FC<Props> = ({ isUpdating, initialValues, pending, onSubmit }) => {
+const DailyForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
   const classes = useStyles();
 
   return <Formik<DailyRequestDto>
@@ -135,7 +133,7 @@ const DailyForm: React.FC<Props> = ({ isUpdating, initialValues, pending, onSubm
               component={ErrorTypography} />
           </div>
         </div>
-        <MySpeedDial disabled={isSubmitting || pending} actions={[{
+        <MySpeedDial disabled={isSubmitting} actions={[{
           name: "완료",
           icon: <Check />
         }]} />

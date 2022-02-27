@@ -1,5 +1,10 @@
 import * as React from "react";
-import {blogArticleApi, BlogArticleDetailResponseDto, BlogArticlePathDto} from "src/blog/api";
+import {
+  blogArticleApi,
+  BlogArticleDetailResponseDto,
+  BlogArticlePathDto,
+  defaultBlogArticleDetailResponseDto
+} from "src/blog/api";
 import {BlogArticleForm} from "src/blog/presentation/components/templates";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
@@ -26,37 +31,13 @@ const BlogUpdatePage = () => {
   const blogRequest = parsePathToPathDto(router.asPath);
 
   const res = useSWR<BlogArticleDetailResponseDto>(getApiKey(blogRequest.slug), () => blogArticleApi.find(blogRequest));
-  const blogDetail = res.data || {
-    id: "",
-    seq: -1,
-    createdAt: "",
-    updatedAt: "",
-    title: "",
-    slug: "",
-    content: "",
-    prev: {
-      id: "",
-      createdAt: "",
-      title: "",
-      uri: ""
-    },
-    next: {
-      id: "",
-      createdAt: "",
-      title: "",
-      uri: ""
-    },
-  };
-  const pending = !res.data;
-  const rejected = !!res.error;
+  const blogDetail = res.data || defaultBlogArticleDetailResponseDto;
 
   return <div>
     <BlogArticleForm
       onSubmit={() => Promise.resolve()}
       isUpdating={true}
       initialValues={blogDetail}
-      pending={pending}
-      rejected={rejected}
     />
   </div>;
 };

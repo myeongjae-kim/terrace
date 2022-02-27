@@ -1,5 +1,5 @@
 import * as React from "react";
-import {dailyApi, DailyDetailResponseDto, DailyPathDto} from "src/daily/api";
+import {dailyApi, DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/daily/api";
 import {DailyForm} from "src/daily/presentation/components/templates";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
@@ -26,25 +26,13 @@ const DailyUpdatePage = () => {
   const dailyRequest = parsePathToPathDto(router.asPath);
 
   const res = useSWR<DailyDetailResponseDto>(getApiKey(dailyRequest.slug), () => dailyApi.find(dailyRequest));
-  const dailyDetail = res.data || {
-    id: "",
-    seq: -1,
-    createdAt: "",
-    updatedAt: "",
-    title: "",
-    slug: "",
-    content: ""
-  };
-  const pending = !res.data;
-  const rejected = !!res.error;
+  const dailyDetail = res.data || defaultDailyDetailResponseDto;
 
   return <div>
     <DailyForm
       onSubmit={() => Promise.resolve()}
       isUpdating={true}
       initialValues={dailyDetail}
-      pending={pending}
-      rejected={rejected}
     />
   </div>;
 };

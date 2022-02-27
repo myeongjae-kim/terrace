@@ -2,7 +2,7 @@ import {useTheme} from "@material-ui/core";
 import * as React from "react";
 import {HeadTitle} from "src/common/presentation/components/molecules";
 import {Comment} from "src/common/presentation/components/organisms";
-import {DailyDetailResponseDto, DailyPathDto} from "src/daily/api/dto";
+import {DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/daily/api/dto";
 import DailyDetail from "src/daily/presentation/components/templates/DailyDetail";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
@@ -21,17 +21,7 @@ const DailyDetailPage = () => {
   const dailyRequest = parsePathToDailyDetailRequest(router.asPath);
 
   const res = useSWR<DailyDetailResponseDto>(getApiKey(dailyRequest.slug), () => dailyApi.find(dailyRequest));
-  const dailyDetail = res.data || {
-    id: "",
-    seq: -1,
-    createdAt: "",
-    updatedAt: "",
-    title: "",
-    slug: "",
-    content: ""
-  };
-  const pending = !res.data;
-  const rejected = !!res.error;
+  const dailyDetail = res.data || defaultDailyDetailResponseDto;
 
   const { createdAt, slug } = dailyDetail;
   const subPath = `${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}`;
@@ -39,13 +29,7 @@ const DailyDetailPage = () => {
   const theme = useTheme();
   return <div>
     <HeadTitle title="Daily" />
-    <DailyDetail
-      daily={dailyDetail}
-      pending={pending}
-      rejected={rejected}
-      statusCode={-1}
-      update={() => {}}
-      del={() => {}} />
+    <DailyDetail daily={dailyDetail} />
     <Comment identifier={`daily${subPath}`} />
     <style jsx global>{`
 #comment-container {

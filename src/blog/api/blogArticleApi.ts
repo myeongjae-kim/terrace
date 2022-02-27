@@ -1,12 +1,11 @@
 import Axios from "axios";
-import {CreationResponse} from "src/common/api/dto/CreationResponse";
 import {API_HOST, Endpoints} from "src/common/constants/Constants";
 import CommonErrorServiceImpl from "src/common/infrastructure/service/CommonErrorServiceImpl";
 import {
   BlogArticleDetailResponseDto,
   BlogArticleListResponseDto,
-  BlogArticlePathDto, BlogArticlePrevOrNext,
-  BlogArticleRequestDto
+  BlogArticlePathDto,
+  BlogArticlePrevOrNext
 } from "./dto";
 import RepositoryError from "../../common/domain/model/RepositoryError";
 import Optional from "optional-js";
@@ -94,24 +93,6 @@ export const blogArticleApi = {
       next: defaultPrevOrNext
     };
   },
-
-  create: (request: BlogArticleRequestDto): Promise<CreationResponse> => new Promise((resolve, rejected) => {
-    Axios.post<CreationResponse>(`${API_HOST}${Endpoints.blog}/api`, request)
-      .then(res => resolve(res.data))
-      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
-  }),
-
-  update: (request: BlogArticleRequestDto, path: string): Promise<void> => new Promise((resolve, rejected) => {
-    Axios.put<void>(`${API_HOST}${Endpoints.blog}/api${path}`, request)
-      .then(res => resolve(res.data))
-      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
-  }),
-
-  delete: ({ year, month, day, slug }: BlogArticlePathDto): Promise<void> => new Promise((resolve, rejected) => {
-    Axios.delete<void>(`${API_HOST}${Endpoints.blog}/api/${year}/${month}/${day}/${slug}`)
-      .then(() => resolve())
-      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
-  }),
 
   getPrevOf: async (seq: number): Promise<BlogArticlePrevOrNext> => {
     const prev: BlogArticleListStrapi | undefined =
