@@ -1,6 +1,8 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core";
 import * as React from "react";
-import { Link, Maybe } from "src/view/common/presentation/components/molecules";
+import {Link, Maybe} from "src/view/common/presentation/components/molecules";
+import {Description, DescriptionIcon} from "src/about/domain/Description";
+import {Code, Create, DeveloperBoard, Email, EmojiPeople, Room, SvgIconComponent} from "@material-ui/icons";
 
 const useStyles = makeStyles(createStyles({
   list: {
@@ -12,19 +14,35 @@ const useStyles = makeStyles(createStyles({
   label: {
     fontFamily: "inconsolata",
     marginLeft: 7
+  },
+  icon: {
+    fontSize: 17,
+    marginBottom: -3
   }
 }));
 
-interface Description {
-  icon: JSX.Element;
-  label: string;
-  href: string;
-}
+const getIcon = (icon: DescriptionIcon): SvgIconComponent => {
+  switch (icon) {
+  case "Code":
+    return Code;
+  case "Create":
+    return Create;
+  case "DeveloperBoard":
+    return DeveloperBoard;
+  case "Email":
+    return Email;
+  case "EmojiPeople":
+    return EmojiPeople;
+  case "Room":
+    return Room;
+  }
+};
 
 const EachDescription: React.FC<Description> = ({ icon, label, href }) => {
   const classes = useStyles();
+  const Icon = getIcon(icon);
   return <li>
-    {icon}
+    <Icon className={classes.icon} />
     <Maybe test={!!href}>
       <Link href={href}>
         <span className={classes.label}>{label}</span>
@@ -35,7 +53,6 @@ const EachDescription: React.FC<Description> = ({ icon, label, href }) => {
     </Maybe>
   </li>;
 };
-
 
 interface Props {
   items: Description[];
