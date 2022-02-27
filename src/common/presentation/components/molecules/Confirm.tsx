@@ -4,7 +4,12 @@ import { alpha } from "@material-ui/core/styles";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import * as React from "react";
-import { ConfirmPayload } from "../../state-module/common";
+
+export interface ConfirmPayload {
+  title?: string;
+  content: string;
+  onClick?(e?: React.MouseEvent): void;
+}
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   spacing: { height: theme.spacing(1) },
