@@ -28,6 +28,8 @@ import {usePersistentDarkModePreference} from "src/common/domain/model/usePersis
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
 import {isEditablePage} from "../src/util/isEditablePage";
+import { useNProgressLoader } from "src/useNProgressLoader";
+import "src/nprogress.css";
 
 ReactGA.initialize("UA-126240406-1");
 
@@ -90,6 +92,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
   router,
 }) => {
   useInit();
+  useNProgressLoader();
   useEveryUpdate();
 
   // first rendering
