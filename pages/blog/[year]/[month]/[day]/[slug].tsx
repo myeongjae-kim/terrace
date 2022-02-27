@@ -1,91 +1,95 @@
 import {useTheme} from "@material-ui/core";
 import {NextSeo} from "next-seo";
 import * as React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Dispatch, Store} from "redux";
-import {createSelector} from "reselect";
-import {BlogArticleDetailResponseDto, BlogArticlePathDto} from "src/blog/api/dto";
+import {BlogArticleDetailResponseDto, BlogArticlePathDto, BlogArticlePrevOrNext} from "src/blog/api/dto";
 import BlogArticleDetail from "src/blog/presentation/components/templates/BlogArticleDetail";
-import * as detailModule from "src/blog/presentation/state-modules/detail";
 import {DOMAIN, Endpoints} from "src/common/constants/Constants";
-import NextPage from "src/common/domain/model/NextPage";
 import {Comment} from "src/common/presentation/components/organisms";
-import * as commonModule from "src/common/presentation/state-module/common";
-import {RootState} from "src/common/presentation/state-module/root";
-import {createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo} from "src/util";
+import {formatDateTime} from "src/util";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import {blogArticleApi} from "src/blog/api";
+import useSWR, {SWRConfig} from "swr";
+import {useRouter} from "next/router";
 
-interface SelectorReturn {
-  blogArticle: BlogArticleDetailResponseDto;
-  pending: boolean;
-  rejected: boolean;
-  statusCode: number;
-}
+const getApiKey = (slug: string) => `@blog/${slug}`;
+const getPrevApiKey = (seq: number) => `@blogPrev/${seq}`;
+const getNextApiKey = (seq: number) => `@blogNext/${seq}`;
 
-const selector = createSelector(
-  (root: RootState) => root.blog.detail,
-  (detail: detailModule.State): SelectorReturn => ({
-    ...detail,
-  })
-);
+const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDetailResponseDto): {
+  prev: BlogArticlePrevOrNext
+  next: BlogArticlePrevOrNext
+} => {
+  const {seq} = article;
+  const defaultData = {
+    id: "",
+    createdAt: "",
+    title: "",
+    uri: ""
+  };
 
-const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDetailResponseDto) => {
-  const dispatch = useDispatch<Dispatch<detailModule.Action>>();
-  const { id, seq, prev, next } = article;
+  const prevResponse = useSWR<BlogArticlePrevOrNext>(getPrevApiKey(seq), () => blogArticleApi.getPrevOf(seq));
+  const nextResponse = useSWR<BlogArticlePrevOrNext>(getNextApiKey(seq), () => blogArticleApi.getNextOf(seq));
 
-  // prev and next does not rendered on ssr for performance.
-  // fetch prev and next if article is fetched and prev or next are not fetched.
-  // call just only once.
-  const [isFirst, updateFirst] = React.useState(true);
-  React.useEffect(() => {
-    if (isFirst && id && !(prev.id || next.id)) {
-      dispatch(detailModule.fetchPrev({seq}));
-      dispatch(detailModule.fetchNext({seq}));
-    }
-    updateFirst(false);
-  }, [id, seq, prev, next, isFirst, dispatch]);
+  return {
+    prev: prevResponse.data || defaultData,
+    next: nextResponse.data || defaultData
+  };
 };
 
 interface Props {
-  blogArticlePathDto: BlogArticlePathDto;
+  fallback: {[x: string]: BlogArticleDetailResponseDto}
 }
 
-const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
-  const props = useSelector(selector);
-  useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR(props.blogArticle);
+const BlogDetailPage = () => {
+  const router = useRouter();
+  const blogRequest = parsePathToBlogArticleDetailRequest(router.asPath);
 
-  const dispatch = useDispatch<Dispatch<detailModule.Action | commonModule.Action>>();
+  const res = useSWR<BlogArticleDetailResponseDto>(getApiKey(blogRequest.slug), () => blogArticleApi.find(blogRequest));
+  const blogDetail = res.data || {
+    id: "",
+    seq: -1,
+    createdAt: "",
+    updatedAt: "",
+    title: "",
+    slug: "",
+    content: "",
+    prev: {
+      id: "",
+      createdAt: "",
+      title: "",
+      uri: ""
+    },
+    next: {
+      id: "",
+      createdAt: "",
+      title: "",
+      uri: ""
+    },
+  };
+  const pending = !res.data;
+  const rejected = !!res.error;
 
-  const { title, content, createdAt, slug } = props.blogArticle;
+  const {prev, next} = useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR(blogDetail);
+
+  const { title, content, createdAt, slug } = blogDetail;
   const subPath = `${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}`;
-  const updateUri = `${Endpoints["blog.update"]}${subPath}/`;
-
-  const update = React.useCallback((e: React.MouseEvent) => {
-    createLinkClickHandler(
-      Endpoints["blog.update"],
-      updateUri
-    )(e);
-  }, [updateUri]);
-
-  const del = React.useCallback(() => {
-    dispatch(commonModule.openConfirmDialog({
-      "content": "정말로 삭제하시겠습니까?",
-      onClick: () => dispatch(detailModule.deleteBlogArticle({ blogArticlePathDto }))
-    }));
-  }, [blogArticlePathDto, dispatch]);
 
   const theme = useTheme();
-  React.useEffect(() => () => {
-    dispatch(detailModule.reset());
-  }, [dispatch]);
 
   return <div>
     <NextSeo
       title={title}
-      description={content.substr(0, 512)}
+      description={content.substring(0, 512)}
       canonical={`${DOMAIN}${Endpoints.blog}${subPath}`}
     />
 
-    <BlogArticleDetail {...props} update={update} del={del} />
+    <BlogArticleDetail
+      blogArticle={{...blogDetail, prev, next}}
+      pending={pending}
+      rejected={rejected}
+      statusCode={-1}
+      update={() => {}}
+      del={() => {}} />
     <Comment identifier={`blog${subPath}`} />
     <style jsx global>{`
 #comment-container {
@@ -95,21 +99,10 @@ const BlogArticleDetailPage: NextPage<Props> = ({ blogArticlePathDto }) => {
   </div>;
 };
 
-BlogArticleDetailPage.getInitialProps = async ({ store, asPath, res }) => {
-  if (!asPath) {
-    redirectFromGetInitialPropsTo("/404", res);
-    return {};
-  }
-
-  const blogArticlePathDto = parsePathToBlogArticleDetailRequest(asPath);
-
-  fetchBlogArticleDetail(store, blogArticlePathDto);
-
-  return { namespacesRequired: ["common", "noti"], blogArticlePathDto };
-};
-
-const fetchBlogArticleDetail = (store: Store<RootState>, req: BlogArticlePathDto): void => {
-  store.dispatch(detailModule.fetchBlogArticle({ blogArticlePathDto: req }));
+const BlogDetailPageWrapper = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return <SWRConfig value={{fallback: props.fallback}}>
+    <BlogDetailPage />
+  </SWRConfig>;
 };
 
 const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto => {
@@ -122,4 +115,21 @@ const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto
   };
 };
 
-export default BlogArticleDetailPage;
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  // https://nodejs.org/api/http.html#messageurl
+  const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
+  const dailyRequest = parsePathToBlogArticleDetailRequest(pathname);
+
+  const props: BlogArticleDetailResponseDto = await blogArticleApi.find(dailyRequest);
+  const key = getApiKey(dailyRequest.slug);
+
+  return {
+    props: {
+      fallback: {
+        [key]: props
+      }
+    }
+  };
+};
+
+export default BlogDetailPageWrapper;

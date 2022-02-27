@@ -1,79 +1,51 @@
 import {useTheme} from "@material-ui/core";
 import * as React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Dispatch, Store} from "redux";
-import {createSelector} from "reselect";
-import NextPage from "src/common/domain/model/NextPage";
 import {HeadTitle} from "src/common/presentation/components/molecules";
 import {Comment} from "src/common/presentation/components/organisms";
-import {RootState} from "src/common/presentation/state-module/root";
 import {DailyDetailResponseDto, DailyPathDto} from "src/daily/api/dto";
 import DailyDetail from "src/daily/presentation/components/templates/DailyDetail";
-import * as detailModule from "src/daily/presentation/state-modules/detail";
-import {createLinkClickHandler, formatDateTime, redirectFromGetInitialPropsTo} from "src/util";
-import {Endpoints} from "src/common/constants/Constants";
-import * as commonModule from "src/common/presentation/state-module/common";
+import {formatDateTime} from "src/util";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import {dailyApi} from "src/daily/api";
+import useSWR, {SWRConfig} from "swr";
+import {useRouter} from "next/router";
 
-interface DailyDetailPageStates {
-  dailyDetail: DailyDetailResponseDto;
-
-  pending: boolean;
-  rejected: boolean;
-  statusCode: number;
-}
-
-const selector = createSelector(
-  (root: RootState) => root.daily.detail,
-  (detail: detailModule.State): DailyDetailPageStates => ({
-    dailyDetail: detail.daily,
-
-    pending: detail.pending,
-    rejected: detail.rejected,
-    statusCode: detail.statusCode,
-  }));
-
+const getApiKey = (slug: string) => `@daily/${slug}`;
 
 interface Props {
-  dailyPathDto: DailyPathDto;
+  fallback: {[x: string]: DailyDetailResponseDto}
 }
 
-const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
-  const theme = useTheme();
-  const dailyPageProps = useSelector<RootState, DailyDetailPageStates>(selector);
-  const { dailyDetail, pending, rejected, statusCode } = dailyPageProps;
+const DailyDetailPage = () => {
+  const router = useRouter();
+  const dailyRequest = parsePathToDailyDetailRequest(router.asPath);
 
-  const dispatch = useDispatch<Dispatch<detailModule.Action | commonModule.Action>>();
-  React.useEffect(() => () => {
-    dispatch(detailModule.reset());
-  }, [dispatch]);
+  const res = useSWR<DailyDetailResponseDto>(getApiKey(dailyRequest.slug), () => dailyApi.find(dailyRequest));
+  const dailyDetail = res.data || {
+    id: "",
+    seq: -1,
+    createdAt: "",
+    updatedAt: "",
+    title: "",
+    slug: "",
+    content: ""
+  };
+  const pending = !res.data;
+  const rejected = !!res.error;
 
   const { createdAt, slug } = dailyDetail;
   const subPath = `${formatDateTime(createdAt, "/YYYY/MM/DD")}/${slug}`;
-  const updateUri = `${Endpoints["daily.update"]}${subPath}`;
 
-  const update = React.useCallback((e: React.MouseEvent) => {
-    createLinkClickHandler(
-      Endpoints["daily.update"],
-      updateUri
-    )(e);
-  }, [updateUri]);
-
-  const del = React.useCallback(() => {
-    dispatch(commonModule.openConfirmDialog({
-      "content": "정말로 삭제하시겠습니까?",
-      onClick: () => dispatch(detailModule.deleteDaily({ dailyPathDto }))
-    }));
-  }, [dailyPathDto, dispatch]);
-
+  const theme = useTheme();
   return <div>
     <HeadTitle title="Daily" />
     <DailyDetail
       daily={dailyDetail}
       pending={pending}
       rejected={rejected}
-      statusCode={statusCode}
-      update={update}
-      del={del} />
+      statusCode={-1}
+      update={() => {}}
+      del={() => {}} />
     <Comment identifier={`daily${subPath}`} />
     <style jsx global>{`
 #comment-container {
@@ -83,20 +55,10 @@ const DailyDetailPage: NextPage<Props> = ({dailyPathDto}) => {
   </div>;
 };
 
-DailyDetailPage.getInitialProps = async ({ store, asPath, res }) => {
-  if (!asPath) {
-    redirectFromGetInitialPropsTo("/404", res);
-    return {};
-  }
-
-  const dailyPathDto = parsePathToDailyDetailRequest(asPath);
-  fetchDailyDetail(store, dailyPathDto);
-
-  return { namespacesRequired: ["common", "noti"], dailyPathDto };
-};
-
-const fetchDailyDetail = (store: Store<RootState>, req: DailyPathDto): void => {
-  store.dispatch(detailModule.fetchDaily({ daily: req }));
+const DailyDetailPageWrapper = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return <SWRConfig value={{fallback: props.fallback}}>
+    <DailyDetailPage />
+  </SWRConfig>;
 };
 
 const parsePathToDailyDetailRequest = (asPath: string): DailyPathDto => {
@@ -109,4 +71,21 @@ const parsePathToDailyDetailRequest = (asPath: string): DailyPathDto => {
   };
 };
 
-export default DailyDetailPage;
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  // https://nodejs.org/api/http.html#messageurl
+  const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
+  const dailyRequest = parsePathToDailyDetailRequest(pathname);
+
+  const props: DailyDetailResponseDto = await dailyApi.find(dailyRequest);
+  const key = getApiKey(dailyRequest.slug);
+
+  return {
+    props: {
+      fallback: {
+        [key]: props
+      }
+    }
+  };
+};
+
+export default DailyDetailPageWrapper;
