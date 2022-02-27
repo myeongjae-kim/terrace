@@ -1,8 +1,5 @@
 export { default as Confirm } from "./Confirm";
 
-export * from "./MySpeedDial";
-export { default as MySpeedDial } from "./MySpeedDial";
-
 export * from "./previews";
 export * from "./typographies";
 

@@ -16,3 +16,25 @@ export interface BlogArticleDetailResponseDto {
   prev: BlogArticlePrevOrNext;
   next: BlogArticlePrevOrNext;
 }
+
+export const defaultBlogArticleDetailResponseDto: BlogArticleDetailResponseDto = {
+  id: "",
+  seq: -1,
+  createdAt: "",
+  updatedAt: "",
+  title: "",
+  slug: "",
+  content: "",
+  prev: {
+    id: "",
+    createdAt: "",
+    title: "",
+    uri: ""
+  },
+  next: {
+    id: "",
+    createdAt: "",
+    title: "",
+    uri: ""
+  },
+};

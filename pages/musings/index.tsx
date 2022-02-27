@@ -21,8 +21,6 @@ const MusingsPage = () => {
 
   const musingsProps: MusingsProps = {
     musings: res.data || [],
-    pending: !res.data,
-    rejected: !!res.error
   };
 
   return <div style={pageContainerStyle}>

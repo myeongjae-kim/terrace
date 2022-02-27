@@ -3,12 +3,12 @@ import BlogArticleList from "src/blog/presentation/components/templates/BlogArti
 import {BlogArticleListProps} from "src/blog/presentation/components/templates/BlogArticleList/BlogArticleList";
 import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules";
 import MyPagination from "src/common/presentation/components/organisms/MyPagination";
-import {pageContainerStyle} from "../../src/common/styles/pageContainerStyle";
+import {pageContainerStyle} from "src/common/styles/pageContainerStyle";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {blogArticleApi, BlogArticleListResponseDto} from "../../src/blog/api";
-import {strapiPaginationDefault} from "../../src/common/domain/model/StrapiPagination";
+import {blogArticleApi, BlogArticleListResponseDto} from "src/blog/api";
+import {strapiPaginationDefault} from "src/common/domain/model/StrapiPagination";
 import useSWR, {SWRConfig} from "swr";
-import {StrapiResponse} from "../../src/common/api/dto/StrapiResponse";
+import {StrapiResponse} from "src/common/api/dto/StrapiResponse";
 import {useRouter} from "next/router";
 
 interface Props {
@@ -26,8 +26,6 @@ const BlogArticleListPage = () => {
   const listProps: BlogArticleListProps = {
     blogArticles: res.data?.data || [],
     pagination: res.data?.meta.pagination || strapiPaginationDefault,
-    pending: !res.data,
-    rejected: !!res.error
   };
 
   return <div style={pageContainerStyle}>

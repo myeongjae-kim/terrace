@@ -20,3 +20,13 @@ export const createDailyDetailResponseDtoFrom =
     slug,
     content
   });
+
+export const defaultDailyDetailResponseDto: DailyDetailResponseDto = {
+  id: "",
+  seq: -1,
+  createdAt: "",
+  updatedAt: "",
+  title: "",
+  slug: "",
+  content: ""
+};
