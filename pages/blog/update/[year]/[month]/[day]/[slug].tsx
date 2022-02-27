@@ -1,24 +1,15 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
-import { createSelector } from "reselect";
-import { BlogArticleDetailResponseDto, BlogArticlePathDto, BlogArticleRequestDto } from "src/blog/api";
-import { BlogArticleForm } from "src/blog/presentation/components/templates";
-import * as formModule from "src/blog/presentation/state-modules/form";
-import NextPage from "src/common/domain/model/NextPage";
-import { RootState } from "src/common/presentation/state-module/root";
-import { redirectFromGetInitialPropsTo } from "src/util";
+import {blogArticleApi, BlogArticleDetailResponseDto, BlogArticlePathDto} from "src/blog/api";
+import {BlogArticleForm} from "src/blog/presentation/components/templates";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import useSWR, {SWRConfig} from "swr";
+import {useRouter} from "next/router";
 
-interface SelectorReturn {
-  initialValues: BlogArticleDetailResponseDto;
-  pending: boolean;
-  rejected: boolean;
+const getApiKey = (slug: string) => `@blog/${slug}`;
+
+interface Props {
+  fallback: {[x: string]: BlogArticleDetailResponseDto}
 }
-
-const selector = createSelector(
-  (root: RootState) => root.blog.form,
-  ({ initialValues, pending, rejected }: formModule.State): SelectorReturn => ({ initialValues, pending, rejected })
-);
 
 const parsePathToPathDto = (asPath: string): BlogArticlePathDto => {
   const splitted = asPath.split("/");
@@ -30,31 +21,67 @@ const parsePathToPathDto = (asPath: string): BlogArticlePathDto => {
   };
 };
 
-const BlogArticleUpdatePage: NextPage<{ asPath: string }> = ({ asPath }) => {
-  const dispatch = useDispatch<Dispatch<formModule.Action>>();
-  const props = useSelector(selector);
+const BlogUpdatePage = () => {
+  const router = useRouter();
+  const blogRequest = parsePathToPathDto(router.asPath);
 
-  React.useEffect(() => {
-    dispatch(formModule.fetchBlogArticle({ blogArticlePathDto: parsePathToPathDto(asPath) }));
-  }, [asPath, dispatch]);
-
-  const onSubmit = React.useCallback((request: BlogArticleRequestDto) => {
-    dispatch(formModule.updateBlogArticle({ request }));
-    return Promise.resolve();
-  }, [dispatch]);
+  const res = useSWR<BlogArticleDetailResponseDto>(getApiKey(blogRequest.slug), () => blogArticleApi.find(blogRequest));
+  const blogDetail = res.data || {
+    id: "",
+    seq: -1,
+    createdAt: "",
+    updatedAt: "",
+    title: "",
+    slug: "",
+    content: "",
+    prev: {
+      id: "",
+      createdAt: "",
+      title: "",
+      uri: ""
+    },
+    next: {
+      id: "",
+      createdAt: "",
+      title: "",
+      uri: ""
+    },
+  };
+  const pending = !res.data;
+  const rejected = !!res.error;
 
   return <div>
-    <BlogArticleForm onSubmit={onSubmit} isUpdating {...props} />
+    <BlogArticleForm
+      onSubmit={() => Promise.resolve()}
+      isUpdating={true}
+      initialValues={blogDetail}
+      pending={pending}
+      rejected={rejected}
+    />
   </div>;
 };
 
-BlogArticleUpdatePage.getInitialProps = async ({ asPath, res }) => {
-  if (!asPath) {
-    redirectFromGetInitialPropsTo("/404", res);
-    return {};
-  }
-
-  return { namespacesRequired: ["common", "noti"], asPath };
+const BlogUpdatePageWrapper = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return <SWRConfig value={{fallback: props.fallback}}>
+    <BlogUpdatePage />
+  </SWRConfig>;
 };
 
-export default BlogArticleUpdatePage;
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  // https://nodejs.org/api/http.html#messageurl
+  const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
+  const dailyRequest = parsePathToPathDto(pathname);
+
+  const props: BlogArticleDetailResponseDto = await blogArticleApi.find(dailyRequest);
+  const key = getApiKey(dailyRequest.slug);
+
+  return {
+    props: {
+      fallback: {
+        [key]: props
+      }
+    }
+  };
+};
+
+export default BlogUpdatePageWrapper;
