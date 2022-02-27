@@ -4,8 +4,8 @@ import {
   BlogArticleDetailResponseDto,
   BlogArticlePathDto,
   defaultBlogArticleDetailResponseDto
-} from "src/blog/api";
-import {BlogArticleForm} from "src/blog/presentation/components/templates";
+} from "src/view/blog/api";
+import {BlogArticleForm} from "src/view/blog/presentation/components/templates";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";

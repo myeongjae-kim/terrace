@@ -1,14 +1,14 @@
 import * as React from "react";
-import BlogArticleList from "src/blog/presentation/components/templates/BlogArticleList";
-import {BlogArticleListProps} from "src/blog/presentation/components/templates/BlogArticleList/BlogArticleList";
-import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules";
-import MyPagination from "src/common/presentation/components/organisms/MyPagination";
-import {pageContainerStyle} from "src/common/styles/pageContainerStyle";
+import BlogArticleList from "src/view/blog/presentation/components/templates/BlogArticleList";
+import {BlogArticleListProps} from "src/view/blog/presentation/components/templates/BlogArticleList/BlogArticleList";
+import {HeadTitle, PageTitle} from "src/view/common/presentation/components/molecules";
+import MyPagination from "src/view/common/presentation/components/organisms/MyPagination";
+import {pageContainerStyle} from "src/view/common/styles/pageContainerStyle";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {blogArticleApi, BlogArticleListResponseDto} from "src/blog/api";
-import {strapiPaginationDefault} from "src/common/domain/model/StrapiPagination";
+import {blogArticleApi, BlogArticleListResponseDto} from "src/view/blog/api";
+import {strapiPaginationDefault} from "src/view/common/domain/model/StrapiPagination";
 import useSWR, {SWRConfig} from "swr";
-import {StrapiResponse} from "src/common/api/dto/StrapiResponse";
+import {StrapiResponse} from "src/view/common/api/dto/StrapiResponse";
 import {useRouter} from "next/router";
 
 interface Props {

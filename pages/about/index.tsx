@@ -1,6 +1,6 @@
 import * as React from "react";
-import About from "src/about/presentation/components/templates/About";
-import {HeadTitle} from "src/common/presentation/components/molecules";
+import About from "src/view/about/presentation/components/templates/About";
+import {HeadTitle} from "src/view/common/presentation/components/molecules";
 
 const AboutPage = () => <div>
   <HeadTitle title="About" />
