@@ -6,13 +6,13 @@ import {
   BlogArticlePathDto,
   BlogArticlePrevOrNext,
   defaultBlogArticleDetailResponseDto
-} from "src/blog/api/dto";
-import BlogArticleDetail from "src/blog/presentation/components/templates/BlogArticleDetail";
-import {DOMAIN, Endpoints} from "src/common/constants/Constants";
-import {Comment} from "src/common/presentation/components/organisms";
+} from "src/view/blog/api/dto";
+import BlogArticleDetail from "src/view/blog/presentation/components/templates/BlogArticleDetail";
+import {DOMAIN, Endpoints} from "src/view/common/constants/Constants";
+import {Comment} from "src/view/common/presentation/components/organisms";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {blogArticleApi} from "src/blog/api";
+import {blogArticleApi} from "src/view/blog/api";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
 

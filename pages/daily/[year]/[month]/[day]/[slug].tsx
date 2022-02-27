@@ -1,12 +1,12 @@
 import {useTheme} from "@material-ui/core";
 import * as React from "react";
-import {HeadTitle} from "src/common/presentation/components/molecules";
-import {Comment} from "src/common/presentation/components/organisms";
-import {DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/daily/api/dto";
-import DailyDetail from "src/daily/presentation/components/templates/DailyDetail";
+import {HeadTitle} from "src/view/common/presentation/components/molecules";
+import {Comment} from "src/view/common/presentation/components/organisms";
+import {DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/view/daily/api/dto";
+import DailyDetail from "src/view/daily/presentation/components/templates/DailyDetail";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {dailyApi} from "src/daily/api";
+import {dailyApi} from "src/view/daily/api";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
 

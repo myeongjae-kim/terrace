@@ -1,10 +1,10 @@
 import * as React from "react";
-import {HeadTitle, PageTitle} from "src/common/presentation/components/molecules";
-import Musings from "src/musings/presentation/components/templates/Musings";
-import {MusingsProps} from "src/musings/presentation/components/templates/Musings/Musings";
-import {pageContainerStyle} from "../../src/common/styles/pageContainerStyle";
+import {HeadTitle, PageTitle} from "src/view/common/presentation/components/molecules";
+import Musings from "src/view/musings/presentation/components/templates/Musings";
+import {MusingsProps} from "src/view/musings/presentation/components/templates/Musings/Musings";
+import {pageContainerStyle} from "../../src/view/common/styles/pageContainerStyle";
 import {useTheme} from "@material-ui/core";
-import {MusingResponseDto, musingsFetcher} from "../../src/musings/api";
+import {MusingResponseDto, musingsFetcher} from "../../src/view/musings/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 

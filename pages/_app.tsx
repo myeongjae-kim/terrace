@@ -6,19 +6,19 @@ import {DefaultSeo} from "next-seo";
 import Head from "next/head";
 import React from "react";
 import ReactGA from "react-ga";
-import {DOMAIN} from "src/common/constants/Constants";
-import {MainLayout} from "src/common/presentation/components/templates";
-import {brightTheme, darkTheme} from "src/common/presentation/components/themes";
+import {DOMAIN} from "src/view/common/constants/Constants";
+import {MainLayout} from "src/view/common/presentation/components/templates";
+import {brightTheme, darkTheme} from "src/view/common/presentation/components/themes";
 import {isServer} from "src/util";
 import {NextComponentType} from "next";
 import {AppContext, AppInitialProps, AppProps} from "next/app";
-import ColorModeChangeButton from "src/common/presentation/components/molecules/ColorModeChangeButton";
-import {usePersistentDarkModePreference} from "src/common/domain/model/usePersistentDarkModePreferences";
-import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
+import ColorModeChangeButton from "src/view/common/presentation/components/molecules/ColorModeChangeButton";
+import {usePersistentDarkModePreference} from "src/view/common/domain/model/usePersistentDarkModePreferences";
+import PrismjsThemeSupport from "src/view/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
 import {isEditablePage} from "../src/util/isEditablePage";
-import {useNProgressLoader} from "src/useNProgressLoader";
-import "src/nprogress.css";
+import {useNProgressLoader} from "src/view/useNProgressLoader";
+import "src/view/nprogress.css";
 
 ReactGA.initialize("UA-126240406-1");
 
