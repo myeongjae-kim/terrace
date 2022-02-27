@@ -2,8 +2,6 @@
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {ThemeProvider} from "@material-ui/styles";
-import createSagaMiddleware from "@redux-saga/core";
-import withReduxSaga from "next-redux-saga";
 import withRedux from "next-redux-wrapper";
 import {DefaultSeo} from "next-seo";
 import Head from "next/head";
@@ -19,7 +17,7 @@ import ConfirmContainer from "src/common/presentation/container/molecules/Confir
 import SnackbarContainer from "src/common/presentation/container/molecules/SnackbarContainer";
 import NotificationCenterContainer from "src/common/presentation/container/organisms/NotificationCenterContainer";
 import {setPaths} from "src/common/presentation/state-module/common";
-import {rootReducer, rootSaga, RootState,} from "src/common/presentation/state-module/root";
+import {rootReducer, RootState,} from "src/common/presentation/state-module/root";
 import {isServer} from "src/util";
 import {NextComponentType} from "next";
 import {AppContext, AppInitialProps, AppProps} from "next/app";
@@ -28,7 +26,7 @@ import {usePersistentDarkModePreference} from "src/common/domain/model/usePersis
 import PrismjsThemeSupport from "src/common/presentation/components/molecules/PrismjsThemeSupport";
 import Axios from "axios";
 import {isEditablePage} from "../src/util/isEditablePage";
-import { useNProgressLoader } from "src/useNProgressLoader";
+import {useNProgressLoader} from "src/useNProgressLoader";
 import "src/nprogress.css";
 
 ReactGA.initialize("UA-126240406-1");
@@ -48,15 +46,11 @@ const makeStore = (preloadedState = {} as RootState) => {
     return applyMiddleware(...middlewares);
   };
 
-  const sagaMiddleware = createSagaMiddleware();
-
   const reduxStore: Store<RootState, AnyAction> = createStore(
     rootReducer,
     preloadedState,
-    bindMiddleware([sagaMiddleware])
+    bindMiddleware([])
   );
-
-  (reduxStore as any).sagaTask = sagaMiddleware.run(rootSaga);
 
   return reduxStore;
 };
@@ -184,5 +178,4 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, Props> = ({
   );
 };
 
-// TODO: remove withReduxSaga
-export default withRedux(makeStore)(withReduxSaga(MyApp));
+export default withRedux(makeStore)(MyApp);

@@ -5,7 +5,7 @@ import React from "react";
 NProgress.configure({
   showSpinner: false,
   minimum: 0.1,
-  trickleSpeed: 20,
+  trickleSpeed: 100,
 });
 
 export const useNProgressLoader = () => {

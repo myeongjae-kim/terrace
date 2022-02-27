@@ -1,9 +1,6 @@
-import { combineReducers, } from "redux";
-import { reducer as formReducer } from "redux-form";
-import { fork } from "redux-saga/effects";
-import * as blogModule from "src/blog/presentation/state-modules";
-import * as dailyModule from "src/daily/presentation/state-modules";
-import { StateType } from "typesafe-actions";
+import {combineReducers,} from "redux";
+import {reducer as formReducer} from "redux-form";
+import {StateType} from "typesafe-actions";
 import * as commonModule from "./common";
 import * as snackbarModule from "./snackbar";
 
@@ -13,13 +10,9 @@ export const rootReducer = combineReducers({
   common: commonModule.reducer,
   snackbar: snackbarModule.reducer,
 
-  blog: blogModule.reducer,
-  daily: dailyModule.reducer,
 });
 
 export function* rootSaga() {
-  yield fork(blogModule.saga);
-  yield fork(dailyModule.saga);
 }
 
 export type RootState = StateType<typeof rootReducer>;
