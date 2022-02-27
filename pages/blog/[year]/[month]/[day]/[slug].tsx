@@ -1,26 +1,28 @@
 import {useTheme} from "@material-ui/core";
 import {NextSeo} from "next-seo";
 import * as React from "react";
-import {
-  BlogArticleDetailResponseDto,
-  BlogArticlePathDto,
-  BlogArticlePrevOrNext,
-  defaultBlogArticleDetailResponseDto
-} from "src/view/blog/api/dto";
-import BlogArticleDetail from "src/view/blog/presentation/components/templates/BlogArticleDetail";
 import {DOMAIN, Endpoints} from "src/view/common/constants/Constants";
 import {Comment} from "src/view/common/presentation/components/organisms";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {blogArticleApi} from "src/view/blog/api";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
+import {
+  BlogArticleDetailResponse,
+  BlogArticlePrevOrNext,
+  defaultBlogArticleDetailResponseDto
+} from "src/blog/domain/BlogArticleDetailResponse";
+import {BlogArticleDetail} from "src/blog/view/presentation/components/templates";
+import {diContainer} from "src/config/DiContainer";
+
+const {getBySlug} = diContainer.getBlogUseCase;
+const {getPrevOf, getNextOf} = diContainer.getBlogPrevOrNextUseCase;
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 const getPrevApiKey = (seq: number) => `@blogPrev/${seq}`;
 const getNextApiKey = (seq: number) => `@blogNext/${seq}`;
 
-const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDetailResponseDto): {
+const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDetailResponse): {
   prev: BlogArticlePrevOrNext
   next: BlogArticlePrevOrNext
 } => {
@@ -32,8 +34,8 @@ const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDe
     uri: ""
   };
 
-  const prevResponse = useSWR<BlogArticlePrevOrNext>(getPrevApiKey(seq), () => blogArticleApi.getPrevOf(seq));
-  const nextResponse = useSWR<BlogArticlePrevOrNext>(getNextApiKey(seq), () => blogArticleApi.getNextOf(seq));
+  const prevResponse = useSWR<BlogArticlePrevOrNext>(getPrevApiKey(seq), () => getPrevOf(seq));
+  const nextResponse = useSWR<BlogArticlePrevOrNext>(getNextApiKey(seq), () => getNextOf(seq));
 
   return {
     prev: prevResponse.data || defaultData,
@@ -42,14 +44,14 @@ const useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR = (article: BlogArticleDe
 };
 
 interface Props {
-  fallback: {[x: string]: BlogArticleDetailResponseDto}
+  fallback: {[x: string]: BlogArticleDetailResponse}
 }
 
 const BlogDetailPage = () => {
   const router = useRouter();
-  const blogRequest = parsePathToBlogArticleDetailRequest(router.asPath);
+  const slugFromPath = getSlug(router.asPath);
 
-  const res = useSWR<BlogArticleDetailResponseDto>(getApiKey(blogRequest.slug), () => blogArticleApi.find(blogRequest));
+  const res = useSWR<BlogArticleDetailResponse>(getApiKey(slugFromPath), () => getBySlug(slugFromPath));
   const blogDetail = res.data || defaultBlogArticleDetailResponseDto;
 
   const {prev, next} = useFetchToGetPrevAndNextWhenArticleIsLoadedBySSR(blogDetail);
@@ -84,23 +86,18 @@ const BlogDetailPageWrapper = (props: InferGetServerSidePropsType<typeof getServ
   </SWRConfig>;
 };
 
-const parsePathToBlogArticleDetailRequest = (asPath: string): BlogArticlePathDto => {
+const getSlug = (asPath: string): string => {
   const split = asPath.split("/");
-  return {
-    year: split[2],
-    month: split[3],
-    day: split[4],
-    slug: decodeURIComponent(split[5]),
-  };
+  return decodeURIComponent(split[5]);
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   // https://nodejs.org/api/http.html#messageurl
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
-  const dailyRequest = parsePathToBlogArticleDetailRequest(pathname);
+  const slug = getSlug(pathname);
 
-  const props: BlogArticleDetailResponseDto = await blogArticleApi.find(dailyRequest);
-  const key = getApiKey(dailyRequest.slug);
+  const props: BlogArticleDetailResponse = await getBySlug(slug);
+  const key = getApiKey(slug);
 
   return {
     props: {

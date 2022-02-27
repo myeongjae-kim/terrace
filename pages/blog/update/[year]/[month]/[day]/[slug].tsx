@@ -1,36 +1,32 @@
 import * as React from "react";
-import {
-  blogArticleApi,
-  BlogArticleDetailResponseDto,
-  BlogArticlePathDto,
-  defaultBlogArticleDetailResponseDto
-} from "src/view/blog/api";
-import {BlogArticleForm} from "src/view/blog/presentation/components/templates";
+import {BlogArticleForm} from "src/blog/view/presentation/components/templates";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
+import {
+  BlogArticleDetailResponse,
+  defaultBlogArticleDetailResponseDto
+} from "src/blog/domain/BlogArticleDetailResponse";
+import {diContainer} from "src/config/DiContainer";
+
+const {getBySlug} = diContainer.getBlogUseCase;
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 
 interface Props {
-  fallback: {[x: string]: BlogArticleDetailResponseDto}
+  fallback: {[x: string]: BlogArticleDetailResponse}
 }
 
-const parsePathToPathDto = (asPath: string): BlogArticlePathDto => {
+const getSlug = (asPath: string): string => {
   const splitted = asPath.split("/");
-  return {
-    year: splitted[3],
-    month: splitted[4],
-    day: splitted[5],
-    slug: splitted[6],
-  };
+  return splitted[6];
 };
 
 const BlogUpdatePage = () => {
   const router = useRouter();
-  const blogRequest = parsePathToPathDto(router.asPath);
+  const slug = getSlug(router.asPath);
 
-  const res = useSWR<BlogArticleDetailResponseDto>(getApiKey(blogRequest.slug), () => blogArticleApi.find(blogRequest));
+  const res = useSWR<BlogArticleDetailResponse>(getApiKey(slug), () => getBySlug(slug));
   const blogDetail = res.data || defaultBlogArticleDetailResponseDto;
 
   return <div>
@@ -51,10 +47,10 @@ const BlogUpdatePageWrapper = (props: InferGetServerSidePropsType<typeof getServ
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   // https://nodejs.org/api/http.html#messageurl
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
-  const dailyRequest = parsePathToPathDto(pathname);
+  const slug = getSlug(pathname);
 
-  const props: BlogArticleDetailResponseDto = await blogArticleApi.find(dailyRequest);
-  const key = getApiKey(dailyRequest.slug);
+  const props: BlogArticleDetailResponse = await diContainer.getBlogUseCase.getBySlug(slug);
+  const key = getApiKey(slug);
 
   return {
     props: {
