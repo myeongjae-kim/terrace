@@ -4,7 +4,7 @@ import * as React from "react";
 import {HeadTitle, Link} from "src/common/view/presentation/components/molecules";
 import {formatDateTime} from "src/util";
 import {DailyContent} from "../../organisms";
-import {DailyDetailResponseDto} from "../../../../../../view/daily/api/dto/DailyDetailResponseDto";
+import {DailyDetailResponse} from "../../../../../domain/DailyDetailResponse";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 export interface DailyDetailProps {
-  daily: DailyDetailResponseDto;
+  daily: DailyDetailResponse;
 }
 
 const DailyDetail: React.FC<DailyDetailProps> = ({ daily}) => {

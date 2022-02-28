@@ -1,6 +1,6 @@
 import { Daily } from "src/daily/domain";
 
-export interface DailyListResponseDto {
+export interface DailyListResponse {
   id: string;
   seq: number;
   createdAt: string;

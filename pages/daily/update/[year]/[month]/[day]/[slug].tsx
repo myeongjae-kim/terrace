@@ -1,35 +1,29 @@
 import * as React from "react";
-import {dailyApi, DailyPathDto} from "src/view/daily/api";
 import {DailyForm} from "src/daily/view/presentation/components/templates";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
-import {
-  DailyDetailResponseDto,
-  defaultDailyDetailResponseDto
-} from "../../../../../../src/view/daily/api/dto/DailyDetailResponseDto";
+import {DailyDetailResponse, defaultDailyDetailResponseDto} from "src/daily/domain/DailyDetailResponse";
+import {applicationContext} from "src/config/ApplicationContext";
+
+const {getBySlug} = applicationContext.getDailyUseCase;
 
 const getApiKey = (slug: string) => `@daily/${slug}`;
 
 interface Props {
-  fallback: {[x: string]: DailyDetailResponseDto}
+  fallback: {[x: string]: DailyDetailResponse}
 }
 
-const parsePathToPathDto = (asPath: string): DailyPathDto => {
+const getSlug = (asPath: string): string => {
   const splitted = asPath.split("/");
-  return {
-    year: splitted[3],
-    month: splitted[4],
-    day: splitted[5],
-    slug: splitted[6],
-  };
+  return splitted[6];
 };
 
 const DailyUpdatePage = () => {
   const router = useRouter();
-  const dailyRequest = parsePathToPathDto(router.asPath);
+  const slugFromPath = getSlug(router.asPath);
 
-  const res = useSWR<DailyDetailResponseDto>(getApiKey(dailyRequest.slug), () => dailyApi.find(dailyRequest));
+  const res = useSWR<DailyDetailResponse>(getApiKey(slugFromPath), () => getBySlug(slugFromPath));
   const dailyDetail = res.data || defaultDailyDetailResponseDto;
 
   return <div>
@@ -50,10 +44,10 @@ const DailyUpdatePageWrapper = (props: InferGetServerSidePropsType<typeof getSer
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   // https://nodejs.org/api/http.html#messageurl
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
-  const dailyRequest = parsePathToPathDto(pathname);
+  const slugFromPath = getSlug(pathname);
 
-  const props: DailyDetailResponseDto = await dailyApi.find(dailyRequest);
-  const key = getApiKey(dailyRequest.slug);
+  const props: DailyDetailResponse = await getBySlug(slugFromPath);
+  const key = getApiKey(slugFromPath);
 
   return {
     props: {

@@ -2,7 +2,7 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
 import {Link} from "src/common/view/presentation/components/molecules";
 import {formatDateTime} from "src/util";
-import {DailyListResponseDto} from "../../../../../../view/daily/api/dto/DailyListResponseDto";
+import {DailyListResponse} from "../../../../../domain/DailyListResponse";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  daily: DailyListResponseDto;
+  daily: DailyListResponse;
 }
 
 const EachDailyContent: React.FC<{
-  daily: DailyListResponseDto;
+  daily: DailyListResponse;
   userSelectNone?: boolean;
 }> = ({ daily, userSelectNone }) => {
   const classes = useStyles();

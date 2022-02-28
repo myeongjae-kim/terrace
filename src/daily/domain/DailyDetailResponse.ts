@@ -1,6 +1,6 @@
 import { Daily } from "src/daily/domain";
 
-export interface DailyDetailResponseDto {
+export interface DailyDetailResponse {
   id: string;
   seq: number;
   createdAt: string;
@@ -11,7 +11,7 @@ export interface DailyDetailResponseDto {
 }
 
 export const createDailyDetailResponseDtoFrom =
-  ({ id, seq, createdAt, updatedAt, title, slug, content }: Daily): DailyDetailResponseDto => ({
+  ({ id, seq, createdAt, updatedAt, title, slug, content }: Daily): DailyDetailResponse => ({
     id,
     seq,
     createdAt,
@@ -21,7 +21,7 @@ export const createDailyDetailResponseDtoFrom =
     content
   });
 
-export const defaultDailyDetailResponseDto: DailyDetailResponseDto = {
+export const defaultDailyDetailResponseDto: DailyDetailResponse = {
   id: "",
   seq: -1,
   createdAt: "",
