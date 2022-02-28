@@ -1,7 +1,7 @@
 import {useTheme} from "@material-ui/core";
 import * as React from "react";
-import {HeadTitle} from "src/view/common/presentation/components/molecules";
-import {Comment} from "src/view/common/presentation/components/organisms";
+import {HeadTitle} from "src/common/view/presentation/components/molecules";
+import {Comment} from "src/common/view/presentation/components/organisms";
 import {DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/view/daily/api/dto";
 import DailyDetail from "src/view/daily/presentation/components/templates/DailyDetail";
 import {formatDateTime} from "src/util";

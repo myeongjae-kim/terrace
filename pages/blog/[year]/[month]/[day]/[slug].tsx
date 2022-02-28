@@ -1,8 +1,8 @@
 import {useTheme} from "@material-ui/core";
 import {NextSeo} from "next-seo";
 import * as React from "react";
-import {DOMAIN, Endpoints} from "src/view/common/constants/Constants";
-import {Comment} from "src/view/common/presentation/components/organisms";
+import {DOMAIN, Endpoints} from "src/common/constants/Constants";
+import {Comment} from "src/common/view/presentation/components/organisms";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";

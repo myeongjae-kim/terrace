@@ -1,7 +1,7 @@
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
 import EachBlogArticle from "./EachBlogArticle";
-import {StrapiPagination} from "src/view/common/domain/model/StrapiPagination";
+import {StrapiPagination} from "src/common/domain/StrapiPagination";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

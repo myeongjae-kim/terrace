@@ -1,6 +1,6 @@
 import * as React from "react";
 import AboutComponent from "src/about/view/presentation/components/templates/About";
-import {HeadTitle} from "src/view/common/presentation/components/molecules";
+import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import {GetStaticProps, InferGetStaticPropsType} from "next";
 import {About} from "src/about/domain/About";
 import {applicationContext} from "src/config/ApplicationContext";

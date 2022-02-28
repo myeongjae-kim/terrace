@@ -1,6 +1,6 @@
 import {createStyles, makeStyles} from "@material-ui/core";
 import * as React from "react";
-import {Link, Maybe} from "src/view/common/presentation/components/molecules";
+import {Link, Maybe} from "src/common/view/presentation/components/molecules";
 import {Description, DescriptionIcon} from "src/about/domain/Description";
 import {Code, Create, DeveloperBoard, Email, EmojiPeople, Room, SvgIconComponent} from "@material-ui/icons";
 

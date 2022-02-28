@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MarkdownPreview } from "src/view/common/presentation/components/molecules";
+import { MarkdownPreview } from "src/common/view/presentation/components/molecules";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 
 interface Props {

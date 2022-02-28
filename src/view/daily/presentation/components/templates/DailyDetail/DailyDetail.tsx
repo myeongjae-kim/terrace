@@ -1,7 +1,7 @@
 import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
 import clsx from "clsx";
 import * as React from "react";
-import {HeadTitle, Link} from "src/view/common/presentation/components/molecules";
+import {HeadTitle, Link} from "src/common/view/presentation/components/molecules";
 import {DailyDetailResponseDto} from "src/view/daily/api";
 import {formatDateTime} from "src/util";
 import {DailyContent} from "../../organisms";

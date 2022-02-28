@@ -1,5 +1,5 @@
 import * as React from "react";
-import {MarkdownPreview} from "src/view/common/presentation/components/molecules";
+import {MarkdownPreview} from "src/common/view/presentation/components/molecules";
 import {createStyles, makeStyles, Theme, useMediaQuery, useTheme} from "@material-ui/core";
 import clsx from "clsx";
 

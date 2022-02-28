@@ -1,8 +1,8 @@
 import * as React from "react";
-import {HeadTitle, PageTitle} from "src/view/common/presentation/components/molecules";
+import {HeadTitle, PageTitle} from "src/common/view/presentation/components/molecules";
 import Musings from "src/view/musings/presentation/components/templates/Musings";
 import {MusingsProps} from "src/view/musings/presentation/components/templates/Musings/Musings";
-import {pageContainerStyle} from "../../src/view/common/styles/pageContainerStyle";
+import {pageContainerStyle} from "../../src/common/view/presentation/styles/pageContainerStyle";
 import {useTheme} from "@material-ui/core";
 import {MusingResponseDto, musingsFetcher} from "../../src/view/musings/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";

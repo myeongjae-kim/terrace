@@ -1,10 +1,9 @@
 import Axios from "axios";
-import {API_HOST, Endpoints} from "src/view/common/constants/Constants";
-import CommonErrorServiceImpl from "src/view/common/infrastructure/service/CommonErrorServiceImpl";
+import {API_HOST, Endpoints} from "src/common/constants/Constants";
 import {DailyDetailResponseDto, DailyListResponseDto, DailyPathDto} from "./dto";
 import {formatDateTime} from "src/util";
-import RepositoryError from "src/view/common/domain/model/RepositoryError";
-import {StrapiResponse} from "src/view/common/api/dto/StrapiResponse";
+import RepositoryError from "src/common/exception/RepositoryError";
+import {StrapiResponse} from "src/common/domain/StrapiResponse";
 
 interface DailyAttributes {
   seq: number;
@@ -46,7 +45,7 @@ export const dailyApi = {
         meta: res.data.meta
       }))
       .then(res => resolve(res))
-      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
+      .catch(e => rejected(RepositoryError.of(e)));
   }),
 
   find: ({ slug }: DailyPathDto): Promise<DailyDetailResponseDto> =>
@@ -71,6 +70,6 @@ export const dailyApi = {
             resolve(response);
           }
         })
-        .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
+        .catch(e => rejected(RepositoryError.of(e)));
     }),
 };
