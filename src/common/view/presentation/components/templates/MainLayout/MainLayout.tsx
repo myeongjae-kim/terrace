@@ -2,7 +2,7 @@ import {createStyles, CssBaseline, makeStyles, Theme} from "@material-ui/core";
 import React from "react";
 import FooterContent from "./FooterContent";
 import TopBar from "./TopBar";
-import {darkTheme} from "../../themes";
+import {darkThemeV4} from "../../themes";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   rootContainer: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     "& pre": {
       whiteSpace: "pre-wrap",
       wordWrap: "break-word",
-      background: darkTheme.palette.background.paper,
+      background: darkThemeV4.palette.background.paper,
       padding: 20,
       lineHeight: "1.3em",
       border: `1px solid ${theme.palette.divider} !important`,

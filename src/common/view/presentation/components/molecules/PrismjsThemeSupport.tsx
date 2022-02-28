@@ -2,7 +2,7 @@ import * as React from "react";
 
 const PrismjsThemeSupport: React.FC = () => {
   return <>
-    <style global={true}>
+    <style global={"true" as unknown as boolean}>
       {bright}
     </style>
   </>;
