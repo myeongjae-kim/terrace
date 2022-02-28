@@ -1,4 +1,4 @@
-import {createStyles, CssBaseline, makeStyles, Theme} from "@material-ui/core";
+import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import React from "react";
 import FooterContent from "./FooterContent";
 import TopBar from "./TopBar";
@@ -94,7 +94,6 @@ const MainLayout: React.FC = ({ children }) => {
 
   return (
     <div className={classes.rootContainer}>
-      <CssBaseline />
       <TopBar />
       <main className={classes.content}>
         {children}
