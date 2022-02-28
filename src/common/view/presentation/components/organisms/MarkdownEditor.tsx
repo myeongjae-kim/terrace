@@ -2,8 +2,7 @@ import { makeStyles } from "@mui/styles";
 import * as React from "react";
 import Spacer from "../molecules/Spacer";
 import clsx from "clsx";
-import {CardContent, TextField, TextFieldProps} from "@mui/material";
-import {Theme} from "@mui/system";
+import {CardContent, TextField, TextFieldProps, Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   spacing: { height: theme.spacing(1) },

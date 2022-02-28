@@ -4,7 +4,7 @@ import * as React from "react";
 import { MusingResponseDto } from "src/musing/domain";
 import From from "./From";
 import Quote from "./Quote";
-import {Theme} from "@mui/system";
+import {Theme} from "@mui/material";
 
 interface Props {
   item: MusingResponseDto;

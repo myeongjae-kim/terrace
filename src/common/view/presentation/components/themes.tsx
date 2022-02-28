@@ -10,7 +10,7 @@ const primary = {
 
 const createThemeOptions: (prefersDarkMode: boolean) => ThemeOptions = (prefersDarkMode) => ({
   palette: {
-    type: prefersDarkMode ? "dark" : "light",
+    mode: prefersDarkMode ? "dark" : "light",
     primary: prefersDarkMode ? lightBlue : primary,
     secondary: teal,
     error: red,
