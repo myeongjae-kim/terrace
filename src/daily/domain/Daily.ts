@@ -42,4 +42,7 @@ export class Daily {
     this.content = content;
     this.slug = slug;
   };
+
+  public static createUri = ({createdAt, slug}: {createdAt: string, slug: string}) =>
+    "/daily" + formatDateTime(createdAt, "/YYYY/MM/DD/") + slug;
 }

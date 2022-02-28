@@ -1,7 +1,6 @@
 import * as React from "react";
 import {HeadTitle, PageTitle} from "src/common/view/presentation/components/molecules";
 import DailyList from "src/daily/view/presentation/components/templates/DailyList";
-import {dailyApi} from "src/view/daily/api";
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import MyPagination from "src/common/view/presentation/components/organisms/MyPagination";
 import {strapiPaginationDefault} from "src/common/domain/StrapiPagination";
@@ -10,10 +9,13 @@ import {StrapiResponse} from "src/common/domain/StrapiResponse";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
 import {DailyListProps} from "src/daily/view/presentation/components/templates/DailyList/DailyList";
-import {DailyListResponseDto} from "src/view/daily/api/dto/DailyListResponseDto";
+import {DailyListResponse} from "src/daily/domain/DailyListResponse";
+import {applicationContext} from "../../src/config/ApplicationContext";
+
+const {getList} = applicationContext.getDailyListUseCase;
 
 interface Props {
-  fallback: {[x: string]: StrapiResponse<DailyListResponseDto>}
+  fallback: {[x: string]: StrapiResponse<DailyListResponse>}
 }
 
 const getApiKey = (page: number) => `@dailyList/PAGE_${page}`;
@@ -22,7 +24,7 @@ const DailyListPage = () => {
   const router = useRouter();
   const pageNumber = parseInt("" + router.query["page"]) || 1;
 
-  const res = useSWR<StrapiResponse<DailyListResponseDto>>(getApiKey(pageNumber), () => dailyApi.findAll(pageNumber));
+  const res = useSWR<StrapiResponse<DailyListResponse>>(getApiKey(pageNumber), () => getList(pageNumber));
 
   const listProps: DailyListProps = {
     dailys: res.data?.data || [],
@@ -54,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {query} = context;
   const page = parseInt("" + query["page"]) || 1;
 
-  const props: StrapiResponse<DailyListResponseDto> = await dailyApi.findAll(page);
+  const props: StrapiResponse<DailyListResponse> = await getList(page);
   const key = getApiKey(page);
 
   return {

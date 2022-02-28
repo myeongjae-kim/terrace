@@ -2,29 +2,27 @@ import {useTheme} from "@material-ui/core";
 import * as React from "react";
 import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import {Comment} from "src/common/view/presentation/components/organisms";
-import {DailyPathDto} from "src/view/daily/api/dto";
 import DailyDetail from "src/daily/view/presentation/components/templates/DailyDetail";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {dailyApi} from "src/view/daily/api";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
-import {
-  DailyDetailResponseDto,
-  defaultDailyDetailResponseDto
-} from "../../../../../src/view/daily/api/dto/DailyDetailResponseDto";
+import {DailyDetailResponse, defaultDailyDetailResponseDto} from "src/daily/domain/DailyDetailResponse";
+import {applicationContext} from "src/config/ApplicationContext";
+
+const {getBySlug} = applicationContext.getDailyUseCase;
 
 const getApiKey = (slug: string) => `@daily/${slug}`;
 
 interface Props {
-  fallback: {[x: string]: DailyDetailResponseDto}
+  fallback: {[x: string]: DailyDetailResponse}
 }
 
 const DailyDetailPage = () => {
   const router = useRouter();
-  const dailyRequest = parsePathToDailyDetailRequest(router.asPath);
+  const slugFromPath = getSlug(router.asPath);
 
-  const res = useSWR<DailyDetailResponseDto>(getApiKey(dailyRequest.slug), () => dailyApi.find(dailyRequest));
+  const res = useSWR<DailyDetailResponse>(getApiKey(slugFromPath), () => getBySlug(slugFromPath));
   const dailyDetail = res.data || defaultDailyDetailResponseDto;
 
   const { createdAt, slug } = dailyDetail;
@@ -49,23 +47,18 @@ const DailyDetailPageWrapper = (props: InferGetServerSidePropsType<typeof getSer
   </SWRConfig>;
 };
 
-const parsePathToDailyDetailRequest = (asPath: string): DailyPathDto => {
+const getSlug = (asPath: string): string => {
   const splitted = asPath.split("/");
-  return {
-    year: splitted[2],
-    month: splitted[3],
-    day: splitted[4],
-    slug: decodeURIComponent(splitted[5]),
-  };
+  return decodeURIComponent(splitted[5]);
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   // https://nodejs.org/api/http.html#messageurl
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
-  const dailyRequest = parsePathToDailyDetailRequest(pathname);
+  const slugFromPath = getSlug(pathname);
 
-  const props: DailyDetailResponseDto = await dailyApi.find(dailyRequest);
-  const key = getApiKey(dailyRequest.slug);
+  const props: DailyDetailResponse = await getBySlug(slugFromPath);
+  const key = getApiKey(slugFromPath);
 
   return {
     props: {

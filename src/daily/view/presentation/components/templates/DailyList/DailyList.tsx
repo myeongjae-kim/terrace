@@ -1,7 +1,7 @@
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
 import EachDaily from "./EachDaily";
-import {DailyListResponseDto} from "../../../../../../view/daily/api/dto/DailyListResponseDto";
+import {DailyListResponse} from "../../../../../domain/DailyListResponse";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 export interface DailyListProps {
-  dailys: DailyListResponseDto[];
+  dailys: DailyListResponse[];
 }
 
 const DailyList: React.FC<DailyListProps> = ({ dailys }) => {
