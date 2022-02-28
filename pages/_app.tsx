@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import { ThemeProvider as ThemeProviderV5 } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import {DefaultSeo} from "next-seo";
 import Head from "next/head";
 import React from "react";
@@ -49,9 +49,12 @@ const useEveryUpdate = () => {
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) => {
-  const { Component, pageProps, router } = props;
-  const emotionCache: EmotionCache = (props as any).emotionCache || clientSideEmotionCache;
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+const MyApp: NextComponentType<AppContext, AppInitialProps, MyAppProps> = (props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps, router } = props;
 
   useInit();
   useNProgressLoader();
@@ -82,7 +85,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) 
     "@myeongjae.kim/PREFERS_DARK_MODE"
   );
 
-  const themeV5 = React.useMemo(() => prefersDarkMode ? darkThemeV5 : brightThemeV5, [
+  const theme = React.useMemo(() => prefersDarkMode ? darkThemeV5 : brightThemeV5, [
     prefersDarkMode,
   ]);
 
@@ -118,7 +121,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) 
           cardType: "summary",
         }}
       />
-      <ThemeProviderV5 theme={themeV5}>
+      <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <PrismjsThemeSupport />
@@ -130,7 +133,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) 
           />
           <Component {...pageProps} />
         </MainLayout>
-      </ThemeProviderV5>
+      </ThemeProvider>
     </CacheProvider>
   );
 };
