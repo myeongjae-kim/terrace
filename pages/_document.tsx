@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
-import {darkThemeV4} from "../src/common/view/presentation/components/themes";
+import {darkThemeV5} from "../src/common/view/presentation/components/themes";
 import createEmotionCache from "../src/common/view/presentation/temporary/createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
 
@@ -84,19 +84,19 @@ class MyDocument extends Document {
             cursor: default;
           }
           table {
-            border: 1px solid ${darkThemeV4.palette.divider};
+            border: 1px solid ${darkThemeV5.palette.divider};
             border-radius: 5px;
             margin-left:auto;
             margin-right:auto;
           }
           th {
-            padding: ${darkThemeV4.spacing(1)}px ${darkThemeV4.spacing(2)}px;
+            padding: ${darkThemeV5.spacing(1)}px ${darkThemeV5.spacing(2)}px;
           }
           td {
-            padding: 0 ${darkThemeV4.spacing(2)}px;
+            padding: 0 ${darkThemeV5.spacing(2)}px;
           }
           tr:last-child td {
-            padding-bottom: ${darkThemeV4.spacing(1)}px;
+            padding-bottom: ${darkThemeV5.spacing(1)}px;
           }
         `}</style>
         </Head>

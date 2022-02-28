@@ -1,18 +1,20 @@
-import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import clsx from "clsx";
 import * as React from "react";
 import {HeadTitle, Link} from "src/common/view/presentation/components/molecules";
 import {formatDateTime} from "src/util";
 import {DailyContent} from "../../organisms";
 import {DailyDetailResponse} from "../../../../../domain/DailyDetailResponse";
+import {Theme} from "@mui/system";
+import {Typography} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     maxWidth: theme.spacing(62.5),
-    margin: `auto auto ${theme.spacing(3)}px auto`
+    margin: `auto auto ${theme.spacing(3)} auto`
   },
   title: {
-    margin: `${theme.spacing(3)}px 0 ${theme.spacing(4)}px 0`,
+    margin: `${theme.spacing(3)} 0 ${theme.spacing(4)} 0`,
   },
   serif: {
     fontFamily: "Noto Serif KR",

@@ -1,5 +1,6 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
+import {Theme} from "@mui/system";
 
 interface Props {
   en: string;
@@ -8,7 +9,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    margin: `${theme.spacing(4)}px 0`,
+    margin: `${theme.spacing(4)} 0`,
     cursor: "default",
   },
   en: {

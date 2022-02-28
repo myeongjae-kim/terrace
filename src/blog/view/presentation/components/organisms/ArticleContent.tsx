@@ -1,7 +1,9 @@
 import * as React from "react";
 import {MarkdownPreview} from "src/common/view/presentation/components/molecules";
-import {createStyles, makeStyles, Theme, useMediaQuery, useTheme} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import clsx from "clsx";
+import {Theme, useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/system";
 
 interface Props {
   content: string;
@@ -12,9 +14,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: "1.1em",
     lineHeight: 1.9,
     fontFamily: "Noto Serif KR",
-    margin: `0 ${theme.spacing(1)}px`,
+    margin: `0 ${theme.spacing(1)}`,
     "& pre, blockquote": {
-      margin: `${theme.spacing(2)}px 0`
+      margin: `${theme.spacing(2)} 0`
     },
     "& table": {
       border: `1px solid ${theme.palette.divider}`

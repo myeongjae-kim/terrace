@@ -1,9 +1,9 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import * as React from "react";
 import HomeButton from "./HomeButton";
 import Navigation from "./Navigation";
-import {AppBar} from "@mui/material";
+import {AppBar, Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   appBar: {

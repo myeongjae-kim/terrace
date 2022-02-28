@@ -1,15 +1,16 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
 import { Link } from "src/common/view/presentation/components/molecules";
 import { formatDateTime } from "src/util";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
+import {Theme} from "@mui/system";
 
 const hoverBackgroundBrightColor = "230, 230, 230";
 const hoverBackgroundDarkColor = "60, 60, 60";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    padding: `${theme.spacing(1.5)}px 0`,
+    padding: `${theme.spacing(1.5)} 0`,
     marginBottom: theme.spacing(1),
     "&:hover": {
       background: `rgba(${theme.palette.type === "dark"

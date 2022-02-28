@@ -1,7 +1,8 @@
-import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
 import { Link } from "src/common/view/presentation/components/molecules";
 import { formatDateTime } from "src/util";
+import {Theme, Typography} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

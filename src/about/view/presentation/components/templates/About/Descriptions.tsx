@@ -1,4 +1,4 @@
-import {createStyles, makeStyles} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {Link, Maybe} from "src/common/view/presentation/components/molecules";
 import {Description, DescriptionIcon} from "src/about/domain/Description";

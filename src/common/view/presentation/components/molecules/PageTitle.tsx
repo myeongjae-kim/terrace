@@ -1,5 +1,6 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
+import {Theme} from "@mui/material";
 
 interface Props {
   title: string;
@@ -16,9 +17,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: "2em",
     fontWeight: 100,
     textTransform: "capitalize",
-    margin: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px 0`,
-    "@media screen and (max-width: 600px)": {
-      margin: `${theme.spacing(1.5)}px 0 ${theme.spacing(2.5)}px 0`
+    margin: `${theme.spacing(3)} 0 ${theme.spacing(5)} 0`,
+    "@media screen and (max-width: 600)": {
+      margin: `${theme.spacing(1.5)} 0 ${theme.spacing(2.5)} 0`
     }
   }
 }));

@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import CssBaseline from "@material-ui/core/CssBaseline"; // 이걸 mui5로 변경하면 레이아웃 깨지네..
-import { ThemeProvider as ThemeProviderV4, StylesProvider } from "@material-ui/core/styles";
 import { ThemeProvider as ThemeProviderV5 } from "@mui/material/styles";
 import {DefaultSeo} from "next-seo";
 import Head from "next/head";
@@ -10,11 +8,8 @@ import ReactGA from "react-ga";
 import {DOMAIN, GA_TRACKING_CODE} from "src/common/constants/Constants";
 import {MainLayout} from "src/common/view/presentation/components/templates";
 import {
-  brightThemeV4,
-  darkThemeV4,
   brightThemeV5,
   darkThemeV5,
-  generateClassName
 } from "src/common/view/presentation/components/themes";
 import {isServer} from "src/util";
 import {NextComponentType} from "next";
@@ -28,6 +23,7 @@ import "src/common/view/presentation/styles/nprogress.css";
 import createEmotionCache from "../src/common/view/presentation/temporary/createEmotionCache";
 import {EmotionCache} from "@emotion/cache";
 import {CacheProvider} from "@emotion/react";
+import {CssBaseline} from "@mui/material";
 
 const useInit = () => {
   React.useEffect(() => {
@@ -86,10 +82,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) 
     "@myeongjae.kim/PREFERS_DARK_MODE"
   );
 
-  const themeV4 = React.useMemo(() => prefersDarkMode ? darkThemeV4 : brightThemeV4, [
-    prefersDarkMode,
-  ]);
-
   const themeV5 = React.useMemo(() => prefersDarkMode ? darkThemeV5 : brightThemeV5, [
     prefersDarkMode,
   ]);
@@ -126,23 +118,19 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) 
           cardType: "summary",
         }}
       />
-      <StylesProvider generateClassName={generateClassName}>
-        <ThemeProviderV4 theme={themeV4}>
-          <ThemeProviderV5 theme={themeV5}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <PrismjsThemeSupport />
+      <ThemeProviderV5 theme={themeV5}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <PrismjsThemeSupport />
 
-            <MainLayout>
-              <ColorModeChangeButton
-                isDark={prefersDarkMode}
-                toggle={toggleColorMode}
-              />
-              <Component {...pageProps} />
-            </MainLayout>
-          </ThemeProviderV5>
-        </ThemeProviderV4>
-      </StylesProvider>
+        <MainLayout>
+          <ColorModeChangeButton
+            isDark={prefersDarkMode}
+            toggle={toggleColorMode}
+          />
+          <Component {...pageProps} />
+        </MainLayout>
+      </ThemeProviderV5>
     </CacheProvider>
   );
 };

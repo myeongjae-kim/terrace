@@ -1,9 +1,10 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import * as React from "react";
 import { MusingResponseDto } from "src/musing/domain";
 import From from "./From";
 import Quote from "./Quote";
+import {Theme} from "@mui/system";
 
 interface Props {
   item: MusingResponseDto;
