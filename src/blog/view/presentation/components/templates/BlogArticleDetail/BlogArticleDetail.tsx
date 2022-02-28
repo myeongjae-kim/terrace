@@ -1,6 +1,6 @@
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
-import {HeadTitle} from "src/view/common/presentation/components/molecules";
+import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import {ArticleContent} from "../../organisms";
 import ArticleHead from "./ArticleHead";
 import ArticlePrevAndNext from "./ArticlePrevAndNext";

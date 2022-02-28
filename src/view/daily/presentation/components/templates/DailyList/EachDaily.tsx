@@ -1,6 +1,6 @@
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
-import {Link} from "src/view/common/presentation/components/molecules";
+import {Link} from "src/common/view/presentation/components/molecules";
 import {DailyListResponseDto} from "src/view/daily/api";
 import {formatDateTime} from "src/util";
 

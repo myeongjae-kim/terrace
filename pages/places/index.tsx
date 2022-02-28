@@ -1,5 +1,5 @@
 import * as React from "react";
-import {HeadTitle} from "src/view/common/presentation/components/molecules";
+import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import Places from "src/view/places/presentation/components/templates/Places";
 
 const PlacesPage = () => <div style={{ width: "100%" }}>

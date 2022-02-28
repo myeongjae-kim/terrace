@@ -1,13 +1,13 @@
 import * as React from "react";
 import BlogArticleList from "src/blog/view/presentation/components/templates/BlogArticleList";
 import {BlogArticleListProps} from "src/blog/view/presentation/components/templates/BlogArticleList/BlogArticleList";
-import {HeadTitle, PageTitle} from "src/view/common/presentation/components/molecules";
-import MyPagination from "src/view/common/presentation/components/organisms/MyPagination";
-import {pageContainerStyle} from "src/view/common/styles/pageContainerStyle";
+import {HeadTitle, PageTitle} from "src/common/view/presentation/components/molecules";
+import MyPagination from "src/common/view/presentation/components/organisms/MyPagination";
+import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {strapiPaginationDefault} from "src/view/common/domain/model/StrapiPagination";
+import {strapiPaginationDefault} from "src/common/domain/StrapiPagination";
 import useSWR, {SWRConfig} from "swr";
-import {StrapiResponse} from "src/view/common/api/dto/StrapiResponse";
+import {StrapiResponse} from "src/common/domain/StrapiResponse";
 import {useRouter} from "next/router";
 import {BlogArticleListResponse} from "../../src/blog/domain/BlogArticleListResponse";
 import {applicationContext} from "../../src/config/ApplicationContext";

@@ -2,7 +2,7 @@ import {createStyles, makeStyles} from "@material-ui/core";
 import * as React from "react";
 import {MusingResponseDto} from "src/view/musings/api/dto";
 import EachMusing from "./EachMusing";
-import {pageContainerStyle} from "src/view/common/styles/pageContainerStyle";
+import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 
 const useStyles = makeStyles(createStyles({
   container: {

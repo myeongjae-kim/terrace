@@ -1,7 +1,7 @@
 import Axios from "axios";
-import {API_HOST, Endpoints} from "src/view/common/constants/Constants";
-import CommonErrorServiceImpl from "src/view/common/infrastructure/service/CommonErrorServiceImpl";
+import {API_HOST, Endpoints} from "src/common/constants/Constants";
 import { MusingResponseDto } from "./dto";
+import RepositoryError from "../../../common/exception/RepositoryError";
 
 interface MusingAttributes {
   seq: number;
@@ -29,6 +29,6 @@ export const musingsFetcher = {
         from: it.attributes.from,
         language: it.attributes.language,
       }))))
-      .catch(e => rejected(CommonErrorServiceImpl.createRepositoryErrorFrom(e)));
+      .catch(e => rejected(RepositoryError.of(e)));
   })
 };

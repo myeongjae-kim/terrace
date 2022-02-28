@@ -4,8 +4,8 @@ import {ErrorMessage, Form, Formik} from "formik";
 import Optional from "optional-js";
 import * as React from "react";
 import {DailyDetailResponseDto, DailyRequestDto} from "src/view/daily/api";
-import {ErrorTypography} from "src/view/common/presentation/components/molecules";
-import {MarkdownEditor} from "src/view/common/presentation/components/organisms";
+import {ErrorTypography} from "src/common/view/presentation/components/molecules";
+import {MarkdownEditor} from "src/common/view/presentation/components/organisms";
 import * as Yup from "yup";
 import {DailyContent} from "../../organisms";
 

@@ -1,4 +1,4 @@
-import {StrapiResponse} from "../../../../view/common/api/dto/StrapiResponse";
+import {StrapiResponse} from "../../../../common/domain/StrapiResponse";
 import {BlogArticleListResponse} from "../../../domain/BlogArticleListResponse";
 
 export interface GetBlogListUseCase {

@@ -1,9 +1,9 @@
 import {LoadBlogPort} from "src/blog/application/port/outgoing/LoadBlogPort";
 import {LoadBlogPrevOrNextPort} from "src/blog/application/port/outgoing/LoadBlogPrevOrNext";
-import {StrapiResponse} from "../../../view/common/api/dto/StrapiResponse";
+import {StrapiResponse} from "../../../common/domain/StrapiResponse";
 import Axios from "axios";
-import {API_HOST, Endpoints} from "../../../view/common/constants/Constants";
-import RepositoryError from "../../../view/common/domain/model/RepositoryError";
+import {API_HOST, Endpoints} from "../../../common/constants/Constants";
+import RepositoryError from "../../../common/exception/RepositoryError";
 import {BlogArticleListStrapi} from "./BlogArticleListStrapi";
 import {BlogArticleStrapi} from "./BlogArticleStrapi";
 

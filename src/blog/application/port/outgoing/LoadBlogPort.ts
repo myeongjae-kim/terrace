@@ -1,5 +1,5 @@
 import {BlogArticleStrapi} from "src/blog/adapter/outgoing/BlogArticleStrapi";
-import {StrapiResponse} from "../../../../view/common/api/dto/StrapiResponse";
+import {StrapiResponse} from "../../../../common/domain/StrapiResponse";
 import {BlogArticleListStrapi} from "src/blog/adapter/outgoing/BlogArticleListStrapi";
 
 export interface LoadBlogPort {

@@ -1,4 +1,4 @@
-import {StrapiPagination} from "../../domain/model/StrapiPagination";
+import {StrapiPagination} from "./StrapiPagination";
 
 export interface StrapiResponse<T> {
   data: T[],
