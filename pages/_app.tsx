@@ -6,7 +6,7 @@ import {DefaultSeo} from "next-seo";
 import Head from "next/head";
 import React from "react";
 import ReactGA from "react-ga";
-import {DOMAIN} from "src/common/constants/Constants";
+import {DOMAIN, GA_TRACKING_CODE} from "src/common/constants/Constants";
 import {MainLayout} from "src/common/view/presentation/components/templates";
 import {brightTheme, darkTheme} from "src/common/view/presentation/components/themes";
 import {isServer} from "src/util";
@@ -29,6 +29,7 @@ const useInit = () => {
   }, []);
 };
 
+ReactGA.initialize(GA_TRACKING_CODE);
 const useEveryUpdate = () => {
   React.useEffect(() => {
     if (isServer()) {

@@ -1,6 +1,6 @@
 import {StrapiResponse} from "../../../common/domain/StrapiResponse";
 import {AxiosInstance} from "axios";
-import {API_HOST, Endpoints} from "../../../common/constants/Constants";
+import {Endpoints} from "../../../common/constants/Constants";
 import RepositoryError from "../../../common/exception/RepositoryError";
 import {DailyLoadPort} from "../../application/port/outgoing/DailyLoadPort";
 import {DailyListStrapi} from "../../application/port/outgoing/DailyListStrapi";
@@ -13,7 +13,7 @@ export class DailyPersistenceAdapter implements DailyLoadPort {
   private readonly listFields = ["seq", "title", "slug", "created_at"];
 
   public findAll = (page: number): Promise<StrapiResponse<DailyListStrapi>> =>
-    this.axios.get<StrapiResponse<DailyListStrapi>>(`${API_HOST}${Endpoints.daily}`, {
+    this.axios.get<StrapiResponse<DailyListStrapi>>(Endpoints.daily, {
       params: {
         fields: this.listFields,
         sort: ["seq:desc"],
@@ -24,7 +24,7 @@ export class DailyPersistenceAdapter implements DailyLoadPort {
 
   public getBySlug = async (slug: string): Promise<DailyStrapi> => {
     const article: DailyStrapi | undefined =
-      await this.axios.get<{ data: DailyStrapi[] }>(`${API_HOST}${Endpoints.daily}`, {
+      await this.axios.get<{ data: DailyStrapi[] }>(Endpoints.daily, {
         params: {
           "filters[slug][$eq]": slug
         }
