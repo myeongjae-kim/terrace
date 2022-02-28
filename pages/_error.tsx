@@ -1,9 +1,9 @@
-import {createStyles, makeStyles} from "@material-ui/core";
 import clsx from "clsx";
 import {NextPageContext} from "next";
 import Head from "next/head";
 import React from "react";
 import Optional from "optional-js";
+import {createStyles, makeStyles} from "@mui/styles";
 
 const statusTexts: { [code: number]: string } = {
   400: "Bad Request",
