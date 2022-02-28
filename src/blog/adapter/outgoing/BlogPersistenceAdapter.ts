@@ -1,13 +1,16 @@
 import {BlogLoadPort} from "src/blog/application/port/outgoing/BlogLoadPort";
 import {BlogLoadPrevOrNextPort} from "src/blog/application/port/outgoing/LoadBlogPrevOrNext";
 import {StrapiResponse} from "../../../common/domain/StrapiResponse";
-import Axios from "axios";
-import {API_HOST, Endpoints} from "../../../common/constants/Constants";
+import {AxiosInstance} from "axios";
+import {Endpoints} from "../../../common/constants/Constants";
 import RepositoryError from "../../../common/exception/RepositoryError";
 import {BlogArticleListStrapi} from "../../application/port/outgoing/BlogArticleListStrapi";
 import {BlogArticleStrapi} from "../../application/port/outgoing/BlogArticleStrapi";
 
 export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextPort {
+
+  constructor(private readonly axios: AxiosInstance) {}
+
   private readonly listFields = ["seq", "title", "slug", "created_at"];
   private readonly defaultPrevOrNext: BlogArticleListStrapi = {
     id: -1,
@@ -21,7 +24,7 @@ export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextP
   };
   
   public findAll = (page: number): Promise<StrapiResponse<BlogArticleListStrapi>> =>
-    Axios.get<StrapiResponse<BlogArticleListStrapi>>(`${API_HOST}${Endpoints.blog}`, {
+    this.axios.get<StrapiResponse<BlogArticleListStrapi>>(Endpoints.blog, {
       params: {
         fields: this.listFields,
         sort: ["seq:desc"],
@@ -32,7 +35,7 @@ export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextP
 
   public getBySlug = async (slug: string): Promise<BlogArticleStrapi> => {
     const article: BlogArticleStrapi | undefined =
-      await Axios.get<{ data: BlogArticleStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+      await this.axios.get<{ data: BlogArticleStrapi[] }>(Endpoints.blog, {
         params: {
           "filters[slug][$eq]": slug
         }
@@ -47,7 +50,7 @@ export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextP
 
   public getNextOf = async (seq: number): Promise<BlogArticleListStrapi> => {
     const prev: BlogArticleListStrapi | undefined =
-      await Axios.get<{ data: BlogArticleListStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+      await this.axios.get<{ data: BlogArticleListStrapi[] }>(Endpoints.blog, {
         params: {
           "filters[seq][$lt]": seq,
           "sort": ["seq:desc"],
@@ -61,7 +64,7 @@ export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextP
 
   public getPrevOf = async (seq: number): Promise<BlogArticleListStrapi> => {
     const next: BlogArticleListStrapi | undefined =
-      await Axios.get<{ data: BlogArticleListStrapi[] }>(`${API_HOST}${Endpoints.blog}`, {
+      await this.axios.get<{ data: BlogArticleListStrapi[] }>(Endpoints.blog, {
         params: {
           "filters[seq][$lt]": seq,
           "sort": ["seq:asc"],
