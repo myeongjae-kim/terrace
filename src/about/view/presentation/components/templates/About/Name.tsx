@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
-import {Theme} from "@mui/system";
+import {Theme} from "@mui/material";
 
 interface Props {
   en: string;

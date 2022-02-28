@@ -1,8 +1,7 @@
 import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
 import { PageTitle } from "src/common/view/presentation/components/molecules";
-import {Theme} from "@mui/system";
-import {Typography} from "@mui/material";
+import {Theme, Typography} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   mapContainer: {
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: "100%",
     textAlign: "justify",
     border: 0,
-    boxShadow: `2px 2px 15px ${theme.palette.type === "dark" ? "#000" : "#ccc"}`,
+    boxShadow: `2px 2px 15px ${theme.palette.mode === "dark" ? "#000" : "#ccc"}`,
     display: "block",
     margin: "auto"
   },

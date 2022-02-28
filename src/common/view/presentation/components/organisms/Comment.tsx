@@ -1,6 +1,5 @@
 import * as React from "react";
-import {useTheme} from "@mui/system";
-import {NoSsr} from "@mui/material";
+import {useTheme, NoSsr} from "@mui/material";
 
 interface Props {
   identifier: string;
@@ -10,8 +9,8 @@ const Utterances: React.FC<Props> = ({ identifier }) => {
   const theme = useTheme();
 
   React.useEffect(() => {
-    initComment(theme.palette.type);
-  }, [identifier, theme.palette.type]);
+    initComment(theme.palette.mode);
+  }, [identifier, theme.palette.mode]);
 
   return <div id="comment-container" style={{
     margin: "auto"

@@ -2,7 +2,7 @@ import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import EachDaily from "./EachDaily";
 import {DailyListResponse} from "../../../../../domain/DailyListResponse";
-import {Theme} from "@mui/system";
+import {Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import * as React from "react";
 import {Typography} from "@mui/material";
 import {Link} from "../../molecules";
-import {Theme} from "@mui/system";
+import {Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme)=> createStyles({
   footer: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme)=> createStyles({
     height: 50,
     marginTop: -20,
     pointerEvents: "none",
-    opacity: theme.palette.type === "dark" ? 0 : "initial"
+    opacity: theme.palette.mode === "dark" ? 0 : "initial"
   }
 }));
 

@@ -3,7 +3,7 @@ import {Link} from "src/common/view/presentation/components/molecules";
 import {formatDateTime} from "src/util";
 import {DailyListResponse} from "../../../../../domain/DailyListResponse";
 import {createStyles, makeStyles} from "@mui/styles";
-import {Theme} from "@mui/system";
+import {Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

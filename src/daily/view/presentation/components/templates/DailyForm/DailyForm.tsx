@@ -8,8 +8,7 @@ import {MarkdownEditor} from "src/common/view/presentation/components/organisms"
 import * as Yup from "yup";
 import {DailyContent} from "../../organisms";
 import {DailyDetailResponse} from "../../../../../domain/DailyDetailResponse";
-import {TextField, Typography} from "@mui/material";
-import {Theme} from "@mui/system";
+import {TextField, Typography, Theme} from "@mui/material";
 
 export interface DailyRequestDto {
   seq: number;

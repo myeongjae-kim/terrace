@@ -5,8 +5,7 @@ import {HeadTitle, Link} from "src/common/view/presentation/components/molecules
 import {formatDateTime} from "src/util";
 import {DailyContent} from "../../organisms";
 import {DailyDetailResponse} from "../../../../../domain/DailyDetailResponse";
-import {Theme} from "@mui/system";
-import {Typography} from "@mui/material";
+import {Typography, Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/system";
+import { useTheme } from "@mui/material";
 import * as React from "react";
 
 interface Props {
