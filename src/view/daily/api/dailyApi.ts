@@ -1,9 +1,11 @@
 import Axios from "axios";
 import {API_HOST, Endpoints} from "src/common/constants/Constants";
-import {DailyDetailResponseDto, DailyListResponseDto, DailyPathDto} from "./dto";
+import {DailyPathDto} from "./dto";
 import {formatDateTime} from "src/util";
 import RepositoryError from "src/common/exception/RepositoryError";
 import {StrapiResponse} from "src/common/domain/StrapiResponse";
+import {DailyListResponseDto} from "./dto/DailyListResponseDto";
+import {DailyDetailResponseDto} from "./dto/DailyDetailResponseDto";
 
 interface DailyAttributes {
   seq: number;

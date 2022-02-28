@@ -1,6 +1,6 @@
-import { createDailyListResponseDtoFrom } from "src/view/daily/api";
 import { doesObjectHasNoUndefinedProperties } from "src/util/test";
 import { createDailyFixture } from "../../domain/model/Daily.unit.test";
+import {createDailyListResponseDtoFrom} from "../../../api/dto/DailyListResponseDto";
 
 export const createDailyListResponseDtoFixture = () =>
   createDailyListResponseDtoFrom(createDailyFixture());

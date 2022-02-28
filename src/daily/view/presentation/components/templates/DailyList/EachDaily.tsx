@@ -1,8 +1,8 @@
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import * as React from "react";
 import {Link} from "src/common/view/presentation/components/molecules";
-import {DailyListResponseDto} from "src/view/daily/api";
 import {formatDateTime} from "src/util";
+import {DailyListResponseDto} from "../../../../../../view/daily/api/dto/DailyListResponseDto";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

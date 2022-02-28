@@ -2,13 +2,17 @@ import {useTheme} from "@material-ui/core";
 import * as React from "react";
 import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import {Comment} from "src/common/view/presentation/components/organisms";
-import {DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/view/daily/api/dto";
-import DailyDetail from "src/view/daily/presentation/components/templates/DailyDetail";
+import {DailyPathDto} from "src/view/daily/api/dto";
+import DailyDetail from "src/daily/view/presentation/components/templates/DailyDetail";
 import {formatDateTime} from "src/util";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {dailyApi} from "src/view/daily/api";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
+import {
+  DailyDetailResponseDto,
+  defaultDailyDetailResponseDto
+} from "../../../../../src/view/daily/api/dto/DailyDetailResponseDto";
 
 const getApiKey = (slug: string) => `@daily/${slug}`;
 

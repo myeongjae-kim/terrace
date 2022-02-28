@@ -2,9 +2,9 @@ import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
 import clsx from "clsx";
 import * as React from "react";
 import {HeadTitle, Link} from "src/common/view/presentation/components/molecules";
-import {DailyDetailResponseDto} from "src/view/daily/api";
 import {formatDateTime} from "src/util";
 import {DailyContent} from "../../organisms";
+import {DailyDetailResponseDto} from "../../../../../../view/daily/api/dto/DailyDetailResponseDto";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

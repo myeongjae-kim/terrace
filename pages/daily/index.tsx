@@ -1,7 +1,7 @@
 import * as React from "react";
 import {HeadTitle, PageTitle} from "src/common/view/presentation/components/molecules";
-import DailyList from "src/view/daily/presentation/components/templates/DailyList";
-import {dailyApi, DailyListResponseDto} from "src/view/daily/api";
+import DailyList from "src/daily/view/presentation/components/templates/DailyList";
+import {dailyApi} from "src/view/daily/api";
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import MyPagination from "src/common/view/presentation/components/organisms/MyPagination";
 import {strapiPaginationDefault} from "src/common/domain/StrapiPagination";
@@ -9,7 +9,8 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {StrapiResponse} from "src/common/domain/StrapiResponse";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
-import {DailyListProps} from "src/view/daily/presentation/components/templates/DailyList/DailyList";
+import {DailyListProps} from "src/daily/view/presentation/components/templates/DailyList/DailyList";
+import {DailyListResponseDto} from "src/view/daily/api/dto/DailyListResponseDto";
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<DailyListResponseDto>}
