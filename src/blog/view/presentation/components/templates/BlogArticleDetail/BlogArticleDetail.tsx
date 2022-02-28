@@ -1,10 +1,11 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import {ArticleContent} from "../../organisms";
 import ArticleHead from "./ArticleHead";
 import ArticlePrevAndNext from "./ArticlePrevAndNext";
 import {BlogArticleDetailResponse} from "../../../../../domain/BlogArticleDetailResponse";
+import {Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

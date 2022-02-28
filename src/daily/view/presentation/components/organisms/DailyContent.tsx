@@ -1,6 +1,7 @@
 import * as React from "react";
 import { MarkdownPreview } from "src/common/view/presentation/components/molecules";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import { makeStyles, createStyles } from "@mui/styles";
+import {Theme} from "@mui/system";
 
 interface Props {
   content: string;
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textIndent: ".5em",
     background: theme.palette.type === "dark" ? theme.palette.background.paper : "#f4f4f4",
     padding: "5px 10px 5px 10px",
-    margin: `0 ${theme.spacing(0.5)}px`,
+    margin: `0 ${theme.spacing(0.5)}`,
     fontSize: ".9em",
     lineHeight: "1.9em",
     border: `1px solid ${theme.palette.divider} !important`,
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     "& blockquote, pre": {
       backgroundColor: theme.palette.background.default,
       border: `1px solid ${theme.palette.divider} !important`,
-      margin: `${theme.spacing(2)}px 0`,
+      margin: `${theme.spacing(2)} 0`,
     },
 
     "& blockquote": {

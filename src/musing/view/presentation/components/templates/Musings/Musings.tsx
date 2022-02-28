@@ -1,4 +1,4 @@
-import {createStyles, makeStyles} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import {MusingResponseDto} from "src/musing/domain";
 import EachMusing from "./EachMusing";

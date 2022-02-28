@@ -1,4 +1,4 @@
-import {useTheme} from "@material-ui/core";
+import {useTheme} from "@mui/material";
 import * as React from "react";
 import {HeadTitle} from "src/common/view/presentation/components/molecules";
 import {Comment} from "src/common/view/presentation/components/organisms";
@@ -35,7 +35,7 @@ const DailyDetailPage = () => {
     <Comment identifier={`daily${subPath}`} />
     <style jsx global>{`
 #comment-container {
-  max-width: ${theme.spacing(62.5)}px;
+  max-width: ${theme.spacing(62.5)};
 }
     `}</style>
   </div>;

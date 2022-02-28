@@ -1,8 +1,8 @@
-import { makeStyles, TextField, TextFieldProps } from "@material-ui/core"; // 이거 건들면 색깔 바뀌네.. mui4 제거면서 마지막으로 고쳐보자
+import { makeStyles } from "@mui/styles";
 import * as React from "react";
 import Spacer from "../molecules/Spacer";
 import clsx from "clsx";
-import {CardContent } from "@mui/material";
+import {CardContent, TextField, TextFieldProps} from "@mui/material";
 import {Theme} from "@mui/system";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     margin: theme.spacing(1),
     minWidth: theme.spacing(40),
-    width: `calc(50% - ${theme.spacing(2)}px)`,
-    height: `calc(100vh - ${theme.spacing(7)}px)`,
+    width: `calc(50% - ${theme.spacing(2)})`,
+    height: `calc(100vh - ${theme.spacing(7)})`,
     overflowY: "scroll",
     padding: theme.spacing(1)
   },

@@ -30,7 +30,7 @@ const MusingsPage = () => {
     <HeadTitle title="Musings" />
     <PageTitle title="quotes" />
     <Musings {...musingsProps} />
-    <div style={{padding: `${theme.spacing(1.5)}px 0`}}/> {/* Loading 컴포넌트를 가운데로 맞추기 위한 empty div */}
+    <div style={{padding: `${theme.spacing(1.5)} 0`}}/> {/* Loading 컴포넌트를 가운데로 맞추기 위한 empty div */}
   </div>;
 };
 

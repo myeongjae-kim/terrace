@@ -1,10 +1,11 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import clsx from "clsx";
 import * as React from "react";
 import Descriptions from "./Descriptions";
 import Name from "./Name";
 import Profile from "./Profile";
 import {About} from "src/about/domain/About";
+import {createStyles, makeStyles} from "@mui/styles";
+import {Theme} from "@mui/material";
 
 interface Props {
   about: About
