@@ -1,6 +1,7 @@
 import * as React from "react";
-import { IconButton, makeStyles, createStyles, NoSsr } from "@material-ui/core";
-import { Brightness7, Brightness4 } from "@material-ui/icons";
+import { makeStyles, createStyles, NoSsr } from "@material-ui/core";
+import {Brightness4, Brightness7} from "@mui/icons-material";
+import {IconButton} from "@material-ui/core"; // mui5로 가면 색깔 깨진다.
 
 interface Props {
   isDark: boolean;

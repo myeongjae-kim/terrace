@@ -1,11 +1,10 @@
-import red from "@material-ui/core/colors/red";
-import {lightBlue, teal} from "@material-ui/core/colors";
 import {
   createGenerateClassName,
   createTheme as createThemeV4,
   ThemeOptions as ThemeOptionsV4
 } from "@material-ui/core/styles";
 import { createTheme as createThemeV5, ThemeOptions as ThemeOptionsV5 } from "@mui/material/styles";
+import {lightBlue, teal, red} from "@mui/material/colors";
 
 const primary = {
   light: "#53adf1",
