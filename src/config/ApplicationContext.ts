@@ -7,7 +7,7 @@ import {BlogPersistenceAdapter} from "../blog/adapter/outgoing/BlogPersistenceAd
 import {GetBlogListUseCase} from "../blog/application/port/incoming/GetBlogListUseCase";
 import {GetBlogPrevOrNextUseCase} from "../blog/application/port/incoming/GetBlogPrevOrNextUseCase";
 
-class DiContainer {
+class ApplicationContext {
   // implementations
   private readonly aboutService: AboutService = new AboutService(new AboutInMemoryAdapter());
   private readonly blogService: BlogService = new BlogService(
@@ -22,4 +22,4 @@ class DiContainer {
   readonly getBlogPrevOrNextUseCase: GetBlogPrevOrNextUseCase = this.blogService;
 }
 
-export const diContainer = new DiContainer();
+export const applicationContext = new ApplicationContext();

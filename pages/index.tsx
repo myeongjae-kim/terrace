@@ -1,7 +1,7 @@
 import React from "react";
 import AboutPage from "./about";
 import {GetStaticProps, InferGetStaticPropsType} from "next";
-import {diContainer} from "../src/config/DiContainer";
+import {applicationContext} from "../src/config/ApplicationContext";
 import {About} from "../src/about/domain/About";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const MainPage = ({about}: InferGetStaticPropsType<typeof getStaticProps>) => <AboutPage about={about} />;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const about = await diContainer.getAboutUseCase.get();
+  const about = await applicationContext.getAboutUseCase.get();
 
   return {
     props: {

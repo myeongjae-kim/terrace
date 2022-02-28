@@ -7,9 +7,9 @@ import {
   BlogArticleDetailResponse,
   defaultBlogArticleDetailResponseDto
 } from "src/blog/domain/BlogArticleDetailResponse";
-import {diContainer} from "src/config/DiContainer";
+import {applicationContext} from "src/config/ApplicationContext";
 
-const {getBySlug} = diContainer.getBlogUseCase;
+const {getBySlug} = applicationContext.getBlogUseCase;
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
   const slug = getSlug(pathname);
 
-  const props: BlogArticleDetailResponse = await diContainer.getBlogUseCase.getBySlug(slug);
+  const props: BlogArticleDetailResponse = await applicationContext.getBlogUseCase.getBySlug(slug);
   const key = getApiKey(slug);
 
   return {
