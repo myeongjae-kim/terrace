@@ -1,8 +1,7 @@
 import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import { Link } from "../../../molecules";
-import {Theme} from "@mui/system";
-import {Button} from "@mui/material";
+import {Button, Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {

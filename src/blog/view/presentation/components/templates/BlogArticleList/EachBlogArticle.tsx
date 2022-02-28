@@ -3,7 +3,7 @@ import * as React from "react";
 import { Link } from "src/common/view/presentation/components/molecules";
 import { formatDateTime } from "src/util";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
-import {Theme} from "@mui/system";
+import {Theme} from "@mui/material";
 
 const hoverBackgroundBrightColor = "230, 230, 230";
 const hoverBackgroundDarkColor = "60, 60, 60";
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: `${theme.spacing(1.5)} 0`,
     marginBottom: theme.spacing(1),
     "&:hover": {
-      background: `rgba(${theme.palette.type === "dark"
+      background: `rgba(${theme.palette.mode === "dark"
         ? hoverBackgroundDarkColor
         : hoverBackgroundBrightColor }, 0.23) !important`
     },

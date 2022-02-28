@@ -3,7 +3,7 @@ import {MarkdownPreview} from "src/common/view/presentation/components/molecules
 import {createStyles, makeStyles} from "@mui/styles";
 import clsx from "clsx";
 import {Theme, useMediaQuery} from "@mui/material";
-import {useTheme} from "@mui/system";
+import {useTheme} from "@mui/material";
 
 interface Props {
   content: string;

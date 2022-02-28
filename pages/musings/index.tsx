@@ -7,7 +7,7 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {applicationContext} from "src/config/ApplicationContext";
 import {MusingResponseDto} from "src/musing/domain";
-import {useTheme} from "@mui/system";
+import {useTheme} from "@mui/material";
 
 const findAll = () => applicationContext.musingFindAllUseCase.findAll().then(it => it.data);
 
