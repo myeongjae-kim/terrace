@@ -1,5 +1,5 @@
 import {BlogArticleDetailResponse} from "../../../domain/BlogArticleDetailResponse";
 
-export interface GetBlogUseCase {
+export interface BlogGetUseCase {
   getBySlug(slug: string): Promise<BlogArticleDetailResponse>
 }

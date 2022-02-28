@@ -1,5 +1,5 @@
 import {About} from "../../../domain/About";
 
-export interface GetAboutUseCase {
+export interface AboutLoadPort {
   get(): Promise<About>
 }

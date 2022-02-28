@@ -1,10 +1,10 @@
-import {GetMusingListUseCase} from "./port/incoming/GetMusingListUseCase";
+import {MusingFindAllUseCase} from "./port/incoming/MusingFindAllUseCase";
 import {StrapiResponse} from "../../common/domain/StrapiResponse";
-import {LoadMusingPort} from "./port/outgoing/LoadMusingPort";
+import {MusingLoadPort} from "./port/outgoing/MusingLoadPort";
 import {MusingResponseDto} from "../domain";
 
-export class MusingService implements GetMusingListUseCase {
-  constructor(private readonly loadMusingPort: LoadMusingPort) {}
+export class MusingService implements MusingFindAllUseCase {
+  constructor(private readonly loadMusingPort: MusingLoadPort) {}
 
   public findAll = (): Promise<StrapiResponse<MusingResponseDto>> => {
     return this.loadMusingPort.findAll().then(it => ({

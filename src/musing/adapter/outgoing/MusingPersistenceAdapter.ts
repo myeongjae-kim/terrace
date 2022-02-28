@@ -1,10 +1,10 @@
 import {StrapiResponse} from "../../../common/domain/StrapiResponse";
 import Axios from "axios";
 import {API_HOST, Endpoints} from "../../../common/constants/Constants";
-import {LoadMusingPort} from "../../application/port/outgoing/LoadMusingPort";
+import {MusingLoadPort} from "../../application/port/outgoing/MusingLoadPort";
 import {MusingStrapi} from "../../application/port/outgoing/MusingStrapi";
 
-export class MusingPersistenceAdapter implements LoadMusingPort {
+export class MusingPersistenceAdapter implements MusingLoadPort {
   public findAll = (): Promise<StrapiResponse<MusingStrapi>> =>
     Axios.get<StrapiResponse<MusingStrapi>>(`${API_HOST}${Endpoints.musings}`, {
       params: {

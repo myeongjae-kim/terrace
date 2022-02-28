@@ -9,7 +9,7 @@ import {
 } from "src/blog/domain/BlogArticleDetailResponse";
 import {applicationContext} from "src/config/ApplicationContext";
 
-const {getBySlug} = applicationContext.getBlogUseCase;
+const {getBySlug} = applicationContext.blogGetUseCase;
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
   const slug = getSlug(pathname);
 
-  const props: BlogArticleDetailResponse = await applicationContext.getBlogUseCase.getBySlug(slug);
+  const props: BlogArticleDetailResponse = await applicationContext.blogGetUseCase.getBySlug(slug);
   const key = getApiKey(slug);
 
   return {

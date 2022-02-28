@@ -1,6 +1,6 @@
 import {StrapiResponse} from "../../../../common/domain/StrapiResponse";
 import {MusingResponseDto} from "../../../domain";
 
-export interface GetMusingListUseCase {
+export interface MusingFindAllUseCase {
   findAll(): Promise<StrapiResponse<MusingResponseDto>>
 }

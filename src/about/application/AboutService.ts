@@ -1,14 +1,10 @@
-import {GetAboutUseCase} from "./port/incoming/GetAboutUseCase";
-import {LoadAboutPort} from "./port/outgoing/LoadAboutPort";
+import {AboutGetUseCase} from "./port/incoming/AboutGetUseCase";
+import {AboutLoadPort} from "./port/outgoing/AboutLoadPort";
 import {About} from "../domain/About";
 
-export class AboutService implements GetAboutUseCase {
+export class AboutService implements AboutGetUseCase {
 
-  private readonly loadAboutPort: LoadAboutPort;
-
-  constructor(loadAboutPort: LoadAboutPort) {
-    this.loadAboutPort = loadAboutPort;
-  }
+  constructor(private readonly loadAboutPort: AboutLoadPort) {}
 
   public get = (): Promise<About> => this.loadAboutPort.get();
 }

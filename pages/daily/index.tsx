@@ -12,7 +12,7 @@ import {DailyListProps} from "src/daily/view/presentation/components/templates/D
 import {DailyListResponse} from "src/daily/domain/DailyListResponse";
 import {applicationContext} from "../../src/config/ApplicationContext";
 
-const {getList} = applicationContext.getDailyListUseCase;
+const {findAll} = applicationContext.dailyFindAllUseCase;
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<DailyListResponse>}
@@ -24,7 +24,7 @@ const DailyListPage = () => {
   const router = useRouter();
   const pageNumber = parseInt("" + router.query["page"]) || 1;
 
-  const res = useSWR<StrapiResponse<DailyListResponse>>(getApiKey(pageNumber), () => getList(pageNumber));
+  const res = useSWR<StrapiResponse<DailyListResponse>>(getApiKey(pageNumber), () => findAll(pageNumber));
 
   const listProps: DailyListProps = {
     dailys: res.data?.data || [],
@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {query} = context;
   const page = parseInt("" + query["page"]) || 1;
 
-  const props: StrapiResponse<DailyListResponse> = await getList(page);
+  const props: StrapiResponse<DailyListResponse> = await findAll(page);
   const key = getApiKey(page);
 
   return {

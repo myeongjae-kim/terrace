@@ -1,7 +1,7 @@
-import {LoadAboutPort} from "../../application/port/outgoing/LoadAboutPort";
+import {AboutLoadPort} from "../../application/port/outgoing/AboutLoadPort";
 import {About} from "../../domain/About";
 
-export class AboutInMemoryAdapter implements LoadAboutPort {
+export class AboutInMemoryAdapter implements AboutLoadPort {
   public get = (): Promise<About> => Promise.resolve({
     profile: "https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=400#shadow#round",
     name: {

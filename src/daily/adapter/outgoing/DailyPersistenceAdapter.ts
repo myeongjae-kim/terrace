@@ -2,11 +2,11 @@ import {StrapiResponse} from "../../../common/domain/StrapiResponse";
 import Axios from "axios";
 import {API_HOST, Endpoints} from "../../../common/constants/Constants";
 import RepositoryError from "../../../common/exception/RepositoryError";
-import {LoadDailyPort} from "../../application/port/outgoing/LoadDailyPort";
-import {DailyListStrapi} from "./DailyListStrapi";
-import {DailyStrapi} from "./DailyStrapi";
+import {DailyLoadPort} from "../../application/port/outgoing/DailyLoadPort";
+import {DailyListStrapi} from "../../application/port/outgoing/DailyListStrapi";
+import {DailyStrapi} from "../../application/port/outgoing/DailyStrapi";
 
-export class DailyPersistenceAdapter implements LoadDailyPort {
+export class DailyPersistenceAdapter implements DailyLoadPort {
   private readonly listFields = ["seq", "title", "slug", "created_at"];
 
   public findAll = (page: number): Promise<StrapiResponse<DailyListStrapi>> =>
