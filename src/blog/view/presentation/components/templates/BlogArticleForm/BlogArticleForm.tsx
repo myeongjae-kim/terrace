@@ -1,4 +1,4 @@
-import {makeStyles, TextField, Theme, Typography} from "@material-ui/core";
+import {makeStyles, Theme} from "@material-ui/core";
 import clsx from "clsx";
 import {ErrorMessage, Form, Formik} from "formik";
 import Optional from "optional-js";
@@ -8,6 +8,7 @@ import {MarkdownEditor} from "src/common/view/presentation/components/organisms"
 import * as Yup from "yup";
 import {ArticleContent} from "../../organisms";
 import {BlogArticleDetailResponse} from "src/blog/domain/BlogArticleDetailResponse";
+import {TextField, Typography} from "@material-ui/core"; // mui5로 가면 까매진다
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {

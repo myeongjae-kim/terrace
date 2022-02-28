@@ -1,4 +1,4 @@
-import {useTheme} from "@material-ui/core";
+import {useTheme} from "@material-ui/core"; // 이걸 mui5로 바꾸면 또 깨진다. 테마 관련해서 다 깨지네.
 import {NextSeo} from "next-seo";
 import * as React from "react";
 import {DOMAIN, Endpoints} from "src/common/constants/Constants";

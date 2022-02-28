@@ -1,4 +1,4 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {createStyles, makeStyles, Theme} from "@material-ui/core"; //이거 건들면 깨진다. 나중에 바꿔뵉
 import React from "react";
 import FooterContent from "./FooterContent";
 import TopBar from "./TopBar";

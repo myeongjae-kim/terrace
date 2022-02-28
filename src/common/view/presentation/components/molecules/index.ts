@@ -3,7 +3,6 @@ export { default as Confirm } from "./Confirm";
 export * from "./previews";
 export * from "./typographies";
 
-export { default as ImmutableTextField } from "./ImmutableTextField";
 export { default as Link } from "./Link";
 export { default as Maybe } from "./Maybe";
 export { default as Spacer } from "./Spacer";

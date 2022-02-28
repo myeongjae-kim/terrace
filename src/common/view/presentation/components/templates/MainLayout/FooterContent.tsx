@@ -1,6 +1,8 @@
-import {createStyles, Link, makeStyles, Typography} from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core";
 import {useRouter} from "next/router";
 import * as React from "react";
+import {Typography} from "@mui/material";
+import {Link} from "../../molecules";
 
 const useStyles = makeStyles(theme => createStyles({
   footer: {
