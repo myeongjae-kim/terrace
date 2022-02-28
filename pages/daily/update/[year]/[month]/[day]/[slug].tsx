@@ -1,9 +1,13 @@
 import * as React from "react";
-import {dailyApi, DailyDetailResponseDto, DailyPathDto, defaultDailyDetailResponseDto} from "src/view/daily/api";
-import {DailyForm} from "src/view/daily/presentation/components/templates";
+import {dailyApi, DailyPathDto} from "src/view/daily/api";
+import {DailyForm} from "src/daily/view/presentation/components/templates";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
+import {
+  DailyDetailResponseDto,
+  defaultDailyDetailResponseDto
+} from "../../../../../../src/view/daily/api/dto/DailyDetailResponseDto";
 
 const getApiKey = (slug: string) => `@daily/${slug}`;
 

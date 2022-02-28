@@ -1,4 +1,4 @@
-import {Daily} from "src/view/daily/domain/model/Daily";
+import {Daily} from "src/daily/domain/Daily";
 import {getSeoulDateFrom} from "src/util";
 import {doesObjectHasNoUndefinedProperties} from "src/util/test";
 

@@ -1,4 +1,4 @@
-import { Daily } from "src/view/daily/domain/model";
+import { Daily } from "src/daily/domain";
 
 export interface DailyListResponseDto {
   id: string;
