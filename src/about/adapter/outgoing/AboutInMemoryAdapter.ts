@@ -10,7 +10,7 @@ export class AboutInMemoryAdapter implements AboutLoadPort {
     },
     descriptions: [{
       icon: "EmojiPeople",
-      label: "Coder",
+      label: "Programmer",
       href: ""
     }, {
       icon: "Room",
