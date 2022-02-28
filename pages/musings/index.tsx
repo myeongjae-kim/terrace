@@ -1,12 +1,15 @@
 import * as React from "react";
 import {HeadTitle, PageTitle} from "src/common/view/presentation/components/molecules";
-import Musings from "src/view/musings/presentation/components/templates/Musings";
-import {MusingsProps} from "src/view/musings/presentation/components/templates/Musings/Musings";
-import {pageContainerStyle} from "../../src/common/view/presentation/styles/pageContainerStyle";
+import Musings from "src/musing/view/presentation/components/templates/Musings";
+import {MusingsProps} from "src/musing/view/presentation/components/templates/Musings/Musings";
+import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import {useTheme} from "@material-ui/core";
-import {MusingResponseDto, musingsFetcher} from "../../src/view/musings/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
+import {applicationContext} from "src/config/ApplicationContext";
+import {MusingResponseDto} from "src/musing/domain";
+
+const findAll = () => applicationContext.getMusingListUseCase.findAll().then(it => it.data);
 
 interface Props {
   fallback: {[x: string]: MusingResponseDto[]}
@@ -17,7 +20,7 @@ const getApiKey = () => "@musings";
 const MusingsPage = () => {
   const theme = useTheme();
 
-  const res = useSWR<MusingResponseDto[]>(getApiKey(), () => musingsFetcher.findAll());
+  const res = useSWR<MusingResponseDto[]>(getApiKey(), () => findAll());
 
   const musingsProps: MusingsProps = {
     musings: res.data || [],
@@ -38,7 +41,7 @@ const MusingsPageWrapper = (props: InferGetServerSidePropsType<typeof getServerS
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const props: MusingResponseDto[] = await musingsFetcher.findAll();
+  const props: MusingResponseDto[] = await findAll();
 
   const key = getApiKey();
 

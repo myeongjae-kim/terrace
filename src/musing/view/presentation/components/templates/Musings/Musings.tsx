@@ -1,6 +1,6 @@
 import {createStyles, makeStyles} from "@material-ui/core";
 import * as React from "react";
-import {MusingResponseDto} from "src/view/musings/api/dto";
+import {MusingResponseDto} from "src/musing/domain";
 import EachMusing from "./EachMusing";
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 

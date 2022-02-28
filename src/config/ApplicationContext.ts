@@ -10,6 +10,9 @@ import {DailyService} from "../daily/application/port/DailyService";
 import {DailyPersistenceAdapter} from "../daily/adapter/outgoing/DailyPersistenceAdapter";
 import {GetDailyUseCase} from "../daily/application/port/incoming/GetDailyUseCase";
 import {GetDailyListUseCase} from "../daily/application/port/incoming/GetDailyListUseCase";
+import {MusingService} from "../musing/application/MusingService";
+import {MusingPersistenceAdapter} from "../musing/adapter/outgoing/MusingPersistenceAdapter";
+import {GetMusingListUseCase} from "../musing/application/port/incoming/GetMusingListUseCase";
 
 class ApplicationContext {
   // implementations
@@ -19,6 +22,7 @@ class ApplicationContext {
     new BlogPersistenceAdapter(),
   );
   private readonly dailyService: DailyService = new DailyService(new DailyPersistenceAdapter());
+  private readonly musingService: MusingService = new MusingService(new MusingPersistenceAdapter());
 
   // interfaces
   readonly getAboutUseCase: GetAboutUseCase = this.aboutService;
@@ -27,6 +31,7 @@ class ApplicationContext {
   readonly getBlogPrevOrNextUseCase: GetBlogPrevOrNextUseCase = this.blogService;
   readonly getDailyUseCase: GetDailyUseCase = this.dailyService;
   readonly getDailyListUseCase: GetDailyListUseCase = this.dailyService;
+  readonly getMusingListUseCase: GetMusingListUseCase = this.musingService;
 }
 
 export const applicationContext = new ApplicationContext();
