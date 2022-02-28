@@ -1,5 +1,6 @@
-import { NoSsr, useTheme, PaletteType } from "@material-ui/core";
 import * as React from "react";
+import {useTheme} from "@mui/system";
+import {NoSsr} from "@mui/material";
 
 interface Props {
   identifier: string;
@@ -25,7 +26,7 @@ const Comment: React.FC<Props> = (props) => {
 
 export default Comment;
 
-const initComment = (paletteType: PaletteType) => {
+const initComment = (paletteType: "light" | "dark") => {
   const utterancesContainer = document.querySelector("#comment-container");
   if (!utterancesContainer) {
     return;

@@ -1,7 +1,7 @@
 import RainbowText from "./RainbowText";
 import * as React from "react";
 import {CSSProperties} from "react";
-import {useTheme} from "@material-ui/core";
+import {useTheme} from "@mui/system";
 
 interface Poets {
   title: string

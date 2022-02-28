@@ -1,7 +1,7 @@
-import { makeStyles, Typography } from "@material-ui/core";
-import { Error } from "@material-ui/icons";
-import { createStyles } from "@material-ui/styles";
+import { Error } from "@mui/icons-material";
 import * as React from "react";
+import {createStyles, makeStyles} from "@mui/styles";
+import {Typography} from "@mui/material";
 
 const useStyles = makeStyles(createStyles({
   typography: {

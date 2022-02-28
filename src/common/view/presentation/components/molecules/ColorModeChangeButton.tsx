@@ -1,14 +1,14 @@
 import * as React from "react";
-import { makeStyles, createStyles, NoSsr } from "@material-ui/core";
+import { makeStyles, createStyles } from "@mui/styles";
 import {Brightness4, Brightness7} from "@mui/icons-material";
-import {IconButton} from "@material-ui/core"; // mui5로 가면 색깔 깨진다.
+import {IconButton, NoSsr, Theme} from "@mui/material";
 
 interface Props {
   isDark: boolean;
   toggle(): void;
 }
  
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   icon: {
     position: "absolute",
     top: theme.spacing(2),

@@ -1,12 +1,12 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@mui/styles";
 import * as React from "react";
 import { Link } from "src/common/view/presentation/components/molecules";
 import {BlogArticlePrevOrNext} from "../../../../../domain/BlogArticleDetailResponse";
-import {Button, Typography} from "@mui/material";
+import {Button, Theme, Typography} from "@mui/material";
 
 const useEachStyles = makeStyles((theme: Theme) => createStyles({
   eachContainer: {
-    margin: `${theme.spacing(1)}px 0`,
+    margin: `${theme.spacing(1)} 0`,
   },
   label: {
     marginBottom: theme.spacing(0.5),
@@ -17,14 +17,14 @@ const useEachStyles = makeStyles((theme: Theme) => createStyles({
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
-    margin: `${theme.spacing(4)}px 0`,
+    margin: `${theme.spacing(4)} 0`,
     textAlign: "center"
   },
   hrUpper: {
     marginBottom: theme.spacing(2)
   },
   hrLower: {
-    margin: `${theme.spacing(2)}px 0`
+    margin: `${theme.spacing(2)} 0`
   }
 }));
 

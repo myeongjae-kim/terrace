@@ -1,8 +1,9 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core"; //이거 건들면 깨진다. 나중에 바꿔뵉
+import {createStyles, makeStyles} from "@mui/styles"; //이거 건들면 깨진다. 나중에 바꿔뵉
 import React from "react";
 import FooterContent from "./FooterContent";
 import TopBar from "./TopBar";
-import {darkThemeV4} from "../../themes";
+import {Theme} from "@mui/system";
+import {darkThemeV5} from "../../themes";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   rootContainer: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
-    margin: `0 ${theme.spacing(0.5)}px`,
+    margin: `0 ${theme.spacing(0.5)}`,
     lineHeight: 1.6,
     "& img[src*=\"#shadow\"]": {
       boxShadow: `2px 2px 15px ${theme.palette.type === "dark" ? "#000" : "#ccc"}`,
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     "& pre": {
       whiteSpace: "pre-wrap",
       wordWrap: "break-word",
-      background: darkThemeV4.palette.background.paper,
+      background: darkThemeV5.palette.background.paper,
       padding: 20,
       lineHeight: "1.3em",
       border: `1px solid ${theme.palette.divider} !important`,

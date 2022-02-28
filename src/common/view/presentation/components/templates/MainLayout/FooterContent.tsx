@@ -1,10 +1,11 @@
-import {createStyles, makeStyles} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import {useRouter} from "next/router";
 import * as React from "react";
 import {Typography} from "@mui/material";
 import {Link} from "../../molecules";
+import {Theme} from "@mui/system";
 
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles((theme: Theme)=> createStyles({
   footer: {
     display: "flex",
     justifyContent: "space-between",

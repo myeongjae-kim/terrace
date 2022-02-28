@@ -1,15 +1,16 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import EachBlogArticle from "./EachBlogArticle";
 import {StrapiPagination} from "src/common/domain/StrapiPagination";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
+import {Theme} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     maxWidth: theme.spacing(75),
     margin: "auto",
     textAlign: "center",
-    marginTop: -theme.spacing(1.5)
+    marginTop: `-${theme.spacing(1.5)}`
   }
 }));
 

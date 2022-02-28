@@ -1,10 +1,11 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
-import MuiLink, { LinkProps as MuiLinkProps } from "@material-ui/core/Link"; // mui5 가면 아티클 상세 제목 색깔 바뀐다.
+import { createStyles, makeStyles } from "@mui/styles";
+import MuiLink, { LinkProps as MuiLinkProps } from "@mui/material/Link";
 import clsx from "clsx";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 import {isEditablePage} from "src/util/isEditablePage";
+import {Theme} from "@mui/material";
 
 type NextComposedProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & NextLinkProps;
 

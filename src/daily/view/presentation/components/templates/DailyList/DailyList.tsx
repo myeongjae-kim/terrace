@@ -1,7 +1,8 @@
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import EachDaily from "./EachDaily";
 import {DailyListResponse} from "../../../../../domain/DailyListResponse";
+import {Theme} from "@mui/system";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {

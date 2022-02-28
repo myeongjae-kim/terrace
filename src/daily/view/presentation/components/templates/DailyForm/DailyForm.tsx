@@ -1,4 +1,4 @@
-import {makeStyles, TextField, Theme, Typography} from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
 import clsx from "clsx";
 import {ErrorMessage, Form, Formik} from "formik";
 import Optional from "optional-js";
@@ -8,6 +8,8 @@ import {MarkdownEditor} from "src/common/view/presentation/components/organisms"
 import * as Yup from "yup";
 import {DailyContent} from "../../organisms";
 import {DailyDetailResponse} from "../../../../../domain/DailyDetailResponse";
+import {TextField, Typography} from "@mui/material";
+import {Theme} from "@mui/system";
 
 export interface DailyRequestDto {
   seq: number;
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     textAlign: "center",
     fontWeight: 100,
-    margin: `${theme.spacing(2)}px 0`,
+    margin: `${theme.spacing(2)} 0`,
     userSelect: "none"
   },
   shortFieldContainer: {
