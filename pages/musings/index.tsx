@@ -3,11 +3,11 @@ import {HeadTitle, PageTitle} from "src/common/view/presentation/components/mole
 import Musings from "src/musing/view/presentation/components/templates/Musings";
 import {MusingsProps} from "src/musing/view/presentation/components/templates/Musings/Musings";
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
-import {useTheme} from "@material-ui/core";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {applicationContext} from "src/config/ApplicationContext";
 import {MusingResponseDto} from "src/musing/domain";
+import {useTheme} from "@mui/system";
 
 const findAll = () => applicationContext.musingFindAllUseCase.findAll().then(it => it.data);
 

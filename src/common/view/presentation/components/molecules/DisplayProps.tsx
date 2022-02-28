@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useTheme} from "@material-ui/core";
+import {useTheme} from "@mui/system";
 
 const DisplayProps = <T,>(props: T) => {
   const theme = useTheme();

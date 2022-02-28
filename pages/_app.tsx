@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@material-ui/core/CssBaseline"; // 이걸 mui5로 변경하면 레이아웃 깨지네..
 import { ThemeProvider as ThemeProviderV4, StylesProvider } from "@material-ui/core/styles";
 import { ThemeProvider as ThemeProviderV5 } from "@mui/material/styles";
 import {DefaultSeo} from "next-seo";
