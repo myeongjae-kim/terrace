@@ -103,7 +103,7 @@ root에 새로운 디렉토리가 추가될 경우 `jest.config.js`에도 반영
 나중에 상태관리 라이브러리가 필요하다면 `recoil`을 고려하기.
 
 - `redux`로 가능한 것은 모두 `recoil`로 가능하다.
-  - [https://youtu.be/_ISAA_Jt9kI?t=1516](https://youtu.be/_ISAA_Jt9kI?t=1516))
+  - [https://youtu.be/_ISAA_Jt9kI?t=1516](https://youtu.be/_ISAA_Jt9kI?t=1516)
   - What recoil can do is like a superset of what redux can do.
 - Container component(상태 관련)와 presentational compoenent(렌더링)로 나누는 컨벤션은 상태관리 툴과 상관없이 유효하다.
   - [https://youtu.be/_ISAA_Jt9kI?t=1579](https://youtu.be/_ISAA_Jt9kI?t=1579)
