@@ -1,11 +1,10 @@
-import { createStyles, makeStyles } from "@mui/styles";
-import clsx from "clsx";
 import * as React from "react";
+import {useMemo} from "react";
 import HomeButton from "./HomeButton";
 import Navigation from "./Navigation";
-import {AppBar, Theme} from "@mui/material";
+import {AppBar, Theme, useTheme} from "@mui/material";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const styleObjects = (theme: Theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: "transparent",
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: "flex",
     justifyContent: "center"
   },
-}));
+});
 
 const items = [{
   href: ["/about", "/"],
@@ -38,17 +37,19 @@ const items = [{
 },];
 
 const TopBar: React.FC = () => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const styles = useMemo(() => styleObjects(theme), [theme]);
+
   return <AppBar
     elevation={0}
     color="inherit"
     position="relative"
-    className={clsx(classes.appBar)}
+    sx={styles.appBar}
   >
-    <div className={classes.center}>
+    <div style={styles.center}>
       <HomeButton />
     </div>
-    <div className={classes.center}>
+    <div style={styles.center}>
       <Navigation items={items} />
     </div>
   </AppBar >;

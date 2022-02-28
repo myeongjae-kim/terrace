@@ -1,32 +1,33 @@
-import {makeStyles} from "@mui/styles";
-import clsx from "clsx";
 import {ErrorMessage, Form, Formik} from "formik";
 import Optional from "optional-js";
 import * as React from "react";
+import {useMemo} from "react";
 import {ErrorTypography} from "src/common/view/presentation/components/molecules";
 import {MarkdownEditor} from "src/common/view/presentation/components/organisms";
 import * as Yup from "yup";
 import {ArticleContent} from "../../organisms";
 import {BlogArticleDetailResponse} from "src/blog/domain/BlogArticleDetailResponse";
-import {TextField, Theme, Typography} from "@mui/material";
+import {styled, TextField, Theme, Typography, useTheme} from "@mui/material";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const styleObjects = (theme: Theme) => ({
   title: {
     textAlign: "center",
     fontWeight: 100,
     margin: `${theme.spacing(2)} 0`,
     userSelect: "none"
   },
-  shortFieldContainer: {
-    maxWidth: theme.spacing(50),
-    margin: "auto",
-    "& > div": {
-      margin: theme.spacing(1)
-    }
-  },
-  errorMessageCenter: {
-    display: "flex",
-    justifyContent: "center"
+});
+
+const ErrorMessageStyled = styled(ErrorMessage)({
+  display: "flex",
+  justifyContent: "center"
+});
+
+const ShortFieldContainerDiv = styled("div")(({theme}) => ({
+  maxWidth: theme.spacing(50),
+  margin: "auto",
+  "& > div": {
+    margin: theme.spacing(1)
   }
 }));
 
@@ -44,7 +45,8 @@ interface Props {
 }
 
 const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const styles = useMemo(() => styleObjects(theme), [theme]);
 
   return <Formik<BlogArticleRequestDto>
     enableReinitialize
@@ -77,8 +79,8 @@ const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
       };
 
       return <Form>
-        <Typography variant="h2" className={classes.title}>블로그 글 {isUpdating ? "수정" : "등록"}</Typography>
-        <div className={clsx(classes.shortFieldContainer)}>
+        <Typography variant="h2" sx={styles.title}>블로그 글 {isUpdating ? "수정" : "등록"}</Typography>
+        <ShortFieldContainerDiv>
           <div>
             <TextField
               label="순서"
@@ -119,7 +121,7 @@ const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
             />
             <ErrorMessage name="slug" component={ErrorTypography} />
           </div>
-        </div>
+        </ShortFieldContainerDiv>
         <div>
           <div>
             <MarkdownEditor
@@ -134,9 +136,8 @@ const BlogArticleForm = ({ isUpdating, initialValues, onSubmit }: Props) => {
               value={values.content}
               PreviewComponent={ArticleContent}
             />
-            <ErrorMessage
+            <ErrorMessageStyled
               name="content"
-              className={classes.errorMessageCenter}
               component={ErrorTypography} />
           </div>
         </div>

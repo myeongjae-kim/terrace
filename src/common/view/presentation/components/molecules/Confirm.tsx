@@ -1,5 +1,3 @@
-import { createStyles, makeStyles } from "@mui/styles";
-import clsx from "clsx";
 import * as React from "react";
 import {red} from "@mui/material/colors";
 import {
@@ -10,8 +8,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Theme
+  Theme, useTheme
 } from "@mui/material";
+import {useMemo} from "react";
 
 export interface ConfirmPayload {
   title?: string;
@@ -19,7 +18,7 @@ export interface ConfirmPayload {
   onClick?(e?: React.MouseEvent): void;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const styleObjects = (theme: Theme) => ({
   spacing: { height: theme.spacing(1) },
   dialogContent: { paddingBottom: 0 },
   dialogActions: { paddingTop: 0 },
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       background: alpha(red[500], 0.1),
     }
   }
-}));
+});
 
 export interface ConfirmProps {
   isConfirmOpened: boolean;
@@ -44,7 +43,8 @@ export interface ConfirmProps {
 }
 
 const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeConfirmDialog }) => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const styles = useMemo(() => styleObjects(theme), [theme]);
   const { title, content, onClick } = confirmData;
   const abort = () => {
     closeConfirmDialog();
@@ -65,17 +65,17 @@ const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeCo
       aria-describedby="confirm-dialog-description"
     >
       <DialogTitle hidden={!title} id="confirm-dialog-title">{title}</DialogTitle>
-      <div hidden={!!title} className={classes.spacing} />
-      <DialogContent className={clsx({ [classes.dialogContent]: !title })}>
+      <div hidden={!!title} style={styles.spacing} />
+      <DialogContent sx={title ? styles.dialogContent: {}}>
         <DialogContentText id="confirm-dialog-description">
           {content}
         </DialogContentText>
       </DialogContent>
-      <DialogActions className={clsx({ [classes.dialogActions]: !title })}>
-        <Button onClick={abort} className={classes.abortButton}>
+      <DialogActions sx={title ? styles.dialogActions: {}}>
+        <Button onClick={abort} sx={styles.abortButton}>
           {"abort"}
         </Button>
-        <Button onClick={confirm} className={classes.confirmButton} autoFocus>
+        <Button onClick={confirm} sx={styles.confirmButton} autoFocus>
           <strong> {"confirm"} </strong>
         </Button>
       </DialogActions>

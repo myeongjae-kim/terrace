@@ -1,27 +1,23 @@
-import {createStyles, makeStyles} from "@mui/styles";
 import {useRouter} from "next/router";
 import * as React from "react";
-import {Typography} from "@mui/material";
+import {styled, Typography} from "@mui/material";
 import {Link} from "../../molecules";
-import {Theme} from "@mui/material";
 
-const useStyles = makeStyles((theme: Theme)=> createStyles({
-  footer: {
-    display: "flex",
-    justifyContent: "space-between",
-    userSelect: "none",
-  },
-  sign: {
-    width: 50,
-    height: 50,
-    marginTop: -20,
-    pointerEvents: "none",
-    opacity: theme.palette.mode === "dark" ? 0 : "initial"
-  }
+const FooterDiv = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  userSelect: "none",
+});
+
+const SignImg = styled("img")(({theme}) => ({
+  width: 50,
+  height: 50,
+  marginTop: -20,
+  pointerEvents: "none",
+  opacity: theme.palette.mode === "dark" ? 0 : "initial"
 }));
 
 const FooterContent: React.FC = () => {
-  const classes = useStyles();
   const router = useRouter();
 
   const createOrEdit = React.useCallback(() => {
@@ -33,15 +29,15 @@ const FooterContent: React.FC = () => {
     }
   }, [router]);
 
-  return <div className={classes.footer}>
-    <img alt="ignorable" onClick={createOrEdit} src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} style={{ opacity: 0, pointerEvents: "all" }} />
+  return <FooterDiv>
+    <SignImg alt="ignorable" onClick={createOrEdit} src="https://cdn.myeongjae.kim/res/about_logos/0.png" style={{ opacity: 0, pointerEvents: "all" }} />
 
     <Typography variant="caption">
       If you like my website, you can copy it from <Link href="https://github.com/myeongjae-kim/terrace">here</Link>.
     </Typography>
 
-    <img alt="ignorable" src="https://cdn.myeongjae.kim/res/about_logos/0.png" className={classes.sign} />
-  </div>;
+    <SignImg alt="ignorable" src="https://cdn.myeongjae.kim/res/about_logos/0.png" />
+  </FooterDiv>;
 };
 
 export default FooterContent;
