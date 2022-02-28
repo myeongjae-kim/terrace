@@ -1,8 +1,4 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
-  images: {
-    domains: [
-      "s.gravatar.com",
-      "cdn.myeongjae.kim",
-    ],
-  },
+  reactStrictMode: true,
 };

@@ -4,13 +4,14 @@ import {darkThemeV5} from "../src/common/view/presentation/components/themes";
 import createEmotionCache from "../src/util/createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
 
-class MyDocument extends Document {
+export default class MyDocument extends Document {
   public render() {
     return (
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|Inconsolata|Bad+Script|Noto+Sans+KR:100,300,400,700|Noto+Serif+KR:300,400,700&display=swap" rel="stylesheet" />
+          {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
           {/* PWA primary color */}
           <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
@@ -169,5 +170,3 @@ MyDocument.getInitialProps = async (ctx) => {
     emotionStyleTags,
   };
 };
-
-export default MyDocument;
