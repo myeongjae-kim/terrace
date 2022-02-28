@@ -13,16 +13,30 @@ import {DailyFindAllUseCase} from "../daily/application/port/incoming/DailyFindA
 import {MusingService} from "../musing/application/MusingService";
 import {MusingPersistenceAdapter} from "../musing/adapter/outgoing/MusingPersistenceAdapter";
 import {MusingFindAllUseCase} from "../musing/application/port/incoming/MusingFindAllUseCase";
+import Axios, {AxiosInstance} from "axios";
+import ReactGA from "react-ga";
 
+// configurations
+ReactGA.initialize("UA-126240406-1");
+
+// context
 class ApplicationContext {
+  // dependencies
+  private readonly publicToken = "5f5da4885cc60c4007a770e20bcb499584306df76f7024786943770d87d10ec647588ed508a328726c03144cecb04e65377865e992cf557c9398f280355f1b5d66816bd18b466c4c973d90a93c5a04b3635a518688b2e49c468eca9c92bf0098dc6851481cd51bc9d60b33c4b7c65e81885b6dd53990b7e0397451b59cd000e6";
+  private readonly axiosInstance: AxiosInstance = Axios.create({
+    headers: {
+      "Authorization": "Bearer " + this.publicToken
+    }
+  });
+
   // implementations
   private readonly aboutService: AboutService = new AboutService(new AboutInMemoryAdapter());
   private readonly blogService: BlogService = new BlogService(
     new BlogPersistenceAdapter(),
     new BlogPersistenceAdapter(),
   );
-  private readonly dailyService: DailyService = new DailyService(new DailyPersistenceAdapter());
-  private readonly musingService: MusingService = new MusingService(new MusingPersistenceAdapter());
+  private readonly dailyService: DailyService = new DailyService(new DailyPersistenceAdapter(this.axiosInstance));
+  private readonly musingService: MusingService = new MusingService(new MusingPersistenceAdapter(this.axiosInstance));
 
   // interfaces
   readonly aboutGetUseCase: AboutGetUseCase = this.aboutService;
