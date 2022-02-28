@@ -11,7 +11,7 @@ interface Props {
 const MainPage = ({about}: InferGetStaticPropsType<typeof getStaticProps>) => <AboutPage about={about} />;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const about = await applicationContext.getAboutUseCase.get();
+  const about = await applicationContext.aboutGetUseCase.get();
 
   return {
     props: {

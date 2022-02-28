@@ -1,20 +1,15 @@
-import {GetDailyListUseCase} from "./incoming/GetDailyListUseCase";
-import {GetDailyUseCase} from "./incoming/GetDailyUseCase";
-import {LoadDailyPort} from "./outgoing/LoadDailyPort";
+import {DailyFindAllUseCase} from "./incoming/DailyFindAllUseCase";
+import {DailyGetUseCase} from "./incoming/DailyGetUseCase";
+import {DailyLoadPort} from "./outgoing/DailyLoadPort";
 import {DailyDetailResponse} from "../../domain/DailyDetailResponse";
 import {DailyListResponse} from "../../domain/DailyListResponse";
 import {StrapiResponse} from "../../../common/domain/StrapiResponse";
 import {Daily} from "../../domain";
 
-export class DailyService implements GetDailyListUseCase, GetDailyUseCase{
+export class DailyService implements DailyFindAllUseCase, DailyGetUseCase{
 
-  private readonly loadDailyPort: LoadDailyPort;
+  constructor(private readonly loadDailyPort: DailyLoadPort) { }
 
-  constructor(
-    loadDailyPort: LoadDailyPort,
-  ) {
-    this.loadDailyPort = loadDailyPort;
-  }
   public getBySlug = (slug: string): Promise<DailyDetailResponse> =>
     this.loadDailyPort.getBySlug(slug)
       .then(it => ({
@@ -27,7 +22,7 @@ export class DailyService implements GetDailyListUseCase, GetDailyUseCase{
         content: it.attributes.content,
       }));
 
-  public getList = (page: number): Promise<StrapiResponse<DailyListResponse>> =>
+  public findAll = (page: number): Promise<StrapiResponse<DailyListResponse>> =>
     this.loadDailyPort.findAll(page)
       .then(data => ({
         data: data.data.map(it => ({

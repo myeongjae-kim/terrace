@@ -1,13 +1,13 @@
-import {LoadBlogPort} from "src/blog/application/port/outgoing/LoadBlogPort";
-import {LoadBlogPrevOrNextPort} from "src/blog/application/port/outgoing/LoadBlogPrevOrNext";
+import {BlogLoadPort} from "src/blog/application/port/outgoing/BlogLoadPort";
+import {BlogLoadPrevOrNextPort} from "src/blog/application/port/outgoing/LoadBlogPrevOrNext";
 import {StrapiResponse} from "../../../common/domain/StrapiResponse";
 import Axios from "axios";
 import {API_HOST, Endpoints} from "../../../common/constants/Constants";
 import RepositoryError from "../../../common/exception/RepositoryError";
-import {BlogArticleListStrapi} from "./BlogArticleListStrapi";
-import {BlogArticleStrapi} from "./BlogArticleStrapi";
+import {BlogArticleListStrapi} from "../../application/port/outgoing/BlogArticleListStrapi";
+import {BlogArticleStrapi} from "../../application/port/outgoing/BlogArticleStrapi";
 
-export class BlogPersistenceAdapter implements LoadBlogPort, LoadBlogPrevOrNextPort {
+export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextPort {
   private readonly listFields = ["seq", "title", "slug", "created_at"];
   private readonly defaultPrevOrNext: BlogArticleListStrapi = {
     id: -1,

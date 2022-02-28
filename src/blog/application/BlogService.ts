@@ -1,19 +1,16 @@
-import {GetBlogListUseCase} from "./port/incoming/GetBlogListUseCase";
-import {GetBlogUseCase} from "./port/incoming/GetBlogUseCase";
-import {GetBlogPrevOrNextUseCase} from "./port/incoming/GetBlogPrevOrNextUseCase";
+import {BlogFindAllUseCase} from "./port/incoming/BlogFindAllUseCase";
+import {BlogGetUseCase} from "./port/incoming/BlogGetUseCase";
+import {BlogGetPrevOrNextUseCase} from "./port/incoming/BlogGetPrevOrNextUseCase";
 import {StrapiResponse} from "../../common/domain/StrapiResponse";
-import {LoadBlogPort} from "./port/outgoing/LoadBlogPort";
-import {LoadBlogPrevOrNextPort} from "./port/outgoing/LoadBlogPrevOrNext";
+import {BlogLoadPort} from "./port/outgoing/BlogLoadPort";
+import {BlogLoadPrevOrNextPort} from "./port/outgoing/LoadBlogPrevOrNext";
 import {BlogArticle} from "../domain";
 import {BlogArticleDetailResponse, BlogArticlePrevOrNext} from "../domain/BlogArticleDetailResponse";
 import {BlogArticleListResponse} from "../domain/BlogArticleListResponse";
-import {BlogArticleListStrapi} from "../adapter/outgoing/BlogArticleListStrapi";
+import {BlogArticleListStrapi} from "./port/outgoing/BlogArticleListStrapi";
 
-export class BlogService implements GetBlogListUseCase, GetBlogUseCase, GetBlogPrevOrNextUseCase{
+export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetPrevOrNextUseCase{
 
-  private readonly loadBlogPort: LoadBlogPort;
-  private readonly loadBlogPrevOrNextPort: LoadBlogPrevOrNextPort;
-  
   private readonly defaultPrevOrNext: BlogArticlePrevOrNext = {
     id: "",
     createdAt: "",
@@ -22,12 +19,10 @@ export class BlogService implements GetBlogListUseCase, GetBlogUseCase, GetBlogP
   };
 
   constructor(
-    loadBlogPort: LoadBlogPort,
-    loadBlogPrevOrNextPort: LoadBlogPrevOrNextPort
-  ) {
-    this.loadBlogPort = loadBlogPort;
-    this.loadBlogPrevOrNextPort = loadBlogPrevOrNextPort;
-  }
+    private readonly loadBlogPort: BlogLoadPort,
+    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextPort
+  ) { }
+
   public getBySlug = (slug: string): Promise<BlogArticleDetailResponse> =>
     this.loadBlogPort.getBySlug(slug)
       .then(it => ({
@@ -42,7 +37,7 @@ export class BlogService implements GetBlogListUseCase, GetBlogUseCase, GetBlogP
         next: this.defaultPrevOrNext
       }));
 
-  public getList = (page: number): Promise<StrapiResponse<BlogArticleListResponse>> =>
+  public findAll = (page: number): Promise<StrapiResponse<BlogArticleListResponse>> =>
     this.loadBlogPort.findAll(page)
       .then(data => ({
         data: data.data.map(it => ({

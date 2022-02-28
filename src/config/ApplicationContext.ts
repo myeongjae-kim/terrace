@@ -1,18 +1,18 @@
-import {GetAboutUseCase} from "../about/application/port/incoming/GetAboutUseCase";
+import {AboutGetUseCase} from "../about/application/port/incoming/AboutGetUseCase";
 import {AboutService} from "../about/application/AboutService";
 import {AboutInMemoryAdapter} from "../about/adapter/outgoing/AboutInMemoryAdapter";
-import {GetBlogUseCase} from "../blog/application/port/incoming/GetBlogUseCase";
+import {BlogGetUseCase} from "../blog/application/port/incoming/BlogGetUseCase";
 import {BlogService} from "../blog/application/BlogService";
 import {BlogPersistenceAdapter} from "../blog/adapter/outgoing/BlogPersistenceAdapter";
-import {GetBlogListUseCase} from "../blog/application/port/incoming/GetBlogListUseCase";
-import {GetBlogPrevOrNextUseCase} from "../blog/application/port/incoming/GetBlogPrevOrNextUseCase";
+import {BlogFindAllUseCase} from "../blog/application/port/incoming/BlogFindAllUseCase";
+import {BlogGetPrevOrNextUseCase} from "../blog/application/port/incoming/BlogGetPrevOrNextUseCase";
 import {DailyService} from "../daily/application/port/DailyService";
 import {DailyPersistenceAdapter} from "../daily/adapter/outgoing/DailyPersistenceAdapter";
-import {GetDailyUseCase} from "../daily/application/port/incoming/GetDailyUseCase";
-import {GetDailyListUseCase} from "../daily/application/port/incoming/GetDailyListUseCase";
+import {DailyGetUseCase} from "../daily/application/port/incoming/DailyGetUseCase";
+import {DailyFindAllUseCase} from "../daily/application/port/incoming/DailyFindAllUseCase";
 import {MusingService} from "../musing/application/MusingService";
 import {MusingPersistenceAdapter} from "../musing/adapter/outgoing/MusingPersistenceAdapter";
-import {GetMusingListUseCase} from "../musing/application/port/incoming/GetMusingListUseCase";
+import {MusingFindAllUseCase} from "../musing/application/port/incoming/MusingFindAllUseCase";
 
 class ApplicationContext {
   // implementations
@@ -25,13 +25,13 @@ class ApplicationContext {
   private readonly musingService: MusingService = new MusingService(new MusingPersistenceAdapter());
 
   // interfaces
-  readonly getAboutUseCase: GetAboutUseCase = this.aboutService;
-  readonly getBlogUseCase: GetBlogUseCase = this.blogService;
-  readonly getBlogListUseCase: GetBlogListUseCase = this.blogService;
-  readonly getBlogPrevOrNextUseCase: GetBlogPrevOrNextUseCase = this.blogService;
-  readonly getDailyUseCase: GetDailyUseCase = this.dailyService;
-  readonly getDailyListUseCase: GetDailyListUseCase = this.dailyService;
-  readonly getMusingListUseCase: GetMusingListUseCase = this.musingService;
+  readonly aboutGetUseCase: AboutGetUseCase = this.aboutService;
+  readonly blogGetUseCase: BlogGetUseCase = this.blogService;
+  readonly blogFindAllUseCase: BlogFindAllUseCase = this.blogService;
+  readonly blogGetPrevOrNextUseCase: BlogGetPrevOrNextUseCase = this.blogService;
+  readonly dailyGetUseCase: DailyGetUseCase = this.dailyService;
+  readonly dailyFindAllUseCase: DailyFindAllUseCase = this.dailyService;
+  readonly musingFindAllUseCase: MusingFindAllUseCase = this.musingService;
 }
 
 export const applicationContext = new ApplicationContext();

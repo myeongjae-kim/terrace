@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import {DailyDetailResponse, defaultDailyDetailResponseDto} from "src/daily/domain/DailyDetailResponse";
 import {applicationContext} from "src/config/ApplicationContext";
 
-const {getBySlug} = applicationContext.getDailyUseCase;
+const {getBySlug} = applicationContext.dailyGetUseCase;
 
 const getApiKey = (slug: string) => `@daily/${slug}`;
 

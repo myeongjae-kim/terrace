@@ -12,7 +12,7 @@ import {useRouter} from "next/router";
 import {BlogArticleListResponse} from "../../src/blog/domain/BlogArticleListResponse";
 import {applicationContext} from "../../src/config/ApplicationContext";
 
-const {getList} = applicationContext.getBlogListUseCase;
+const {findAll} = applicationContext.blogFindAllUseCase;
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<BlogArticleListResponse>}
@@ -24,7 +24,7 @@ const BlogArticleListPage = () => {
   const router = useRouter();
   const pageNumber = parseInt("" + router.query["page"]) || 1;
 
-  const res = useSWR<StrapiResponse<BlogArticleListResponse>>(getApiKey(pageNumber), () => getList(pageNumber));
+  const res = useSWR<StrapiResponse<BlogArticleListResponse>>(getApiKey(pageNumber), () => findAll(pageNumber));
 
   const listProps: BlogArticleListProps = {
     blogArticles: res.data?.data || [],
@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {query} = context;
   const page = parseInt("" + query["page"]) || 1;
 
-  const props = await getList(page);
+  const props = await findAll(page);
   const key = getApiKey(page);
 
   return {

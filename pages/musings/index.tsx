@@ -9,7 +9,7 @@ import useSWR, {SWRConfig} from "swr";
 import {applicationContext} from "src/config/ApplicationContext";
 import {MusingResponseDto} from "src/musing/domain";
 
-const findAll = () => applicationContext.getMusingListUseCase.findAll().then(it => it.data);
+const findAll = () => applicationContext.musingFindAllUseCase.findAll().then(it => it.data);
 
 interface Props {
   fallback: {[x: string]: MusingResponseDto[]}

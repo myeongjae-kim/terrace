@@ -16,7 +16,7 @@ const AboutPage = ({about}: InferGetStaticPropsType<typeof getStaticProps>) => <
 
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const about = await applicationContext.getAboutUseCase.get();
+  const about = await applicationContext.aboutGetUseCase.get();
 
   return {
     props: {

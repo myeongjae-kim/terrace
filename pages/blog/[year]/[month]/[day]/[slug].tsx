@@ -15,8 +15,8 @@ import {
 import {BlogArticleDetail} from "src/blog/view/presentation/components/templates";
 import {applicationContext} from "src/config/ApplicationContext";
 
-const {getBySlug} = applicationContext.getBlogUseCase;
-const {getPrevOf, getNextOf} = applicationContext.getBlogPrevOrNextUseCase;
+const {getBySlug} = applicationContext.blogGetUseCase;
+const {getPrevOf, getNextOf} = applicationContext.blogGetPrevOrNextUseCase;
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 const getPrevApiKey = (seq: number) => `@blogPrev/${seq}`;
