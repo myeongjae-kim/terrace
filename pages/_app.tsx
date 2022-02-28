@@ -20,7 +20,7 @@ import PrismjsThemeSupport from "src/common/view/presentation/components/molecul
 import {isEditablePage} from "../src/util/isEditablePage";
 import {useNProgressLoader} from "src/common/view/presentation/hooks/useNProgressLoader";
 import "src/common/view/presentation/styles/nprogress.css";
-import createEmotionCache from "../src/common/view/presentation/temporary/createEmotionCache";
+import createEmotionCache from "../src/util/createEmotionCache";
 import {EmotionCache} from "@emotion/cache";
 import {CacheProvider} from "@emotion/react";
 import {CssBaseline} from "@mui/material";

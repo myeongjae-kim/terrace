@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 import {darkThemeV5} from "../src/common/view/presentation/components/themes";
-import createEmotionCache from "../src/common/view/presentation/temporary/createEmotionCache";
+import createEmotionCache from "../src/util/createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
 
 class MyDocument extends Document {
