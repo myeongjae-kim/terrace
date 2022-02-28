@@ -1,14 +1,21 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import {ThemeProvider} from "@material-ui/styles";
+import { ThemeProvider as ThemeProviderV4, StylesProvider } from "@material-ui/core/styles";
+import { ThemeProvider as ThemeProviderV5 } from "@mui/material/styles";
 import {DefaultSeo} from "next-seo";
 import Head from "next/head";
 import React from "react";
 import ReactGA from "react-ga";
 import {DOMAIN, GA_TRACKING_CODE} from "src/common/constants/Constants";
 import {MainLayout} from "src/common/view/presentation/components/templates";
-import {brightTheme, darkTheme} from "src/common/view/presentation/components/themes";
+import {
+  brightThemeV4,
+  darkThemeV4,
+  brightThemeV5,
+  darkThemeV5,
+  generateClassName
+} from "src/common/view/presentation/components/themes";
 import {isServer} from "src/util";
 import {NextComponentType} from "next";
 import {AppContext, AppInitialProps, AppProps} from "next/app";
@@ -18,6 +25,9 @@ import PrismjsThemeSupport from "src/common/view/presentation/components/molecul
 import {isEditablePage} from "../src/util/isEditablePage";
 import {useNProgressLoader} from "src/common/view/presentation/hooks/useNProgressLoader";
 import "src/common/view/presentation/styles/nprogress.css";
+import createEmotionCache from "../src/common/view/presentation/temporary/createEmotionCache";
+import {EmotionCache} from "@emotion/cache";
+import {CacheProvider} from "@emotion/react";
 
 const useInit = () => {
   React.useEffect(() => {
@@ -40,11 +50,13 @@ const useEveryUpdate = () => {
   });
 };
 
-const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
-  Component,
-  pageProps,
-  router,
-}) => {
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props) => {
+  const { Component, pageProps, router } = props;
+  const emotionCache: EmotionCache = (props as any).emotionCache || clientSideEmotionCache;
+
   useInit();
   useNProgressLoader();
   useEveryUpdate();
@@ -74,12 +86,16 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
     "@myeongjae.kim/PREFERS_DARK_MODE"
   );
 
-  const theme = React.useMemo(() => prefersDarkMode ? darkTheme : brightTheme, [
+  const themeV4 = React.useMemo(() => prefersDarkMode ? darkThemeV4 : brightThemeV4, [
+    prefersDarkMode,
+  ]);
+
+  const themeV5 = React.useMemo(() => prefersDarkMode ? darkThemeV5 : brightThemeV5, [
     prefersDarkMode,
   ]);
 
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         {/* Use minimum-scale=1 to enable GPU rasterization */}
         <meta
@@ -110,20 +126,24 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
           cardType: "summary",
         }}
       />
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <PrismjsThemeSupport />
+      <StylesProvider generateClassName={generateClassName}>
+        <ThemeProviderV4 theme={themeV4}>
+          <ThemeProviderV5 theme={themeV5}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <PrismjsThemeSupport />
 
-        <MainLayout>
-          <ColorModeChangeButton
-            isDark={prefersDarkMode}
-            toggle={toggleColorMode}
-          />
-          <Component {...pageProps} />
-        </MainLayout>
-      </ThemeProvider>
-    </>
+            <MainLayout>
+              <ColorModeChangeButton
+                isDark={prefersDarkMode}
+                toggle={toggleColorMode}
+              />
+              <Component {...pageProps} />
+            </MainLayout>
+          </ThemeProviderV5>
+        </ThemeProviderV4>
+      </StylesProvider>
+    </CacheProvider>
   );
 };
 

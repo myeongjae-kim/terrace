@@ -16,9 +16,14 @@
     "report": "jest unit --coverage"
   },
   "dependencies": {
+    "@emotion/cache": "^11.7.1",
+    "@emotion/react": "^11.8.1",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "@mui/material": "^5.4.3",
     "@types/nprogress": "^0.2.0",
     "assert-plus": "^1.0.0",
     "axios": "^0.24.0",
