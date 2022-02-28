@@ -33,6 +33,9 @@ module.exports = {
     "@typescript-eslint"
   ],
   "rules": {
+    "@next/next/no-img-element": [
+      "off"
+    ],
     "@typescript-eslint/explicit-module-boundary-types": [ // TODO: Remove this setting
       "off"
     ],
