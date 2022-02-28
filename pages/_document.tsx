@@ -1,8 +1,9 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, {Head, Html, Main, NextScript} from "next/document";
 import React from "react";
 import {darkThemeV5} from "../src/common/view/presentation/components/themes";
 import createEmotionCache from "../src/util/createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
+import {ServerStyleSheets} from "@mui/styles";
 
 export default class MyDocument extends Document {
   public render() {
@@ -134,6 +135,7 @@ MyDocument.getInitialProps = async (ctx) => {
   // 2. page.getInitialProps
   // 3. app.render
   // 4. page.render
+  const sheets = new ServerStyleSheets();
 
   const originalRenderPage = ctx.renderPage;
 
@@ -148,7 +150,7 @@ MyDocument.getInitialProps = async (ctx) => {
         function EnhanceApp(props) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          return <App emotionCache={cache} {...props} />;
+          return sheets.collect(<App emotionCache={cache} {...props} />);
         },
     });
 
@@ -168,5 +170,11 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     emotionStyleTags,
+    styles: [
+      <React.Fragment key="styles">
+        {initialProps.styles}
+        {sheets.getStyleElement()}
+      </React.Fragment>,
+    ],
   };
 };
