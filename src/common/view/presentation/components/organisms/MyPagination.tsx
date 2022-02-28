@@ -3,7 +3,7 @@ import React from "react";
 import {Link} from "src/common/view/presentation/components/molecules";
 import {useRouter} from "next/router";
 import {usePaginationHrefGenerator} from "src/util/usePaginationHrefGenerator";
-import {Pagination, PaginationItem} from "@mui/material";
+import {Pagination, PaginationItem} from "@material-ui/lab"; // mui5로 가면 색깔 망가진다.
 
 interface Props {
   pagination: StrapiPagination

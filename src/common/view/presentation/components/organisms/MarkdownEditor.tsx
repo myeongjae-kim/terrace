@@ -1,7 +1,9 @@
-import { CardContent, makeStyles, TextField, TextFieldProps, Theme } from "@material-ui/core";
+import { makeStyles, TextField, TextFieldProps } from "@material-ui/core"; // 이거 건들면 색깔 바뀌네.. mui4 제거면서 마지막으로 고쳐보자
 import * as React from "react";
 import Spacer from "../molecules/Spacer";
 import clsx from "clsx";
+import {CardContent } from "@mui/material";
+import {Theme} from "@mui/system";
 
 const useStyles = makeStyles((theme: Theme) => ({
   spacing: { height: theme.spacing(1) },
@@ -34,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   PreviewComponent: React.ComponentType<{content: string}>;
 }
-
 
 const MarkdownEditor: React.FC<TextFieldProps & Props> = (props) => {
   const classes = useStyles();
