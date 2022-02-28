@@ -1,4 +1,4 @@
-import { Musing } from "src/view/musings/domain/model";
+import { Musing } from "src/musing/domain";
 import { doesObjectHasAllUndefinedProperties, doesObjectHasNoUndefinedProperties, doesObjectHasNoUndefinedPropertiesExcept } from "src/util/test";
 
 export const createMusingFixture = (): Musing => {

@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import clsx from "clsx";
 import * as React from "react";
-import { MusingResponseDto } from "src/view/musings/api/dto";
+import { MusingResponseDto } from "src/musing/domain";
 import From from "./From";
 import Quote from "./Quote";
 
