@@ -13,10 +13,10 @@ import {
   defaultBlogArticleDetailResponseDto
 } from "src/blog/domain/BlogArticleDetailResponse";
 import {BlogArticleDetail} from "src/blog/view/presentation/components/templates";
-import {diContainer} from "src/config/DiContainer";
+import {applicationContext} from "src/config/ApplicationContext";
 
-const {getBySlug} = diContainer.getBlogUseCase;
-const {getPrevOf, getNextOf} = diContainer.getBlogPrevOrNextUseCase;
+const {getBySlug} = applicationContext.getBlogUseCase;
+const {getPrevOf, getNextOf} = applicationContext.getBlogPrevOrNextUseCase;
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 const getPrevApiKey = (seq: number) => `@blogPrev/${seq}`;

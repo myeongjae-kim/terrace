@@ -3,7 +3,7 @@ import AboutComponent from "src/about/view/presentation/components/templates/Abo
 import {HeadTitle} from "src/view/common/presentation/components/molecules";
 import {GetStaticProps, InferGetStaticPropsType} from "next";
 import {About} from "src/about/domain/About";
-import {diContainer} from "src/config/DiContainer";
+import {applicationContext} from "src/config/ApplicationContext";
 
 interface Props {
   about: About
@@ -16,7 +16,7 @@ const AboutPage = ({about}: InferGetStaticPropsType<typeof getStaticProps>) => <
 
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const about = await diContainer.getAboutUseCase.get();
+  const about = await applicationContext.getAboutUseCase.get();
 
   return {
     props: {

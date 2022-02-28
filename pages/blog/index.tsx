@@ -10,9 +10,9 @@ import useSWR, {SWRConfig} from "swr";
 import {StrapiResponse} from "src/view/common/api/dto/StrapiResponse";
 import {useRouter} from "next/router";
 import {BlogArticleListResponse} from "../../src/blog/domain/BlogArticleListResponse";
-import {diContainer} from "../../src/config/DiContainer";
+import {applicationContext} from "../../src/config/ApplicationContext";
 
-const {getList} = diContainer.getBlogListUseCase;
+const {getList} = applicationContext.getBlogListUseCase;
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<BlogArticleListResponse>}
