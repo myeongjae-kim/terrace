@@ -1,6 +1,11 @@
 import red from "@material-ui/core/colors/red";
-import {createTheme} from "@material-ui/core/styles";
 import {lightBlue, teal} from "@material-ui/core/colors";
+import {
+  createGenerateClassName,
+  createTheme as createThemeV4,
+  ThemeOptions as ThemeOptionsV4
+} from "@material-ui/core/styles";
+import { createTheme as createThemeV5, ThemeOptions as ThemeOptionsV5 } from "@mui/material/styles";
 
 const primary = {
   light: "#53adf1",
@@ -9,8 +14,7 @@ const primary = {
   contrastText: "#fff"
 };
 
-// Create a theme instance.
-const themes = (prefersDarkMode: boolean) => createTheme({
+const createThemeOptions: (prefersDarkMode: boolean) => ThemeOptionsV4 | ThemeOptionsV5 = (prefersDarkMode) => ({
   palette: {
     type: prefersDarkMode ? "dark" : "light",
     primary: prefersDarkMode ? lightBlue : primary,
@@ -62,5 +66,21 @@ const themes = (prefersDarkMode: boolean) => createTheme({
   },
 });
 
-export const darkTheme = themes(true);
-export const brightTheme = themes(false);
+// Create a theme instance.
+const themesV4 = (prefersDarkMode: boolean) => createThemeV4(createThemeOptions(prefersDarkMode) as ThemeOptionsV4);
+const themesV5 = (prefersDarkMode: boolean) => createThemeV5(createThemeOptions(prefersDarkMode) as ThemeOptionsV5);
+
+export const darkThemeV4 = themesV4(true);
+export const brightThemeV4 = themesV4(false);
+
+export const darkThemeV5 = themesV5(true);
+export const brightThemeV5 = themesV5(false);
+
+export const generateClassName = createGenerateClassName({
+  // By enabling this option, if you have non-MUI elements (e.g. `<div />`)
+  // using MUI classes (e.g. `.MuiButton`) they will lose styles.
+  // Make sure to convert them to use `styled()` or `<Box />` first.
+  disableGlobal: true,
+  // Class names will receive this seed to avoid name collisions.
+  seed: "mui-jss",
+});
