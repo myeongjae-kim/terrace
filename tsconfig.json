@@ -30,7 +30,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "types": [
-      "jest"
+      "jest", "reflect-metadata"
     ],
     "incremental": true
   },
