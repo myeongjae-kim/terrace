@@ -1,5 +1,5 @@
 import {createStyles, makeStyles} from "@mui/styles"; //이거 건들면 깨진다. 나중에 바꿔뵉
-import React from "react";
+import React, {ReactNode} from "react";
 import FooterContent from "./FooterContent";
 import TopBar from "./TopBar";
 import {darkThemeV5} from "../../themes";
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const MainLayout: React.FC = ({ children }) => {
+const MainLayout = ({ children }: { children?: ReactNode | undefined }) => {
   const classes = useStyles();
 
   return (

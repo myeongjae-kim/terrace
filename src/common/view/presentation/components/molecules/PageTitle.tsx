@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const PageTitle: React.FC<Props> = ({ title }) => {
+const PageTitle = ({ title }: Props) => {
   const classes = useStyles();
   return <div className={classes.container}>
     <h1 className={classes.title}>

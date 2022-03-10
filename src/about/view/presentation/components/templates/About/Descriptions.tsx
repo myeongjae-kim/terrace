@@ -38,7 +38,7 @@ const getIcon = (icon: DescriptionIcon): SvgIconComponent => {
   }
 };
 
-const EachDescription: React.FC<Description> = ({ icon, label, href }) => {
+const EachDescription = ({ icon, label, href }: Description) => {
   const classes = useStyles();
   const Icon = getIcon(icon);
   return <li>
@@ -58,7 +58,7 @@ interface Props {
   items: Description[];
 }
 
-const Descriptions: React.FC<Props> = ({ items }) => {
+const Descriptions = ({ items }: Props) => {
   const classes = useStyles();
   return <ul className={classes.list}>
     {items.map(i => <EachDescription key={i.label} icon={i.icon} label={i.label} href={i.href} />)}

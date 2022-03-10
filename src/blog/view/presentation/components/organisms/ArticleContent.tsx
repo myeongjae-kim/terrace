@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ArticleContent: React.FC<Props> = ({ content }) => {
+const ArticleContent = ({ content }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const smallWidth = useMediaQuery(theme.breakpoints.down("xs"));

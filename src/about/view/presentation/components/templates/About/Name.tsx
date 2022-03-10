@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const Name: React.FC<Props> = ({ en, kr }) => {
+const Name = ({ en, kr }: Props) => {
   const classes = useStyles();
 
   return <div className={classes.container}>

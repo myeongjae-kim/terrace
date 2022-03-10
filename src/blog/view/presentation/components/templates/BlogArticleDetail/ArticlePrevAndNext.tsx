@@ -33,7 +33,7 @@ interface Props {
   next: BlogArticlePrevOrNext;
 }
 
-const Each: React.FC<{ label: string; article: BlogArticlePrevOrNext }> = ({ label, article }) => {
+const Each = ({ label, article }: { label: string; article: BlogArticlePrevOrNext }) => {
   const classes = useEachStyles();
 
   return <div className={classes.eachContainer} hidden={!article.id}>
@@ -43,7 +43,7 @@ const Each: React.FC<{ label: string; article: BlogArticlePrevOrNext }> = ({ lab
 
 };
 
-const ArticlePrevAndNext: React.FC<Props> = ({ prev, next }) => {
+const ArticlePrevAndNext = ({ prev, next }: Props) => {
   const classes = useStyles();
   return <div className={classes.container}>
     <hr className={classes.hrUpper} />

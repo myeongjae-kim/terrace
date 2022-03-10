@@ -28,7 +28,7 @@ export interface DailyDetailProps {
   daily: DailyDetailResponse;
 }
 
-const DailyDetail: React.FC<DailyDetailProps> = ({ daily}) => {
+const DailyDetail = ({ daily }: DailyDetailProps) => {
   const classes = useStyles();
   const {
     seq,

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const HomeButton: React.FC = () => {
+const HomeButton = () => {
   const classes = useStyles();
   return <Link href="/">
     <Button color="inherit" classes={{

@@ -36,7 +36,7 @@ const items = [{
   label: "Places"
 },];
 
-const TopBar: React.FC = () => {
+const TopBar = () => {
   const theme = useTheme();
   const styles = useMemo(() => styleObjects(theme), [theme]);
 

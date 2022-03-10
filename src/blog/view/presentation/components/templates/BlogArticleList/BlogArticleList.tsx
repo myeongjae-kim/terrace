@@ -19,7 +19,7 @@ export interface BlogArticleListProps {
   pagination: StrapiPagination,
 }
 
-const BlogArticleList: React.FC<BlogArticleListProps> = ({ blogArticles }) => {
+const BlogArticleList = ({ blogArticles }: BlogArticleListProps) => {
   const classes = useStyles();
   return <div>
     <div className={classes.container}>

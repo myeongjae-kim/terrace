@@ -31,7 +31,7 @@ const poets: Poets[] = [{
   poet: "유경환"
 }];
 
-const Loading: React.FC<{style?: CSSProperties}> = ({style}) => {
+const Loading = ({style}: {style?: CSSProperties}) => {
   const theme = useTheme();
   const {title, phrase, poet} = poets[Math.floor(Math.random() * poets.length)];
 

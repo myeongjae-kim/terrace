@@ -17,7 +17,7 @@ const SignImg = styled("img")(({theme}) => ({
   opacity: theme.palette.mode === "dark" ? 0 : "initial"
 }));
 
-const FooterContent: React.FC = () => {
+const FooterContent = () => {
   const router = useRouter();
 
   const createOrEdit = React.useCallback(() => {

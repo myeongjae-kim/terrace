@@ -18,7 +18,7 @@ export interface MusingsProps {
   musings: MusingResponseDto[];
 }
 
-const Musings: React.FC<MusingsProps> = ({ musings }) => {
+const Musings = ({ musings }: MusingsProps) => {
   const classes = useStyles();
   return <div>
     <div style={pageContainerStyle}>

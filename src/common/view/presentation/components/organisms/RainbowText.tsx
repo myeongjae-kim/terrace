@@ -55,7 +55,7 @@ const wrapEachCharWithSpan = (line: string): string => {
   return wrapped;
 };
 
-const RainbowText: React.FC<LoadingProps> = (props) => {
+const RainbowText = (props: LoadingProps) => {
   const { line1, line2, line3, line4 } = props;
   const classes = useStyles();
 

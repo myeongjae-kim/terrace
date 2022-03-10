@@ -5,7 +5,7 @@ interface Props {
   size?: number;
 }
 
-const Spacer: React.FC<Props> = ({ size = 1 }) => {
+const Spacer = ({ size = 1 }: Props) => {
   const theme = useTheme();
   return <div style={{ height: theme.spacing(size) }} />;
 };

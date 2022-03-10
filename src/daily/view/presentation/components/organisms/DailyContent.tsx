@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const DailyContent: React.FC<Props> = ({ content }) => {
+const DailyContent = ({ content }: Props) => {
   const classes = useStyles();
   return <MarkdownPreview className={classes.content} markdown={content} />;
 };
