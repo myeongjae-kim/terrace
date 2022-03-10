@@ -25,14 +25,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-interface Props {
-  daily: DailyListResponse;
-}
-
-const EachDailyContent: React.FC<{
+interface EachDailyContentProps {
   daily: DailyListResponse;
   userSelectNone?: boolean;
-}> = ({ daily, userSelectNone }) => {
+}
+
+const EachDailyContent = ({ daily, userSelectNone }: EachDailyContentProps) => {
   const classes = useStyles();
   return <div className={classes.container} style={{ userSelect: userSelectNone ? "none" : "inherit" }}>
     <div className={classes.seq}>{daily.seq}.</div>
@@ -41,7 +39,11 @@ const EachDailyContent: React.FC<{
   </div>;
 };
 
-const EachDaily: React.FC<Props> = ({ daily }) => {
+interface Props {
+  daily: DailyListResponse;
+}
+
+const EachDaily = ({ daily }: Props) => {
   return <Link href={daily.uri}>
     <EachDailyContent daily={daily} />
   </Link>;

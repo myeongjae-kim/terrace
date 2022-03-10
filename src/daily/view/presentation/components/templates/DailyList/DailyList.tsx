@@ -16,7 +16,7 @@ export interface DailyListProps {
   dailys: DailyListResponse[];
 }
 
-const DailyList: React.FC<DailyListProps> = ({ dailys }) => {
+const DailyList = ({ dailys }: DailyListProps) => {
   const classes = useStyles();
   return <div className={classes.container}>
     <div>

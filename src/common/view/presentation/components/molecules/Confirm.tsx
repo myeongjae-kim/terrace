@@ -42,7 +42,7 @@ export interface ConfirmProps {
   closeConfirmDialog(): void;
 }
 
-const Confirm: React.FC<ConfirmProps> = ({ isConfirmOpened, confirmData, closeConfirmDialog }) => {
+const Confirm = ({ isConfirmOpened, confirmData, closeConfirmDialog }: ConfirmProps) => {
   const theme = useTheme();
   const styles = useMemo(() => styleObjects(theme), [theme]);
   const { title, content, onClick } = confirmData;

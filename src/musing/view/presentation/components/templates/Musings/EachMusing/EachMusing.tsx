@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const EachMusing: React.FC<Props> = ({ item }) => {
+const EachMusing = ({ item }: Props) => {
   const classes = useStyles();
   return <div className={clsx(classes.musing, {
     [classes.en]: item.language === "EN",

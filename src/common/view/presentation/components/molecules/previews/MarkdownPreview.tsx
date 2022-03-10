@@ -28,7 +28,7 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElem
   markdown: string;
 }
 
-const MarkdownPreview: React.FC<Props> = (props) => {
+const MarkdownPreview = (props: Props) => {
   return <HtmlPreview {...props} dangerouslySetInnerHTML={{ __html: marked(props.markdown) }} />;
 };
 

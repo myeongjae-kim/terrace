@@ -36,7 +36,7 @@ interface Props {
   PreviewComponent: React.ComponentType<{content: string}>;
 }
 
-const MarkdownEditor: React.FC<TextFieldProps & Props> = (props) => {
+const MarkdownEditor = (props: TextFieldProps & Props) => {
   const classes = useStyles();
   const { value } = props;
   return <div className={classes.flex}>

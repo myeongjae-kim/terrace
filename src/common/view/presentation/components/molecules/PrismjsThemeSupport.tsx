@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const PrismjsThemeSupport: React.FC = () => {
+const PrismjsThemeSupport = () => {
   return <>
     <style global={"true" as unknown as boolean}>
       {bright}

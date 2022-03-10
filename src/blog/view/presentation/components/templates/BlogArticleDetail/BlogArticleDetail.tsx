@@ -18,7 +18,7 @@ export interface BlogArticleDetailProps {
   blogArticle: BlogArticleDetailResponse;
 }
 
-const BlogArticleDetail: React.FC<BlogArticleDetailProps> = ({ blogArticle}) => {
+const BlogArticleDetail = ({ blogArticle }: BlogArticleDetailProps) => {
   const classes = useStyles();
   const { title, slug, content, createdAt, prev, next } = blogArticle;
   return <>

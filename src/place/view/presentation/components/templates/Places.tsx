@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const Places: React.FC = () => {
+const Places = () => {
   const classes = useStyles();
   return <div>
     <PageTitle title="places" />

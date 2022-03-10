@@ -42,7 +42,7 @@ const usePaths = (): string[] => {
   return paths;
 };
 
-const Navigation: React.FC<Props> = ({ items }) => {
+const Navigation = ({ items }: Props) => {
   const paths = usePaths();
   const classes = useStyles();
   const firstPath = paths[0] || "";

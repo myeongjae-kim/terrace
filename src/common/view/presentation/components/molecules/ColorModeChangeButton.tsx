@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const ColorModeChangeButton: React.FC<Props> = ({isDark, toggle}) => {
+const ColorModeChangeButton = ({isDark, toggle}: Props) => {
   const classes = useStyles();
 
   return <NoSsr>

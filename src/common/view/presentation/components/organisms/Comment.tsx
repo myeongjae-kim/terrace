@@ -5,7 +5,7 @@ interface Props {
   identifier: string;
 }
 
-const Utterances: React.FC<Props> = ({ identifier }) => {
+const Utterances = ({ identifier }: Props) => {
   const theme = useTheme();
 
   React.useEffect(() => {
@@ -17,7 +17,7 @@ const Utterances: React.FC<Props> = ({ identifier }) => {
   }} />;
 };
 
-const Comment: React.FC<Props> = (props) => {
+const Comment = (props: Props) => {
   return <NoSsr>
     <Utterances {...props} />
   </NoSsr>;

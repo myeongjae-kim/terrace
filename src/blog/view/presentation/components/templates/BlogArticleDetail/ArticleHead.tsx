@@ -26,7 +26,7 @@ interface Props {
   createdAt: string;
 }
 
-const ArticleHead: React.FC<Props> = ({ title, slug, createdAt }) => {
+const ArticleHead = ({ title, slug, createdAt }: Props) => {
   const classes = useStyles();
   return <div className={classes.container}>
     <div className={classes.head}>

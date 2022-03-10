@@ -33,7 +33,7 @@ interface Props {
   blogArticle: BlogArticleListResponse;
 }
 
-const EachBlogArticle: React.FC<Props> = ({ blogArticle }) => {
+const EachBlogArticle = ({ blogArticle }: Props) => {
   const { title, createdAt, uri } = blogArticle;
   const classes = useStyles();
   return <Link href={uri}>

@@ -13,7 +13,7 @@ interface Props {
   quote: string;
 }
 
-const Quote: React.FC<Props> = ({ quote }) => {
+const Quote = ({ quote }: Props) => {
   const classes = useStyles();
   return <p className={classes.quote}>“{quote}”</p>;
 };
