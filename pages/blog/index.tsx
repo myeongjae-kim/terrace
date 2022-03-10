@@ -9,10 +9,12 @@ import {strapiPaginationDefault} from "src/common/domain/StrapiPagination";
 import useSWR, {SWRConfig} from "swr";
 import {StrapiResponse} from "src/common/domain/StrapiResponse";
 import {useRouter} from "next/router";
-import {BlogArticleListResponse} from "../../src/blog/domain/BlogArticleListResponse";
-import {applicationContext} from "../../src/config/ApplicationContext";
+import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
+import {container} from "src/config/inversify";
+import {BlogFindAllUseCase} from "src/blog/application/port/incoming/BlogFindAllUseCase";
+import {BlogFindAllUseCaseId} from "src/blog/adapter/inversify";
 
-const {findAll} = applicationContext.blogFindAllUseCase;
+const {findAll} = container.get<BlogFindAllUseCase>(BlogFindAllUseCaseId);
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<BlogArticleListResponse>}

@@ -18,11 +18,43 @@ git config core.hooksPath .githooks
 
 ## 기술 스택
 
+- InversifyJS
 - Next.js
   - Server Side Rendering
   - Static Site Generation
 - useSSR
 - Material UI
+
+## Inversify Convention
+
+- inversify는 도메인 레이어를 보호하는 역할을 한다.
+  - UI Layer가 도메인 레이어를 직접 의존(`import`)하지 않게 만들어 유연한 애플리케이션을 구성하도록 도와준다.
+  - UI Layer는 `ServiceIdentifier`중에서도 `UseCase` identifier만 사용한다.
+- `ServiceIdentifier`는 Symbol로 생성한다.
+- `ServiceIdentifier` 변수 이름의 끝은 `Id`로 한다. e.g.) `AxiosId`, `BlogServiceId` `BlogGetUseCaseId`
+- inversify 설정은 도메인별로 쪼개서 분리한다.
+- inversify 설정을 담은 파일 이름은 `inversify.ts`로 고정한다.
+  - 이 파일은 `adapter` 디렉토리의 최상위에 위치한다.
+  - 이 설정파일을 module이라 부른다. redux의 ducks 모듈 구조와 비슷하다.
+    - 하나의 inversify 모듈은 다음 3개의 구성요소를 갖는다: `ServiceIdentifier`, `decorateClass()`, `bind(container: Container)`
+    - `ServiceIdentifier`: 컨테이너에 등록된 서비스 이름.
+    - `decorateClass()`: 클래스에 decorator를 직접 붙이는 대신 클래스 바깥에서 붙이는 함수. inversify 프레임워크를 위한 준비 작업이다.
+    - `bind(container: Container)`: decorate를 완료한 클래스를 `ServiceIdentifier`에 bind한다.
+  - `ServiceIdentifier`는 모듈 안에서 `TYPES`라는 객체 안에 선언한다.
+    - 이 중에서 모듈 외부에서 찾을 수 있게 만들고 싶은 `ServiceIdentifier`만 export한다.`
+  - `import * as blogModule from "src/blog/adapter/inversify"` 와 같은 형태로 import해서 사용한다.
+
+```typescript
+// AdapterId는 모듈 내부에서만 사용하고 UseCaseId들만 export하고 싶을 때
+const TYPES = {
+  BlogPersistenceAdapterId: Symbol.for("BlogPersistenceAdapter"),
+  BlogGetUseCaseId: Symbol.for("BlogGetUseCase"),
+  BlogFindAllUseCaseId: Symbol.for("BlogFindAllUseCase"),
+  BlogGetPrevOrNextUseCaseId: Symbol.for("BlogGetPrevOrNextUseCase"),
+};
+
+export const { BlogGetUseCaseId, BlogFindAllUseCaseId, BlogGetPrevOrNextUseCaseId } = TYPES;
+```
 
 ## 절대경로에 관해서
 

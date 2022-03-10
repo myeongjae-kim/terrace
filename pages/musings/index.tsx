@@ -5,11 +5,13 @@ import {MusingsProps} from "src/musing/view/presentation/components/templates/Mu
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
-import {applicationContext} from "src/config/ApplicationContext";
 import {MusingResponseDto} from "src/musing/domain";
 import {useTheme} from "@mui/material";
+import {container} from "src/config/inversify";
+import {MusingFindAllUseCase} from "src/musing/application/port/incoming/MusingFindAllUseCase";
+import {MusingFindAllUseCaseId} from "src/musing/adapter/inversify";
 
-const findAll = () => applicationContext.musingFindAllUseCase.findAll().then(it => it.data);
+const findAll = () => container.get<MusingFindAllUseCase>(MusingFindAllUseCaseId).findAll().then(it => it.data);
 
 interface Props {
   fallback: {[x: string]: MusingResponseDto[]}
