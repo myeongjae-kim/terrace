@@ -1,5 +1,5 @@
 import {Container} from "inversify";
-import {myAxiosRequestConfig} from "./myAxiosRequestConfig";
+import {axiosRequestConfig} from "./axiosRequestConfig";
 import Axios from "axios";
 
 const TYPES = {
@@ -7,7 +7,7 @@ const TYPES = {
 };
 
 export const bind = (container: Container) => {
-  container.bind(AxiosId).toConstantValue(Axios.create(myAxiosRequestConfig));
+  container.bind(AxiosId).toConstantValue(Axios.create(axiosRequestConfig));
 };
 
 export const { AxiosId } = TYPES;

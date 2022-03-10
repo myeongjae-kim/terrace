@@ -1,7 +1,7 @@
 import {AxiosRequestConfig} from "axios";
 import {API_HOST} from "../../common/constants/Constants";
 
-export const myAxiosRequestConfig: AxiosRequestConfig = {
+export const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: API_HOST,
   headers: {
     "Authorization": "Bearer " +
