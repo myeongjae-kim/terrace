@@ -7,9 +7,10 @@ import {
   BlogArticleDetailResponse,
   defaultBlogArticleDetailResponseDto
 } from "src/blog/domain/BlogArticleDetailResponse";
-import {applicationContext} from "src/config/ApplicationContext";
+import {container, USE_CASES} from "src/config/inversify";
+import {BlogGetUseCase} from "src/blog/application/port/incoming/BlogGetUseCase";
 
-const {getBySlug} = applicationContext.blogGetUseCase;
+const {getBySlug} = container.get<BlogGetUseCase>(USE_CASES.BlogGetUseCase);
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 
@@ -49,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {pathname} = new URL(context.resolvedUrl || "", `https://${context.req.headers.host}`);
   const slug = getSlug(pathname);
 
-  const props: BlogArticleDetailResponse = await applicationContext.blogGetUseCase.getBySlug(slug);
+  const props: BlogArticleDetailResponse = await container.get<BlogGetUseCase>(USE_CASES.BlogGetUseCase).getBySlug(slug);
   const key = getApiKey(slug);
 
   return {

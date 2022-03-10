@@ -10,9 +10,10 @@ import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
 import {DailyListProps} from "src/daily/view/presentation/components/templates/DailyList/DailyList";
 import {DailyListResponse} from "src/daily/domain/DailyListResponse";
-import {applicationContext} from "../../src/config/ApplicationContext";
+import {container, USE_CASES} from "src/config/inversify";
+import {DailyFindAllUseCase} from "src/daily/application/port/incoming/DailyFindAllUseCase";
 
-const {findAll} = applicationContext.dailyFindAllUseCase;
+const {findAll} = container.get<DailyFindAllUseCase>(USE_CASES.DailyFindAllUseCase);
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<DailyListResponse>}

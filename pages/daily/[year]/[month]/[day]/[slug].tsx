@@ -8,9 +8,10 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
 import {DailyDetailResponse, defaultDailyDetailResponseDto} from "src/daily/domain/DailyDetailResponse";
-import {applicationContext} from "src/config/ApplicationContext";
+import {container, USE_CASES} from "src/config/inversify";
+import {DailyGetUseCase} from "src/daily/application/port/incoming/DailyGetUseCase";
 
-const {getBySlug} = applicationContext.dailyGetUseCase;
+const {getBySlug} = container.get<DailyGetUseCase>(USE_CASES.DailyGetUseCase);
 
 const getApiKey = (slug: string) => `@daily/${slug}`;
 
