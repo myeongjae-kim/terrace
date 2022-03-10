@@ -13,12 +13,13 @@ import {
 } from "src/blog/domain/BlogArticleDetailResponse";
 import {BlogArticleDetail} from "src/blog/view/presentation/components/templates";
 import {useTheme} from "@mui/material";
-import {container, USE_CASES} from "src/config/inversify";
+import {container} from "src/config/inversify";
 import {BlogGetUseCase} from "src/blog/application/port/incoming/BlogGetUseCase";
 import {BlogGetPrevOrNextUseCase} from "src/blog/application/port/incoming/BlogGetPrevOrNextUseCase";
+import {BlogGetPrevOrNextUseCaseId, BlogGetUseCaseId} from "src/blog/adapter/inversify";
 
-const {getBySlug} = container.get<BlogGetUseCase>(USE_CASES.BlogGetUseCase);
-const {getPrevOf, getNextOf} = container.get<BlogGetPrevOrNextUseCase>(USE_CASES.BlogGetPrevOrNextUseCase);
+const {getBySlug} = container.get<BlogGetUseCase>(BlogGetUseCaseId);
+const {getPrevOf, getNextOf} = container.get<BlogGetPrevOrNextUseCase>(BlogGetPrevOrNextUseCaseId);
 
 const getApiKey = (slug: string) => `@blog/${slug}`;
 const getPrevApiKey = (seq: number) => `@blogPrev/${seq}`;

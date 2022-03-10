@@ -10,10 +10,11 @@ import useSWR, {SWRConfig} from "swr";
 import {StrapiResponse} from "src/common/domain/StrapiResponse";
 import {useRouter} from "next/router";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
-import {container, USE_CASES} from "src/config/inversify";
+import {container} from "src/config/inversify";
 import {BlogFindAllUseCase} from "src/blog/application/port/incoming/BlogFindAllUseCase";
+import {BlogFindAllUseCaseId} from "src/blog/adapter/inversify";
 
-const {findAll} = container.get<BlogFindAllUseCase>(USE_CASES.BlogFindAllUseCase);
+const {findAll} = container.get<BlogFindAllUseCase>(BlogFindAllUseCaseId);
 
 interface Props {
   fallback: {[x: string]: StrapiResponse<BlogArticleListResponse>}

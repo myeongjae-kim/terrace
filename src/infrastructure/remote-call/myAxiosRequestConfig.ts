@@ -1,5 +1,5 @@
 import {AxiosRequestConfig} from "axios";
-import {API_HOST} from "../common/constants/Constants";
+import {API_HOST} from "../../common/constants/Constants";
 
 export const myAxiosRequestConfig: AxiosRequestConfig = {
   baseURL: API_HOST,
