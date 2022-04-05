@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import {DefaultSeo} from "next-seo";
 import Head from "next/head";
 import React from "react";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import {DOMAIN, GA_TRACKING_CODE} from "src/common/constants/Constants";
 import {MainLayout} from "src/common/view/presentation/components/templates";
 import {

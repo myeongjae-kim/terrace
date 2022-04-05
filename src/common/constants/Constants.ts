@@ -21,4 +21,4 @@ export const Endpoints = {
 
 export const TITLE_POSTFIX = " :: 김명재, Myeongjae Kim";
 export const API_HOST = "https://myeongjae-kim.herokuapp.com/api";
-export const GA_TRACKING_CODE = "UA-126240406-1";
+export const GA_TRACKING_CODE = "G-WK6D5JS46W";
