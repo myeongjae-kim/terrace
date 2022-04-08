@@ -1,5 +1,5 @@
 export * from "./isServer";
-export * from "./createLinkClickHandler";
+export * from "./returnCreateLinkClickHandler";
 
 export * from "./formatDateTime";
 export * from "./getSeoulDateFrom";
