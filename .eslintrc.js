@@ -51,10 +51,6 @@ module.exports = {
     "@typescript-eslint/no-empty-interface": [
       "off"
     ],
-    "indent": [
-      "error",
-      2
-    ],
     "linebreak-style": [
       "error",
       "unix"
@@ -67,8 +63,6 @@ module.exports = {
       "error",
       "always"
     ],
-
-    "semi": "off",
     "@typescript-eslint/semi": ["error", "always"],
     "no-extra-semi": "off",
     "@typescript-eslint/no-extra-semi": ["error"],
