@@ -52,8 +52,8 @@ export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextP
     const prev: BlogArticleListStrapi | undefined =
       await this.axios.get<{ data: BlogArticleListStrapi[] }>(Endpoints.blog, {
         params: {
-          "filters[seq][$lt]": seq,
-          "sort": ["seq:desc"],
+          "filters[seq][$gt]": seq,
+          "sort": ["seq:asc"],
           "pagination[pageSize]": 1,
           "fields": this.listFields
         }
@@ -67,7 +67,7 @@ export class BlogPersistenceAdapter implements BlogLoadPort, BlogLoadPrevOrNextP
       await this.axios.get<{ data: BlogArticleListStrapi[] }>(Endpoints.blog, {
         params: {
           "filters[seq][$lt]": seq,
-          "sort": ["seq:asc"],
+          "sort": ["seq:desc"],
           "pagination[pageSize]": 1,
           "fields": this.listFields
         }
