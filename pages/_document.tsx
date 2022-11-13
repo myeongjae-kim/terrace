@@ -50,7 +50,7 @@ export default class MyDocument extends Document {
             cursor: default;
           }
           h3 {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: bold;
             font-family: Noto Sans KR;
             margin-top: 1.2em;
