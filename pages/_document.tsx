@@ -50,7 +50,7 @@ export default class MyDocument extends Document {
             cursor: default;
           }
           h3 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
             font-family: Noto Sans KR;
             margin-top: 1.2em;
@@ -59,7 +59,7 @@ export default class MyDocument extends Document {
             cursor: default;
           }
           h4 {
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: bold;
             font-family: Noto Sans KR;
             margin-top: 1.2em;
@@ -68,7 +68,7 @@ export default class MyDocument extends Document {
             cursor: default;
           }
           h5 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             font-family: Noto Sans KR;
             margin-top: 1.2em;
@@ -77,7 +77,7 @@ export default class MyDocument extends Document {
             cursor: default;
           }
           h6 {
-            font-size: 0.875rem;
+            font-size: 0.7rem;
             font-weight: bold;
             font-family: Noto Sans KR;
             margin-top: 1.2em;
