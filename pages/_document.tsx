@@ -1,4 +1,4 @@
-import Document, {Head, Html, Main, NextScript} from "next/document";
+import Document, { DocumentProps, Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 import {darkThemeV5} from "../src/common/view/presentation/components/themes";
 import createEmotionCache from "../src/util/createEmotionCache";
@@ -6,12 +6,15 @@ import createEmotionServer from "@emotion/server/create-instance";
 import {ServerStyleSheets} from "@mui/styles";
 
 export default class MyDocument extends Document {
+  constructor(props: DocumentProps, context: any) {
+    super(props, context);
+  }
   public render() {
     return (
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|Inconsolata|Bad+Script|Noto+Sans+KR:100,300,400,700|Noto+Serif+KR:300,400,700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Inconsolata|Bad+Script|Noto+Serif+KR:300,400,700&display=swap" rel="stylesheet" />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
           {/* PWA primary color */}
@@ -19,7 +22,7 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content="#0d1928" media="(prefers-color-scheme: dark)" />
           <style>{`
           body {
-            font-family: Source Sans Pro, Noto Sans KR;
+            font-family: SUIT Variable;
             letter-spacing: -0.01em;
             word-spacing: 0.05em;
             overflow-wrap: break-word;
@@ -34,7 +37,7 @@ export default class MyDocument extends Document {
           h1 {
             font-size: 2.5rem;
             font-weight: 100;
-            font-family: Noto Sans KR;
+            font-family: SUIT Variable;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -43,7 +46,7 @@ export default class MyDocument extends Document {
           h2 {
             font-size: 2rem;
             font-weight: 100;
-            font-family: Noto Sans KR;
+            font-family: SUIT Variable;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -52,7 +55,7 @@ export default class MyDocument extends Document {
           h3 {
             font-size: 1.75rem;
             font-weight: bold;
-            font-family: Noto Sans KR;
+            font-family: SUIT Variable;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -61,7 +64,7 @@ export default class MyDocument extends Document {
           h4 {
             font-size: 1.25rem;
             font-weight: bold;
-            font-family: Noto Sans KR;
+            font-family: SUIT Variable;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -70,7 +73,7 @@ export default class MyDocument extends Document {
           h5 {
             font-size: 0.9rem;
             font-weight: bold;
-            font-family: Noto Sans KR;
+            font-family: SUIT Variable;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -79,7 +82,7 @@ export default class MyDocument extends Document {
           h6 {
             font-size: 0.7rem;
             font-weight: bold;
-            font-family: Noto Sans KR;
+            font-family: SUIT Variable;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;

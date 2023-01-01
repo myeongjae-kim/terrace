@@ -19,7 +19,7 @@ const useStyles = makeStyles(createStyles({
     fontWeight: 300
   },
   poem: {
-    fontFamily: "'Noto Serif KR','Source Sans Pro', 'Spoqa Han Sans', Helvetica, Arial, sans-serif",
+    fontFamily: "'Noto Serif KR','SUIT Variable', 'Spoqa Han Sans', Helvetica, Arial, sans-serif",
     margin: 0,
     fontSize: "1.1em",
     fontStyle: "italic",

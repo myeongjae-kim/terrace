@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+import "src/common/view/presentation/styles/nprogress.css";
+import "src/common/view/presentation/styles/app.css";
+
 import { ThemeProvider } from "@mui/material/styles";
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
@@ -14,7 +17,6 @@ import { AppContext, AppInitialProps, AppProps } from "next/app";
 import PrismjsThemeSupport from "src/common/view/presentation/components/molecules/PrismjsThemeSupport";
 import { isEditablePage } from "../src/util/isEditablePage";
 import { useNProgressLoader } from "src/common/view/presentation/hooks/useNProgressLoader";
-import "src/common/view/presentation/styles/nprogress.css";
 import createEmotionCache from "../src/util/createEmotionCache";
 import { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
