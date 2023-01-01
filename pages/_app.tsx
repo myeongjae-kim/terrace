@@ -112,7 +112,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, MyAppProps> = (props
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <PrismjsThemeSupport />
-
         <MainLayout>
           <Component {...pageProps} />
         </MainLayout>
