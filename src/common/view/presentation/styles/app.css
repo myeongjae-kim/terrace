@@ -1,5 +1,5 @@
-@import url("https://cdn.myeongjae.kim/res/fonts/suit/SUIT-Variable.css");
+@import url("https://cdn.myeongjae.kim/res/fonts/pretendard/pretendardvariable-dynamic-subset.css");
 
 html {
-    font-family: 'SUIT Variable', --apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: 'Pretendard Variable', --apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }

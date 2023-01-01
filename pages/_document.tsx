@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content="#0d1928" media="(prefers-color-scheme: dark)" />
           <style>{`
           body {
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             letter-spacing: -0.01em;
             word-spacing: 0.05em;
             overflow-wrap: break-word;
@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
           h1 {
             font-size: 2.5rem;
             font-weight: 100;
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -46,7 +46,7 @@ export default class MyDocument extends Document {
           h2 {
             font-size: 2rem;
             font-weight: 100;
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -55,7 +55,7 @@ export default class MyDocument extends Document {
           h3 {
             font-size: 1.75rem;
             font-weight: bold;
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -64,7 +64,7 @@ export default class MyDocument extends Document {
           h4 {
             font-size: 1.25rem;
             font-weight: bold;
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -73,7 +73,7 @@ export default class MyDocument extends Document {
           h5 {
             font-size: 0.9rem;
             font-weight: bold;
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
@@ -82,7 +82,7 @@ export default class MyDocument extends Document {
           h6 {
             font-size: 0.7rem;
             font-weight: bold;
-            font-family: SUIT Variable;
+            font-family: Pretendard Variable, --apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
             margin-top: 1.2em;
             margin-bottom: 8px;
             line-height: 1.4;
