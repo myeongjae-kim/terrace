@@ -11,9 +11,8 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   content: {
-    fontSize: "1.1em",
-    lineHeight: 1.9,
-    fontFamily: "Noto Serif KR",
+    fontSize: "1.2em",
+    lineHeight: 1.8,
     margin: `0 ${theme.spacing(1)}`,
     "& pre, blockquote": {
       margin: `${theme.spacing(2)} 0`
