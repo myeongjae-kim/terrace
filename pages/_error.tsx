@@ -33,7 +33,7 @@ const useStyles = makeStyles(createStyles({
     fontWeight: 300
   },
   poem: {
-    fontFamily: "'Noto Serif KR','Pretendard Variable', Helvetica, Arial, sans-serif",
+    fontFamily: "'Noto Serif KR','SUIT Variable', Helvetica, Arial, sans-serif",
     margin: 0,
     fontSize: "1.1em",
     fontStyle: "italic",

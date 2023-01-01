@@ -45,7 +45,7 @@ const createThemeOptions: (prefersDarkMode: boolean) => ThemeOptions = (prefersD
       fontSize: "1.125rem"
     },
     fontFamily: [
-      "\"Pretendard Variable\"",
+      "\"SUIT Variable\"",
       "-apple-system",
       "BlinkMacSystemFont",
       "\"Segoe UI\"",
