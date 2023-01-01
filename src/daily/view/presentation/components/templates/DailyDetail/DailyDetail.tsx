@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: `${theme.spacing(3)} 0 ${theme.spacing(4)} 0`,
   },
   serif: {
-    fontFamily: "Noto Serif KR",
     fontWeight: 400,
   },
   center: {

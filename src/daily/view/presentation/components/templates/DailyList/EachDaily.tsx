@@ -9,19 +9,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     display: "flex",
     fontSize: "1rem",
-    fontFamily: "Noto Serif KR",
     fontWeight: 400
   },
   seq: {
     textAlign: "right",
+    fontFamily: "Inconsolata",
     width: theme.spacing(4)
   },
   date: {
     textAlign: "center",
-    width: theme.spacing(12)
+    fontFamily: "Inconsolata",
+    width: theme.spacing(13),
+    paddingRight: theme.spacing(0.5)
   },
   title: {
-    width: theme.spacing(28)
+    width: theme.spacing(28),
+    fontSize: "0.9rem",
   }
 }));
 
@@ -35,7 +38,9 @@ const EachDailyContent = ({ daily, userSelectNone }: EachDailyContentProps) => {
   return <div className={classes.container} style={{ userSelect: userSelectNone ? "none" : "inherit" }}>
     <div className={classes.seq}>{daily.seq}.</div>
     <div className={classes.date}>[{formatDateTime(daily.createdAt, "YYYY.MM.DD")}]</div>
-    <div className={classes.title}>{daily.title}</div>
+    <div style={{display: "flex", alignItems: "center"}}> {/* seq, date와 title의 글씨체가 달라서 수평을 맞추기 위함 */}
+      <div className={classes.title}>{daily.title}</div>
+    </div>
   </div>;
 };
 

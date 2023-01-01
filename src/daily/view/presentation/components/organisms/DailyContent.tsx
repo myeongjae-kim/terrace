@@ -9,7 +9,6 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   content: {
-    fontFamily: "Noto Serif KR",
     fontWeight: 400,
     textIndent: ".5em",
     background: theme.palette.mode === "dark" ? theme.palette.background.paper : "#f4f4f4",
