@@ -1,29 +1,24 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import { ThemeProvider } from "@mui/material/styles";
-import {DefaultSeo} from "next-seo";
+import { DefaultSeo } from "next-seo";
 import Head from "next/head";
 import React from "react";
 import ReactGA from "react-ga4";
-import {DOMAIN, GA_TRACKING_CODE} from "src/common/constants/Constants";
-import {MainLayout} from "src/common/view/presentation/components/templates";
-import {
-  brightThemeV5,
-  darkThemeV5,
-} from "src/common/view/presentation/components/themes";
-import {isServer} from "src/util";
-import {NextComponentType} from "next";
-import {AppContext, AppInitialProps, AppProps} from "next/app";
-import ColorModeChangeButton from "src/common/view/presentation/components/molecules/ColorModeChangeButton";
-import {usePersistentDarkModePreference} from "src/common/view/presentation/hooks/usePersistentDarkModePreferences";
+import { DOMAIN, GA_TRACKING_CODE } from "src/common/constants/Constants";
+import { MainLayout } from "src/common/view/presentation/components/templates";
+import { darkThemeV5, } from "src/common/view/presentation/components/themes";
+import { isServer } from "src/util";
+import { NextComponentType } from "next";
+import { AppContext, AppInitialProps, AppProps } from "next/app";
 import PrismjsThemeSupport from "src/common/view/presentation/components/molecules/PrismjsThemeSupport";
-import {isEditablePage} from "../src/util/isEditablePage";
-import {useNProgressLoader} from "src/common/view/presentation/hooks/useNProgressLoader";
+import { isEditablePage } from "../src/util/isEditablePage";
+import { useNProgressLoader } from "src/common/view/presentation/hooks/useNProgressLoader";
 import "src/common/view/presentation/styles/nprogress.css";
 import createEmotionCache from "../src/util/createEmotionCache";
-import {EmotionCache} from "@emotion/cache";
-import {CacheProvider} from "@emotion/react";
-import {CssBaseline} from "@mui/material";
+import { EmotionCache } from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
 
 const useInit = () => {
   React.useEffect(() => {
@@ -81,14 +76,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, MyAppProps> = (props
     }
   });
 
-  const [prefersDarkMode, toggleColorMode] = usePersistentDarkModePreference(
-    "@myeongjae.kim/PREFERS_DARK_MODE"
-  );
-
-  const theme = React.useMemo(() => prefersDarkMode ? darkThemeV5 : brightThemeV5, [
-    prefersDarkMode,
-  ]);
-
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -121,16 +108,12 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, MyAppProps> = (props
           cardType: "summary",
         }}
       />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={darkThemeV5}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <PrismjsThemeSupport />
 
         <MainLayout>
-          <ColorModeChangeButton
-            isDark={prefersDarkMode}
-            toggle={toggleColorMode}
-          />
           <Component {...pageProps} />
         </MainLayout>
       </ThemeProvider>
