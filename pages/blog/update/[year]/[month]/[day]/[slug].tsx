@@ -10,6 +10,7 @@ import {
 import {container} from "src/config/inversify";
 import {BlogGetUseCase} from "src/blog/application/port/incoming/BlogGetUseCase";
 import {BlogGetUseCaseId} from "src/blog/adapter/inversify";
+import { removeUrlFragment } from "../../../../../../src/util/removeUrlFragment";
 
 const {getBySlug} = container.get<BlogGetUseCase>(BlogGetUseCaseId);
 
@@ -21,7 +22,7 @@ interface Props {
 
 const getSlug = (asPath: string): string => {
   const splitted = asPath.split("/");
-  return splitted[6];
+  return removeUrlFragment(splitted[6]);
 };
 
 const BlogUpdatePage = () => {

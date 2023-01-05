@@ -17,6 +17,7 @@ import {container} from "src/config/inversify";
 import {BlogGetUseCase} from "src/blog/application/port/incoming/BlogGetUseCase";
 import {BlogGetPrevOrNextUseCase} from "src/blog/application/port/incoming/BlogGetPrevOrNextUseCase";
 import {BlogGetPrevOrNextUseCaseId, BlogGetUseCaseId} from "src/blog/adapter/inversify";
+import { removeUrlFragment } from "../../../../../src/util/removeUrlFragment";
 
 const {getBySlug} = container.get<BlogGetUseCase>(BlogGetUseCaseId);
 const {getPrevOf, getNextOf} = container.get<BlogGetPrevOrNextUseCase>(BlogGetPrevOrNextUseCaseId);
@@ -91,7 +92,7 @@ const BlogDetailPageWrapper = (props: InferGetServerSidePropsType<typeof getServ
 
 const getSlug = (asPath: string): string => {
   const split = asPath.split("/");
-  return decodeURIComponent(split[5]);
+  return removeUrlFragment(decodeURIComponent(split[5]));
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {

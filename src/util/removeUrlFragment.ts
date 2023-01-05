@@ -1,0 +1,1 @@
+export const removeUrlFragment = (path: string) => path.replace(/#.*/, "");

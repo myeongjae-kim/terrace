@@ -11,6 +11,7 @@ import {DailyDetailResponse, defaultDailyDetailResponseDto} from "src/daily/doma
 import {container} from "src/config/inversify";
 import {DailyGetUseCase} from "src/daily/application/port/incoming/DailyGetUseCase";
 import {DailyGetUseCaseId} from "src/daily/adapter/inversify";
+import { removeUrlFragment } from "../../../../../src/util/removeUrlFragment";
 
 const {getBySlug} = container.get<DailyGetUseCase>(DailyGetUseCaseId);
 
@@ -51,7 +52,7 @@ const DailyDetailPageWrapper = (props: InferGetServerSidePropsType<typeof getSer
 
 const getSlug = (asPath: string): string => {
   const splitted = asPath.split("/");
-  return decodeURIComponent(splitted[5]);
+  return removeUrlFragment(decodeURIComponent(splitted[5]));
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
