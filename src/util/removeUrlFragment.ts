@@ -1,1 +1,1 @@
-export const removeUrlFragment = (path: string) => path.replace(/#.*/, "");
+export const removeUrlFragment = (path: string) => path.replace(/[#?].*/g, "");
