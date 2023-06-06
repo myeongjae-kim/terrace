@@ -1,24 +1,30 @@
 import {Container, decorate, inject, injectable} from "inversify";
 import {BlogPersistenceAdapter} from "./outgoing/BlogPersistenceAdapter";
-import * as axiosModule from "../../infrastructure/remote-call/inversify";
+import * as remoteCallModule from "../../infrastructure/remote-call/inversify";
 import {BlogService} from "../application/BlogService";
+import { BlogSupabaseAdapter } from "./outgoing/BlogSupabaseAdapter";
 
 const TYPES = {
   BlogPersistenceAdapterId: Symbol.for("BlogPersistenceAdapter"),
+  BlogSupabaseAdapterId: Symbol.for("BlogSupabaseAdapter"),
   BlogGetUseCaseId: Symbol.for("BlogGetUseCase"),
   BlogFindAllUseCaseId: Symbol.for("BlogFindAllUseCase"),
   BlogGetPrevOrNextUseCaseId: Symbol.for("BlogGetPrevOrNextUseCase"),
 };
 
-export const { BlogGetUseCaseId, BlogFindAllUseCaseId, BlogGetPrevOrNextUseCaseId } = TYPES;
+export const { BlogGetUseCaseId, BlogSupabaseAdapterId, BlogFindAllUseCaseId, BlogGetPrevOrNextUseCaseId } = TYPES;
 
 export const decorateClasses = () => {
   decorate(injectable(), BlogPersistenceAdapter);
-  decorate(inject(axiosModule.AxiosId), BlogPersistenceAdapter, 0);
+  decorate(inject(remoteCallModule.AxiosId), BlogPersistenceAdapter, 0);
 
   decorate(injectable(), BlogService);
   decorate(inject(TYPES.BlogPersistenceAdapterId), BlogService, 0);
   decorate(inject(TYPES.BlogPersistenceAdapterId), BlogService, 1);
+  decorate(inject(TYPES.BlogSupabaseAdapterId), BlogService, 2);
+
+  decorate(injectable(), BlogSupabaseAdapter);
+  decorate(inject(remoteCallModule.SupabaseId), BlogSupabaseAdapter, 0);
 };
 
 export const bind = (container: Container) => {
@@ -26,4 +32,5 @@ export const bind = (container: Container) => {
   container.bind(TYPES.BlogGetUseCaseId).to(BlogService);
   container.bind(TYPES.BlogGetPrevOrNextUseCaseId).to(BlogService);
   container.bind(TYPES.BlogFindAllUseCaseId).to(BlogService);
+  container.bind(TYPES.BlogSupabaseAdapterId).to(BlogSupabaseAdapter);
 };
