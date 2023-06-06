@@ -1,13 +1,14 @@
-import {BlogFindAllUseCase} from "./port/incoming/BlogFindAllUseCase";
-import {BlogGetUseCase} from "./port/incoming/BlogGetUseCase";
-import {BlogGetPrevOrNextUseCase} from "./port/incoming/BlogGetPrevOrNextUseCase";
-import {StrapiResponse} from "../../common/domain/StrapiResponse";
-import {BlogLoadPort} from "./port/outgoing/BlogLoadPort";
-import {BlogLoadPrevOrNextPort} from "./port/outgoing/LoadBlogPrevOrNext";
-import {BlogArticle} from "../domain";
-import {BlogArticleDetailResponse, BlogArticlePrevOrNext} from "../domain/BlogArticleDetailResponse";
-import {BlogArticleListResponse} from "../domain/BlogArticleListResponse";
-import {BlogArticleListStrapi} from "./port/outgoing/BlogArticleListStrapi";
+import { BlogFindAllUseCase } from "./port/incoming/BlogFindAllUseCase";
+import { BlogGetUseCase } from "./port/incoming/BlogGetUseCase";
+import { BlogGetPrevOrNextUseCase } from "./port/incoming/BlogGetPrevOrNextUseCase";
+import { StrapiResponse } from "../../common/domain/StrapiResponse";
+import { BlogLoadPort } from "./port/outgoing/BlogLoadPort";
+import { BlogLoadPrevOrNextPort } from "./port/outgoing/LoadBlogPrevOrNext";
+import { BlogArticle } from "../domain";
+import { BlogArticleDetailResponse, BlogArticlePrevOrNext } from "../domain/BlogArticleDetailResponse";
+import { BlogArticleListResponse } from "../domain/BlogArticleListResponse";
+import { BlogArticleListStrapi } from "./port/outgoing/BlogArticleListStrapi";
+import { BlogLoadSupabasePort } from "./port/outgoing/BlogLoadSupabasePort";
 
 export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetPrevOrNextUseCase{
 
@@ -20,19 +21,20 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
 
   constructor(
     private readonly loadBlogPort: BlogLoadPort,
-    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextPort
+    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextPort,
+    private readonly loadBlogSupabasePort: BlogLoadSupabasePort
   ) { }
 
   public getBySlug = (slug: string): Promise<BlogArticleDetailResponse> =>
-    this.loadBlogPort.getBySlug(slug)
+    this.loadBlogSupabasePort.getBySlug(slug)
       .then(it => ({
         id: "" + it.id,
-        seq: it.attributes.seq,
-        createdAt: it.attributes.createdAt,
-        updatedAt: it.attributes.updatedAt,
-        title: it.attributes.title,
-        slug: it.attributes.slug,
-        content: it.attributes.content,
+        seq: it.seq,
+        createdAt: it.created_at,
+        updatedAt: it.updated_at,
+        title: it.title,
+        slug: it.slug,
+        content: it.content,
         prev: this.defaultPrevOrNext,
         next: this.defaultPrevOrNext
       }));

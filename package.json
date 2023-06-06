@@ -23,6 +23,7 @@
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.3",
     "@mui/styles": "^5.4.2",
+    "@supabase/supabase-js": "^2.24.0",
     "@types/nprogress": "^0.2.0",
     "ace-builds": "^1.14.0",
     "axios": "^0.24.0",
