@@ -15,7 +15,7 @@ export class BlogSupabaseAdapter
   }
 
   private readonly defaultPrevOrNext: BlogArticleListSupabaseResponse = {
-    id: "-1",
+    id: -1,
     seq: -1,
     created_at: "",
     updated_at: "",

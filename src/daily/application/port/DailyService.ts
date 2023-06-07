@@ -1,25 +1,25 @@
-import {DailyFindAllUseCase} from "./incoming/DailyFindAllUseCase";
-import {DailyGetUseCase} from "./incoming/DailyGetUseCase";
-import {DailyLoadPort} from "./outgoing/DailyLoadPort";
-import {DailyDetailResponse} from "../../domain/DailyDetailResponse";
-import {DailyListResponse} from "../../domain/DailyListResponse";
-import {StrapiResponse} from "../../../common/domain/StrapiResponse";
-import {Daily} from "../../domain";
+import { DailyFindAllUseCase } from "./incoming/DailyFindAllUseCase";
+import { DailyGetUseCase } from "./incoming/DailyGetUseCase";
+import { DailyDetailResponse } from "../../domain/DailyDetailResponse";
+import { DailyListResponse } from "../../domain/DailyListResponse";
+import { StrapiResponse } from "../../../common/domain/StrapiResponse";
+import { Daily } from "../../domain";
+import { DailyLoadSupabasePort } from "./outgoing/DailyLoadSupabasePort";
 
 export class DailyService implements DailyFindAllUseCase, DailyGetUseCase{
 
-  constructor(private readonly loadDailyPort: DailyLoadPort) { }
+  constructor(private readonly loadDailyPort: DailyLoadSupabasePort) { }
 
   public getBySlug = (slug: string): Promise<DailyDetailResponse> =>
     this.loadDailyPort.getBySlug(slug)
       .then(it => ({
         id: "" + it.id,
-        seq: it.attributes.seq,
-        createdAt: it.attributes.createdAt,
-        updatedAt: it.attributes.updatedAt,
-        title: it.attributes.title,
-        slug: it.attributes.slug,
-        content: it.attributes.content,
+        seq: it.seq,
+        createdAt: it.created_at,
+        updatedAt: it.updated_at,
+        title: it.title,
+        slug: it.slug,
+        content: it.content,
       }));
 
   public findAll = (page: number): Promise<StrapiResponse<DailyListResponse>> =>
@@ -27,10 +27,10 @@ export class DailyService implements DailyFindAllUseCase, DailyGetUseCase{
       .then(data => ({
         data: data.data.map(it => ({
           id: "" + it.id,
-          seq: it.attributes.seq,
-          createdAt: it.attributes.createdAt,
-          uri: Daily.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
-          title: it.attributes.title,
+          seq: it.seq,
+          createdAt: it.created_at,
+          uri: Daily.createUri({createdAt: it.created_at, slug: it.slug}),
+          title: it.title,
         })),
         meta: data.meta,
       }));
