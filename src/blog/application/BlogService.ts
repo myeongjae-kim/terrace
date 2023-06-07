@@ -40,14 +40,14 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
       }));
 
   public findAll = (page: number): Promise<StrapiResponse<BlogArticleListResponse>> =>
-    this.loadBlogPort.findAll(page)
+    this.loadBlogSupabasePort.findAll(page)
       .then(data => ({
         data: data.data.map(it => ({
           id: "" + it.id,
-          seq: it.attributes.seq,
-          createdAt: it.attributes.createdAt,
-          uri: BlogArticle.createUri({createdAt: it.attributes.createdAt, slug: it.attributes.slug}),
-          title: it.attributes.title,
+          seq: it.seq,
+          createdAt: it.created_at,
+          uri: BlogArticle.createUri({createdAt: it.created_at, slug: it.slug}),
+          title: it.title,
         })),
         meta: data.meta,
       }));
