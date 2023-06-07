@@ -2,7 +2,6 @@ import { BlogFindAllUseCase } from "./port/incoming/BlogFindAllUseCase";
 import { BlogGetUseCase } from "./port/incoming/BlogGetUseCase";
 import { BlogGetPrevOrNextUseCase } from "./port/incoming/BlogGetPrevOrNextUseCase";
 import { StrapiResponse } from "../../common/domain/StrapiResponse";
-import { BlogLoadPort } from "./port/outgoing/BlogLoadPort";
 import { BlogLoadPrevOrNextPort } from "./port/outgoing/LoadBlogPrevOrNext";
 import { BlogArticle } from "../domain";
 import { BlogArticleDetailResponse, BlogArticlePrevOrNext } from "../domain/BlogArticleDetailResponse";
@@ -20,7 +19,6 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
   };
 
   constructor(
-    private readonly loadBlogPort: BlogLoadPort,
     private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextPort,
     private readonly loadBlogSupabasePort: BlogLoadSupabasePort
   ) { }

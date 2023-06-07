@@ -1,6 +1,5 @@
 import { BlogArticleDetailResponse } from "../../../domain/BlogArticleDetailResponse";
 import { StrapiResponse } from "../../../../common/domain/StrapiResponse";
-import { BlogArticleListStrapi } from "./BlogArticleListStrapi";
 
 export type BlogArticleDetailSupabaseResponse = Omit<BlogArticleDetailResponse, "prev" | "next" | "createdAt" | "updatedAt"> & {
   created_at: string;
