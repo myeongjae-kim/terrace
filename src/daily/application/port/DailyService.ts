@@ -2,7 +2,7 @@ import { DailyFindAllUseCase } from "./incoming/DailyFindAllUseCase";
 import { DailyGetUseCase } from "./incoming/DailyGetUseCase";
 import { DailyDetailResponse } from "../../domain/DailyDetailResponse";
 import { DailyListResponse } from "../../domain/DailyListResponse";
-import { StrapiResponse } from "../../../common/domain/StrapiResponse";
+import { Response } from "../../../common/domain/Response";
 import { Daily } from "../../domain";
 import { DailyLoadSupabasePort } from "./outgoing/DailyLoadSupabasePort";
 
@@ -22,7 +22,7 @@ export class DailyService implements DailyFindAllUseCase, DailyGetUseCase{
         content: it.content,
       }));
 
-  public findAll = (page: number): Promise<StrapiResponse<DailyListResponse>> =>
+  public findAll = (page: number): Promise<Response<DailyListResponse>> =>
     this.loadDailyPort.findAll(page)
       .then(data => ({
         data: data.data.map(it => ({

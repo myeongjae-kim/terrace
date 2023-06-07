@@ -1,7 +1,7 @@
 import {createStyles, makeStyles} from "@mui/styles";
 import * as React from "react";
 import EachBlogArticle from "./EachBlogArticle";
-import {StrapiPagination} from "src/common/domain/StrapiPagination";
+import {Page} from "src/common/domain/Page";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
 import {Theme} from "@mui/material";
 
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export interface BlogArticleListProps {
   blogArticles: BlogArticleListResponse[];
-  pagination: StrapiPagination,
+  pagination: Page,
 }
 
 const BlogArticleList = ({ blogArticles }: BlogArticleListProps) => {

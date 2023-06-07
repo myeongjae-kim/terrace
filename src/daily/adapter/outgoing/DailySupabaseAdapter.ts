@@ -1,4 +1,4 @@
-import { StrapiResponse } from "../../../common/domain/StrapiResponse";
+import { Response } from "../../../common/domain/Response";
 import RepositoryError from "../../../common/exception/RepositoryError";
 import { DailyLoadSupabasePort } from "src/daily/application/port/outgoing/DailyLoadSupabasePort";
 import { getPagination } from "../../../common/domain/getPagination";
@@ -11,7 +11,7 @@ export class DailySupabaseAdapter implements DailyLoadSupabasePort {
   constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
   }
 
-  public findAll = async (page: number): Promise<StrapiResponse<DailyListSupabase>> => {
+  public findAll = async (page: number): Promise<Response<DailyListSupabase>> => {
     const pageSize = 20;
     const {from, to} = getPagination(page, pageSize);
     const { data: dailies, count, error } = await this.supabase

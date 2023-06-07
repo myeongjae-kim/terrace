@@ -1,5 +1,5 @@
 import { BlogArticleDetailResponse } from "../../../domain/BlogArticleDetailResponse";
-import { StrapiResponse } from "../../../../common/domain/StrapiResponse";
+import { Response } from "../../../../common/domain/Response";
 
 export type BlogArticleDetailSupabaseResponse = Omit<BlogArticleDetailResponse, "prev" | "next" | "createdAt" | "updatedAt"> & {
   created_at: string;
@@ -10,5 +10,5 @@ export type BlogArticleListSupabaseResponse = Omit<BlogArticleDetailSupabaseResp
 
 export interface BlogLoadSupabasePort {
   getBySlug(slug: string): Promise<BlogArticleDetailSupabaseResponse>
-  findAll(page: number): Promise<StrapiResponse<BlogArticleListSupabaseResponse>>
+  findAll(page: number): Promise<Response<BlogArticleListSupabaseResponse>>
 }

@@ -1,5 +1,5 @@
-import { MusingStrapi } from "./MusingStrapi";
+import { Musing } from "./Musing";
 
 export interface MusingLoadPort {
-  findAll(): Promise<MusingStrapi[]>
+  findAll(): Promise<Musing[]>
 }

@@ -5,7 +5,7 @@ import {
   BlogLoadSupabasePort
 } from "../../application/port/outgoing/BlogLoadSupabasePort";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { StrapiResponse } from "src/common/domain/StrapiResponse";
+import { Response } from "src/common/domain/Response";
 import { getPagination } from "../../../common/domain/getPagination";
 import { BlogLoadPrevOrNextSupabasePort } from "../../application/port/outgoing/BlogLoadPrevOrNextSupabasePort";
 
@@ -37,7 +37,7 @@ export class BlogSupabaseAdapter
     return blog_articles[0] as BlogArticleDetailSupabaseResponse;
   };
 
-  public findAll = async (page: number): Promise<StrapiResponse<BlogArticleListSupabaseResponse>> => {
+  public findAll = async (page: number): Promise<Response<BlogArticleListSupabaseResponse>> => {
     const pageSize = 10;
     const {from, to} = getPagination(page, pageSize);
     const { data: blog_articles, count, error } = await this.supabase

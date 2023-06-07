@@ -3,9 +3,9 @@ import {HeadTitle, PageTitle} from "src/common/view/presentation/components/mole
 import DailyList from "src/daily/view/presentation/components/templates/DailyList";
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import MyPagination from "src/common/view/presentation/components/organisms/MyPagination";
-import {strapiPaginationDefault} from "src/common/domain/StrapiPagination";
+import {pageDefault} from "src/common/domain/Page";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {StrapiResponse} from "src/common/domain/StrapiResponse";
+import {Response} from "src/common/domain/Response";
 import useSWR, {SWRConfig} from "swr";
 import {useRouter} from "next/router";
 import {DailyListProps} from "src/daily/view/presentation/components/templates/DailyList/DailyList";
@@ -17,7 +17,7 @@ import {DailyFindAllUseCaseId} from "src/daily/adapter/inversify";
 const {findAll} = container.get<DailyFindAllUseCase>(DailyFindAllUseCaseId);
 
 interface Props {
-  fallback: {[x: string]: StrapiResponse<DailyListResponse>}
+  fallback: {[x: string]: Response<DailyListResponse>}
 }
 
 const getApiKey = (page: number) => `@dailyList/PAGE_${page}`;
@@ -26,12 +26,12 @@ const DailyListPage = () => {
   const router = useRouter();
   const pageNumber = parseInt("" + router.query["page"]) || 1;
 
-  const res = useSWR<StrapiResponse<DailyListResponse>>(getApiKey(pageNumber), () => findAll(pageNumber));
+  const res = useSWR<Response<DailyListResponse>>(getApiKey(pageNumber), () => findAll(pageNumber));
 
   const listProps: DailyListProps = {
     dailys: res.data?.data || [],
   };
-  const pagination = res.data?.meta.pagination || strapiPaginationDefault;
+  const pagination = res.data?.meta.pagination || pageDefault;
 
   return <div style={pageContainerStyle}>
     <div style={pageContainerStyle}>
@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const {query} = context;
   const page = parseInt("" + query["page"]) || 1;
 
-  const props: StrapiResponse<DailyListResponse> = await findAll(page);
+  const props: Response<DailyListResponse> = await findAll(page);
   const key = getApiKey(page);
 
   return {
