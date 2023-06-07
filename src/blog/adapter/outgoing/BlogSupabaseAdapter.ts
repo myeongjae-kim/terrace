@@ -7,17 +7,28 @@ import {
 import { SupabaseClient } from "@supabase/supabase-js";
 import { StrapiResponse } from "src/common/domain/StrapiResponse";
 import { getPagination } from "../../../common/domain/getPagination";
+import { BlogLoadPrevOrNextSupabasePort } from "../../application/port/outgoing/BlogLoadPrevOrNextSupabasePort";
 
 export class BlogSupabaseAdapter
-  implements BlogLoadSupabasePort {
+  implements BlogLoadSupabasePort, BlogLoadPrevOrNextSupabasePort {
   constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
   }
+
+  private readonly defaultPrevOrNext: BlogArticleListSupabaseResponse = {
+    id: "-1",
+    seq: -1,
+    created_at: "",
+    updated_at: "",
+    slug: "",
+    title: "",
+  };
 
   public getBySlug = async (slug: string): Promise<BlogArticleDetailSupabaseResponse> => {
     const { data: blog_articles, error } = await this.supabase
       .from("blog_articles")
       .select("*")
-      .eq("slug", slug);
+      .eq("slug", slug)
+      .not("published_at", "is", null);
 
     if (blog_articles === null || blog_articles.length === 0) {
       throw RepositoryError.of(error as any);
@@ -50,6 +61,30 @@ export class BlogSupabaseAdapter
           total: count
         }
       }
-    }; 
+    };
+  };
+
+  public getNextOf = async (seq: number): Promise<BlogArticleListSupabaseResponse> => {
+    const {data} = await this.supabase
+      .from("blog_articles")
+      .select("id,seq,title,slug,created_at,updated_at")
+      .order("seq", { ascending: true })
+      .gt("seq", seq)
+      .not("published_at", "is", null)
+      .range(0, 0);
+
+    return (data?.[0] || this.defaultPrevOrNext) as BlogArticleListSupabaseResponse;
+  };
+
+  public getPrevOf = async (seq: number): Promise<BlogArticleListSupabaseResponse> => {
+    const {data} = await this.supabase
+      .from("blog_articles")
+      .select("id,seq,title,slug,created_at,updated_at")
+      .order("seq", { ascending: false })
+      .lt("seq", seq)
+      .not("published_at", "is", null)
+      .range(0, 0);
+
+    return (data?.[0] || this.defaultPrevOrNext) as BlogArticleListSupabaseResponse;
   };
 }
