@@ -1,4 +1,4 @@
-export interface DailySupabase {
+export interface Daily {
   id: number;
   seq: number;
   created_at: string;

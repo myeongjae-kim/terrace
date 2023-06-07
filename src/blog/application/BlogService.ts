@@ -5,8 +5,8 @@ import { Response } from "../../common/domain/Response";
 import { BlogArticle } from "../domain";
 import { BlogArticleDetailResponse, BlogArticlePrevOrNext } from "../domain/BlogArticleDetailResponse";
 import { BlogArticleListResponse } from "../domain/BlogArticleListResponse";
-import { BlogArticleListSupabaseResponse, BlogLoadSupabasePort } from "./port/outgoing/BlogLoadSupabasePort";
-import { BlogLoadPrevOrNextSupabasePort } from "./port/outgoing/BlogLoadPrevOrNextSupabasePort";
+import { BlogArticleListRemoteResponse, BlogLoadPort } from "./port/outgoing/BlogLoadPort";
+import { BlogLoadPrevOrNextPort } from "./port/outgoing/BlogLoadPrevOrNextPort";
 
 export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetPrevOrNextUseCase{
 
@@ -18,8 +18,8 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
   };
 
   constructor(
-    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextSupabasePort,
-    private readonly loadBlogSupabasePort: BlogLoadSupabasePort
+    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextPort,
+    private readonly loadBlogSupabasePort: BlogLoadPort
   ) { }
 
   public getBySlug = (slug: string): Promise<BlogArticleDetailResponse> =>
@@ -55,7 +55,7 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
   public getNextOf = (seq: number): Promise<BlogArticlePrevOrNext> =>
     this.loadBlogPrevOrNextPort.getNextOf(seq).then(this.convertListToPrevOrNext);
 
-  private convertListToPrevOrNext = (list: BlogArticleListSupabaseResponse): BlogArticlePrevOrNext =>
+  private convertListToPrevOrNext = (list: BlogArticleListRemoteResponse): BlogArticlePrevOrNext =>
     ({
       id: "" + list.id,
       createdAt: list.created_at,
