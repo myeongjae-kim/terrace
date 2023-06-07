@@ -1,18 +1,24 @@
-import {StrapiResponse} from "../../../common/domain/StrapiResponse";
-import {AxiosInstance} from "axios";
-import {Endpoints} from "../../../common/constants/Constants";
-import {MusingLoadPort} from "../../application/port/outgoing/MusingLoadPort";
-import {MusingStrapi} from "../../application/port/outgoing/MusingStrapi";
+import { MusingLoadPort } from "../../application/port/outgoing/MusingLoadPort";
+import { MusingStrapi } from "../../application/port/outgoing/MusingStrapi";
+import { SupabaseClient } from "@supabase/supabase-js";
+import RepositoryError from "../../../common/exception/RepositoryError";
 
 export class MusingPersistenceAdapter implements MusingLoadPort {
 
-  constructor(private readonly axios: AxiosInstance) {}
+  constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
+  }
 
-  public findAll = (): Promise<StrapiResponse<MusingStrapi>> =>
-    this.axios.get<StrapiResponse<MusingStrapi>>(Endpoints.musings, {
-      params: {
-        "sort[0]": "id:asc",
-        "pagination[pageSize]": 100 // 최대 100개.
-      }
-    }).then(it => it.data);
+  public findAll = async (): Promise<MusingStrapi[]> => {
+    const { data: musings, error } = await this.supabase
+      .from("musings")
+      .select("id,seq,created_at,updated_at,quote,from,language")
+      .order("seq", { ascending: true })
+      .not("published_at", "is", null);
+
+    if (musings === null) {
+      throw RepositoryError.of(error as any);
+    }
+
+    return musings as MusingStrapi[];
+  };
 }
