@@ -1,11 +1,9 @@
-import {Container, decorate, inject, injectable} from "inversify";
+import { Container, decorate, inject, injectable } from "inversify";
 import * as axiosModule from "../../infrastructure/remote-call/inversify";
-import {DailyPersistenceAdapter} from "./outgoing/DailyPersistenceAdapter";
-import {DailyService} from "../application/port/DailyService";
+import { DailyService } from "../application/port/DailyService";
 import { DailySupabaseAdapter } from "./outgoing/DailySupabaseAdapter";
 
 const TYPES = {
-  DailyPersistenceAdapterId: Symbol.for("DailyPersistenceAdapter"),
   DailySupabaseAdapterId: Symbol.for("DailySupabaseAdapter"),
   DailyGetUseCaseId: Symbol.for("DailyGetUseCase"),
   DailyFindAllUseCaseId: Symbol.for("DailyFindAllUseCase"),
@@ -14,9 +12,6 @@ const TYPES = {
 export const { DailyGetUseCaseId, DailyFindAllUseCaseId } = TYPES;
 
 export const decorateClasses = () => {
-  decorate(injectable(), DailyPersistenceAdapter);
-  decorate(inject(axiosModule.AxiosId), DailyPersistenceAdapter, 0);
-
   decorate(injectable(), DailySupabaseAdapter);
   decorate(inject(axiosModule.SupabaseId), DailySupabaseAdapter, 0);
 
@@ -25,7 +20,6 @@ export const decorateClasses = () => {
 };
 
 export const bind = (container: Container) => {
-  container.bind(TYPES.DailyPersistenceAdapterId).to(DailyPersistenceAdapter);
   container.bind(TYPES.DailySupabaseAdapterId).to(DailySupabaseAdapter);
   container.bind(TYPES.DailyGetUseCaseId).to(DailyService);
   container.bind(TYPES.DailyFindAllUseCaseId).to(DailyService);
