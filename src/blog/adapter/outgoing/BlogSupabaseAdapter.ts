@@ -1,14 +1,17 @@
 import RepositoryError from "../../../common/exception/RepositoryError";
 import {
   BlogArticleDetailSupabaseResponse,
+  BlogArticleListSupabaseResponse,
   BlogLoadSupabasePort
 } from "../../application/port/outgoing/BlogLoadSupabasePort";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { StrapiResponse } from "src/common/domain/StrapiResponse";
+import { getPagination } from "../../../common/domain/getPagination";
 
 export class BlogSupabaseAdapter
-  implements BlogLoadSupabasePort
-{
-  constructor(private readonly supabase: SupabaseClient<any, "public", any>) {}
+  implements BlogLoadSupabasePort {
+  constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
+  }
 
   public getBySlug = async (slug: string): Promise<BlogArticleDetailSupabaseResponse> => {
     const { data: blog_articles, error } = await this.supabase
@@ -21,5 +24,32 @@ export class BlogSupabaseAdapter
     }
 
     return blog_articles[0] as BlogArticleDetailSupabaseResponse;
+  };
+
+  public findAll = async (page: number): Promise<StrapiResponse<BlogArticleListSupabaseResponse>> => {
+    const pageSize = 10;
+    const {from, to} = getPagination(page, pageSize);
+    const { data: blog_articles, count, error } = await this.supabase
+      .from("blog_articles")
+      .select("id,seq,title,slug,created_at,updated_at", {count: "exact"})
+      .order("seq", { ascending: false })
+      .not("published_at", "is", null)
+      .range(from, to);
+
+    if (blog_articles === null || count === null) {
+      throw RepositoryError.of(error as any);
+    }
+
+    return {
+      data: blog_articles as BlogArticleListSupabaseResponse[],
+      meta:{
+        pagination: {
+          page,
+          pageSize,
+          pageCount: Math.ceil(count / pageSize),
+          total: count
+        }
+      }
+    }; 
   };
 }
