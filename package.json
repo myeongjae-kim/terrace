@@ -1,6 +1,6 @@
 {
-  "name": "terrace",
-  "version": "1.0.0",
+  "name": "community-web",
+  "version": "0.0.1",
   "private": true,
   "cacheDirectories": [
     ".next/cache"
@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run lint && npm run test && next build",
-    "start": "NODE_ENV=production next start",
+    "prestart": "./scripts/prestart.sh",
+    "start": "NODE_ENV=production next start -p $PORT",
+    "start:local": "NODE_ENV=production next start",
     "lint": "eslint . --ext .ts,.tsx --fix && tsc --noEmit",
     "test": "jest",
     "report": "jest unit --coverage"
