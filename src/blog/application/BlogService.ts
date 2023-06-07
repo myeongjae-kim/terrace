@@ -25,7 +25,7 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
   public getBySlug = (slug: string): Promise<BlogArticleDetailResponse> =>
     this.loadBlogSupabasePort.getBySlug(slug)
       .then(it => ({
-        id: "" + it.id,
+        id: it.id,
         seq: it.seq,
         createdAt: it.created_at,
         updatedAt: it.updated_at,
@@ -57,7 +57,7 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
 
   private convertListToPrevOrNext = (list: BlogArticleListSupabaseResponse): BlogArticlePrevOrNext =>
     ({
-      id: list.id,
+      id: "" + list.id,
       createdAt: list.created_at,
       title: list.title,
       uri: BlogArticle.createUri({createdAt: list.created_at, slug: list.slug}),
