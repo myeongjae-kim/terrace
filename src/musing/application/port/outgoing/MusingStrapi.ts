@@ -1,6 +1,9 @@
-import {MusingAttributes} from "./MusingAttributes";
-
 export interface MusingStrapi {
   id: number;
-  attributes: MusingAttributes
+  seq: number;
+  created_at: string;
+  updated_at: string;
+  quote: string;
+  from: string;
+  language: string;
 }

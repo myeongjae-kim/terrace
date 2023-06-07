@@ -12,7 +12,7 @@ export const { MusingFindAllUseCaseId } = TYPES;
 
 export const decorateClasses = () => {
   decorate(injectable(), MusingPersistenceAdapter);
-  decorate(inject(axiosModule.AxiosId), MusingPersistenceAdapter, 0);
+  decorate(inject(axiosModule.SupabaseId), MusingPersistenceAdapter, 0);
 
   decorate(injectable(), MusingService);
   decorate(inject(TYPES.MusingPersistenceAdapterId), MusingService, 0);
