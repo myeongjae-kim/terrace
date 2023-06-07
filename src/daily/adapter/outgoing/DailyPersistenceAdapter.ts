@@ -1,17 +1,17 @@
 import { Response } from "../../../common/domain/Response";
 import RepositoryError from "../../../common/exception/RepositoryError";
-import { DailyLoadSupabasePort } from "src/daily/application/port/outgoing/DailyLoadSupabasePort";
+import { DailyLoadPort } from "src/daily/application/port/outgoing/DailyLoadPort";
 import { getPagination } from "../../../common/domain/getPagination";
-import { DailyListSupabase } from "../../application/port/outgoing/DailyListSupabase";
+import { DailyList } from "../../application/port/outgoing/DailyList";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { DailySupabase } from "../../application/port/outgoing/DailySupabase";
+import { Daily } from "../../application/port/outgoing/Daily";
 
-export class DailySupabaseAdapter implements DailyLoadSupabasePort {
+export class DailyPersistenceAdapter implements DailyLoadPort {
 
   constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
   }
 
-  public findAll = async (page: number): Promise<Response<DailyListSupabase>> => {
+  public findAll = async (page: number): Promise<Response<DailyList>> => {
     const pageSize = 20;
     const {from, to} = getPagination(page, pageSize);
     const { data: dailies, count, error } = await this.supabase
@@ -26,7 +26,7 @@ export class DailySupabaseAdapter implements DailyLoadSupabasePort {
     }
 
     return {
-      data: dailies as DailyListSupabase[],
+      data: dailies as DailyList[],
       meta:{
         pagination: {
           page,
@@ -38,7 +38,7 @@ export class DailySupabaseAdapter implements DailyLoadSupabasePort {
     };
   };
 
-  public getBySlug = async (slug: string): Promise<DailySupabase> => {
+  public getBySlug = async (slug: string): Promise<Daily> => {
     const { data: dailies, error } = await this.supabase
       .from("dailies")
       .select("*")
@@ -49,6 +49,6 @@ export class DailySupabaseAdapter implements DailyLoadSupabasePort {
       throw RepositoryError.of(error as any);
     }
 
-    return dailies[0] as DailySupabase;
+    return dailies[0] as Daily;
   };
 }

@@ -4,11 +4,11 @@ import { DailyDetailResponse } from "../../domain/DailyDetailResponse";
 import { DailyListResponse } from "../../domain/DailyListResponse";
 import { Response } from "../../../common/domain/Response";
 import { Daily } from "../../domain";
-import { DailyLoadSupabasePort } from "./outgoing/DailyLoadSupabasePort";
+import { DailyLoadPort } from "./outgoing/DailyLoadPort";
 
 export class DailyService implements DailyFindAllUseCase, DailyGetUseCase{
 
-  constructor(private readonly loadDailyPort: DailyLoadSupabasePort) { }
+  constructor(private readonly loadDailyPort: DailyLoadPort) { }
 
   public getBySlug = (slug: string): Promise<DailyDetailResponse> =>
     this.loadDailyPort.getBySlug(slug)

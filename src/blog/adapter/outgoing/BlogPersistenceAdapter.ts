@@ -1,20 +1,20 @@
 import RepositoryError from "../../../common/exception/RepositoryError";
 import {
-  BlogArticleDetailSupabaseResponse,
-  BlogArticleListSupabaseResponse,
-  BlogLoadSupabasePort
-} from "../../application/port/outgoing/BlogLoadSupabasePort";
+  BlogArticleDetailRemoteResponse,
+  BlogArticleListRemoteResponse,
+  BlogLoadPort
+} from "../../application/port/outgoing/BlogLoadPort";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Response } from "src/common/domain/Response";
 import { getPagination } from "../../../common/domain/getPagination";
-import { BlogLoadPrevOrNextSupabasePort } from "../../application/port/outgoing/BlogLoadPrevOrNextSupabasePort";
+import { BlogLoadPrevOrNextPort } from "../../application/port/outgoing/BlogLoadPrevOrNextPort";
 
-export class BlogSupabaseAdapter
-  implements BlogLoadSupabasePort, BlogLoadPrevOrNextSupabasePort {
+export class BlogPersistenceAdapter
+  implements BlogLoadPort, BlogLoadPrevOrNextPort {
   constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
   }
 
-  private readonly defaultPrevOrNext: BlogArticleListSupabaseResponse = {
+  private readonly defaultPrevOrNext: BlogArticleListRemoteResponse = {
     id: -1,
     seq: -1,
     created_at: "",
@@ -23,7 +23,7 @@ export class BlogSupabaseAdapter
     title: "",
   };
 
-  public getBySlug = async (slug: string): Promise<BlogArticleDetailSupabaseResponse> => {
+  public getBySlug = async (slug: string): Promise<BlogArticleDetailRemoteResponse> => {
     const { data: blog_articles, error } = await this.supabase
       .from("blog_articles")
       .select("*")
@@ -34,10 +34,10 @@ export class BlogSupabaseAdapter
       throw RepositoryError.of(error as any);
     }
 
-    return blog_articles[0] as BlogArticleDetailSupabaseResponse;
+    return blog_articles[0] as BlogArticleDetailRemoteResponse;
   };
 
-  public findAll = async (page: number): Promise<Response<BlogArticleListSupabaseResponse>> => {
+  public findAll = async (page: number): Promise<Response<BlogArticleListRemoteResponse>> => {
     const pageSize = 10;
     const {from, to} = getPagination(page, pageSize);
     const { data: blog_articles, count, error } = await this.supabase
@@ -52,7 +52,7 @@ export class BlogSupabaseAdapter
     }
 
     return {
-      data: blog_articles as BlogArticleListSupabaseResponse[],
+      data: blog_articles as BlogArticleListRemoteResponse[],
       meta:{
         pagination: {
           page,
@@ -64,7 +64,7 @@ export class BlogSupabaseAdapter
     };
   };
 
-  public getNextOf = async (seq: number): Promise<BlogArticleListSupabaseResponse> => {
+  public getNextOf = async (seq: number): Promise<BlogArticleListRemoteResponse> => {
     const {data} = await this.supabase
       .from("blog_articles")
       .select("id,seq,title,slug,created_at,updated_at")
@@ -73,10 +73,10 @@ export class BlogSupabaseAdapter
       .not("published_at", "is", null)
       .range(0, 0);
 
-    return (data?.[0] || this.defaultPrevOrNext) as BlogArticleListSupabaseResponse;
+    return (data?.[0] || this.defaultPrevOrNext) as BlogArticleListRemoteResponse;
   };
 
-  public getPrevOf = async (seq: number): Promise<BlogArticleListSupabaseResponse> => {
+  public getPrevOf = async (seq: number): Promise<BlogArticleListRemoteResponse> => {
     const {data} = await this.supabase
       .from("blog_articles")
       .select("id,seq,title,slug,created_at,updated_at")
@@ -85,6 +85,6 @@ export class BlogSupabaseAdapter
       .not("published_at", "is", null)
       .range(0, 0);
 
-    return (data?.[0] || this.defaultPrevOrNext) as BlogArticleListSupabaseResponse;
+    return (data?.[0] || this.defaultPrevOrNext) as BlogArticleListRemoteResponse;
   };
 }
