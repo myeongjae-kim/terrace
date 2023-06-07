@@ -2,12 +2,11 @@ import { BlogFindAllUseCase } from "./port/incoming/BlogFindAllUseCase";
 import { BlogGetUseCase } from "./port/incoming/BlogGetUseCase";
 import { BlogGetPrevOrNextUseCase } from "./port/incoming/BlogGetPrevOrNextUseCase";
 import { StrapiResponse } from "../../common/domain/StrapiResponse";
-import { BlogLoadPrevOrNextPort } from "./port/outgoing/LoadBlogPrevOrNext";
 import { BlogArticle } from "../domain";
 import { BlogArticleDetailResponse, BlogArticlePrevOrNext } from "../domain/BlogArticleDetailResponse";
 import { BlogArticleListResponse } from "../domain/BlogArticleListResponse";
-import { BlogArticleListStrapi } from "./port/outgoing/BlogArticleListStrapi";
-import { BlogLoadSupabasePort } from "./port/outgoing/BlogLoadSupabasePort";
+import { BlogArticleListSupabaseResponse, BlogLoadSupabasePort } from "./port/outgoing/BlogLoadSupabasePort";
+import { BlogLoadPrevOrNextSupabasePort } from "./port/outgoing/BlogLoadPrevOrNextSupabasePort";
 
 export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetPrevOrNextUseCase{
 
@@ -19,7 +18,7 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
   };
 
   constructor(
-    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextPort,
+    private readonly loadBlogPrevOrNextPort: BlogLoadPrevOrNextSupabasePort,
     private readonly loadBlogSupabasePort: BlogLoadSupabasePort
   ) { }
 
@@ -56,11 +55,11 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
   public getNextOf = (seq: number): Promise<BlogArticlePrevOrNext> =>
     this.loadBlogPrevOrNextPort.getNextOf(seq).then(this.convertListToPrevOrNext);
 
-  private convertListToPrevOrNext = (list: BlogArticleListStrapi): BlogArticlePrevOrNext =>
+  private convertListToPrevOrNext = (list: BlogArticleListSupabaseResponse): BlogArticlePrevOrNext =>
     ({
-      id: "" + list.id,
-      createdAt: list.attributes.createdAt,
-      title: list.attributes.title,
-      uri: BlogArticle.createUri({createdAt: list.attributes.createdAt, slug: list.attributes.slug}),
+      id: list.id,
+      createdAt: list.created_at,
+      title: list.title,
+      uri: BlogArticle.createUri({createdAt: list.created_at, slug: list.slug}),
     });
 }
