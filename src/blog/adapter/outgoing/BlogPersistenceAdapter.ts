@@ -1,14 +1,9 @@
-import { BlogLoadPort } from "src/blog/application/port/outgoing/BlogLoadPort";
 import { BlogLoadPrevOrNextPort } from "src/blog/application/port/outgoing/LoadBlogPrevOrNext";
-import { StrapiResponse } from "../../../common/domain/StrapiResponse";
 import { AxiosInstance } from "axios";
 import { Endpoints } from "../../../common/constants/Constants";
-import RepositoryError from "../../../common/exception/RepositoryError";
 import { BlogArticleListStrapi } from "../../application/port/outgoing/BlogArticleListStrapi";
-import { BlogArticleStrapi } from "../../application/port/outgoing/BlogArticleStrapi";
 
-export class BlogPersistenceAdapter
-  implements BlogLoadPort, BlogLoadPrevOrNextPort
+export class BlogPersistenceAdapter implements BlogLoadPrevOrNextPort
 {
   constructor(private readonly axios: AxiosInstance) {}
 
@@ -22,35 +17,6 @@ export class BlogPersistenceAdapter
       slug: "",
       title: "",
     },
-  };
-
-  public findAll = (
-    page: number
-  ): Promise<StrapiResponse<BlogArticleListStrapi>> =>
-    this.axios
-      .get<StrapiResponse<BlogArticleListStrapi>>(Endpoints.blog, {
-        params: {
-          fields: this.listFields,
-          sort: ["seq:desc"],
-          "pagination[page]": page,
-          "pagination[pageSize]": 10,
-        },
-      })
-      .then((it) => it.data);
-
-  public getBySlug = async (slug: string): Promise<BlogArticleStrapi> => {
-    const article: BlogArticleStrapi | undefined = await this.axios
-      .get<{ data: BlogArticleStrapi[] }>(Endpoints.blog, {
-        params: {
-          "filters[slug][$eq]": slug,
-        },
-      })
-      .then((it) => it.data.data[0]);
-    if (typeof article === "undefined") {
-      throw RepositoryError.of();
-    }
-
-    return article;
   };
 
   public getNextOf = async (seq: number): Promise<BlogArticleListStrapi> => {

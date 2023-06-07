@@ -20,8 +20,7 @@ export const decorateClasses = () => {
 
   decorate(injectable(), BlogService);
   decorate(inject(TYPES.BlogPersistenceAdapterId), BlogService, 0);
-  decorate(inject(TYPES.BlogPersistenceAdapterId), BlogService, 1);
-  decorate(inject(TYPES.BlogSupabaseAdapterId), BlogService, 2);
+  decorate(inject(TYPES.BlogSupabaseAdapterId), BlogService, 1);
 
   decorate(injectable(), BlogSupabaseAdapter);
   decorate(inject(remoteCallModule.SupabaseId), BlogSupabaseAdapter, 0);
