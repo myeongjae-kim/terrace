@@ -1,4 +1,4 @@
-export interface MusingStrapi {
+export interface Musing {
   id: number;
   seq: number;
   created_at: string;

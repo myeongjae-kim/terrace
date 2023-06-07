@@ -1,7 +1,7 @@
 import { BlogFindAllUseCase } from "./port/incoming/BlogFindAllUseCase";
 import { BlogGetUseCase } from "./port/incoming/BlogGetUseCase";
 import { BlogGetPrevOrNextUseCase } from "./port/incoming/BlogGetPrevOrNextUseCase";
-import { StrapiResponse } from "../../common/domain/StrapiResponse";
+import { Response } from "../../common/domain/Response";
 import { BlogArticle } from "../domain";
 import { BlogArticleDetailResponse, BlogArticlePrevOrNext } from "../domain/BlogArticleDetailResponse";
 import { BlogArticleListResponse } from "../domain/BlogArticleListResponse";
@@ -36,7 +36,7 @@ export class BlogService implements BlogFindAllUseCase, BlogGetUseCase, BlogGetP
         next: this.defaultPrevOrNext
       }));
 
-  public findAll = (page: number): Promise<StrapiResponse<BlogArticleListResponse>> =>
+  public findAll = (page: number): Promise<Response<BlogArticleListResponse>> =>
     this.loadBlogSupabasePort.findAll(page)
       .then(data => ({
         data: data.data.map(it => ({

@@ -5,9 +5,9 @@ import {HeadTitle, PageTitle} from "src/common/view/presentation/components/mole
 import MyPagination from "src/common/view/presentation/components/organisms/MyPagination";
 import {pageContainerStyle} from "src/common/view/presentation/styles/pageContainerStyle";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {strapiPaginationDefault} from "src/common/domain/StrapiPagination";
+import {pageDefault} from "src/common/domain/Page";
 import useSWR, {SWRConfig} from "swr";
-import {StrapiResponse} from "src/common/domain/StrapiResponse";
+import {Response} from "src/common/domain/Response";
 import {useRouter} from "next/router";
 import {BlogArticleListResponse} from "src/blog/domain/BlogArticleListResponse";
 import {container} from "src/config/inversify";
@@ -17,7 +17,7 @@ import {BlogFindAllUseCaseId} from "src/blog/adapter/inversify";
 const {findAll} = container.get<BlogFindAllUseCase>(BlogFindAllUseCaseId);
 
 interface Props {
-  fallback: {[x: string]: StrapiResponse<BlogArticleListResponse>}
+  fallback: {[x: string]: Response<BlogArticleListResponse>}
 }
 
 const getApiKey = (page: number) => `@blogArticleList/PAGE_${page}`;
@@ -26,11 +26,11 @@ const BlogArticleListPage = () => {
   const router = useRouter();
   const pageNumber = parseInt("" + router.query["page"]) || 1;
 
-  const res = useSWR<StrapiResponse<BlogArticleListResponse>>(getApiKey(pageNumber), () => findAll(pageNumber));
+  const res = useSWR<Response<BlogArticleListResponse>>(getApiKey(pageNumber), () => findAll(pageNumber));
 
   const listProps: BlogArticleListProps = {
     blogArticles: res.data?.data || [],
-    pagination: res.data?.meta.pagination || strapiPaginationDefault,
+    pagination: res.data?.meta.pagination || pageDefault,
   };
 
   return <div style={pageContainerStyle}>

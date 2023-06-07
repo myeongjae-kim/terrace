@@ -1,4 +1,4 @@
-import {StrapiPagination} from "../../../../domain/StrapiPagination";
+import {Page} from "../../../../domain/Page";
 import React from "react";
 import {Link} from "src/common/view/presentation/components/molecules";
 import {useRouter} from "next/router";
@@ -7,7 +7,7 @@ import {Pagination, PaginationItem} from "@mui/material";
 import {returnCreateLinkClickHandler} from "../../../../../util";
 
 interface Props {
-  pagination: StrapiPagination
+  pagination: Page
 }
 
 export const MyPagination = (props: Props) => {

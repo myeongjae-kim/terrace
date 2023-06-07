@@ -2,8 +2,7 @@
 
 ## Infrastructure
 
-- Backend (Strapi on Heroku)
-  - https://myeongjae-kim.herokuapp.com
+- Backend (Supabase Self-hosted)
 - Frontend (Nextjs on Heroku)
   - https://myeongjae.kim
     - origin: http://myeongjae-kim-frontend.herokuapp.com

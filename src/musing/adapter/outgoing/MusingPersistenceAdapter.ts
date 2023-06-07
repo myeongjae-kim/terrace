@@ -1,5 +1,5 @@
 import { MusingLoadPort } from "../../application/port/outgoing/MusingLoadPort";
-import { MusingStrapi } from "../../application/port/outgoing/MusingStrapi";
+import { Musing } from "../../application/port/outgoing/Musing";
 import { SupabaseClient } from "@supabase/supabase-js";
 import RepositoryError from "../../../common/exception/RepositoryError";
 
@@ -8,7 +8,7 @@ export class MusingPersistenceAdapter implements MusingLoadPort {
   constructor(private readonly supabase: SupabaseClient<any, "public", any>) {
   }
 
-  public findAll = async (): Promise<MusingStrapi[]> => {
+  public findAll = async (): Promise<Musing[]> => {
     const { data: musings, error } = await this.supabase
       .from("musings")
       .select("id,seq,created_at,updated_at,quote,from,language")
@@ -19,6 +19,6 @@ export class MusingPersistenceAdapter implements MusingLoadPort {
       throw RepositoryError.of(error as any);
     }
 
-    return musings as MusingStrapi[];
+    return musings as Musing[];
   };
 }
