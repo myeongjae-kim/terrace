@@ -1,3 +1,23 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "rules": {
+    "react/function-component-definition": [2, {
+      "namedComponents": "arrow-function",
+      "unnamedComponents": "arrow-function"
+    }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "@next/next/no-img-element": 0,
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^ignore",
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ]
+  }
 }
