@@ -1,5 +1,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
+import HeaderButton from '@/components/HeaderButton';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,7 +13,21 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className={'flex w-full justify-center'}>
+          <div>
+            <HeaderButton>Myeongjae Kim</HeaderButton>
+            <nav>
+              <Link href="/about">About</Link>
+              <Link href="/blog">Blog</Link>
+              <Link href="/daily">Daily</Link>
+              <Link href="/musings">Musings</Link>
+              <Link href="/places">Places</Link>
+            </nav>
+          </div>
+        </header>
+        {children}
+      </body>
     </html>
   );
 };
