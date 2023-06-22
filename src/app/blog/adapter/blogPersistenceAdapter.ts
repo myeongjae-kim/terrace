@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { BlogArticle, blogArticleDefault } from '@/app/blog/domain/model/BlogArticle';
-import { supabase } from '@/app/common/adapter/remote-call/supabase';
+import { supabaseClient } from '@/app/common/adapter/remote-call/supabaseClient';
 import { Paginated } from '@/app/common/domain/model/Paginated';
 import {
   BlogArticleListResponse,
@@ -65,4 +65,4 @@ const createBlogPersistenceAdapter = (supabase: SupabaseClient) => {
   return { getBySlug, findAll, getNextOf, getPrevOf };
 };
 
-export const blogPersistenceAdapter = createBlogPersistenceAdapter(supabase);
+export const blogPersistenceAdapter = createBlogPersistenceAdapter(supabaseClient);
