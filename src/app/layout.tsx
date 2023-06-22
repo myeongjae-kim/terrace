@@ -1,9 +1,14 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-import HeaderButton from '@/components/HeaderButton';
+import React from 'react';
+import HeaderButton from '@/app/common/components/HeaderButton';
 import Link from 'next/link';
+import { Inconsolata } from 'next/font/google';
+import clsx from 'clsx';
+import CategoryButton from '@/app/common/components/CategoryButton';
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ['latin'] });
+const suit = localFont({ src: './SUIT-Variable.woff2' });
+const inconsolata = Inconsolata({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,16 +18,34 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <header className={'flex w-full justify-center'}>
-          <div>
-            <HeaderButton>Myeongjae Kim</HeaderButton>
-            <nav>
-              <Link href="/about">About</Link>
-              <Link href="/blog">Blog</Link>
-              <Link href="/daily">Daily</Link>
-              <Link href="/musings">Musings</Link>
-              <Link href="/places">Places</Link>
+      <body className={suit.className}>
+        <header>
+          <div className={'flex justify-center'}>
+            <div className={'m-6 sm:my-10'}>
+              <Link href="/">
+                <HeaderButton className={clsx(inconsolata.className, 'uppercase tracking-[3px]')}>
+                  Myeongjae Kim
+                </HeaderButton>
+              </Link>
+            </div>
+          </div>
+          <div className={'flex justify-center'}>
+            <nav className={clsx(inconsolata.className, 'text-sm')}>
+              <Link href="/about">
+                <CategoryButton>About</CategoryButton>
+              </Link>
+              <Link href="/blog">
+                <CategoryButton>Blog</CategoryButton>
+              </Link>
+              <Link href="/daily">
+                <CategoryButton>Daily</CategoryButton>
+              </Link>
+              <Link href="/musings">
+                <CategoryButton>Musings</CategoryButton>
+              </Link>
+              <Link href="/places">
+                <CategoryButton>Places</CategoryButton>
+              </Link>
             </nav>
           </div>
         </header>
