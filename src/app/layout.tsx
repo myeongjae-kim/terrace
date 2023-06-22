@@ -20,8 +20,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en">
       <body className={suit.className}>
         <header>
-          <div className={'flex justify-center'}>
-            <div className={'m-6 sm:my-10'}>
+          <div className={'mb-2 mt-6 flex justify-center sm:mb-6 sm:mt-10'}>
+            <div>
               <Link href="/">
                 <HeaderButton className={clsx(inconsolata.className, 'uppercase tracking-[3px]')}>
                   Myeongjae Kim
