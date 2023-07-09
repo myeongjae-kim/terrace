@@ -14,6 +14,9 @@ dependencies:
   flowbite:
     specifier: ^1.6.6
     version: 1.6.6
+  material-icons:
+    specifier: ^1.13.8
+    version: 1.13.8
   next:
     specifier: 13.4.6
     version: 13.4.6(@babel/core@7.22.8)(react-dom@18.2.0)(react@18.2.0)
@@ -23,6 +26,9 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  ts-pattern:
+    specifier: ^5.0.1
+    version: 5.0.1
 
 devDependencies:
   '@testing-library/jest-dom':
@@ -3409,6 +3415,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /material-icons@1.13.8:
+    resolution: {integrity: sha512-vnLGXKa/AwFUxUgkiX39EpYVFttPhDQcKdVylIqmUUqz+Eo/O9A3BkdPCU3/G5cJOTezHi5B/b8sEpKYgUNAwQ==}
+    dev: false
+
   /meow@9.0.0:
     resolution: {integrity: sha512-+obSblOQmRhcyBt62furQqRAQpNyWXo8BuQ5bN7dG8wmwQ+vwHKp/rCFD4CrTP8CsDQD1sjoZ94K417XEUk8IQ==}
     engines: {node: '>=10'}
@@ -4727,6 +4737,10 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
+
+  /ts-pattern@5.0.1:
+    resolution: {integrity: sha512-ZyNm28Lsg34Co5DS3e9DVyjlX2Y+2exkI4jqTKyU+9/OL6Y2fKOOuL8i+7no71o74C6mVS+UFoP3ekM3iCT1HQ==}
+    dev: false
 
   /tsconfig-paths@3.14.2:
     resolution: {integrity: sha512-o/9iXgCYc5L/JxCHPe3Hvh8Q/2xm5Z+p18PESBU6Ff33695QnCHBEjcytY2q19ua7Mbl/DavtBOLq+oG0RCL+g==}

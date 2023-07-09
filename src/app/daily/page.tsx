@@ -1,6 +1,6 @@
 import { dailyPersistenceAdapter } from '@/app/daily/adapter/dailyPersistenceAdapter';
 
-const Daily = async () => {
+const DailyPage = async () => {
   const dailies = await dailyPersistenceAdapter.findAll(1);
 
   return (
@@ -11,4 +11,4 @@ const Daily = async () => {
   );
 };
 
-export default Daily;
+export default DailyPage;

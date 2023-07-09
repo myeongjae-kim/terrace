@@ -2,13 +2,10 @@ import './globals.css';
 import React from 'react';
 import HeaderButton from '@/app/common/components/HeaderButton';
 import Link from 'next/link';
-import { Inconsolata } from 'next/font/google';
 import clsx from 'clsx';
 import CategoryButton from '@/app/common/components/CategoryButton';
-import localFont from 'next/font/local';
-
-const suit = localFont({ src: './SUIT-Variable.woff2' });
-const inconsolata = Inconsolata({ subsets: ['latin'] });
+import { inconsolata, inconsolataLight } from '@/app/common/fonts/inconsolata';
+import { suit } from '@/app/common/fonts/suit';
 
 export const metadata = {
   title: 'Create Next App',
@@ -20,7 +17,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en">
       <body className={suit.className}>
         <header>
-          <div className={'mb-2 mt-6 flex justify-center sm:mb-6 sm:mt-10'}>
+          <div className={'mb-2 mt-6 flex justify-center sm:mb-5 sm:mt-10'}>
             <div>
               <Link href="/">
                 <HeaderButton className={clsx(inconsolata.className, 'uppercase tracking-[3px]')}>
@@ -30,7 +27,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           <div className={'flex justify-center'}>
-            <nav className={clsx(inconsolata.className, 'text-sm')}>
+            <nav className={clsx(inconsolataLight.className, 'text-sm')}>
               <Link href="/about">
                 <CategoryButton>About</CategoryButton>
               </Link>

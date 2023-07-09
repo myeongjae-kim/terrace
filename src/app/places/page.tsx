@@ -1,4 +1,4 @@
-const About = () => {
+const PlacesPage = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>places</div>
@@ -6,4 +6,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default PlacesPage;

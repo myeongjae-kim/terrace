@@ -1,6 +1,6 @@
 import { musingPersistenceAdapter } from '@/app/musings/adapter/musingPersistenceAdapter';
 
-const Musings = async () => {
+const MusingsPage = async () => {
   const musings = await musingPersistenceAdapter.findAll();
 
   return (
@@ -11,4 +11,4 @@ const Musings = async () => {
   );
 };
 
-export default Musings;
+export default MusingsPage;

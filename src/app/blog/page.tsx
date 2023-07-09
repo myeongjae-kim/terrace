@@ -1,6 +1,6 @@
 import { blogPersistenceAdapter } from '@/app/blog/adapter/blogPersistenceAdapter';
 
-const About = async () => {
+const BlogPage = async () => {
   const articles = await blogPersistenceAdapter.findAll(1);
 
   return (
@@ -11,4 +11,4 @@ const About = async () => {
   );
 };
 
-export default About;
+export default BlogPage;
