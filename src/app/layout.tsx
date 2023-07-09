@@ -32,6 +32,31 @@ export const metadata: Metadata = {
   },
   themeColor: '#ffffff',
   manifest: '/site.webmanifest',
+  twitter: {
+    creatorId: '@myeongjae_kim',
+    site: '@myeongjae_kim',
+    images: [
+      {
+        url: 'https://cdn.myeongjae.kim/blog/default-thumbnail.png',
+        width: 400,
+        height: 400,
+        alt: '김명재, Myeongjae Kim',
+      },
+    ],
+  },
+  openGraph: {
+    locale: 'ko_KR',
+    url: 'https://myeongjae.kim',
+    title: '김명재, Myeongjae Kim',
+    images: [
+      {
+        url: 'https://cdn.myeongjae.kim/blog/default-thumbnail.png',
+        width: 400,
+        height: 400,
+        alt: '김명재, Myeongjae Kim',
+      },
+    ],
+  },
 };
 
 const categories = ['about', 'blog', 'daily', 'musings', 'places'];
