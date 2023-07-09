@@ -2,6 +2,7 @@ import { blogPersistenceAdapter } from '@/app/blog/adapter/blogPersistenceAdapte
 import PageHeader from '@/app/common/components/PageHeader';
 import Link from 'next/link';
 import BlogListElement from '@/app/blog/components/BlogListElement';
+import Pagination from '@/app/common/components/Pagination';
 
 const BlogPage = async () => {
   const articles = await blogPersistenceAdapter.findAll(1);
@@ -14,15 +15,13 @@ const BlogPage = async () => {
           <BlogListElement key={article.id} Link={Link} article={article} />
         ))}
       </div>
-      <div>
-        page: {articles.page}
-        <br />
-        pageSize: {articles.pageSize}
-        <br />
-        pageCount: {articles.pageCount}
-        <br />
-        total: {articles.total}
-      </div>
+      <Pagination
+        Link={Link}
+        className={'py-4'}
+        currentPage={articles.page}
+        totalPages={articles.pageCount}
+        createHref={(pageNumber) => `/blog?page=${pageNumber}`}
+      />
     </main>
   );
 };

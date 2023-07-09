@@ -1,8 +1,8 @@
-import { require } from '@/app/common/utils/require';
+import { myRequire } from '@/app/common/utils/myRequire';
 
 describe('require', () => {
   const maybeString = (x: string | undefined): string => {
-    require(x !== undefined);
+    myRequire(x !== undefined);
 
     return x;
   };
