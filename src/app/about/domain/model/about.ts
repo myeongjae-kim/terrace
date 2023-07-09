@@ -18,7 +18,7 @@ export const about = {
     {
       icon: 'developer_board',
       label: 'Résumé',
-      href: '',
+      href: 'https://myeongjae.wiki/notes/4-%EC%9D%B4%EB%A0%A5%EC%84%9C',
     },
     {
       icon: 'code',

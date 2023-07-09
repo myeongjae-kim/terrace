@@ -10,7 +10,7 @@ const MusingsPage = async () => {
   return (
     <main className="flex flex-col items-center justify-between">
       <PageHeader className={badScript.className}>Quotes</PageHeader>
-      <div className={'mb-14 flex flex-col gap-10 px-8 text-center'}>
+      <div className={'mb-14 flex max-w-xl flex-col gap-10 px-8 text-center'}>
         {musings.map((musing) => (
           <div
             key={musing.id}

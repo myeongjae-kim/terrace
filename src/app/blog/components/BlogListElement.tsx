@@ -12,7 +12,7 @@ type Props = {
 const BlogListElement = ({ Link, article }: Props): JSX.Element => {
   return (
     <Link href={`/blog/${toSlug(article)}`}>
-      <div className={'my-2 py-3 text-center hover:cursor-pointer hover:bg-stone-50'}>
+      <div className={'my-2 max-w-2xl p-3 text-center hover:cursor-pointer hover:bg-stone-50'}>
         <div>{article.title}</div>
         <div style={{ color: 'initial' }}>{formatDate(article.created_at)}</div>
       </div>

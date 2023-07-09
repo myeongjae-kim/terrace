@@ -10,7 +10,7 @@ const PageHeader = (props: Props): JSX.Element => {
   return (
     <div
       className={clsx(
-        'my-6 cursor-default select-none text-[1.7rem] font-extralight',
+        'my-6 cursor-default select-none text-[1.7rem] font-extralight tracking-tight',
         props.className,
       )}
     >
