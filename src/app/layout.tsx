@@ -17,7 +17,7 @@ const categories = ['about', 'blog', 'daily', 'musings', 'places'];
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={clsx(suit.className, 'break-keep')}>
+      <body className={clsx(suit.className, 'flex h-screen flex-col items-center break-keep')}>
         <header className={'select-none'}>
           <div className={'mb-2 mt-6 flex justify-center sm:mb-5 sm:mt-10'}>
             <div>
@@ -32,7 +32,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <CategoriesOnClientContainer categories={categories} />
           </div>
         </header>
-        {children}
+        <div className={'w-full'}>{children}</div>
+        <footer className={'mt-auto flex justify-center'}>
+          <div className={'sticky flex-shrink-0 py-2'}>
+            <span className={'text-xs'}>
+              If you like my website, you can copy it from{' '}
+              <Link href={'https://github.com/myeongjae-kim/terrace'}>here</Link>.
+            </span>
+          </div>
+        </footer>
       </body>
     </html>
   );

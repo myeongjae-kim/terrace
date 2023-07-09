@@ -16,7 +16,7 @@ const DailyPage = async (props: PageProps) => {
   return (
     <main className="flex flex-col items-center justify-between">
       <PageHeader>Daily</PageHeader>
-      <table
+      <div
         className={'mt-3 text-[15px]'}
         style={{
           ...inconsolata.style,
@@ -24,15 +24,15 @@ const DailyPage = async (props: PageProps) => {
         }}
       >
         {dailies.content.map((daily) => (
-          <tr key={daily.id}>
-            <Link href={'/daily/' + toSlug(daily)}>
-              <td className={'w-8 text-right'}>{daily.seq}.</td>
-              <td>[{formatDate(daily.created_at, '.')}]</td>
-              <td className={'w-56 pl-1 text-[0.9rem]'}>{daily.title}</td>
-            </Link>
-          </tr>
+          <Link key={daily.id} href={'/daily/' + toSlug(daily)}>
+            <div className={'flex'}>
+              <div className={'w-8 text-right'}>{daily.seq}.</div>
+              <div>[{formatDate(daily.created_at, '.')}]</div>
+              <div className={'w-56 pl-1 text-[0.9rem]'}>{daily.title}</div>
+            </div>
+          </Link>
         ))}
-      </table>
+      </div>
       <Pagination
         Link={Link}
         currentPage={dailies.page}
