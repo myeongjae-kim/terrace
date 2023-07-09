@@ -19,7 +19,7 @@ const AboutPage = async () => {
           <span className={'absolute pt-4 opacity-40'}>({about.name.kr})</span>
         </div>
         <div>
-          <ul>
+          <ul className={'list-none ps-0'}>
             {about.descriptions.map((description) => (
               <li
                 key={description.label}
