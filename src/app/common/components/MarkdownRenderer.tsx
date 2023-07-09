@@ -30,8 +30,12 @@ marked.use(
   }),
 );
 
-const MarkdownRenderer = ({ markdown, ...props }: Props): JSX.Element => {
-  return <div {...props} dangerouslySetInnerHTML={{ __html: marked(markdown) }}></div>;
-};
+const MarkdownRenderer = ({ markdown, style, ...props }: Props): JSX.Element => (
+  <div
+    style={{ overflowWrap: 'anywhere', ...style }}
+    {...props}
+    dangerouslySetInnerHTML={{ __html: marked(markdown) }}
+  ></div>
+);
 
 export default MarkdownRenderer;
