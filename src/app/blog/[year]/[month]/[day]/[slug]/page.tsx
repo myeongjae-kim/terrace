@@ -36,7 +36,7 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
       </div>
       <div className={'m-4'}>
-        <MarkdownRenderer className={'leading-[1.8]'} markdown={article.content} />
+        <MarkdownRenderer className={'mb-4 leading-[1.8]'} markdown={article.content} />
         <div className={'text-sm'}>
           <hr />
           <div className={'my-4 flex flex-col gap-1.5 text-center'}>
@@ -48,7 +48,7 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
             )}
             {!!prev.id && (
               <>
-                <div className={'mt-2'}>Previous Article</div>
+                <div>Previous Article</div>
                 <Link href={`/blog/${toSlug(prev)}`}>{prev.title}</Link>
               </>
             )}
