@@ -5,8 +5,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { suit } from '@/app/common/fonts/suit';
-import { headers } from 'next/headers';
-import Categories from '@/app/common/components/Categories';
+import CategoriesOnClientContainer from '@/app/common/containers/CategoriesOnClientContainer';
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,8 +15,6 @@ export const metadata = {
 const categories = ['about', 'blog', 'daily', 'musings', 'places'];
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const activePath = headers().get('x-invoke-path') ?? '';
-
   return (
     <html lang="en">
       <body className={clsx(suit.className, 'break-keep')}>
@@ -32,7 +29,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           <div className={'flex justify-center'}>
-            <Categories activePath={activePath} categories={categories} />
+            <CategoriesOnClientContainer categories={categories} />
           </div>
         </header>
         {children}
