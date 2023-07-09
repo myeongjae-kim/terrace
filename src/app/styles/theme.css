@@ -113,3 +113,9 @@ li {
 ::selection {
     @apply bg-purple-400 text-white;
 }
+
+@supports (height: env(safe-area-inset-bottom)) {
+    .h-screen {
+        height: calc(100vh - env(safe-area-inset-bottom));
+    }
+}
