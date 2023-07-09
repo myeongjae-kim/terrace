@@ -4,7 +4,12 @@ import PageNavigationLink from '@/app/common/components/Pagination/PageNavigatio
 
 const Next = (props: { Link: MyLinkComponent; href: Href; disabled?: boolean }) => {
   return (
-    <PageNavigationLink Link={props.Link} disabled={props.disabled} href={props.href}>
+    <PageNavigationLink
+      Link={props.Link}
+      direction={'next'}
+      disabled={props.disabled}
+      href={props.href}
+    >
       <span className="sr-only">Next</span>
       <svg
         className="h-2.5 w-2.5"

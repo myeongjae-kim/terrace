@@ -3,9 +3,16 @@ import PageHeader from '@/app/common/components/PageHeader';
 import Link from 'next/link';
 import BlogListElement from '@/app/blog/components/BlogListElement';
 import Pagination from '@/app/common/components/Pagination';
+import { PageProps } from '@/app/common/nextjs/PageProps';
+import { myRequire } from '@/app/common/utils/myRequire';
 
-const BlogPage = async () => {
-  const articles = await blogPersistenceAdapter.findAll(1);
+const BlogPage = async (props: PageProps) => {
+  const pageNumber = Math.floor(
+    Number(typeof props.searchParams?.page === 'undefined' ? '1' : props.searchParams?.page),
+  );
+  myRequire(pageNumber > 0, 'pageNumber > 0');
+
+  const articles = await blogPersistenceAdapter.findAll(pageNumber);
 
   return (
     <main className="flex flex-col items-center justify-between">
