@@ -40,6 +40,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.26.0",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.9",
     "flowbite": "^1.6.6",
     "material-icons": "^1.13.8",
     "next": "13.4.6",

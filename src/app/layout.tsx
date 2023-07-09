@@ -15,7 +15,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={suit.className}>
+      <body className={clsx(suit.className, 'break-keep')}>
         <header>
           <div className={'mb-2 mt-6 flex justify-center sm:mb-5 sm:mt-10'}>
             <div>

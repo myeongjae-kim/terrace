@@ -6,10 +6,10 @@
 
 a {
     @apply text-blue-700;
-    transition: color 1s ease-out;
+    transition: color 0.3s ease-out;
     text-decoration: none;
 }
 
 a:hover {
-    @apply text-blue-400;
+    @apply text-blue-500;
 }
