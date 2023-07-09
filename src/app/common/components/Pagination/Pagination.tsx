@@ -21,7 +21,7 @@ const Pagination = ({
   ...props
 }: Props): JSX.Element => {
   return (
-    <nav aria-label="Page navigation" className={'py-4'} {...props}>
+    <nav aria-label="Page navigation" className={'py-1'} {...props}>
       <ul className="flex h-8 items-center -space-x-px text-sm">
         <li>
           <PagePrev Link={Link} href={createHref(currentPage - 1)} disabled={currentPage === 1} />

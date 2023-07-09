@@ -32,7 +32,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <CategoriesOnClientContainer categories={categories} />
           </div>
         </header>
-        <div className={'w-full'}>{children}</div>
+        <div className={'flex w-full grow justify-center'}>{children}</div>
         <footer className={'mt-auto flex justify-center'}>
           <div className={'sticky flex-shrink-0 py-2'}>
             <span className={'text-xs'}>

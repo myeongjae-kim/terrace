@@ -11,9 +11,9 @@ const BlogPage = async (props: PageProps) => {
   const articles = await blogPersistenceAdapter.findAll(pageNumber);
 
   return (
-    <main className="flex flex-col items-center justify-between">
+    <main className="flex grow flex-col items-center justify-between">
       <PageHeader>Articles</PageHeader>
-      <div className={'-my-3'}>
+      <div className={'-mt-3 grow'}>
         {articles.content.map((article) => (
           <BlogListElement key={article.id} Link={Link} article={article} />
         ))}
