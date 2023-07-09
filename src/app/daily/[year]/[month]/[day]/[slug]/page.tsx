@@ -4,9 +4,11 @@ import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import { dailyPersistenceAdapter } from '@/app/daily/adapter/dailyPersistenceAdapter';
+import Comment from '@/app/common/components/Comment';
 
 const DailyArticlePage = async (props: PageProps<{ slug: string }>): Promise<JSX.Element> => {
   const article = await dailyPersistenceAdapter.getBySlug(props.params.slug);
+  const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 
   return (
     <main className={'w-full max-w-[32rem]'}>
@@ -21,6 +23,7 @@ const DailyArticlePage = async (props: PageProps<{ slug: string }>): Promise<JSX
         <div className={'daily-content'} style={{ padding: 0 }}>
           <MarkdownRenderer className={'m-4 text-sm leading-[1.8]'} markdown={article.content} />
         </div>
+        <Comment identifier={commentIdentifier} />
       </div>
     </main>
   );

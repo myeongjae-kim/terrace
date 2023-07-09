@@ -4,9 +4,11 @@ import { PageProps } from '@/app/common/nextjs/PageProps';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
+import Comment from '@/app/common/components/Comment';
 
 const BlogArticlePage = async (props: PageProps<{ slug: string }>): Promise<JSX.Element> => {
   const article = await blogPersistenceAdapter.getBySlug(props.params.slug);
+  const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 
   return (
     <main className={'w-full max-w-[800px]'}>
@@ -16,7 +18,10 @@ const BlogArticlePage = async (props: PageProps<{ slug: string }>): Promise<JSX.
         </Link>
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
       </div>
-      <MarkdownRenderer className={'m-4 leading-[1.8]'} markdown={article.content} />
+      <div className={'m-4'}>
+        <MarkdownRenderer className={'leading-[1.8]'} markdown={article.content} />
+        <Comment identifier={commentIdentifier} />
+      </div>
     </main>
   );
 };
