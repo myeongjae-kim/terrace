@@ -4,14 +4,10 @@ import Link from 'next/link';
 import BlogListElement from '@/app/blog/components/BlogListElement';
 import Pagination from '@/app/common/components/Pagination';
 import { PageProps } from '@/app/common/nextjs/PageProps';
-import { myRequire } from '@/app/common/utils/myRequire';
+import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
 
 const BlogPage = async (props: PageProps) => {
-  const pageNumber = Math.floor(
-    Number(typeof props.searchParams?.page === 'undefined' ? '1' : props.searchParams?.page),
-  );
-  myRequire(pageNumber > 0, 'pageNumber > 0');
-
+  const pageNumber = getPageNumber(props.searchParams?.page);
   const articles = await blogPersistenceAdapter.findAll(pageNumber);
 
   return (
@@ -24,7 +20,6 @@ const BlogPage = async (props: PageProps) => {
       </div>
       <Pagination
         Link={Link}
-        className={'py-4'}
         currentPage={articles.page}
         totalPages={articles.pageCount}
         createHref={(pageNumber) => `/blog?page=${pageNumber}`}
