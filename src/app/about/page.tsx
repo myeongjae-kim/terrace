@@ -4,6 +4,12 @@ import Link from 'next/link';
 import { badScript } from '@/app/common/fonts/badScript';
 import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { match } from 'ts-pattern';
+import { Metadata } from 'next';
+import { createTitle } from '@/app/common/domain/model/constants';
+
+export const metadata: Metadata = {
+  title: createTitle('About'),
+};
 
 const AboutPage = async () => {
   const about = await aboutAdapter.getAbout();

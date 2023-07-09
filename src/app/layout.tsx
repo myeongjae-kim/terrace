@@ -7,10 +7,11 @@ import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { suit } from '@/app/common/fonts/suit';
 import CategoriesOnClientContainer from '@/app/common/containers/CategoriesOnClientContainer';
 import { Metadata } from 'next';
+import { createTitle } from '@/app/common/domain/model/constants';
 
 export const metadata: Metadata = {
   // https://realfavicongenerator.net
-  title: ':: 김명재, Myeongjae Kim',
+  title: createTitle('').trim(),
   icons: {
     icon: [
       {

@@ -3,6 +3,12 @@ import PageHeader from '@/app/common/components/PageHeader';
 import { badScript } from '@/app/common/fonts/badScript';
 import clsx from 'clsx';
 import { notoSerif } from '@/app/common/fonts/notoSerif';
+import { Metadata } from 'next';
+import { createTitle } from '@/app/common/domain/model/constants';
+
+export const metadata: Metadata = {
+  title: createTitle('Musings'),
+};
 
 const MusingsPage = async () => {
   const musings = await musingPersistenceAdapter.findAll();

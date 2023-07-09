@@ -5,6 +5,12 @@ import BlogListElement from '@/app/blog/components/BlogListElement';
 import Pagination from '@/app/common/components/Pagination';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
+import { Metadata } from 'next';
+import { createTitle } from '@/app/common/domain/model/constants';
+
+export const metadata: Metadata = {
+  title: createTitle('Blog'),
+};
 
 const BlogPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);
