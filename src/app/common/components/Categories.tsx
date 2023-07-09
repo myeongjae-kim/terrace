@@ -17,7 +17,11 @@ const Categories = ({
         const href = `/${category}`;
         return (
           <Link key={category} href={href}>
-            <CategoryButton active={activePath === href}>{category}</CategoryButton>
+            <CategoryButton
+              active={activePath === href || (activePath === '/' && href === '/about')}
+            >
+              {category}
+            </CategoryButton>
           </Link>
         );
       })}
