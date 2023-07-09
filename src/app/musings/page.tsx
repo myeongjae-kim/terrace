@@ -16,7 +16,7 @@ const MusingsPage = async () => {
   return (
     <main className="flex flex-col items-center justify-between">
       <PageHeader className={badScript.className}>Quotes</PageHeader>
-      <div className={'mb-14 flex max-w-xl flex-col gap-10 px-8 text-center'}>
+      <div className={'mb-14 flex max-w-xl flex-col gap-3 px-8 text-center'}>
         {musings.map((musing) => (
           <div
             key={musing.id}
@@ -27,7 +27,7 @@ const MusingsPage = async () => {
           >
             <p
               className={clsx(
-                'whitespace-pre-wrap pb-4 text-lg leading-9',
+                'whitespace-pre-wrap text-lg leading-9',
                 musing.language === 'KO' && 'italic',
               )}
             >

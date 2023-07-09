@@ -114,8 +114,8 @@ li {
     @apply bg-purple-400 text-white;
 }
 
-@supports (height: env(safe-area-inset-bottom)) {
+@supports (-webkit-touch-callout: none) {
     .h-screen {
-        height: calc(100vh - env(safe-area-inset-bottom));
+        height: -webkit-fill-available;
     }
 }
