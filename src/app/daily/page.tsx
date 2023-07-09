@@ -18,7 +18,7 @@ const DailyPage = async (props: PageProps) => {
       <PageHeader>Daily</PageHeader>
       <div className={'flex grow flex-col items-center'}>
         <div
-          className={'mt-3 flex grow flex-col gap-0.5 text-[15px]'}
+          className={'my-2 flex grow flex-col gap-0.5 text-[15px]'}
           style={{
             ...inconsolata.style,
             fontFamily: inconsolata.style.fontFamily + ', ' + suit.style.fontFamily,

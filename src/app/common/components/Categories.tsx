@@ -18,7 +18,7 @@ const Categories = ({
         return (
           <Link key={category} href={href}>
             <CategoryButton
-              active={activePath === href || (activePath === '/' && href === '/about')}
+              active={activePath.startsWith(href) || (activePath === '/' && href === '/about')}
             >
               {category}
             </CategoryButton>

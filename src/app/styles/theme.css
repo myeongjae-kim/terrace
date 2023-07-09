@@ -47,7 +47,7 @@ p {
     margin-inline-end: 0;
 }
 
-blockquote {
+blockquote, .daily-content {
     text-indent: 0.5em;
     padding: 0 1em;
     margin: 0.5em 0;
@@ -55,6 +55,18 @@ blockquote {
     border-radius: 0.3em;
     border: 1px solid hsl(230, 1%, 90%);
     background: hsl(230, 1%, 98%);
+}
+
+.daily-content blockquote {
+    @apply bg-white indent-0;
+}
+
+.daily-content pre {
+    @apply bg-white indent-0;
+}
+
+.daily-content code {
+    @apply bg-white;
 }
 
 pre {
