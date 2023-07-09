@@ -6,8 +6,21 @@ import Link from 'next/link';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import Comment from '@/app/common/components/Comment';
 import { toSlug } from '@/app/common/domain/model/toSlug';
+import { Metadata } from 'next';
+import { createTitle } from '@/app/common/domain/model/constants';
 
-const BlogArticlePage = async (props: PageProps<{ slug: string }>): Promise<JSX.Element> => {
+type Props = PageProps<{ slug: string }>;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const article = await blogPersistenceAdapter.getBySlug(params.slug);
+
+  return {
+    title: createTitle(article.title),
+    description: article.content.substring(0, 512),
+  };
+}
+
+const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
   const article = await blogPersistenceAdapter.getBySlug(props.params.slug);
   const [prev, next] = await Promise.all(
     [blogPersistenceAdapter.getPrevOf, blogPersistenceAdapter.getNextOf].map((f) => f(article.seq)),

@@ -5,8 +5,21 @@ import Link from 'next/link';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import { dailyPersistenceAdapter } from '@/app/daily/adapter/dailyPersistenceAdapter';
 import Comment from '@/app/common/components/Comment';
+import { Metadata } from 'next';
+import { createTitle } from '@/app/common/domain/model/constants';
 
-const DailyArticlePage = async (props: PageProps<{ slug: string }>): Promise<JSX.Element> => {
+type Props = PageProps<{ slug: string }>;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const article = await dailyPersistenceAdapter.getBySlug(params.slug);
+
+  return {
+    title: createTitle(article.title),
+    description: article.content.substring(0, 512),
+  };
+}
+
+const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
   const article = await dailyPersistenceAdapter.getBySlug(props.params.slug);
   const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 
