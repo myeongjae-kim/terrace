@@ -77,6 +77,10 @@ figure {
     @apply text-center mx-10 my-4;
 }
 
+figure img {
+    @apply mx-auto;
+}
+
 figcaption {
     @apply text-gray-500 text-sm my-3;
 }

@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { formatDate } from '@/app/common/domain/model/formatDate';
 
 export const toSlug = (args: { created_at: string; slug: string }): string =>
-  `${dayjs(args.created_at).format('YYYY/MM/DD')}/${args.slug}`;
+  `${formatDate(args.created_at, '/')}/${args.slug}`;
