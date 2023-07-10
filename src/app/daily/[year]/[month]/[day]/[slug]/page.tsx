@@ -7,16 +7,17 @@ import { dailyPersistenceAdapter } from '@/app/daily/adapter/dailyPersistenceAda
 import Comment from '@/app/common/components/Comment';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
+import { createMetadata } from '@/app/common/domain/model/createMetadata';
 
 type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await dailyPersistenceAdapter.getBySlug(params.slug);
 
-  return {
+  return createMetadata({
     title: createTitle(article.title),
     description: article.content.substring(0, 512),
-  };
+  });
 }
 
 const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {

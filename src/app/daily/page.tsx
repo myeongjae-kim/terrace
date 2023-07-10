@@ -10,10 +10,11 @@ import { suit } from '@/app/common/fonts/suit';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
+import { createMetadata } from '@/app/common/domain/model/createMetadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: createTitle('Daily'),
-};
+});
 
 const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);

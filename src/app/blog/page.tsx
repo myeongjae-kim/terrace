@@ -7,10 +7,11 @@ import { PageProps } from '@/app/common/nextjs/PageProps';
 import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
+import { createMetadata } from '@/app/common/domain/model/createMetadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: createTitle('Blog'),
-};
+});
 
 const BlogPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);

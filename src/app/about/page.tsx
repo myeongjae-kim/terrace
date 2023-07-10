@@ -6,10 +6,11 @@ import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { match } from 'ts-pattern';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
+import { createMetadata } from '@/app/common/domain/model/createMetadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: createTitle('About'),
-};
+});
 
 const AboutPage = async () => {
   const about = await aboutAdapter.getAbout();

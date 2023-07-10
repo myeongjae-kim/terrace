@@ -5,10 +5,11 @@ import clsx from 'clsx';
 import { notoSerif } from '@/app/common/fonts/notoSerif';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
+import { createMetadata } from '@/app/common/domain/model/createMetadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: createTitle('Musings'),
-};
+});
 
 const MusingsPage = async () => {
   const musings = await musingPersistenceAdapter.findAll();
