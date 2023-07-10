@@ -106,14 +106,6 @@ li {
     text-align: -webkit-match-parent;
 }
 
-::-moz-selection { /* Code for Firefox */
-    @apply bg-purple-400 text-white;
-}
-
-::selection {
-    @apply bg-purple-400 text-white;
-}
-
 @supports (-webkit-touch-callout: none) {
     .h-screen {
         height: -webkit-fill-available;

@@ -48,21 +48,6 @@ pre {
     hyphens: none;
 }
 
-/* Selection */
-code::-moz-selection,
-code *::-moz-selection,
-pre *::-moz-selection {
-    background: hsl(230, 1%, 90%);
-    color: inherit;
-}
-
-code::selection,
-code *::selection,
-pre *::selection {
-    background: hsl(230, 1%, 90%);
-    color: inherit;
-}
-
 /* Code blocks */
 pre {
     padding: 1em;
@@ -78,14 +63,6 @@ pre {
     border-radius: 0.3em;
     white-space: normal;
     border: 1px solid hsla(230, 1%, 90%, 0.5);
-}
-
-:not(pre) > code::-moz-selection {
-    @apply bg-purple-400 text-white;
-}
-
-:not(pre) > code::selection {
-    @apply bg-purple-400 text-white;
 }
 
 .token.comment,
@@ -353,37 +330,9 @@ pre > code.diff-highlight .token.token.deleted:not(.prefix) {
     background-color: hsla(353, 100%, 66%, 0.15);
 }
 
-pre.diff-highlight > code .token.token.deleted:not(.prefix)::-moz-selection,
-pre.diff-highlight > code .token.token.deleted:not(.prefix) *::-moz-selection,
-pre > code.diff-highlight .token.token.deleted:not(.prefix)::-moz-selection,
-pre > code.diff-highlight .token.token.deleted:not(.prefix) *::-moz-selection {
-    background-color: hsla(353, 95%, 66%, 0.25);
-}
-
-pre.diff-highlight > code .token.token.deleted:not(.prefix)::selection,
-pre.diff-highlight > code .token.token.deleted:not(.prefix) *::selection,
-pre > code.diff-highlight .token.token.deleted:not(.prefix)::selection,
-pre > code.diff-highlight .token.token.deleted:not(.prefix) *::selection {
-    background-color: hsla(353, 95%, 66%, 0.25);
-}
-
 pre.diff-highlight > code .token.token.inserted:not(.prefix),
 pre > code.diff-highlight .token.token.inserted:not(.prefix) {
     background-color: hsla(137, 100%, 55%, 0.15);
-}
-
-pre.diff-highlight > code .token.token.inserted:not(.prefix)::-moz-selection,
-pre.diff-highlight > code .token.token.inserted:not(.prefix) *::-moz-selection,
-pre > code.diff-highlight .token.token.inserted:not(.prefix)::-moz-selection,
-pre > code.diff-highlight .token.token.inserted:not(.prefix) *::-moz-selection {
-    background-color: hsla(135, 73%, 55%, 0.25);
-}
-
-pre.diff-highlight > code .token.token.inserted:not(.prefix)::selection,
-pre.diff-highlight > code .token.token.inserted:not(.prefix) *::selection,
-pre > code.diff-highlight .token.token.inserted:not(.prefix)::selection,
-pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
-    background-color: hsla(135, 73%, 55%, 0.25);
 }
 
 /* Previewers plugin overrides */
