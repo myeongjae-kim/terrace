@@ -19,9 +19,13 @@ const AboutPage = async () => {
     <main>
       <div className="mt-6 flex flex-col items-center justify-between gap-8 sm:mt-9">
         <div>
-          <img className="h-52 w-52 rounded shadow-2xl" src={about.profile} alt={'profile image'} />
+          <img
+            className="h-52 w-52 select-none rounded drop-shadow-lg"
+            src={about.profile}
+            alt={'profile image'}
+          />
         </div>
-        <div>
+        <div className={'select-none'}>
           <span className={clsx(badScript.className, 'text-[2rem]')}>{about.name.en}</span>
           <span className={'absolute pt-4 opacity-40'}>({about.name.kr})</span>
         </div>
