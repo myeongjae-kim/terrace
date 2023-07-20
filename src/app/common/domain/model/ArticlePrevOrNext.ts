@@ -1,4 +1,4 @@
-export type BlogArticlePrevOrNext = {
+export type ArticlePrevOrNext = {
   id: string;
   createdAt: string;
   title: string;

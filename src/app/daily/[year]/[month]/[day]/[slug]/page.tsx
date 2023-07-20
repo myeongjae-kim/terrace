@@ -3,16 +3,19 @@ import { PageProps } from '@/app/common/nextjs/PageProps';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
-import { dailyPersistenceAdapter } from '@/app/daily/adapter/dailyPersistenceAdapter';
 import Comment from '@/app/common/components/Comment';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
+import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 
 type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = await dailyPersistenceAdapter.getBySlug(params.slug);
+  const article = await articlePersistenceAdapter.getBySlug({
+    category: 'DAILY_ARTICLE',
+    slug: params.slug,
+  });
 
   return createMetadata({
     title: createTitle(article.title),
@@ -21,7 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
-  const article = await dailyPersistenceAdapter.getBySlug(props.params.slug);
+  const article = await articlePersistenceAdapter.getBySlug({
+    category: 'DAILY_ARTICLE',
+    slug: props.params.slug,
+  });
   const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 
   return (

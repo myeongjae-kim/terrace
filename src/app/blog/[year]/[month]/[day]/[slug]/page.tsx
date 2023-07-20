@@ -1,5 +1,4 @@
 import React from 'react';
-import { blogPersistenceAdapter } from '@/app/blog/adapter/blogPersistenceAdapter';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
@@ -9,11 +8,15 @@ import { toSlug } from '@/app/common/domain/model/toSlug';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
+import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 
 type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = await blogPersistenceAdapter.getBySlug(params.slug);
+  const article = await articlePersistenceAdapter.getBySlug({
+    category: 'BLOG_ARTICLE',
+    slug: params.slug,
+  });
 
   return createMetadata({
     title: createTitle(article.title),
@@ -22,9 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
-  const article = await blogPersistenceAdapter.getBySlug(props.params.slug);
+  const article = await articlePersistenceAdapter.getBySlug({
+    category: 'BLOG_ARTICLE',
+    slug: props.params.slug,
+  });
   const [prev, next] = await Promise.all(
-    [blogPersistenceAdapter.getPrevOf, blogPersistenceAdapter.getNextOf].map((f) => f(article.seq)),
+    [articlePersistenceAdapter.getPrevOf, articlePersistenceAdapter.getNextOf].map((f) =>
+      f({ category: 'BLOG_ARTICLE', seq: article.seq }),
+    ),
   );
   const commentIdentifier = `blog/${formatDate(article.created_at, '/')}/${article.slug}`;
 

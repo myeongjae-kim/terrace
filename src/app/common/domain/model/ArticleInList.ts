@@ -1,4 +1,4 @@
-export type BlogArticleListResponse = {
+export type ArticleListResponse = {
   id: number;
   seq: number;
   title: string;
@@ -7,7 +7,7 @@ export type BlogArticleListResponse = {
   updated_at: string;
 };
 
-export const blogArticleListResponseDefault = (): BlogArticleListResponse => ({
+export const articleListResponseDefault = (): ArticleListResponse => ({
   id: 0,
   seq: 0,
   title: '',

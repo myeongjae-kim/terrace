@@ -1,4 +1,3 @@
-import { dailyPersistenceAdapter } from '@/app/daily/adapter/dailyPersistenceAdapter';
 import PageHeader from '@/app/common/components/PageHeader';
 import Link from 'next/link';
 import Pagination from '@/app/common/components/Pagination';
@@ -11,6 +10,7 @@ import { toSlug } from '@/app/common/domain/model/toSlug';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
+import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 
 export const metadata: Metadata = createMetadata({
   title: createTitle('Daily'),
@@ -18,7 +18,11 @@ export const metadata: Metadata = createMetadata({
 
 const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);
-  const dailies = await dailyPersistenceAdapter.findAll(pageNumber);
+  const dailies = await articlePersistenceAdapter.findAll({
+    category: 'DAILY_ARTICLE',
+    page: pageNumber,
+    pageSize: 20,
+  });
 
   return (
     <main className="flex grow flex-col items-center justify-between">

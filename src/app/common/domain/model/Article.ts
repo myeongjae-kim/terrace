@@ -1,4 +1,4 @@
-export interface DailyArticle {
+export type Article = {
   id: number;
   seq: number;
   created_at: string;
@@ -6,9 +6,9 @@ export interface DailyArticle {
   title: string;
   slug: string;
   content: string;
-}
+};
 
-export const dailyArticleDefault: () => DailyArticle = () => ({
+export const articleDefault = (): Article => ({
   id: 0,
   seq: 0,
   created_at: '',

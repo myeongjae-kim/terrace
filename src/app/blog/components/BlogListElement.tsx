@@ -1,12 +1,12 @@
 import React from 'react';
-import { BlogArticleListResponse } from '@/app/blog/domain/model/BlogArticleInList';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import { UrlObject } from 'url';
+import { ArticleListResponse } from '@/app/common/domain/model/ArticleInList';
 
 type Props = {
   Link: React.ComponentType<React.PropsWithChildren<{ href: string | UrlObject }>>;
-  article: BlogArticleListResponse;
+  article: ArticleListResponse;
 };
 
 const BlogListElement = ({ Link, article }: Props): JSX.Element => {
