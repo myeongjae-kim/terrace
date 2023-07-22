@@ -30,18 +30,19 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const form = useForm<ArticleFormModel>({ defaultValues: { seq, slug, title, content } });
+  const { register, setValue } = form;
+
   const setContentToRenderWithPersistence = React.useCallback(
     (arg: string) => {
       if (content !== arg) {
         localStorage.setItem(getLocalStorageKey(slug), arg);
       }
       setContentToRender(arg);
+      setValue('content', arg);
     },
-    [content, slug],
+    [content, setValue, slug],
   );
-
-  const form = useForm<ArticleFormModel>({ defaultValues: { seq, slug, title, content } });
-  const { register } = form;
 
   return (
     <form>
