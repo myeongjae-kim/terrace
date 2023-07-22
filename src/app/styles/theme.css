@@ -111,3 +111,7 @@ li {
         height: -webkit-fill-available;
     }
 }
+
+img {
+    margin: auto;
+}
