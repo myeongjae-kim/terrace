@@ -3,8 +3,8 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleLoginResponse } from '@/app/auth/domain/model/GoogleLoginResponse';
-import { IsLoggedInProvider } from '@/app/auth/domain/application/IsLoggedInProvider';
 import { useRouter } from 'next/navigation';
+import { useIsLoggedIn } from '@/app/auth/domain/application/useIsLoggedIn';
 
 const responseGoogle = (response: GoogleLoginResponse) => {
   return fetch('/auth/login', {
@@ -14,7 +14,7 @@ const responseGoogle = (response: GoogleLoginResponse) => {
 };
 
 const GoogleLoginButtonContainer = ({ redirectUri }: { redirectUri: string }): JSX.Element => {
-  const { setIsLoggedIn } = IsLoggedInProvider.useIsLoggedIn();
+  const { setIsLoggedIn } = useIsLoggedIn();
   const router = useRouter();
 
   return (

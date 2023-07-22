@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { IsLoggedInProvider } from '@/app/auth/domain/application/IsLoggedInProvider';
 import LoginLogoutButton from '@/app/auth/logout/components/LoginLogoutButton';
+import { useIsLoggedIn } from '@/app/auth/domain/application/useIsLoggedIn';
 
 const LoginLogoutButtonContainer = (): JSX.Element => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { isLoggedIn, setIsLoggedIn } = IsLoggedInProvider.useIsLoggedIn();
+  const { isLoggedIn, setIsLoggedIn } = useIsLoggedIn();
 
   React.useEffect(() => {
     fetch('/auth/is-logged-in')

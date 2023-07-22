@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext } from 'react';
+import React, { createContext, PropsWithChildren } from 'react';
 
 export const IsLoggedInContext = createContext<{
   isLoggedIn: boolean;
@@ -6,7 +6,7 @@ export const IsLoggedInContext = createContext<{
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 }>({ isLoggedIn: false, setIsLoggedIn: (_: boolean) => {} });
 
-const Provider = ({ children }: PropsWithChildren): JSX.Element => {
+const IsLoggedInProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   return (
@@ -16,9 +16,4 @@ const Provider = ({ children }: PropsWithChildren): JSX.Element => {
   );
 };
 
-const useIsLoggedIn = () => useContext(IsLoggedInContext);
-
-export const IsLoggedInProvider = {
-  Provider,
-  useIsLoggedIn,
-};
+export default IsLoggedInProvider;
