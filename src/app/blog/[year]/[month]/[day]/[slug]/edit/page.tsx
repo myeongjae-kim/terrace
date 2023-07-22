@@ -3,6 +3,8 @@ import { PageProps } from '@/app/common/nextjs/PageProps';
 import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 import BlogArticleFormContainer from './containers/BlogArticleFormContainer';
 
+export const fetchCache = 'force-no-store';
+
 type Props = PageProps<{ slug: string }>;
 
 const BlogArticleEditPage = async ({ params }: Props) => {

@@ -73,15 +73,23 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
           method: 'PUT',
           body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
         })
-          .then(() => {
-            alert('done');
+          .then((it) => {
+            if (it.status < 300) {
+              alert('저장했습니다.');
+            } else {
+              it.json().then((json) => alert(JSON.stringify(json, null, 2)));
+            }
           })
           .catch(() => {
-            alert('error');
+            alert('실패');
           });
       })}
     >
-      <div className={'mx-4 flex flex-wrap items-start justify-center gap-4'}>
+      <div
+        className={
+          'mx-4 flex flex-col items-start items-end justify-center gap-2 sm:flex-row sm:gap-4'
+        }
+      >
         <Input
           label={'seq'}
           wrapperAdditionalClassName={'flex-[1_1_0%]'}
@@ -100,7 +108,7 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
           error={errors.title?.message}
           {...register('title')}
         />
-        <div className={'mt-7'}>
+        <div className={'my-4 sm:mb-0 sm:mt-7'}>
           <Button type={'submit'}>완료</Button>
         </div>
       </div>

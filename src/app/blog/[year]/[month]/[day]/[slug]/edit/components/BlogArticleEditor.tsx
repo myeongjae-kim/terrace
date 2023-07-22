@@ -27,17 +27,24 @@ const BlogArticleEditor = ({
     }, 1500);
   }, [setContentToRender]);
 
+  const height = 'sm:h-[calc(100vh-80px)]';
+
   return (
-    <div className={'flex w-full'}>
+    <div className={'flex w-full flex-col flex-col-reverse sm:flex-row'}>
       <div
-        className={
-          'm-4 h-[calc(100vh-210px)] w-[45%] overflow-scroll rounded p-4 ring-2 ring-stone-300 2xl:w-[40%]'
-        }
+        className={clsx(
+          'm-4 w-[calc(100vw-40px)] overflow-scroll rounded p-4 ring-2 ring-stone-300 sm:w-[45%] 2xl:w-[40%]',
+          height,
+        )}
       >
         <MarkdownRenderer className={'leading-[1.8]'} markdown={contentToRender} />
       </div>
       <AceNoSsr
-        className={clsx('my-4 w-[55%] 2xl:w-[60%]', inconsolata.className)}
+        className={clsx(
+          'my-4 h-[calc(100vh-80px)]  w-full sm:w-[55%] 2xl:w-[60%]',
+          height,
+          inconsolata.className,
+        )}
         defaultValue={content}
         onChange={(e) => {
           editingContent.current = e;

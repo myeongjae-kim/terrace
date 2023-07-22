@@ -19,10 +19,13 @@ export async function PUT(request: NextRequest) {
     return new Response('Not Found', { status: 404 });
   }
 
-  await supabase
+  const result = await supabase
     .from('article')
     .update({ ...article, ...requestBody })
     .eq('slug', requestBody.slug);
 
-  return new Response('OK', { status: 200 });
+  return new Response(result.status < 400 ? null : JSON.stringify(result), {
+    status: result.status,
+    statusText: result.statusText,
+  });
 }
