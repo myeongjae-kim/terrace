@@ -2,6 +2,8 @@ import { marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import Prism from 'prismjs';
 import * as React from 'react';
+import { mangle } from 'marked-mangle';
+import { gfmHeadingId } from 'marked-gfm-heading-id';
 
 // 사전식
 import 'prismjs/components/prism-bash.min.js';
@@ -19,6 +21,8 @@ type Props = React.ComponentProps<'div'> & {
 };
 
 marked.use(
+  mangle(),
+  gfmHeadingId(),
   markedHighlight({
     highlight(code: string, lang: string): string {
       if (Prism.languages[lang]) {

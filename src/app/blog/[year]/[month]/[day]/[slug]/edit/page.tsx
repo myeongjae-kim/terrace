@@ -12,7 +12,7 @@ const BlogArticleEditPage = async ({ params }: Props) => {
   });
   return (
     <BlogArticleFormContainer
-      seq={article.seq}
+      seq={article.seq + ''}
       slug={article.slug}
       title={article.title}
       content={article.content}

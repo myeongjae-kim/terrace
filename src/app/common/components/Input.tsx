@@ -5,10 +5,11 @@ type Props = React.ComponentProps<'input'> & {
   label?: string;
   wrapperAdditionalClassName?: string;
   inputAdditionalClassName?: string;
+  error?: string;
 };
 
 const Input = (
-  { label, wrapperAdditionalClassName, inputAdditionalClassName, ...props }: Props,
+  { label, wrapperAdditionalClassName, inputAdditionalClassName, error, ...props }: Props,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ): JSX.Element => {
   return (
@@ -30,6 +31,7 @@ const Input = (
         )}
         {...props}
       />
+      {error && <p className={'mt-2 text-sm text-red-600 dark:text-red-500'}>{error}</p>}
     </div>
   );
 };

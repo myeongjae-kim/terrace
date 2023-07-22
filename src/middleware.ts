@@ -6,7 +6,9 @@ import type { Database } from '@/lib/database.types';
 
 const ownerOnlyPaths: Array<(path: string) => boolean> = [
   (path) => /.*\/edit$/.test(path),
+  (path) => /.*\/edit\/api$/.test(path),
   (path) => /.*\/create$/.test(path),
+  (path) => /.*\/create\/api$/.test(path),
 ];
 
 export async function middleware(req: NextRequest) {

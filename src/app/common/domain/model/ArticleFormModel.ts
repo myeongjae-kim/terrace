@@ -1,7 +1,11 @@
 import { z } from 'zod';
 
 export const ArticleFormSchema = z.object({
-  seq: z.number().int().positive(),
+  seq: z
+    .string()
+    .min(1)
+    .max(14)
+    .regex(/^[0-9]+$/),
   title: z.string().min(1).max(255),
   slug: z
     .string()

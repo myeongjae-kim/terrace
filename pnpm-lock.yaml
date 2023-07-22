@@ -38,9 +38,15 @@ dependencies:
   marked:
     specifier: ^5.1.1
     version: 5.1.1
+  marked-gfm-heading-id:
+    specifier: ^3.0.4
+    version: 3.0.4(marked@5.1.1)
   marked-highlight:
     specifier: ^2.0.1
     version: 2.0.1(marked@5.1.1)
+  marked-mangle:
+    specifier: ^1.1.0
+    version: 1.1.0(marked@5.1.1)
   material-icons:
     specifier: ^1.13.8
     version: 1.13.8
@@ -2773,6 +2779,10 @@ packages:
       resolve-pkg-maps: 1.0.0
     dev: true
 
+  /github-slugger@2.0.0:
+    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
+    dev: false
+
   /glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -3638,8 +3648,25 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /marked-gfm-heading-id@3.0.4(marked@5.1.1):
+    resolution: {integrity: sha512-k22f+k8B449kRVXbi3OYxahI6t8HywKIF0wn0L0atzYhFHYRcJynLDekh+lcxcZkNnkEGRZOHuRfTcpjMjLqDw==}
+    peerDependencies:
+      marked: ^4 || ^5
+    dependencies:
+      github-slugger: 2.0.0
+      marked: 5.1.1
+    dev: false
+
   /marked-highlight@2.0.1(marked@5.1.1):
     resolution: {integrity: sha512-LDUfR/zDvD+dJ+lQOWHkxvBLNxiXcaN8pBtwJ/i4pI0bkDC/Ef6Mz1qUrAuHXfnpdr2rabdMpVFhqFuU+5Mskg==}
+    peerDependencies:
+      marked: ^4 || ^5
+    dependencies:
+      marked: 5.1.1
+    dev: false
+
+  /marked-mangle@1.1.0(marked@5.1.1):
+    resolution: {integrity: sha512-ed2W2gMB2HIBaYasBZveMFJfDRTL2OFycr0GgUSPcBSNl5dX+1r6lHG6u1eFXw7kej2hBTWa1m6YZqcfn4Coxw==}
     peerDependencies:
       marked: ^4 || ^5
     dependencies:

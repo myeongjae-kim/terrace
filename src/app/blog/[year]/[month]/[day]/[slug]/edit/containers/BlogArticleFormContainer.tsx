@@ -3,8 +3,11 @@
 import React from 'react';
 import BlogArticleEditor from '@/app/blog/[year]/[month]/[day]/[slug]/edit/components/BlogArticleEditor';
 import { useForm } from 'react-hook-form';
-import { ArticleFormModel } from '@/app/common/domain/model/ArticleFormModel';
+import { ArticleFormModel, ArticleFormSchema } from '@/app/common/domain/model/ArticleFormModel';
 import Input from '@/app/common/components/Input';
+import Button from '@/app/common/components/Button';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { usePathname } from 'next/navigation';
 
 type Props = ArticleFormModel;
 
@@ -13,8 +16,16 @@ const serializeForm = (form: ArticleFormModel) => JSON.stringify(form);
 const deserializeForm = (serialized: string) => JSON.parse(serialized) as ArticleFormModel;
 
 const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Element => {
-  const form = useForm<ArticleFormModel>({ defaultValues: { seq, slug, title, content } });
-  const { register, setValue } = form;
+  const form = useForm<ArticleFormModel>({
+    resolver: zodResolver(ArticleFormSchema),
+    defaultValues: { seq, slug, title, content },
+  });
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
   const [contentToRender, setContentToRender] = React.useState<string>(content);
   const [persistedContent, setPersistedContent] = React.useState<string | null>(null);
@@ -53,16 +64,45 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
     [content, form, setValue, slug],
   );
 
+  const pathname = usePathname();
+
   return (
-    <form>
-      <div className={'mx-4 flex flex-wrap justify-center gap-4'}>
-        <Input label={'seq'} wrapperAdditionalClassName={'flex-[1_1_0%]'} {...register('seq')} />
-        <Input label={'slug'} wrapperAdditionalClassName={'flex-[4_4_0%]'} {...register('slug')} />
+    <form
+      onSubmit={handleSubmit((data) => {
+        fetch(pathname + '/api', {
+          method: 'PUT',
+          body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
+        })
+          .then(() => {
+            alert('done');
+          })
+          .catch(() => {
+            alert('error');
+          });
+      })}
+    >
+      <div className={'mx-4 flex flex-wrap items-start justify-center gap-4'}>
+        <Input
+          label={'seq'}
+          wrapperAdditionalClassName={'flex-[1_1_0%]'}
+          {...register('seq')}
+          error={errors.seq?.message}
+        />
+        <Input
+          label={'slug'}
+          wrapperAdditionalClassName={'flex-[4_4_0%]'}
+          {...register('slug')}
+          error={errors.slug?.message}
+        />
         <Input
           label={'title'}
           wrapperAdditionalClassName={'flex-[7_7_0%]'}
+          error={errors.title?.message}
           {...register('title')}
         />
+        <div className={'mt-7'}>
+          <Button type={'submit'}>완료</Button>
+        </div>
       </div>
       {persistedContent !== null && (
         <BlogArticleEditor
