@@ -1,9 +1,9 @@
 import React from 'react';
 import { TOC_ID } from '@/app/common/domain/model/constants';
-import parser from 'node-html-parser';
+import { HTMLElement } from 'node-html-parser';
 
 type Props = {
-  html: string;
+  htmlElement: HTMLElement;
 };
 
 type Heading = {
@@ -43,14 +43,14 @@ const render = (headings: Heading[], curr = 0): string => {
   )}`;
 };
 
-const TableOfContents = ({ html }: Props): JSX.Element => {
-  const headings: Heading[] = [...parser(html).querySelectorAll('h1, h2, h3, h4, h5, h6')].map(
-    (block) => ({
+const TableOfContents = ({ htmlElement }: Props): JSX.Element => {
+  const headings: Heading[] = htmlElement
+    .querySelectorAll('h1, h2, h3, h4, h5, h6')
+    .map((block) => ({
       depth: parseInt(block.tagName[1]),
       id: block.id,
       innerHTML: block.innerHTML,
-    }),
-  );
+    }));
 
   return headings.length > 0 ? (
     <>
