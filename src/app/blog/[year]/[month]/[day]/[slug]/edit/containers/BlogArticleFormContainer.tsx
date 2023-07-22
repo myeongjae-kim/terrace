@@ -9,8 +9,13 @@ import Input from '@/app/common/components/Input';
 type Props = ArticleFormModel;
 
 const getLocalStorageKey = (slug?: string) => `@terrace/blog-article/${slug ?? 'writing'}`;
+const serializeForm = (form: ArticleFormModel) => JSON.stringify(form);
+const deserializeForm = (serialized: string) => JSON.parse(serialized) as ArticleFormModel;
 
 const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Element => {
+  const form = useForm<ArticleFormModel>({ defaultValues: { seq, slug, title, content } });
+  const { register, setValue } = form;
+
   const [contentToRender, setContentToRender] = React.useState<string>(content);
   const [persistedContent, setPersistedContent] = React.useState<string | null>(null);
 
@@ -20,8 +25,12 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
       persisted &&
       confirm('편집중이던 글을 불러올까요?\n취소를 누르면 저장된 글이 사라집니다.')
     ) {
-      setContentToRender(persisted);
-      setPersistedContent(persisted);
+      const article = deserializeForm(persisted);
+      setContentToRender(article.content);
+      setPersistedContent(article.content);
+      setValue('seq', article.seq);
+      setValue('slug', article.slug);
+      setValue('title', article.title);
     } else {
       setContentToRender(content);
       setPersistedContent(content);
@@ -30,18 +39,18 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const form = useForm<ArticleFormModel>({ defaultValues: { seq, slug, title, content } });
-  const { register, setValue } = form;
-
   const setContentToRenderWithPersistence = React.useCallback(
     (arg: string) => {
       if (content !== arg) {
-        localStorage.setItem(getLocalStorageKey(slug), arg);
+        localStorage.setItem(
+          getLocalStorageKey(slug),
+          serializeForm({ ...form.getValues(), content: arg }),
+        );
       }
       setContentToRender(arg);
       setValue('content', arg);
     },
-    [content, setValue, slug],
+    [content, form, setValue, slug],
   );
 
   return (
