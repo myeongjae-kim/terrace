@@ -2,15 +2,15 @@
 
 import React from 'react';
 import BlogArticleEditor from '@/app/blog/[year]/[month]/[day]/[slug]/edit/components/BlogArticleEditor';
+import { useForm } from 'react-hook-form';
+import { ArticleFormModel } from '@/app/common/domain/model/ArticleFormModel';
+import Input from '@/app/common/components/Input';
 
-type Props = {
-  slug?: string;
-  content: string;
-};
+type Props = ArticleFormModel;
 
 const getLocalStorageKey = (slug?: string) => `@terrace/blog-article/${slug ?? 'writing'}`;
 
-const BlogArticleEditorContainer = ({ slug, content }: Props): JSX.Element => {
+const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Element => {
   const [contentToRender, setContentToRender] = React.useState<string>(content);
   const [persistedContent, setPersistedContent] = React.useState<string | null>(null);
 
@@ -40,8 +40,20 @@ const BlogArticleEditorContainer = ({ slug, content }: Props): JSX.Element => {
     [content, slug],
   );
 
+  const form = useForm<ArticleFormModel>({ defaultValues: { seq, slug, title, content } });
+  const { register } = form;
+
   return (
-    <>
+    <form>
+      <div className={'mx-4 flex flex-wrap justify-center gap-4'}>
+        <Input label={'seq'} wrapperAdditionalClassName={'flex-[1_1_0%]'} {...register('seq')} />
+        <Input label={'slug'} wrapperAdditionalClassName={'flex-[4_4_0%]'} {...register('slug')} />
+        <Input
+          label={'title'}
+          wrapperAdditionalClassName={'flex-[7_7_0%]'}
+          {...register('title')}
+        />
+      </div>
       {persistedContent !== null && (
         <BlogArticleEditor
           content={persistedContent}
@@ -49,8 +61,8 @@ const BlogArticleEditorContainer = ({ slug, content }: Props): JSX.Element => {
           setContentToRender={setContentToRenderWithPersistence}
         />
       )}
-    </>
+    </form>
   );
 };
 
-export default BlogArticleEditorContainer;
+export default BlogArticleFormContainer;
