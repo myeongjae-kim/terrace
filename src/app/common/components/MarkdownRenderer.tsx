@@ -15,6 +15,7 @@ import 'prismjs/components/prism-tsx.min.js'; // prism-jsx를 import해야 에�
 import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/components/prism-vim.min.js';
 import 'prismjs/components/prism-yaml.min.js';
+import { forwardRef } from 'react';
 
 type Props = React.ComponentProps<'div'> & {
   markdown: string;
@@ -34,12 +35,16 @@ marked.use(
   }),
 );
 
-const MarkdownRenderer = ({ markdown, style, ...props }: Props): JSX.Element => (
+const MarkdownRenderer = (
+  { markdown, style, ...props }: Props,
+  ref: React.ForwardedRef<HTMLDivElement>,
+): JSX.Element => (
   <div
+    ref={ref}
     style={{ overflowWrap: 'anywhere', ...style }}
     {...props}
     dangerouslySetInnerHTML={{ __html: marked(markdown) }}
   ></div>
 );
 
-export default MarkdownRenderer;
+export default forwardRef(MarkdownRenderer);

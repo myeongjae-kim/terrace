@@ -2,13 +2,13 @@ import React from 'react';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
-import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import Comment from '@/app/common/components/Comment';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
+import BlogArticleRenderer from '@/app/blog/components/BlogArticleRenderer';
 
 type Props = PageProps<{ slug: string }>;
 
@@ -45,7 +45,7 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
       </div>
       <div className={'m-4'}>
-        <MarkdownRenderer className={'mb-4 leading-[1.8]'} markdown={article.content} />
+        <BlogArticleRenderer article={article} />
         <div className={'text-sm'}>
           <hr />
           <div className={'my-4 flex flex-col gap-1.5 text-center'}>
