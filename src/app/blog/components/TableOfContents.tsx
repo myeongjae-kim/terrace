@@ -1,10 +1,9 @@
-'use client';
-
 import React from 'react';
 import { TOC_ID } from '@/app/common/domain/model/constants';
+import parser from 'node-html-parser';
 
 type Props = {
-  contentsRef: React.RefObject<HTMLDivElement>;
+  html: string;
 };
 
 type Heading = {
@@ -44,22 +43,14 @@ const render = (headings: Heading[], curr = 0): string => {
   )}`;
 };
 
-const TableOfContents = ({ contentsRef }: Props): JSX.Element => {
-  const [headings, setHeadings] = React.useState<Heading[]>([]);
-
-  React.useEffect(() => {
-    if (!contentsRef.current) {
-      return;
-    }
-
-    setHeadings(
-      [...contentsRef.current.querySelectorAll('h1, h2, h3, h4, h5, h6')].map((block) => ({
-        depth: parseInt(block.tagName[1]),
-        id: block.id,
-        innerHTML: block.innerHTML,
-      })),
-    );
-  }, [contentsRef]);
+const TableOfContents = ({ html }: Props): JSX.Element => {
+  const headings: Heading[] = [...parser(html).querySelectorAll('h1, h2, h3, h4, h5, h6')].map(
+    (block) => ({
+      depth: parseInt(block.tagName[1]),
+      id: block.id,
+      innerHTML: block.innerHTML,
+    }),
+  );
 
   return headings.length > 0 ? (
     <>

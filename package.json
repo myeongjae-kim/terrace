@@ -57,6 +57,7 @@
     "marked-mangle": "^1.1.0",
     "material-icons": "^1.13.8",
     "next": "13.4.6",
+    "node-html-parser": "^6.1.5",
     "prismjs": "^1.29.0",
     "ramda": "^0.29.0",
     "react": "18.2.0",

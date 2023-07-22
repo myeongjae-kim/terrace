@@ -16,9 +16,11 @@ import 'prismjs/components/prism-typescript.min.js';
 import 'prismjs/components/prism-vim.min.js';
 import 'prismjs/components/prism-yaml.min.js';
 import { forwardRef } from 'react';
+import TableOfContents from '@/app/blog/components/TableOfContents';
 
 type Props = React.ComponentProps<'div'> & {
   markdown: string;
+  enableToc?: boolean;
 };
 
 marked.use(
@@ -36,15 +38,22 @@ marked.use(
 );
 
 const MarkdownRenderer = (
-  { markdown, style, ...props }: Props,
+  { markdown, style, enableToc, ...props }: Props,
   ref: React.ForwardedRef<HTMLDivElement>,
-): JSX.Element => (
-  <div
-    ref={ref}
-    style={{ overflowWrap: 'anywhere', ...style }}
-    {...props}
-    dangerouslySetInnerHTML={{ __html: marked(markdown) }}
-  ></div>
-);
+): JSX.Element => {
+  const html = marked(markdown);
+
+  return (
+    <>
+      {enableToc && <TableOfContents html={html} />}
+      <div
+        ref={ref}
+        style={{ overflowWrap: 'anywhere', ...style }}
+        {...props}
+        dangerouslySetInnerHTML={{ __html: html }}
+      ></div>
+    </>
+  );
+};
 
 export default forwardRef(MarkdownRenderer);

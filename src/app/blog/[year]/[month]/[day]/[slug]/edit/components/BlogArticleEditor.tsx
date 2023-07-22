@@ -5,7 +5,6 @@ import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import clsx from 'clsx';
 import { inconsolata } from '@/app/common/fonts/inconsolata';
 import dynamic from 'next/dynamic';
-import TableOfContents from '@/app/blog/components/TableOfContents';
 
 const AceNoSsr = dynamic(() => import('./AceWrapper'), { ssr: false });
 
@@ -39,8 +38,12 @@ const BlogArticleEditor = ({
           height,
         )}
       >
-        <TableOfContents contentsRef={ref} />
-        <MarkdownRenderer ref={ref} className={'leading-[1.8]'} markdown={contentToRender} />
+        <MarkdownRenderer
+          ref={ref}
+          className={'leading-[1.8]'}
+          markdown={contentToRender}
+          enableToc
+        />
       </div>
       <AceNoSsr
         className={clsx(
