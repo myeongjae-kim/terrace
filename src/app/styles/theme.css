@@ -7,7 +7,7 @@ a:hover {
 }
 
 img {
-    @apply max-w-full;
+    @apply max-w-full m-auto;
 }
 
 h1 {
@@ -110,8 +110,4 @@ li {
     .h-screen {
         height: -webkit-fill-available;
     }
-}
-
-img {
-    margin: auto;
 }
