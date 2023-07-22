@@ -6,6 +6,7 @@ export type Article = {
   title: string;
   slug: string;
   content: string;
+  user_id: string | null;
 };
 
 export const articleDefault = (): Article => ({
@@ -16,4 +17,5 @@ export const articleDefault = (): Article => ({
   title: '',
   slug: '',
   content: '',
+  user_id: null,
 });

@@ -8,6 +8,8 @@ import { suit } from '@/app/common/fonts/suit';
 import CategoriesOnClientContainer from '@/app/common/containers/CategoriesOnClientContainer';
 import { Metadata } from 'next';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
+import ClientDependencyContainer from '@/app/common/containers/ClientDependencyContainer';
+import LoginLogoutButtonContainer from '@/app/auth/logout/containers/LoginLogoutButtonContainer';
 
 export const metadata: Metadata = createMetadata();
 
@@ -31,7 +33,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <CategoriesOnClientContainer categories={categories} />
           </div>
         </header>
-        <div className={'flex w-full grow justify-center'}>{children}</div>
+        <div className={'flex w-full grow justify-center'}>
+          <ClientDependencyContainer>
+            <div className={'absolute right-4 top-2'}>
+              <LoginLogoutButtonContainer />
+            </div>
+            {children}
+          </ClientDependencyContainer>
+        </div>
         <footer className={'mt-auto flex justify-center'}>
           <div className={'sticky flex-shrink-0 py-2'}>
             <span className={'select-none text-xs'}>
