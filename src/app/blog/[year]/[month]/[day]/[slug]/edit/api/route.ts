@@ -21,8 +21,8 @@ export async function PUT(request: NextRequest) {
 
   await supabase
     .from('article')
-    .update({ ...requestBody, ...article })
-    .match({ slug: requestBody.slug });
+    .update({ ...article, ...requestBody })
+    .eq('slug', requestBody.slug);
 
   return new Response('OK', { status: 200 });
 }

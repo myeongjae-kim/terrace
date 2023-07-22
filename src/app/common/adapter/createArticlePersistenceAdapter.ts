@@ -7,8 +7,9 @@ import {
   articleListResponseDefault,
 } from '@/app/common/domain/model/ArticleInList';
 import { getPagination } from '@/app/common/domain/model/getPagination';
+import { Database } from '@/lib/database.types';
 
-export const createArticlePersistenceAdapter = (supabase: SupabaseClient) => {
+export const createArticlePersistenceAdapter = (supabase: SupabaseClient<Database>) => {
   const getBySlug = async ({
     category,
     slug,
@@ -21,9 +22,10 @@ export const createArticlePersistenceAdapter = (supabase: SupabaseClient) => {
       .select('*')
       .eq('category', category)
       .eq('slug', decodeURIComponent(slug))
-      .not('published_at', 'is', null);
+      .not('published_at', 'is', null)
+      .single();
 
-    return article?.[0] || articleDefault();
+    return article || articleDefault();
   };
 
   const findAll = async ({
@@ -68,9 +70,10 @@ export const createArticlePersistenceAdapter = (supabase: SupabaseClient) => {
       .order('seq', { ascending: true })
       .gt('seq', seq)
       .not('published_at', 'is', null)
-      .range(0, 0);
+      .range(0, 0)
+      .single();
 
-    return data?.[0] || articleListResponseDefault();
+    return data || articleListResponseDefault();
   };
 
   const getPrevOf = async ({
@@ -87,9 +90,10 @@ export const createArticlePersistenceAdapter = (supabase: SupabaseClient) => {
       .order('seq', { ascending: false })
       .lt('seq', seq)
       .not('published_at', 'is', null)
-      .range(0, 0);
+      .range(0, 0)
+      .single();
 
-    return data?.[0] || articleListResponseDefault();
+    return data || articleListResponseDefault();
   };
 
   return { getBySlug, findAll, getNextOf, getPrevOf };

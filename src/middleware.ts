@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest) {
   const { data } = await supabase.auth.getSession();
 
   if (
-    data.session?.user?.role !== 'owner' &&
+    data.session?.user?.role !== 'authenticated' &&
     ownerOnlyPaths.some((fn) => fn(req.nextUrl.pathname))
   ) {
     return NextResponse.redirect(new URL(req.url).origin + '/404');
