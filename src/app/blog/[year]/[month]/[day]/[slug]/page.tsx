@@ -12,9 +12,10 @@ import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArti
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/lib/database.types';
 import { cookies } from 'next/headers';
-import { addWipEmojiToTitle } from '@/app/common/domain/model/Article';
+import { addSeqToTitle, addWipEmojiToTitle } from '@/app/common/domain/model/Article';
 import clsx from 'clsx';
 import Button from '@/app/common/components/Button';
+import { match } from 'ts-pattern';
 
 type Props = PageProps<{ slug: string }>;
 
@@ -56,7 +57,10 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
       <div className={'text-center'}>
         <Link href={'#'} className={'text-black'}>
           <h1 className={clsx('m-4', article.published_at || 'opacity-50')}>
-            {addWipEmojiToTitle(article).title}
+            {match(isOwner)
+              .with(true, () => addWipEmojiToTitle(addSeqToTitle(article)).title)
+              .with(false, () => article.title)
+              .exhaustive()}
           </h1>
         </Link>
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>

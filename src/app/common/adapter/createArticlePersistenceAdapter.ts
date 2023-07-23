@@ -150,5 +150,28 @@ export const createArticlePersistenceAdapter = (
       .eq('slug', article.slug);
   };
 
-  return { getBySlug, findAll, getNextOf, getPrevOf, create, update, publish, unpublish, isOwner };
+  const getNextSeq = async ({ category }: { category: ArticleCategory }): Promise<number> => {
+    const { data } = await supabase
+      .from('article')
+      .select('seq')
+      .eq('category', category)
+      .order('seq', { ascending: false })
+      .range(0, 0)
+      .single();
+
+    return (data?.seq || 0) + 1;
+  };
+
+  return {
+    getBySlug,
+    findAll,
+    getNextOf,
+    getPrevOf,
+    create,
+    update,
+    publish,
+    unpublish,
+    isOwner,
+    getNextSeq,
+  };
 };

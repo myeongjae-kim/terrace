@@ -1,13 +1,23 @@
 import React from 'react';
 import BlogArticleFormContainer from '@/app/blog/containers/BlogArticleFormContainer';
+import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/lib/database.types';
+import { cookies } from 'next/headers';
 
 export const fetchCache = 'force-no-store';
 
-const BlogArticleEditPage = async () => {
+const BlogArticleCreatePage = async () => {
+  const supabase = createArticlePersistenceAdapter(
+    createServerComponentClient<Database>({ cookies }),
+  );
+
+  const nextSeq = await supabase.getNextSeq({ category: 'BLOG_ARTICLE' });
+
   return (
     <BlogArticleFormContainer
       createOrEdit={'create'}
-      seq={''}
+      seq={nextSeq + ''}
       slug={''}
       title={''}
       content={''}
@@ -16,4 +26,4 @@ const BlogArticleEditPage = async () => {
   );
 };
 
-export default BlogArticleEditPage;
+export default BlogArticleCreatePage;
