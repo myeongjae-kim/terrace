@@ -57,7 +57,7 @@ const MarkdownRenderer = (
   </span>
 </a>
   <span class="flex-1"></span>
-  <a class="${constants.TOC_LINK_CLASS}" href="#${constants.TOC_ID}" ${constants.TOC_DATA_HEADING_ID_PROPERTY_NAME}="${block.id}">
+  <a class="${constants.TOC_LINK_CLASS} 2xl:hidden" href="#${constants.TOC_ID}" ${constants.TOC_DATA_HEADING_ID_PROPERTY_NAME}="${block.id}">
     <span class="material-icons cursor-pointer select-none opacity-50" style="font-size: 1em">
       toc
     </span>
