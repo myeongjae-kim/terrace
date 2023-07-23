@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname, useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
+import * as R from 'ramda';
 
 type CreateOrEdit = 'create' | 'edit';
 type Props = ArticleFormModel & {
@@ -58,8 +59,8 @@ const updateHandler =
         body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
       }),
       () => {
+        localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug));
         if (createOrEdit === 'create') {
-          localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug));
           router.push(getEditPathname(data.slug));
         }
       },
@@ -94,7 +95,7 @@ const BlogArticleFormContainer = ({
 }: Props): JSX.Element => {
   const form = useForm<ArticleFormModel>({
     resolver: zodResolver(ArticleFormSchema),
-    defaultValues: { seq, slug, title, content },
+    defaultValues: { seq, slug, title, content, published_at },
   });
   const {
     register,
@@ -108,7 +109,9 @@ const BlogArticleFormContainer = ({
 
   React.useEffect(() => {
     const persisted = localStorage.getItem(getLocalStorageKey(createOrEdit, slug));
+    const article = deserializeForm(persisted || '{}');
     if (
+      !R.equals(article, { seq, slug, title, content, published_at }) &&
       persisted &&
       (confirm('편집중이던 글을 불러올까요?\n취소를 누르면 저장된 글이 사라집니다.') ||
         confirm('진짜 사라집니다??\n취소를 누르면 저장된 글이 사라집니다.'))
@@ -138,7 +141,7 @@ const BlogArticleFormContainer = ({
       setContentToRender(arg);
       setValue('content', arg);
     },
-    [content, form, setValue, slug],
+    [content, createOrEdit, form, setValue, slug],
   );
 
   const pathname = usePathname();
