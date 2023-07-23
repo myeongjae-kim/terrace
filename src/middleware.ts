@@ -9,6 +9,8 @@ const ownerOnlyPaths: Array<(path: string) => boolean> = [
   (path) => /.*\/edit\/api$/.test(path),
   (path) => /.*\/create$/.test(path),
   (path) => /.*\/create\/api$/.test(path),
+  (path) => /.*\/publish\/api$/.test(path),
+  (path) => /.*\/unpublish\/api$/.test(path),
 ];
 
 export async function middleware(req: NextRequest) {

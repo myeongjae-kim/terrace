@@ -13,6 +13,7 @@ export const ArticleFormSchema = z.object({
     .max(255)
     .regex(/^[a-z0-9-]+$/),
   content: z.string(),
+  published_at: z.string().nullable(),
 });
 
 export type ArticleFormModel = z.infer<typeof ArticleFormSchema>;

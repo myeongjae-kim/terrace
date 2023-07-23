@@ -5,6 +5,7 @@ export type Article = {
   seq: number;
   created_at: string;
   updated_at: string;
+  published_at: string | null;
   title: string;
   slug: string;
   content: string;
@@ -17,6 +18,7 @@ export const articleDefault = (): Article => ({
   seq: 0,
   created_at: '',
   updated_at: '',
+  published_at: null,
   title: '',
   slug: '',
   content: '',

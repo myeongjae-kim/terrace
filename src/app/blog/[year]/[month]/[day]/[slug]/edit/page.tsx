@@ -27,6 +27,7 @@ const BlogArticleEditPage = async ({ params }: Props) => {
       slug={article.slug}
       title={article.title}
       content={article.content}
+      published_at={article.published_at}
     />
   );
 };

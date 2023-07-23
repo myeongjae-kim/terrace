@@ -10,17 +10,19 @@ import { getPagination } from '@/app/common/domain/model/getPagination';
 import { Database } from '@/lib/database.types';
 import { dateToStringISO8601 } from '@/app/common/utils/dateToStringISO8601';
 
-export const createArticlePersistenceAdapter = (supabase: SupabaseClient<Database>) => {
+type GetParams = {
+  category: ArticleCategory;
+  slug: string;
+};
+
+export const createArticlePersistenceAdapter = (
+  supabase: SupabaseClient<Database>,
+  now = () => new Date(),
+) => {
   const isOwner = () =>
     supabase.auth.getSession().then(({ data }) => data?.session?.user?.role === 'owner');
 
-  const getBySlug = async ({
-    category,
-    slug,
-  }: {
-    category: ArticleCategory;
-    slug: string;
-  }): Promise<Article> => {
+  const getBySlug = async ({ category, slug }: GetParams): Promise<Article> => {
     const query = supabase
       .from('article')
       .select('*')
@@ -105,15 +107,44 @@ export const createArticlePersistenceAdapter = (supabase: SupabaseClient<Databas
   const create = (article: Article) =>
     supabase.from('article').insert({
       ...article,
-      created_at: dateToStringISO8601(new Date()),
-      updated_at: dateToStringISO8601(new Date()),
+      created_at: dateToStringISO8601(now()),
+      updated_at: dateToStringISO8601(now()),
     });
 
   const update = (article: Article) =>
-    supabase.from('article').insert({
-      ...article,
-      updated_at: dateToStringISO8601(new Date()),
-    });
+    supabase
+      .from('article')
+      .update({
+        ...article,
+        updated_at: dateToStringISO8601(now()),
+      })
+      .eq('slug', article.slug);
 
-  return { getBySlug, findAll, getNextOf, getPrevOf, create, update };
+  const publish = async (getParams: GetParams) => {
+    const article = await getBySlug(getParams);
+
+    return supabase
+      .from('article')
+      .update({
+        ...article,
+        updated_at: dateToStringISO8601(now()),
+        published_at: dateToStringISO8601(now()),
+      })
+      .eq('slug', article.slug);
+  };
+
+  const unpublish = async (getParams: GetParams) => {
+    const article = await getBySlug(getParams);
+
+    return supabase
+      .from('article')
+      .update({
+        ...article,
+        updated_at: dateToStringISO8601(now()),
+        published_at: null,
+      })
+      .eq('slug', article.slug);
+  };
+
+  return { getBySlug, findAll, getNextOf, getPrevOf, create, update, publish, unpublish };
 };

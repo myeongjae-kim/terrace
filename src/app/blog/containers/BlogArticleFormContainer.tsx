@@ -22,35 +22,74 @@ const serializeForm = (form: ArticleFormModel) => JSON.stringify(form);
 const deserializeForm = (serialized: string) => JSON.parse(serialized) as ArticleFormModel;
 const getEditPathname = (slug: string) => `/blog/${dayjs().format('YYYY/MM/DD')}/${slug}/edit`;
 
-const updateHandler =
-  (createOrEdit: 'create' | 'edit', pathname: string, router: AppRouterInstance) =>
-  (data: ArticleFormModel) => {
-    fetch(pathname + '/api', {
-      method: createOrEdit === 'create' ? 'POST' : 'PUT',
-      body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
-    })
+const fetchResponseHandler = (
+  response: Promise<Response>,
+  onSuccess?: () => void,
+  onFailure?: () => void,
+) =>
+  new Promise<void>((resolve, reject) => {
+    response
       .then((it) => {
         if (it.status < 300) {
           alert('저장했습니다.');
-          if (createOrEdit === 'create') {
-            localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug));
-            router.push(getEditPathname(data.slug));
-          }
+          onSuccess?.();
+          resolve();
           return;
         }
 
+        onFailure?.();
         it.json().then((json) => alert(JSON.stringify(json, null, 2)));
+        reject();
       })
       .catch(() => {
         alert('실패');
+        onFailure?.();
+
+        reject();
       });
+  });
+
+const updateHandler =
+  (createOrEdit: 'create' | 'edit', pathname: string, router: AppRouterInstance) =>
+  (data: ArticleFormModel) => {
+    return fetchResponseHandler(
+      fetch(pathname + '/api', {
+        method: createOrEdit === 'create' ? 'POST' : 'PUT',
+        body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
+      }),
+      () => {
+        if (createOrEdit === 'create') {
+          localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug));
+          router.push(getEditPathname(data.slug));
+        }
+      },
+    );
   };
+
+const publish = (arg: Pick<ArticleFormModel, 'slug'>, onSuccess?: () => void) =>
+  fetchResponseHandler(
+    fetch('/blog/publish/api', {
+      method: 'PATCH',
+      body: JSON.stringify(arg),
+    }),
+    onSuccess,
+  );
+
+const unpublish = (arg: Pick<ArticleFormModel, 'slug'>, onSuccess?: () => void) =>
+  fetchResponseHandler(
+    fetch('/blog/unpublish/api', {
+      method: 'PATCH',
+      body: JSON.stringify(arg),
+    }),
+    onSuccess,
+  );
 
 const BlogArticleFormContainer = ({
   seq,
   slug,
   title,
   content,
+  published_at,
   createOrEdit,
 }: Props): JSX.Element => {
   const form = useForm<ArticleFormModel>({
@@ -111,6 +150,20 @@ const BlogArticleFormContainer = ({
           'mx-4 flex flex-col items-start items-end justify-center gap-2 sm:flex-row sm:gap-4'
         }
       >
+        {createOrEdit === 'edit' && (
+          <div>
+            <Button
+              type={'button'}
+              onClick={() => {
+                (published_at ? unpublish({ slug: slug }) : publish({ slug: slug })).then(() => {
+                  router.refresh();
+                });
+              }}
+            >
+              {published_at ? '발행취소' : '발행'}
+            </Button>
+          </div>
+        )}
         <Input
           label={'seq'}
           wrapperAdditionalClassName={'flex-[1_1_0%]'}
