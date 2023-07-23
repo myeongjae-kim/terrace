@@ -110,7 +110,8 @@ const BlogArticleFormContainer = ({
     const persisted = localStorage.getItem(getLocalStorageKey(createOrEdit, slug));
     if (
       persisted &&
-      confirm('편집중이던 글을 불러올까요?\n취소를 누르면 저장된 글이 사라집니다.')
+      (confirm('편집중이던 글을 불러올까요?\n취소를 누르면 저장된 글이 사라집니다.') ||
+        confirm('진짜 사라집니다??\n취소를 누르면 저장된 글이 사라집니다.'))
     ) {
       const article = deserializeForm(persisted);
       setContentToRender(article.content);
@@ -144,7 +145,10 @@ const BlogArticleFormContainer = ({
   const router = useRouter();
 
   return (
-    <form onSubmit={handleSubmit(updateHandler(createOrEdit, pathname, router))}>
+    <form
+      className={'w-full'}
+      onSubmit={handleSubmit(updateHandler(createOrEdit, pathname, router))}
+    >
       <div
         className={
           'mx-4 flex flex-col items-start items-end justify-center gap-2 sm:flex-row sm:gap-4'

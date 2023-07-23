@@ -35,7 +35,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </header>
         <div className={'flex w-full grow justify-center'}>
           <ClientDependencyContainer>
-            <div className={'absolute right-4 top-2'}>
+            <div className={'fixed right-4 top-2'}>
               <LoginLogoutButtonContainer />
             </div>
             {children}

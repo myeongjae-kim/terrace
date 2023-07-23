@@ -896,8 +896,8 @@ packages:
       - encoding
     dev: false
 
-  /@supabase/postgrest-js@1.7.1:
-    resolution: {integrity: sha512-xPRYLaZrkLbXNlzmHW6Wtf9hmcBLjjI5xUz2zj8oE2hgXGaYoZBBkpN9bmW9i17Z1f6Ujxa942AqK439XOA36A==}
+  /@supabase/postgrest-js@1.7.2:
+    resolution: {integrity: sha512-GK80JpRq8l6Qll85erICypAfQCied8tdlXfsDN14W844HqXCSOisk8AaE01DAwGJanieaoN5fuqhzA2yKxDvEQ==}
     dependencies:
       cross-fetch: 3.1.6
     transitivePeerDependencies:
@@ -927,7 +927,7 @@ packages:
     dependencies:
       '@supabase/functions-js': 2.1.2
       '@supabase/gotrue-js': 2.31.0
-      '@supabase/postgrest-js': 1.7.1
+      '@supabase/postgrest-js': 1.7.2
       '@supabase/realtime-js': 2.7.3
       '@supabase/storage-js': 2.5.1
       cross-fetch: 3.1.6

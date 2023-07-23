@@ -5,6 +5,7 @@ export type ArticleListResponse = {
   slug: string;
   created_at: string;
   updated_at: string;
+  published_at: string | null;
 };
 
 export const articleListResponseDefault = (): ArticleListResponse => ({
@@ -14,4 +15,5 @@ export const articleListResponseDefault = (): ArticleListResponse => ({
   slug: '',
   created_at: '',
   updated_at: '',
+  published_at: null,
 });

@@ -7,7 +7,12 @@ import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
 import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
-import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
+import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/lib/database.types';
+import { cookies } from 'next/headers';
+import clsx from 'clsx';
+import { addSeqToTitle, addWipEmojiToTitle } from '@/app/common/domain/model/Article';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Blog'),
@@ -16,18 +21,30 @@ export const metadata: Metadata = createMetadata({
 
 const BlogPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);
-  const articles = await articlePersistenceAdapter.findAll({
+  const supabase = createArticlePersistenceAdapter(
+    createServerComponentClient<Database>({ cookies }),
+  );
+  const articles = await supabase.findAll({
     category: 'BLOG_ARTICLE',
     page: pageNumber,
     pageSize: 10,
   });
+
+  const isOwner = await supabase.isOwner();
 
   return (
     <main className="flex grow flex-col items-center justify-between">
       <PageHeader>Articles</PageHeader>
       <div className={'-mt-3 grow'}>
         {articles.content.map((article) => (
-          <BlogListElement key={article.id} Link={Link} article={article} />
+          <BlogListElement
+            key={article.id}
+            Link={Link}
+            article={
+              isOwner ? addWipEmojiToTitle(addSeqToTitle(article)) : addWipEmojiToTitle(article)
+            }
+            className={clsx(article.published_at || 'opacity-50')}
+          />
         ))}
       </div>
       <Pagination

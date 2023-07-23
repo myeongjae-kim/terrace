@@ -7,13 +7,23 @@ import { toSlug } from '@/app/common/domain/model/toSlug';
 import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
-import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 import MarkdownRendererContainer from '@/app/common/containers/MarkdownRendererContainer';
+import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/lib/database.types';
+import { cookies } from 'next/headers';
+import { addWipEmojiToTitle } from '@/app/common/domain/model/Article';
+import clsx from 'clsx';
+import Button from '@/app/common/components/Button';
 
 type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = await articlePersistenceAdapter.getBySlug({
+  const supabase = createArticlePersistenceAdapter(
+    createServerComponentClient<Database>({ cookies }),
+  );
+
+  const article = await supabase.getBySlug({
     category: 'BLOG_ARTICLE',
     slug: params.slug,
   });
@@ -25,24 +35,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
-  const article = await articlePersistenceAdapter.getBySlug({
+  const supabase = createArticlePersistenceAdapter(
+    createServerComponentClient<Database>({ cookies }),
+  );
+  const article = await supabase.getBySlug({
     category: 'BLOG_ARTICLE',
     slug: props.params.slug,
   });
   const [prev, next] = await Promise.all(
-    [articlePersistenceAdapter.getPrevOf, articlePersistenceAdapter.getNextOf].map((f) =>
+    [supabase.getPrevOf, supabase.getNextOf].map((f) =>
       f({ category: 'BLOG_ARTICLE', seq: article.seq }),
     ),
   );
   const commentIdentifier = `blog/${formatDate(article.created_at, '/')}/${article.slug}`;
 
+  const isOwner = await supabase.isOwner();
+
   return (
     <main className={'w-full max-w-[50rem]'}>
       <div className={'text-center'}>
         <Link href={'#'} className={'text-black'}>
-          <h1 className={'m-4'}>{article.title}</h1>
+          <h1 className={clsx('m-4', article.published_at || 'opacity-50')}>
+            {addWipEmojiToTitle(article).title}
+          </h1>
         </Link>
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
+        {isOwner && (
+          <Link href={`./${article.slug}/edit`}>
+            <Button>수정</Button>
+          </Link>
+        )}
       </div>
       <div className={'m-4'}>
         <MarkdownRendererContainer

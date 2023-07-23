@@ -30,7 +30,7 @@ export const createArticlePersistenceAdapter = (
       .eq('slug', decodeURIComponent(slug));
 
     const { data: article } = await isOwner().then((result) =>
-      result ? query.single() : query.not('published_at', 'is', null).single(),
+      (result ? query : query.not('published_at', 'is', null)).single(),
     );
 
     return article || articleDefault();
@@ -45,15 +45,17 @@ export const createArticlePersistenceAdapter = (
     page: number;
     pageSize: number;
   }): Promise<Paginated<ArticleListResponse>> => {
-    // const pageSize = 10; // blog = 10, daily = 20
     const { from, to } = getPagination(page, pageSize);
-    const { data: article, count } = await supabase
+
+    const query = supabase
       .from('article')
-      .select('id,seq,title,slug,created_at,updated_at', { count: 'exact' })
+      .select('id,seq,title,slug,created_at,updated_at,published_at', { count: 'exact' })
       .eq('category', category)
-      .order('seq', { ascending: false })
-      .not('published_at', 'is', null)
-      .range(from, to);
+      .order('seq', { ascending: false });
+
+    const { data: article, count } = await isOwner().then((result) =>
+      (result ? query : query.not('published_at', 'is', null)).range(from, to),
+    );
 
     return {
       content: article || [],
@@ -71,15 +73,16 @@ export const createArticlePersistenceAdapter = (
     category: ArticleCategory;
     seq: number;
   }): Promise<ArticleListResponse> => {
-    const { data } = await supabase
+    const query = supabase
       .from('article')
-      .select('id,seq,title,slug,created_at,updated_at')
+      .select('id,seq,title,slug,created_at,updated_at,published_at')
       .eq('category', category)
       .order('seq', { ascending: true })
-      .gt('seq', seq)
-      .not('published_at', 'is', null)
-      .range(0, 0)
-      .single();
+      .gt('seq', seq);
+
+    const { data } = await isOwner().then((result) =>
+      (result ? query : query.not('published_at', 'is', null)).range(0, 0).single(),
+    );
 
     return data || articleListResponseDefault();
   };
@@ -91,15 +94,16 @@ export const createArticlePersistenceAdapter = (
     category: ArticleCategory;
     seq: number;
   }): Promise<ArticleListResponse> => {
-    const { data } = await supabase
+    const query = supabase
       .from('article')
-      .select('id,seq,title,slug,created_at,updated_at')
+      .select('id,seq,title,slug,created_at,updated_at,published_at')
       .eq('category', category)
       .order('seq', { ascending: false })
-      .lt('seq', seq)
-      .not('published_at', 'is', null)
-      .range(0, 0)
-      .single();
+      .lt('seq', seq);
+
+    const { data } = await isOwner().then((result) =>
+      (result ? query : query.not('published_at', 'is', null)).range(0, 0).single(),
+    );
 
     return data || articleListResponseDefault();
   };
@@ -146,5 +150,5 @@ export const createArticlePersistenceAdapter = (
       .eq('slug', article.slug);
   };
 
-  return { getBySlug, findAll, getNextOf, getPrevOf, create, update, publish, unpublish };
+  return { getBySlug, findAll, getNextOf, getPrevOf, create, update, publish, unpublish, isOwner };
 };

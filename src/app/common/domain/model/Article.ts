@@ -1,4 +1,5 @@
 import { ArticleCategory } from '@/app/common/domain/model/ArticleCategory';
+import { match } from 'ts-pattern';
 
 export type Article = {
   id: number;
@@ -24,4 +25,19 @@ export const articleDefault = (): Article => ({
   content: '',
   category: 'BLOG_ARTICLE',
   user_id: null,
+});
+
+export const addWipEmojiToTitle = <T extends { title: string; published_at: string | null }>(
+  article: T,
+): T => ({
+  ...article,
+  title: match(!!article.published_at)
+    .with(true, () => article.title)
+    .with(false, () => '📝 ' + article.title)
+    .exhaustive(),
+});
+
+export const addSeqToTitle = <T extends { title: string; seq: number }>(article: T): T => ({
+  ...article,
+  title: `[${article.seq}] ` + article.title,
 });

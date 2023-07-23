@@ -42,7 +42,7 @@ const BlogArticleEditor = ({
           ref={ref}
           className={'leading-[1.8]'}
           markdown={contentToRender}
-          enableToc
+          enableToc={false}
         />
       </div>
       <AceNoSsr

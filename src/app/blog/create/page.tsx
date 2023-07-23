@@ -5,7 +5,14 @@ export const fetchCache = 'force-no-store';
 
 const BlogArticleEditPage = async () => {
   return (
-    <BlogArticleFormContainer createOrEdit={'create'} seq={''} slug={''} title={''} content={''} />
+    <BlogArticleFormContainer
+      createOrEdit={'create'}
+      seq={''}
+      slug={''}
+      title={''}
+      content={''}
+      published_at={null}
+    />
   );
 };
 
