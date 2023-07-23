@@ -83,6 +83,7 @@ const MarkdownRendererContainer = (props: Props): JSX.Element => {
       },
     );
 
+    // register observer
     ref.current.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((element) => {
       observer.observe(element);
     });

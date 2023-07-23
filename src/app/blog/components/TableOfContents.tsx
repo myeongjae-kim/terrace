@@ -26,7 +26,7 @@ const render = (headings: Heading[], curr = 0): string => {
   if (nextDepth > headings[curr].depth) {
     return `<li><a href="#${headings[curr].id}">${
       headings[curr].innerHTML
-    }</a></li><li><ul>${render(headings, curr + 1)}`;
+    }</a></li><li class="list-none"><ul>${render(headings, curr + 1)}`;
   }
 
   if (nextDepth < headings[curr].depth) {

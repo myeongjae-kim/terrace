@@ -47,10 +47,9 @@ const MarkdownRenderer = (
 
   const parsedForContents = parser(html);
   parsedForContents.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((block) => {
-    block.classList.add('flex');
-    block.classList.add('flex-wrap');
-    block.classList.add('gap-1');
-    block.classList.add('items-start');
+    'flex flex-wrap gap-1 items-start'.split(' ').forEach((className) => {
+      block.classList.remove(className);
+    });
     block.innerHTML = `${block.innerHTML} <a class="${constants.HEADING_URL_COPY_LINK_CLASS}" href="#${block.id}" onClick="navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#${block.id}')">
   <span class="material-icons cursor-pointer select-none" style="font-size: 1.2em">
     link
@@ -73,7 +72,7 @@ const MarkdownRenderer = (
         style={{ overflowWrap: 'anywhere', ...style }}
         {...props}
         dangerouslySetInnerHTML={{ __html: parsedForContents.innerHTML }}
-      ></div>
+      />
     </>
   );
 };
