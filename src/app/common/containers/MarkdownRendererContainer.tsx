@@ -16,6 +16,7 @@ const MarkdownRendererContainer = (props: Props): JSX.Element => {
       return;
     }
 
+    // link copy handler
     ref.current
       .querySelectorAll(`a.${constants.HEADING_URL_COPY_LINK_CLASS}`)
       .forEach((element) => {
@@ -28,6 +29,7 @@ const MarkdownRendererContainer = (props: Props): JSX.Element => {
         });
       });
 
+    // jump to toc handler
     ref.current.querySelectorAll(`a.${constants.TOC_LINK_CLASS}`).forEach((element) => {
       element.addEventListener('click', () => {
         toast.success(
@@ -42,6 +44,47 @@ const MarkdownRendererContainer = (props: Props): JSX.Element => {
           </div>,
         );
       });
+    });
+
+    // toc highlighter
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('id');
+
+          const tocLinks = [
+            ...(document.getElementById(constants.TOC_WRAPPER_NAV)?.querySelectorAll(`nav li a`) ||
+              []),
+          ];
+
+          const targetLinkIndex = tocLinks.findIndex(
+            (element) => element.getAttribute('href') === `#${id}`,
+          );
+
+          const interactionDirection = entry.boundingClientRect.y < 0 ? 'top' : 'bottom';
+          const elementInOrOut = entry.intersectionRatio > 0 ? 'in' : 'out';
+
+          if (interactionDirection !== 'bottom') {
+            return;
+          }
+
+          tocLinks.forEach((element) => {
+            element.classList.remove('font-bold');
+          });
+          if (elementInOrOut === 'in') {
+            tocLinks[targetLinkIndex]?.classList?.add('font-bold');
+          } else {
+            tocLinks[targetLinkIndex - 1]?.classList?.add('font-bold');
+          }
+        });
+      },
+      {
+        rootMargin: '0px 0px -70% 0px',
+      },
+    );
+
+    ref.current.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((element) => {
+      observer.observe(element);
     });
   }, []);
 

@@ -52,8 +52,10 @@ const TableOfContents = ({ htmlElement }: Props): JSX.Element => {
 
   return headings.length > 0 ? (
     <>
-      <a id={constants.TOC_ID} />
-      <nav className={'mb-4 flex max-w-md 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-w-xs'}>
+      <nav
+        id={constants.TOC_WRAPPER_NAV}
+        className={'mb-4 flex max-w-md 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-w-xs'}
+      >
         <div className={'rounded-lg bg-stone-50 p-2 text-sm leading-6 2xl:bg-transparent'}>
           <span id={constants.TOC_ID} className={'select-none font-bold'}>
             목차
