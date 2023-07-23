@@ -1,3 +1,5 @@
+import { ArticleCategory } from '@/app/common/domain/model/ArticleCategory';
+
 export type Article = {
   id: number;
   seq: number;
@@ -6,6 +8,7 @@ export type Article = {
   title: string;
   slug: string;
   content: string;
+  category: ArticleCategory;
   user_id: string | null;
 };
 
@@ -17,5 +20,6 @@ export const articleDefault = (): Article => ({
   title: '',
   slug: '',
   content: '',
+  category: 'BLOG_ARTICLE',
   user_id: null,
 });

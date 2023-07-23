@@ -7,15 +7,52 @@ import { ArticleFormModel, ArticleFormSchema } from '@/app/common/domain/model/A
 import Input from '@/app/common/components/Input';
 import Button from '@/app/common/components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import dayjs from 'dayjs';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 
-type Props = ArticleFormModel;
+type CreateOrEdit = 'create' | 'edit';
+type Props = ArticleFormModel & {
+  createOrEdit: CreateOrEdit;
+};
 
-const getLocalStorageKey = (slug?: string) => `@terrace/blog-article/${slug ?? 'writing'}`;
+const getLocalStorageKey = (createOrEdit: CreateOrEdit, slug: string) =>
+  `@terrace/blog-article/${createOrEdit === 'create' ? 'writing' : slug}`;
 const serializeForm = (form: ArticleFormModel) => JSON.stringify(form);
 const deserializeForm = (serialized: string) => JSON.parse(serialized) as ArticleFormModel;
+const getEditPathname = (slug: string) => `/blog/${dayjs().format('YYYY/MM/DD')}/${slug}/edit`;
 
-const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Element => {
+const updateHandler =
+  (createOrEdit: 'create' | 'edit', pathname: string, router: AppRouterInstance) =>
+  (data: ArticleFormModel) => {
+    fetch(pathname + '/api', {
+      method: createOrEdit === 'create' ? 'POST' : 'PUT',
+      body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
+    })
+      .then((it) => {
+        if (it.status < 300) {
+          alert('저장했습니다.');
+          if (createOrEdit === 'create') {
+            localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug));
+            router.push(getEditPathname(data.slug));
+          }
+          return;
+        }
+
+        it.json().then((json) => alert(JSON.stringify(json, null, 2)));
+      })
+      .catch(() => {
+        alert('실패');
+      });
+  };
+
+const BlogArticleFormContainer = ({
+  seq,
+  slug,
+  title,
+  content,
+  createOrEdit,
+}: Props): JSX.Element => {
   const form = useForm<ArticleFormModel>({
     resolver: zodResolver(ArticleFormSchema),
     defaultValues: { seq, slug, title, content },
@@ -31,7 +68,7 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
   const [persistedContent, setPersistedContent] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const persisted = localStorage.getItem(getLocalStorageKey(slug));
+    const persisted = localStorage.getItem(getLocalStorageKey(createOrEdit, slug));
     if (
       persisted &&
       confirm('편집중이던 글을 불러올까요?\n취소를 누르면 저장된 글이 사라집니다.')
@@ -45,7 +82,7 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
     } else {
       setContentToRender(content);
       setPersistedContent(content);
-      localStorage.removeItem(getLocalStorageKey(slug));
+      localStorage.removeItem(getLocalStorageKey(createOrEdit, slug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -54,7 +91,7 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
     (arg: string) => {
       if (content !== arg) {
         localStorage.setItem(
-          getLocalStorageKey(slug),
+          getLocalStorageKey(createOrEdit, slug),
           serializeForm({ ...form.getValues(), content: arg }),
         );
       }
@@ -65,26 +102,10 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
   );
 
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        fetch(pathname + '/api', {
-          method: 'PUT',
-          body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
-        })
-          .then((it) => {
-            if (it.status < 300) {
-              alert('저장했습니다.');
-            } else {
-              it.json().then((json) => alert(JSON.stringify(json, null, 2)));
-            }
-          })
-          .catch(() => {
-            alert('실패');
-          });
-      })}
-    >
+    <form onSubmit={handleSubmit(updateHandler(createOrEdit, pathname, router))}>
       <div
         className={
           'mx-4 flex flex-col items-start items-end justify-center gap-2 sm:flex-row sm:gap-4'
@@ -109,7 +130,7 @@ const BlogArticleFormContainer = ({ seq, slug, title, content }: Props): JSX.Ele
           {...register('title')}
         />
         <div className={'my-4 sm:mb-0 sm:mt-7'}>
-          <Button type={'submit'}>완료</Button>
+          <Button type={'submit'}>{createOrEdit === 'create' ? '작성' : '편집'}</Button>
         </div>
       </div>
       {persistedContent !== null && (

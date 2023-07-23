@@ -8,8 +8,12 @@ import {
 } from '@/app/common/domain/model/ArticleInList';
 import { getPagination } from '@/app/common/domain/model/getPagination';
 import { Database } from '@/lib/database.types';
+import { dateToStringISO8601 } from '@/app/common/utils/dateToStringISO8601';
 
 export const createArticlePersistenceAdapter = (supabase: SupabaseClient<Database>) => {
+  const isOwner = () =>
+    supabase.auth.getSession().then(({ data }) => data?.session?.user?.role === 'owner');
+
   const getBySlug = async ({
     category,
     slug,
@@ -17,13 +21,15 @@ export const createArticlePersistenceAdapter = (supabase: SupabaseClient<Databas
     category: ArticleCategory;
     slug: string;
   }): Promise<Article> => {
-    const { data: article } = await supabase
+    const query = supabase
       .from('article')
       .select('*')
       .eq('category', category)
-      .eq('slug', decodeURIComponent(slug))
-      .not('published_at', 'is', null)
-      .single();
+      .eq('slug', decodeURIComponent(slug));
+
+    const { data: article } = await isOwner().then((result) =>
+      result ? query.single() : query.not('published_at', 'is', null).single(),
+    );
 
     return article || articleDefault();
   };
@@ -96,5 +102,18 @@ export const createArticlePersistenceAdapter = (supabase: SupabaseClient<Databas
     return data || articleListResponseDefault();
   };
 
-  return { getBySlug, findAll, getNextOf, getPrevOf };
+  const create = (article: Article) =>
+    supabase.from('article').insert({
+      ...article,
+      created_at: dateToStringISO8601(new Date()),
+      updated_at: dateToStringISO8601(new Date()),
+    });
+
+  const update = (article: Article) =>
+    supabase.from('article').insert({
+      ...article,
+      updated_at: dateToStringISO8601(new Date()),
+    });
+
+  return { getBySlug, findAll, getNextOf, getPrevOf, create, update };
 };
