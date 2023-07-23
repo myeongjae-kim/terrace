@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 import { createTitle } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
-import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
+import MarkdownRendererContainer from '@/app/common/containers/MarkdownRendererContainer';
 
 type Props = PageProps<{ slug: string }>;
 
@@ -45,7 +45,11 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
       </div>
       <div className={'m-4'}>
-        <MarkdownRenderer className={'mb-4 leading-[1.8]'} markdown={article.content} enableToc />
+        <MarkdownRendererContainer
+          className={'mb-4 leading-[1.8]'}
+          markdown={article.content}
+          enableToc
+        />
         <div className={'text-sm'}>
           <hr />
           <div className={'my-4 flex flex-col gap-1.5 text-center'}>

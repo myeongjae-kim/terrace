@@ -18,7 +18,12 @@ import 'prismjs/components/prism-vim.min.js';
 import 'prismjs/components/prism-yaml.min.js';
 import TableOfContents from '@/app/blog/components/TableOfContents';
 import parser from 'node-html-parser';
-import { TOC_ID } from '@/app/common/domain/model/constants';
+import {
+  HEADING_URL_COPY_LINK_CLASS,
+  TOC_DATA_HEADING_ID_PROPERTY_NAME,
+  TOC_ID,
+  TOC_LINK_CLASS,
+} from '@/app/common/domain/model/constants';
 
 type Props = React.ComponentProps<'div'> & {
   markdown: string;
@@ -51,13 +56,13 @@ const MarkdownRenderer = (
     block.classList.add('flex-wrap');
     block.classList.add('gap-1');
     block.classList.add('items-start');
-    block.innerHTML = `${block.innerHTML} <a href="#${block.id}" onClick="navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#${block.id}')">
+    block.innerHTML = `${block.innerHTML} <a class="${HEADING_URL_COPY_LINK_CLASS}" href="#${block.id}" onClick="navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#${block.id}')">
   <span class="material-icons cursor-pointer select-none" style="font-size: 1.2em">
     link
   </span>
 </a>
   <span class="flex-1"></span>
-  <a href="#${TOC_ID}">
+  <a class="${TOC_LINK_CLASS}" href="#${TOC_ID}" ${TOC_DATA_HEADING_ID_PROPERTY_NAME}="${block.id}">
     <span class="material-icons cursor-pointer select-none opacity-50" style="font-size: 1em">
       toc
     </span>
