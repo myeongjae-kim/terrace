@@ -39,7 +39,7 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
   return (
     <main className={'w-full max-w-[50rem]'}>
       <div className={'text-center'}>
-        <Link href={''} className={'text-black'}>
+        <Link href={'#'} className={'text-black'}>
           <h1 className={'m-4'}>{article.title}</h1>
         </Link>
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
