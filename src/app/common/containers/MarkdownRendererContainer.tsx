@@ -50,6 +50,12 @@ const MarkdownRendererContainer = (props: Props): JSX.Element => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (document.documentElement.scrollTop === 0) {
+            // 글 목록에서 글 상세로 이동했을 때 끝쪽의 heading에 highlight가 되는 버그가 있음.
+            // scroll이 제일 위에 있을 때는 highlight를 하지 않음으로서 버그 해결
+            return;
+          }
+
           const id = entry.target.getAttribute('id');
 
           const tocLinks = [

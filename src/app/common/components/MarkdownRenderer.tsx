@@ -48,7 +48,7 @@ const MarkdownRenderer = (
   const parsedForContents = parser(html);
   parsedForContents.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((block) => {
     'flex flex-wrap gap-1 items-start'.split(' ').forEach((className) => {
-      block.classList.remove(className);
+      block.classList.add(className);
     });
     block.innerHTML = `${block.innerHTML} <a class="${constants.HEADING_URL_COPY_LINK_CLASS}" href="#${block.id}" onClick="navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#${block.id}')">
   <span class="material-icons cursor-pointer select-none" style="font-size: 1.2em">
@@ -57,7 +57,7 @@ const MarkdownRenderer = (
 </a>
   <span class="flex-1"></span>
   <a class="${constants.TOC_LINK_CLASS} 2xl:hidden" href="#${constants.TOC_ID}" ${constants.TOC_DATA_HEADING_ID_PROPERTY_NAME}="${block.id}">
-    <span class="material-icons cursor-pointer select-none opacity-50" style="font-size: 1em">
+    <span class="material-icons cursor-pointer select-none opacity-50" style="font-size: 1.2em">
       toc
     </span>
   </a>
