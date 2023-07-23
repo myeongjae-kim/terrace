@@ -31,6 +31,7 @@ const GoogleLoginButtonContainer = ({ redirectUri }: { redirectUri: string }): J
             responseGoogle({ clientId, credential }).then(() => {
               setIsLoggedIn(true);
               router.push(redirectUri);
+              router.refresh();
             });
           } else {
             alert('clientId or credential is undefined');

@@ -1,18 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type Props = { isLoggedIn: boolean; setIsLoggedIn(arg: boolean): void; redirectUri: string };
 
 const LoginLogoutButton = ({ isLoggedIn, setIsLoggedIn, redirectUri }: Props): JSX.Element => {
   const logoutPath = `/auth/logout?${redirectUri}`;
   const loginPath = `/login?${redirectUri}`;
+  const router = useRouter();
 
   return isLoggedIn ? (
     <a
       href={logoutPath}
       onClick={(e) => {
         e.preventDefault();
-        fetch(logoutPath).then(() => setIsLoggedIn(false));
+        fetch(logoutPath).then(() => {
+          setIsLoggedIn(false);
+          router.refresh();
+        });
       }}
     >
       <button>로그아웃</button>
