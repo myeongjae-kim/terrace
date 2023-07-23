@@ -48,6 +48,7 @@ const MarkdownRenderer = (
   const parsedForContents = parser(html);
   parsedForContents.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((block) => {
     block.classList.add('flex');
+    block.classList.add('flex-wrap');
     block.classList.add('gap-1');
     block.classList.add('items-start');
     block.innerHTML = `${block.innerHTML} <a href="#${block.id}" onClick="navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#${block.id}')">
