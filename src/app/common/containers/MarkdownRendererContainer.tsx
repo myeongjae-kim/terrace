@@ -76,10 +76,13 @@ const MarkdownRendererContainer = (props: Props): JSX.Element => {
 
           tocLinks.forEach((element) => {
             element.classList.remove('font-bold');
+            element.classList.add(constants.TOC_LINK_DEFAULT_CLASS_NAME);
           });
           if (elementInOrOut === 'in') {
+            tocLinks[targetLinkIndex]?.classList?.remove(constants.TOC_LINK_DEFAULT_CLASS_NAME);
             tocLinks[targetLinkIndex]?.classList?.add('font-bold');
           } else {
+            tocLinks[targetLinkIndex - 1]?.classList?.remove(constants.TOC_LINK_DEFAULT_CLASS_NAME);
             tocLinks[targetLinkIndex - 1]?.classList?.add('font-bold');
           }
         });

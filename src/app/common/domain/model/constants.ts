@@ -6,4 +6,5 @@ export const constants = {
   TOC_DATA_HEADING_ID_PROPERTY_NAME: 'data-heading-id',
   TOC_WRAPPER_NAV: 'toc-wrapper-nav',
   HEADING_DETECTOR_ID: 'heading-detector',
+  TOC_LINK_DEFAULT_CLASS_NAME: '2xl:opacity-70',
 };
