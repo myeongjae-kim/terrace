@@ -17,25 +17,30 @@ const render = (headings: Heading[], curr = 0): string => {
     return '';
   }
 
-  const href = `#${headings[curr].id}`;
-  const innerHTML = headings[curr].innerHTML;
-
   if (headings.length - 1 === curr) {
-    return `<a href="${href}"><li>${innerHTML}</li></a>`;
+    return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li>`;
   }
 
-  const currentDepth = headings[curr].depth;
   const nextDepth = headings[curr + 1].depth;
 
-  if (nextDepth > currentDepth) {
-    return `<a href="${href}"><li>${innerHTML}</li></a><ul>${render(headings, curr + 1)}`;
+  if (nextDepth > headings[curr].depth) {
+    return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li><ul>${render(
+      headings,
+      curr + 1,
+    )}`;
   }
 
-  if (nextDepth < currentDepth) {
-    return `<a href="${href}"><li>${innerHTML}</li></a></ul>${render(headings, curr + 1)}`;
+  if (nextDepth < headings[curr].depth) {
+    return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li></ul>${render(
+      headings,
+      curr + 1,
+    )}`;
   }
 
-  return `<a href="${href}"><li>${innerHTML}</li></a>${render(headings, curr + 1)}`;
+  return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li>${render(
+    headings,
+    curr + 1,
+  )}`;
 };
 
 const TableOfContents = ({ htmlElement }: Props): JSX.Element => {
