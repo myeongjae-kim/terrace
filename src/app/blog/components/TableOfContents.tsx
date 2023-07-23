@@ -24,17 +24,15 @@ const render = (headings: Heading[], curr = 0): string => {
   const nextDepth = headings[curr + 1].depth;
 
   if (nextDepth > headings[curr].depth) {
-    return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li><ul>${render(
-      headings,
-      curr + 1,
-    )}`;
+    return `<li><a href="#${headings[curr].id}">${
+      headings[curr].innerHTML
+    }</a></li><li><ul>${render(headings, curr + 1)}`;
   }
 
   if (nextDepth < headings[curr].depth) {
-    return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li></ul>${render(
-      headings,
-      curr + 1,
-    )}`;
+    return `<li><a href="#${headings[curr].id}">${
+      headings[curr].innerHTML
+    }</a></li></ul></li>${render(headings, curr + 1)}`;
   }
 
   return `<li><a href="#${headings[curr].id}">${headings[curr].innerHTML}</a></li>${render(
