@@ -11,6 +11,7 @@ import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersisten
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Blog'),
+  description: '글 목록',
 });
 
 const BlogPage = async (props: PageProps) => {
