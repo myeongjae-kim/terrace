@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import { createTitle } from '@/app/common/domain/model/constants';
+import { constants } from '@/app/common/domain/model/constants';
 import * as R from 'ramda';
 
 export const createMetadata = (metadata: Metadata = {}): Metadata =>
   R.mergeDeepLeft<Metadata, Metadata>(metadata, {
     // https://realfavicongenerator.net
-    title: createTitle('').trim(),
+    title: constants.createTitle('').trim(),
     icons: {
       icon: [
         {

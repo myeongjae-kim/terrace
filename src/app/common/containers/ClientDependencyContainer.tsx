@@ -15,7 +15,6 @@ const ClientDependencyContainer = (props: PropsWithChildren): JSX.Element => {
           position="bottom-center"
           toastOptions={{
             position: 'top-center',
-            // icon: <span className="material-icons select-none text-blue-400">link</span>,
             style: {
               border: '1px solid #1A56DB',
               color: '#1A56DB',

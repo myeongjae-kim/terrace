@@ -8,12 +8,12 @@ import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { suit } from '@/app/common/fonts/suit';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { Metadata } from 'next';
-import { createTitle } from '@/app/common/domain/model/constants';
+import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 
 export const metadata: Metadata = createMetadata({
-  title: createTitle('Daily'),
+  title: constants.createTitle('Daily'),
 });
 
 const DailyPage = async (props: PageProps) => {

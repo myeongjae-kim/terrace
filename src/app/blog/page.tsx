@@ -5,12 +5,12 @@ import Pagination from '@/app/common/components/Pagination';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
 import { Metadata } from 'next';
-import { createTitle } from '@/app/common/domain/model/constants';
+import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 
 export const metadata: Metadata = createMetadata({
-  title: createTitle('Blog'),
+  title: constants.createTitle('Blog'),
 });
 
 const BlogPage = async (props: PageProps) => {

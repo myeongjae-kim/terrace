@@ -5,7 +5,7 @@ import Link from 'next/link';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import Comment from '@/app/common/components/Comment';
 import { Metadata } from 'next';
-import { createTitle } from '@/app/common/domain/model/constants';
+import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { articlePersistenceAdapter } from '@/app/common/adapter/articlePersistenceAdapter';
 
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   return createMetadata({
-    title: createTitle(article.title),
+    title: constants.createTitle(article.title),
     description: article.content.substring(0, 512),
   });
 }

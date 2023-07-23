@@ -1,5 +1,5 @@
 import React from 'react';
-import { TOC_ID } from '@/app/common/domain/model/constants';
+import { constants } from '@/app/common/domain/model/constants';
 import { HTMLElement } from 'node-html-parser';
 
 type Props = {
@@ -56,7 +56,7 @@ const TableOfContents = ({ htmlElement }: Props): JSX.Element => {
     <>
       <div className={'mb-4 flex'}>
         <div className={'rounded-lg bg-stone-50 p-2 text-sm leading-6'}>
-          <strong id={TOC_ID} className={'select-none'}>
+          <strong id={constants.TOC_ID} className={'select-none'}>
             목차
           </strong>
           <div dangerouslySetInnerHTML={{ __html: `<ul>${render(headings)}</ul>` }}></div>

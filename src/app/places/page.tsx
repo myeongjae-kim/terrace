@@ -1,10 +1,10 @@
 import PageHeader from '@/app/common/components/PageHeader';
 import { Metadata } from 'next';
-import { createTitle } from '@/app/common/domain/model/constants';
+import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 
 export const metadata: Metadata = createMetadata({
-  title: createTitle('Places'),
+  title: constants.createTitle('Places'),
 });
 
 const PlacesPage = () => {
