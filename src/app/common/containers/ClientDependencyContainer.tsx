@@ -19,6 +19,7 @@ const ClientDependencyContainer = (props: PropsWithChildren): JSX.Element => {
               border: '1px solid #1A56DB',
               color: '#1A56DB',
               userSelect: 'none',
+              paddingLeft: '16px',
             },
             iconTheme: {
               primary: '#1A56DB',

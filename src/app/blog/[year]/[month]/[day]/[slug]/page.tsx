@@ -55,13 +55,13 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
           <div className={'my-4 flex flex-col gap-1.5 text-center'}>
             {!!next.id && (
               <>
-                <div>Next Article</div>
+                <div className={'select-none'}>Next Article</div>
                 <Link href={`/blog/${toSlug(next)}`}>{next.title}</Link>
               </>
             )}
             {!!prev.id && (
               <>
-                <div>Previous Article</div>
+                <div className={'select-none'}>Previous Article</div>
                 <Link href={`/blog/${toSlug(prev)}`}>{prev.title}</Link>
               </>
             )}

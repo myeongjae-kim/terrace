@@ -17,7 +17,7 @@ const categories = ['about', 'blog', 'daily', 'musings', 'places'];
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={'scroll-smooth'}>
       <body className={clsx(suit.className, 'flex h-screen flex-col items-center break-keep')}>
         <header className={'select-none'}>
           <div className={'mb-2 mt-6 flex justify-center sm:mb-5 sm:mt-10'}>

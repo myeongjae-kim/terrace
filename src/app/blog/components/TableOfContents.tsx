@@ -56,9 +56,9 @@ const TableOfContents = ({ htmlElement }: Props): JSX.Element => {
     <>
       <div className={'mb-4 flex'}>
         <div className={'rounded-lg bg-stone-50 p-2 text-sm leading-6'}>
-          <strong id={constants.TOC_ID} className={'select-none'}>
+          <span id={constants.TOC_ID} className={'select-none font-bold'}>
             목차
-          </strong>
+          </span>
           <div dangerouslySetInnerHTML={{ __html: `<ul>${render(headings)}</ul>` }}></div>
         </div>
       </div>
