@@ -12,7 +12,7 @@ const LoginLogoutButtonContainer = (): JSX.Element => {
   const { isLoggedIn, setIsLoggedIn } = useIsLoggedIn();
 
   React.useEffect(() => {
-    fetch('/auth/is-logged-in')
+    void fetch('/auth/is-logged-in')
       .then((it) => it.json())
       .then((it) => setIsLoggedIn(it.isLoggedIn));
   }, [setIsLoggedIn]);

@@ -39,7 +39,7 @@ const fetchResponseHandler = (
         }
 
         onFailure?.();
-        it.json().then((json) => alert(JSON.stringify(json, null, 2)));
+        void it.json().then((json) => alert(JSON.stringify(json, null, 2)));
         reject();
       })
       .catch(() => {
@@ -150,7 +150,9 @@ const BlogArticleFormContainer = ({
   return (
     <form
       className={'w-full'}
-      onSubmit={handleSubmit(updateHandler(createOrEdit, pathname, router))}
+      onSubmit={(...args) => {
+        void handleSubmit(updateHandler(createOrEdit, pathname, router))(...args);
+      }}
     >
       <div
         className={
@@ -162,9 +164,11 @@ const BlogArticleFormContainer = ({
             <Button
               type={'button'}
               onClick={() => {
-                (published_at ? unpublish({ slug: slug }) : publish({ slug: slug })).then(() => {
-                  router.refresh();
-                });
+                void (published_at ? unpublish({ slug: slug }) : publish({ slug: slug })).then(
+                  () => {
+                    router.refresh();
+                  },
+                );
               }}
             >
               {published_at ? '발행취소' : '발행'}

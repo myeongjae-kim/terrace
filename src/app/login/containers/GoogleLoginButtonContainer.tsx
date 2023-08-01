@@ -28,7 +28,7 @@ const GoogleLoginButtonContainer = ({ redirectUri }: { redirectUri: string }): J
           const credential = e.credential;
 
           if (clientId && credential) {
-            responseGoogle({ clientId, credential }).then(() => {
+            void responseGoogle({ clientId, credential }).then(() => {
               setIsLoggedIn(true);
               router.push(redirectUri);
               router.refresh();

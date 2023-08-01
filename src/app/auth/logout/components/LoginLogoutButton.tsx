@@ -14,7 +14,7 @@ const LoginLogoutButton = ({ isLoggedIn, setIsLoggedIn, redirectUri }: Props): J
       href={logoutPath}
       onClick={(e) => {
         e.preventDefault();
-        fetch(logoutPath).then(() => {
+        void fetch(logoutPath).then(() => {
           setIsLoggedIn(false);
           router.refresh();
         });
