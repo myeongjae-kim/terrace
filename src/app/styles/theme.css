@@ -111,3 +111,7 @@ li {
         height: -webkit-fill-available;
     }
 }
+
+iframe {
+    @apply max-w-full;
+}
