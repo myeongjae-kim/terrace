@@ -68,7 +68,9 @@ const TableOfContents = ({ htmlElement }: Props): JSX.Element => {
     <>
       <nav
         id={constants.TOC_WRAPPER_NAV}
-        className={'mb-4 flex max-w-md 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-w-xs'}
+        className={
+          'mb-4 flex max-w-md overflow-y-scroll pb-2 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-h-[calc(100vh-16px)] 2xl:max-w-xs'
+        }
       >
         <div className={'rounded-lg bg-stone-50 p-2 text-sm leading-6 2xl:bg-transparent'}>
           <span
