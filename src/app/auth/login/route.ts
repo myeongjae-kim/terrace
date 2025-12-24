@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     });
 
     const payload = ticket.getPayload();
-    if (!payload || !payload.sub) {
+    if (!payload || !payload.sub || payload.sub !== ENV.OWNER_SUB) {
       return new Response('Invalid token payload', { status: 400 });
     }
 
