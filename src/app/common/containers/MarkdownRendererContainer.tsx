@@ -11,10 +11,18 @@ type Props = React.ComponentProps<typeof MarkdownRenderer>;
 const MarkdownRendererContainer = (props: Props): JSX.Element => {
   const ref = React.useRef<HTMLDivElement>(null);
 
+  const executed = React.useRef(false);
+
   React.useEffect(() => {
     if (!ref.current) {
       return;
     }
+
+    if (executed.current) {
+      return;
+    }
+
+    executed.current = true;
 
     // link copy handler
     ref.current
