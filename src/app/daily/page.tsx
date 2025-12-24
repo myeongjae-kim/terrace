@@ -12,6 +12,8 @@ import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
 import Button from '../common/components/Button';
+import clsx from 'clsx';
+import { addWipEmojiToTitle } from '@/app/common/domain/model/Article';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Daily'),
@@ -51,15 +53,18 @@ const DailyPage = async (props: PageProps) => {
             fontFamily: inconsolata.style.fontFamily + ', ' + suit.style.fontFamily,
           }}
         >
-          {dailies.content.map((daily) => (
-            <Link key={daily.id} href={'/daily/' + toSlug(daily)}>
-              <div className={'flex'}>
-                <div className={'w-8 text-right'}>{daily.seq}.</div>
-                <div>[{formatDate(daily.created_at, '.')}]</div>
-                <div className={'w-56 pl-1 text-[0.9rem]'}>{daily.title}</div>
-              </div>
-            </Link>
-          ))}
+          {dailies.content.map((daily) => {
+            const displayDaily = isOwner ? addWipEmojiToTitle(daily) : daily;
+            return (
+              <Link key={displayDaily.id} href={'/daily/' + toSlug(displayDaily)}>
+                <div className={clsx('flex', !displayDaily.published_at && 'opacity-50')}>
+                  <div className={'w-8 text-right'}>{displayDaily.seq}.</div>
+                  <div>[{formatDate(displayDaily.created_at, '.')}]</div>
+                  <div className={'w-56 pl-1 text-[0.9rem]'}>{displayDaily.title}</div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
         <Pagination
           Link={Link}
