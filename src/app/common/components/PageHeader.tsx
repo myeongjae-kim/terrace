@@ -2,7 +2,7 @@ import React, { type JSX } from 'react';
 import clsx from 'clsx';
 
 type Props = {
-  children: string;
+  children: React.ReactNode;
   className?: string;
 };
 

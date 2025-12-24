@@ -11,6 +11,7 @@ import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import Button from '../common/components/Button';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Daily'),
@@ -21,15 +22,27 @@ const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber((await props.searchParams)?.page);
 
   const adapter = createArticlePersistenceAdapter();
-  const dailies = await adapter.findAll({
-    category: 'DAILY_ARTICLE',
-    page: pageNumber,
-    pageSize: 20,
-  });
+  const [dailies, isOwner] = await Promise.all([
+    adapter.findAll({
+      category: 'DAILY_ARTICLE',
+      page: pageNumber,
+      pageSize: 20,
+    }),
+    adapter.isOwner(),
+  ]);
 
   return (
     <main className="flex grow flex-col items-center justify-between">
-      <PageHeader>Daily</PageHeader>
+      <PageHeader>
+        Daily
+        {isOwner && (
+          <div className={'absolute left-2 top-2'}>
+            <Link href="/daily/create">
+              <Button>작성</Button>
+            </Link>
+          </div>
+        )}
+      </PageHeader>
       <div className={'flex grow flex-col items-center'}>
         <div
           className={'my-2 flex grow flex-col gap-0.5 text-[15px]'}

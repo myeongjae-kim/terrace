@@ -17,11 +17,12 @@ type Props = ArticleFormModel & {
   createOrEdit: CreateOrEdit;
 };
 
-const getLocalStorageKey = (createOrEdit: CreateOrEdit, slug: string) =>
-  `@terrace/blog-article/${createOrEdit === 'create' ? 'writing' : slug}`;
+const getLocalStorageKey = (createOrEdit: CreateOrEdit, slug: string, basePath: string) =>
+  `@terrace/${basePath}-article/${createOrEdit === 'create' ? 'writing' : slug}`;
 const serializeForm = (form: ArticleFormModel) => JSON.stringify(form);
 const deserializeForm = (serialized: string) => JSON.parse(serialized) as ArticleFormModel;
-const getEditPathname = (slug: string) => `/blog/${dayjs().format('YYYY/MM/DD')}/${slug}/edit`;
+const getEditPathname = (slug: string, basePath: string) =>
+  `/${basePath}/${dayjs().format('YYYY/MM/DD')}/${slug}/edit`;
 
 const fetchResponseHandler = (
   response: Promise<Response>,
@@ -51,7 +52,13 @@ const fetchResponseHandler = (
   });
 
 const updateHandler =
-  (createOrEdit: 'create' | 'edit', pathname: string, router: AppRouterInstance) =>
+  (
+    createOrEdit: 'create' | 'edit',
+    pathname: string,
+    router: AppRouterInstance,
+    basePath: string,
+    _slug: string,
+  ) =>
   (data: ArticleFormModel) => {
     return fetchResponseHandler(
       fetch(pathname + '/api', {
@@ -59,40 +66,41 @@ const updateHandler =
         body: JSON.stringify({ ...data, seq: parseInt(data.seq) }),
       }),
       () => {
-        localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug));
+        localStorage.removeItem(getLocalStorageKey(createOrEdit, data.slug, basePath));
         if (createOrEdit === 'create') {
-          router.push(getEditPathname(data.slug));
+          router.push(getEditPathname(data.slug, basePath));
         }
       },
     );
   };
 
-const publish = (arg: Pick<ArticleFormModel, 'slug'>, onSuccess?: () => void) =>
+const publish = (arg: Pick<ArticleFormModel, 'slug'>, basePath: string, onSuccess?: () => void) =>
   fetchResponseHandler(
-    fetch('/blog/publish/api', {
+    fetch(`/${basePath}/publish/api`, {
       method: 'PATCH',
       body: JSON.stringify(arg),
     }),
     onSuccess,
   );
 
-const unpublish = (arg: Pick<ArticleFormModel, 'slug'>, onSuccess?: () => void) =>
+const unpublish = (arg: Pick<ArticleFormModel, 'slug'>, basePath: string, onSuccess?: () => void) =>
   fetchResponseHandler(
-    fetch('/blog/unpublish/api', {
+    fetch(`/${basePath}/unpublish/api`, {
       method: 'PATCH',
       body: JSON.stringify(arg),
     }),
     onSuccess,
   );
 
-const BlogArticleFormContainer = ({
+const ArticleFormContainer = ({
   seq,
   slug,
   title,
   content,
   published_at,
   createOrEdit,
-}: Props): JSX.Element => {
+  basePath,
+}: Props & { basePath: string }): JSX.Element => {
   const form = useForm<ArticleFormModel>({
     resolver: zodResolver(ArticleFormSchema),
     defaultValues: { seq, slug, title, content, published_at },
@@ -108,7 +116,7 @@ const BlogArticleFormContainer = ({
   const [persistedContent, setPersistedContent] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const persisted = localStorage.getItem(getLocalStorageKey(createOrEdit, slug));
+    const persisted = localStorage.getItem(getLocalStorageKey(createOrEdit, slug, basePath));
     const article = deserializeForm(persisted || '{}');
     if (
       !R.equals(article, { seq, slug, title, content, published_at }) &&
@@ -125,7 +133,7 @@ const BlogArticleFormContainer = ({
     } else {
       setContentToRender(content);
       setPersistedContent(content);
-      localStorage.removeItem(getLocalStorageKey(createOrEdit, slug));
+      localStorage.removeItem(getLocalStorageKey(createOrEdit, slug, basePath));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -134,14 +142,14 @@ const BlogArticleFormContainer = ({
     (arg: string) => {
       if (content !== arg) {
         localStorage.setItem(
-          getLocalStorageKey(createOrEdit, slug),
+          getLocalStorageKey(createOrEdit, slug, basePath),
           serializeForm({ ...form.getValues(), content: arg }),
         );
       }
       setContentToRender(arg);
       setValue('content', arg);
     },
-    [content, createOrEdit, form, setValue, slug],
+    [content, createOrEdit, form, setValue, slug, basePath],
   );
 
   const pathname = usePathname();
@@ -151,7 +159,7 @@ const BlogArticleFormContainer = ({
     <form
       className={'w-full'}
       onSubmit={(...args) => {
-        void handleSubmit(updateHandler(createOrEdit, pathname, router))(...args);
+        void handleSubmit(updateHandler(createOrEdit, pathname, router, basePath, slug))(...args);
       }}
     >
       <div
@@ -164,11 +172,13 @@ const BlogArticleFormContainer = ({
             <Button
               type={'button'}
               onClick={() => {
-                void (published_at ? unpublish({ slug: slug }) : publish({ slug: slug })).then(
-                  () => {
-                    router.refresh();
-                  },
-                );
+                void (
+                  published_at
+                    ? unpublish({ slug: slug }, basePath)
+                    : publish({ slug: slug }, basePath)
+                ).then(() => {
+                  router.refresh();
+                });
               }}
             >
               {published_at ? '발행취소' : '발행'}
@@ -208,4 +218,4 @@ const BlogArticleFormContainer = ({
   );
 };
 
-export default BlogArticleFormContainer;
+export default ArticleFormContainer;

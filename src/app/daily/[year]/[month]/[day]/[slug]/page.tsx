@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import Button from '@/app/common/components/Button';
 
 type Props = PageProps<{ slug: string }>;
 
@@ -31,6 +32,7 @@ const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
     category: 'DAILY_ARTICLE',
     slug: (await props.params).slug,
   });
+  const isOwner = await adapter.isOwner();
   const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 
   return (
@@ -41,6 +43,13 @@ const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
             {article.seq}. [{formatDate(article.created_at, '.')}] {article.title}
           </div>
         </Link>
+        {isOwner && (
+          <div className="mb-4">
+            <Link href={`/daily/${formatDate(article.created_at, '/')}/${article.slug}/edit`}>
+              <Button>수정</Button>
+            </Link>
+          </div>
+        )}
       </div>
       <div className={'px-4 py-1'}>
         <div className={'daily-content'} style={{ padding: 0 }}>

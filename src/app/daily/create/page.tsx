@@ -4,10 +4,10 @@ import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArti
 
 export const fetchCache = 'force-no-store';
 
-const BlogArticleCreatePage = async () => {
+const DailyArticleCreatePage = async () => {
   const adapter = createArticlePersistenceAdapter();
 
-  const nextSeq = await adapter.getNextSeq({ category: 'BLOG_ARTICLE' });
+  const nextSeq = await adapter.getNextSeq({ category: 'DAILY_ARTICLE' });
 
   return (
     <ArticleFormContainer
@@ -17,9 +17,9 @@ const BlogArticleCreatePage = async () => {
       title={''}
       content={''}
       published_at={null}
-      basePath="blog"
+      basePath="daily"
     />
   );
 };
 
-export default BlogArticleCreatePage;
+export default DailyArticleCreatePage;
