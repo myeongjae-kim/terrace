@@ -1,16 +1,15 @@
-import { SupabaseClient } from '@supabase/supabase-js';
-import { ArticleCategory } from '@/app/common/domain/model/ArticleCategory';
-import { Article, articleDefault } from '@/app/common/domain/model/Article';
-import { Paginated } from '@/app/common/domain/model/Paginated';
 import {
   ArticleListResponse,
   articleListResponseDefault,
 } from '@/app/common/domain/model/ArticleInList';
-import { Database } from '@/lib/database.types';
 import { dateToStringISO8601 } from '@/app/common/utils/dateToStringISO8601';
+
 import { db } from '@/lib/db/drizzle';
 import { article as articleTable } from '@/lib/db/schema';
 import { and, asc, count, desc, eq, gt, isNotNull, lt } from 'drizzle-orm';
+import { ArticleCategory } from '@/app/common/domain/model/ArticleCategory';
+import { Article, articleDefault } from '@/app/common/domain/model/Article';
+import { Paginated } from '@/app/common/domain/model/Paginated';
 
 type GetParams = {
   category: ArticleCategory;
@@ -18,11 +17,10 @@ type GetParams = {
 };
 
 export const createArticlePersistenceAdapter = (
-  supabase: SupabaseClient<Database>,
+  // Context or other deps can be injected here if needed, but removing supabase
   now = () => new Date(),
 ) => {
-  const isOwner = () =>
-    supabase.auth.getSession().then(({ data }) => data?.session?.user?.role === 'owner');
+  const isOwner = () => Promise.resolve(false);
 
   const getBySlug = async ({ category, slug }: GetParams): Promise<Article> => {
     const owner = await isOwner();

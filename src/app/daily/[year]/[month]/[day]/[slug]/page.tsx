@@ -8,17 +8,12 @@ import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import { cookies } from 'next/headers';
 
 type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
-  const article = await supabase.getBySlug({
+  const adapter = createArticlePersistenceAdapter();
+  const article = await adapter.getBySlug({
     category: 'DAILY_ARTICLE',
     slug: params.slug,
   });
@@ -30,10 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
-  const article = await supabase.getBySlug({
+  const adapter = createArticlePersistenceAdapter();
+  const article = await adapter.getBySlug({
     category: 'DAILY_ARTICLE',
     slug: props.params.slug,
   });

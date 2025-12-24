@@ -11,9 +11,6 @@ import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import { cookies } from 'next/headers';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Daily'),
@@ -23,10 +20,8 @@ export const metadata: Metadata = createMetadata({
 const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);
 
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
-  const dailies = await supabase.findAll({
+  const adapter = createArticlePersistenceAdapter();
+  const dailies = await adapter.findAll({
     category: 'DAILY_ARTICLE',
     page: pageNumber,
     pageSize: 20,

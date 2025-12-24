@@ -1,5 +1,6 @@
 import PageHeader from '@/app/common/components/PageHeader';
 import Link from 'next/link';
+
 import BlogListElement from '@/app/blog/components/BlogListElement';
 import Pagination from '@/app/common/components/Pagination';
 import { PageProps } from '@/app/common/nextjs/PageProps';
@@ -8,9 +9,6 @@ import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import { cookies } from 'next/headers';
 import clsx from 'clsx';
 import { addSeqToTitle, addWipEmojiToTitle } from '@/app/common/domain/model/Article';
 import { match } from 'ts-pattern';
@@ -23,16 +21,14 @@ export const metadata: Metadata = createMetadata({
 
 const BlogPage = async (props: PageProps) => {
   const pageNumber = getPageNumber(props.searchParams?.page);
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
-  const articles = await supabase.findAll({
+  const adapter = createArticlePersistenceAdapter();
+  const articles = await adapter.findAll({
     category: 'BLOG_ARTICLE',
     page: pageNumber,
     pageSize: 10,
   });
 
-  const isOwner = await supabase.isOwner();
+  const isOwner = await adapter.isOwner();
 
   return (
     <main className="flex grow flex-col items-center justify-between">

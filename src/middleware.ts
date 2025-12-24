@@ -1,8 +1,6 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
-import type { Database } from '@/lib/database.types';
 
 const ownerOnlyPaths: Array<(path: string) => boolean> = [
   (path) => /.*\/edit$/.test(path),
@@ -15,13 +13,11 @@ const ownerOnlyPaths: Array<(path: string) => boolean> = [
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
-  const supabase = createMiddlewareClient<Database>({ req, res });
-  const { data } = await supabase.auth.getSession();
 
-  if (
-    data.session?.user?.role !== 'owner' &&
-    ownerOnlyPaths.some((fn) => fn(req.nextUrl.pathname))
-  ) {
+  // Previously checked Supabase session. Now we assume no owner session.
+  const isOwner = false;
+
+  if (!isOwner && ownerOnlyPaths.some((fn) => fn(req.nextUrl.pathname))) {
     return NextResponse.redirect(new URL(req.url).origin + '/404');
   }
 

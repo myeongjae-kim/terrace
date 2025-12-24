@@ -9,9 +9,6 @@ import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import MarkdownRendererContainer from '@/app/common/containers/MarkdownRendererContainer';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import { cookies } from 'next/headers';
 import { addSeqToTitle, addWipEmojiToTitle } from '@/app/common/domain/model/Article';
 import clsx from 'clsx';
 import Button from '@/app/common/components/Button';
@@ -20,11 +17,9 @@ import { match } from 'ts-pattern';
 type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
+  const adapter = createArticlePersistenceAdapter();
 
-  const article = await supabase.getBySlug({
+  const article = await adapter.getBySlug({
     category: 'BLOG_ARTICLE',
     slug: params.slug,
   });
@@ -36,21 +31,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
-  const article = await supabase.getBySlug({
+  const adapter = createArticlePersistenceAdapter();
+  const article = await adapter.getBySlug({
     category: 'BLOG_ARTICLE',
     slug: props.params.slug,
   });
   const [prev, next] = await Promise.all(
-    [supabase.getPrevOf, supabase.getNextOf].map((f) =>
+    [adapter.getPrevOf, adapter.getNextOf].map((f) =>
       f({ category: 'BLOG_ARTICLE', seq: article.seq }),
     ),
   );
   const commentIdentifier = `blog/${formatDate(article.created_at, '/')}/${article.slug}`;
 
-  const isOwner = await supabase.isOwner();
+  const isOwner = await adapter.isOwner();
 
   return (
     <main className={'w-full max-w-[50rem]'}>

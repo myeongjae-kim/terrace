@@ -1,18 +1,13 @@
 import React from 'react';
 import BlogArticleFormContainer from '@/app/blog/containers/BlogArticleFormContainer';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import { cookies } from 'next/headers';
 
 export const fetchCache = 'force-no-store';
 
 const BlogArticleCreatePage = async () => {
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
+  const adapter = createArticlePersistenceAdapter();
 
-  const nextSeq = await supabase.getNextSeq({ category: 'BLOG_ARTICLE' });
+  const nextSeq = await adapter.getNextSeq({ category: 'BLOG_ARTICLE' });
 
   return (
     <BlogArticleFormContainer

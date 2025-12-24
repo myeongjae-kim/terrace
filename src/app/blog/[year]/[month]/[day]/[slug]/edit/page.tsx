@@ -2,20 +2,15 @@ import React from 'react';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import BlogArticleFormContainer from '@/app/blog/containers/BlogArticleFormContainer';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import { cookies } from 'next/headers';
 
 export const fetchCache = 'force-no-store';
 
 type Props = PageProps<{ slug: string }>;
 
 const BlogArticleEditPage = async ({ params }: Props) => {
-  const supabase = createArticlePersistenceAdapter(
-    createServerComponentClient<Database>({ cookies }),
-  );
+  const adapter = createArticlePersistenceAdapter();
 
-  const article = await supabase.getBySlug({
+  const article = await adapter.getBySlug({
     category: 'BLOG_ARTICLE',
     slug: params.slug,
   });
