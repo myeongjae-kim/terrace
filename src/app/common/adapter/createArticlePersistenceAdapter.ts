@@ -16,11 +16,20 @@ type GetParams = {
   slug: string;
 };
 
+import { cookies } from 'next/headers';
+import { verifySession } from '@/app/auth/lib/session';
+import { ENV } from '@/app/common/env';
+
 export const createArticlePersistenceAdapter = (
   // Context or other deps can be injected here if needed, but removing supabase
   now = () => new Date(),
 ) => {
-  const isOwner = () => Promise.resolve(false);
+  const isOwner = async () => {
+    const sessionToken = cookies().get('session')?.value;
+    if (!sessionToken) return false;
+    const payload = await verifySession(sessionToken);
+    return payload?.sub === ENV.OWNER_SUB;
+  };
 
   const getBySlug = async ({ category, slug }: GetParams): Promise<Article> => {
     const owner = await isOwner();
