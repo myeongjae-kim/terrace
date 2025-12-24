@@ -24,7 +24,6 @@ export const createMetadata = (metadata: Metadata = {}): Metadata =>
         url: '/apple-touch-icon.png',
       },
     },
-    themeColor: '#ffffff',
     manifest: '/site.webmanifest',
     twitter: {
       creatorId: '@myeongjae_kim',

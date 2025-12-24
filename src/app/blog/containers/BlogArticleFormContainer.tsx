@@ -9,8 +9,8 @@ import Button from '@/app/common/components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname, useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 import * as R from 'ramda';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 type CreateOrEdit = 'create' | 'edit';
 type Props = ArticleFormModel & {

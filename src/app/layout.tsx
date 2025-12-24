@@ -1,17 +1,21 @@
 import './globals.css';
-import React from 'react';
+import React, { Suspense } from 'react';
 import HeaderButton from '@/app/common/components/HeaderButton';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { suit } from '@/app/common/fonts/suit';
 import CategoriesOnClientContainer from '@/app/common/containers/CategoriesOnClientContainer';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import ClientDependencyContainer from '@/app/common/containers/ClientDependencyContainer';
 import LoginLogoutButtonContainer from '@/app/auth/logout/containers/LoginLogoutButtonContainer';
 
 export const metadata: Metadata = createMetadata();
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
+};
 
 const categories = ['about', 'blog', 'daily', 'musings', 'places'];
 
@@ -36,7 +40,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <div className={'flex w-full grow justify-center'}>
           <ClientDependencyContainer>
             <div className={'fixed right-4 top-2'}>
-              <LoginLogoutButtonContainer />
+              <Suspense>
+                <LoginLogoutButtonContainer />
+              </Suspense>
             </div>
             {children}
           </ClientDependencyContainer>
