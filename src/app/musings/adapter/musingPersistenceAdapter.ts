@@ -1,19 +1,30 @@
-import { SupabaseClient } from '@supabase/supabase-js';
-import { supabaseClient } from '@/app/common/adapter/remote-call/supabaseClient';
 import { Musing } from '@/app/musings/domain/model/Musing';
+import { db } from '@/lib/db/drizzle';
+import { musings as musingsTable } from '@/lib/db/schema';
+import { asc, isNotNull } from 'drizzle-orm';
 
-const createMusingPersistenceAdapter = (supabase: SupabaseClient) => {
+const createMusingPersistenceAdapter = () => {
   const findAll = async (): Promise<Musing[]> => {
-    const { data: musings } = await supabase
-      .from('musings')
-      .select('id,seq,created_at,updated_at,quote,from,language')
-      .order('seq', { ascending: true })
-      .not('published_at', 'is', null);
+    const results = await db
+      .select({
+        id: musingsTable.id,
+        quote: musingsTable.quote,
+        from: musingsTable.from,
+        language: musingsTable.language,
+      })
+      .from(musingsTable)
+      .where(isNotNull(musingsTable.published_at))
+      .orderBy(asc(musingsTable.seq));
 
-    return musings || [];
+    return results.map((r) => ({
+      id: r.id,
+      quote: r.quote || '',
+      from: r.from || '',
+      language: (r.language as 'KO' | 'EN') || 'KO',
+    }));
   };
 
   return { findAll };
 };
 
-export const musingPersistenceAdapter = createMusingPersistenceAdapter(supabaseClient);
+export const musingPersistenceAdapter = createMusingPersistenceAdapter();

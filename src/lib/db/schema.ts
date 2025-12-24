@@ -18,10 +18,10 @@ export const article = pgTable(
     title: varchar('title', { length: 255 }),
     slug: varchar('slug', { length: 255 }),
     content: text('content'),
-    createdAt: timestamp('created_at', { mode: 'date' }),
-    updatedAt: timestamp('updated_at', { mode: 'date' }),
-    publishedAt: timestamp('published_at', { mode: 'date' }),
-    userId: varchar('user_id', { length: 255 }),
+    created_at: timestamp('created_at', { mode: 'date' }),
+    updated_at: timestamp('updated_at', { mode: 'date' }),
+    published_at: timestamp('published_at', { mode: 'date' }),
+    user_id: varchar('user_id', { length: 255 }),
   },
   (table) => [
     index('ix_article_category_seq').on(table.category, table.seq),
@@ -30,12 +30,12 @@ export const article = pgTable(
   ],
 );
 
-export const articleTag = pgTable('article_tag', {
+export const article_tag = pgTable('article_tag', {
   id: serial('id').primaryKey(),
-  articleId: bigint('article_id', { mode: 'number' }),
-  tagId: bigint('tag_id', { mode: 'number' }),
-  createdAt: timestamp('created_at', { mode: 'date' }),
-  updatedAt: timestamp('updated_at', { mode: 'date' }),
+  article_id: bigint('article_id', { mode: 'number' }),
+  tag_id: bigint('tag_id', { mode: 'number' }),
+  created_at: timestamp('created_at', { mode: 'date' }),
+  updated_at: timestamp('updated_at', { mode: 'date' }),
 });
 
 export const musings = pgTable('musings', {
@@ -43,18 +43,18 @@ export const musings = pgTable('musings', {
   quote: text('quote'),
   from: varchar('from', { length: 255 }),
   language: varchar('language', { length: 255 }),
-  createdAt: timestamp('created_at', { mode: 'date' }),
-  updatedAt: timestamp('updated_at', { mode: 'date' }),
-  publishedAt: timestamp('published_at', { mode: 'date' }),
-  createdById: integer('created_by_id'),
-  updatedById: integer('updated_by_id'),
+  created_at: timestamp('created_at', { mode: 'date' }),
+  updated_at: timestamp('updated_at', { mode: 'date' }),
+  published_at: timestamp('published_at', { mode: 'date' }),
+  created_by_id: integer('created_by_id'),
+  updated_by_id: integer('updated_by_id'),
   seq: integer('seq'),
 });
 
 export const tag = pgTable('tag', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 32 }),
-  createdAt: timestamp('created_at', { mode: 'date' }),
-  updatedAt: timestamp('updated_at', { mode: 'date' }),
-  publishedAt: timestamp('published_at', { mode: 'date' }),
+  created_at: timestamp('created_at', { mode: 'date' }),
+  updated_at: timestamp('updated_at', { mode: 'date' }),
+  published_at: timestamp('published_at', { mode: 'date' }),
 });
