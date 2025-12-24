@@ -221,7 +221,7 @@ export const createArticlePersistenceAdapter = (
     });
   };
 
-  const update = async (article: Article) => {
+  const update = async (article: Article & { originalSlug?: string }) => {
     await db
       .update(articleTable)
       .set({
@@ -231,8 +231,9 @@ export const createArticlePersistenceAdapter = (
         content: article.content,
         updated_at: now(),
         published_at: article.published_at ? new Date(article.published_at) : null,
+        slug: article.slug,
       })
-      .where(eq(articleTable.slug, article.slug));
+      .where(eq(articleTable.slug, article.originalSlug || article.slug));
   };
 
   const publish = async (getParams: GetParams) => {

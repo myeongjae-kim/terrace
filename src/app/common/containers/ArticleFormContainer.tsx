@@ -103,13 +103,13 @@ const ArticleFormContainer = ({
 }: Props & { basePath: string }): JSX.Element => {
   const form = useForm<ArticleFormModel>({
     resolver: zodResolver(ArticleFormSchema),
-    defaultValues: { seq, slug, title, content, published_at },
+    defaultValues: { seq, slug, title, content, published_at, originalSlug: slug },
   });
   const {
     register,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields },
   } = form;
 
   const [contentToRender, setContentToRender] = React.useState<string>(content);
@@ -194,6 +194,11 @@ const ArticleFormContainer = ({
         <Input
           label={'slug'}
           wrapperAdditionalClassName={'flex-[4_4_0%]'}
+          inputAdditionalClassName={
+            createOrEdit === 'edit' && dirtyFields.slug
+              ? 'border-orange-500 focus:border-orange-500 focus:ring-orange-500'
+              : undefined
+          }
           {...register('slug')}
           error={errors.slug?.message}
         />

@@ -10,7 +10,10 @@ export async function PUT(request: NextRequest) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const requestBody = (await request.json()) as Pick<Article, 'seq' | 'title' | 'content' | 'slug'>;
+  const requestBody = (await request.json()) as Pick<
+    Article,
+    'seq' | 'title' | 'content' | 'slug'
+  > & { originalSlug?: string };
 
   await adapter.update({ ...requestBody, category: 'DAILY_ARTICLE' } as unknown as Article);
 

@@ -12,6 +12,7 @@ export const ArticleFormSchema = z.object({
     .min(1)
     .max(255)
     .regex(/^[a-z0-9-]+$/),
+  originalSlug: z.string().optional(),
   content: z.string(),
   published_at: z.string().nullable(),
 });
