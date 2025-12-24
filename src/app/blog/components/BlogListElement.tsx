@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import { UrlObject } from 'url';

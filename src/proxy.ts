@@ -20,7 +20,7 @@ const protectedPages: Array<(path: string) => boolean> = [
   (path) => /.*\/create$/.test(path),
 ];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const res = NextResponse.next();
 
   const sessionToken = req.cookies.get('session')?.value;

@@ -1,9 +1,8 @@
-import React, { createContext, PropsWithChildren } from 'react';
+import React, { createContext, PropsWithChildren, type JSX } from 'react';
 
 export const IsLoggedInContext = createContext<{
   isLoggedIn: boolean;
   setIsLoggedIn(arg: boolean): void;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
 }>({ isLoggedIn: false, setIsLoggedIn: (_: boolean) => {} });
 
 const IsLoggedInProvider = ({ children }: PropsWithChildren): JSX.Element => {

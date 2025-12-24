@@ -20,7 +20,7 @@ export const metadata: Metadata = createMetadata({
 });
 
 const BlogPage = async (props: PageProps) => {
-  const pageNumber = getPageNumber(props.searchParams?.page);
+  const pageNumber = getPageNumber((await props.searchParams)?.page);
   const adapter = createArticlePersistenceAdapter();
   const articles = await adapter.findAll({
     category: 'BLOG_ARTICLE',

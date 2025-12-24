@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import clsx from 'clsx';
 import { inconsolataLight } from '@/app/common/fonts/inconsolata';
 import Link from 'next/link';

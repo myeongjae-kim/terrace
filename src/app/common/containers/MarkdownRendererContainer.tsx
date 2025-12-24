@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import { constants } from '@/app/common/domain/model/constants';
 import toast from 'react-hot-toast';

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import MarkdownRenderer from '@/app/common/components/MarkdownRenderer';
 import clsx from 'clsx';
 import { inconsolata } from '@/app/common/fonts/inconsolata';

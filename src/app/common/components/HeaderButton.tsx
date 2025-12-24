@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import clsx from 'clsx';
 
 const HeaderButton = ({ className, ...props }: React.ComponentProps<'button'>): JSX.Element => {

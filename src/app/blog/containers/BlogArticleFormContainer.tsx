@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import BlogArticleEditor from '@/app/blog/[year]/[month]/[day]/[slug]/edit/components/BlogArticleEditor';
 import { useForm } from 'react-hook-form';
 import { ArticleFormModel, ArticleFormSchema } from '@/app/common/domain/model/ArticleFormModel';

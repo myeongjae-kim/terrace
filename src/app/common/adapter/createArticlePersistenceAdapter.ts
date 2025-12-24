@@ -25,7 +25,7 @@ export const createArticlePersistenceAdapter = (
   now = () => new Date(),
 ) => {
   const isOwner = async () => {
-    const sessionToken = cookies().get('session')?.value;
+    const sessionToken = (await cookies()).get('session')?.value;
     if (!sessionToken) return false;
     const payload = await verifySession(sessionToken);
     return payload?.sub === ENV.OWNER_SUB;

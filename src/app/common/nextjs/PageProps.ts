@@ -1,4 +1,4 @@
 export type PageProps<T = object> = {
-  params: T;
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<T>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleLoginResponse } from '@/app/auth/domain/model/GoogleLoginResponse';
 import { useRouter } from 'next/navigation';

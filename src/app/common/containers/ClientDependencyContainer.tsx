@@ -1,6 +1,6 @@
 'use client';
 
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, type JSX } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ENV } from '@/app/common/env';
 import IsLoggedInProvider from '@/app/auth/domain/application/IsLoggedInProvider';

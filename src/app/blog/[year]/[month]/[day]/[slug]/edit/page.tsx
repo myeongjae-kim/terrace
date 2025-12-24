@@ -7,7 +7,8 @@ export const fetchCache = 'force-no-store';
 
 type Props = PageProps<{ slug: string }>;
 
-const BlogArticleEditPage = async ({ params }: Props) => {
+const BlogArticleEditPage = async (props: Props) => {
+  const params = await props.params;
   const adapter = createArticlePersistenceAdapter();
 
   const article = await adapter.getBySlug({

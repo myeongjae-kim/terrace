@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { constants } from '@/app/common/domain/model/constants';
 import { HTMLElement } from 'node-html-parser';
 import clsx from 'clsx';

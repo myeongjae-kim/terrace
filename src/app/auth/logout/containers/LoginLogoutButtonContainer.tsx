@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import LoginLogoutButton from '@/app/auth/logout/components/LoginLogoutButton';
 import { useIsLoggedIn } from '@/app/auth/domain/application/useIsLoggedIn';

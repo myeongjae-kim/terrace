@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { MyLinkComponent } from '@/app/common/domain/model/MyLinkComponent';
 import { createRange } from '@/app/common/utils/createRange';
 import PagePrev from '@/app/common/components/Pagination/PagePrev';

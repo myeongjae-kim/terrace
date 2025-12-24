@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
@@ -16,7 +16,8 @@ import { match } from 'ts-pattern';
 
 type Props = PageProps<{ slug: string }>;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const adapter = createArticlePersistenceAdapter();
 
   const article = await adapter.getBySlug({
@@ -34,7 +35,7 @@ const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
   const adapter = createArticlePersistenceAdapter();
   const article = await adapter.getBySlug({
     category: 'BLOG_ARTICLE',
-    slug: props.params.slug,
+    slug: (await props.params).slug,
   });
   const [prev, next] = await Promise.all(
     [adapter.getPrevOf, adapter.getNextOf].map((f) =>

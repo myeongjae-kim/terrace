@@ -22,7 +22,7 @@ export async function verifySession(token: string): Promise<SessionPayload | nul
       algorithms: [alg],
     });
     return payload as SessionPayload;
-  } catch (error) {
+  } catch (ignore) {
     return null;
   }
 }

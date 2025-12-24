@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import Link from 'next/link';
@@ -11,7 +11,8 @@ import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArti
 
 type Props = PageProps<{ slug: string }>;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const adapter = createArticlePersistenceAdapter();
   const article = await adapter.getBySlug({
     category: 'DAILY_ARTICLE',
@@ -28,7 +29,7 @@ const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
   const adapter = createArticlePersistenceAdapter();
   const article = await adapter.getBySlug({
     category: 'DAILY_ARTICLE',
-    slug: props.params.slug,
+    slug: (await props.params).slug,
   });
   const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 

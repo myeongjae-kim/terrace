@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import Categories from '@/app/common/components/Categories';
 import { usePathname } from 'next/navigation';
 

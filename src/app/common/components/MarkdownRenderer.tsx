@@ -2,7 +2,7 @@ import { marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import Prism from 'prismjs';
 import * as React from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, type JSX } from 'react';
 import { mangle } from 'marked-mangle';
 import { gfmHeadingId } from 'marked-gfm-heading-id';
 
