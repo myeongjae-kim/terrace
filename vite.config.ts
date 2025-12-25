@@ -1,23 +1,23 @@
-/// <reference types="vitest" />
+import { defineConfig } from 'vite'
+import { devtools } from '@tanstack/devtools-vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import viteReact from '@vitejs/plugin-react'
+import viteTsConfigPaths from 'vite-tsconfig-paths'
+import tailwindcss from '@tailwindcss/vite'
+import { nitro } from 'nitro/vite'
 
-// Configure Vitest (https://vitest.dev/config/)
+const config = defineConfig({
+  plugins: [
+    devtools(),
+    nitro(),
+    // this is the plugin that enables path aliases
+    viteTsConfigPaths({
+      projects: ['./tsconfig.json'],
+    }),
+    tailwindcss(),
+    tanstackStart(),
+    viteReact(),
+  ],
+})
 
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
-
-// https://www.robinwieruch.de/vitest-react-testing-library/
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/setupTest.js',
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      // …
-    },
-  },
-});
+export default config
