@@ -9,3 +9,7 @@ export const badScript = {
 export const suit = {
   className: "font-suit"
 }
+
+export const notoSerif = {
+  className: "font-noto-serif"
+}

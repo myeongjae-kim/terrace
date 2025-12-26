@@ -1,5 +1,6 @@
 @import "@fontsource/bad-script";
 @import "@fontsource/inconsolata";
+@import "@fontsource-variable/noto-serif-kr";
 
 .font-bad-script {
   font-family: "Bad Script", cursive;
@@ -7,6 +8,10 @@
 
 .font-inconsolata {
   font-family: "Inconsolata", monospace;
+}
+
+.font-noto-serif {
+  font-family: "Noto Serif KR Variable", serif;
 }
 
 @font-face {

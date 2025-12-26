@@ -13,6 +13,7 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@fontsource-variable/noto-serif-kr": "^5.2.9",
     "@fontsource/bad-script": "^5.2.8",
     "@fontsource/inconsolata": "^5.2.8",
     "@tailwindcss/vite": "^4.0.6",
@@ -25,9 +26,11 @@
     "@typescript-eslint/eslint-plugin": "^8.50.1",
     "@typescript-eslint/parser": "^8.50.1",
     "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.1",
     "lucide-react": "^0.561.0",
     "material-icons": "^1.13.14",
     "nitro": "latest",
+    "postgres": "^3.4.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.4.0",
