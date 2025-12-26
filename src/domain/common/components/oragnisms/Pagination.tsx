@@ -25,7 +25,7 @@ const Pagination = ({ currentPage, totalPages, createHref, ...props }: Props): J
           const Component = isCurrent ? PageCurrent : PageNotCurrent;
           return (
             <li key={pageNumber}>
-              <Component to={isCurrent ? '#' : createHref(pageNumber)} pageNumber={pageNumber} />
+              <Component to={createHref(pageNumber)} pageNumber={pageNumber} />
             </li>
           );
         })}

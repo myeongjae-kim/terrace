@@ -2,18 +2,6 @@
 @import "@fontsource/inconsolata";
 @import "@fontsource-variable/noto-serif-kr";
 
-.font-bad-script {
-  font-family: "Bad Script", cursive;
-}
-
-.font-inconsolata {
-  font-family: "Inconsolata", monospace;
-}
-
-.font-noto-serif {
-  font-family: "Noto Serif KR Variable", serif;
-}
-
 @font-face {
   font-family: 'SUIT';
   font-style: normal;
@@ -23,4 +11,16 @@
 
 .font-suit {
   font-family: "SUIT", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.font-noto-serif {
+  font-family: "Noto Serif KR Variable", serif;
+}
+
+.font-bad-script {
+  font-family: "Bad Script", cursive;
+}
+
+.font-inconsolata {
+  font-family: "Inconsolata", monospace;
 }
