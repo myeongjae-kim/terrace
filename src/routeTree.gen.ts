@@ -15,6 +15,8 @@ import { Route as MusingsIndexRouteImport } from './routes/musings/index'
 import { Route as DailyIndexRouteImport } from './routes/daily/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
+import { Route as DailyYearMonthDaySlugIndexRouteImport } from './routes/daily/$year.$month.$day.$slug/index'
+import { Route as BlogYearMonthDaySlugIndexRouteImport } from './routes/blog/$year.$month.$day.$slug/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +48,18 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
   path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DailyYearMonthDaySlugIndexRoute =
+  DailyYearMonthDaySlugIndexRouteImport.update({
+    id: '/daily/$year/$month/$day/$slug/',
+    path: '/daily/$year/$month/$day/$slug/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogYearMonthDaySlugIndexRoute =
+  BlogYearMonthDaySlugIndexRouteImport.update({
+    id: '/blog/$year/$month/$day/$slug/',
+    path: '/blog/$year/$month/$day/$slug/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByFullPath {
   '/daily': typeof DailyIndexRoute
   '/musings': typeof MusingsIndexRoute
   '/places': typeof PlacesIndexRoute
+  '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugIndexRoute
+  '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +78,8 @@ export interface FileRoutesByTo {
   '/daily': typeof DailyIndexRoute
   '/musings': typeof MusingsIndexRoute
   '/places': typeof PlacesIndexRoute
+  '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugIndexRoute
+  '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,12 +89,30 @@ export interface FileRoutesById {
   '/daily/': typeof DailyIndexRoute
   '/musings/': typeof MusingsIndexRoute
   '/places/': typeof PlacesIndexRoute
+  '/blog/$year/$month/$day/$slug/': typeof BlogYearMonthDaySlugIndexRoute
+  '/daily/$year/$month/$day/$slug/': typeof DailyYearMonthDaySlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/blog' | '/daily' | '/musings' | '/places'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/daily'
+    | '/musings'
+    | '/places'
+    | '/blog/$year/$month/$day/$slug'
+    | '/daily/$year/$month/$day/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/blog' | '/daily' | '/musings' | '/places'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/daily'
+    | '/musings'
+    | '/places'
+    | '/blog/$year/$month/$day/$slug'
+    | '/daily/$year/$month/$day/$slug'
   id:
     | '__root__'
     | '/'
@@ -85,6 +121,8 @@ export interface FileRouteTypes {
     | '/daily/'
     | '/musings/'
     | '/places/'
+    | '/blog/$year/$month/$day/$slug/'
+    | '/daily/$year/$month/$day/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,6 +132,8 @@ export interface RootRouteChildren {
   DailyIndexRoute: typeof DailyIndexRoute
   MusingsIndexRoute: typeof MusingsIndexRoute
   PlacesIndexRoute: typeof PlacesIndexRoute
+  BlogYearMonthDaySlugIndexRoute: typeof BlogYearMonthDaySlugIndexRoute
+  DailyYearMonthDaySlugIndexRoute: typeof DailyYearMonthDaySlugIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -140,6 +180,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/daily/$year/$month/$day/$slug/': {
+      id: '/daily/$year/$month/$day/$slug/'
+      path: '/daily/$year/$month/$day/$slug'
+      fullPath: '/daily/$year/$month/$day/$slug'
+      preLoaderRoute: typeof DailyYearMonthDaySlugIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$year/$month/$day/$slug/': {
+      id: '/blog/$year/$month/$day/$slug/'
+      path: '/blog/$year/$month/$day/$slug'
+      fullPath: '/blog/$year/$month/$day/$slug'
+      preLoaderRoute: typeof BlogYearMonthDaySlugIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -150,6 +204,8 @@ const rootRouteChildren: RootRouteChildren = {
   DailyIndexRoute: DailyIndexRoute,
   MusingsIndexRoute: MusingsIndexRoute,
   PlacesIndexRoute: PlacesIndexRoute,
+  BlogYearMonthDaySlugIndexRoute: BlogYearMonthDaySlugIndexRoute,
+  DailyYearMonthDaySlugIndexRoute: DailyYearMonthDaySlugIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
