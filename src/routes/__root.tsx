@@ -1,10 +1,12 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+import { TanStackDevtools } from '@tanstack/react-devtools';
+import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
-import Header from '../components/Header'
-
-import appCss from '../styles.css?url'
+import { Footer } from '@/domain/common/components/templates/Footer';
+import Header from '@/domain/common/components/templates/Header';
+import { suit } from '@/domain/common/domain/fonts';
+import { cn } from '@/lib/utils';
+import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -33,13 +35,15 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={'scroll-smooth'}>
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className={cn(suit.className, 'flex h-screen flex-col items-center break-keep')}>
         <Header />
-        {children}
+        <div className='flex w-full grow justify-center'>
+          {children}
+        </div>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -51,6 +55,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             },
           ]}
         />
+        <Footer />
         <Scripts />
       </body>
     </html>

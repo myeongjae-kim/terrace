@@ -13,6 +13,8 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@fontsource/bad-script": "^5.2.8",
+    "@fontsource/inconsolata": "^5.2.8",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
     "@tanstack/react-router": "^1.132.0",
@@ -22,11 +24,15 @@
     "@tanstack/router-plugin": "^1.132.0",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
     "@typescript-eslint/parser": "^8.50.1",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.561.0",
+    "material-icons": "^1.13.14",
     "nitro": "latest",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.0.6",
+    "ts-pattern": "^5.9.0",
     "vite-tsconfig-paths": "^6.0.2"
   },
   "devDependencies": {

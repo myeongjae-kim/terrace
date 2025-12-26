@@ -1,0 +1,66 @@
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+blockquote, .daily-content {
+    text-indent: 0.5em;
+    padding: 0 1em;
+    margin: 0.5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+    border: 1px solid hsl(230, 1%, 90%);
+    background: hsl(230, 1%, 98%);
+}
+
+.daily-content blockquote {
+    @apply bg-white indent-0;
+}
+
+.daily-content pre {
+    @apply bg-white indent-0;
+}
+
+.daily-content code {
+    @apply bg-white;
+}
+
+pre {
+    font-size: 0.8125em;
+}
+
+figure {
+    @apply text-center mx-10 my-4;
+}
+
+figure img {
+    @apply mx-auto;
+}
+
+figcaption {
+    @apply text-gray-500 text-sm my-3;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 24px;
+}
+
+ol {
+    display: block;
+    list-style-type: decimal;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 24px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}

@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "material-icons/iconfont/material-icons.css";
+@import "./css/backward-compatibility.css";
+@import "./css/theme.css";
+@import "./css/fonts.css";
 
 body {
   @apply m-0;
