@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
 import { createArticlePersistenceAdapter } from '@/domain/article/adapter/createArticlePersistenceAdapter';
 import PageHeader from '@/domain/common/components/oragnisms/PageHeader';
 import Pagination from '@/domain/common/components/oragnisms/Pagination';
@@ -6,6 +8,22 @@ import { inconsolata, suit } from '@/domain/common/domain/fonts';
 import { formatDate } from '@/domain/common/model/formatDate';
 import { toSlug } from '@/domain/common/model/toSlug';
 import { cn } from '@/lib/utils';
+
+const findAll = createServerFn()
+  .inputValidator(
+    z.object({
+      page: z.number().min(1),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const adapter = createArticlePersistenceAdapter();
+
+    return adapter.findAll({
+      category: 'DAILY_ARTICLE',
+      page: data.page,
+      pageSize: 20,
+    });
+  });
 
 export const Route = createFileRoute('/daily/')({
   component: RouteComponent,
@@ -21,12 +39,11 @@ export const Route = createFileRoute('/daily/')({
   },
   loader: async ({ deps }) => {
     const page = deps.page;
-    const adapter = createArticlePersistenceAdapter();
 
-    const dailies = await adapter.findAll({
-      category: 'DAILY_ARTICLE',
-      page,
-      pageSize: 20,
+    const dailies = await findAll({
+      data: {
+        page,
+      },
     });
 
     return { dailies };

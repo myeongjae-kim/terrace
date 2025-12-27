@@ -1,8 +1,26 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
 import { createArticlePersistenceAdapter } from '@/domain/article/adapter/createArticlePersistenceAdapter';
 import BlogListElement from '@/domain/article/components/organisms/BlogListElement';
 import PageHeader from '@/domain/common/components/oragnisms/PageHeader';
 import Pagination from '@/domain/common/components/oragnisms/Pagination';
+
+const findAll = createServerFn()
+  .inputValidator(
+    z.object({
+      page: z.number().min(1),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const adapter = createArticlePersistenceAdapter();
+
+    return adapter.findAll({
+      category: 'BLOG_ARTICLE',
+      page: data.page,
+      pageSize: 10,
+    });
+  });
 
 export const Route = createFileRoute('/blog/')({
   component: RouteComponent,
@@ -18,12 +36,11 @@ export const Route = createFileRoute('/blog/')({
   },
   loader: async ({ deps }) => {
     const page = deps.page;
-    const adapter = createArticlePersistenceAdapter();
 
-    const articles = await adapter.findAll({
-      category: 'BLOG_ARTICLE',
-      page,
-      pageSize: 10,
+    const articles = await findAll({
+      data: {
+        page,
+      },
     });
 
     return { articles };

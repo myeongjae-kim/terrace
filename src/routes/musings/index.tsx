@@ -1,20 +1,25 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
 import contentCss from '@/css/content.css?url';
 import PageHeader from '@/domain/common/components/oragnisms/PageHeader';
 import { badScript, notoSerif } from '@/domain/common/domain/fonts';
 import { musingPersistenceAdapter } from '@/domain/musings/adapter/musingPersistenceAdapter';
 import { cn } from '@/lib/utils';
-import { createFileRoute } from '@tanstack/react-router';
+
+const findAll = createServerFn().handler(() => musingPersistenceAdapter.findAll());
 
 export const Route = createFileRoute('/musings/')({
   component: RouteComponent,
-  loader: () => musingPersistenceAdapter.findAll(),
+  loader: () => findAll(),
   head: () => ({
-    links: [{
-      rel: 'stylesheet',
-      href: contentCss,
-    }]
-  })
-})
+    links: [
+      {
+        rel: 'stylesheet',
+        href: contentCss,
+      },
+    ],
+  }),
+});
 
 function RouteComponent() {
   const musings = Route.useLoaderData();
@@ -33,7 +38,7 @@ function RouteComponent() {
           >
             <p
               className={cn(
-                'whitespace-pre-wrap text-lg leading-9',
+                'text-lg leading-9 whitespace-pre-wrap',
                 musing.language === 'KO' && 'italic',
               )}
             >
@@ -46,5 +51,5 @@ function RouteComponent() {
         ))}
       </div>
     </main>
-  )
+  );
 }
