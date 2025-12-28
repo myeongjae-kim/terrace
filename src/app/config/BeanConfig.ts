@@ -18,7 +18,7 @@ import { UnpublishArticleUseCase } from '../articles/application/port/in/Unpubli
 import { UpdateArticleUseCase } from '../articles/application/port/in/UpdateArticleUseCase';
 import { ArticleCommandPort } from '../articles/application/port/out/ArticleCommandPort';
 import { ArticleQueryPort } from '../articles/application/port/out/ArticleQueryPort';
-import { MusingPersistenceAdapter } from '../musings/adapter/MusingPersistenceAdapter';
+import { MusingPersistenceAdapter } from '../musings/adapter/MusingPersistenceAdapters';
 import { MusingQueryService } from '../musings/application/MusingQueryService';
 import { FindAllMusingsUseCase } from '../musings/application/port/in/FindAllMusingsUseCase';
 import { MusingQueryPort } from '../musings/application/port/out/MusingQueryPort';
