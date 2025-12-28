@@ -1,7 +1,7 @@
 import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
 import { applicationContext } from '@/app/config/ApplicationContext';
 
-export const fetchCache = 'force-no-store';
+export const dynamic = 'force-dynamic';
 
 const DailyArticleCreatePage = async () => {
   const nextSeq = await applicationContext

@@ -3,7 +3,7 @@ import { isOwner } from '@/app/auth/domain/application/isOwner';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { applicationContext } from '@/app/config/ApplicationContext';
 
-export const fetchCache = 'force-no-store';
+export const dynamic = 'force-dynamic';
 
 type Props = PageProps<{ slug: string }>;
 
