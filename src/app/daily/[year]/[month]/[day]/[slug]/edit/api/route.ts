@@ -15,7 +15,7 @@ export async function PUT(request: NextRequest) {
     'seq' | 'title' | 'content' | 'slug'
   > & { originalSlug?: string };
 
-  await applicationContext
+  await applicationContext()
     .getBean('UpdateArticleUseCase')
     .update({ ...requestBody, category: 'DAILY_ARTICLE' } as unknown as Article);
 

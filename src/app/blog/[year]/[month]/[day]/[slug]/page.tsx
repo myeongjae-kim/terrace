@@ -20,11 +20,13 @@ type Props = PageProps<{ slug: string }>;
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
 
-  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
-    category: 'BLOG_ARTICLE',
-    slug: params.slug,
-    isOwner: await isOwner(),
-  });
+  const article = await applicationContext()
+    .getBean('GetArticleBySlugUseCase')
+    .getBySlug({
+      category: 'BLOG_ARTICLE',
+      slug: params.slug,
+      isOwner: await isOwner(),
+    });
 
   return createMetadata({
     title: constants.createTitle(article.title),
@@ -34,18 +36,20 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
   const owner = await isOwner();
-  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
-    category: 'BLOG_ARTICLE',
-    slug: (await props.params).slug,
-    isOwner: owner,
-  });
+  const article = await applicationContext()
+    .getBean('GetArticleBySlugUseCase')
+    .getBySlug({
+      category: 'BLOG_ARTICLE',
+      slug: (await props.params).slug,
+      isOwner: owner,
+    });
 
-  const getPrevOf = applicationContext.getBean('GetPrevArticleUseCase').getPrev({
+  const getPrevOf = applicationContext().getBean('GetPrevArticleUseCase').getPrev({
     category: 'BLOG_ARTICLE',
     seq: article.seq,
     isOwner: owner,
   });
-  const getNextOf = applicationContext.getBean('GetNextArticleUseCase').getNext({
+  const getNextOf = applicationContext().getBean('GetNextArticleUseCase').getNext({
     category: 'BLOG_ARTICLE',
     seq: article.seq,
     isOwner: owner,

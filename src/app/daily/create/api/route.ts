@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
   const requestBody = (await request.json()) as Pick<Article, 'seq' | 'title' | 'content' | 'slug'>;
 
-  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
+  const article = await applicationContext().getBean('GetArticleBySlugUseCase').getBySlug({
     category: 'DAILY_ARTICLE',
     slug: requestBody.slug,
     isOwner: owner,
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     return new Response('slug already existed', { status: 400 });
   }
 
-  await applicationContext
+  await applicationContext()
     .getBean('CreateArticleUseCase')
     .create({ ...requestBody, category: 'DAILY_ARTICLE' } as Article);
 

@@ -4,7 +4,7 @@ import { applicationContext } from '@/app/config/ApplicationContext';
 export const dynamic = 'force-dynamic';
 
 const BlogArticleCreatePage = async () => {
-  const nextSeq = await applicationContext
+  const nextSeq = await applicationContext()
     .getBean('GetNextSeqOfArticleUseCase')
     .getNextSeqOf({ category: 'BLOG_ARTICLE' });
 

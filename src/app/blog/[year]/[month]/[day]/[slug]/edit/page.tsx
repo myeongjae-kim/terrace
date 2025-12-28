@@ -9,11 +9,13 @@ type Props = PageProps<{ slug: string }>;
 
 const BlogArticleEditPage = async (props: Props) => {
   const params = await props.params;
-  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
-    category: 'BLOG_ARTICLE',
-    slug: params.slug,
-    isOwner: await isOwner(),
-  });
+  const article = await applicationContext()
+    .getBean('GetArticleBySlugUseCase')
+    .getBySlug({
+      category: 'BLOG_ARTICLE',
+      slug: params.slug,
+      isOwner: await isOwner(),
+    });
 
   return (
     <ArticleFormContainer
