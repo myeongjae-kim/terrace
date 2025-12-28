@@ -1,3 +1,3 @@
 export interface PublishArticleUseCase {
-  execute: (args: { slug: string }) => Promise<void>;
+  publish: (args: { slug: string }) => Promise<void>;
 }

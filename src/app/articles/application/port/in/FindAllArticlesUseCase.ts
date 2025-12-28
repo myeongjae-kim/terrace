@@ -3,7 +3,7 @@ import { ArticleInList } from '@/app/articles/domain/ArticleInList';
 import { Paginated } from '@/app/common/domain/model/Paginated';
 
 export interface FindAllArticlesUseCase {
-  execute: (args: {
+  findAll: (args: {
     category: ArticleCategory;
     page: number;
     pageSize: number;

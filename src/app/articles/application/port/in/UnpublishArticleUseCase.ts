@@ -1,3 +1,3 @@
 export interface UnpublishArticleUseCase {
-  execute: (args: { slug: string }) => Promise<void>;
+  unpublish: (args: { slug: string }) => Promise<void>;
 }
