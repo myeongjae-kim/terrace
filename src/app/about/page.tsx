@@ -1,19 +1,19 @@
-import { aboutAdapter } from '@/app/about/domain/adapter/AboutAdapter';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { badScript } from '@/app/common/fonts/badScript';
-import { inconsolata } from '@/app/common/fonts/inconsolata';
-import { match } from 'ts-pattern';
-import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
+import { badScript } from '@/app/common/fonts/badScript';
+import { inconsolata } from '@/app/common/fonts/inconsolata';
+import clsx from 'clsx';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { match } from 'ts-pattern';
+import { applicationContext } from '../config/ApplicationContext';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('About'),
 });
 
 const AboutPage = async () => {
-  const about = await aboutAdapter.getAbout();
+  const about = await applicationContext.get('GetAboutUseCase').getAbout();
 
   return (
     <main>
