@@ -18,6 +18,10 @@ import { UnpublishArticleUseCase } from '../articles/application/port/in/Unpubli
 import { UpdateArticleUseCase } from '../articles/application/port/in/UpdateArticleUseCase';
 import { ArticleCommandPort } from '../articles/application/port/out/ArticleCommandPort';
 import { ArticleQueryPort } from '../articles/application/port/out/ArticleQueryPort';
+import { MusingPersistenceAdapter } from '../musings/adapter/MusingPersistenceAdapter';
+import { MusingQueryService } from '../musings/application/MusingQueryService';
+import { FindAllMusingsUseCase } from '../musings/application/port/in/FindAllMusingsUseCase';
+import { MusingQueryPort } from '../musings/application/port/out/MusingQueryPort';
 
 export type BeanNames = {
   // About
@@ -40,6 +44,10 @@ export type BeanNames = {
   // Article Out Port
   ArticleCommandPort: ArticleCommandPort;
   ArticleQueryPort: ArticleQueryPort;
+
+  // Musing
+  FindAllMusingsUseCase: FindAllMusingsUseCase;
+  MusingQueryPort: MusingQueryPort;
 };
 
 export const beanConfig: Record<keyof BeanNames, Newable<unknown>> = {
@@ -62,4 +70,8 @@ export const beanConfig: Record<keyof BeanNames, Newable<unknown>> = {
   // Article Out Port
   ArticleCommandPort: ArticleCommandAdapter,
   ArticleQueryPort: ArticleQueryAdapter,
+
+  // Musing
+  FindAllMusingsUseCase: MusingQueryService,
+  MusingQueryPort: MusingPersistenceAdapter,
 };

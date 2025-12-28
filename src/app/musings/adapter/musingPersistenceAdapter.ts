@@ -1,10 +1,12 @@
-import { Musing } from '@/app/musings/domain/model/Musing';
+import { Component } from '@/app/config/Component';
 import { db } from '@/lib/db/drizzle';
 import { musings as musingsTable } from '@/lib/db/schema';
 import { asc, isNotNull } from 'drizzle-orm';
+import { MusingQueryPort } from '../application/port/out/MusingQueryPort';
 
-const createMusingPersistenceAdapter = () => {
-  const findAll = async (): Promise<Musing[]> => {
+@Component()
+export class MusingPersistenceAdapter implements MusingQueryPort {
+  async findAll() {
     const results = await db
       .select({
         id: musingsTable.id,
@@ -22,9 +24,5 @@ const createMusingPersistenceAdapter = () => {
       from: r.from || '',
       language: (r.language as 'KO' | 'EN') || 'KO',
     }));
-  };
-
-  return { findAll };
-};
-
-export const musingPersistenceAdapter = createMusingPersistenceAdapter();
+  }
+}
