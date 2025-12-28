@@ -1,4 +1,4 @@
-import { ArticleCategory } from '@/app/common/domain/model/ArticleCategory';
+import { ArticleCategory } from '@/app/articles/domain/ArticleCategory';
 import { match } from 'ts-pattern';
 
 export type Article = {

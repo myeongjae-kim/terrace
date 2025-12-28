@@ -1,4 +1,4 @@
-import { Article } from '@/app/common/domain/model/Article';
+import { Article } from '@/app/articles/domain/Article';
 
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
 

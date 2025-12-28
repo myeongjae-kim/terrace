@@ -1,13 +1,13 @@
-import React, { type JSX } from 'react';
-import { toSlug } from '@/app/common/domain/model/toSlug';
+import { ArticleInList } from '@/app/articles/domain/ArticleInList';
 import { formatDate } from '@/app/common/domain/model/formatDate';
-import { UrlObject } from 'url';
-import { ArticleListResponse } from '@/app/common/domain/model/ArticleInList';
+import { toSlug } from '@/app/common/domain/model/toSlug';
+import React, { type JSX } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { UrlObject } from 'url';
 
 type Props = {
   Link: React.ComponentType<React.PropsWithChildren<{ href: string | UrlObject }>>;
-  article: ArticleListResponse;
+  article: ArticleInList;
   className?: string;
 };
 

@@ -1,24 +1,21 @@
-import {
-  ArticleListResponse,
-  articleListResponseDefault,
-} from '@/app/common/domain/model/ArticleInList';
+import { ArticleInList, articleListResponseDefault } from '@/app/articles/domain/ArticleInList';
 import { dateToStringISO8601 } from '@/app/common/utils/dateToStringISO8601';
 
+import { Article, articleDefault } from '@/app/articles/domain/Article';
+import { ArticleCategory } from '@/app/articles/domain/ArticleCategory';
+import { Paginated } from '@/app/common/domain/model/Paginated';
 import { db } from '@/lib/db/drizzle';
 import { article as articleTable } from '@/lib/db/schema';
 import { and, asc, count, desc, eq, gt, isNotNull, lt } from 'drizzle-orm';
-import { ArticleCategory } from '@/app/common/domain/model/ArticleCategory';
-import { Article, articleDefault } from '@/app/common/domain/model/Article';
-import { Paginated } from '@/app/common/domain/model/Paginated';
 
 type GetParams = {
   category: ArticleCategory;
   slug: string;
 };
 
-import { cookies } from 'next/headers';
 import { verifySession } from '@/app/auth/lib/session';
 import { ENV } from '@/app/common/env';
+import { cookies } from 'next/headers';
 
 export const createArticlePersistenceAdapter = (
   // Context or other deps can be injected here if needed, but removing supabase
@@ -71,7 +68,7 @@ export const createArticlePersistenceAdapter = (
     category: ArticleCategory;
     page: number;
     pageSize: number;
-  }): Promise<Paginated<ArticleListResponse>> => {
+  }): Promise<Paginated<ArticleInList>> => {
     const owner = await isOwner();
     const whereClause = and(
       eq(articleTable.category, category),
@@ -102,7 +99,7 @@ export const createArticlePersistenceAdapter = (
       .limit(pageSize)
       .offset(offset);
 
-    const content: ArticleListResponse[] = articles.map((a) => ({
+    const content: ArticleInList[] = articles.map((a) => ({
       id: a.id,
       seq: a.seq || 0,
       title: a.title || '',
@@ -127,7 +124,7 @@ export const createArticlePersistenceAdapter = (
   }: {
     category: ArticleCategory;
     seq: number;
-  }): Promise<ArticleListResponse> => {
+  }): Promise<ArticleInList> => {
     const owner = await isOwner();
     const result = await db
       .select({
@@ -170,7 +167,7 @@ export const createArticlePersistenceAdapter = (
   }: {
     category: ArticleCategory;
     seq: number;
-  }): Promise<ArticleListResponse> => {
+  }): Promise<ArticleInList> => {
     const owner = await isOwner();
     const result = await db
       .select({

@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-import { Article } from '@/app/common/domain/model/Article';
+import { Article } from '@/app/articles/domain/Article';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { NextRequest } from 'next/server';
 
 export async function PUT(request: NextRequest) {
   const adapter = createArticlePersistenceAdapter();

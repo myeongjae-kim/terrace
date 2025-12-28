@@ -1,5 +1,4 @@
-import React from 'react';
-import ArticleFormContainer from '@/app/common/containers/ArticleFormContainer';
+import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
 
 export const fetchCache = 'force-no-store';

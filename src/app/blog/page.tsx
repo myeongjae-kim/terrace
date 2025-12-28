@@ -1,18 +1,18 @@
 import PageHeader from '@/app/common/components/PageHeader';
 import Link from 'next/link';
 
+import { addSeqToTitle, addWipEmojiToTitle } from '@/app/articles/domain/Article';
 import BlogListElement from '@/app/blog/components/BlogListElement';
+import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import Button from '@/app/common/components/Button';
 import Pagination from '@/app/common/components/Pagination';
-import { PageProps } from '@/app/common/nextjs/PageProps';
-import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
-import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { PageProps } from '@/app/common/nextjs/PageProps';
+import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
 import clsx from 'clsx';
-import { addSeqToTitle, addWipEmojiToTitle } from '@/app/common/domain/model/Article';
+import { Metadata } from 'next';
 import { match } from 'ts-pattern';
-import Button from '@/app/common/components/Button';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Blog'),

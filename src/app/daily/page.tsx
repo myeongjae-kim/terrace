@@ -1,19 +1,19 @@
+import { addWipEmojiToTitle } from '@/app/articles/domain/Article';
+import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
 import PageHeader from '@/app/common/components/PageHeader';
-import Link from 'next/link';
 import Pagination from '@/app/common/components/Pagination';
-import { PageProps } from '@/app/common/nextjs/PageProps';
-import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
-import { formatDate } from '@/app/common/domain/model/formatDate';
-import { inconsolata } from '@/app/common/fonts/inconsolata';
-import { suit } from '@/app/common/fonts/suit';
-import { toSlug } from '@/app/common/domain/model/toSlug';
-import { Metadata } from 'next';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import Button from '../common/components/Button';
+import { formatDate } from '@/app/common/domain/model/formatDate';
+import { toSlug } from '@/app/common/domain/model/toSlug';
+import { inconsolata } from '@/app/common/fonts/inconsolata';
+import { suit } from '@/app/common/fonts/suit';
+import { PageProps } from '@/app/common/nextjs/PageProps';
+import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
 import clsx from 'clsx';
-import { addWipEmojiToTitle } from '@/app/common/domain/model/Article';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import Button from '../common/components/Button';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Daily'),

@@ -1,4 +1,4 @@
-export type ArticleListResponse = {
+export type ArticleInList = {
   id: number;
   seq: number;
   title: string;
@@ -8,7 +8,7 @@ export type ArticleListResponse = {
   published_at: string | null;
 };
 
-export const articleListResponseDefault = (): ArticleListResponse => ({
+export const articleListResponseDefault = (): ArticleInList => ({
   id: 0,
   seq: 0,
   title: '',

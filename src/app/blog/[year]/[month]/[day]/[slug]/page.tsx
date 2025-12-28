@@ -1,17 +1,17 @@
-import React, { type JSX } from 'react';
-import { PageProps } from '@/app/common/nextjs/PageProps';
-import { formatDate } from '@/app/common/domain/model/formatDate';
-import Link from 'next/link';
+import { addSeqToTitle, addWipEmojiToTitle } from '@/app/articles/domain/Article';
+import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import Button from '@/app/common/components/Button';
 import Comment from '@/app/common/components/Comment';
-import { toSlug } from '@/app/common/domain/model/toSlug';
-import { Metadata } from 'next';
+import MarkdownRendererContainer from '@/app/common/containers/MarkdownRendererContainer';
 import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
-import MarkdownRendererContainer from '@/app/common/containers/MarkdownRendererContainer';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
-import { addSeqToTitle, addWipEmojiToTitle } from '@/app/common/domain/model/Article';
+import { formatDate } from '@/app/common/domain/model/formatDate';
+import { toSlug } from '@/app/common/domain/model/toSlug';
+import { PageProps } from '@/app/common/nextjs/PageProps';
 import clsx from 'clsx';
-import Button from '@/app/common/components/Button';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { type JSX } from 'react';
 import { match } from 'ts-pattern';
 
 type Props = PageProps<{ slug: string }>;

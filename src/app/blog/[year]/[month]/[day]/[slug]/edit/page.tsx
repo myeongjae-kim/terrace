@@ -1,7 +1,6 @@
-import React from 'react';
-import { PageProps } from '@/app/common/nextjs/PageProps';
-import ArticleFormContainer from '@/app/common/containers/ArticleFormContainer';
+import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
 import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { PageProps } from '@/app/common/nextjs/PageProps';
 
 export const fetchCache = 'force-no-store';
 
