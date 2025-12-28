@@ -1,5 +1,5 @@
-import { GetAboutUseCase } from '../port/in/GetAboutUseCase';
-import { LoadAboutPort } from '../port/out/LoadAboutPort';
+import { GetAboutUseCase } from './port/in/GetAboutUseCase';
+import { LoadAboutPort } from './port/out/LoadAboutPort';
 
 export class AboutService implements GetAboutUseCase {
   constructor(private readonly loadAboutPort: LoadAboutPort) {}
