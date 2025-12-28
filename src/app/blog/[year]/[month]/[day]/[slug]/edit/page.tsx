@@ -1,6 +1,7 @@
 import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { isOwner } from '@/app/auth/domain/application/isOwner';
 import { PageProps } from '@/app/common/nextjs/PageProps';
+import { applicationContext } from '@/app/config/ApplicationContext';
 
 export const fetchCache = 'force-no-store';
 
@@ -8,11 +9,10 @@ type Props = PageProps<{ slug: string }>;
 
 const BlogArticleEditPage = async (props: Props) => {
   const params = await props.params;
-  const adapter = createArticlePersistenceAdapter();
-
-  const article = await adapter.getBySlug({
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
     category: 'BLOG_ARTICLE',
     slug: params.slug,
+    isOwner: await isOwner(),
   });
 
   return (

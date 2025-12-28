@@ -1,5 +1,5 @@
 import { addSeqToTitle, addWipEmojiToTitle } from '@/app/articles/domain/Article';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { isOwner } from '@/app/auth/domain/application/isOwner';
 import Button from '@/app/common/components/Button';
 import Comment from '@/app/common/components/Comment';
 import MarkdownRendererContainer from '@/app/common/containers/MarkdownRendererContainer';
@@ -8,6 +8,7 @@ import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { PageProps } from '@/app/common/nextjs/PageProps';
+import { applicationContext } from '@/app/config/ApplicationContext';
 import clsx from 'clsx';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -18,11 +19,11 @@ type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const adapter = createArticlePersistenceAdapter();
 
-  const article = await adapter.getBySlug({
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
     category: 'BLOG_ARTICLE',
     slug: params.slug,
+    isOwner: await isOwner(),
   });
 
   return createMetadata({
@@ -32,33 +33,40 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
-  const adapter = createArticlePersistenceAdapter();
-  const article = await adapter.getBySlug({
+  const owner = await isOwner();
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
     category: 'BLOG_ARTICLE',
     slug: (await props.params).slug,
+    isOwner: owner,
   });
-  const [prev, next] = await Promise.all(
-    [adapter.getPrevOf, adapter.getNextOf].map((f) =>
-      f({ category: 'BLOG_ARTICLE', seq: article.seq }),
-    ),
-  );
-  const commentIdentifier = `blog/${formatDate(article.created_at, '/')}/${article.slug}`;
 
-  const isOwner = await adapter.isOwner();
+  const getPrevOf = applicationContext.get('GetPrevArticleUseCase').getPrev({
+    category: 'BLOG_ARTICLE',
+    seq: article.seq,
+    isOwner: owner,
+  });
+  const getNextOf = applicationContext.get('GetNextArticleUseCase').getNext({
+    category: 'BLOG_ARTICLE',
+    seq: article.seq,
+    isOwner: owner,
+  });
+
+  const [prev, next] = await Promise.all([getPrevOf, getNextOf]);
+  const commentIdentifier = `blog/${formatDate(article.created_at, '/')}/${article.slug}`;
 
   return (
     <main className={'w-full max-w-[50rem]'}>
       <div className={'text-center'}>
         <Link href={'#'} className={'text-black'}>
           <h1 className={clsx('m-4', article.published_at || 'opacity-50')}>
-            {match(isOwner)
+            {match(owner)
               .with(true, () => addWipEmojiToTitle(addSeqToTitle(article)).title)
               .with(false, () => article.title)
               .exhaustive()}
           </h1>
         </Link>
         <p className={'cursor-default select-none'}>{formatDate(article.created_at)}</p>
-        {isOwner && (
+        {owner && (
           <Link href={`./${article.slug}/edit`}>
             <Button>수정</Button>
           </Link>
