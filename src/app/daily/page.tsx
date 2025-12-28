@@ -1,5 +1,6 @@
 import { addWipEmojiToTitle } from '@/app/articles/domain/Article';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { isOwner } from '@/app/auth/domain/application/isOwner';
+import Button from '@/app/common/components/Button';
 import PageHeader from '@/app/common/components/PageHeader';
 import Pagination from '@/app/common/components/Pagination';
 import { constants } from '@/app/common/domain/model/constants';
@@ -10,10 +11,10 @@ import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { suit } from '@/app/common/fonts/suit';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
+import { applicationContext } from '@/app/config/ApplicationContext';
 import clsx from 'clsx';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Button from '../common/components/Button';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Daily'),
@@ -23,21 +24,19 @@ export const metadata: Metadata = createMetadata({
 const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber((await props.searchParams)?.page);
 
-  const adapter = createArticlePersistenceAdapter();
-  const [dailies, isOwner] = await Promise.all([
-    adapter.findAll({
-      category: 'DAILY_ARTICLE',
-      page: pageNumber,
-      pageSize: 20,
-    }),
-    adapter.isOwner(),
-  ]);
+  const owner = await isOwner();
+  const dailies = await applicationContext.get('FindAllArticlesUseCase').findAll({
+    category: 'DAILY_ARTICLE',
+    page: pageNumber,
+    pageSize: 20,
+    isOwner: owner,
+  });
 
   return (
     <main className="flex grow flex-col items-center justify-between">
       <PageHeader>
         Daily
-        {isOwner && (
+        {owner && (
           <div className={'absolute left-2 top-2'}>
             <Link href="/daily/create">
               <Button>작성</Button>
@@ -54,7 +53,7 @@ const DailyPage = async (props: PageProps) => {
           }}
         >
           {dailies.content.map((daily) => {
-            const displayDaily = isOwner ? addWipEmojiToTitle(daily) : daily;
+            const displayDaily = owner ? addWipEmojiToTitle(daily) : daily;
             return (
               <Link key={displayDaily.id} href={'/daily/' + toSlug(displayDaily)}>
                 <div className={clsx('flex', !displayDaily.published_at && 'opacity-50')}>

@@ -1,17 +1,19 @@
 import { Article } from '@/app/articles/domain/Article';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { isOwner } from '@/app/auth/domain/application/isOwner';
+import { applicationContext } from '@/app/config/ApplicationContext';
 import { NextRequest } from 'next/server';
 
 export async function PATCH(request: NextRequest) {
-  const adapter = createArticlePersistenceAdapter();
-  const isOwner = await adapter.isOwner();
+  const owner = await isOwner();
 
-  if (!isOwner) {
+  if (!owner) {
     return new Response('Unauthorized', { status: 401 });
   }
 
   const requestBody = (await request.json()) as Pick<Article, 'slug'>;
-  await adapter.unpublish({ ...requestBody, category: 'DAILY_ARTICLE' } as Article);
+  await applicationContext.get('UnpublishArticleUseCase').unpublish({
+    slug: requestBody.slug,
+  });
 
   return new Response(null, {
     status: 200,

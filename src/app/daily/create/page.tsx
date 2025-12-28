@@ -1,12 +1,12 @@
 import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { applicationContext } from '@/app/config/ApplicationContext';
 
 export const fetchCache = 'force-no-store';
 
 const DailyArticleCreatePage = async () => {
-  const adapter = createArticlePersistenceAdapter();
-
-  const nextSeq = await adapter.getNextSeq({ category: 'DAILY_ARTICLE' });
+  const nextSeq = await applicationContext
+    .get('GetNextSeqOfArticleUseCase')
+    .getNextSeqOf({ category: 'DAILY_ARTICLE' });
 
   return (
     <ArticleFormContainer
