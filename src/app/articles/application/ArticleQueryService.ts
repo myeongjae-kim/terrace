@@ -1,11 +1,14 @@
+import { Autowired } from '@/app/config/Autowired';
+import { Component } from '@/app/config/Component';
 import { ArticleCategory } from '../domain/ArticleCategory';
 import { FindAllArticlesUseCase } from './port/in/FindAllArticlesUseCase';
 import { GetArticleBySlugUseCase } from './port/in/GetArticleBySlugUseCase';
 import { GetNextArticleUseCase } from './port/in/GetNextArticleUseCase';
 import { GetNextSeqOfArticleUseCase } from './port/in/GetNextSeqOfArticleUseCase';
 import { GetPrevArticleUseCase } from './port/in/GetPrevArticleUseCase';
-import { ArticleQueryPort } from './port/out/ArticleQueryPort';
+import type { ArticleQueryPort } from './port/out/ArticleQueryPort';
 
+@Component()
 export class ArticleQueryService
   implements
     FindAllArticlesUseCase,
@@ -14,7 +17,10 @@ export class ArticleQueryService
     GetNextSeqOfArticleUseCase,
     GetPrevArticleUseCase
 {
-  constructor(private readonly articleQueryPort: ArticleQueryPort) {}
+  constructor(
+    @Autowired('ArticleQueryPort')
+    private readonly articleQueryPort: ArticleQueryPort,
+  ) {}
 
   async getPrev(args: { category: ArticleCategory; seq: number; isOwner: boolean }) {
     return this.articleQueryPort.getPrev(args);

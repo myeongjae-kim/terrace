@@ -1,10 +1,13 @@
+import { Autowired } from '@/app/config/Autowired';
+import { Component } from '@/app/config/Component';
 import { Article } from '../domain/Article';
 import { CreateArticleUseCase } from './port/in/CreateArticleUseCase';
 import { PublishArticleUseCase } from './port/in/PublishArticleUseCase';
 import { UnpublishArticleUseCase } from './port/in/UnpublishArticleUseCase';
 import { UpdateArticleUseCase } from './port/in/UpdateArticleUseCase';
-import { ArticleCommandPort } from './port/out/ArticleCommandPort';
+import type { ArticleCommandPort } from './port/out/ArticleCommandPort';
 
+@Component()
 export class ArticleCommandService
   implements
     CreateArticleUseCase,
@@ -12,7 +15,10 @@ export class ArticleCommandService
     UnpublishArticleUseCase,
     UpdateArticleUseCase
 {
-  constructor(private readonly articleCommandPort: ArticleCommandPort) {}
+  constructor(
+    @Autowired('ArticleCommandPort')
+    private readonly articleCommandPort: ArticleCommandPort,
+  ) {}
 
   async create(article: Omit<Article, 'id'>) {
     return this.articleCommandPort.create(article);
