@@ -15,11 +15,13 @@ const findAll = createServerFn()
   .handler(async ({ data }) => {
     const adapter = createArticlePersistenceAdapter();
 
-    return adapter.findAll({
+    const article = await adapter.findAll({
       category: 'BLOG_ARTICLE',
       page: data.page,
       pageSize: 10,
     });
+
+    return article;
   });
 
 export const Route = createFileRoute('/blog/')({

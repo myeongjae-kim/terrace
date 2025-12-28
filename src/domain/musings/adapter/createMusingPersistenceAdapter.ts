@@ -1,10 +1,10 @@
+import { asc, isNotNull } from 'drizzle-orm';
 import { db } from '@/lib/db/drizzle';
 import { musings as musingsTable } from '@/lib/db/schema';
-import { asc, isNotNull } from 'drizzle-orm';
 
-const createMusingPersistenceAdapter = () => {
+export const createMusingPersistenceAdapter = () => {
   const findAll = async () => {
-    const results = await db
+    const results = await db()
       .select({
         id: musingsTable.id,
         quote: musingsTable.quote,
@@ -19,11 +19,9 @@ const createMusingPersistenceAdapter = () => {
       id: r.id,
       quote: r.quote || '',
       from: r.from || '',
-      language: (r.language as 'KO' | 'EN') || 'KO',
+      language: (r.language as 'KO' | 'EN' | null) || 'KO',
     }));
   };
 
   return { findAll };
 };
-
-export const musingPersistenceAdapter = createMusingPersistenceAdapter();

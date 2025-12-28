@@ -3,10 +3,10 @@ import { createServerFn } from '@tanstack/react-start';
 import contentCss from '@/css/content.css?url';
 import PageHeader from '@/domain/common/components/oragnisms/PageHeader';
 import { badScript, notoSerif } from '@/domain/common/domain/fonts';
-import { musingPersistenceAdapter } from '@/domain/musings/adapter/musingPersistenceAdapter';
+import { createMusingPersistenceAdapter } from '@/domain/musings/adapter/createMusingPersistenceAdapter';
 import { cn } from '@/lib/utils';
 
-const findAll = createServerFn().handler(() => musingPersistenceAdapter.findAll());
+const findAll = createServerFn().handler(() => createMusingPersistenceAdapter().findAll());
 
 export const Route = createFileRoute('/musings/')({
   component: RouteComponent,

@@ -1,9 +1,9 @@
-import { Paginated } from '@/domain/common/domain/model/Paginated';
+import { and, asc, count, desc, eq, gt, isNotNull, lt } from 'drizzle-orm';
+import type { PgInsertValue, PgUpdateSetSource } from 'drizzle-orm/pg-core';
+import type { ArticleCategory } from '../model/ArticleCategory';
+import type { Paginated } from '@/domain/common/domain/model/Paginated';
 import { db } from '@/lib/db/drizzle';
 import { article as articleTable } from '@/lib/db/schema';
-import { and, asc, count, desc, eq, gt, isNotNull, lt } from 'drizzle-orm';
-import { PgInsertValue, PgUpdateSetSource } from 'drizzle-orm/pg-core';
-import { ArticleCategory } from '../model/ArticleCategory';
 
 type GetParams = {
   category: ArticleCategory;
@@ -24,7 +24,7 @@ export const createArticlePersistenceAdapter = (
 
   const getBySlug = async ({ category, slug }: GetParams) => {
     const owner = await isOwner();
-    const result = await db
+    const result = await db()
       .select()
       .from(articleTable)
       .where(
@@ -37,6 +37,7 @@ export const createArticlePersistenceAdapter = (
       .limit(1);
 
     const article = result[0];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!article) return null;
 
     return {
@@ -46,6 +47,7 @@ export const createArticlePersistenceAdapter = (
       title: article.title || '',
       slug: article.slug || '',
       content: article.content || '',
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       category: (article.category as ArticleCategory) || 'BLOG_ARTICLE',
       user_id: article.user_id,
       created_at: article.created_at,
@@ -69,7 +71,7 @@ export const createArticlePersistenceAdapter = (
       owner ? undefined : isNotNull(articleTable.published_at),
     );
 
-    const totalCountResult = await db
+    const totalCountResult = await db()
       .select({ count: count() })
       .from(articleTable)
       .where(whereClause);
@@ -77,7 +79,7 @@ export const createArticlePersistenceAdapter = (
 
     const offset = (page - 1) * pageSize;
 
-    const articles = await db
+    const articles = await db()
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -112,15 +114,9 @@ export const createArticlePersistenceAdapter = (
     } satisfies Paginated<unknown>;
   };
 
-  const getNextOf = async ({
-    category,
-    seq,
-  }: {
-    category: ArticleCategory;
-    seq: number;
-  }) => {
+  const getNextOf = async ({ category, seq }: { category: ArticleCategory; seq: number }) => {
     const owner = await isOwner();
-    const result = await db
+    const result = await db()
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -142,6 +138,7 @@ export const createArticlePersistenceAdapter = (
       .limit(1);
 
     const a = result[0];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!a) return null;
 
     return {
@@ -155,15 +152,9 @@ export const createArticlePersistenceAdapter = (
     };
   };
 
-  const getPrevOf = async ({
-    category,
-    seq,
-  }: {
-    category: ArticleCategory;
-    seq: number;
-  }) => {
+  const getPrevOf = async ({ category, seq }: { category: ArticleCategory; seq: number }) => {
     const owner = await isOwner();
-    const result = await db
+    const result = await db()
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -185,6 +176,7 @@ export const createArticlePersistenceAdapter = (
       .limit(1);
 
     const a = result[0];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!a) return null;
 
     return {
@@ -198,16 +190,16 @@ export const createArticlePersistenceAdapter = (
     };
   };
 
-  const create = async (article: Omit<PgInsertValue<typeof articleTable>, "id">) => {
-    await db.insert(articleTable).values(article);
+  const create = async (article: Omit<PgInsertValue<typeof articleTable>, 'id'>) => {
+    await db().insert(articleTable).values(article);
   };
 
   const update = async (article: PgUpdateSetSource<typeof articleTable>) => {
-    if (typeof article.id !== "number") {
-      throw Error("Invalid article id: " + article.id);
+    if (typeof article.id !== 'number') {
+      throw Error('Invalid article id: ' + article.id);
     }
 
-    await db
+    await db()
       .update(articleTable)
       .set({
         category: article.category,
@@ -225,10 +217,10 @@ export const createArticlePersistenceAdapter = (
     const article = await getBySlug(getParams);
 
     if (!article) {
-      throw Error("Article not found. slug: " + getParams.slug);
+      throw Error('Article not found. slug: ' + getParams.slug);
     }
 
-    await db
+    await db()
       .update(articleTable)
       .set({
         updated_at: now(),
@@ -241,10 +233,10 @@ export const createArticlePersistenceAdapter = (
     const article = await getBySlug(getParams);
 
     if (!article) {
-      throw Error("Article not found. slug: " + getParams.slug);
+      throw Error('Article not found. slug: ' + getParams.slug);
     }
 
-    await db
+    await db()
       .update(articleTable)
       .set({
         updated_at: now(),
@@ -254,7 +246,7 @@ export const createArticlePersistenceAdapter = (
   };
 
   const getNextSeq = async ({ category }: { category: ArticleCategory }): Promise<number> => {
-    const result = await db
+    const result = await db()
       .select({ seq: articleTable.seq })
       .from(articleTable)
       .where(eq(articleTable.category, category))
