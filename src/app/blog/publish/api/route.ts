@@ -1,14 +1,16 @@
-import { NextRequest } from 'next/server';
-import { createArticlePersistenceAdapter } from '@/app/common/adapter/createArticlePersistenceAdapter';
+import { isOwner } from '@/app/auth/domain/application/isOwner';
+import { applicationContext } from '@/app/config/ApplicationContext';
 import { revalidatePath } from 'next/cache';
+import { NextRequest } from 'next/server';
 
 export async function PATCH(request: NextRequest) {
+  if (!(await isOwner())) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   const requestBody = (await request.json()) as { slug: string };
 
-  const adapter = createArticlePersistenceAdapter();
-
-  await adapter.publish({
-    category: 'BLOG_ARTICLE',
+  await applicationContext.get('PublishArticleUseCase').publish({
     slug: requestBody.slug,
   });
 
