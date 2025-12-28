@@ -1,12 +1,19 @@
 import { Container } from 'inversify';
 import { beanConfig, type BeanNames } from './BeanConfig';
+import { extractScope } from './extractScope';
 
 export class ApplicationContext {
   private container: Container;
 
   constructor() {
     this.container = new Container({ autobind: true });
-    Object.entries(beanConfig).forEach(([name, service]) => this.container.bind(name).to(service));
+    Object.entries(beanConfig).forEach(([name, service]) => {
+      if (extractScope(service) !== 'Singleton') {
+        throw new Error(`Bean ${name} is not a singleton bean. Use @Component() decorator!`);
+      }
+
+      return this.container.bind(name).to(service);
+    });
   }
 
   public get<T extends keyof BeanNames>(serviceIdentifier: T): BeanNames[T] {
