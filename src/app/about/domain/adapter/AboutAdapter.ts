@@ -1,4 +1,4 @@
-import { about } from '@/app/about/domain/model/about';
+import { about } from '@/app/about/domain/about';
 
 export const createAboutAdapter = () => {
   const getAbout = () => Promise.resolve(about);
