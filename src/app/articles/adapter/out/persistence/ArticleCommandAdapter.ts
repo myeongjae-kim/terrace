@@ -6,11 +6,9 @@ import { eq } from 'drizzle-orm';
 
 import { ArticleCommandPort } from '@/app/articles/application/port/out/ArticleCommandPort';
 import { ArticleCategory } from '@/app/articles/domain/ArticleCategory';
-import { Component } from '@/app/config/Component';
 
 const now = () => new Date();
 
-@Component()
 export class ArticleCommandAdapter implements ArticleCommandPort {
   create = async (article: Omit<Article, 'id'>): Promise<Article> => {
     // Note: Creating an article generally requires ownership or specific rights,

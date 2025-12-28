@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
   const requestBody = (await request.json()) as Pick<Article, 'seq' | 'title' | 'content' | 'slug'>;
 
-  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
     category: 'DAILY_ARTICLE',
     slug: requestBody.slug,
     isOwner: owner,
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   }
 
   await applicationContext
-    .get('CreateArticleUseCase')
+    .getBean('CreateArticleUseCase')
     .create({ ...requestBody, category: 'DAILY_ARTICLE' } as Article);
 
   return new Response(null, {

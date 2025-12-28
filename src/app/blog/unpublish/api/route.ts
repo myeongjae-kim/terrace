@@ -10,7 +10,7 @@ export async function PATCH(request: NextRequest) {
 
   const requestBody = (await request.json()) as { slug: string };
 
-  await applicationContext.get('UnpublishArticleUseCase').unpublish({
+  await applicationContext.getBean('UnpublishArticleUseCase').unpublish({
     slug: requestBody.slug,
   });
 

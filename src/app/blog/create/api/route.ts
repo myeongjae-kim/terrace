@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 export async function POST(request: NextRequest) {
   const requestBody = (await request.json()) as Pick<Article, 'seq' | 'title' | 'content' | 'slug'>;
 
-  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
     category: 'BLOG_ARTICLE',
     slug: requestBody.slug,
     isOwner: await isOwner(),
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   }
 
   await applicationContext
-    .get('CreateArticleUseCase')
+    .getBean('CreateArticleUseCase')
     .create({ ...requestBody, category: 'BLOG_ARTICLE' } as Article);
 
   return new Response(null, {

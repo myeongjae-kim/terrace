@@ -50,7 +50,7 @@ export type BeanNames = {
   MusingQueryPort: MusingQueryPort;
 };
 
-export const beanConfig: Record<keyof BeanNames, Newable<unknown>> = {
+export const beanConfig = {
   GetAboutUseCase: AboutService,
   LoadAboutPort: AboutPersistenceAdapter,
 
@@ -74,4 +74,4 @@ export const beanConfig: Record<keyof BeanNames, Newable<unknown>> = {
   // Musing
   FindAllMusingsUseCase: MusingQueryService,
   MusingQueryPort: MusingPersistenceAdapter,
-};
+} satisfies Record<keyof BeanNames, Newable<unknown>>;

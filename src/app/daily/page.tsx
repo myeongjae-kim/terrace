@@ -25,7 +25,7 @@ const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber((await props.searchParams)?.page);
 
   const owner = await isOwner();
-  const dailies = await applicationContext.get('FindAllArticlesUseCase').findAll({
+  const dailies = await applicationContext.getBean('FindAllArticlesUseCase').findAll({
     category: 'DAILY_ARTICLE',
     page: pageNumber,
     pageSize: 20,

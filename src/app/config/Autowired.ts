@@ -1,4 +1,4 @@
-import { inject } from 'inversify';
+import { returnTypesafeAutowired } from 'inversify-spring-like';
 import type { BeanNames } from './BeanConfig';
 
-export const Autowired = (serviceIdentifier: keyof BeanNames) => inject(serviceIdentifier);
+export const { Autowired } = returnTypesafeAutowired<keyof BeanNames>();

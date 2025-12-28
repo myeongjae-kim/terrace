@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 const DailyArticleCreatePage = async () => {
   const nextSeq = await applicationContext
-    .get('GetNextSeqOfArticleUseCase')
+    .getBean('GetNextSeqOfArticleUseCase')
     .getNextSeqOf({ category: 'DAILY_ARTICLE' });
 
   return (

@@ -1,5 +1,4 @@
 import { Autowired } from '@/app/config/Autowired';
-import { Component } from '@/app/config/Component';
 import { ArticleCategory } from '../domain/ArticleCategory';
 import { FindAllArticlesUseCase } from './port/in/FindAllArticlesUseCase';
 import { GetArticleBySlugUseCase } from './port/in/GetArticleBySlugUseCase';
@@ -8,7 +7,6 @@ import { GetNextSeqOfArticleUseCase } from './port/in/GetNextSeqOfArticleUseCase
 import { GetPrevArticleUseCase } from './port/in/GetPrevArticleUseCase';
 import type { ArticleQueryPort } from './port/out/ArticleQueryPort';
 
-@Component()
 export class ArticleQueryService
   implements
     FindAllArticlesUseCase,

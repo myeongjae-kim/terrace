@@ -8,9 +8,7 @@ import { article as articleTable } from '@/lib/db/schema';
 import { and, asc, count, desc, eq, gt, isNotNull, lt } from 'drizzle-orm';
 
 import { ArticleQueryPort } from '@/app/articles/application/port/out/ArticleQueryPort';
-import { Component } from '@/app/config/Component';
 
-@Component()
 export class ArticleQueryAdapter implements ArticleQueryPort {
   findAll = async ({
     category,

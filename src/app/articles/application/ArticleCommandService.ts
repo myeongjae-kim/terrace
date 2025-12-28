@@ -1,5 +1,4 @@
 import { Autowired } from '@/app/config/Autowired';
-import { Component } from '@/app/config/Component';
 import { Article } from '../domain/Article';
 import { CreateArticleUseCase } from './port/in/CreateArticleUseCase';
 import { PublishArticleUseCase } from './port/in/PublishArticleUseCase';
@@ -7,7 +6,6 @@ import { UnpublishArticleUseCase } from './port/in/UnpublishArticleUseCase';
 import { UpdateArticleUseCase } from './port/in/UpdateArticleUseCase';
 import type { ArticleCommandPort } from './port/out/ArticleCommandPort';
 
-@Component()
 export class ArticleCommandService
   implements
     CreateArticleUseCase,

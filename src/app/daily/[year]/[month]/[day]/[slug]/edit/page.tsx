@@ -10,7 +10,7 @@ type Props = PageProps<{ slug: string }>;
 const DailyArticleEditPage = async (props: Props) => {
   const params = await props.params;
 
-  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+  const article = await applicationContext.getBean('GetArticleBySlugUseCase').getBySlug({
     category: 'DAILY_ARTICLE',
     slug: params.slug,
     isOwner: await isOwner(),
