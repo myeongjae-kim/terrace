@@ -13,7 +13,7 @@ export const metadata: Metadata = createMetadata({
 });
 
 const AboutPage = async () => {
-  const about = await applicationContext().getBean('GetAboutUseCase').getAbout();
+  const about = await applicationContext().get('GetAboutUseCase').getAbout();
 
   return (
     <main>

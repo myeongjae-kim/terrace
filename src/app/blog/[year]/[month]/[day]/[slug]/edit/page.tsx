@@ -10,7 +10,7 @@ type Props = PageProps<{ slug: string }>;
 const BlogArticleEditPage = async (props: Props) => {
   const params = await props.params;
   const article = await applicationContext()
-    .getBean('GetArticleBySlugUseCase')
+    .get('GetArticleBySlugUseCase')
     .getBySlug({
       category: 'BLOG_ARTICLE',
       slug: params.slug,

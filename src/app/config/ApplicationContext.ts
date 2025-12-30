@@ -1,7 +1,7 @@
-import { ApplicationContext } from 'inversify-spring-like';
-import { beanConfig } from './BeanConfig';
+import { ApplicationContext } from 'inversify-typesafe-spring-like';
+import { beanConfig, Beans } from './BeanConfig';
 
-let _applicationContext: ApplicationContext<typeof beanConfig>;
+let _applicationContext: ApplicationContext<Beans>;
 
 // thunk for lazy and singleton for serverless
 export const applicationContext = () => {

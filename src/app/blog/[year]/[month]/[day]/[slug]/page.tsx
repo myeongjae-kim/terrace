@@ -21,7 +21,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
 
   const article = await applicationContext()
-    .getBean('GetArticleBySlugUseCase')
+    .get('GetArticleBySlugUseCase')
     .getBySlug({
       category: 'BLOG_ARTICLE',
       slug: params.slug,
@@ -37,19 +37,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
   const owner = await isOwner();
   const article = await applicationContext()
-    .getBean('GetArticleBySlugUseCase')
+    .get('GetArticleBySlugUseCase')
     .getBySlug({
       category: 'BLOG_ARTICLE',
       slug: (await props.params).slug,
       isOwner: owner,
     });
 
-  const getPrevOf = applicationContext().getBean('GetPrevArticleUseCase').getPrev({
+  const getPrevOf = applicationContext().get('GetPrevArticleUseCase').getPrev({
     category: 'BLOG_ARTICLE',
     seq: article.seq,
     isOwner: owner,
   });
-  const getNextOf = applicationContext().getBean('GetNextArticleUseCase').getNext({
+  const getNextOf = applicationContext().get('GetNextArticleUseCase').getNext({
     category: 'BLOG_ARTICLE',
     seq: article.seq,
     isOwner: owner,

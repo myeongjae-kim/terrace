@@ -12,7 +12,7 @@ export const metadata: Metadata = createMetadata({
 });
 
 const MusingsPage = async () => {
-  const musings = await applicationContext().getBean('FindAllMusingsUseCase').findAll();
+  const musings = await applicationContext().get('FindAllMusingsUseCase').findAll();
 
   return (
     <main className="flex flex-col items-center justify-between">

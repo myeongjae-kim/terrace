@@ -24,7 +24,7 @@ const BlogPage = async (props: PageProps) => {
   const pageNumber = getPageNumber((await props.searchParams)?.page);
   const owner = await isOwner();
 
-  const articles = await applicationContext().getBean('FindAllArticlesUseCase').findAll({
+  const articles = await applicationContext().get('FindAllArticlesUseCase').findAll({
     category: 'BLOG_ARTICLE',
     page: pageNumber,
     pageSize: 10,

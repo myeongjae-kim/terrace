@@ -11,7 +11,7 @@ const DailyArticleEditPage = async (props: Props) => {
   const params = await props.params;
 
   const article = await applicationContext()
-    .getBean('GetArticleBySlugUseCase')
+    .get('GetArticleBySlugUseCase')
     .getBySlug({
       category: 'DAILY_ARTICLE',
       slug: params.slug,

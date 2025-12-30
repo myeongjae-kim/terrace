@@ -1,4 +1,4 @@
-import type { Newable } from 'inversify';
+import { BeanConfig } from 'inversify-typesafe-spring-like';
 import { AboutPersistenceAdapter } from '../about/adapter/out/persistence/AboutPersistenceAdapter';
 import { AboutService } from '../about/application/AboutService';
 import { GetAboutUseCase } from '../about/application/port/in/GetAboutUseCase';
@@ -23,7 +23,7 @@ import { MusingQueryService } from '../musings/application/MusingQueryService';
 import { FindAllMusingsUseCase } from '../musings/application/port/in/FindAllMusingsUseCase';
 import { MusingQueryPort } from '../musings/application/port/out/MusingQueryPort';
 
-export type BeanNames = {
+export type Beans = {
   // About
   GetAboutUseCase: GetAboutUseCase;
   LoadAboutPort: LoadAboutPort;
@@ -50,7 +50,7 @@ export type BeanNames = {
   MusingQueryPort: MusingQueryPort;
 };
 
-export const beanConfig = {
+export const beanConfig: BeanConfig<Beans> = {
   GetAboutUseCase: AboutService,
   LoadAboutPort: AboutPersistenceAdapter,
 
@@ -74,4 +74,4 @@ export const beanConfig = {
   // Musing
   FindAllMusingsUseCase: MusingQueryService,
   MusingQueryPort: MusingPersistenceAdapter,
-} satisfies Record<keyof BeanNames, Newable<unknown>>;
+};

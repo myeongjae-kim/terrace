@@ -11,7 +11,7 @@ export async function PATCH(request: NextRequest) {
   }
 
   const requestBody = (await request.json()) as Pick<Article, 'slug'>;
-  await applicationContext().getBean('UnpublishArticleUseCase').unpublish({
+  await applicationContext().get('UnpublishArticleUseCase').unpublish({
     slug: requestBody.slug,
   });
 
