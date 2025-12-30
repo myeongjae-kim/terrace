@@ -51,27 +51,27 @@ export type Beans = {
 };
 
 export const beanConfig: BeanConfig<Beans> = {
-  GetAboutUseCase: AboutService,
-  LoadAboutPort: AboutPersistenceAdapter,
+  GetAboutUseCase: (bind) => bind.to(AboutService),
+  LoadAboutPort: (bind) => bind.to(AboutPersistenceAdapter),
 
   // Article Command
-  CreateArticleUseCase: ArticleCommandService,
-  PublishArticleUseCase: ArticleCommandService,
-  UnpublishArticleUseCase: ArticleCommandService,
-  UpdateArticleUseCase: ArticleCommandService,
+  CreateArticleUseCase: (bind) => bind.to(ArticleCommandService),
+  PublishArticleUseCase: (bind) => bind.to(ArticleCommandService),
+  UnpublishArticleUseCase: (bind) => bind.to(ArticleCommandService),
+  UpdateArticleUseCase: (bind) => bind.to(ArticleCommandService),
 
   // Article Query
-  FindAllArticlesUseCase: ArticleQueryService,
-  GetArticleBySlugUseCase: ArticleQueryService,
-  GetNextArticleUseCase: ArticleQueryService,
-  GetNextSeqOfArticleUseCase: ArticleQueryService,
-  GetPrevArticleUseCase: ArticleQueryService,
+  FindAllArticlesUseCase: (bind) => bind.to(ArticleQueryService),
+  GetArticleBySlugUseCase: (bind) => bind.to(ArticleQueryService),
+  GetNextArticleUseCase: (bind) => bind.to(ArticleQueryService),
+  GetNextSeqOfArticleUseCase: (bind) => bind.to(ArticleQueryService),
+  GetPrevArticleUseCase: (bind) => bind.to(ArticleQueryService),
 
   // Article Out Port
-  ArticleCommandPort: ArticleCommandAdapter,
-  ArticleQueryPort: ArticleQueryAdapter,
+  ArticleCommandPort: (bind) => bind.to(ArticleCommandAdapter),
+  ArticleQueryPort: (bind) => bind.to(ArticleQueryAdapter),
 
   // Musing
-  FindAllMusingsUseCase: MusingQueryService,
-  MusingQueryPort: MusingPersistenceAdapter,
+  FindAllMusingsUseCase: (bind) => bind.to(MusingQueryService),
+  MusingQueryPort: (bind) => bind.to(MusingPersistenceAdapter),
 };

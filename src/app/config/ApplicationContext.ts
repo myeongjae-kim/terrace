@@ -1,7 +1,7 @@
 import { ApplicationContext } from 'inversify-typesafe-spring-like';
 import { beanConfig, Beans } from './BeanConfig';
 
-let _applicationContext: ApplicationContext<Beans>;
+let _applicationContext: ReturnType<typeof ApplicationContext<Beans>>;
 
 // thunk for lazy and singleton for serverless
 export const applicationContext = () => {
@@ -9,7 +9,7 @@ export const applicationContext = () => {
     return _applicationContext;
   }
 
-  _applicationContext = new ApplicationContext(beanConfig);
+  _applicationContext = ApplicationContext(beanConfig);
 
   return _applicationContext;
 };
