@@ -51,27 +51,27 @@ export type Beans = {
 };
 
 export const beanConfig: BeanConfig<Beans> = {
-  GetAboutUseCase: (bind) => bind.to(AboutService),
-  LoadAboutPort: (bind) => bind.to(AboutPersistenceAdapter),
+  GetAboutUseCase: (bind) => bind().to(AboutService),
+  LoadAboutPort: (bind) => bind().to(AboutPersistenceAdapter),
 
   // Article Command
-  CreateArticleUseCase: (bind) => bind.to(ArticleCommandService),
-  PublishArticleUseCase: (bind) => bind.to(ArticleCommandService),
-  UnpublishArticleUseCase: (bind) => bind.to(ArticleCommandService),
-  UpdateArticleUseCase: (bind) => bind.to(ArticleCommandService),
+  CreateArticleUseCase: (bind) => bind().to(ArticleCommandService),
+  PublishArticleUseCase: (bind) => bind().to(ArticleCommandService),
+  UnpublishArticleUseCase: (bind) => bind().to(ArticleCommandService),
+  UpdateArticleUseCase: (bind) => bind().to(ArticleCommandService),
 
   // Article Query
-  FindAllArticlesUseCase: (bind) => bind.to(ArticleQueryService),
-  GetArticleBySlugUseCase: (bind) => bind.to(ArticleQueryService),
-  GetNextArticleUseCase: (bind) => bind.to(ArticleQueryService),
-  GetNextSeqOfArticleUseCase: (bind) => bind.to(ArticleQueryService),
-  GetPrevArticleUseCase: (bind) => bind.to(ArticleQueryService),
+  FindAllArticlesUseCase: (bind) => bind().to(ArticleQueryService),
+  GetArticleBySlugUseCase: (bind) => bind().to(ArticleQueryService),
+  GetNextArticleUseCase: (bind) => bind().to(ArticleQueryService),
+  GetNextSeqOfArticleUseCase: (bind) => bind().to(ArticleQueryService),
+  GetPrevArticleUseCase: (bind) => bind().to(ArticleQueryService),
 
   // Article Out Port
-  ArticleCommandPort: (bind) => bind.to(ArticleCommandAdapter),
-  ArticleQueryPort: (bind) => bind.to(ArticleQueryAdapter),
+  ArticleCommandPort: (bind) => bind().to(ArticleCommandAdapter),
+  ArticleQueryPort: (bind) => bind().to(ArticleQueryAdapter),
 
   // Musing
-  FindAllMusingsUseCase: (bind) => bind.to(MusingQueryService),
-  MusingQueryPort: (bind) => bind.to(MusingPersistenceAdapter),
+  FindAllMusingsUseCase: (bind) => bind().to(MusingQueryService),
+  MusingQueryPort: (bind) => bind().to(MusingPersistenceAdapter),
 };
