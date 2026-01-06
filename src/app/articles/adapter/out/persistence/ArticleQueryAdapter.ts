@@ -3,13 +3,19 @@ import { ArticleCategory } from '@/app/articles/domain/ArticleCategory';
 import { ArticleInList, articleListResponseDefault } from '@/app/articles/domain/ArticleInList';
 import { Paginated } from '@/app/common/domain/model/Paginated';
 import { dateToStringISO8601 } from '@/app/common/utils/dateToStringISO8601';
-import { db } from '@/lib/db/drizzle';
+import type { DatabaseClient } from '@/lib/db/drizzle';
 import { article as articleTable } from '@/lib/db/schema';
 import { and, asc, count, desc, eq, gt, isNotNull, lt } from 'drizzle-orm';
 
 import { ArticleQueryPort } from '@/app/articles/application/port/out/ArticleQueryPort';
+import { Autowired } from '@/app/config/Autowired';
 
 export class ArticleQueryAdapter implements ArticleQueryPort {
+  constructor(
+    @Autowired('databaseClient')
+    private readonly databaseClient: DatabaseClient,
+  ) {}
+
   findAll = async ({
     category,
     page,
@@ -28,7 +34,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
       isOwner ? undefined : isNotNull(articleTable.published_at),
     );
 
-    const totalCountResult = await db
+    const totalCountResult = await this.databaseClient
       .select({ count: count() })
       .from(articleTable)
       .where(whereClause);
@@ -36,7 +42,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
 
     const offset = (page - 1) * pageSize;
 
-    const articles = await db
+    const articles = await this.databaseClient
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -80,7 +86,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
     slug: string;
     isOwner: boolean;
   }): Promise<Article> => {
-    const result = await db
+    const result = await this.databaseClient
       .select()
       .from(articleTable)
       .where(
@@ -119,7 +125,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
     seq: number;
     isOwner: boolean;
   }): Promise<ArticleInList> => {
-    const result = await db
+    const result = await this.databaseClient
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -163,7 +169,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
     seq: number;
     isOwner: boolean;
   }): Promise<ArticleInList> => {
-    const result = await db
+    const result = await this.databaseClient
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -199,7 +205,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
   };
 
   getNextSeqOf = async ({ category }: { category: ArticleCategory }): Promise<number> => {
-    const result = await db
+    const result = await this.databaseClient
       .select({ seq: articleTable.seq })
       .from(articleTable)
       .where(eq(articleTable.category, category))

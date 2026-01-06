@@ -1,15 +1,21 @@
 import { Article } from '@/app/articles/domain/Article';
 import { dateToStringISO8601 } from '@/app/common/utils/dateToStringISO8601';
-import { db } from '@/lib/db/drizzle';
 import { article as articleTable } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 import { ArticleCommandPort } from '@/app/articles/application/port/out/ArticleCommandPort';
 import { ArticleCategory } from '@/app/articles/domain/ArticleCategory';
+import { Autowired } from '@/app/config/Autowired';
+import { type DatabaseClient } from '@/lib/db/drizzle';
 
 const now = () => new Date();
 
 export class ArticleCommandAdapter implements ArticleCommandPort {
+  constructor(
+    @Autowired('databaseClient')
+    private readonly databaseClient: DatabaseClient,
+  ) {}
+
   create = async (article: Omit<Article, 'id'>): Promise<Article> => {
     // Note: Creating an article generally requires ownership or specific rights,
     // but the reference create() didn't explicitly check ownership inside the function,
@@ -20,7 +26,7 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
     // does just the insert, we'll stick to that.
 
     // However, published_at processing is needed.
-    await db.insert(articleTable).values({
+    await this.databaseClient.insert(articleTable).values({
       category: article.category,
       seq: article.seq,
       title: article.title,
@@ -46,7 +52,7 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
     // I will try to use .returning() if possible, or query by slug.
 
     // Let's query by slug to be safe and compatible.
-    const result = await db
+    const result = await this.databaseClient
       .select()
       .from(articleTable)
       .where(eq(articleTable.slug, article.slug))
@@ -75,7 +81,7 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
   };
 
   update = async (article: Omit<Article, 'id'> & { originalSlug?: string }): Promise<void> => {
-    await db
+    await this.databaseClient
       .update(articleTable)
       .set({
         category: article.category,
@@ -90,7 +96,7 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
   };
 
   publish = async ({ slug }: { slug: string }): Promise<void> => {
-    await db
+    await this.databaseClient
       .update(articleTable)
       .set({
         updated_at: now(),
@@ -100,7 +106,7 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
   };
 
   unpublish = async ({ slug }: { slug: string }): Promise<void> => {
-    await db
+    await this.databaseClient
       .update(articleTable)
       .set({
         updated_at: now(),

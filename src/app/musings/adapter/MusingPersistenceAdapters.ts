@@ -1,11 +1,17 @@
-import { db } from '@/lib/db/drizzle';
+import { Autowired } from '@/app/config/Autowired';
+import type { DatabaseClient } from '@/lib/db/drizzle';
 import { musings as musingsTable } from '@/lib/db/schema';
 import { asc, isNotNull } from 'drizzle-orm';
 import { MusingQueryPort } from '../application/port/out/MusingQueryPort';
 
 export class MusingPersistenceAdapter implements MusingQueryPort {
+  constructor(
+    @Autowired('databaseClient')
+    private readonly databaseClient: DatabaseClient,
+  ) {}
+
   async findAll() {
-    const results = await db
+    const results = await this.databaseClient
       .select({
         id: musingsTable.id,
         quote: musingsTable.quote,

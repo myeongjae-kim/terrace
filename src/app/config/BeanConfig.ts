@@ -1,3 +1,4 @@
+import { DatabaseClient, db } from '@/lib/db/drizzle';
 import { BeanConfig } from 'inversify-typesafe-spring-like';
 import { AboutPersistenceAdapter } from '../about/adapter/out/persistence/AboutPersistenceAdapter';
 import { AboutService } from '../about/application/AboutService';
@@ -24,6 +25,8 @@ import { FindAllMusingsUseCase } from '../musings/application/port/in/FindAllMus
 import { MusingQueryPort } from '../musings/application/port/out/MusingQueryPort';
 
 export type Beans = {
+  databaseClient: DatabaseClient;
+
   // About
   GetAboutUseCase: GetAboutUseCase;
   LoadAboutPort: LoadAboutPort;
@@ -51,6 +54,8 @@ export type Beans = {
 };
 
 export const beanConfig: BeanConfig<Beans> = {
+  databaseClient: (bind) => bind().toConstantValue(db),
+
   GetAboutUseCase: (bind) => bind().to(AboutService),
   LoadAboutPort: (bind) => bind().to(AboutPersistenceAdapter),
 
