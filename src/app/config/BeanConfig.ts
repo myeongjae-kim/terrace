@@ -56,16 +56,23 @@ export const beanConfig: BeanConfig<Beans> = {
 
   // Article Command
   CreateArticleUseCase: (bind) => bind().to(ArticleCommandService),
-  PublishArticleUseCase: (bind) => bind().to(ArticleCommandService),
-  UnpublishArticleUseCase: (bind) => bind().to(ArticleCommandService),
-  UpdateArticleUseCase: (bind) => bind().to(ArticleCommandService),
+  PublishArticleUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
+  UnpublishArticleUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
+  UpdateArticleUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
 
   // Article Query
   FindAllArticlesUseCase: (bind) => bind().to(ArticleQueryService),
-  GetArticleBySlugUseCase: (bind) => bind().to(ArticleQueryService),
-  GetNextArticleUseCase: (bind) => bind().to(ArticleQueryService),
-  GetNextSeqOfArticleUseCase: (bind) => bind().to(ArticleQueryService),
-  GetPrevArticleUseCase: (bind) => bind().to(ArticleQueryService),
+  GetArticleBySlugUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+  GetNextArticleUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+  GetNextSeqOfArticleUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+  GetPrevArticleUseCase: (bind) =>
+    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
 
   // Article Out Port
   ArticleCommandPort: (bind) => bind().to(ArticleCommandAdapter),
