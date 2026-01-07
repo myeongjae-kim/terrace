@@ -63,7 +63,7 @@
     "marked-highlight": "^2.0.1",
     "marked-mangle": "^1.1.0",
     "material-icons": "^1.13.8",
-    "next": "16.1.1",
+    "next": "15.5.9",
     "node-html-parser": "^6.1.5",
     "postgres": "^3.4.7",
     "prismjs": "^1.29.0",
