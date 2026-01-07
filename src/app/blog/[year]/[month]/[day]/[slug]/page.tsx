@@ -8,7 +8,7 @@ import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import { toSlug } from '@/app/common/domain/model/toSlug';
 import { PageProps } from '@/app/common/nextjs/PageProps';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 import clsx from 'clsx';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -19,14 +19,13 @@ type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
+  const applicationContext = await applicationContextAsync();
 
-  const article = await applicationContext()
-    .get('GetArticleBySlugUseCase')
-    .getBySlug({
-      category: 'BLOG_ARTICLE',
-      slug: params.slug,
-      isOwner: await isOwner(),
-    });
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+    category: 'BLOG_ARTICLE',
+    slug: params.slug,
+    isOwner: await isOwner(),
+  });
 
   return createMetadata({
     title: constants.createTitle(article.title),
@@ -36,20 +35,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 const BlogArticlePage = async (props: Props): Promise<JSX.Element> => {
   const owner = await isOwner();
-  const article = await applicationContext()
-    .get('GetArticleBySlugUseCase')
-    .getBySlug({
-      category: 'BLOG_ARTICLE',
-      slug: (await props.params).slug,
-      isOwner: owner,
-    });
+  const applicationContext = await applicationContextAsync();
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+    category: 'BLOG_ARTICLE',
+    slug: (await props.params).slug,
+    isOwner: owner,
+  });
 
-  const getPrevOf = applicationContext().get('GetPrevArticleUseCase').getPrev({
+  const getPrevOf = applicationContext.get('GetPrevArticleUseCase').getPrev({
     category: 'BLOG_ARTICLE',
     seq: article.seq,
     isOwner: owner,
   });
-  const getNextOf = applicationContext().get('GetNextArticleUseCase').getNext({
+  const getNextOf = applicationContext.get('GetNextArticleUseCase').getNext({
     category: 'BLOG_ARTICLE',
     seq: article.seq,
     isOwner: owner,

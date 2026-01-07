@@ -1,15 +1,13 @@
 import { ApplicationContext } from 'inversify-typesafe-spring-like';
-import { beanConfig, Beans } from './BeanConfig';
+import { Beans, createBeanConfig } from './BeanConfig';
 
-let _applicationContext: ReturnType<typeof ApplicationContext<Beans>>;
-
-// thunk for lazy and singleton for serverless
-export const applicationContext = () => {
-  if (_applicationContext) {
-    return _applicationContext;
+let _applicationContextAsync: ReturnType<typeof ApplicationContext<Beans>>;
+export const applicationContextAsync = async () => {
+  if (_applicationContextAsync) {
+    return _applicationContextAsync;
   }
 
-  _applicationContext = ApplicationContext(beanConfig);
+  _applicationContextAsync = ApplicationContext(await createBeanConfig());
 
-  return _applicationContext;
+  return _applicationContextAsync;
 };

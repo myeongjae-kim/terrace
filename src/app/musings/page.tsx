@@ -5,14 +5,17 @@ import { badScript } from '@/app/common/fonts/badScript';
 import { notoSerif } from '@/app/common/fonts/notoSerif';
 import clsx from 'clsx';
 import { Metadata } from 'next';
-import { applicationContext } from '../config/ApplicationContext';
+import { applicationContextAsync } from '../config/ApplicationContext';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Musings'),
 });
 
 const MusingsPage = async () => {
-  const musings = await applicationContext().get('FindAllMusingsUseCase').findAll();
+  const applicationContext = await applicationContextAsync();
+  const musings = await applicationContext.get('FindAllMusingsUseCase').findAll();
 
   return (
     <main className="flex flex-col items-center justify-between">

@@ -1,6 +1,6 @@
 import { Article } from '@/app/articles/domain/Article';
 import { isOwner } from '@/app/auth/domain/application/isOwner';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -11,8 +11,9 @@ export async function POST(request: NextRequest) {
   }
 
   const requestBody = (await request.json()) as Pick<Article, 'seq' | 'title' | 'content' | 'slug'>;
+  const applicationContext = await applicationContextAsync();
 
-  const article = await applicationContext().get('GetArticleBySlugUseCase').getBySlug({
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
     category: 'DAILY_ARTICLE',
     slug: requestBody.slug,
     isOwner: owner,
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
     return new Response('slug already existed', { status: 400 });
   }
 
-  await applicationContext()
+  await applicationContext
     .get('CreateArticleUseCase')
     .create({ ...requestBody, category: 'DAILY_ARTICLE' } as Article);
 

@@ -6,14 +6,14 @@ import clsx from 'clsx';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { match } from 'ts-pattern';
-import { applicationContext } from '../config/ApplicationContext';
+import { applicationContextAsync } from '../config/ApplicationContext';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('About'),
 });
 
 const AboutPage = async () => {
-  const about = await applicationContext().get('GetAboutUseCase').getAbout();
+  const about = await applicationContextAsync().then((it) => it.get('GetAboutUseCase').getAbout());
 
   return (
     <main>

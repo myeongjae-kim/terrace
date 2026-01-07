@@ -1,7 +1,7 @@
 import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
 import { isOwner } from '@/app/auth/domain/application/isOwner';
 import { PageProps } from '@/app/common/nextjs/PageProps';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,13 +9,13 @@ type Props = PageProps<{ slug: string }>;
 
 const BlogArticleEditPage = async (props: Props) => {
   const params = await props.params;
-  const article = await applicationContext()
-    .get('GetArticleBySlugUseCase')
-    .getBySlug({
-      category: 'BLOG_ARTICLE',
-      slug: params.slug,
-      isOwner: await isOwner(),
-    });
+  const applicationContext = await applicationContextAsync();
+
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+    category: 'BLOG_ARTICLE',
+    slug: params.slug,
+    isOwner: await isOwner(),
+  });
 
   return (
     <ArticleFormContainer

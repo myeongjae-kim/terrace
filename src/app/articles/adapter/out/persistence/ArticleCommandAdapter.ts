@@ -12,8 +12,8 @@ const now = () => new Date();
 
 export class ArticleCommandAdapter implements ArticleCommandPort {
   constructor(
-    @Autowired('databaseClient')
-    private readonly databaseClient: DatabaseClient,
+    @Autowired('databaseClientAsync')
+    private readonly databaseClientAsync: () => Promise<DatabaseClient>,
   ) {}
 
   create = async (article: Omit<Article, 'id'>): Promise<Article> => {
@@ -26,7 +26,8 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
     // does just the insert, we'll stick to that.
 
     // However, published_at processing is needed.
-    await this.databaseClient.insert(articleTable).values({
+    const databaseClient = await this.databaseClientAsync();
+    await databaseClient.insert(articleTable).values({
       category: article.category,
       seq: article.seq,
       title: article.title,
@@ -52,7 +53,7 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
     // I will try to use .returning() if possible, or query by slug.
 
     // Let's query by slug to be safe and compatible.
-    const result = await this.databaseClient
+    const result = await databaseClient
       .select()
       .from(articleTable)
       .where(eq(articleTable.slug, article.slug))
@@ -81,7 +82,8 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
   };
 
   update = async (article: Omit<Article, 'id'> & { originalSlug?: string }): Promise<void> => {
-    await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    await databaseClient
       .update(articleTable)
       .set({
         category: article.category,
@@ -96,7 +98,8 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
   };
 
   publish = async ({ slug }: { slug: string }): Promise<void> => {
-    await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    await databaseClient
       .update(articleTable)
       .set({
         updated_at: now(),
@@ -106,7 +109,8 @@ export class ArticleCommandAdapter implements ArticleCommandPort {
   };
 
   unpublish = async ({ slug }: { slug: string }): Promise<void> => {
-    await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    await databaseClient
       .update(articleTable)
       .set({
         updated_at: now(),

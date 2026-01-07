@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import { Metadata } from 'next';
 import { match } from 'ts-pattern';
 import { isOwner } from '../auth/domain/application/isOwner';
-import { applicationContext } from '../config/ApplicationContext';
+import { applicationContextAsync } from '../config/ApplicationContext';
 
 export const metadata: Metadata = createMetadata({
   title: constants.createTitle('Blog'),
@@ -23,8 +23,9 @@ export const metadata: Metadata = createMetadata({
 const BlogPage = async (props: PageProps) => {
   const pageNumber = getPageNumber((await props.searchParams)?.page);
   const owner = await isOwner();
+  const applicationContext = await applicationContextAsync();
 
-  const articles = await applicationContext().get('FindAllArticlesUseCase').findAll({
+  const articles = await applicationContext.get('FindAllArticlesUseCase').findAll({
     category: 'BLOG_ARTICLE',
     page: pageNumber,
     pageSize: 10,

@@ -1,4 +1,4 @@
-import { DatabaseClient, db } from '@/lib/db/drizzle';
+import { createDatabaseClient, DatabaseClient } from '@/lib/db/drizzle';
 import { BeanConfig } from 'inversify-typesafe-spring-like';
 import { AboutPersistenceAdapter } from '../about/adapter/out/persistence/AboutPersistenceAdapter';
 import { AboutService } from '../about/application/AboutService';
@@ -26,6 +26,7 @@ import { MusingQueryPort } from '../musings/application/port/out/MusingQueryPort
 
 export type Beans = {
   databaseClient: DatabaseClient;
+  databaseClientAsync: () => Promise<DatabaseClient>;
 
   // About
   GetAboutUseCase: GetAboutUseCase;
@@ -53,37 +54,42 @@ export type Beans = {
   MusingQueryPort: MusingQueryPort;
 };
 
-export const beanConfig: BeanConfig<Beans> = {
-  databaseClient: (bind) => bind().toConstantValue(db),
+export const createBeanConfig = async (): Promise<BeanConfig<Beans>> => {
+  const db = await createDatabaseClient();
 
-  GetAboutUseCase: (bind) => bind().to(AboutService),
-  LoadAboutPort: (bind) => bind().to(AboutPersistenceAdapter),
+  return {
+    databaseClient: (bind) => bind().toConstantValue(db),
+    databaseClientAsync: (bind) => bind().toConstantValue(createDatabaseClient),
 
-  // Article Command
-  CreateArticleUseCase: (bind) => bind().to(ArticleCommandService),
-  PublishArticleUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
-  UnpublishArticleUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
-  UpdateArticleUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
+    GetAboutUseCase: (bind) => bind().to(AboutService),
+    LoadAboutPort: (bind) => bind().to(AboutPersistenceAdapter),
 
-  // Article Query
-  FindAllArticlesUseCase: (bind) => bind().to(ArticleQueryService),
-  GetArticleBySlugUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
-  GetNextArticleUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
-  GetNextSeqOfArticleUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
-  GetPrevArticleUseCase: (bind) =>
-    bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+    // Article Command
+    CreateArticleUseCase: (bind) => bind().to(ArticleCommandService),
+    PublishArticleUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
+    UnpublishArticleUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
+    UpdateArticleUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleCommandService, ['CreateArticleUseCase']),
 
-  // Article Out Port
-  ArticleCommandPort: (bind) => bind().to(ArticleCommandAdapter),
-  ArticleQueryPort: (bind) => bind().to(ArticleQueryAdapter),
+    // Article Query
+    FindAllArticlesUseCase: (bind) => bind().to(ArticleQueryService),
+    GetArticleBySlugUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+    GetNextArticleUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+    GetNextSeqOfArticleUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
+    GetPrevArticleUseCase: (bind) =>
+      bind().toResolvedValue((it) => it as ArticleQueryService, ['FindAllArticlesUseCase']),
 
-  // Musing
-  FindAllMusingsUseCase: (bind) => bind().to(MusingQueryService),
-  MusingQueryPort: (bind) => bind().to(MusingPersistenceAdapter),
+    // Article Out Port
+    ArticleCommandPort: (bind) => bind().to(ArticleCommandAdapter),
+    ArticleQueryPort: (bind) => bind().to(ArticleQueryAdapter),
+
+    // Musing
+    FindAllMusingsUseCase: (bind) => bind().to(MusingQueryService),
+    MusingQueryPort: (bind) => bind().to(MusingPersistenceAdapter),
+  };
 };

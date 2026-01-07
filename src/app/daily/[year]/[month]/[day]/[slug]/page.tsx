@@ -6,7 +6,7 @@ import { constants } from '@/app/common/domain/model/constants';
 import { createMetadata } from '@/app/common/domain/model/createMetadata';
 import { formatDate } from '@/app/common/domain/model/formatDate';
 import { PageProps } from '@/app/common/nextjs/PageProps';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { type JSX } from 'react';
@@ -15,13 +15,12 @@ type Props = PageProps<{ slug: string }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const article = await applicationContext()
-    .get('GetArticleBySlugUseCase')
-    .getBySlug({
-      category: 'DAILY_ARTICLE',
-      slug: params.slug,
-      isOwner: await isOwner(),
-    });
+  const applicationContext = await applicationContextAsync();
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+    category: 'DAILY_ARTICLE',
+    slug: params.slug,
+    isOwner: await isOwner(),
+  });
 
   return createMetadata({
     title: constants.createTitle(article.title),
@@ -31,13 +30,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 const DailyArticlePage = async (props: Props): Promise<JSX.Element> => {
   const owner = await isOwner();
-  const article = await applicationContext()
-    .get('GetArticleBySlugUseCase')
-    .getBySlug({
-      category: 'DAILY_ARTICLE',
-      slug: (await props.params).slug,
-      isOwner: owner,
-    });
+  const applicationContext = await applicationContextAsync();
+  const article = await applicationContext.get('GetArticleBySlugUseCase').getBySlug({
+    category: 'DAILY_ARTICLE',
+    slug: (await props.params).slug,
+    isOwner: owner,
+  });
   const commentIdentifier = `daily/${formatDate(article.created_at, '/')}/${article.slug}`;
 
   return (

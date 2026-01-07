@@ -12,8 +12,8 @@ import { Autowired } from '@/app/config/Autowired';
 
 export class ArticleQueryAdapter implements ArticleQueryPort {
   constructor(
-    @Autowired('databaseClient')
-    private readonly databaseClient: DatabaseClient,
+    @Autowired('databaseClientAsync')
+    private readonly databaseClientAsync: () => Promise<DatabaseClient>,
   ) {}
 
   findAll = async ({
@@ -34,7 +34,8 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
       isOwner ? undefined : isNotNull(articleTable.published_at),
     );
 
-    const totalCountResult = await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    const totalCountResult = await databaseClient
       .select({ count: count() })
       .from(articleTable)
       .where(whereClause);
@@ -42,7 +43,7 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
 
     const offset = (page - 1) * pageSize;
 
-    const articles = await this.databaseClient
+    const articles = await databaseClient
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -86,7 +87,8 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
     slug: string;
     isOwner: boolean;
   }): Promise<Article> => {
-    const result = await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    const result = await databaseClient
       .select()
       .from(articleTable)
       .where(
@@ -125,7 +127,8 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
     seq: number;
     isOwner: boolean;
   }): Promise<ArticleInList> => {
-    const result = await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    const result = await databaseClient
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -169,7 +172,8 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
     seq: number;
     isOwner: boolean;
   }): Promise<ArticleInList> => {
-    const result = await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    const result = await databaseClient
       .select({
         id: articleTable.id,
         seq: articleTable.seq,
@@ -205,7 +209,8 @@ export class ArticleQueryAdapter implements ArticleQueryPort {
   };
 
   getNextSeqOf = async ({ category }: { category: ArticleCategory }): Promise<number> => {
-    const result = await this.databaseClient
+    const databaseClient = await this.databaseClientAsync();
+    const result = await databaseClient
       .select({ seq: articleTable.seq })
       .from(articleTable)
       .where(eq(articleTable.category, category))

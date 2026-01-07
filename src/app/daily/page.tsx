@@ -11,7 +11,7 @@ import { inconsolata } from '@/app/common/fonts/inconsolata';
 import { suit } from '@/app/common/fonts/suit';
 import { PageProps } from '@/app/common/nextjs/PageProps';
 import { getPageNumber } from '@/app/common/nextjs/getPageNumber';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 import clsx from 'clsx';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -25,12 +25,15 @@ const DailyPage = async (props: PageProps) => {
   const pageNumber = getPageNumber((await props.searchParams)?.page);
 
   const owner = await isOwner();
-  const dailies = await applicationContext().get('FindAllArticlesUseCase').findAll({
+  const applicationContext = await applicationContextAsync();
+  console.warn('**** before query');
+  const dailies = await applicationContext.get('FindAllArticlesUseCase').findAll({
     category: 'DAILY_ARTICLE',
     page: pageNumber,
     pageSize: 20,
     isOwner: owner,
   });
+  console.warn('**** after query');
 
   return (
     <main className="flex grow flex-col items-center justify-between">

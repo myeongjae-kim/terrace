@@ -1,6 +1,6 @@
 import { Article } from '@/app/articles/domain/Article';
 import { isOwner } from '@/app/auth/domain/application/isOwner';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 import { NextRequest } from 'next/server';
 
 export async function PATCH(request: NextRequest) {
@@ -11,7 +11,8 @@ export async function PATCH(request: NextRequest) {
   }
 
   const requestBody = (await request.json()) as Pick<Article, 'slug'>;
-  await applicationContext().get('PublishArticleUseCase').publish({
+  const applicationContext = await applicationContextAsync();
+  await applicationContext.get('PublishArticleUseCase').publish({
     slug: requestBody.slug,
   });
 

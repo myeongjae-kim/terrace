@@ -1,5 +1,5 @@
 import { isOwner } from '@/app/auth/domain/application/isOwner';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 import { revalidatePath } from 'next/cache';
 import { NextRequest } from 'next/server';
 
@@ -9,8 +9,9 @@ export async function PATCH(request: NextRequest) {
   }
 
   const requestBody = (await request.json()) as { slug: string };
+  const applicationContext = await applicationContextAsync();
 
-  await applicationContext().get('UnpublishArticleUseCase').unpublish({
+  await applicationContext.get('UnpublishArticleUseCase').unpublish({
     slug: requestBody.slug,
   });
 

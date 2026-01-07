@@ -1,10 +1,11 @@
 import ArticleFormContainer from '@/app/articles/ui/containers/ArticleFormContainer';
-import { applicationContext } from '@/app/config/ApplicationContext';
+import { applicationContextAsync } from '@/app/config/ApplicationContext';
 
 export const dynamic = 'force-dynamic';
 
 const DailyArticleCreatePage = async () => {
-  const nextSeq = await applicationContext()
+  const applicationContext = await applicationContextAsync();
+  const nextSeq = await applicationContext
     .get('GetNextSeqOfArticleUseCase')
     .getNextSeqOf({ category: 'DAILY_ARTICLE' });
 
