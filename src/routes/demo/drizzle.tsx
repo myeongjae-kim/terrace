@@ -2,33 +2,34 @@ import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { desc } from "drizzle-orm";
 import { db } from "#/db/index";
-import { todos } from "#/db/schema";
+import { articleTable } from "#/db/schema";
 
-const getTodos = createServerFn({
+const getArticles = createServerFn({
   method: "GET",
 }).handler(async () => {
-  return await db.query.todos.findMany({
-    orderBy: [desc(todos.createdAt)],
-  });
+  return await db
+    .select()
+    .from(articleTable)
+    .orderBy(desc(articleTable.createdAt));
 });
 
-const createTodo = createServerFn({
+const createArticle = createServerFn({
   method: "POST",
 })
   .inputValidator((data: { title: string }) => data)
   .handler(async ({ data }) => {
-    await db.insert(todos).values({ title: data.title });
+    await db.insert(articleTable).values({ title: data.title });
     return { success: true };
   });
 
 export const Route = createFileRoute("/demo/drizzle")({
   component: DemoDrizzle,
-  loader: async () => await getTodos(),
+  loader: async () => await getArticles(),
 });
 
 function DemoDrizzle() {
   const router = useRouter();
-  const todos = Route.useLoaderData();
+  const articles = Route.useLoaderData();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,11 +39,11 @@ function DemoDrizzle() {
     if (!title) return;
 
     try {
-      await createTodo({ data: { title } });
+      await createArticle({ data: { title } });
       router.invalidate();
       (e.target as HTMLFormElement).reset();
     } catch (error) {
-      console.error("Failed to create todo:", error);
+      console.error("Failed to create article:", error);
     }
   };
 
@@ -59,20 +60,22 @@ function DemoDrizzle() {
           </div>
         </header>
 
-        <h2 className="demo-section-title mb-4">Todos</h2>
+        <h2 className="demo-section-title mb-4">Articles</h2>
 
         <ul className="space-y-3 mb-6">
-          {todos.map((todo) => (
-            <li key={todo.id} className="demo-list-item">
+          {articles.map((article) => (
+            <li key={article.id} className="demo-list-item">
               <div className="flex items-center justify-between">
-                <span className="font-medium">{todo.title}</span>
-                <span className="demo-muted text-xs">#{todo.id}</span>
+                <span className="font-medium">
+                  {article.title ?? "Untitled article"}
+                </span>
+                <span className="demo-muted text-xs">#{article.id}</span>
               </div>
             </li>
           ))}
-          {todos.length === 0 && (
+          {articles.length === 0 && (
             <li className="demo-list-item text-center demo-muted">
-              No todos yet. Create one below!
+              No articles yet. Create one below!
             </li>
           )}
         </ul>
@@ -84,11 +87,11 @@ function DemoDrizzle() {
           <input
             type="text"
             name="title"
-            placeholder="Add a new todo..."
+            placeholder="Add a new article..."
             className="demo-input min-w-0 flex-1"
           />
           <button type="submit" className="demo-button whitespace-nowrap">
-            Add Todo
+            Add Article
           </button>
         </form>
 
