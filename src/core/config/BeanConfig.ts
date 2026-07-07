@@ -1,29 +1,53 @@
 import type { BeanConfig } from "inversify-typesafe-spring-like";
 import { ArticleDrizzleAdapter } from "#/core/article/adapter/ArticleDrizzleAdapter";
 import { ArticleCrudService } from "#/core/article/application/ArticleCrudService";
-import type { ArticleCrudUseCase } from "#/core/article/application/port/in/ArticleCrudUseCase";
+import type { CreateArticleUseCase } from "#/core/article/application/port/in/CreateArticleUseCase";
+import type { DeleteArticleUseCase } from "#/core/article/application/port/in/DeleteArticleUseCase";
+import type { GetArticleUseCase } from "#/core/article/application/port/in/GetArticleUseCase";
+import type { ListArticlesUseCase } from "#/core/article/application/port/in/ListArticlesUseCase";
+import type { UpdateArticleUseCase } from "#/core/article/application/port/in/UpdateArticleUseCase";
 import type { ArticleCommandPort } from "#/core/article/application/port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "#/core/article/application/port/out/ArticleQueryPort";
 import { MusingsDrizzleAdapter } from "#/core/musings/adapter/MusingsDrizzleAdapter";
 import { MusingsCrudService } from "#/core/musings/application/MusingsCrudService";
-import type { MusingsCrudUseCase } from "#/core/musings/application/port/in/MusingsCrudUseCase";
+import type { CreateMusingUseCase } from "#/core/musings/application/port/in/CreateMusingUseCase";
+import type { DeleteMusingUseCase } from "#/core/musings/application/port/in/DeleteMusingUseCase";
+import type { GetMusingUseCase } from "#/core/musings/application/port/in/GetMusingUseCase";
+import type { ListMusingsUseCase } from "#/core/musings/application/port/in/ListMusingsUseCase";
+import type { UpdateMusingUseCase } from "#/core/musings/application/port/in/UpdateMusingUseCase";
 import type { MusingsCommandPort } from "#/core/musings/application/port/out/MusingsCommandPort";
 import type { MusingsQueryPort } from "#/core/musings/application/port/out/MusingsQueryPort";
 
 export type Beans = {
   ArticleCommandPort: ArticleCommandPort;
   ArticleQueryPort: ArticleQueryPort;
-  ArticleCrudUseCase: ArticleCrudUseCase;
+  CreateArticleUseCase: CreateArticleUseCase;
+  GetArticleUseCase: GetArticleUseCase;
+  ListArticlesUseCase: ListArticlesUseCase;
+  UpdateArticleUseCase: UpdateArticleUseCase;
+  DeleteArticleUseCase: DeleteArticleUseCase;
   MusingsCommandPort: MusingsCommandPort;
   MusingsQueryPort: MusingsQueryPort;
-  MusingsCrudUseCase: MusingsCrudUseCase;
+  CreateMusingUseCase: CreateMusingUseCase;
+  GetMusingUseCase: GetMusingUseCase;
+  ListMusingsUseCase: ListMusingsUseCase;
+  UpdateMusingUseCase: UpdateMusingUseCase;
+  DeleteMusingUseCase: DeleteMusingUseCase;
 };
 
 export const beanConfig: BeanConfig<Beans> = {
   ArticleCommandPort: (bind) => bind().to(ArticleDrizzleAdapter),
   ArticleQueryPort: (bind) => bind().to(ArticleDrizzleAdapter),
-  ArticleCrudUseCase: (bind) => bind().to(ArticleCrudService),
+  CreateArticleUseCase: (bind) => bind().to(ArticleCrudService),
+  GetArticleUseCase: (bind) => bind().to(ArticleCrudService),
+  ListArticlesUseCase: (bind) => bind().to(ArticleCrudService),
+  UpdateArticleUseCase: (bind) => bind().to(ArticleCrudService),
+  DeleteArticleUseCase: (bind) => bind().to(ArticleCrudService),
   MusingsCommandPort: (bind) => bind().to(MusingsDrizzleAdapter),
   MusingsQueryPort: (bind) => bind().to(MusingsDrizzleAdapter),
-  MusingsCrudUseCase: (bind) => bind().to(MusingsCrudService),
+  CreateMusingUseCase: (bind) => bind().to(MusingsCrudService),
+  GetMusingUseCase: (bind) => bind().to(MusingsCrudService),
+  ListMusingsUseCase: (bind) => bind().to(MusingsCrudService),
+  UpdateMusingUseCase: (bind) => bind().to(MusingsCrudService),
+  DeleteMusingUseCase: (bind) => bind().to(MusingsCrudService),
 };

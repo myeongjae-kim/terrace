@@ -1,9 +1,20 @@
 import { Autowired } from "#/core/config/Autowired";
-import type { ArticleCrudUseCase } from "./port/in/ArticleCrudUseCase";
+import type { CreateArticleUseCase } from "./port/in/CreateArticleUseCase";
+import type { DeleteArticleUseCase } from "./port/in/DeleteArticleUseCase";
+import type { GetArticleUseCase } from "./port/in/GetArticleUseCase";
+import type { ListArticlesUseCase } from "./port/in/ListArticlesUseCase";
+import type { UpdateArticleUseCase } from "./port/in/UpdateArticleUseCase";
 import type { ArticleCommandPort } from "./port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "./port/out/ArticleQueryPort";
 
-export class ArticleCrudService implements ArticleCrudUseCase {
+export class ArticleCrudService
+  implements
+    CreateArticleUseCase,
+    GetArticleUseCase,
+    ListArticlesUseCase,
+    UpdateArticleUseCase,
+    DeleteArticleUseCase
+{
   constructor(
     @Autowired("ArticleCommandPort")
     private readonly articleCommandPort: ArticleCommandPort,
@@ -11,23 +22,23 @@ export class ArticleCrudService implements ArticleCrudUseCase {
     private readonly articleQueryPort: ArticleQueryPort,
   ) {}
 
-  create(input: Parameters<ArticleCrudUseCase["create"]>[0]) {
+  create(input: Parameters<CreateArticleUseCase["create"]>[0]) {
     return this.articleCommandPort.create(input);
   }
 
-  get(input: Parameters<ArticleCrudUseCase["get"]>[0]) {
+  get(input: Parameters<GetArticleUseCase["get"]>[0]) {
     return this.articleQueryPort.get(input);
   }
 
-  list(input?: Parameters<ArticleCrudUseCase["list"]>[0]) {
+  list(input?: Parameters<ListArticlesUseCase["list"]>[0]) {
     return this.articleQueryPort.list(input);
   }
 
-  update(input: Parameters<ArticleCrudUseCase["update"]>[0]) {
+  update(input: Parameters<UpdateArticleUseCase["update"]>[0]) {
     return this.articleCommandPort.update(input);
   }
 
-  delete(input: Parameters<ArticleCrudUseCase["delete"]>[0]) {
+  delete(input: Parameters<DeleteArticleUseCase["delete"]>[0]) {
     return this.articleCommandPort.delete(input);
   }
 }
