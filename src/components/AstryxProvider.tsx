@@ -1,6 +1,6 @@
 import { Theme } from "@astryxdesign/core";
 import type { ThemeMode } from "@astryxdesign/core/theme";
-import { neutralTheme } from "@astryxdesign/theme-neutral";
+import { neutralTheme } from "@astryxdesign/theme-neutral/built";
 import {
   createContext,
   type ReactNode,

@@ -13,6 +13,8 @@ export type PaginatedResult<T> = {
   readonly limit: number;
   readonly offset: number;
   readonly hasMore: boolean;
+  readonly total?: number;
+  readonly totalPages?: number;
 };
 
 export function normalizePagination(

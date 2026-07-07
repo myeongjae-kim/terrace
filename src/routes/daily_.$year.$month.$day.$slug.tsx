@@ -24,7 +24,7 @@ const getDailyArticle = createServerFn({ method: "GET" })
       });
   });
 
-export const Route = createFileRoute("/daily/$year/$month/$day/$slug")({
+export const Route = createFileRoute("/daily_/$year/$month/$day/$slug")({
   loader: async ({ params }) => {
     return await getDailyArticle({ data: { slug: params.slug } });
   },

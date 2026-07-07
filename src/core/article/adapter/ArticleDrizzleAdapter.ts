@@ -1,4 +1,4 @@
-import { and, desc, eq, isNotNull } from "drizzle-orm";
+import { and, count, desc, eq, isNotNull } from "drizzle-orm";
 import type { ArticleCommandPort } from "#/core/article/application/port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "#/core/article/application/port/out/ArticleQueryPort";
 import type { Article, ArticleId } from "#/core/article/domain";
@@ -100,15 +100,19 @@ export class ArticleDrizzleAdapter
     input: Parameters<ArticleQueryPort["listPublished"]>[0],
   ): Promise<PaginatedResult<Article>> {
     const { limit, offset } = normalizePagination(input);
+    const whereClause = and(
+      eq(articleTable.category, input.category),
+      isNotNull(articleTable.publishedAt),
+    );
+    const [totalRow] = await db
+      .select({ count: count() })
+      .from(articleTable)
+      .where(whereClause);
+    const total = totalRow?.count ?? 0;
     const rows = await db
       .select()
       .from(articleTable)
-      .where(
-        and(
-          eq(articleTable.category, input.category),
-          isNotNull(articleTable.publishedAt),
-        ),
-      )
+      .where(whereClause)
       .orderBy(desc(articleTable.seq), desc(articleTable.id))
       .limit(limit + 1)
       .offset(offset);
@@ -118,6 +122,8 @@ export class ArticleDrizzleAdapter
       limit,
       offset,
       hasMore: rows.length > limit,
+      total,
+      totalPages: Math.ceil(total / limit),
     };
   }
 

@@ -24,7 +24,7 @@ const getBlogArticle = createServerFn({ method: "GET" })
       });
   });
 
-export const Route = createFileRoute("/blog/$year/$month/$day/$slug")({
+export const Route = createFileRoute("/blog_/$year/$month/$day/$slug")({
   loader: async ({ params }) => {
     return await getBlogArticle({ data: { slug: params.slug } });
   },

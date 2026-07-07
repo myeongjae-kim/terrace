@@ -17,8 +17,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
 import { Route as ApiSplatRouteImport } from './routes/api/$'
-import { Route as DailyYearMonthDaySlugRouteImport } from './routes/daily/$year/$month/$day/$slug'
-import { Route as BlogYearMonthDaySlugRouteImport } from './routes/blog/$year/$month/$day/$slug'
+import { Route as DailyYearMonthDaySlugRouteImport } from './routes/daily_.$year.$month.$day.$slug'
+import { Route as BlogYearMonthDaySlugRouteImport } from './routes/blog_.$year.$month.$day.$slug'
 
 const MusingsRoute = MusingsRouteImport.update({
   id: '/musings',
@@ -61,21 +61,21 @@ const ApiSplatRoute = ApiSplatRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DailyYearMonthDaySlugRoute = DailyYearMonthDaySlugRouteImport.update({
-  id: '/$year/$month/$day/$slug',
-  path: '/$year/$month/$day/$slug',
-  getParentRoute: () => DailyRoute,
+  id: '/daily_/$year/$month/$day/$slug',
+  path: '/daily/$year/$month/$day/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BlogYearMonthDaySlugRoute = BlogYearMonthDaySlugRouteImport.update({
-  id: '/$year/$month/$day/$slug',
-  path: '/$year/$month/$day/$slug',
-  getParentRoute: () => BlogRoute,
+  id: '/blog_/$year/$month/$day/$slug',
+  path: '/blog/$year/$month/$day/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/daily': typeof DailyRouteWithChildren
+  '/blog': typeof BlogRoute
+  '/daily': typeof DailyRoute
   '/musings': typeof MusingsRoute
   '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
@@ -86,8 +86,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/daily': typeof DailyRouteWithChildren
+  '/blog': typeof BlogRoute
+  '/daily': typeof DailyRoute
   '/musings': typeof MusingsRoute
   '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
@@ -99,14 +99,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/daily': typeof DailyRouteWithChildren
+  '/blog': typeof BlogRoute
+  '/daily': typeof DailyRoute
   '/musings': typeof MusingsRoute
   '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
-  '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
+  '/blog_/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
+  '/daily_/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -143,19 +143,21 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/demo/drizzle'
     | '/demo/tanstack-query'
-    | '/blog/$year/$month/$day/$slug'
-    | '/daily/$year/$month/$day/$slug'
+    | '/blog_/$year/$month/$day/$slug'
+    | '/daily_/$year/$month/$day/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  BlogRoute: typeof BlogRouteWithChildren
-  DailyRoute: typeof DailyRouteWithChildren
+  BlogRoute: typeof BlogRoute
+  DailyRoute: typeof DailyRoute
   MusingsRoute: typeof MusingsRoute
   ApiSplatRoute: typeof ApiSplatRoute
   DemoDrizzleRoute: typeof DemoDrizzleRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  BlogYearMonthDaySlugRoute: typeof BlogYearMonthDaySlugRoute
+  DailyYearMonthDaySlugRoute: typeof DailyYearMonthDaySlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -216,52 +218,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/daily/$year/$month/$day/$slug': {
-      id: '/daily/$year/$month/$day/$slug'
-      path: '/$year/$month/$day/$slug'
+    '/daily_/$year/$month/$day/$slug': {
+      id: '/daily_/$year/$month/$day/$slug'
+      path: '/daily/$year/$month/$day/$slug'
       fullPath: '/daily/$year/$month/$day/$slug'
       preLoaderRoute: typeof DailyYearMonthDaySlugRouteImport
-      parentRoute: typeof DailyRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/blog/$year/$month/$day/$slug': {
-      id: '/blog/$year/$month/$day/$slug'
-      path: '/$year/$month/$day/$slug'
+    '/blog_/$year/$month/$day/$slug': {
+      id: '/blog_/$year/$month/$day/$slug'
+      path: '/blog/$year/$month/$day/$slug'
       fullPath: '/blog/$year/$month/$day/$slug'
       preLoaderRoute: typeof BlogYearMonthDaySlugRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface BlogRouteChildren {
-  BlogYearMonthDaySlugRoute: typeof BlogYearMonthDaySlugRoute
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogYearMonthDaySlugRoute: BlogYearMonthDaySlugRoute,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
-interface DailyRouteChildren {
-  DailyYearMonthDaySlugRoute: typeof DailyYearMonthDaySlugRoute
-}
-
-const DailyRouteChildren: DailyRouteChildren = {
-  DailyYearMonthDaySlugRoute: DailyYearMonthDaySlugRoute,
-}
-
-const DailyRouteWithChildren = DailyRoute._addFileChildren(DailyRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BlogRoute: BlogRouteWithChildren,
-  DailyRoute: DailyRouteWithChildren,
+  BlogRoute: BlogRoute,
+  DailyRoute: DailyRoute,
   MusingsRoute: MusingsRoute,
   ApiSplatRoute: ApiSplatRoute,
   DemoDrizzleRoute: DemoDrizzleRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  BlogYearMonthDaySlugRoute: BlogYearMonthDaySlugRoute,
+  DailyYearMonthDaySlugRoute: DailyYearMonthDaySlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

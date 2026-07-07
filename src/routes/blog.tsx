@@ -84,8 +84,8 @@ function BlogPage() {
           <Pagination
             page={articles.page}
             pageSize={pageSize}
-            hasMore={articles.hasMore}
-            variant="compact"
+            totalPages={articles.totalPages}
+            variant="pages"
             label="Blog pagination"
             onChange={(page) => {
               void navigate({

@@ -78,8 +78,8 @@ function DailyPage() {
           <Pagination
             page={dailies.page}
             pageSize={pageSize}
-            hasMore={dailies.hasMore}
-            variant="compact"
+            totalPages={dailies.totalPages}
+            variant="pages"
             label="Daily pagination"
             onChange={(page) => {
               void navigate({
