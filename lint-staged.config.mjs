@@ -1,7 +1,7 @@
 const config = {
   '**/*.(mts|ts|tsx|js)': (filenames) => [
-    `npx eslint --fix ${filenames.join(' ')}`,
-    `npx prettier --write ${filenames.join(' ')}`,
+    `pnpx biome check --fix ${filenames.join(' ')}`,
+    `pnpx prettier --write ${filenames.join(' ')}`,
   ],
 };
 

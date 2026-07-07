@@ -15,7 +15,7 @@
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check",
+    "check": "biome check --fix",
     "find-deadcode": "bash scripts/find-deadcode.sh",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
