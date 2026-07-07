@@ -25,6 +25,9 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@astryxdesign/cli": "^0.1.3",
+    "@astryxdesign/core": "^0.1.3",
+    "@astryxdesign/theme-neutral": "^0.1.3",
     "@hono/zod-openapi": "^1.4.0",
     "@hono/zod-validator": "^0.8.0",
     "@tailwindcss/vite": "^4.1.18",

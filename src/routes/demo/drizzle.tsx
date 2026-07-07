@@ -1,6 +1,16 @@
+import { Button } from "@astryxdesign/core/Button";
+import { Card } from "@astryxdesign/core/Card";
+import { Code } from "@astryxdesign/core/Code";
+import { Heading } from "@astryxdesign/core/Heading";
+import { HStack } from "@astryxdesign/core/HStack";
+import { List, ListItem } from "@astryxdesign/core/List";
+import { Text } from "@astryxdesign/core/Text";
+import { TextInput } from "@astryxdesign/core/TextInput";
+import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { desc } from "drizzle-orm";
+import { useState } from "react";
 import { db } from "#/db/index";
 import { articleTable } from "#/db/schema";
 
@@ -30,95 +40,102 @@ export const Route = createFileRoute("/demo/drizzle")({
 function DemoDrizzle() {
   const router = useRouter();
   const articles = Route.useLoaderData();
+  const [title, setTitle] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const title = formData.get("title") as string;
 
-    if (!title) return;
+    if (!title.trim()) return;
 
     try {
-      await createArticle({ data: { title } });
-      router.invalidate();
-      (e.target as HTMLFormElement).reset();
+      await createArticle({ data: { title: title.trim() } });
+      await router.invalidate();
+      setTitle("");
     } catch (error) {
       console.error("Failed to create article:", error);
     }
   };
 
   return (
-    <main className="demo-page demo-center">
-      <section className="demo-panel w-full max-w-2xl">
-        <header className="mb-8 flex items-center gap-4">
-          <span className="demo-card flex h-14 w-14 items-center justify-center p-3">
-            <img src="/drizzle.svg" alt="Drizzle Logo" className="h-8 w-8" />
-          </span>
-          <div>
-            <p className="island-kicker mb-2">Database</p>
-            <h1 className="demo-title">Drizzle Demo</h1>
-          </div>
-        </header>
+    <VStack as="main" padding={6} maxWidth={760} width="100%">
+      <Card padding={6}>
+        <VStack gap={5}>
+          <HStack gap={3} hAlign="start">
+            <Card padding={2} width={56} height={56}>
+              <img
+                src="/drizzle.svg"
+                alt="Drizzle logo"
+                width="32"
+                height="32"
+              />
+            </Card>
+            <VStack gap={1}>
+              <Text type="label" color="accent">
+                Database
+              </Text>
+              <Heading level={1}>Drizzle Demo</Heading>
+            </VStack>
+          </HStack>
 
-        <h2 className="demo-section-title mb-4">Articles</h2>
+          <List header={<Heading level={2}>Articles</Heading>} hasDividers>
+            {articles.map((article) => (
+              <ListItem
+                key={article.id}
+                label={article.title ?? "Untitled article"}
+                endContent={
+                  <Text type="supporting" hasTabularNumbers>
+                    #{article.id}
+                  </Text>
+                }
+              />
+            ))}
+            {articles.length === 0 && (
+              <ListItem
+                label="No articles yet"
+                description="Create one below."
+              />
+            )}
+          </List>
 
-        <ul className="space-y-3 mb-6">
-          {articles.map((article) => (
-            <li key={article.id} className="demo-list-item">
-              <div className="flex items-center justify-between">
-                <span className="font-medium">
-                  {article.title ?? "Untitled article"}
-                </span>
-                <span className="demo-muted text-xs">#{article.id}</span>
-              </div>
-            </li>
-          ))}
-          {articles.length === 0 && (
-            <li className="demo-list-item text-center demo-muted">
-              No articles yet. Create one below!
-            </li>
-          )}
-        </ul>
+          <HStack as="form" onSubmit={handleSubmit} gap={2} wrap="wrap">
+            <TextInput
+              label="Article title"
+              value={title}
+              onChange={setTitle}
+              placeholder="Add a new article..."
+            />
+            <Button label="Add article" type="submit" variant="primary" />
+          </HStack>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-2 sm:flex-row"
-        >
-          <input
-            type="text"
-            name="title"
-            placeholder="Add a new article..."
-            className="demo-input min-w-0 flex-1"
-          />
-          <button type="submit" className="demo-button whitespace-nowrap">
-            Add Article
-          </button>
-        </form>
-
-        <div className="demo-card mt-8">
-          <h3 className="demo-section-title mb-2">Powered by Drizzle ORM</h3>
-          <p className="demo-muted mb-4 text-sm">
-            Next-generation ORM for Node.js & TypeScript with PostgreSQL
-          </p>
-          <div className="space-y-2 text-sm">
-            <p className="font-medium">Setup Instructions:</p>
-            <ol className="demo-muted list-inside list-decimal space-y-2">
-              <li>
-                Configure your <code>DATABASE_URL</code> in .env.local
-              </li>
-              <li>
-                Run: <code>npx -y drizzle-kit generate</code>
-              </li>
-              <li>
-                Run: <code>npx -y drizzle-kit migrate</code>
-              </li>
-              <li>
-                Optional: <code>npx -y drizzle-kit studio</code>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
-    </main>
+          <Card variant="muted" padding={4}>
+            <List
+              header={<Heading level={2}>Powered by Drizzle ORM</Heading>}
+              listStyle="decimal"
+            >
+              <ListItem
+                label="Configure the database"
+                description={
+                  <Text>
+                    Set <Code>DATABASE_URL</Code> in <Code>.env.local</Code>.
+                  </Text>
+                }
+              />
+              <ListItem
+                label="Generate migrations"
+                description={<Code>npx -y drizzle-kit generate</Code>}
+              />
+              <ListItem
+                label="Run migrations"
+                description={<Code>npx -y drizzle-kit migrate</Code>}
+              />
+              <ListItem
+                label="Open Studio"
+                description={<Code>npx -y drizzle-kit studio</Code>}
+              />
+            </List>
+          </Card>
+        </VStack>
+      </Card>
+    </VStack>
   );
 }

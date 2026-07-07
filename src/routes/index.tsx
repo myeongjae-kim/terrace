@@ -1,87 +1,111 @@
+import { Button } from "@astryxdesign/core/Button";
+import { Card } from "@astryxdesign/core/Card";
+import { Code } from "@astryxdesign/core/Code";
+import { Grid } from "@astryxdesign/core/Grid";
+import { Heading } from "@astryxdesign/core/Heading";
+import { HStack } from "@astryxdesign/core/HStack";
+import { Link } from "@astryxdesign/core/Link";
+import { List, ListItem } from "@astryxdesign/core/List";
+import { Section } from "@astryxdesign/core/Section";
+import { Text } from "@astryxdesign/core/Text";
+import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({ component: App });
 
+const features = [
+  ["Type-safe routing", "Routes and links stay in sync across every page."],
+  [
+    "Server functions",
+    "Call server code from your UI without creating API boilerplate.",
+  ],
+  [
+    "Streaming by default",
+    "Ship progressively rendered responses for faster experiences.",
+  ],
+  [
+    "Astryx interface",
+    "Build with a component system, theme tokens, and accessible defaults.",
+  ],
+] as const;
+
 function App() {
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
-        <p className="island-kicker mb-3">TanStack Start Base Template</p>
-        <h1 className="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-          Start simple, ship quickly.
-        </h1>
-        <p className="mb-8 max-w-2xl text-base text-[var(--sea-ink-soft)] sm:text-lg">
-          This base starter intentionally keeps things light: two routes, clean
-          structure, and the essentials you need to build from scratch.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="/about"
-            className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
-          >
-            About This Starter
-          </a>
-          <a
-            href="https://tanstack.com/router"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-[rgba(23,58,64,0.2)] bg-white/50 px-5 py-2.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.35)]"
-          >
-            Router Guide
-          </a>
-        </div>
-      </section>
+    <VStack as="main" gap={6} padding={6} maxWidth={1120} width="100%">
+      <Section variant="muted" padding={8}>
+        <VStack gap={4} maxWidth={760}>
+          <Text type="label" color="accent">
+            TanStack Start Base Template
+          </Text>
+          <Heading level={1} type="display-1" textWrap="balance">
+            Start simple, ship quickly.
+          </Heading>
+          <Text type="large" color="secondary" textWrap="pretty">
+            This base starter keeps the frame light: typed routes, server
+            functions, API wiring, and Astryx components ready for production
+            UI.
+          </Text>
+          <HStack gap={2} wrap="wrap">
+            <Link href="/about" isStandalone>
+              About this starter
+            </Link>
+            <Button
+              label="Open router guide"
+              variant="secondary"
+              size="sm"
+              onClick={() =>
+                window.open("https://tanstack.com/router", "_blank")
+              }
+            />
+          </HStack>
+        </VStack>
+      </Section>
 
-      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          [
-            "Type-Safe Routing",
-            "Routes and links stay in sync across every page.",
-          ],
-          [
-            "Server Functions",
-            "Call server code from your UI without creating API boilerplate.",
-          ],
-          [
-            "Streaming by Default",
-            "Ship progressively rendered responses for faster experiences.",
-          ],
-          [
-            "Tailwind Native",
-            "Design quickly with utility-first styling and reusable tokens.",
-          ],
-        ].map(([title, desc], index) => (
-          <article
-            key={title}
-            className="island-shell feature-card rise-in rounded-2xl p-5"
-            style={{ animationDelay: `${index * 90 + 80}ms` }}
-          >
-            <h2 className="mb-2 text-base font-semibold text-[var(--sea-ink)]">
-              {title}
-            </h2>
-            <p className="m-0 text-sm text-[var(--sea-ink-soft)]">{desc}</p>
-          </article>
+      <Grid columns={{ minWidth: 220, max: 4 }} gap={3}>
+        {features.map(([title, description]) => (
+          <Card key={title} padding={4}>
+            <VStack gap={2}>
+              <Heading level={2}>{title}</Heading>
+              <Text type="supporting">{description}</Text>
+            </VStack>
+          </Card>
         ))}
-      </section>
+      </Grid>
 
-      <section className="island-shell mt-8 rounded-2xl p-6">
-        <p className="island-kicker mb-2">Quick Start</p>
-        <ul className="m-0 list-disc space-y-2 pl-5 text-sm text-[var(--sea-ink-soft)]">
-          <li>
-            Edit <code>src/routes/index.tsx</code> to customize the home page.
-          </li>
-          <li>
-            Update <code>src/components/Header.tsx</code> and{" "}
-            <code>src/components/Footer.tsx</code> for brand links.
-          </li>
-          <li>
-            Add routes in <code>src/routes</code> and tweak visual tokens in{" "}
-            <code>src/styles.css</code>.
-          </li>
-        </ul>
-      </section>
-    </main>
+      <Section padding={5}>
+        <List
+          header={<Heading level={2}>Quick start</Heading>}
+          listStyle="disc"
+          density="balanced"
+        >
+          <ListItem
+            label="Edit the home page"
+            description={
+              <Text>
+                Customize <Code>src/routes/index.tsx</Code>.
+              </Text>
+            }
+          />
+          <ListItem
+            label="Update navigation"
+            description={
+              <Text>
+                Change <Code>src/components/Header.tsx</Code> and{" "}
+                <Code>src/components/Footer.tsx</Code>.
+              </Text>
+            }
+          />
+          <ListItem
+            label="Add more routes"
+            description={
+              <Text>
+                Create files in <Code>src/routes</Code> and keep shared UI in
+                components.
+              </Text>
+            }
+          />
+        </List>
+      </Section>
+    </VStack>
   );
 }
