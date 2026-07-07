@@ -13,6 +13,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
+import { Route as ApiSplatRouteImport } from './routes/api/$'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -34,16 +35,23 @@ const DemoDrizzleRoute = DemoDrizzleRouteImport.update({
   path: '/demo/drizzle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSplatRoute = ApiSplatRouteImport.update({
+  id: '/api/$',
+  path: '/api/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -51,20 +59,29 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/demo/drizzle' | '/demo/tanstack-query'
+  fullPaths:
+    '/' | '/about' | '/api/$' | '/demo/drizzle' | '/demo/tanstack-query'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/demo/drizzle' | '/demo/tanstack-query'
-  id: '__root__' | '/' | '/about' | '/demo/drizzle' | '/demo/tanstack-query'
+  to: '/' | '/about' | '/api/$' | '/demo/drizzle' | '/demo/tanstack-query'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/api/$'
+    | '/demo/drizzle'
+    | '/demo/tanstack-query'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ApiSplatRoute: typeof ApiSplatRoute
   DemoDrizzleRoute: typeof DemoDrizzleRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
@@ -99,12 +116,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoDrizzleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/$': {
+      id: '/api/$'
+      path: '/api/$'
+      fullPath: '/api/$'
+      preLoaderRoute: typeof ApiSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ApiSplatRoute: ApiSplatRoute,
   DemoDrizzleRoute: DemoDrizzleRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }
