@@ -4,6 +4,8 @@
     "target": "ES2022",
     "jsx": "react-jsx",
     "module": "ESNext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "#/*": ["./src/*"],
       "@/*": ["./src/*"]
