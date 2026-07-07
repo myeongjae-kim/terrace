@@ -224,7 +224,6 @@ export interface components {
       seq: number | null;
       title: string | null;
       slug: string | null;
-      content: string | null;
       /** Format: date-time */
       createdAt: string | null;
       /** Format: date-time */
@@ -244,7 +243,6 @@ export interface components {
     };
     Musing: {
       id: string;
-      quote: string | null;
       from: string | null;
       language: string | null;
       /** Format: date-time */

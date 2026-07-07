@@ -63,7 +63,6 @@ export const articleSchema = z
     seq: z.number().int().nullable(),
     title: z.string().nullable(),
     slug: z.string().nullable(),
-    content: z.string().nullable(),
     createdAt: isoDateTimeString.nullable(),
     updatedAt: isoDateTimeString.nullable(),
     publishedAt: isoDateTimeString.nullable(),
@@ -83,7 +82,6 @@ export const articleListResponseSchema = z
 export const musingSchema = z
   .object({
     id: z.string(),
-    quote: z.string().nullable(),
     from: z.string().nullable(),
     language: z.string().nullable(),
     createdAt: isoDateTimeString.nullable(),
