@@ -1,18 +1,20 @@
 import { Theme } from "@astryxdesign/core";
+import { LinkProvider } from "@astryxdesign/core/Link";
 import type { ThemeMode } from "@astryxdesign/core/theme";
 import { neutralTheme } from "@astryxdesign/theme-neutral/built";
+import { Link as RouterLink } from "@tanstack/react-router";
 import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
+	createContext,
+	type ReactNode,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
 } from "react";
 
 type AstryxThemeContextValue = {
-  mode: ThemeMode;
-  setMode: (mode: ThemeMode) => void;
+	mode: ThemeMode;
+	setMode: (mode: ThemeMode) => void;
 };
 
 const AstryxThemeContext = createContext<AstryxThemeContextValue | null>(null);
@@ -20,49 +22,51 @@ const AstryxThemeContext = createContext<AstryxThemeContextValue | null>(null);
 const storageKey = "theme";
 
 function readStoredMode(): ThemeMode {
-  if (typeof window === "undefined") {
-    return "system";
-  }
+	if (typeof window === "undefined") {
+		return "system";
+	}
 
-  const stored = window.localStorage.getItem(storageKey);
-  return stored === "light" || stored === "dark" || stored === "system"
-    ? stored
-    : "system";
+	const stored = window.localStorage.getItem(storageKey);
+	return stored === "light" || stored === "dark" || stored === "system"
+		? stored
+		: "system";
 }
 
 export function AstryxProvider({ children }: { children: ReactNode }) {
-  const [mode, setModeState] = useState<ThemeMode>("system");
+	const [mode, setModeState] = useState<ThemeMode>("system");
 
-  useEffect(() => {
-    setModeState(readStoredMode());
-  }, []);
+	useEffect(() => {
+		setModeState(readStoredMode());
+	}, []);
 
-  const value = useMemo<AstryxThemeContextValue>(
-    () => ({
-      mode,
-      setMode(nextMode) {
-        setModeState(nextMode);
-        window.localStorage.setItem(storageKey, nextMode);
-      },
-    }),
-    [mode],
-  );
+	const value = useMemo<AstryxThemeContextValue>(
+		() => ({
+			mode,
+			setMode(nextMode) {
+				setModeState(nextMode);
+				window.localStorage.setItem(storageKey, nextMode);
+			},
+		}),
+		[mode],
+	);
 
-  return (
-    <AstryxThemeContext.Provider value={value}>
-      <Theme theme={neutralTheme} mode={mode}>
-        {children}
-      </Theme>
-    </AstryxThemeContext.Provider>
-  );
+	return (
+		<AstryxThemeContext.Provider value={value}>
+			<LinkProvider component={RouterLink}>
+				<Theme theme={neutralTheme} mode={mode}>
+					{children}
+				</Theme>
+			</LinkProvider>
+		</AstryxThemeContext.Provider>
+	);
 }
 
 export function useAstryxTheme() {
-  const context = useContext(AstryxThemeContext);
+	const context = useContext(AstryxThemeContext);
 
-  if (!context) {
-    throw new Error("useAstryxTheme must be used within AstryxProvider");
-  }
+	if (!context) {
+		throw new Error("useAstryxTheme must be used within AstryxProvider");
+	}
 
-  return context;
+	return context;
 }
