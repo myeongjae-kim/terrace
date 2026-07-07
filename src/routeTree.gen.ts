@@ -9,12 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MusingsRouteImport } from './routes/musings'
+import { Route as DailyRouteImport } from './routes/daily'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
 import { Route as ApiSplatRouteImport } from './routes/api/$'
+import { Route as DailyYearMonthDaySlugRouteImport } from './routes/daily/$year/$month/$day/$slug'
+import { Route as BlogYearMonthDaySlugRouteImport } from './routes/blog/$year/$month/$day/$slug'
 
+const MusingsRoute = MusingsRouteImport.update({
+  id: '/musings',
+  path: '/musings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DailyRoute = DailyRouteImport.update({
+  id: '/daily',
+  path: '/daily',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -40,47 +60,99 @@ const ApiSplatRoute = ApiSplatRouteImport.update({
   path: '/api/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DailyYearMonthDaySlugRoute = DailyYearMonthDaySlugRouteImport.update({
+  id: '/$year/$month/$day/$slug',
+  path: '/$year/$month/$day/$slug',
+  getParentRoute: () => DailyRoute,
+} as any)
+const BlogYearMonthDaySlugRoute = BlogYearMonthDaySlugRouteImport.update({
+  id: '/$year/$month/$day/$slug',
+  path: '/$year/$month/$day/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/daily': typeof DailyRouteWithChildren
+  '/musings': typeof MusingsRoute
   '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
+  '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/daily': typeof DailyRouteWithChildren
+  '/musings': typeof MusingsRoute
   '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
+  '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/daily': typeof DailyRouteWithChildren
+  '/musings': typeof MusingsRoute
   '/api/$': typeof ApiSplatRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
+  '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/api/$' | '/demo/drizzle' | '/demo/tanstack-query'
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/daily'
+    | '/musings'
+    | '/api/$'
+    | '/demo/drizzle'
+    | '/demo/tanstack-query'
+    | '/blog/$year/$month/$day/$slug'
+    | '/daily/$year/$month/$day/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/api/$' | '/demo/drizzle' | '/demo/tanstack-query'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/daily'
+    | '/musings'
+    | '/api/$'
+    | '/demo/drizzle'
+    | '/demo/tanstack-query'
+    | '/blog/$year/$month/$day/$slug'
+    | '/daily/$year/$month/$day/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/blog'
+    | '/daily'
+    | '/musings'
     | '/api/$'
     | '/demo/drizzle'
     | '/demo/tanstack-query'
+    | '/blog/$year/$month/$day/$slug'
+    | '/daily/$year/$month/$day/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BlogRoute: typeof BlogRouteWithChildren
+  DailyRoute: typeof DailyRouteWithChildren
+  MusingsRoute: typeof MusingsRoute
   ApiSplatRoute: typeof ApiSplatRoute
   DemoDrizzleRoute: typeof DemoDrizzleRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
@@ -88,6 +160,27 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/musings': {
+      id: '/musings'
+      path: '/musings'
+      fullPath: '/musings'
+      preLoaderRoute: typeof MusingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/daily': {
+      id: '/daily'
+      path: '/daily'
+      fullPath: '/daily'
+      preLoaderRoute: typeof DailyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -123,12 +216,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/daily/$year/$month/$day/$slug': {
+      id: '/daily/$year/$month/$day/$slug'
+      path: '/$year/$month/$day/$slug'
+      fullPath: '/daily/$year/$month/$day/$slug'
+      preLoaderRoute: typeof DailyYearMonthDaySlugRouteImport
+      parentRoute: typeof DailyRoute
+    }
+    '/blog/$year/$month/$day/$slug': {
+      id: '/blog/$year/$month/$day/$slug'
+      path: '/$year/$month/$day/$slug'
+      fullPath: '/blog/$year/$month/$day/$slug'
+      preLoaderRoute: typeof BlogYearMonthDaySlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogYearMonthDaySlugRoute: typeof BlogYearMonthDaySlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogYearMonthDaySlugRoute: BlogYearMonthDaySlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface DailyRouteChildren {
+  DailyYearMonthDaySlugRoute: typeof DailyYearMonthDaySlugRoute
+}
+
+const DailyRouteChildren: DailyRouteChildren = {
+  DailyYearMonthDaySlugRoute: DailyYearMonthDaySlugRoute,
+}
+
+const DailyRouteWithChildren = DailyRoute._addFileChildren(DailyRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BlogRoute: BlogRouteWithChildren,
+  DailyRoute: DailyRouteWithChildren,
+  MusingsRoute: MusingsRoute,
   ApiSplatRoute: ApiSplatRoute,
   DemoDrizzleRoute: DemoDrizzleRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,

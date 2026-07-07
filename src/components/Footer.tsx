@@ -9,14 +9,18 @@ export default function Footer() {
   return (
     <VStack as="footer" gap={2} padding={6} hAlign="center">
       <Text type="supporting" justify="center">
-        &copy; {year} Your name here. All rights reserved.
+        &copy; {year} Myeongjae Kim. All rights reserved.
       </Text>
       <HStack gap={2} wrap="wrap" hAlign="center">
-        <Link href="https://x.com/tan_stack" isExternalLink isStandalone>
-          TanStack on X
+        <Link
+          href="https://github.com/myeongjae-kim"
+          isExternalLink
+          isStandalone
+        >
+          GitHub
         </Link>
-        <Link href="https://github.com/TanStack" isExternalLink isStandalone>
-          TanStack GitHub
+        <Link href="mailto:dev@myeongjae.kim" isStandalone>
+          Email
         </Link>
       </HStack>
     </VStack>

@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNotNull } from "drizzle-orm";
 import type { ArticleCommandPort } from "#/core/article/application/port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "#/core/article/application/port/out/ArticleQueryPort";
 import type { Article, ArticleId } from "#/core/article/domain";
@@ -94,6 +94,49 @@ export class ArticleDrizzleAdapter
       offset,
       hasMore: rows.length > limit,
     };
+  }
+
+  async listPublished(
+    input: Parameters<ArticleQueryPort["listPublished"]>[0],
+  ): Promise<PaginatedResult<Article>> {
+    const { limit, offset } = normalizePagination(input);
+    const rows = await db
+      .select()
+      .from(articleTable)
+      .where(
+        and(
+          eq(articleTable.category, input.category),
+          isNotNull(articleTable.publishedAt),
+        ),
+      )
+      .orderBy(desc(articleTable.seq), desc(articleTable.id))
+      .limit(limit + 1)
+      .offset(offset);
+
+    return {
+      items: rows.slice(0, limit).map(toArticle),
+      limit,
+      offset,
+      hasMore: rows.length > limit,
+    };
+  }
+
+  async getPublishedBySlug(
+    input: Parameters<ArticleQueryPort["getPublishedBySlug"]>[0],
+  ) {
+    const [row] = await db
+      .select()
+      .from(articleTable)
+      .where(
+        and(
+          eq(articleTable.category, input.category),
+          eq(articleTable.slug, decodeURIComponent(input.slug)),
+          isNotNull(articleTable.publishedAt),
+        ),
+      )
+      .limit(1);
+
+    return row ? toArticle(row) : null;
   }
 
   async update(input: Parameters<ArticleCommandPort["update"]>[0]) {

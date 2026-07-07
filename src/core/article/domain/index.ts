@@ -1,10 +1,11 @@
 import type { Brand, IsoDateTimeString } from "#/core/common/domain";
 
 export type ArticleId = Brand<string, "ArticleId">;
+export type ArticleCategory = "BLOG_ARTICLE" | "DAILY_ARTICLE";
 
 export type Article = {
   readonly id: ArticleId;
-  readonly category: string | null;
+  readonly category: ArticleCategory | string | null;
   readonly seq: number | null;
   readonly title: string | null;
   readonly slug: string | null;

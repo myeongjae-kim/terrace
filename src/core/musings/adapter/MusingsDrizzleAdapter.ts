@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { asc, desc, eq, isNotNull } from "drizzle-orm";
 import type { IsoDateTimeString } from "#/core/common/domain";
 import type { PaginatedResult } from "#/core/common/model/Pagination";
 import { normalizePagination } from "#/core/common/model/Pagination";
@@ -85,6 +85,26 @@ export class MusingsDrizzleAdapter
       .select()
       .from(musingsTable)
       .orderBy(desc(musingsTable.createdAt), desc(musingsTable.id))
+      .limit(limit + 1)
+      .offset(offset);
+
+    return {
+      items: rows.slice(0, limit).map(toMusing),
+      limit,
+      offset,
+      hasMore: rows.length > limit,
+    };
+  }
+
+  async listPublished(
+    input?: Parameters<MusingsQueryPort["listPublished"]>[0],
+  ): Promise<PaginatedResult<Musing>> {
+    const { limit, offset } = normalizePagination(input);
+    const rows = await db
+      .select()
+      .from(musingsTable)
+      .where(isNotNull(musingsTable.publishedAt))
+      .orderBy(asc(musingsTable.seq), asc(musingsTable.id))
       .limit(limit + 1)
       .offset(offset);
 
