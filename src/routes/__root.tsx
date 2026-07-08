@@ -59,7 +59,14 @@ window.Prism.manual = true;`}
 				</script>
 				<HeadContent />
 			</head>
-			<body className="min-h-screen bg-white break-keep">
+			<body
+				className={[
+					"min-h-screen bg-white break-keep",
+					isAdminRoute ? "terrace-admin-route" : "",
+				]
+					.filter(Boolean)
+					.join(" ")}
+			>
 				<AstryxProvider>
 					<VStack
 						className="min-h-screen w-full bg-white"

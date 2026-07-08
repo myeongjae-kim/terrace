@@ -60,13 +60,13 @@ function DailyPage() {
 			<Section variant="transparent" padding={0} className="contents">
 				<Heading
 					level={1}
-					className="terrace-page-header text-center text-black"
+					className="terrace-page-header terrace-suit-heading text-center text-black"
 				>
 					Daily
 				</Heading>
 				<VStack className="flex grow flex-col items-center" hAlign="center">
 					<VStack
-						className="font-inconsolata my-2 flex grow flex-col gap-0.5 text-[15px]"
+						className="my-2 flex grow flex-col gap-0.5 text-[15px]"
 						gap={0}
 						hAlign="center"
 					>

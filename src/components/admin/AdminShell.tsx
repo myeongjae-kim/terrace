@@ -21,6 +21,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
 	return (
 		<AppShell
+			className="terrace-admin"
 			height="fill"
 			variant="section"
 			contentPadding={0}

@@ -236,6 +236,15 @@
 		line-height: 1.5;
 	}
 
+	.terrace-suit-heading,
+	.terrace-suit-heading.astryx-heading,
+	.terrace-suit-heading.astryx-text,
+	.terrace-suit-heading .astryx-heading,
+	.terrace-suit-heading .astryx-text {
+		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+			sans-serif;
+	}
+
 	.terrace-about-link .astryx-text {
 		font-family: "Inconsolata", monospace;
 		font-size: 0.875rem;
@@ -319,9 +328,11 @@
 .terrace-blog-list-link .astryx-text,
 .terrace-blog-title.astryx-text,
 .terrace-blog-date.astryx-text {
-	font-size: 1rem;
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
+	font-size: 1rem !important;
 	font-weight: 400;
-	line-height: 1.5rem;
+	line-height: 1.5rem !important;
 }
 
 .terrace-blog-list-link.astryx-link,
@@ -335,6 +346,8 @@
 }
 
 .terrace-blog-article-date {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
@@ -347,7 +360,8 @@
 .terrace-daily-list-link.astryx-link,
 .terrace-daily-list-link .astryx-text {
 	color: #1d4ed8;
-	font-family: "Inconsolata", monospace;
+	font-family: "Inconsolata", "SUIT", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", monospace;
 	font-size: 15px;
 	font-weight: 400;
 	line-height: 1.5;
@@ -488,6 +502,8 @@
 .terrace-daily-detail-title,
 .terrace-daily-detail-title.astryx-text {
 	color: #000000;
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5rem;
@@ -504,21 +520,35 @@
 }
 
 .terrace-markdown.terrace-blog-markdown {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	font-size: 1rem;
 	line-height: 1.8;
 }
 
 .terrace-markdown.terrace-daily-markdown {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	font-size: 0.875rem;
 	line-height: 1.8;
 }
 
+.terrace-markdown.terrace-blog-markdown :where(*:not(.material-icons)),
+.terrace-markdown.terrace-daily-markdown :where(*:not(.material-icons)),
+.terrace-admin-route :where(*:not(.material-icons)) {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
+}
+
 .terrace-toc {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	font-size: 0.875rem;
 	line-height: 1.5rem;
 }
 
 .terrace-toc :where(a, li, span:not(.material-icons), ul) {
+	font-family: inherit;
 	font-size: inherit;
 	line-height: inherit;
 }
@@ -576,8 +606,8 @@
 }
 
 .terrace-markdown :where(pre, code, pre *, code *) {
-	font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono",
-		monospace;
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	font-weight: 400;
 	line-height: 1.5;
 }

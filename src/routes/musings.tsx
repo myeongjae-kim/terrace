@@ -47,13 +47,13 @@ function MusingsPage() {
 							<VStack key={musing.id} className={fontClass} gap={0}>
 								<Text
 									as="p"
-									className={`${fontClass} whitespace-pre-wrap text-lg leading-9 text-black ${italicClass}`}
+									className={`${fontClass} mt-[18px] mb-[18px] whitespace-pre-wrap text-lg leading-9 text-black ${italicClass}`}
 								>
 									“{musing.quote ?? ""}”
 								</Text>
 								<Text
 									as="p"
-									className={`${fontClass} text-[0.9rem] text-black ${italicClass}`}
+									className={`${fontClass} mt-0 mb-[14.4px] text-[0.9rem] text-black ${italicClass}`}
 								>
 									- {musing.from}
 								</Text>

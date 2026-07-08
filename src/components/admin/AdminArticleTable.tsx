@@ -228,8 +228,10 @@ export function AdminArticleTable({
 							className={primaryLinkClassName}
 							href={articleKindNewPath(kind)}
 						>
-							<Plus size={16} />
-							New {title}
+							<span className="inline-flex items-center gap-2 leading-none">
+								<Plus size={16} />
+								<span>New {title}</span>
+							</span>
 						</Link>
 					</HStack>
 				</LayoutHeader>

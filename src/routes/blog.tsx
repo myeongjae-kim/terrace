@@ -59,7 +59,7 @@ function BlogPage() {
 			<Section variant="transparent" padding={0} className="contents">
 				<Heading
 					level={1}
-					className="terrace-page-header text-center text-black"
+					className="terrace-page-header terrace-suit-heading text-center text-black"
 				>
 					Articles
 				</Heading>
