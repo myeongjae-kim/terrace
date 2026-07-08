@@ -24,7 +24,6 @@ export function AdminShell({ children }: { children: ReactNode }) {
 			height="fill"
 			variant="section"
 			contentPadding={0}
-			className="terrace-admin-shell font-suit"
 			topNav={
 				<TopNav
 					label="Admin top navigation"

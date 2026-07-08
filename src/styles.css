@@ -681,20 +681,6 @@
 	overflow: visible;
 }
 
-.terrace-admin-shell,
-.terrace-admin-shell :where(
-	.astryx-text,
-	.astryx-heading,
-	.astryx-button,
-	.astryx-link,
-	input,
-	textarea,
-	select,
-	table
-) {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
 .terrace-admin-primary-link.astryx-link {
 	display: inline-flex;
 	height: 2.25rem;
