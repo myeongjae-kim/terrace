@@ -32,7 +32,7 @@ code,
 pre {
     background: hsl(230, 1%, 98%);
     color: hsl(230, 8%, 24%);
-    font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-family: var(--font-family-code);
     direction: ltr;
     text-align: left;
     white-space: pre;

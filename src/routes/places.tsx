@@ -26,7 +26,7 @@ function PlacesPage() {
 			>
 				Places
 			</Heading>
-			<Text as="p" className="terrace-suit-heading font-light text-black">
+			<Text as="p" className="font-light text-black">
 				where I have been
 			</Text>
 			<VStack width="100%" className="px-4" hAlign="center">

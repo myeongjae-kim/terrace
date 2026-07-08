@@ -4,7 +4,7 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "@astryxdesign/core/reset.css";
 @import "@astryxdesign/core/astryx.css";
-@import "@astryxdesign/theme-neutral/theme.css";
+@import "./themes/terrace-neutral.css";
 @import "@astryxdesign/core/tailwind-theme.css";
 @import "material-icons/iconfont/material-icons.css";
 @import "maplibre-gl/dist/maplibre-gl.css";
@@ -25,15 +25,6 @@
 	src: url("./assets/fonts/SUIT-Variable.woff2") format("woff2");
 }
 
-@layer astryx-theme {
-	[data-astryx-theme="neutral"] {
-		--font-family-body: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-			sans-serif;
-		--font-family-heading: "SUIT", -apple-system, BlinkMacSystemFont,
-			"Segoe UI", sans-serif;
-	}
-}
-
 @layer base {
 	html {
 		scroll-behavior: smooth;
@@ -43,7 +34,11 @@
 		margin: 0;
 		background: #ffffff;
 		color: #111827;
-		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		font-family: var(--font-family-body, sans-serif);
+	}
+
+	[data-astryx-theme="terrace-neutral"] {
+		font-family: var(--font-family-body);
 	}
 
 	#astryx-app-shell-main {
@@ -236,15 +231,6 @@
 		line-height: 1.5;
 	}
 
-	.terrace-suit-heading,
-	.terrace-suit-heading.astryx-heading,
-	.terrace-suit-heading.astryx-text,
-	.terrace-suit-heading .astryx-heading,
-	.terrace-suit-heading .astryx-text {
-		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-			sans-serif;
-	}
-
 	.terrace-about-link .astryx-text {
 		font-family: "Inconsolata", monospace;
 		font-size: 0.875rem;
@@ -325,32 +311,12 @@
 
 .terrace-blog-list-link.astryx-link,
 .terrace-blog-list-link > .astryx-text,
-.terrace-blog-list-link .astryx-text,
-.terrace-blog-title.astryx-text,
-.terrace-blog-date.astryx-text {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
-	font-size: 1rem !important;
-	font-weight: 400;
-	line-height: 1.5rem !important;
-}
-
-.terrace-blog-list-link.astryx-link,
-.terrace-blog-list-link > .astryx-text,
 .terrace-blog-title.astryx-text {
 	color: #1d4ed8;
 }
 
 .terrace-blog-date.astryx-text {
 	color: #000000;
-}
-
-.terrace-blog-article-date {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
 }
 
 .terrace-blog-list-link:hover .terrace-blog-title.astryx-text {
@@ -360,8 +326,7 @@
 .terrace-daily-list-link.astryx-link,
 .terrace-daily-list-link .astryx-text {
 	color: #1d4ed8;
-	font-family: "Inconsolata", "SUIT", -apple-system, BlinkMacSystemFont,
-		"Segoe UI", monospace;
+	font-family: "Inconsolata", var(--font-family-body), monospace;
 	font-size: 15px;
 	font-weight: 400;
 	line-height: 1.5;
@@ -499,16 +464,6 @@
 	text-decoration: none !important;
 }
 
-.terrace-daily-detail-title,
-.terrace-daily-detail-title.astryx-text {
-	color: #000000;
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5rem;
-}
-
 .terrace-daily-content.daily-content {
 	margin: 0.5em 0;
 	overflow: auto;
@@ -520,35 +475,21 @@
 }
 
 .terrace-markdown.terrace-blog-markdown {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
 	font-size: 1rem;
 	line-height: 1.8;
 }
 
 .terrace-markdown.terrace-daily-markdown {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
 	font-size: 0.875rem;
 	line-height: 1.8;
 }
 
-.terrace-markdown.terrace-blog-markdown :where(*:not(.material-icons)),
-.terrace-markdown.terrace-daily-markdown :where(*:not(.material-icons)),
-.terrace-admin-route :where(*:not(.material-icons)) {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
-}
-
 .terrace-toc {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
 	font-size: 0.875rem;
 	line-height: 1.5rem;
 }
 
 .terrace-toc :where(a, li, span:not(.material-icons), ul) {
-	font-family: inherit;
 	font-size: inherit;
 	line-height: inherit;
 }
@@ -606,8 +547,6 @@
 }
 
 .terrace-markdown :where(pre, code, pre *, code *) {
-	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		sans-serif;
 	font-weight: 400;
 	line-height: 1.5;
 }

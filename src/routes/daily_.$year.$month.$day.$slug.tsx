@@ -64,7 +64,7 @@ function DailyArticlePage() {
 					<TerraceLink href="" isStandalone variant="articleTitle">
 						<Text
 							as="span"
-							className="terrace-daily-detail-title terrace-suit-heading m-4 block text-base text-black"
+							className="terrace-daily-detail-title m-4 block text-base text-black"
 						>
 							{article.seq ?? "-"}. [{formatDate(article.createdAt, ".")}]{" "}
 							{articleDisplayTitle(article)}

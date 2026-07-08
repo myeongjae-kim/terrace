@@ -54,7 +54,7 @@ export default function AboutHome() {
 										{description.label}
 									</TerraceLink>
 								) : (
-									description.label
+									<span className="text-sm">{description.label}</span>
 								)}
 							</Text>
 						</HStack>

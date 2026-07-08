@@ -1,8 +1,8 @@
 import { Theme } from "@astryxdesign/core";
 import { LinkProvider } from "@astryxdesign/core/Link";
 import type { ThemeMode } from "@astryxdesign/core/theme";
-import { neutralTheme } from "@astryxdesign/theme-neutral/built";
 import { Link as RouterLink } from "@tanstack/react-router";
+import { terraceNeutralTheme } from "#/themes/terrace-neutral";
 import {
 	createContext,
 	type ReactNode,
@@ -29,7 +29,7 @@ export function AstryxProvider({ children }: { children: ReactNode }) {
 	return (
 		<AstryxThemeContext.Provider value={value}>
 			<LinkProvider component={RouterLink}>
-				<Theme theme={neutralTheme} mode="light">
+				<Theme theme={terraceNeutralTheme} mode="light">
 					{children}
 				</Theme>
 			</LinkProvider>

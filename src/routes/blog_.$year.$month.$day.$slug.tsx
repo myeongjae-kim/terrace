@@ -88,7 +88,7 @@ function BlogArticlePage() {
 					>
 						<Heading
 							level={1}
-							className="terrace-suit-heading m-4 text-[2.5rem] font-thin leading-[1.4] text-black"
+							className="m-4 text-[2.5rem] font-thin leading-[1.4] text-black"
 						>
 							{articleDisplayTitle(article)}
 						</Heading>
