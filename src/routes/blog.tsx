@@ -1,100 +1,105 @@
 import { Heading } from "@astryxdesign/core/Heading";
-import { List, ListItem } from "@astryxdesign/core/List";
-import { Pagination } from "@astryxdesign/core/Pagination";
 import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import TerraceLink from "#/components/TerraceLink";
+import TerracePagination from "#/components/TerracePagination";
 import { applicationContext } from "#/core/config/applicationContext";
 import {
-  articleDescription,
-  articleDisplayTitle,
-  articlePermalink,
-  formatDate,
-  normalizePage,
+	articleDisplayTitle,
+	articlePermalink,
+	formatDate,
+	normalizePage,
 } from "#/lib/site/articles";
+import { siteConstants } from "#/lib/site/constants";
 
 const pageSize = 10;
 
 const listBlogArticles = createServerFn({ method: "GET" })
-  .validator((data: { page: number }) => data)
-  .handler(async ({ data }) => {
-    const page = normalizePage(data.page);
-    const articles = await applicationContext()
-      .get("ListPublishedArticlesUseCase")
-      .list({
-        category: "BLOG_ARTICLE",
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      });
+	.validator((data: { page: number }) => data)
+	.handler(async ({ data }) => {
+		const page = normalizePage(data.page);
+		const articles = await applicationContext()
+			.get("ListPublishedArticlesUseCase")
+			.list({
+				category: "BLOG_ARTICLE",
+				limit: pageSize,
+				offset: (page - 1) * pageSize,
+			});
 
-    return { ...articles, page };
-  });
+		return { ...articles, page };
+	});
 
 export const Route = createFileRoute("/blog")({
-  head: () => ({
-    meta: [{ title: "Blog" }],
-  }),
-  validateSearch: (search) => ({
-    page: search.page == null ? undefined : normalizePage(search.page),
-  }),
-  loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
-  loader: async ({ deps }) => await listBlogArticles({ data: deps }),
-  component: BlogPage,
+	head: () => ({
+		meta: [
+			{ title: siteConstants.createTitle("Blog") },
+			{ name: "description", content: "글 목록" },
+		],
+	}),
+	validateSearch: (search) => ({
+		page: search.page == null ? undefined : normalizePage(search.page),
+	}),
+	loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
+	loader: async ({ deps }) => await listBlogArticles({ data: deps }),
+	component: BlogPage,
 });
 
 function BlogPage() {
-  const articles = Route.useLoaderData();
-  const navigate = Route.useNavigate();
+	const articles = Route.useLoaderData();
 
-  return (
-    <VStack as="main" padding={6} maxWidth={900} width="100%">
-      <Section padding={6}>
-        <VStack gap={5}>
-          <VStack gap={1}>
-            <Text type="label" color="accent">
-              Blog
-            </Text>
-            <Heading level={1}>Articles</Heading>
-          </VStack>
-
-          <List hasDividers>
-            {articles.items.map((article) => (
-              <ListItem
-                key={article.id}
-                href={articlePermalink("/blog", article)}
-                label={articleDisplayTitle(article)}
-                description={articleDescription(article)}
-                endContent={
-                  <Text type="supporting" hasTabularNumbers>
-                    {formatDate(article.createdAt, ".")}
-                  </Text>
-                }
-              />
-            ))}
-            {articles.items.length === 0 && (
-              <ListItem
-                label="No articles"
-                description="Published articles will appear here."
-              />
-            )}
-          </List>
-
-          <Pagination
-            page={articles.page}
-            pageSize={pageSize}
-            totalPages={articles.totalPages}
-            variant="pages"
-            label="Blog pagination"
-            onChange={(page) => {
-              void navigate({
-                search: { page: page === 1 ? undefined : page },
-              });
-            }}
-          />
-        </VStack>
-      </Section>
-    </VStack>
-  );
+	return (
+		<VStack
+			as="main"
+			className="terrace-suit flex grow flex-col items-center justify-between bg-white"
+			hAlign="center"
+		>
+			<Section variant="transparent" padding={0} className="contents">
+				<Heading
+					level={1}
+					className="terrace-page-header text-center text-black"
+				>
+					Articles
+				</Heading>
+				<VStack className="-mt-3 grow" hAlign="center" gap={0}>
+					{articles.items.map((article) => (
+						<TerraceLink
+							key={article.id}
+							href={articlePermalink("/blog", article)}
+							isStandalone
+							variant="blogList"
+							className="my-2 block max-w-2xl p-3 text-center"
+						>
+							<Text
+								as="span"
+								className="terrace-suit terrace-blog-title block text-base"
+							>
+								{articleDisplayTitle(article)}
+							</Text>
+							<Text
+								as="span"
+								className="terrace-suit terrace-blog-date block text-base text-black"
+							>
+								{formatDate(article.createdAt)}
+							</Text>
+						</TerraceLink>
+					))}
+					{articles.items.length === 0 && (
+						<Text className="p-3 text-center text-gray-500">
+							Published articles will appear here.
+						</Text>
+					)}
+				</VStack>
+				<TerracePagination
+					currentPage={articles.page}
+					totalPages={articles.totalPages}
+					createHref={(pageNumber) =>
+						pageNumber === 1 ? "/blog" : `/blog?page=${pageNumber}`
+					}
+				/>
+			</Section>
+		</VStack>
+	);
 }

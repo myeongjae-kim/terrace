@@ -7,9 +7,7 @@ import {
 	createContext,
 	type ReactNode,
 	useContext,
-	useEffect,
 	useMemo,
-	useState,
 } from "react";
 
 type AstryxThemeContextValue = {
@@ -19,41 +17,19 @@ type AstryxThemeContextValue = {
 
 const AstryxThemeContext = createContext<AstryxThemeContextValue | null>(null);
 
-const storageKey = "theme";
-
-function readStoredMode(): ThemeMode {
-	if (typeof window === "undefined") {
-		return "system";
-	}
-
-	const stored = window.localStorage.getItem(storageKey);
-	return stored === "light" || stored === "dark" || stored === "system"
-		? stored
-		: "system";
-}
-
 export function AstryxProvider({ children }: { children: ReactNode }) {
-	const [mode, setModeState] = useState<ThemeMode>("system");
-
-	useEffect(() => {
-		setModeState(readStoredMode());
-	}, []);
-
 	const value = useMemo<AstryxThemeContextValue>(
 		() => ({
-			mode,
-			setMode(nextMode) {
-				setModeState(nextMode);
-				window.localStorage.setItem(storageKey, nextMode);
-			},
+			mode: "light",
+			setMode() {},
 		}),
-		[mode],
+		[],
 	);
 
 	return (
 		<AstryxThemeContext.Provider value={value}>
 			<LinkProvider component={RouterLink}>
-				<Theme theme={neutralTheme} mode={mode}>
+				<Theme theme={neutralTheme} mode="light">
 					{children}
 				</Theme>
 			</LinkProvider>

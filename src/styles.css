@@ -1,7 +1,729 @@
+@layer reset, theme, base, astryx-base, astryx-theme, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
 @import "@astryxdesign/core/reset.css";
 @import "@astryxdesign/core/astryx.css";
 @import "@astryxdesign/theme-neutral/theme.css";
+@import "@astryxdesign/core/tailwind-theme.css";
+@import "material-icons/iconfont/material-icons.css";
+@import "@fontsource/inconsolata/300.css";
+@import "@fontsource/inconsolata/400.css";
+@import "@fontsource/inconsolata/500.css";
+@import "@fontsource/bad-script/latin-400.css";
+@import "@fontsource/noto-serif-kr/korean-400.css";
+@import "./styles/prism-customized.css";
+@import "./styles/backward-compatibility.css";
+@import "tailwindcss/utilities.css" layer(utilities);
 
-body {
-	margin: 0;
+@font-face {
+	font-family: "SUIT";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("./assets/fonts/SUIT-Variable.woff2") format("woff2");
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		margin: 0;
+		background: #ffffff;
+		color: #111827;
+		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	}
+
+	a {
+		color: #1d4ed8;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	a:hover {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	img {
+		margin: auto;
+		max-width: 100%;
+	}
+
+	h1 {
+		margin-top: 1.2em;
+		margin-bottom: 8px;
+		font-size: 2.5rem;
+		font-weight: 100;
+		line-height: 1.4;
+	}
+
+	h2 {
+		margin-top: 1.2em;
+		margin-bottom: 8px;
+		font-size: 2rem;
+		font-weight: 100;
+		line-height: 1.4;
+	}
+
+	h3 {
+		margin-top: 1.2em;
+		margin-bottom: 8px;
+		font-size: 1.75rem;
+		font-weight: 100;
+		line-height: 1.4;
+	}
+
+	h4 {
+		margin-top: 1.2em;
+		margin-bottom: 8px;
+		font-size: 1.25rem;
+		font-weight: 100;
+		line-height: 1.4;
+	}
+
+	h5 {
+		margin-top: 1.2em;
+		margin-bottom: 8px;
+		font-size: 0.9rem;
+		font-weight: 100;
+		line-height: 1.4;
+	}
+
+	h6 {
+		margin-top: 1.2em;
+		margin-bottom: 8px;
+		font-size: 0.7rem;
+		font-weight: 100;
+		line-height: 1.4;
+	}
+
+	hr {
+		margin-block: 0.5rem;
+		height: 1px;
+		border: 0;
+		background-image: linear-gradient(90deg, #ccc, #333, #ccc);
+		opacity: 0.7;
+	}
+
+	p {
+		display: block;
+		margin-block: 1em;
+		margin-inline: 0;
+	}
+
+	blockquote,
+	.daily-content {
+		margin: 0.5em 0;
+		overflow: auto;
+		border: 1px solid hsl(230, 1%, 90%);
+		border-radius: 0.3em;
+		background: hsl(230, 1%, 98%);
+		padding: 0 1em;
+		text-indent: 0.5em;
+	}
+
+	.daily-content blockquote,
+	.daily-content pre,
+	.daily-content code {
+		background: #ffffff;
+		text-indent: 0;
+	}
+
+	pre {
+		font-size: 0.8125em;
+	}
+
+	figure {
+		margin: 1rem 2.5rem;
+		text-align: center;
+	}
+
+	figure img {
+		margin-inline: auto;
+	}
+
+	figcaption {
+		margin-block: 0.75rem;
+		color: #6b7280;
+		font-size: 0.875rem;
+	}
+
+	ul {
+		display: block;
+		margin-inline: 0;
+		padding-inline-start: 24px;
+		list-style-type: disc;
+	}
+
+	ol {
+		display: block;
+		margin-inline: 0;
+		padding-inline-start: 24px;
+		list-style-type: decimal;
+	}
+
+	li {
+		display: list-item;
+		text-align: match-parent;
+	}
+
+	iframe {
+		max-width: 100%;
+	}
+
+	#astryx-app-shell-main {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		min-height: 0;
+	}
+
+	#astryx-app-shell-main > footer {
+		margin-top: auto;
+	}
+}
+
+@layer components {
+	.font-suit {
+		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	}
+
+	.font-inconsolata {
+		font-family: "Inconsolata", monospace;
+	}
+
+	.font-inconsolata.astryx-text,
+	.font-inconsolata .astryx-text {
+		font-family: "Inconsolata", monospace;
+	}
+
+	.font-inconsolata-light {
+		font-family: "Inconsolata", monospace;
+		font-weight: 300;
+	}
+
+	.font-inconsolata-light.astryx-text,
+	.font-inconsolata-light .astryx-text {
+		font-family: "Inconsolata", monospace;
+		font-weight: 300;
+	}
+
+	.font-bad-script {
+		font-family: "Bad Script", cursive;
+	}
+
+	.font-bad-script.astryx-text,
+	.font-bad-script .astryx-text,
+	.font-bad-script.astryx-heading,
+	.font-bad-script .astryx-heading {
+		font-family: "Bad Script", cursive;
+	}
+
+	.font-noto-serif-kr {
+		font-family: "Noto Serif KR", serif;
+	}
+
+	.font-noto-serif-kr.astryx-text,
+	.font-noto-serif-kr .astryx-text {
+		font-family: "Noto Serif KR", serif;
+	}
+
+	.break-keep {
+		word-break: keep-all;
+		overflow-wrap: anywhere;
+	}
+
+	.terrace-page-header {
+		margin-block: 1.5rem;
+		cursor: default;
+		user-select: none;
+		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+			sans-serif;
+		font-size: 1.7rem;
+		font-weight: 200;
+		letter-spacing: -0.025em;
+		line-height: 1.5;
+	}
+
+	.terrace-about-link .astryx-text {
+		font-family: "Inconsolata", monospace;
+		font-size: 0.875rem;
+		line-height: 1;
+	}
+
+	.terrace-skip-link {
+		position: absolute;
+		top: -999px;
+		left: 1rem;
+		z-index: 50;
+		background: #ffffff;
+		padding: 0.5rem 0.75rem;
+		color: #1d4ed8;
+	}
+
+	.terrace-skip-link:focus {
+		top: 1rem;
+	}
+
+	.terrace-header-link.astryx-link,
+	.terrace-header-link .astryx-text,
+	.terrace-header-link span {
+		color: #111827;
+		font-family: "Inconsolata", monospace;
+		font-size: 0.875rem;
+		font-weight: 500;
+		letter-spacing: 3px;
+		line-height: 1.25rem;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-header-link.astryx-link:hover,
+	.terrace-header-link:hover .astryx-text,
+	.terrace-header-link:hover span {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.terrace-nav-link.astryx-link,
+	.terrace-nav-link .astryx-text {
+		color: #111827;
+		font-family: "Inconsolata", monospace;
+		font-size: 0.875rem;
+		font-weight: 500;
+		letter-spacing: -0.025em;
+		line-height: 1.25rem;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-nav-link.astryx-link:hover,
+	.terrace-nav-link:hover .astryx-text,
+	.terrace-nav-link-active.astryx-link,
+	.terrace-nav-link-active .astryx-text {
+		color: #1d4ed8;
+		text-decoration: none;
+	}
+
+	.terrace-nav-link.astryx-link:hover,
+	.terrace-nav-link:hover .astryx-text {
+		color: #3b82f6;
+	}
+
+	.terrace-link-base.astryx-link,
+	.terrace-link-base.astryx-text,
+	.terrace-link-base :where(.astryx-text, .astryx-heading, span) {
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-link-base.astryx-link:hover,
+	.terrace-link-base.astryx-text:hover,
+	.terrace-link-base:hover :where(.astryx-text, .astryx-heading, span) {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.terrace-link-default.astryx-link,
+	.terrace-link-default.astryx-text,
+	.terrace-link-default .astryx-text {
+		color: #1d4ed8;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-link-default.astryx-link:hover,
+	.terrace-link-default.astryx-text:hover,
+	.terrace-link-default:hover .astryx-text {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.terrace-button-link.astryx-link,
+	.terrace-button-link.astryx-link :where(.astryx-text, span) {
+		color: #111827;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-button-link.astryx-link:hover,
+	.terrace-button-link.astryx-link:hover :where(.astryx-text, span) {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.terrace-blog-list-link.astryx-link {
+		color: #1d4ed8;
+		text-decoration: none;
+		transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
+	}
+
+	.terrace-blog-list-link.astryx-link,
+	.terrace-blog-list-link > .astryx-text,
+	.terrace-blog-list-link .astryx-text {
+		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+			sans-serif;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.5rem;
+	}
+
+	.terrace-blog-list-link:hover {
+		text-decoration: none;
+	}
+
+	.terrace-blog-title.astryx-text,
+	.terrace-blog-list-link:hover .terrace-blog-title.astryx-text {
+		color: #1d4ed8;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-blog-list-link:hover .terrace-blog-title.astryx-text {
+		color: #3b82f6;
+	}
+
+	.terrace-blog-date.astryx-text {
+		color: #000000;
+	}
+
+	.terrace-daily-list-link.astryx-link,
+	.terrace-daily-list-link .astryx-text {
+		color: #1d4ed8;
+		font-family: "Inconsolata", "SUIT", monospace;
+		font-size: 15px;
+		font-weight: 400;
+		line-height: 1.5;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-daily-list-title.astryx-text {
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	.terrace-daily-list-link.astryx-link:hover,
+	.terrace-daily-list-link:hover .astryx-text {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.terrace-article-title-link.astryx-link,
+	.terrace-article-title-link.astryx-link .astryx-heading {
+		color: #000000;
+		text-decoration: none;
+		transition: color 300ms ease-in-out;
+	}
+
+	.terrace-article-title-link.astryx-link:hover,
+	.terrace-article-title-link.astryx-link:hover .astryx-heading {
+		color: #3b82f6;
+		text-decoration: none;
+	}
+
+	.terrace-suit,
+	.terrace-suit.astryx-text,
+	.terrace-suit .astryx-text,
+	.terrace-suit.astryx-heading,
+	.terrace-suit .astryx-heading {
+		font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+			sans-serif;
+	}
+}
+
+.terrace-page-header.astryx-heading:not(.font-bad-script),
+.terrace-page-header.astryx-text:not(.font-bad-script),
+.terrace-page-header:not(.font-bad-script) {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 1.7rem;
+	font-weight: 200;
+	letter-spacing: -0.025em;
+	line-height: 1.5;
+}
+
+.terrace-page-header.font-bad-script.astryx-heading,
+.terrace-page-header.font-bad-script.astryx-text,
+.terrace-page-header.font-bad-script {
+	font-family: "Bad Script", cursive;
+}
+
+.terrace-suit :where(
+	p,
+	a,
+	li,
+	blockquote,
+	table,
+	thead,
+	tbody,
+	tr,
+	th,
+	td,
+	figcaption,
+	strong,
+	em,
+	del,
+	sup,
+	sub,
+	span:not(.material-icons):not(.token)
+) {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.terrace-article-title-link.astryx-link,
+.terrace-article-title-link.astryx-link .astryx-heading {
+	color: #000000;
+	text-decoration: none;
+	transition: color 300ms ease-in-out;
+}
+
+.terrace-article-title-link.astryx-link:hover,
+.terrace-article-title-link.astryx-link:hover .astryx-heading {
+	color: #3b82f6;
+	text-decoration: none;
+}
+
+.terrace-blog-list-link.astryx-link,
+.terrace-blog-list-link > .astryx-text,
+.terrace-blog-list-link .astryx-text,
+.terrace-blog-title.astryx-text,
+.terrace-blog-date.astryx-text {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5rem;
+}
+
+.terrace-blog-list-link.astryx-link,
+.terrace-blog-list-link > .astryx-text,
+.terrace-blog-title.astryx-text {
+	color: #1d4ed8;
+}
+
+.terrace-blog-date.astryx-text {
+	color: #000000;
+}
+
+.terrace-blog-article-date {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.terrace-blog-list-link:hover .terrace-blog-title.astryx-text {
+	color: #3b82f6;
+}
+
+.terrace-daily-list-link.astryx-link,
+.terrace-daily-list-link .astryx-text {
+	color: #1d4ed8;
+	font-family: "Inconsolata", "SUIT", monospace;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.terrace-daily-list-title.astryx-text {
+	font-size: 0.9rem;
+	line-height: 1.5;
+}
+
+.terrace-link-base.astryx-link,
+.terrace-link-base.astryx-text,
+.terrace-link-base :where(.astryx-text, .astryx-heading, span) {
+	text-decoration: none !important;
+	transition: color 300ms ease-in-out;
+}
+
+.terrace-link-base.astryx-link:hover,
+.terrace-link-base.astryx-text:hover,
+.terrace-link-base:hover :where(.astryx-text, .astryx-heading, span) {
+	color: #3b82f6 !important;
+	-webkit-text-fill-color: #3b82f6 !important;
+	text-decoration: none !important;
+}
+
+.terrace-link-default.astryx-link,
+.terrace-link-default.astryx-text,
+.terrace-link-default .astryx-text {
+	color: #1d4ed8 !important;
+	-webkit-text-fill-color: #1d4ed8 !important;
+	text-decoration: none !important;
+	transition: color 300ms ease-in-out;
+}
+
+.terrace-link-default.astryx-link:hover,
+.terrace-link-default.astryx-text:hover,
+.terrace-link-default:hover .astryx-text {
+	color: #3b82f6 !important;
+	-webkit-text-fill-color: #3b82f6 !important;
+	text-decoration: none !important;
+}
+
+.terrace-button-link.astryx-link,
+.terrace-button-link.astryx-link :where(.astryx-text, span) {
+	color: #111827 !important;
+	-webkit-text-fill-color: #111827 !important;
+	text-decoration: none !important;
+	transition: color 300ms ease-in-out;
+}
+
+.terrace-button-link.astryx-link:hover,
+.terrace-button-link.astryx-link:hover :where(.astryx-text, span) {
+	color: #3b82f6 !important;
+	-webkit-text-fill-color: #3b82f6 !important;
+	text-decoration: none !important;
+}
+
+.terrace-link-base.terrace-button-link.astryx-link:hover,
+.terrace-link-base.terrace-button-link.astryx-link:hover .astryx-text,
+.terrace-link-base.terrace-button-link.astryx-link:hover span,
+.terrace-link-base.terrace-article-title-link.astryx-link:hover,
+.terrace-link-base.terrace-article-title-link.astryx-link:hover .astryx-heading,
+.terrace-link-base.terrace-article-title-link.astryx-link:hover span {
+	color: #3b82f6 !important;
+	-webkit-text-fill-color: #3b82f6 !important;
+	text-decoration: none !important;
+}
+
+.terrace-link-base.terrace-link-interactive.astryx-link,
+.terrace-link-base.terrace-link-interactive.astryx-link .astryx-text,
+.terrace-link-base.terrace-link-interactive.astryx-link .astryx-heading,
+.terrace-link-base.terrace-link-interactive.astryx-link span {
+	color: #3b82f6 !important;
+	-webkit-text-fill-color: #3b82f6 !important;
+	text-decoration: none !important;
+}
+
+.terrace-daily-detail-title,
+.terrace-daily-detail-title.astryx-text {
+	color: #000000;
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5rem;
+}
+
+.terrace-daily-content.daily-content {
+	margin: 0.5em 0;
+	overflow: auto;
+	border: 1px solid hsl(230, 1%, 90%);
+	border-radius: 0.3em;
+	background: hsl(230, 1%, 98%);
+	padding: 0;
+	text-indent: 0.5em;
+}
+
+.terrace-toast-return-link {
+	color: #1d4ed8;
+	text-decoration: none;
+}
+
+.terrace-toast-return-link:hover {
+	color: #3b82f6;
+	text-decoration: none;
+}
+
+.terrace-toast-return-button.astryx-button {
+	height: auto;
+	min-height: 0;
+	border-radius: 0.5rem;
+	background: #1d4ed8;
+	padding: 0.5rem 0.75rem;
+	color: #ffffff;
+	font-size: 0.75rem;
+	font-weight: 500;
+	line-height: 1rem;
+}
+
+.terrace-toast-return-button.astryx-button:hover {
+	background: #1e40af;
+	color: #ffffff;
+}
+
+.terrace-markdown.terrace-blog-markdown {
+	font-size: 1rem;
+	line-height: 1.8;
+}
+
+.terrace-markdown.terrace-daily-markdown {
+	font-size: 0.875rem;
+	line-height: 1.8;
+}
+
+.terrace-toc {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.5rem;
+}
+
+.terrace-toc :where(a, li, span:not(.material-icons), ul) {
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.terrace-markdown :where(
+	p,
+	li,
+	a,
+	blockquote,
+	table,
+	thead,
+	tbody,
+	tr,
+	th,
+	td,
+	figcaption,
+	strong,
+	em,
+	del,
+	sup,
+	sub,
+	span:not(.material-icons):not(.token)
+) {
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.terrace-markdown :where(pre, code, pre *, code *) {
+	font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono",
+		monospace;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.terrace-markdown :where(pre *, code *) {
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.terrace-markdown :where(h1, h2, h3, h4, h5, h6) {
+	color: #000000;
+	font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.terrace-markdown :where(a) {
+	color: #1d4ed8;
+	text-decoration: none;
+	transition: color 300ms ease-in-out;
+}
+
+.terrace-markdown :where(a:hover) {
+	color: #3b82f6;
+	text-decoration: none;
+}
+
+.terrace-markdown
+	:where(a.heading-url-copy-link, a.toc-link, a.heading-url-copy-link:hover, a.toc-link:hover) {
+	text-decoration: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+	.h-screen {
+		height: -webkit-fill-available;
+	}
 }

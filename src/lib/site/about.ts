@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 
 export type AboutDescription = {
-  readonly label: string;
-  readonly href?: string;
-  readonly isExternal?: boolean;
+	readonly icon: string;
+	readonly label: string;
+	readonly href?: string;
+	readonly isExternal?: boolean;
 };
 
 export type AboutProfile = {
@@ -22,30 +23,37 @@ export const aboutProfile: AboutProfile = {
     en: "Myeongjae Kim",
     kr: "김명재",
   },
-  descriptions: [
-    {
-      label: "Programmer",
-    },
-    {
-      label: "Seoul, Korea",
-    },
-    {
-      label: "Resume",
-      href: "https://myeongjae.wiki/notes/4-%EC%9D%B4%EB%A0%A5%EC%84%9C",
-      isExternal: true,
-    },
-    {
-      label: "github/myeongjae-kim",
-      href: "https://github.com/myeongjae-kim",
-      isExternal: true,
-    },
-    {
-      label: "dev@myeongjae.kim",
-      href: "mailto:dev@myeongjae.kim",
-    },
-    {
-      label: "blog.myeongjae.kim",
-      href: "https://blog.myeongjae.kim",
+	descriptions: [
+		{
+			icon: "emoji_people",
+			label: "Programmer",
+		},
+		{
+			icon: "room",
+			label: "Seoul, Korea",
+			href: "/places",
+		},
+		{
+			icon: "developer_board",
+			label: "Résumé",
+			href: "https://myeongjae.wiki/notes/4-%EC%9D%B4%EB%A0%A5%EC%84%9C",
+			isExternal: true,
+		},
+		{
+			icon: "code",
+			label: "github/myeongjae-kim",
+			href: "https://github.com/myeongjae-kim",
+			isExternal: true,
+		},
+		{
+			icon: "email",
+			label: "dev@myeongjae.kim",
+			href: "mailto:dev@myeongjae.kim",
+		},
+		{
+			icon: "create",
+			label: "blog.myeongjae.kim",
+			href: "https://blog.myeongjae.kim",
       isExternal: true,
     },
   ],
