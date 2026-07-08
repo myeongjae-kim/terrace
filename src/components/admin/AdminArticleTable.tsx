@@ -142,12 +142,12 @@ export function AdminArticleTable({
 				header: "Title",
 				width: proportional(2, { minWidth: 260 }),
 				renderCell: (row: AdminArticleRow) => (
-					<VStack gap={0}>
+					<VStack className="min-w-0" gap={0}>
 						<Link
 							href={articleEditPath(kind, row.id)}
 							isStandalone
 							color="accent"
-							className="font-medium"
+							className="break-words font-medium"
 						>
 							{row.title}
 						</Link>
@@ -155,7 +155,7 @@ export function AdminArticleTable({
 							href={articleEditPath(kind, row.id)}
 							isStandalone
 							color="neutral"
-							className="text-xs text-gray-500 hover:text-blue-700"
+							className="break-words text-xs text-gray-500 hover:text-blue-700"
 						>
 							{row.slug || "(missing slug)"}
 						</Link>
@@ -247,7 +247,8 @@ export function AdminArticleTable({
 							density="compact"
 							dividers="grid"
 							hasHover
-							textOverflow="truncate"
+							verticalAlign="top"
+							textOverflow="wrap"
 						/>
 					) : (
 						<VStack className="py-16" hAlign="center" gap={3}>

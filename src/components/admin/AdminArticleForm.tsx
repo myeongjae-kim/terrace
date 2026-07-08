@@ -186,7 +186,7 @@ export function AdminArticleForm({
 						<VStack
 							id="admin-article-form"
 							as="form"
-							className="min-w-0 lg:min-h-0"
+							className="min-w-0 lg:h-full lg:min-h-0 lg:overflow-auto lg:pr-2 lg:pb-2"
 							gap={4}
 							onSubmit={handleSubmit}
 						>
