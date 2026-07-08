@@ -17,7 +17,19 @@ export default function Header() {
 	const { pathname } = useLocation();
 
 	return (
-		<VStack as="header" className="select-none bg-white" hAlign="center">
+		<VStack
+			as="header"
+			className="relative select-none bg-white"
+			hAlign="center"
+		>
+			<TerraceLink
+				href={`/login?redirectUri=${encodeURIComponent(pathname)}`}
+				isStandalone
+				variant="nav"
+				className="absolute right-3 top-3 px-2 py-1 text-xs opacity-0 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
+			>
+				Login
+			</TerraceLink>
 			<VStack className="mb-2 mt-6 sm:mb-5 sm:mt-10" hAlign="center">
 				<TerraceLink
 					href="/"

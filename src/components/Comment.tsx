@@ -31,7 +31,7 @@ export default function Comment({ identifier }: CommentProps) {
 		return () => {
 			container.replaceChildren();
 		};
-	}, [identifier]);
+	}, []);
 
 	return (
 		<section

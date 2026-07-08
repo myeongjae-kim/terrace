@@ -5,6 +5,7 @@ import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
+	useLocation,
 } from "@tanstack/react-router";
 import { Toaster } from "react-hot-toast";
 import { siteConstants } from "#/lib/site/constants";
@@ -41,6 +42,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { pathname } = useLocation();
+	const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
@@ -60,7 +64,7 @@ window.Prism.manual = true;`}
 						<a className="terrace-skip-link" href="#astryx-app-shell-main">
 							Skip to content
 						</a>
-						<Header />
+						{!isAdminRoute && <Header />}
 						<VStack
 							id="astryx-app-shell-main"
 							className="w-full flex-1 bg-white"
@@ -68,7 +72,7 @@ window.Prism.manual = true;`}
 							hAlign="stretch"
 						>
 							{children}
-							<Footer />
+							{!isAdminRoute && <Footer />}
 						</VStack>
 					</VStack>
 					<Toaster

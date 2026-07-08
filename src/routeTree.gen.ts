@@ -10,17 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MusingsRouteImport } from './routes/musings'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as DailyRouteImport } from './routes/daily'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiSplatRouteImport } from './routes/api/$'
+import { Route as AdminDailyRouteImport } from './routes/admin.daily'
+import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as AdminDailyNewRouteImport } from './routes/admin.daily.new'
+import { Route as AdminDailyArticleIdRouteImport } from './routes/admin.daily.$articleId'
+import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
+import { Route as AdminBlogArticleIdRouteImport } from './routes/admin.blog.$articleId'
 import { Route as DailyYearMonthDaySlugRouteImport } from './routes/daily_.$year.$month.$day.$slug'
 import { Route as BlogYearMonthDaySlugRouteImport } from './routes/blog_.$year.$month.$day.$slug'
 
 const MusingsRoute = MusingsRouteImport.update({
   id: '/musings',
   path: '/musings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DailyRoute = DailyRouteImport.update({
@@ -31,6 +44,11 @@ const DailyRoute = DailyRouteImport.update({
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -48,6 +66,36 @@ const ApiSplatRoute = ApiSplatRouteImport.update({
   path: '/api/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDailyRoute = AdminDailyRouteImport.update({
+  id: '/daily',
+  path: '/daily',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBlogRoute = AdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDailyNewRoute = AdminDailyNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AdminDailyRoute,
+} as any)
+const AdminDailyArticleIdRoute = AdminDailyArticleIdRouteImport.update({
+  id: '/$articleId',
+  path: '/$articleId',
+  getParentRoute: () => AdminDailyRoute,
+} as any)
+const AdminBlogNewRoute = AdminBlogNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AdminBlogRoute,
+} as any)
+const AdminBlogArticleIdRoute = AdminBlogArticleIdRouteImport.update({
+  id: '/$articleId',
+  path: '/$articleId',
+  getParentRoute: () => AdminBlogRoute,
+} as any)
 const DailyYearMonthDaySlugRoute = DailyYearMonthDaySlugRouteImport.update({
   id: '/daily_/$year/$month/$day/$slug',
   path: '/daily/$year/$month/$day/$slug',
@@ -62,20 +110,36 @@ const BlogYearMonthDaySlugRoute = BlogYearMonthDaySlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRoute
   '/daily': typeof DailyRoute
+  '/login': typeof LoginRoute
   '/musings': typeof MusingsRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
+  '/admin/daily': typeof AdminDailyRouteWithChildren
   '/api/$': typeof ApiSplatRoute
+  '/admin/blog/$articleId': typeof AdminBlogArticleIdRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/daily/$articleId': typeof AdminDailyArticleIdRoute
+  '/admin/daily/new': typeof AdminDailyNewRoute
   '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
   '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRoute
   '/daily': typeof DailyRoute
+  '/login': typeof LoginRoute
   '/musings': typeof MusingsRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
+  '/admin/daily': typeof AdminDailyRouteWithChildren
   '/api/$': typeof ApiSplatRoute
+  '/admin/blog/$articleId': typeof AdminBlogArticleIdRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/daily/$articleId': typeof AdminDailyArticleIdRoute
+  '/admin/daily/new': typeof AdminDailyNewRoute
   '/blog/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
   '/daily/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
@@ -83,10 +147,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRoute
   '/daily': typeof DailyRoute
+  '/login': typeof LoginRoute
   '/musings': typeof MusingsRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
+  '/admin/daily': typeof AdminDailyRouteWithChildren
   '/api/$': typeof ApiSplatRoute
+  '/admin/blog/$articleId': typeof AdminBlogArticleIdRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
+  '/admin/daily/$articleId': typeof AdminDailyArticleIdRoute
+  '/admin/daily/new': typeof AdminDailyNewRoute
   '/blog_/$year/$month/$day/$slug': typeof BlogYearMonthDaySlugRoute
   '/daily_/$year/$month/$day/$slug': typeof DailyYearMonthDaySlugRoute
 }
@@ -95,30 +167,54 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/daily'
+    | '/login'
     | '/musings'
+    | '/admin/blog'
+    | '/admin/daily'
     | '/api/$'
+    | '/admin/blog/$articleId'
+    | '/admin/blog/new'
+    | '/admin/daily/$articleId'
+    | '/admin/daily/new'
     | '/blog/$year/$month/$day/$slug'
     | '/daily/$year/$month/$day/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/daily'
+    | '/login'
     | '/musings'
+    | '/admin/blog'
+    | '/admin/daily'
     | '/api/$'
+    | '/admin/blog/$articleId'
+    | '/admin/blog/new'
+    | '/admin/daily/$articleId'
+    | '/admin/daily/new'
     | '/blog/$year/$month/$day/$slug'
     | '/daily/$year/$month/$day/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/daily'
+    | '/login'
     | '/musings'
+    | '/admin/blog'
+    | '/admin/daily'
     | '/api/$'
+    | '/admin/blog/$articleId'
+    | '/admin/blog/new'
+    | '/admin/daily/$articleId'
+    | '/admin/daily/new'
     | '/blog_/$year/$month/$day/$slug'
     | '/daily_/$year/$month/$day/$slug'
   fileRoutesById: FileRoutesById
@@ -126,8 +222,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRoute
   DailyRoute: typeof DailyRoute
+  LoginRoute: typeof LoginRoute
   MusingsRoute: typeof MusingsRoute
   ApiSplatRoute: typeof ApiSplatRoute
   BlogYearMonthDaySlugRoute: typeof BlogYearMonthDaySlugRoute
@@ -143,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MusingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/daily': {
       id: '/daily'
       path: '/daily'
@@ -155,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -178,6 +290,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/daily': {
+      id: '/admin/daily'
+      path: '/daily'
+      fullPath: '/admin/daily'
+      preLoaderRoute: typeof AdminDailyRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/blog': {
+      id: '/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminBlogRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/daily/new': {
+      id: '/admin/daily/new'
+      path: '/new'
+      fullPath: '/admin/daily/new'
+      preLoaderRoute: typeof AdminDailyNewRouteImport
+      parentRoute: typeof AdminDailyRoute
+    }
+    '/admin/daily/$articleId': {
+      id: '/admin/daily/$articleId'
+      path: '/$articleId'
+      fullPath: '/admin/daily/$articleId'
+      preLoaderRoute: typeof AdminDailyArticleIdRouteImport
+      parentRoute: typeof AdminDailyRoute
+    }
+    '/admin/blog/new': {
+      id: '/admin/blog/new'
+      path: '/new'
+      fullPath: '/admin/blog/new'
+      preLoaderRoute: typeof AdminBlogNewRouteImport
+      parentRoute: typeof AdminBlogRoute
+    }
+    '/admin/blog/$articleId': {
+      id: '/admin/blog/$articleId'
+      path: '/$articleId'
+      fullPath: '/admin/blog/$articleId'
+      preLoaderRoute: typeof AdminBlogArticleIdRouteImport
+      parentRoute: typeof AdminBlogRoute
+    }
     '/daily_/$year/$month/$day/$slug': {
       id: '/daily_/$year/$month/$day/$slug'
       path: '/daily/$year/$month/$day/$slug'
@@ -195,11 +349,53 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminBlogRouteChildren {
+  AdminBlogArticleIdRoute: typeof AdminBlogArticleIdRoute
+  AdminBlogNewRoute: typeof AdminBlogNewRoute
+}
+
+const AdminBlogRouteChildren: AdminBlogRouteChildren = {
+  AdminBlogArticleIdRoute: AdminBlogArticleIdRoute,
+  AdminBlogNewRoute: AdminBlogNewRoute,
+}
+
+const AdminBlogRouteWithChildren = AdminBlogRoute._addFileChildren(
+  AdminBlogRouteChildren,
+)
+
+interface AdminDailyRouteChildren {
+  AdminDailyArticleIdRoute: typeof AdminDailyArticleIdRoute
+  AdminDailyNewRoute: typeof AdminDailyNewRoute
+}
+
+const AdminDailyRouteChildren: AdminDailyRouteChildren = {
+  AdminDailyArticleIdRoute: AdminDailyArticleIdRoute,
+  AdminDailyNewRoute: AdminDailyNewRoute,
+}
+
+const AdminDailyRouteWithChildren = AdminDailyRoute._addFileChildren(
+  AdminDailyRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminBlogRoute: typeof AdminBlogRouteWithChildren
+  AdminDailyRoute: typeof AdminDailyRouteWithChildren
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBlogRoute: AdminBlogRouteWithChildren,
+  AdminDailyRoute: AdminDailyRouteWithChildren,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRoute,
   DailyRoute: DailyRoute,
+  LoginRoute: LoginRoute,
   MusingsRoute: MusingsRoute,
   ApiSplatRoute: ApiSplatRoute,
   BlogYearMonthDaySlugRoute: BlogYearMonthDaySlugRoute,

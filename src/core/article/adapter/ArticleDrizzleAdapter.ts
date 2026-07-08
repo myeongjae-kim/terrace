@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, gt, isNotNull, lt } from "drizzle-orm";
+import { and, asc, count, desc, eq, gt, isNotNull, lt, max } from "drizzle-orm";
 import type { ArticleCommandPort } from "#/core/article/application/port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "#/core/article/application/port/out/ArticleQueryPort";
 import type { Article, ArticleId } from "#/core/article/domain";
@@ -94,6 +94,58 @@ export class ArticleDrizzleAdapter
 			offset,
 			hasMore: rows.length > limit,
 		};
+	}
+
+	async listByCategory(
+		input: Parameters<ArticleQueryPort["listByCategory"]>[0],
+	): Promise<PaginatedResult<Article>> {
+		const { limit, offset } = normalizePagination(input);
+		const whereClause = eq(articleTable.category, input.category);
+		const [totalRow] = await db
+			.select({ count: count() })
+			.from(articleTable)
+			.where(whereClause);
+		const total = totalRow?.count ?? 0;
+		const rows = await db
+			.select()
+			.from(articleTable)
+			.where(whereClause)
+			.orderBy(desc(articleTable.seq), desc(articleTable.id))
+			.limit(limit + 1)
+			.offset(offset);
+
+		return {
+			items: rows.slice(0, limit).map(toArticle),
+			limit,
+			offset,
+			hasMore: rows.length > limit,
+			total,
+			totalPages: Math.ceil(total / limit),
+		};
+	}
+
+	async getBySlug(input: Parameters<ArticleQueryPort["getBySlug"]>[0]) {
+		const [row] = await db
+			.select()
+			.from(articleTable)
+			.where(
+				and(
+					eq(articleTable.category, input.category),
+					eq(articleTable.slug, decodeURIComponent(input.slug)),
+				),
+			)
+			.limit(1);
+
+		return row ? toArticle(row) : null;
+	}
+
+	async getNextSeq(input: Parameters<ArticleQueryPort["getNextSeq"]>[0]) {
+		const [row] = await db
+			.select({ value: max(articleTable.seq) })
+			.from(articleTable)
+			.where(eq(articleTable.category, input.category));
+
+		return (row?.value ?? 0) + 1;
 	}
 
 	async listPublished(

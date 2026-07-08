@@ -1,44 +1,64 @@
 import { Autowired } from "#/core/config/Autowired";
 import type { CreateArticleUseCase } from "./port/in/CreateArticleUseCase";
 import type { DeleteArticleUseCase } from "./port/in/DeleteArticleUseCase";
+import type { GetArticleBySlugUseCase } from "./port/in/GetArticleBySlugUseCase";
 import type { GetArticleUseCase } from "./port/in/GetArticleUseCase";
+import type { GetNextArticleSeqUseCase } from "./port/in/GetNextArticleSeqUseCase";
 import type { ListArticlesUseCase } from "./port/in/ListArticlesUseCase";
+import type { ListArticlesByCategoryUseCase } from "./port/in/ListArticlesByCategoryUseCase";
 import type { UpdateArticleUseCase } from "./port/in/UpdateArticleUseCase";
 import type { ArticleCommandPort } from "./port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "./port/out/ArticleQueryPort";
 
 export class ArticleCrudService
-  implements
-    CreateArticleUseCase,
-    GetArticleUseCase,
-    ListArticlesUseCase,
-    UpdateArticleUseCase,
-    DeleteArticleUseCase
+	implements
+		CreateArticleUseCase,
+		GetArticleUseCase,
+		GetArticleBySlugUseCase,
+		GetNextArticleSeqUseCase,
+		ListArticlesUseCase,
+		ListArticlesByCategoryUseCase,
+		UpdateArticleUseCase,
+		DeleteArticleUseCase
 {
-  constructor(
-    @Autowired("ArticleCommandPort")
-    private readonly articleCommandPort: ArticleCommandPort,
-    @Autowired("ArticleQueryPort")
-    private readonly articleQueryPort: ArticleQueryPort,
-  ) {}
+	constructor(
+		@Autowired("ArticleCommandPort")
+		private readonly articleCommandPort: ArticleCommandPort,
+		@Autowired("ArticleQueryPort")
+		private readonly articleQueryPort: ArticleQueryPort,
+	) {}
 
-  create(input: Parameters<CreateArticleUseCase["create"]>[0]) {
-    return this.articleCommandPort.create(input);
-  }
+	create(input: Parameters<CreateArticleUseCase["create"]>[0]) {
+		return this.articleCommandPort.create(input);
+	}
 
-  get(input: Parameters<GetArticleUseCase["get"]>[0]) {
-    return this.articleQueryPort.get(input);
-  }
+	get(input: Parameters<GetArticleUseCase["get"]>[0]) {
+		return this.articleQueryPort.get(input);
+	}
 
-  list(input?: Parameters<ListArticlesUseCase["list"]>[0]) {
-    return this.articleQueryPort.list(input);
-  }
+	getBySlug(input: Parameters<GetArticleBySlugUseCase["getBySlug"]>[0]) {
+		return this.articleQueryPort.getBySlug(input);
+	}
 
-  update(input: Parameters<UpdateArticleUseCase["update"]>[0]) {
-    return this.articleCommandPort.update(input);
-  }
+	getNextSeq(input: Parameters<GetNextArticleSeqUseCase["getNextSeq"]>[0]) {
+		return this.articleQueryPort.getNextSeq(input);
+	}
 
-  delete(input: Parameters<DeleteArticleUseCase["delete"]>[0]) {
-    return this.articleCommandPort.delete(input);
-  }
+	list(input?: Parameters<ListArticlesUseCase["list"]>[0]) {
+		return this.articleQueryPort.list(input);
+	}
+
+	listByCategory(
+		input: Parameters<ListArticlesByCategoryUseCase["listByCategory"]>[0],
+	) {
+		return this.articleQueryPort.listByCategory(input);
+	}
+
+	update(input: Parameters<UpdateArticleUseCase["update"]>[0]) {
+		return this.articleCommandPort.update(input);
+	}
+
+	delete(input: Parameters<DeleteArticleUseCase["delete"]>[0]) {
+		return this.articleCommandPort.delete(input);
+	}
 }
