@@ -1,7 +1,9 @@
 import TerraceLink from "#/components/TerraceLink";
+import { getOwnerSession } from "#/lib/auth/serverFns";
 import { HStack } from "@astryxdesign/core/HStack";
 import { VStack } from "@astryxdesign/core/VStack";
 import { useLocation } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 const categories = ["about", "blog", "daily", "musings"] as const;
 
@@ -15,6 +17,31 @@ function isActive(pathname: string, href: string) {
 
 export default function Header() {
 	const { pathname } = useLocation();
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		getOwnerSession()
+			.then((session) => {
+				if (isMounted) {
+					setIsLoggedIn(session != null);
+				}
+			})
+			.catch(() => {
+				if (isMounted) {
+					setIsLoggedIn(false);
+				}
+			});
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	const adminLinkHref = isLoggedIn
+		? "/admin"
+		: `/login?redirectUri=${encodeURIComponent(pathname)}`;
 
 	return (
 		<VStack
@@ -23,12 +50,15 @@ export default function Header() {
 			hAlign="center"
 		>
 			<TerraceLink
-				href={`/login?redirectUri=${encodeURIComponent(pathname)}`}
+				href={adminLinkHref}
 				isStandalone
 				variant="nav"
-				className="absolute right-3 top-3 px-2 py-1 text-xs opacity-0 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
+				className={[
+					"absolute right-3 top-3 px-2 py-1 text-xs transition-opacity focus:opacity-100 focus:outline-none",
+					isLoggedIn ? "opacity-100" : "opacity-0 hover:opacity-100",
+				].join(" ")}
 			>
-				Login
+				{isLoggedIn ? "Admin" : "Login"}
 			</TerraceLink>
 			<VStack className="mb-2 mt-6 sm:mb-5 sm:mt-10" hAlign="center">
 				<TerraceLink
@@ -61,7 +91,7 @@ export default function Header() {
 							isStandalone
 							variant="nav"
 							active={active}
-							className="px-2 py-1.5 capitalize tracking-tight focus:z-10 focus:outline-none"
+							className="px-2 py-1.5 capitalize focus:z-10 focus:outline-none"
 						>
 							{category}
 						</TerraceLink>

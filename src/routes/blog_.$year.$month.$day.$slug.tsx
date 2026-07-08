@@ -76,7 +76,7 @@ function BlogArticlePage() {
 	return (
 		<VStack
 			as="main"
-			className="terrace-suit mx-auto w-full max-w-[50rem] bg-white"
+			className="mx-auto w-full max-w-[50rem] bg-white"
 		>
 			<Section variant="transparent" padding={0}>
 				<VStack className="text-center" hAlign="stretch" gap={0}>
@@ -88,7 +88,7 @@ function BlogArticlePage() {
 					>
 						<Heading
 							level={1}
-							className="terrace-suit m-4 text-[2.5rem] font-thin leading-[1.4] text-black"
+							className="m-4 text-[2.5rem] font-thin leading-[1.4] text-black"
 						>
 							{articleDisplayTitle(article)}
 						</Heading>
@@ -99,7 +99,7 @@ function BlogArticlePage() {
 				</VStack>
 				<VStack className="m-4" gap={0}>
 					<TerraceMarkdownRendererContainer
-						className="terrace-markdown terrace-blog-markdown terrace-suit mb-4 leading-[1.8] text-black"
+						className="terrace-markdown terrace-blog-markdown mb-4 leading-[1.8] text-black"
 						markdown={article.content ?? ""}
 						enableToc
 					/>
@@ -114,7 +114,6 @@ function BlogArticlePage() {
 									<TerraceLink
 										href={articlePermalink("/blog", next)}
 										isStandalone
-										className="terrace-suit"
 									>
 										{articleDisplayTitle(next)}
 									</TerraceLink>
@@ -128,7 +127,6 @@ function BlogArticlePage() {
 									<TerraceLink
 										href={articlePermalink("/blog", previous)}
 										isStandalone
-										className="terrace-suit"
 									>
 										{articleDisplayTitle(previous)}
 									</TerraceLink>

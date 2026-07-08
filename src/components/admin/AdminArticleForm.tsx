@@ -154,7 +154,7 @@ export function AdminArticleForm({
 							<Link
 								color="neutral"
 								isStandalone
-								className="terrace-admin-cancel-link"
+								className="rounded-lg px-3 py-1.5 text-sm no-underline hover:bg-muted"
 								href={articleKindListPath(kind)}
 							>
 								Cancel

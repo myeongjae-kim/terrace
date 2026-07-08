@@ -53,7 +53,7 @@ function BlogPage() {
 	return (
 		<VStack
 			as="main"
-			className="terrace-suit flex grow flex-col items-center justify-between bg-white"
+			className="flex grow flex-col items-center justify-between bg-white"
 			hAlign="center"
 		>
 			<Section variant="transparent" padding={0} className="contents">
@@ -74,13 +74,13 @@ function BlogPage() {
 						>
 							<Text
 								as="span"
-								className="terrace-suit terrace-blog-title block text-base"
+								className="terrace-blog-title block text-base"
 							>
 								{articleDisplayTitle(article)}
 							</Text>
 							<Text
 								as="span"
-								className="terrace-suit terrace-blog-date block text-base text-black"
+								className="terrace-blog-date block text-base text-black"
 							>
 								{formatDate(article.createdAt)}
 							</Text>

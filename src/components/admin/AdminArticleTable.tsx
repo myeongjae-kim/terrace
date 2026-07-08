@@ -35,6 +35,17 @@ type AdminPaginationItem =
 	| { type: "page"; page: number }
 	| { type: "ellipsis"; key: string };
 
+const primaryLinkClassName =
+	"inline-flex h-9 items-center gap-2 rounded-lg bg-accent-bg px-3 text-sm font-medium text-on-accent no-underline hover:text-on-accent";
+const paginationLinkClassName =
+	"rounded-lg px-3 py-1.5 text-sm no-underline hover:bg-muted";
+const paginationNumberClassName =
+	"inline-flex min-w-8 justify-center px-2";
+
+function classNames(...values: Array<string | false | null | undefined>) {
+	return values.filter(Boolean).join(" ");
+}
+
 function formatDateTime(value: string | null) {
 	if (!value) return "-";
 
@@ -214,7 +225,7 @@ export function AdminArticleTable({
 						<Link
 							color="inherit"
 							isStandalone
-							className="terrace-admin-primary-link"
+							className={primaryLinkClassName}
 							href={articleKindNewPath(kind)}
 						>
 							<Plus size={16} />
@@ -254,7 +265,7 @@ export function AdminArticleTable({
 								color="neutral"
 								isStandalone
 								isDisabled={page <= 1}
-								className="terrace-admin-pagination-link"
+								className={paginationLinkClassName}
 								href={`/admin/${kind}?page=${page - 1}`}
 							>
 								Previous
@@ -263,7 +274,7 @@ export function AdminArticleTable({
 								item.type === "ellipsis" ? (
 									<Text
 										key={item.key}
-										className="terrace-admin-pagination-ellipsis text-sm text-gray-400"
+										className="min-w-6 text-center text-sm text-gray-400"
 									>
 										...
 									</Text>
@@ -274,7 +285,11 @@ export function AdminArticleTable({
 										isStandalone
 										isDisabled={item.page === page}
 										aria-current={item.page === page ? "page" : undefined}
-										className="terrace-admin-pagination-link terrace-admin-pagination-number"
+										className={classNames(
+											paginationLinkClassName,
+											paginationNumberClassName,
+											item.page === page && "bg-muted opacity-100",
+										)}
 										href={`/admin/${kind}?page=${item.page}`}
 									>
 										{item.page}
@@ -285,7 +300,7 @@ export function AdminArticleTable({
 								color="neutral"
 								isStandalone
 								isDisabled={totalPages != null && page >= totalPages}
-								className="terrace-admin-pagination-link"
+								className={paginationLinkClassName}
 								href={`/admin/${kind}?page=${page + 1}`}
 							>
 								Next

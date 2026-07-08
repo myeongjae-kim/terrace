@@ -32,10 +32,10 @@ export function AdminArticlePreview({
 						<Section
 							variant="transparent"
 							padding={0}
-							className="daily-content terrace-daily-content terrace-admin-daily-content-preview"
+							className="daily-content terrace-daily-content overflow-visible"
 						>
 							<TerraceMarkdownRenderer
-								className="terrace-daily-markdown terrace-suit m-4 text-sm leading-[1.8] text-black"
+								className="terrace-daily-markdown m-4 text-black"
 								markdown={markdown}
 							/>
 						</Section>
@@ -45,7 +45,7 @@ export function AdminArticlePreview({
 				<VStack className="h-full min-h-0 overflow-auto" gap={0} hAlign="stretch">
 					<VStack className="mx-auto w-full max-w-[50rem] p-4" gap={0}>
 						<TerraceMarkdownRenderer
-							className="terrace-blog-markdown terrace-suit mb-4 leading-[1.8] text-black"
+							className="terrace-blog-markdown mb-4 leading-[1.8] text-black"
 							markdown={markdown}
 						/>
 					</VStack>

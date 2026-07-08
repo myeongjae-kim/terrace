@@ -57,14 +57,14 @@ function DailyArticlePage() {
 	return (
 		<VStack
 			as="main"
-			className="terrace-suit mx-auto w-full max-w-[32rem] bg-white"
+			className="mx-auto w-full max-w-[32rem] bg-white"
 		>
 			<Section variant="transparent" padding={0}>
 				<VStack className="text-center" hAlign="center" gap={0}>
 					<TerraceLink href="" isStandalone variant="articleTitle">
 						<Text
 							as="span"
-							className="terrace-suit terrace-daily-detail-title m-4 block text-base text-black"
+							className="terrace-daily-detail-title m-4 block text-base text-black"
 						>
 							{article.seq ?? "-"}. [{formatDate(article.createdAt, ".")}]{" "}
 							{articleDisplayTitle(article)}
@@ -78,7 +78,7 @@ function DailyArticlePage() {
 						className="daily-content terrace-daily-content"
 					>
 						<TerraceMarkdownRenderer
-							className="terrace-daily-markdown terrace-suit m-4 text-sm leading-[1.8] text-black"
+							className="terrace-daily-markdown m-4 text-black"
 							markdown={article.content ?? ""}
 						/>
 					</Section>

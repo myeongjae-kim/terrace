@@ -1,5 +1,4 @@
 // biome-ignore-all lint/security/noDangerouslySetInnerHtml: Site-owned markdown is rendered as HTML to match the original Terrace output.
-import { Button } from "@astryxdesign/core/Button";
 import { Marked } from "marked";
 import { gfmHeadingId } from "marked-gfm-heading-id";
 import { markedHighlight } from "marked-highlight";
@@ -101,7 +100,7 @@ function TableOfContents({ htmlElement }: { htmlElement: ParsedHTMLElement }) {
 	return (
 		<nav
 			id={siteConstants.tocWrapperNav}
-			className="mb-4 flex max-w-md overflow-y-scroll pb-2 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-h-[calc(100vh-16px)] 2xl:max-w-xs"
+			className="mb-4 flex max-w-md pb-2 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-h-[calc(100vh-16px)] 2xl:max-w-xs 2xl:overflow-y-auto"
 		>
 			<div className="terrace-toc rounded-lg bg-stone-50 p-2 text-sm leading-6 2xl:bg-transparent">
 				<span
@@ -214,14 +213,10 @@ export function TerraceMarkdownRendererContainer(
 						<div>
 							목차로 이동했습니다.
 							<a
-								className="terrace-toast-return-link ml-3"
+								className="ml-3 inline-flex items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white no-underline transition-colors hover:bg-blue-700 hover:text-white"
 								href={headingId ? `#${headingId}` : "#"}
 							>
-								<Button
-									label="되돌아가기"
-									size="sm"
-									className="terrace-toast-return-button"
-								/>
+								되돌아가기
 							</a>
 						</div>,
 					);

@@ -28,7 +28,7 @@ const variantClassNames: Record<TerraceLinkVariant, string> = {
 	blogList: "terrace-blog-list-link",
 	dailyList: "terrace-daily-list-link",
 	articleTitle: "terrace-article-title-link",
-	button: "terrace-button-link terrace-suit",
+	button: "terrace-button-link",
 	pagination: "terrace-pagination-link",
 };
 

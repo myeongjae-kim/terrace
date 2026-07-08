@@ -54,7 +54,7 @@ window.Prism.manual = true;`}
 				</script>
 				<HeadContent />
 			</head>
-			<body className="font-suit min-h-screen bg-white break-keep">
+			<body className="min-h-screen bg-white break-keep">
 				<AstryxProvider>
 					<VStack
 						className="min-h-screen w-full bg-white"
@@ -79,13 +79,13 @@ window.Prism.manual = true;`}
 						position="top-center"
 						toastOptions={{
 							style: {
-								border: "1px solid #1A56DB",
-								color: "#1A56DB",
+								border: "1px solid #2563eb",
+								color: "#2563eb",
 								userSelect: "none",
 								paddingLeft: "16px",
 							},
 							iconTheme: {
-								primary: "#1A56DB",
+								primary: "#2563eb",
 								secondary: "#FFFAEE",
 							},
 						}}
