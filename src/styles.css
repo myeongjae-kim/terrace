@@ -25,6 +25,15 @@
 	src: url("./assets/fonts/SUIT-Variable.woff2") format("woff2");
 }
 
+@layer astryx-theme {
+	[data-astryx-theme="neutral"] {
+		--font-family-body: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+			sans-serif;
+		--font-family-heading: "SUIT", -apple-system, BlinkMacSystemFont,
+			"Segoe UI", sans-serif;
+	}
+}
+
 @layer base {
 	html {
 		scroll-behavior: smooth;
