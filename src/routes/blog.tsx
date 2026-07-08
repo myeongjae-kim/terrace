@@ -1,9 +1,3 @@
-import { Heading } from "@astryxdesign/core/Heading";
-import { Section } from "@astryxdesign/core/Section";
-import { Text } from "@astryxdesign/core/Text";
-import { VStack } from "@astryxdesign/core/VStack";
-import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 import TerraceLink from "#/components/TerraceLink";
 import TerracePagination from "#/components/TerracePagination";
 import { applicationContext } from "#/core/config/applicationContext";
@@ -14,6 +8,12 @@ import {
 	normalizePage,
 } from "#/lib/site/articles";
 import { siteConstants } from "#/lib/site/constants";
+import { Heading } from "@astryxdesign/core/Heading";
+import { Section } from "@astryxdesign/core/Section";
+import { Text } from "@astryxdesign/core/Text";
+import { VStack } from "@astryxdesign/core/VStack";
+import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 
 const pageSize = 10;
 
@@ -70,7 +70,7 @@ function BlogPage() {
 							href={articlePermalink("/blog", article)}
 							isStandalone
 							variant="blogList"
-							className="my-2 block max-w-2xl p-3 text-center"
+							className="my-2 block max-w-2xl py-3 px-6 text-center"
 						>
 							<Text
 								as="span"

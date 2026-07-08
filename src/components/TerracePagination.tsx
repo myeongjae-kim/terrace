@@ -40,6 +40,7 @@ function PageNavigation({
 		<TerraceLink
 			href={href}
 			isStandalone
+			variant="pagination"
 			className={`${className} hover:bg-gray-100 hover:text-gray-700`}
 		>
 			{children}
@@ -60,6 +61,7 @@ function PageNumber({
 		<TerraceLink
 			href={current ? "#" : href}
 			isStandalone
+			variant="pagination"
 			aria-current={current ? "page" : undefined}
 			className={[
 				"mx-0.5 flex h-8 items-center justify-center rounded px-3 leading-tight",

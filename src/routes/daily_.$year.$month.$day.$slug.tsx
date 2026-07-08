@@ -3,6 +3,7 @@ import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import TerraceMarkdownRenderer from "#/components/TerraceMarkdownRenderer";
 import { applicationContext } from "#/core/config/applicationContext";
@@ -51,6 +52,8 @@ function DailyArticlePage() {
 		return <ArticleNotFound />;
 	}
 
+	const commentIdentifier = `daily/${formatDate(article.createdAt, "/")}/${article.slug}`;
+
 	return (
 		<VStack
 			as="main"
@@ -79,6 +82,7 @@ function DailyArticlePage() {
 							markdown={article.content ?? ""}
 						/>
 					</Section>
+					<Comment identifier={commentIdentifier} />
 				</VStack>
 			</Section>
 		</VStack>

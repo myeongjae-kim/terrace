@@ -1,25 +1,21 @@
+import TerraceLink from "#/components/TerraceLink";
+import { aboutProfile } from "#/lib/site/about";
 import { HStack } from "@astryxdesign/core/HStack";
 import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
-import TerraceLink from "#/components/TerraceLink";
-import { aboutProfile } from "#/lib/site/about";
 
 export default function AboutHome() {
 	return (
 		<VStack as="main" className="w-full bg-white" hAlign="center">
-			<Section
-				variant="transparent"
-				padding={0}
-				className="mt-6 sm:mt-9"
-			>
+			<Section variant="transparent" padding={0} className="mt-6 sm:mt-9">
 				<img
 					className="mb-6 h-52 w-52 select-none rounded object-cover drop-shadow-lg"
 					src={aboutProfile.profile}
 					alt={aboutProfile.name.en}
 				/>
 				<HStack
-					className="relative mb-10 h-[46px] w-52 select-none"
+					className="relative mb-6 h-[46px] w-52 select-none"
 					gap={0}
 					hAlign="center"
 				>

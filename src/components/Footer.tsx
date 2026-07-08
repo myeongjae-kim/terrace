@@ -19,6 +19,7 @@ export default function Footer() {
 				<TerraceLink
 					href="https://github.com/myeongjae-kim/terrace"
 					isStandalone
+					className="terrace-footer-link"
 				>
 					this repository
 				</TerraceLink>

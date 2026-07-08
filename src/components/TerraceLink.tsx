@@ -13,7 +13,8 @@ type TerraceLinkVariant =
 	| "blogList"
 	| "dailyList"
 	| "articleTitle"
-	| "button";
+	| "button"
+	| "pagination";
 
 type TerraceLinkProps = AstryxLinkProps & {
 	active?: boolean;
@@ -28,6 +29,7 @@ const variantClassNames: Record<TerraceLinkVariant, string> = {
 	dailyList: "terrace-daily-list-link",
 	articleTitle: "terrace-article-title-link",
 	button: "terrace-button-link terrace-suit",
+	pagination: "terrace-pagination-link",
 };
 
 function classNames(...values: Array<string | false | null | undefined>) {

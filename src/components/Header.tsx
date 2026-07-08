@@ -1,9 +1,9 @@
+import TerraceLink from "#/components/TerraceLink";
 import { HStack } from "@astryxdesign/core/HStack";
 import { VStack } from "@astryxdesign/core/VStack";
 import { useLocation } from "@tanstack/react-router";
-import TerraceLink from "#/components/TerraceLink";
 
-const categories = ["about", "blog", "daily", "musings", "places"] as const;
+const categories = ["about", "blog", "daily", "musings"] as const;
 
 function isActive(pathname: string, href: string) {
 	if (href === "/about") {

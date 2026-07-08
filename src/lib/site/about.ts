@@ -8,21 +8,21 @@ export type AboutDescription = {
 };
 
 export type AboutProfile = {
-  readonly profile: string;
-  readonly name: {
-    readonly en: string;
-    readonly kr: string;
-  };
-  readonly descriptions: readonly AboutDescription[];
+	readonly profile: string;
+	readonly name: {
+		readonly en: string;
+		readonly kr: string;
+	};
+	readonly descriptions: readonly AboutDescription[];
 };
 
 export const aboutProfile: AboutProfile = {
-  profile:
-    "https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=400",
-  name: {
-    en: "Myeongjae Kim",
-    kr: "김명재",
-  },
+	profile:
+		"https://s.gravatar.com/avatar/4e9916981adb804e1db438874e3789c6?s=400",
+	name: {
+		en: "Myeongjae Kim",
+		kr: "김명재",
+	},
 	descriptions: [
 		{
 			icon: "emoji_people",
@@ -31,7 +31,6 @@ export const aboutProfile: AboutProfile = {
 		{
 			icon: "room",
 			label: "Seoul, Korea",
-			href: "/places",
 		},
 		{
 			icon: "developer_board",
@@ -54,9 +53,9 @@ export const aboutProfile: AboutProfile = {
 			icon: "create",
 			label: "blog.myeongjae.kim",
 			href: "https://blog.myeongjae.kim",
-      isExternal: true,
-    },
-  ],
+			isExternal: true,
+		},
+	],
 };
 
 export type AboutLinkRenderer = (description: AboutDescription) => ReactNode;

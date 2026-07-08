@@ -4,6 +4,7 @@ import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import { TerraceMarkdownRendererContainer } from "#/components/TerraceMarkdownRenderer";
 import { applicationContext } from "#/core/config/applicationContext";
@@ -70,6 +71,7 @@ function BlogArticlePage() {
 	}
 
 	const { article, next, previous } = loaderData;
+	const commentIdentifier = `blog/${formatDate(article.createdAt, "/")}/${article.slug}`;
 
 	return (
 		<VStack
@@ -78,7 +80,12 @@ function BlogArticlePage() {
 		>
 			<Section variant="transparent" padding={0}>
 				<VStack className="text-center" hAlign="stretch" gap={0}>
-					<TerraceLink href="#" isStandalone variant="articleTitle">
+					<TerraceLink
+						href="#"
+						isStandalone
+						variant="articleTitle"
+						className="justify-center"
+					>
 						<Heading
 							level={1}
 							className="terrace-suit m-4 text-[2.5rem] font-thin leading-[1.4] text-black"
@@ -140,6 +147,7 @@ function BlogArticlePage() {
 							</TerraceLink>
 						</VStack>
 					</VStack>
+					<Comment identifier={commentIdentifier} />
 				</VStack>
 			</Section>
 		</VStack>
