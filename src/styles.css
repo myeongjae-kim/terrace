@@ -7,6 +7,7 @@
 @import "@astryxdesign/theme-neutral/theme.css";
 @import "@astryxdesign/core/tailwind-theme.css";
 @import "material-icons/iconfont/material-icons.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
 @import "@fontsource/inconsolata/300.css";
 @import "@fontsource/inconsolata/400.css";
 @import "@fontsource/inconsolata/500.css";

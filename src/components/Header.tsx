@@ -5,7 +5,7 @@ import { VStack } from "@astryxdesign/core/VStack";
 import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-const categories = ["about", "blog", "daily", "musings"] as const;
+const categories = ["about", "blog", "daily", "musings", "places"] as const;
 
 function isActive(pathname: string, href: string) {
 	if (href === "/about") {

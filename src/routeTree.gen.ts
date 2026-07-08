@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PlacesRouteImport } from './routes/places'
 import { Route as MusingsRouteImport } from './routes/musings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DailyRouteImport } from './routes/daily'
@@ -26,6 +27,11 @@ import { Route as AdminBlogArticleIdRouteImport } from './routes/admin.blog.$art
 import { Route as DailyYearMonthDaySlugRouteImport } from './routes/daily_.$year.$month.$day.$slug'
 import { Route as BlogYearMonthDaySlugRouteImport } from './routes/blog_.$year.$month.$day.$slug'
 
+const PlacesRoute = PlacesRouteImport.update({
+  id: '/places',
+  path: '/places',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MusingsRoute = MusingsRouteImport.update({
   id: '/musings',
   path: '/musings',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/daily': typeof DailyRoute
   '/login': typeof LoginRoute
   '/musings': typeof MusingsRoute
+  '/places': typeof PlacesRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/admin/daily': typeof AdminDailyRouteWithChildren
   '/api/$': typeof ApiSplatRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/daily': typeof DailyRoute
   '/login': typeof LoginRoute
   '/musings': typeof MusingsRoute
+  '/places': typeof PlacesRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/admin/daily': typeof AdminDailyRouteWithChildren
   '/api/$': typeof ApiSplatRoute
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/daily': typeof DailyRoute
   '/login': typeof LoginRoute
   '/musings': typeof MusingsRoute
+  '/places': typeof PlacesRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/admin/daily': typeof AdminDailyRouteWithChildren
   '/api/$': typeof ApiSplatRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/login'
     | '/musings'
+    | '/places'
     | '/admin/blog'
     | '/admin/daily'
     | '/api/$'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/login'
     | '/musings'
+    | '/places'
     | '/admin/blog'
     | '/admin/daily'
     | '/api/$'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/login'
     | '/musings'
+    | '/places'
     | '/admin/blog'
     | '/admin/daily'
     | '/api/$'
@@ -227,6 +239,7 @@ export interface RootRouteChildren {
   DailyRoute: typeof DailyRoute
   LoginRoute: typeof LoginRoute
   MusingsRoute: typeof MusingsRoute
+  PlacesRoute: typeof PlacesRoute
   ApiSplatRoute: typeof ApiSplatRoute
   BlogYearMonthDaySlugRoute: typeof BlogYearMonthDaySlugRoute
   DailyYearMonthDaySlugRoute: typeof DailyYearMonthDaySlugRoute
@@ -234,6 +247,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/places': {
+      id: '/places'
+      path: '/places'
+      fullPath: '/places'
+      preLoaderRoute: typeof PlacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/musings': {
       id: '/musings'
       path: '/musings'
@@ -397,6 +417,7 @@ const rootRouteChildren: RootRouteChildren = {
   DailyRoute: DailyRoute,
   LoginRoute: LoginRoute,
   MusingsRoute: MusingsRoute,
+  PlacesRoute: PlacesRoute,
   ApiSplatRoute: ApiSplatRoute,
   BlogYearMonthDaySlugRoute: BlogYearMonthDaySlugRoute,
   DailyYearMonthDaySlugRoute: DailyYearMonthDaySlugRoute,
