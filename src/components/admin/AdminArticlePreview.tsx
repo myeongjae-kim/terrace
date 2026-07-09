@@ -1,5 +1,5 @@
 import TerraceMarkdownRenderer from "#/components/TerraceMarkdownRenderer";
-import type { AdminArticleKind } from "#/lib/admin/articles";
+import type { AdminArticleKind } from "#/features/admin/article-management/articleKinds";
 import { Section } from "@astryxdesign/core/Section";
 import { VStack } from "@astryxdesign/core/VStack";
 

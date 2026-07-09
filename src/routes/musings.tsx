@@ -3,19 +3,12 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { applicationContext } from "#/core/config/applicationContext";
-import { siteConstants } from "#/lib/site/constants";
-
-const listMusings = createServerFn({ method: "GET" }).handler(async () => {
-	return await applicationContext()
-		.get("ListPublishedMusingsUseCase")
-		.list({ limit: 100, offset: 0 });
-});
+import { listMusings } from "#/features/musings/musingServerFns";
+import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/musings")({
 	head: () => ({
-		meta: [{ title: siteConstants.createTitle("Musings") }],
+		meta: [{ title: siteMetadata.createTitle("Musings") }],
 	}),
 	loader: async () => await listMusings(),
 	component: MusingsPage,

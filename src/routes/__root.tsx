@@ -8,7 +8,7 @@ import {
 	useLocation,
 } from "@tanstack/react-router";
 import { Toaster } from "react-hot-toast";
-import { siteConstants } from "#/lib/site/constants";
+import { siteMetadata } from "#/features/site/siteMetadata";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import appCss from "../styles.css?url";
@@ -28,7 +28,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: siteConstants.defaultTitle,
+				title: siteMetadata.defaultTitle,
 			},
 		],
 		links: [

@@ -1,12 +1,12 @@
 import { AdminArticleForm } from "#/components/admin/AdminArticleForm";
-import { getAdminArticle } from "#/lib/admin/articleServerFns";
-import { siteConstants } from "#/lib/site/constants";
+import { getAdminArticle } from "#/features/admin/article-management/articleServerFns";
+import { siteMetadata } from "#/features/site/siteMetadata";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/blog/$articleId")({
 	head: () => ({
 		meta: [
-			{ title: siteConstants.createTitle("Edit Blog") },
+			{ title: siteMetadata.createTitle("Edit Blog") },
 			{ name: "description", content: "Blog 글 수정" },
 		],
 	}),

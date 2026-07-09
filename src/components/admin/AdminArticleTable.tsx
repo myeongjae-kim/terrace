@@ -4,8 +4,8 @@ import {
 	articleEditPath,
 	articleKindLabel,
 	articleKindNewPath,
-} from "#/lib/admin/articles";
-import { setArticlePublished } from "#/lib/admin/articleServerFns";
+} from "#/features/admin/article-management/articleKinds";
+import { setArticlePublished } from "#/features/admin/article-management/articleServerFns";
 import { Badge } from "@astryxdesign/core/Badge";
 import { Button } from "@astryxdesign/core/Button";
 import { HStack } from "@astryxdesign/core/HStack";

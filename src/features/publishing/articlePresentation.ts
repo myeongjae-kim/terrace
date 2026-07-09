@@ -5,9 +5,9 @@ const timeZone = "Asia/Seoul";
 export function normalizePage(value: unknown) {
 	const page = Number(value ?? 1);
 
-  if (!Number.isInteger(page) || page < 1) {
-    return 1;
-  }
+	if (!Number.isInteger(page) || page < 1) {
+		return 1;
+	}
 
 	return page;
 }
@@ -41,25 +41,25 @@ export function formatDate(
 }
 
 export function articlePermalink(
-  basePath: "/blog" | "/daily",
-  article: Article,
+	basePath: "/blog" | "/daily",
+	article: Article,
 ) {
-  const datePath = formatDate(article.createdAt, "/");
-  const slug = article.slug ?? String(article.id);
+	const datePath = formatDate(article.createdAt, "/");
+	const slug = article.slug ?? String(article.id);
 
-  return `${basePath}/${datePath}/${encodeURIComponent(slug)}`;
+	return `${basePath}/${datePath}/${encodeURIComponent(slug)}`;
 }
 
 export function articleDisplayTitle(article: Article) {
-  return article.title?.trim() || "Untitled";
+	return article.title?.trim() || "Untitled";
 }
 
 export function articleDescription(article: Article, length = 180) {
-  const content = article.content?.replace(/\s+/g, " ").trim() ?? "";
+	const content = article.content?.replace(/\s+/g, " ").trim() ?? "";
 
-  if (content.length <= length) {
-    return content;
-  }
+	if (content.length <= length) {
+		return content;
+	}
 
-  return `${content.slice(0, length).trim()}...`;
+	return `${content.slice(0, length).trim()}...`;
 }

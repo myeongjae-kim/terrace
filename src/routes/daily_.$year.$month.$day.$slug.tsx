@@ -2,28 +2,16 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import TerraceMarkdownRenderer from "#/components/TerraceMarkdownRenderer";
-import { applicationContext } from "#/core/config/applicationContext";
+import { getDailyArticle } from "#/features/publishing/articleServerFns";
 import {
 	articleDescription,
 	articleDisplayTitle,
 	formatDate,
-} from "#/lib/site/articles";
-import { siteConstants } from "#/lib/site/constants";
-
-const getDailyArticle = createServerFn({ method: "GET" })
-	.validator((data: { slug: string }) => data)
-	.handler(async ({ data }) => {
-		return await applicationContext()
-			.get("GetPublishedArticleBySlugUseCase")
-			.getBySlug({
-				category: "DAILY_ARTICLE",
-				slug: data.slug,
-			});
-	});
+} from "#/features/publishing/articlePresentation";
+import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/daily_/$year/$month/$day/$slug")({
 	loader: async ({ params }) => {
@@ -33,8 +21,8 @@ export const Route = createFileRoute("/daily_/$year/$month/$day/$slug")({
 		meta: [
 			{
 				title: loaderData
-					? siteConstants.createTitle(articleDisplayTitle(loaderData))
-					: siteConstants.createTitle("Daily not found"),
+					? siteMetadata.createTitle(articleDisplayTitle(loaderData))
+					: siteMetadata.createTitle("Daily not found"),
 			},
 			{
 				name: "description",

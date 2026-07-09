@@ -13,7 +13,7 @@ import {
 	useRef,
 } from "react";
 import toast from "react-hot-toast";
-import { siteConstants } from "#/lib/site/constants";
+import { markdownPresentation } from "#/features/site/markdownPresentation";
 
 import "prismjs/components/prism-bash.min.js";
 import "prismjs/components/prism-c.min.js";
@@ -58,7 +58,7 @@ function renderToc(headings: Heading[], curr = 0): string {
 	const { depth, id, innerHTML } = headings[curr];
 
 	if (headings.length - 1 === curr) {
-		return `<li><a class="${siteConstants.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>`;
+		return `<li><a class="${markdownPresentation.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>`;
 	}
 
 	const nextDepth = headings[curr + 1].depth;
@@ -69,7 +69,7 @@ function renderToc(headings: Heading[], curr = 0): string {
 			addDepth += '<li class="list-none"><ul>';
 		}
 
-		return `<li><a class="${siteConstants.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>${addDepth}${renderToc(headings, curr + 1)}`;
+		return `<li><a class="${markdownPresentation.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>${addDepth}${renderToc(headings, curr + 1)}`;
 	}
 
 	if (nextDepth < depth) {
@@ -78,10 +78,10 @@ function renderToc(headings: Heading[], curr = 0): string {
 			minusDepth += "</ul></li>";
 		}
 
-		return `<li><a class="${siteConstants.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>${minusDepth}${renderToc(headings, curr + 1)}`;
+		return `<li><a class="${markdownPresentation.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>${minusDepth}${renderToc(headings, curr + 1)}`;
 	}
 
-	return `<li><a class="${siteConstants.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>${renderToc(headings, curr + 1)}`;
+	return `<li><a class="${markdownPresentation.tocLinkDefaultClassName}" href="#${id}">${innerHTML}</a></li>${renderToc(headings, curr + 1)}`;
 }
 
 function TableOfContents({ htmlElement }: { htmlElement: ParsedHTMLElement }) {
@@ -99,13 +99,13 @@ function TableOfContents({ htmlElement }: { htmlElement: ParsedHTMLElement }) {
 
 	return (
 		<nav
-			id={siteConstants.tocWrapperNav}
+			id={markdownPresentation.tocWrapperNav}
 			className="mb-4 flex max-w-md pb-2 2xl:fixed 2xl:left-2 2xl:top-2 2xl:max-h-[calc(100vh-16px)] 2xl:max-w-xs 2xl:overflow-y-auto"
 		>
 			<div className="terrace-toc rounded-lg bg-stone-50 p-2 text-sm leading-6 2xl:bg-transparent">
 				<span
-					id={siteConstants.tocId}
-					className={`select-none font-bold ${siteConstants.tocLinkDefaultClassName}`}
+					id={markdownPresentation.tocId}
+					className={`select-none font-bold ${markdownPresentation.tocLinkDefaultClassName}`}
 				>
 					목차
 				</span>
@@ -138,11 +138,11 @@ const TerraceMarkdownRenderer = forwardRef<
 				const headingId = block.id;
 				const headingHtml = block.innerHTML;
 				block.innerHTML = `<span>${headingHtml}</span>
-<a class="${siteConstants.headingUrlCopyLinkClass}" href="#${headingId}" aria-label="Copy heading link">
+<a class="${markdownPresentation.headingUrlCopyLinkClass}" href="#${headingId}" aria-label="Copy heading link">
 	<span class="material-icons cursor-pointer select-none" style="font-size: 1.2em">link</span>
 </a>
 <span class="flex-1"></span>
-<a class="${siteConstants.tocLinkClass} 2xl:hidden" href="#${siteConstants.tocId}" ${siteConstants.tocDataHeadingIdPropertyName}="${headingId}" aria-label="Jump to table of contents">
+<a class="${markdownPresentation.tocLinkClass} 2xl:hidden" href="#${markdownPresentation.tocId}" ${markdownPresentation.tocDataHeadingIdPropertyName}="${headingId}" aria-label="Jump to table of contents">
 	<span class="material-icons cursor-pointer select-none opacity-50" style="font-size: 1.2em">toc</span>
 </a>`;
 			});
@@ -184,7 +184,7 @@ export function TerraceMarkdownRendererContainer(
 		const registeredHandlers: Array<[Element, EventListener]> = [];
 
 		rootElement
-			.querySelectorAll(`a.${siteConstants.headingUrlCopyLinkClass}`)
+			.querySelectorAll(`a.${markdownPresentation.headingUrlCopyLinkClass}`)
 			.forEach((element) => {
 				element.removeAttribute("onClick");
 
@@ -202,11 +202,11 @@ export function TerraceMarkdownRendererContainer(
 			});
 
 		rootElement
-			.querySelectorAll(`a.${siteConstants.tocLinkClass}`)
+			.querySelectorAll(`a.${markdownPresentation.tocLinkClass}`)
 			.forEach((element) => {
 				const handleClick = () => {
 					const headingId = element.getAttribute(
-						siteConstants.tocDataHeadingIdPropertyName,
+						markdownPresentation.tocDataHeadingIdPropertyName,
 					);
 
 					toast.success(
@@ -236,7 +236,7 @@ export function TerraceMarkdownRendererContainer(
 					const id = entry.target.getAttribute("id");
 					const tocLinks = [
 						...((document
-							.getElementById(siteConstants.tocWrapperNav)
+							.getElementById(markdownPresentation.tocWrapperNav)
 							?.querySelectorAll("li a") || []) as NodeListOf<HTMLElement>),
 					];
 					const targetLinkIndex = tocLinks.findIndex(
@@ -252,17 +252,17 @@ export function TerraceMarkdownRendererContainer(
 
 					tocLinks.forEach((element) => {
 						element.classList.remove("font-bold");
-						element.classList.add(siteConstants.tocLinkDefaultClassName);
+						element.classList.add(markdownPresentation.tocLinkDefaultClassName);
 					});
 
 					if (elementInOrOut === "in") {
 						tocLinks[targetLinkIndex]?.classList.remove(
-							siteConstants.tocLinkDefaultClassName,
+							markdownPresentation.tocLinkDefaultClassName,
 						);
 						tocLinks[targetLinkIndex]?.classList.add("font-bold");
 					} else {
 						tocLinks[targetLinkIndex - 1]?.classList.remove(
-							siteConstants.tocLinkDefaultClassName,
+							markdownPresentation.tocLinkDefaultClassName,
 						);
 						tocLinks[targetLinkIndex - 1]?.classList.add("font-bold");
 					}

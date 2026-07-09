@@ -2,8 +2,8 @@ import type { Article, ArticleId } from "#/core/article/domain";
 import {
 	type AdminArticleKind,
 	articleKindToCategory,
-} from "#/lib/admin/articles";
-import { createOwnerServerFn } from "#/lib/auth/serverFns";
+} from "#/features/admin/article-management/articleKinds";
+import { createOwnerServerFn } from "#/features/owner-auth/serverFns";
 import { z } from "zod";
 
 const pageSize = 20;

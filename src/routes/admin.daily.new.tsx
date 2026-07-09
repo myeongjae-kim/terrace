@@ -1,12 +1,12 @@
 import { AdminArticleForm } from "#/components/admin/AdminArticleForm";
-import { getNextArticleSeq } from "#/lib/admin/articleServerFns";
-import { siteConstants } from "#/lib/site/constants";
+import { getNextArticleSeq } from "#/features/admin/article-management/articleServerFns";
+import { siteMetadata } from "#/features/site/siteMetadata";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/daily/new")({
 	head: () => ({
 		meta: [
-			{ title: siteConstants.createTitle("New Daily") },
+			{ title: siteMetadata.createTitle("New Daily") },
 			{ name: "description", content: "Daily 글 작성" },
 		],
 	}),

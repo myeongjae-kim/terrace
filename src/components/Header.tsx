@@ -3,7 +3,7 @@ import { VStack } from "@astryxdesign/core/VStack";
 import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import TerraceLink from "#/components/TerraceLink";
-import { getOwnerSession } from "#/lib/auth/serverFns";
+import { getOwnerSession } from "#/features/owner-auth/serverFns";
 
 const categories = ["about", "blog", "daily", "musings", "places"] as const;
 

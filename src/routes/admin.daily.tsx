@@ -1,6 +1,6 @@
 import { AdminArticleTable } from "#/components/admin/AdminArticleTable";
-import { listAdminArticles } from "#/lib/admin/articleServerFns";
-import { siteConstants } from "#/lib/site/constants";
+import { listAdminArticles } from "#/features/admin/article-management/articleServerFns";
+import { siteMetadata } from "#/features/site/siteMetadata";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 
 function normalizePage(value: unknown) {
@@ -11,7 +11,7 @@ function normalizePage(value: unknown) {
 export const Route = createFileRoute("/admin/daily")({
 	head: () => ({
 		meta: [
-			{ title: siteConstants.createTitle("Admin Daily") },
+			{ title: siteMetadata.createTitle("Admin Daily") },
 			{ name: "description", content: "Daily 콘텐츠 관리" },
 		],
 	}),

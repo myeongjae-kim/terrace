@@ -4,39 +4,21 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 import TerraceLink from "#/components/TerraceLink";
 import TerracePagination from "#/components/TerracePagination";
-import { applicationContext } from "#/core/config/applicationContext";
+import { listDailyArticles } from "#/features/publishing/articleServerFns";
 import {
 	articleDisplayTitle,
 	articlePermalink,
 	formatDate,
 	normalizePage,
-} from "#/lib/site/articles";
-import { siteConstants } from "#/lib/site/constants";
-
-const pageSize = 20;
-
-const listDailyArticles = createServerFn({ method: "GET" })
-	.validator((data: { page: number }) => data)
-	.handler(async ({ data }) => {
-		const page = normalizePage(data.page);
-		const articles = await applicationContext()
-			.get("ListPublishedArticlesUseCase")
-			.list({
-				category: "DAILY_ARTICLE",
-				limit: pageSize,
-				offset: (page - 1) * pageSize,
-			});
-
-		return { ...articles, page };
-	});
+} from "#/features/publishing/articlePresentation";
+import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/daily")({
 	head: () => ({
 		meta: [
-			{ title: siteConstants.createTitle("Daily") },
+			{ title: siteMetadata.createTitle("Daily") },
 			{ name: "description", content: "글 목록" },
 		],
 	}),

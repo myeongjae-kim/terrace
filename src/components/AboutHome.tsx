@@ -1,5 +1,5 @@
 import TerraceLink from "#/components/TerraceLink";
-import { aboutProfile } from "#/lib/site/about";
+import { aboutProfile } from "#/features/site/aboutProfile";
 import { HStack } from "@astryxdesign/core/HStack";
 import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";

@@ -5,11 +5,11 @@ import {
 	articleEditPath,
 	articleKindLabel,
 	articleKindListPath,
-} from "#/lib/admin/articles";
+} from "#/features/admin/article-management/articleKinds";
 import {
 	createAdminArticle,
 	updateAdminArticle,
-} from "#/lib/admin/articleServerFns";
+} from "#/features/admin/article-management/articleServerFns";
 import { Button } from "@astryxdesign/core/Button";
 import { CheckboxInput } from "@astryxdesign/core/CheckboxInput";
 import { Dialog } from "@astryxdesign/core/Dialog";

@@ -3,11 +3,11 @@ import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import PlacesMap from "#/components/PlacesMap";
-import { siteConstants } from "#/lib/site/constants";
+import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/places")({
 	head: () => ({
-		meta: [{ title: siteConstants.createTitle("Places") }],
+		meta: [{ title: siteMetadata.createTitle("Places") }],
 	}),
 	component: PlacesPage,
 });

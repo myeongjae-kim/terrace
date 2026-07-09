@@ -1,7 +1,4 @@
-export const siteConstants = {
-	defaultTitle: "김명재, Myeongjae Kim",
-	createTitle: (title?: string | null) =>
-		`${title ? `${title} :: ` : ""}김명재, Myeongjae Kim`,
+export const markdownPresentation = {
 	tocId: "toc",
 	headingUrlCopyLinkClass: "heading-url-copy-link",
 	tocLinkClass: "toc-link",

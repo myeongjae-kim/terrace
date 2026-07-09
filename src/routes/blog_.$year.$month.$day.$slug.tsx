@@ -3,45 +3,17 @@ import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import { TerraceMarkdownRendererContainer } from "#/components/TerraceMarkdownRenderer";
-import { applicationContext } from "#/core/config/applicationContext";
+import { getBlogArticle } from "#/features/publishing/articleServerFns";
 import {
 	articleDescription,
 	articleDisplayTitle,
 	articlePermalink,
 	formatDate,
-} from "#/lib/site/articles";
-import { siteConstants } from "#/lib/site/constants";
-
-const getBlogArticle = createServerFn({ method: "GET" })
-	.validator((data: { slug: string }) => data)
-	.handler(async ({ data }) => {
-		const article = await applicationContext()
-			.get("GetPublishedArticleBySlugUseCase")
-			.getBySlug({
-				category: "BLOG_ARTICLE",
-				slug: data.slug,
-			});
-
-		if (!article) {
-			return null;
-		}
-
-		const neighbors =
-			article.seq == null
-				? { previous: null, next: null }
-				: await applicationContext()
-						.get("GetPublishedArticleNeighborsUseCase")
-						.getNeighbors({
-							category: "BLOG_ARTICLE",
-							seq: article.seq,
-						});
-
-		return { article, ...neighbors };
-	});
+} from "#/features/publishing/articlePresentation";
+import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/blog_/$year/$month/$day/$slug")({
 	loader: async ({ params }) => {
@@ -51,8 +23,8 @@ export const Route = createFileRoute("/blog_/$year/$month/$day/$slug")({
 		meta: [
 			{
 				title: loaderData
-					? siteConstants.createTitle(articleDisplayTitle(loaderData.article))
-					: siteConstants.createTitle("Article not found"),
+					? siteMetadata.createTitle(articleDisplayTitle(loaderData.article))
+					: siteMetadata.createTitle("Article not found"),
 			},
 			{
 				name: "description",

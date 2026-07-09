@@ -1,4 +1,4 @@
-import { logoutOwner } from "#/lib/auth/serverFns";
+import { logoutOwner } from "#/features/owner-auth/serverFns";
 import { AppShell } from "@astryxdesign/core/AppShell";
 import { Button } from "@astryxdesign/core/Button";
 import { HStack } from "@astryxdesign/core/HStack";

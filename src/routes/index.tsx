@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import AboutHome from "#/components/AboutHome";
-import { siteConstants } from "#/lib/site/constants";
+import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/")({
 	head: () => ({
-		meta: [{ title: siteConstants.defaultTitle }],
+		meta: [{ title: siteMetadata.defaultTitle }],
 	}),
 	component: AboutHome,
 });

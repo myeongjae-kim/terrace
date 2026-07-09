@@ -1,6 +1,6 @@
 import { AdminShell } from "#/components/admin/AdminShell";
-import { getOwnerSession } from "#/lib/auth/serverFns";
-import { siteConstants } from "#/lib/site/constants";
+import { getOwnerSession } from "#/features/owner-auth/serverFns";
+import { siteMetadata } from "#/features/site/siteMetadata";
 import {
 	createFileRoute,
 	Outlet,
@@ -10,7 +10,7 @@ import {
 export const Route = createFileRoute("/admin")({
 	head: () => ({
 		meta: [
-			{ title: siteConstants.createTitle("Admin") },
+			{ title: siteMetadata.createTitle("Admin") },
 			{ name: "description", content: "콘텐츠 관리" },
 		],
 	}),

@@ -1,6 +1,6 @@
 import { clientEnv } from "#/core/config/clientEnv";
-import { loginWithGoogle } from "#/lib/auth/serverFns";
-import { siteConstants } from "#/lib/site/constants";
+import { loginWithGoogle } from "#/features/owner-auth/serverFns";
+import { siteMetadata } from "#/features/site/siteMetadata";
 import { Button } from "@astryxdesign/core/Button";
 import { Heading } from "@astryxdesign/core/Heading";
 import { Section } from "@astryxdesign/core/Section";
@@ -25,7 +25,7 @@ function normalizeRedirectUri(value: unknown) {
 export const Route = createFileRoute("/login")({
 	head: () => ({
 		meta: [
-			{ title: siteConstants.createTitle("Login") },
+			{ title: siteMetadata.createTitle("Login") },
 			{ name: "description", content: "관리자 로그인" },
 		],
 	}),
