@@ -1,9 +1,9 @@
-import TerraceLink from "#/components/TerraceLink";
-import { getOwnerSession } from "#/lib/auth/serverFns";
 import { HStack } from "@astryxdesign/core/HStack";
 import { VStack } from "@astryxdesign/core/VStack";
 import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import TerraceLink from "#/components/TerraceLink";
+import { getOwnerSession } from "#/lib/auth/serverFns";
 
 const categories = ["about", "blog", "daily", "musings", "places"] as const;
 
@@ -21,15 +21,16 @@ export default function Header() {
 
 	useEffect(() => {
 		let isMounted = true;
+		const checkedPathname = pathname;
 
 		getOwnerSession()
 			.then((session) => {
-				if (isMounted) {
+				if (isMounted && checkedPathname === window.location.pathname) {
 					setIsLoggedIn(session != null);
 				}
 			})
 			.catch(() => {
-				if (isMounted) {
+				if (isMounted && checkedPathname === window.location.pathname) {
 					setIsLoggedIn(false);
 				}
 			});
@@ -37,7 +38,7 @@ export default function Header() {
 		return () => {
 			isMounted = false;
 		};
-	}, []);
+	}, [pathname]);
 
 	const adminLinkHref = isLoggedIn
 		? "/admin"
