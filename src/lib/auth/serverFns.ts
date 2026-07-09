@@ -58,6 +58,10 @@ export const ownerSessionMiddleware = createMiddleware({
 	return next({ context: { session } });
 });
 
+export const createOwnerServerFn = createServerFn().middleware([
+	ownerSessionMiddleware,
+]);
+
 export const getOwnerSession = createServerFn({ method: "GET" }).handler(
 	async () => await readOwnerSessionFromCookie(),
 );

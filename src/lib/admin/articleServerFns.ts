@@ -3,8 +3,7 @@ import {
 	type AdminArticleKind,
 	articleKindToCategory,
 } from "#/lib/admin/articles";
-import { ownerSessionMiddleware } from "#/lib/auth/serverFns";
-import { createServerFn } from "@tanstack/react-start";
+import { createOwnerServerFn } from "#/lib/auth/serverFns";
 import { z } from "zod";
 
 const pageSize = 20;
@@ -57,8 +56,7 @@ async function assertSlugAvailable(input: {
 	}
 }
 
-export const listAdminArticles = createServerFn({ method: "GET" })
-	.middleware([ownerSessionMiddleware])
+export const listAdminArticles = createOwnerServerFn({ method: "GET" })
 	.validator(
 		z.object({
 			kind: articleKindSchema,
@@ -78,8 +76,7 @@ export const listAdminArticles = createServerFn({ method: "GET" })
 		return { ...articles, page };
 	});
 
-export const getAdminArticle = createServerFn({ method: "GET" })
-	.middleware([ownerSessionMiddleware])
+export const getAdminArticle = createOwnerServerFn({ method: "GET" })
 	.validator(articleIdSchema)
 	.handler(async ({ data }) => {
 		const article = await (await getApplicationContext())
@@ -89,8 +86,7 @@ export const getAdminArticle = createServerFn({ method: "GET" })
 		return assertManagedArticle(data.kind, article);
 	});
 
-export const getNextArticleSeq = createServerFn({ method: "GET" })
-	.middleware([ownerSessionMiddleware])
+export const getNextArticleSeq = createOwnerServerFn({ method: "GET" })
 	.validator(z.object({ kind: articleKindSchema }))
 	.handler(async ({ data }) => {
 		const seq = await (await getApplicationContext())
@@ -100,8 +96,7 @@ export const getNextArticleSeq = createServerFn({ method: "GET" })
 		return { seq };
 	});
 
-export const createAdminArticle = createServerFn({ method: "POST" })
-	.middleware([ownerSessionMiddleware])
+export const createAdminArticle = createOwnerServerFn({ method: "POST" })
 	.validator(articleValuesSchema)
 	.handler(async ({ data, context }) => {
 		await assertSlugAvailable({ kind: data.kind, slug: data.slug });
@@ -121,8 +116,7 @@ export const createAdminArticle = createServerFn({ method: "POST" })
 		return article;
 	});
 
-export const updateAdminArticle = createServerFn({ method: "POST" })
-	.middleware([ownerSessionMiddleware])
+export const updateAdminArticle = createOwnerServerFn({ method: "POST" })
 	.validator(
 		articleValuesSchema.extend({
 			id: z.string().min(1),
@@ -161,8 +155,7 @@ export const updateAdminArticle = createServerFn({ method: "POST" })
 		return assertManagedArticle(data.kind, article);
 	});
 
-export const setArticlePublished = createServerFn({ method: "POST" })
-	.middleware([ownerSessionMiddleware])
+export const setArticlePublished = createOwnerServerFn({ method: "POST" })
 	.validator(
 		articleIdSchema.extend({
 			isPublished: z.boolean(),
