@@ -16,6 +16,7 @@
     "format": "biome format",
     "lint": "biome lint",
     "check": "biome check --fix",
+    "astryx": "node node_modules/@astryxdesign/cli/bin/astryx.mjs",
     "find-deadcode": "bash scripts/find-deadcode.sh",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
