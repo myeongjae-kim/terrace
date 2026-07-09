@@ -1,8 +1,8 @@
-<!-- BEGIN:nextjs-agent-rules -->
+<!-- BEGIN:tanstack-start-agent-rules -->
 # This is NOT the tanstack-start you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in  https://tanstack.com/start/latest/docs/framework/react/guide/routing before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+<!-- END:tanstack-start-agent-rules -->
 
 <!-- BEGIN:tooling-agent-rules -->
 # Tooling
