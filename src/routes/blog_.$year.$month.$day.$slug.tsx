@@ -74,10 +74,7 @@ function BlogArticlePage() {
 	const commentIdentifier = `blog/${formatDate(article.createdAt, "/")}/${article.slug}`;
 
 	return (
-		<VStack
-			as="main"
-			className="mx-auto w-full max-w-[50rem] bg-white"
-		>
+		<VStack as="main" className="mx-auto w-full max-w-[50rem] bg-white">
 			<Section variant="transparent" padding={0}>
 				<VStack className="text-center" hAlign="stretch" gap={0}>
 					<TerraceLink
@@ -103,17 +100,21 @@ function BlogArticlePage() {
 						markdown={article.content ?? ""}
 						enableToc
 					/>
-					<VStack className="text-sm" gap={0}>
+					<VStack className="terrace-article-neighbors text-sm" gap={0}>
 						<hr />
 						<VStack className="my-4 text-center" hAlign="center" gap={1.5}>
 							{next && (
 								<>
-									<Text as="span" className="select-none text-black">
+									<Text
+										as="span"
+										className="terrace-article-neighbor-label select-none text-black"
+									>
 										Next Article
 									</Text>
 									<TerraceLink
 										href={articlePermalink("/blog", next)}
 										isStandalone
+										className="terrace-article-neighbor-link"
 									>
 										{articleDisplayTitle(next)}
 									</TerraceLink>
@@ -121,12 +122,16 @@ function BlogArticlePage() {
 							)}
 							{previous && (
 								<>
-									<Text as="span" className="select-none text-black">
+									<Text
+										as="span"
+										className="terrace-article-neighbor-label select-none text-black"
+									>
 										Previous Article
 									</Text>
 									<TerraceLink
 										href={articlePermalink("/blog", previous)}
 										isStandalone
+										className="terrace-article-neighbor-link"
 									>
 										{articleDisplayTitle(previous)}
 									</TerraceLink>

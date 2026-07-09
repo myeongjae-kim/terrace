@@ -319,6 +319,17 @@
 	color: #000000;
 }
 
+.terrace-article-neighbors
+	:where(
+		.terrace-article-neighbor-label,
+		.terrace-article-neighbor-link,
+		.terrace-article-neighbor-link .astryx-text,
+		.terrace-article-neighbor-link span
+	) {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
 .terrace-blog-list-link:hover .terrace-blog-title.astryx-text {
 	color: #3b82f6;
 }
