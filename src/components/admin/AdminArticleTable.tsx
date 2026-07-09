@@ -1,5 +1,3 @@
-"use client";
-
 import type { Article } from "#/core/article/domain";
 import {
 	type AdminArticleKind,

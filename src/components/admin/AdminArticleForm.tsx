@@ -1,5 +1,3 @@
-"use client";
-
 import { AdminArticlePreview } from "#/components/admin/AdminArticlePreview";
 import type { Article } from "#/core/article/domain";
 import {

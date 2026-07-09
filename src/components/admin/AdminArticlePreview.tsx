@@ -1,5 +1,3 @@
-"use client";
-
 import TerraceMarkdownRenderer from "#/components/TerraceMarkdownRenderer";
 import type { AdminArticleKind } from "#/lib/admin/articles";
 import { Section } from "@astryxdesign/core/Section";
