@@ -36,7 +36,7 @@ type Heading = {
 	innerHTML: string;
 };
 
-const MAX_TOC_HEADING_DEPTH = 3;
+const MAX_TOC_HEADING_DEPTH = 4;
 
 const terraceMarked = new Marked(
 	mangle(),
