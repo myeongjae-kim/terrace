@@ -1,4 +1,4 @@
-import type { Article } from "#/core/article/domain";
+import type { Article, ArticleSummary } from "#/core/article/domain";
 
 const timeZone = "Asia/Seoul";
 
@@ -42,7 +42,7 @@ export function formatDate(
 
 export function articlePermalink(
 	basePath: "/blog" | "/daily",
-	article: Article,
+	article: ArticleSummary,
 ) {
 	const datePath = formatDate(article.createdAt, "/");
 	const slug = article.slug ?? String(article.id);
@@ -50,7 +50,7 @@ export function articlePermalink(
 	return `${basePath}/${datePath}/${encodeURIComponent(slug)}`;
 }
 
-export function articleDisplayTitle(article: Article) {
+export function articleDisplayTitle(article: ArticleSummary) {
 	return article.title?.trim() || "Untitled";
 }
 

@@ -16,6 +16,11 @@ export type Article = {
 	readonly userId: string | null;
 };
 
+export type ArticleSummary = Pick<
+	Article,
+	"id" | "seq" | "title" | "slug" | "createdAt"
+>;
+
 export type ArticleNeighbors = {
 	readonly previous: Article | null;
 	readonly next: Article | null;

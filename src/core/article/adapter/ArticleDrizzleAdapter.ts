@@ -1,7 +1,7 @@
 import { and, asc, count, desc, eq, gt, isNotNull, lt, max } from "drizzle-orm";
 import type { ArticleCommandPort } from "#/core/article/application/port/out/ArticleCommandPort";
 import type { ArticleQueryPort } from "#/core/article/application/port/out/ArticleQueryPort";
-import type { Article, ArticleId } from "#/core/article/domain";
+import type { Article, ArticleId, ArticleSummary } from "#/core/article/domain";
 import type { IsoDateTimeString } from "#/core/common/domain";
 import type { PaginatedResult } from "#/core/common/model/Pagination";
 import { normalizePagination } from "#/core/common/model/Pagination";
@@ -37,6 +37,22 @@ function toArticle(row: ArticleRow): Article {
 		updatedAt: toIsoDateTime(row.updatedAt),
 		publishedAt: toIsoDateTime(row.publishedAt),
 		userId: row.userId,
+	};
+}
+
+function toArticleSummary(row: {
+	id: number;
+	seq: number | null;
+	title: string | null;
+	slug: string | null;
+	createdAt: Date | null;
+}): ArticleSummary {
+	return {
+		id: String(row.id) as ArticleId,
+		seq: row.seq,
+		title: row.title,
+		slug: row.slug,
+		createdAt: toIsoDateTime(row.createdAt),
 	};
 }
 
@@ -150,7 +166,7 @@ export class ArticleDrizzleAdapter
 
 	async listPublished(
 		input: Parameters<ArticleQueryPort["listPublished"]>[0],
-	): Promise<PaginatedResult<Article>> {
+	): Promise<PaginatedResult<ArticleSummary>> {
 		const { limit, offset } = normalizePagination(input);
 		const whereClause = and(
 			eq(articleTable.category, input.category),
@@ -162,7 +178,13 @@ export class ArticleDrizzleAdapter
 			.where(whereClause);
 		const total = totalRow?.count ?? 0;
 		const rows = await db
-			.select()
+			.select({
+				id: articleTable.id,
+				seq: articleTable.seq,
+				title: articleTable.title,
+				slug: articleTable.slug,
+				createdAt: articleTable.createdAt,
+			})
 			.from(articleTable)
 			.where(whereClause)
 			.orderBy(desc(articleTable.seq), desc(articleTable.id))
@@ -170,7 +192,7 @@ export class ArticleDrizzleAdapter
 			.offset(offset);
 
 		return {
-			items: rows.slice(0, limit).map(toArticle),
+			items: rows.slice(0, limit).map(toArticleSummary),
 			limit,
 			offset,
 			hasMore: rows.length > limit,

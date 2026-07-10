@@ -3,6 +3,7 @@ import type {
 	ArticleCategory,
 	ArticleId,
 	ArticleNeighbors,
+	ArticleSummary,
 } from "#/core/article/domain";
 import type {
 	PaginatedResult,
@@ -26,7 +27,7 @@ export interface ArticleQueryPort {
 		category: ArticleCategory;
 		limit?: number;
 		offset?: number;
-	}): Promise<PaginatedResult<Article>>;
+	}): Promise<PaginatedResult<ArticleSummary>>;
 	getPublishedBySlug(input: {
 		category: ArticleCategory;
 		slug: string;
