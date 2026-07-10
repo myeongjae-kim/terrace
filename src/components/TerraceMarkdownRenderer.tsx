@@ -36,6 +36,8 @@ type Heading = {
 	innerHTML: string;
 };
 
+const MAX_TOC_HEADING_DEPTH = 3;
+
 const terraceMarked = new Marked(
 	mangle(),
 	gfmHeadingId(),
@@ -87,6 +89,9 @@ function renderToc(headings: Heading[], curr = 0): string {
 function TableOfContents({ htmlElement }: { htmlElement: ParsedHTMLElement }) {
 	const headings: Heading[] = htmlElement
 		.querySelectorAll("h1, h2, h3, h4, h5, h6")
+		.filter(
+			(block) => Number.parseInt(block.tagName[1], 10) <= MAX_TOC_HEADING_DEPTH,
+		)
 		.map((block) => ({
 			depth: Number.parseInt(block.tagName[1], 10),
 			id: block.id,
@@ -276,7 +281,9 @@ export function TerraceMarkdownRendererContainer(
 		rootElement
 			.querySelectorAll("h1, h2, h3, h4, h5, h6")
 			.forEach((element) => {
-				observer.observe(element);
+				if (Number.parseInt(element.tagName[1], 10) <= MAX_TOC_HEADING_DEPTH) {
+					observer.observe(element);
+				}
 			});
 
 		return () => {
