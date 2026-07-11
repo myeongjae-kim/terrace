@@ -1,4 +1,3 @@
-import { logoutOwner } from "#/features/owner-auth/serverFns";
 import { AppShell } from "@astryxdesign/core/AppShell";
 import { Button } from "@astryxdesign/core/Button";
 import { HStack } from "@astryxdesign/core/HStack";
@@ -10,8 +9,13 @@ import {
 } from "@astryxdesign/core/SideNav";
 import { TopNav, TopNavHeading, TopNavItem } from "@astryxdesign/core/TopNav";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { LogOut } from "lucide-react";
+import { LogOut, MapPin } from "lucide-react";
 import type { ReactNode } from "react";
+import { logoutOwner } from "#/features/owner-auth/serverFns";
+
+function PlacesIcon(props: React.ComponentProps<"svg">) {
+	return <MapPin {...props} strokeWidth={1.5} />;
+}
 
 export function AdminShell({ children }: { children: ReactNode }) {
 	const { pathname } = useLocation();
@@ -38,16 +42,16 @@ export function AdminShell({ children }: { children: ReactNode }) {
 					}
 					startContent={
 						<HStack gap={1}>
-							<TopNavItem
-								label="Blog"
-								href="/admin/blog"
-								isSelected={isBlog}
-							/>
-							<TopNavItem label="Places" href="/admin/places" isSelected={isPlaces} />
+							<TopNavItem label="Blog" href="/admin/blog" isSelected={isBlog} />
 							<TopNavItem
 								label="Daily"
 								href="/admin/daily"
 								isSelected={isDaily}
+							/>
+							<TopNavItem
+								label="Places"
+								href="/admin/places"
+								isSelected={isPlaces}
 							/>
 							<TopNavItem label="Site" href="/" />
 						</HStack>
@@ -87,23 +91,27 @@ export function AdminShell({ children }: { children: ReactNode }) {
 							isSelected={isBlog}
 						/>
 						<SideNavItem
-							label="Places"
-							href="/admin/places"
-							icon="location"
-							selectedIcon="location"
-							isSelected={isPlaces}
-						/>
-						<SideNavItem
 							label="Daily"
 							href="/admin/daily"
 							icon="calendar"
 							selectedIcon="calendar"
 							isSelected={isDaily}
 						/>
+						<SideNavItem
+							label="Places"
+							href="/admin/places"
+							icon={PlacesIcon}
+							selectedIcon={PlacesIcon}
+							isSelected={isPlaces}
+						/>
 					</SideNavSection>
 					<SideNavSection title="Create">
 						<SideNavItem label="New blog" href="/admin/blog/new" icon="copy" />
-						<SideNavItem label="New daily" href="/admin/daily/new" icon="copy" />
+						<SideNavItem
+							label="New daily"
+							href="/admin/daily/new"
+							icon="copy"
+						/>
 					</SideNavSection>
 				</SideNav>
 			}
