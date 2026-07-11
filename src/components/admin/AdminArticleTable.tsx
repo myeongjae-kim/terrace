@@ -152,7 +152,7 @@ export function AdminArticleTable({
 						<Link
 							href={articleEditPath(kind, row.id)}
 							isStandalone
-							color="neutral"
+							color="secondary"
 							className="break-words text-xs text-gray-500 hover:text-blue-700"
 						>
 							{row.slug || "(missing slug)"}
@@ -263,7 +263,7 @@ export function AdminArticleTable({
 						</Text>
 						<HStack gap={1}>
 							<Link
-								color="neutral"
+								color="secondary"
 								isStandalone
 								isDisabled={page <= 1}
 								className={paginationLinkClassName}
@@ -282,7 +282,7 @@ export function AdminArticleTable({
 								) : (
 									<Link
 										key={item.page}
-										color="neutral"
+										color="secondary"
 										isStandalone
 										isDisabled={item.page === page}
 										aria-current={item.page === page ? "page" : undefined}
@@ -298,7 +298,7 @@ export function AdminArticleTable({
 								),
 							)}
 							<Link
-								color="neutral"
+								color="secondary"
 								isStandalone
 								isDisabled={totalPages != null && page >= totalPages}
 								className={paginationLinkClassName}

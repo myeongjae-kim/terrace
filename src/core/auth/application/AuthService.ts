@@ -1,5 +1,5 @@
-import { env } from "#/core/config/env";
 import { Autowired } from "#/core/config/Autowired";
+import type { OwnerAuthConfig } from "#/core/auth/config/OwnerAuthConfig";
 import type { SignOwnerSessionUseCase } from "./port/in/SignOwnerSessionUseCase";
 import type { VerifyGoogleOwnerUseCase } from "./port/in/VerifyGoogleOwnerUseCase";
 import type { VerifyOwnerSessionUseCase } from "./port/in/VerifyOwnerSessionUseCase";
@@ -13,6 +13,8 @@ export class AuthService
 		VerifyOwnerSessionUseCase
 {
 	constructor(
+		@Autowired("OwnerAuthConfig")
+		private readonly config: OwnerAuthConfig,
 		@Autowired("GoogleIdentityPort")
 		private readonly googleIdentityPort: GoogleIdentityPort,
 		@Autowired("SessionTokenPort")
@@ -24,17 +26,19 @@ export class AuthService
 	) {
 		const account = await this.googleIdentityPort.verifyCredential({
 			credential: input.credential,
-			audience: env.GOOGLE_LOGIN_CLIENT_ID,
+			audience: this.config.googleClientId,
 		});
 
-		if (!account || account.sub !== env.OWNER_SUB) {
+		if (!account || account.sub !== this.config.ownerSubject) {
 			return null;
 		}
 
 		return { sub: account.sub };
 	}
 
-	signOwnerSession(input: Parameters<SignOwnerSessionUseCase["signOwnerSession"]>[0]) {
+	signOwnerSession(
+		input: Parameters<SignOwnerSessionUseCase["signOwnerSession"]>[0],
+	) {
 		return this.sessionTokenPort.sign(input);
 	}
 
@@ -43,11 +47,10 @@ export class AuthService
 	) {
 		const payload = await this.sessionTokenPort.verify(input.token);
 
-		if (!payload || payload.sub !== env.OWNER_SUB) {
+		if (!payload || payload.sub !== this.config.ownerSubject) {
 			return null;
 		}
 
 		return payload;
 	}
 }
-

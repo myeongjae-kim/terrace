@@ -38,7 +38,8 @@ export const articleTagTable = pgTable("article_tag", {
   updatedAt: timestamp("updated_at", { precision: 6 }),
 });
 
-export const musingsTable = pgTable("musings", {
+// The physical table keeps its legacy plural name for migration compatibility.
+export const musingTable = pgTable("musings", {
   id: serial().primaryKey(),
   quote: text(),
   from: varchar({ length: 255 }),

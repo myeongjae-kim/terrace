@@ -1,6 +1,6 @@
 import { jwtVerify, SignJWT } from "jose";
 import type { SessionTokenPort } from "#/core/auth/application/port/out/SessionTokenPort";
-import { env } from "#/core/config/env";
+import { env } from "#/infrastructure/config/env.server";
 
 const algorithm = "HS256";
 
@@ -33,4 +33,3 @@ export class JoseSessionTokenAdapter implements SessionTokenPort {
 		}
 	}
 }
-

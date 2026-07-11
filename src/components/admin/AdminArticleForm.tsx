@@ -150,7 +150,7 @@ export function AdminArticleForm({
 					<LayoutFooter hasDivider>
 						<HStack className="w-full px-6 py-4" hAlign="between">
 							<Link
-								color="neutral"
+								color="secondary"
 								isStandalone
 								className="rounded-lg px-3 py-1.5 text-sm no-underline hover:bg-muted"
 								href={articleKindListPath(kind)}

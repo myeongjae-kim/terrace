@@ -22,7 +22,9 @@ describe("JoseSessionTokenAdapter", () => {
 	it("rejects tampered tokens", async () => {
 		const adapter = new JoseSessionTokenAdapter();
 		const token = await adapter.sign({ sub: "owner-sub" });
-		const tamperedToken = `${token.slice(0, -1)}x`;
+		const [header, payload, signature] = token.split(".");
+		const tamperedSignature = `${signature?.startsWith("a") ? "b" : "a"}${signature?.slice(1)}`;
+		const tamperedToken = `${header}.${payload}.${tamperedSignature}`;
 
 		await expect(adapter.verify(tamperedToken)).resolves.toBeNull();
 	});
@@ -38,4 +40,3 @@ describe("JoseSessionTokenAdapter", () => {
 		await expect(adapter.verify(expiredToken)).resolves.toBeNull();
 	});
 });
-

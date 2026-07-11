@@ -1,4 +1,4 @@
-import { clientEnv } from "#/core/config/clientEnv";
+import { clientEnv } from "#/config/clientEnv";
 import { loginWithGoogle } from "#/features/owner-auth/serverFns";
 import { siteMetadata } from "#/features/site/siteMetadata";
 import { Button } from "@astryxdesign/core/Button";
@@ -15,7 +15,11 @@ import {
 import { useState } from "react";
 
 function normalizeRedirectUri(value: unknown) {
-	if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
+	if (
+		typeof value !== "string" ||
+		!value.startsWith("/") ||
+		value.startsWith("//")
+	) {
 		return "/admin";
 	}
 
@@ -95,7 +99,9 @@ function LoginPanel({ redirectUri }: { redirectUri: string }) {
 						onSuccess={handleSuccess}
 						onError={() => setErrorMessage("Google 로그인에 실패했습니다.")}
 					/>
-					{isLoading && <Text className="text-sm text-gray-500">확인 중...</Text>}
+					{isLoading && (
+						<Text className="text-sm text-gray-500">확인 중...</Text>
+					)}
 					{errorMessage && (
 						<Text className="text-sm text-red-600">{errorMessage}</Text>
 					)}
@@ -110,4 +116,3 @@ function LoginPanel({ redirectUri }: { redirectUri: string }) {
 		</VStack>
 	);
 }
-

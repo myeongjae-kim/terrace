@@ -28,7 +28,11 @@ const sessionTokenPort: SessionTokenPort = {
 
 describe("AuthService", () => {
 	it("accepts the configured owner Google subject", async () => {
-		const service = new AuthService(googlePort("owner-sub"), sessionTokenPort);
+		const service = new AuthService(
+			{ googleClientId: "test-client-id", ownerSubject: "owner-sub" },
+			googlePort("owner-sub"),
+			sessionTokenPort,
+		);
 
 		await expect(
 			service.verifyGoogleOwner({ credential: "credential" }),
@@ -36,7 +40,11 @@ describe("AuthService", () => {
 	});
 
 	it("rejects any other Google subject", async () => {
-		const service = new AuthService(googlePort("other-sub"), sessionTokenPort);
+		const service = new AuthService(
+			{ googleClientId: "test-client-id", ownerSubject: "owner-sub" },
+			googlePort("other-sub"),
+			sessionTokenPort,
+		);
 
 		await expect(
 			service.verifyGoogleOwner({ credential: "credential" }),
@@ -44,9 +52,14 @@ describe("AuthService", () => {
 	});
 
 	it("rejects sessions not owned by the configured subject", async () => {
-		const service = new AuthService(googlePort("owner-sub"), sessionTokenPort);
+		const service = new AuthService(
+			{ googleClientId: "test-client-id", ownerSubject: "owner-sub" },
+			googlePort("owner-sub"),
+			sessionTokenPort,
+		);
 
-		await expect(service.verifyOwnerSession({ token: "other-sub" })).resolves.toBeNull();
+		await expect(
+			service.verifyOwnerSession({ token: "other-sub" }),
+		).resolves.toBeNull();
 	});
 });
-

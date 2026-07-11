@@ -10,5 +10,6 @@ const envSchema = z.object({
 export const env = envSchema.parse({
 	...process.env,
 	GOOGLE_LOGIN_CLIENT_ID:
-		process.env.GOOGLE_LOGIN_CLIENT_ID ?? process.env.VITE_GOOGLE_LOGIN_CLIENT_ID,
+		process.env.GOOGLE_LOGIN_CLIENT_ID ??
+		process.env.VITE_GOOGLE_LOGIN_CLIENT_ID,
 });

@@ -19,4 +19,3 @@ export class GoogleIdentityAdapter implements GoogleIdentityPort {
 		return { sub: payload.sub };
 	}
 }
-

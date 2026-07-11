@@ -31,9 +31,9 @@ const loginRedirect = createServerOnlyFn(async () => {
 });
 
 export const readOwnerSessionFromCookie = createServerOnlyFn(async () => {
-	const [{ getCookie }, { applicationContext }] = await Promise.all([
+	const [{ getCookie }, { getUseCase }] = await Promise.all([
 		import("@tanstack/react-start/server"),
-		import("#/core/config/applicationContext"),
+		import("#/infrastructure/config/getUseCase"),
 	]);
 	const token = getCookie(sessionCookieName);
 
@@ -41,9 +41,9 @@ export const readOwnerSessionFromCookie = createServerOnlyFn(async () => {
 		return null;
 	}
 
-	return await applicationContext()
-		.get("VerifyOwnerSessionUseCase")
-		.verifyOwnerSession({ token });
+	return await getUseCase("VerifyOwnerSessionUseCase").verifyOwnerSession({
+		token,
+	});
 });
 
 export const ownerSessionMiddleware = createMiddleware({
@@ -73,21 +73,21 @@ export const loginWithGoogle = createServerFn({ method: "POST" })
 		}),
 	)
 	.handler(async ({ data }) => {
-		const [{ setCookie }, { applicationContext }] = await Promise.all([
+		const [{ setCookie }, { getUseCase }] = await Promise.all([
 			import("@tanstack/react-start/server"),
-			import("#/core/config/applicationContext"),
+			import("#/infrastructure/config/getUseCase"),
 		]);
-		const session = await applicationContext()
-			.get("VerifyGoogleOwnerUseCase")
-			.verifyGoogleOwner({ credential: data.credential });
+		const session = await getUseCase(
+			"VerifyGoogleOwnerUseCase",
+		).verifyGoogleOwner({ credential: data.credential });
 
 		if (!session) {
 			throw new Error("허용된 Google 계정이 아닙니다.");
 		}
 
-		const token = await applicationContext()
-			.get("SignOwnerSessionUseCase")
-			.signOwnerSession(session);
+		const token = await getUseCase("SignOwnerSessionUseCase").signOwnerSession(
+			session,
+		);
 
 		setCookie(sessionCookieName, token, {
 			httpOnly: true,

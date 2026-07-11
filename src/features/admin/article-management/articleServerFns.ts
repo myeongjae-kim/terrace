@@ -25,8 +25,8 @@ const articleValuesSchema = z.object({
 });
 
 async function getApplicationContext() {
-	const { applicationContext } = await import("#/core/config/applicationContext");
-	return applicationContext();
+	const { getUseCase } = await import("#/infrastructure/config/getUseCase");
+	return getUseCase;
 }
 
 function articleId(id: string) {
@@ -47,9 +47,9 @@ async function assertSlugAvailable(input: {
 	excludeId?: string;
 }) {
 	const category = articleKindToCategory(input.kind);
-	const existing = await (await getApplicationContext())
-		.get("GetArticleBySlugUseCase")
-		.getBySlug({ category, slug: input.slug });
+	const existing = await (await getApplicationContext())(
+		"GetArticleBySlugUseCase",
+	).getBySlug({ category, slug: input.slug });
 
 	if (existing && existing.id !== input.excludeId) {
 		throw new Error("같은 slug를 사용하는 글이 이미 있습니다.");
@@ -65,13 +65,13 @@ export const listAdminArticles = createOwnerServerFn({ method: "GET" })
 	)
 	.handler(async ({ data }) => {
 		const page = data.page;
-		const articles = await (await getApplicationContext())
-			.get("ListArticlesByCategoryUseCase")
-			.listByCategory({
-				category: articleKindToCategory(data.kind),
-				limit: pageSize,
-				offset: (page - 1) * pageSize,
-			});
+		const articles = await (await getApplicationContext())(
+			"ListArticlesByCategoryUseCase",
+		).listByCategory({
+			category: articleKindToCategory(data.kind),
+			limit: pageSize,
+			offset: (page - 1) * pageSize,
+		});
 
 		return { ...articles, page };
 	});
@@ -79,9 +79,9 @@ export const listAdminArticles = createOwnerServerFn({ method: "GET" })
 export const getAdminArticle = createOwnerServerFn({ method: "GET" })
 	.validator(articleIdSchema)
 	.handler(async ({ data }) => {
-		const article = await (await getApplicationContext())
-			.get("GetArticleUseCase")
-			.get({ id: articleId(data.id) });
+		const article = await (await getApplicationContext())(
+			"GetArticleUseCase",
+		).get({ id: articleId(data.id) });
 
 		return assertManagedArticle(data.kind, article);
 	});
@@ -89,9 +89,9 @@ export const getAdminArticle = createOwnerServerFn({ method: "GET" })
 export const getNextArticleSeq = createOwnerServerFn({ method: "GET" })
 	.validator(z.object({ kind: articleKindSchema }))
 	.handler(async ({ data }) => {
-		const seq = await (await getApplicationContext())
-			.get("GetNextArticleSeqUseCase")
-			.getNextSeq({ category: articleKindToCategory(data.kind) });
+		const seq = await (await getApplicationContext())(
+			"GetNextArticleSeqUseCase",
+		).getNextSeq({ category: articleKindToCategory(data.kind) });
 
 		return { seq };
 	});
@@ -101,17 +101,17 @@ export const createAdminArticle = createOwnerServerFn({ method: "POST" })
 	.handler(async ({ data, context }) => {
 		await assertSlugAvailable({ kind: data.kind, slug: data.slug });
 
-		const article = await (await getApplicationContext())
-			.get("CreateArticleUseCase")
-			.create({
-				category: articleKindToCategory(data.kind),
-				seq: data.seq,
-				title: data.title,
-				slug: data.slug,
-				content: data.content,
-				publishedAt: data.isPublished ? new Date() : null,
-				userId: context.session.sub,
-			});
+		const article = await (await getApplicationContext())(
+			"CreateArticleUseCase",
+		).create({
+			category: articleKindToCategory(data.kind),
+			seq: data.seq,
+			title: data.title,
+			slug: data.slug,
+			content: data.content,
+			publishedAt: data.isPublished ? new Date() : null,
+			userId: context.session.sub,
+		});
 
 		return article;
 	});
@@ -123,9 +123,9 @@ export const updateAdminArticle = createOwnerServerFn({ method: "POST" })
 		}),
 	)
 	.handler(async ({ data, context }) => {
-		const current = await (await getApplicationContext())
-			.get("GetArticleUseCase")
-			.get({ id: articleId(data.id) });
+		const current = await (await getApplicationContext())(
+			"GetArticleUseCase",
+		).get({ id: articleId(data.id) });
 		assertManagedArticle(data.kind, current);
 		await assertSlugAvailable({
 			kind: data.kind,
@@ -133,24 +133,24 @@ export const updateAdminArticle = createOwnerServerFn({ method: "POST" })
 			excludeId: data.id,
 		});
 
-		const article = await (await getApplicationContext())
-			.get("UpdateArticleUseCase")
-			.update({
-				id: articleId(data.id),
-				values: {
-					category: articleKindToCategory(data.kind),
-					seq: data.seq,
-					title: data.title,
-					slug: data.slug,
-					content: data.content,
-					publishedAt: data.isPublished
-						? current?.publishedAt
-							? new Date(current.publishedAt)
-							: new Date()
-						: null,
-					userId: context.session.sub,
-				},
-			});
+		const article = await (await getApplicationContext())(
+			"UpdateArticleUseCase",
+		).update({
+			id: articleId(data.id),
+			values: {
+				category: articleKindToCategory(data.kind),
+				seq: data.seq,
+				title: data.title,
+				slug: data.slug,
+				content: data.content,
+				publishedAt: data.isPublished
+					? current?.publishedAt
+						? new Date(current.publishedAt)
+						: new Date()
+					: null,
+				userId: context.session.sub,
+			},
+		});
 
 		return assertManagedArticle(data.kind, article);
 	});
@@ -162,23 +162,23 @@ export const setArticlePublished = createOwnerServerFn({ method: "POST" })
 		}),
 	)
 	.handler(async ({ data }) => {
-		const current = await (await getApplicationContext())
-			.get("GetArticleUseCase")
-			.get({ id: articleId(data.id) });
+		const current = await (await getApplicationContext())(
+			"GetArticleUseCase",
+		).get({ id: articleId(data.id) });
 		assertManagedArticle(data.kind, current);
 
-		const article = await (await getApplicationContext())
-			.get("UpdateArticleUseCase")
-			.update({
-				id: articleId(data.id),
-				values: {
-					publishedAt: data.isPublished
-						? current?.publishedAt
-							? new Date(current.publishedAt)
-							: new Date()
-						: null,
-				},
-			});
+		const article = await (await getApplicationContext())(
+			"UpdateArticleUseCase",
+		).update({
+			id: articleId(data.id),
+			values: {
+				publishedAt: data.isPublished
+					? current?.publishedAt
+						? new Date(current.publishedAt)
+						: new Date()
+					: null,
+			},
+		});
 
 		return assertManagedArticle(data.kind, article);
 	});
