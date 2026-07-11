@@ -3,12 +3,14 @@ import { ArticleCrudService } from "#/core/article/application/ArticleCrudServic
 import { ArticlePublishedQueryService } from "#/core/article/application/ArticlePublishedQueryService";
 import { AuthService } from "#/core/auth/application/AuthService";
 import type { Beans } from "#/core/config/DependencyTokens";
+import { SearchGeocodingService } from "#/core/geocoding/application/SearchGeocodingService";
 import { MusingsCrudService } from "#/core/musings/application/MusingsCrudService";
 import { MusingsPublishedQueryService } from "#/core/musings/application/MusingsPublishedQueryService";
 import { PlaceService } from "#/core/place/application/PlaceService";
 import { ArticleDrizzleAdapter } from "#/infrastructure/article/adapter/ArticleDrizzleAdapter";
 import { GoogleIdentityAdapter } from "#/infrastructure/auth/adapter/GoogleIdentityAdapter";
 import { JoseSessionTokenAdapter } from "#/infrastructure/auth/adapter/JoseSessionTokenAdapter";
+import { NominatimGeocodingAdapter } from "#/infrastructure/geocoding/adapter/NominatimGeocodingAdapter";
 import { MusingsDrizzleAdapter } from "#/infrastructure/musings/adapter/MusingsDrizzleAdapter";
 import { PlaceDrizzleAdapter } from "#/infrastructure/place/adapter/PlaceDrizzleAdapter";
 import { env } from "./env.server";
@@ -24,6 +26,8 @@ export const beanConfig: BeanConfig<Beans> = {
 	VerifyGoogleOwnerUseCase: (bind) => bind().to(AuthService),
 	SignOwnerSessionUseCase: (bind) => bind().to(AuthService),
 	VerifyOwnerSessionUseCase: (bind) => bind().to(AuthService),
+	GeocodingSearchPort: (bind) => bind().to(NominatimGeocodingAdapter),
+	SearchGeocodingUseCase: (bind) => bind().to(SearchGeocodingService),
 	ArticleCommandPort: (bind) => bind().to(ArticleDrizzleAdapter),
 	ArticleQueryPort: (bind) => bind().to(ArticleDrizzleAdapter),
 	CreateArticleUseCase: (bind) => bind().to(ArticleCrudService),

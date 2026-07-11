@@ -6,13 +6,22 @@ import { Layout, LayoutContent, LayoutHeader } from "@astryxdesign/core/Layout";
 import { NumberInput } from "@astryxdesign/core/NumberInput";
 import { pixel, proportional, Table } from "@astryxdesign/core/Table";
 import { Text } from "@astryxdesign/core/Text";
+import { TextInput } from "@astryxdesign/core/TextInput";
 import { VStack } from "@astryxdesign/core/VStack";
-import { MapPin, Plus, Trash2 } from "lucide-react";
+import { MapPin, Plus, Search, Trash2 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { AdminPlacesMap } from "#/components/admin/AdminPlacesMap";
 import type { Place } from "#/core/place/domain";
+import { searchAddresses } from "#/features/geocoding/geocodingServerFns";
 import { createPlace, deletePlace } from "#/features/place/placeServerFns";
+
+type AddressSearchResult = {
+	id: string;
+	label: string;
+	latitude: number;
+	longitude: number;
+};
 
 type PlaceRow = Record<string, unknown> & Place;
 
@@ -28,6 +37,19 @@ export function AdminPlacesManager({
 	const [places, setPlaces] = useState<readonly Place[]>(initialPlaces);
 	const [latitude, setLatitude] = useState<number | null>(null);
 	const [longitude, setLongitude] = useState<number | null>(null);
+	const [selectedCoordinates, setSelectedCoordinates] = useState<{
+		latitude: number;
+		longitude: number;
+	} | null>(null);
+	const [selectedZoom, setSelectedZoom] = useState<number | null>(null);
+	const [addressQuery, setAddressQuery] = useState("");
+	const [addressResults, setAddressResults] = useState<
+		readonly AddressSearchResult[]
+	>([]);
+	const [addressSearchMessage, setAddressSearchMessage] = useState<
+		string | null
+	>(null);
+	const [isSearchingAddresses, setIsSearchingAddresses] = useState(false);
 	const [pendingDeletion, setPendingDeletion] = useState<Place | null>(null);
 	const [isCreating, setIsCreating] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
@@ -56,13 +78,48 @@ export function AdminPlacesManager({
 		[],
 	);
 
-	const handleMapClick = useCallback(
-		(coordinates: { latitude: number; longitude: number }) => {
-			setLatitude(Number(coordinates.latitude.toFixed(6)));
-			setLongitude(Number(coordinates.longitude.toFixed(6)));
+	const selectCoordinates = useCallback(
+		(
+			coordinates: { latitude: number; longitude: number },
+			zoom: number | null = null,
+		) => {
+			const normalizedCoordinates = {
+				latitude: Number(coordinates.latitude.toFixed(6)),
+				longitude: Number(coordinates.longitude.toFixed(6)),
+			};
+			setLatitude(normalizedCoordinates.latitude);
+			setLongitude(normalizedCoordinates.longitude);
+			setSelectedCoordinates(normalizedCoordinates);
+			setSelectedZoom(zoom);
 		},
 		[],
 	);
+
+	const searchAddress = useCallback(async () => {
+		const query = addressQuery.trim();
+		if (query.length < 2) {
+			setAddressSearchMessage("주소를 두 글자 이상 입력하세요.");
+			setAddressResults([]);
+			return;
+		}
+
+		try {
+			setIsSearchingAddresses(true);
+			setAddressSearchMessage(null);
+			const response = await searchAddresses({ data: { query } });
+			setAddressResults(response.results);
+			setAddressSearchMessage(
+				response.results.length === 0 ? "검색 결과가 없습니다." : null,
+			);
+		} catch (error) {
+			setAddressResults([]);
+			setAddressSearchMessage(
+				error instanceof Error ? error.message : "주소 검색에 실패했습니다.",
+			);
+		} finally {
+			setIsSearchingAddresses(false);
+		}
+	}, [addressQuery]);
 
 	const handleDelete = useCallback(async () => {
 		if (!pendingDeletion) return;
@@ -144,9 +201,61 @@ export function AdminPlacesManager({
 					<VStack className="p-6" gap={5}>
 						<AdminPlacesMap
 							places={places}
-							onSelectCoordinates={handleMapClick}
+							selectedCoordinates={selectedCoordinates}
+							selectedZoom={selectedZoom}
+							onSelectCoordinates={selectCoordinates}
 							onSelectPlace={setPendingDeletion}
 						/>
+						<VStack
+							className="rounded-lg border border-border bg-surface p-4"
+							gap={3}
+						>
+							<Heading level={2} className="text-base">
+								Search an address
+							</Heading>
+							<HStack gap={3} wrap="wrap" vAlign="end">
+								<TextInput
+									label="Address"
+									value={addressQuery}
+									onChange={setAddressQuery}
+									onEnter={() => void searchAddress()}
+									placeholder="Search a place or address"
+								/>
+								<Button
+									label="Search"
+									variant="secondary"
+									icon={<Search size={16} />}
+									isLoading={isSearchingAddresses}
+									isDisabled={addressQuery.trim().length < 2}
+									clickAction={searchAddress}
+								/>
+							</HStack>
+							{addressSearchMessage && (
+								<Text className="text-sm text-gray-500">
+									{addressSearchMessage}
+								</Text>
+							)}
+							{addressResults.length > 0 && (
+								<VStack
+									aria-label="Address search results"
+									className="overflow-hidden rounded-md border border-border"
+									gap={0}
+								>
+									{addressResults.map((result) => (
+										<Button
+											key={result.id}
+											label={result.label}
+											variant="ghost"
+											className="justify-start rounded-none text-left"
+											clickAction={() => {
+												selectCoordinates(result, 11);
+												setAddressQuery(result.label);
+											}}
+										/>
+									))}
+								</VStack>
+							)}
+						</VStack>
 						<VStack
 							className="rounded-lg border border-border bg-surface p-4"
 							gap={3}

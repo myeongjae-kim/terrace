@@ -17,6 +17,8 @@ import type { VerifyOwnerSessionUseCase } from "#/core/auth/application/port/in/
 import type { GoogleIdentityPort } from "#/core/auth/application/port/out/GoogleIdentityPort";
 import type { SessionTokenPort } from "#/core/auth/application/port/out/SessionTokenPort";
 import type { OwnerAuthConfig } from "#/core/auth/config/OwnerAuthConfig";
+import type { SearchGeocodingUseCase } from "#/core/geocoding/application/port/in/SearchGeocodingUseCase";
+import type { GeocodingSearchPort } from "#/core/geocoding/application/port/out/GeocodingSearchPort";
 import type { CreateMusingUseCase } from "#/core/musings/application/port/in/CreateMusingUseCase";
 import type { DeleteMusingUseCase } from "#/core/musings/application/port/in/DeleteMusingUseCase";
 import type { GetMusingUseCase } from "#/core/musings/application/port/in/GetMusingUseCase";
@@ -35,6 +37,7 @@ export type UseCaseBeans = {
 	VerifyGoogleOwnerUseCase: VerifyGoogleOwnerUseCase;
 	SignOwnerSessionUseCase: SignOwnerSessionUseCase;
 	VerifyOwnerSessionUseCase: VerifyOwnerSessionUseCase;
+	SearchGeocodingUseCase: SearchGeocodingUseCase;
 	CreateArticleUseCase: CreateArticleUseCase;
 	GetArticleUseCase: GetArticleUseCase;
 	GetArticleBySlugUseCase: GetArticleBySlugUseCase;
@@ -61,6 +64,7 @@ export type OutboundBeans = {
 	OwnerAuthConfig: OwnerAuthConfig;
 	GoogleIdentityPort: GoogleIdentityPort;
 	SessionTokenPort: SessionTokenPort;
+	GeocodingSearchPort: GeocodingSearchPort;
 	ArticleCommandPort: ArticleCommandPort;
 	ArticleQueryPort: ArticleQueryPort;
 	MusingsCommandPort: MusingsCommandPort;
