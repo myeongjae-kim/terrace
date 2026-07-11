@@ -9,6 +9,7 @@ const DEFAULT_CENTER = {
 };
 const CARTO_POSITRON_STYLE =
 	"https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
+const SEA_LABEL_LAYER_IDS = ["watername_ocean", "watername_sea"];
 
 export function AdminPlacesMap({
 	places,
@@ -53,6 +54,13 @@ export function AdminPlacesMap({
 				style: CARTO_POSITRON_STYLE,
 			});
 			mapRef.current = map;
+			map.on("style.load", () => {
+				for (const layerId of SEA_LABEL_LAYER_IDS) {
+					if (map.getLayer(layerId)) {
+						map.setLayoutProperty(layerId, "visibility", "none");
+					}
+				}
+			});
 			map.addControl(new maplibregl.AttributionControl({ compact: true }));
 			const showSelectedMarker = (coordinates: [number, number]) => {
 				const selectedMarkerElement = document.createElement("div");
