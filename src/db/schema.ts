@@ -3,6 +3,7 @@ import {
   index,
   integer,
   pgTable,
+  real,
   serial,
   text,
   timestamp,
@@ -59,3 +60,16 @@ export const tagTable = pgTable("tag", {
   updatedAt: timestamp("updated_at", { precision: 6 }),
   publishedAt: timestamp("published_at", { precision: 6 }),
 });
+
+export const placeTable = pgTable(
+  "place",
+  {
+    id: serial().primaryKey(),
+    latitude: real(),
+    longitude: real(),
+    createdAt: timestamp("created_at", { precision: 6 }),
+    updatedAt: timestamp("updated_at", { precision: 6 }),
+    deletedAt: timestamp("deleted_at", { precision: 6 }),
+  },
+  (table) => [index("ix_place_active").on(table.deletedAt)],
+);

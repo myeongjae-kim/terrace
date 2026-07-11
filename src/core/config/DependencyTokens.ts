@@ -25,6 +25,11 @@ import type { ListPublishedMusingsUseCase } from "#/core/musings/application/por
 import type { UpdateMusingUseCase } from "#/core/musings/application/port/in/UpdateMusingUseCase";
 import type { MusingsCommandPort } from "#/core/musings/application/port/out/MusingsCommandPort";
 import type { MusingsQueryPort } from "#/core/musings/application/port/out/MusingsQueryPort";
+import type { CreatePlaceUseCase } from "#/core/place/application/port/in/CreatePlaceUseCase";
+import type { DeletePlaceUseCase } from "#/core/place/application/port/in/DeletePlaceUseCase";
+import type { ListPlacesUseCase } from "#/core/place/application/port/in/ListPlacesUseCase";
+import type { PlaceCommandPort } from "#/core/place/application/port/out/PlaceCommandPort";
+import type { PlaceQueryPort } from "#/core/place/application/port/out/PlaceQueryPort";
 
 export type UseCaseBeans = {
 	VerifyGoogleOwnerUseCase: VerifyGoogleOwnerUseCase;
@@ -47,6 +52,9 @@ export type UseCaseBeans = {
 	ListPublishedMusingsUseCase: ListPublishedMusingsUseCase;
 	UpdateMusingUseCase: UpdateMusingUseCase;
 	DeleteMusingUseCase: DeleteMusingUseCase;
+	CreatePlaceUseCase: CreatePlaceUseCase;
+	ListPlacesUseCase: ListPlacesUseCase;
+	DeletePlaceUseCase: DeletePlaceUseCase;
 };
 
 export type OutboundBeans = {
@@ -57,6 +65,8 @@ export type OutboundBeans = {
 	ArticleQueryPort: ArticleQueryPort;
 	MusingsCommandPort: MusingsCommandPort;
 	MusingsQueryPort: MusingsQueryPort;
+	PlaceCommandPort: PlaceCommandPort;
+	PlaceQueryPort: PlaceQueryPort;
 };
 
 export type Beans = UseCaseBeans & OutboundBeans;

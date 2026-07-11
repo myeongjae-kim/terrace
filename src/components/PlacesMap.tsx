@@ -1,7 +1,8 @@
+import type { Place } from "#/core/place/domain";
 import { VStack } from "@astryxdesign/core/VStack";
 import { useEffect, useRef } from "react";
 
-const SEOUL_CENTER = {
+const DEFAULT_CENTER = {
 	latitude: 37.5665,
 	longitude: 126.978,
 };
@@ -9,7 +10,7 @@ const SEOUL_CENTER = {
 const CARTO_POSITRON_STYLE =
 	"https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 
-export default function PlacesMap() {
+export default function PlacesMap({ places }: { places: readonly Place[] }) {
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
@@ -25,7 +26,7 @@ export default function PlacesMap() {
 
 			const map = new maplibregl.Map({
 				container: mapContainerRef.current,
-				center: [SEOUL_CENTER.longitude, SEOUL_CENTER.latitude],
+				center: [DEFAULT_CENTER.longitude, DEFAULT_CENTER.latitude],
 				zoom: 2,
 				attributionControl: false,
 				style: CARTO_POSITRON_STYLE,
@@ -33,15 +34,15 @@ export default function PlacesMap() {
 
 			map.addControl(new maplibregl.AttributionControl({ compact: true }));
 
-			const markerElement = document.createElement("div");
-			markerElement.className =
-				"size-4 rounded-full border-2 border-white bg-blue-500 shadow-md";
-
-			new maplibregl.Marker({
-				element: markerElement,
-			})
-				.setLngLat([SEOUL_CENTER.longitude, SEOUL_CENTER.latitude])
-				.addTo(map);
+			for (const place of places) {
+				const markerElement = document.createElement("div");
+				markerElement.className =
+					"size-3 rounded-full border-2 border-white bg-accent-bg shadow-md";
+				markerElement.setAttribute("aria-label", "Visited place");
+				new maplibregl.Marker({ element: markerElement })
+					.setLngLat([place.longitude, place.latitude])
+					.addTo(map);
+			}
 
 			cleanup = () => {
 				map.remove();
@@ -54,7 +55,7 @@ export default function PlacesMap() {
 			isMounted = false;
 			cleanup?.();
 		};
-	}, []);
+	}, [places]);
 
 	return (
 		<VStack

@@ -1,14 +1,16 @@
 import type { BeanConfig } from "inversify-typesafe-spring-like";
-import type { Beans } from "#/core/config/DependencyTokens";
-import { AuthService } from "#/core/auth/application/AuthService";
 import { ArticleCrudService } from "#/core/article/application/ArticleCrudService";
 import { ArticlePublishedQueryService } from "#/core/article/application/ArticlePublishedQueryService";
+import { AuthService } from "#/core/auth/application/AuthService";
+import type { Beans } from "#/core/config/DependencyTokens";
 import { MusingsCrudService } from "#/core/musings/application/MusingsCrudService";
 import { MusingsPublishedQueryService } from "#/core/musings/application/MusingsPublishedQueryService";
+import { PlaceService } from "#/core/place/application/PlaceService";
 import { ArticleDrizzleAdapter } from "#/infrastructure/article/adapter/ArticleDrizzleAdapter";
 import { GoogleIdentityAdapter } from "#/infrastructure/auth/adapter/GoogleIdentityAdapter";
 import { JoseSessionTokenAdapter } from "#/infrastructure/auth/adapter/JoseSessionTokenAdapter";
 import { MusingsDrizzleAdapter } from "#/infrastructure/musings/adapter/MusingsDrizzleAdapter";
+import { PlaceDrizzleAdapter } from "#/infrastructure/place/adapter/PlaceDrizzleAdapter";
 import { env } from "./env.server";
 
 export const beanConfig: BeanConfig<Beans> = {
@@ -47,4 +49,9 @@ export const beanConfig: BeanConfig<Beans> = {
 		bind().to(MusingsPublishedQueryService),
 	UpdateMusingUseCase: (bind) => bind().to(MusingsCrudService),
 	DeleteMusingUseCase: (bind) => bind().to(MusingsCrudService),
+	PlaceCommandPort: (bind) => bind().to(PlaceDrizzleAdapter),
+	PlaceQueryPort: (bind) => bind().to(PlaceDrizzleAdapter),
+	CreatePlaceUseCase: (bind) => bind().to(PlaceService),
+	ListPlacesUseCase: (bind) => bind().to(PlaceService),
+	DeletePlaceUseCase: (bind) => bind().to(PlaceService),
 };

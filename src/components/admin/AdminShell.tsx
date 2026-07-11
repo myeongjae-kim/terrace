@@ -18,6 +18,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
 	const navigate = useNavigate();
 	const isBlog = pathname.startsWith("/admin/blog");
 	const isDaily = pathname.startsWith("/admin/daily");
+	const isPlaces = pathname.startsWith("/admin/places");
 
 	return (
 		<AppShell
@@ -42,6 +43,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
 								href="/admin/blog"
 								isSelected={isBlog}
 							/>
+							<TopNavItem label="Places" href="/admin/places" isSelected={isPlaces} />
 							<TopNavItem
 								label="Daily"
 								href="/admin/daily"
@@ -83,6 +85,13 @@ export function AdminShell({ children }: { children: ReactNode }) {
 							icon="viewColumns"
 							selectedIcon="viewColumns"
 							isSelected={isBlog}
+						/>
+						<SideNavItem
+							label="Places"
+							href="/admin/places"
+							icon="location"
+							selectedIcon="location"
+							isSelected={isPlaces}
 						/>
 						<SideNavItem
 							label="Daily"

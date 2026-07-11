@@ -17,6 +17,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminPlacesRouteImport } from './routes/admin.places'
 import { Route as AdminDailyRouteImport } from './routes/admin.daily'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as AdminDailyNewRouteImport } from './routes/admin.daily.new'
@@ -65,6 +66,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPlacesRoute = AdminPlacesRouteImport.update({
+  id: '/places',
+  path: '/places',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminDailyRoute = AdminDailyRouteImport.update({
   id: '/daily',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/places': typeof PlacesRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/admin/daily': typeof AdminDailyRouteWithChildren
+  '/admin/places': typeof AdminPlacesRoute
   '/admin/blog/$articleId': typeof AdminBlogArticleIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/daily/$articleId': typeof AdminDailyArticleIdRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/places': typeof PlacesRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/admin/daily': typeof AdminDailyRouteWithChildren
+  '/admin/places': typeof AdminPlacesRoute
   '/admin/blog/$articleId': typeof AdminBlogArticleIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/daily/$articleId': typeof AdminDailyArticleIdRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/places': typeof PlacesRoute
   '/admin/blog': typeof AdminBlogRouteWithChildren
   '/admin/daily': typeof AdminDailyRouteWithChildren
+  '/admin/places': typeof AdminPlacesRoute
   '/admin/blog/$articleId': typeof AdminBlogArticleIdRoute
   '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/daily/$articleId': typeof AdminDailyArticleIdRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/places'
     | '/admin/blog'
     | '/admin/daily'
+    | '/admin/places'
     | '/admin/blog/$articleId'
     | '/admin/blog/new'
     | '/admin/daily/$articleId'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/places'
     | '/admin/blog'
     | '/admin/daily'
+    | '/admin/places'
     | '/admin/blog/$articleId'
     | '/admin/blog/new'
     | '/admin/daily/$articleId'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/places'
     | '/admin/blog'
     | '/admin/daily'
+    | '/admin/places'
     | '/admin/blog/$articleId'
     | '/admin/blog/new'
     | '/admin/daily/$articleId'
@@ -289,6 +301,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/places': {
+      id: '/admin/places'
+      path: '/places'
+      fullPath: '/admin/places'
+      preLoaderRoute: typeof AdminPlacesRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/daily': {
       id: '/admin/daily'
@@ -380,11 +399,13 @@ const AdminDailyRouteWithChildren = AdminDailyRoute._addFileChildren(
 interface AdminRouteChildren {
   AdminBlogRoute: typeof AdminBlogRouteWithChildren
   AdminDailyRoute: typeof AdminDailyRouteWithChildren
+  AdminPlacesRoute: typeof AdminPlacesRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogRoute: AdminBlogRouteWithChildren,
   AdminDailyRoute: AdminDailyRouteWithChildren,
+  AdminPlacesRoute: AdminPlacesRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
