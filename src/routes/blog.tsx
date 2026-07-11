@@ -1,18 +1,19 @@
+import { Heading } from "@astryxdesign/core/Heading";
+import { Section } from "@astryxdesign/core/Section";
+import { Text } from "@astryxdesign/core/Text";
+import { Token } from "@astryxdesign/core/Token";
+import { VStack } from "@astryxdesign/core/VStack";
+import { createFileRoute } from "@tanstack/react-router";
 import TerraceLink from "#/components/TerraceLink";
 import TerracePagination from "#/components/TerracePagination";
-import { listBlogArticles } from "#/features/publishing/articleServerFns";
 import {
 	articleDisplayTitle,
 	articlePermalink,
 	formatDate,
 	normalizePage,
 } from "#/features/publishing/articlePresentation";
+import { listBlogArticles } from "#/features/publishing/articleServerFns";
 import { siteMetadata } from "#/features/site/siteMetadata";
-import { Heading } from "@astryxdesign/core/Heading";
-import { Section } from "@astryxdesign/core/Section";
-import { Text } from "@astryxdesign/core/Text";
-import { VStack } from "@astryxdesign/core/VStack";
-import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/blog")({
 	head: () => ({
@@ -54,10 +55,7 @@ function BlogPage() {
 							variant="blogList"
 							className="my-2 block max-w-2xl py-3 px-6 text-center"
 						>
-							<Text
-								as="span"
-								className="terrace-blog-title block text-base"
-							>
+							<Text as="span" className="terrace-blog-title block text-base">
 								{articleDisplayTitle(article)}
 							</Text>
 							<Text
@@ -66,6 +64,9 @@ function BlogPage() {
 							>
 								{formatDate(article.createdAt)}
 							</Text>
+							{!article.publishedAt && (
+								<Token label="Draft" color="orange" size="sm" />
+							)}
 						</TerraceLink>
 					))}
 					{articles.items.length === 0 && (

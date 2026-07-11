@@ -1,18 +1,19 @@
-import { HStack } from "@astryxdesign/core/HStack";
 import { Heading } from "@astryxdesign/core/Heading";
+import { HStack } from "@astryxdesign/core/HStack";
 import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
+import { Token } from "@astryxdesign/core/Token";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import TerraceLink from "#/components/TerraceLink";
 import TerracePagination from "#/components/TerracePagination";
-import { listDailyArticles } from "#/features/publishing/articleServerFns";
 import {
 	articleDisplayTitle,
 	articlePermalink,
 	formatDate,
 	normalizePage,
 } from "#/features/publishing/articlePresentation";
+import { listDailyArticles } from "#/features/publishing/articleServerFns";
 import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/daily")({
@@ -75,6 +76,9 @@ function DailyPage() {
 									>
 										{articleDisplayTitle(daily)}
 									</Text>
+									{!daily.publishedAt && (
+										<Token label="Draft" color="orange" size="sm" />
+									)}
 								</HStack>
 							</TerraceLink>
 						))}

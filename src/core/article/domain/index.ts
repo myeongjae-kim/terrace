@@ -18,7 +18,7 @@ export type Article = {
 
 export type ArticleSummary = Pick<
 	Article,
-	"id" | "seq" | "title" | "slug" | "createdAt"
+	"id" | "seq" | "title" | "slug" | "createdAt" | "publishedAt"
 >;
 
 export type ArticleNeighbors = {

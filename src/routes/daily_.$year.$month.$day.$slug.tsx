@@ -1,16 +1,17 @@
 import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
+import { Token } from "@astryxdesign/core/Token";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import TerraceMarkdownRenderer from "#/components/TerraceMarkdownRenderer";
-import { getDailyArticle } from "#/features/publishing/articleServerFns";
 import {
 	articleDescription,
 	articleDisplayTitle,
 	formatDate,
 } from "#/features/publishing/articlePresentation";
+import { getDailyArticle } from "#/features/publishing/articleServerFns";
 import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/daily_/$year/$month/$day/$slug")({
@@ -43,10 +44,7 @@ function DailyArticlePage() {
 	const commentIdentifier = `daily/${formatDate(article.createdAt, "/")}/${article.slug}`;
 
 	return (
-		<VStack
-			as="main"
-			className="mx-auto w-full max-w-[32rem] bg-white"
-		>
+		<VStack as="main" className="mx-auto w-full max-w-[32rem] bg-white">
 			<Section variant="transparent" padding={0}>
 				<VStack className="text-center" hAlign="center" gap={0}>
 					<TerraceLink href="" isStandalone variant="articleTitle">
@@ -58,6 +56,9 @@ function DailyArticlePage() {
 							{articleDisplayTitle(article)}
 						</Text>
 					</TerraceLink>
+					{!article.publishedAt && (
+						<Token label="Draft" color="orange" size="sm" />
+					)}
 				</VStack>
 				<VStack className="px-4 py-1" gap={0}>
 					<Section

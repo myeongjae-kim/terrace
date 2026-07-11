@@ -1,18 +1,19 @@
 import { Heading } from "@astryxdesign/core/Heading";
 import { Section } from "@astryxdesign/core/Section";
 import { Text } from "@astryxdesign/core/Text";
+import { Token } from "@astryxdesign/core/Token";
 import { VStack } from "@astryxdesign/core/VStack";
 import { createFileRoute } from "@tanstack/react-router";
 import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import { TerraceMarkdownRendererContainer } from "#/components/TerraceMarkdownRenderer";
-import { getBlogArticle } from "#/features/publishing/articleServerFns";
 import {
 	articleDescription,
 	articleDisplayTitle,
 	articlePermalink,
 	formatDate,
 } from "#/features/publishing/articlePresentation";
+import { getBlogArticle } from "#/features/publishing/articleServerFns";
 import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/blog_/$year/$month/$day/$slug")({
@@ -65,6 +66,9 @@ function BlogArticlePage() {
 					<p className="terrace-blog-article-date cursor-default select-none text-black">
 						{formatDate(article.createdAt)}
 					</p>
+					{!article.publishedAt && (
+						<Token label="Draft" color="orange" size="sm" />
+					)}
 				</VStack>
 				<VStack className="m-4" gap={0}>
 					<TerraceMarkdownRendererContainer

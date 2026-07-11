@@ -1,3 +1,27 @@
+import { Button } from "@astryxdesign/core/Button";
+import { CheckboxInput } from "@astryxdesign/core/CheckboxInput";
+import { Dialog } from "@astryxdesign/core/Dialog";
+import { Grid } from "@astryxdesign/core/Grid";
+import { Heading } from "@astryxdesign/core/Heading";
+import { HStack } from "@astryxdesign/core/HStack";
+import { IconButton } from "@astryxdesign/core/IconButton";
+import {
+	Layout,
+	LayoutContent,
+	LayoutFooter,
+	LayoutHeader,
+} from "@astryxdesign/core/Layout";
+import { Link } from "@astryxdesign/core/Link";
+import { NumberInput } from "@astryxdesign/core/NumberInput";
+import { StatusDot } from "@astryxdesign/core/StatusDot";
+import { Text } from "@astryxdesign/core/Text";
+import { TextArea } from "@astryxdesign/core/TextArea";
+import { TextInput } from "@astryxdesign/core/TextInput";
+import { VStack } from "@astryxdesign/core/VStack";
+import { useNavigate, useRouter } from "@tanstack/react-router";
+import { ExternalLink, Maximize2, Save, X } from "lucide-react";
+import { type FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AdminArticlePreview } from "#/components/admin/AdminArticlePreview";
 import type { Article } from "#/core/article/domain";
 import {
@@ -10,29 +34,7 @@ import {
 	createAdminArticle,
 	updateAdminArticle,
 } from "#/features/admin/article-management/articleServerFns";
-import { Button } from "@astryxdesign/core/Button";
-import { CheckboxInput } from "@astryxdesign/core/CheckboxInput";
-import { Dialog } from "@astryxdesign/core/Dialog";
-import { Grid } from "@astryxdesign/core/Grid";
-import { HStack } from "@astryxdesign/core/HStack";
-import { Heading } from "@astryxdesign/core/Heading";
-import { IconButton } from "@astryxdesign/core/IconButton";
-import {
-	Layout,
-	LayoutContent,
-	LayoutFooter,
-	LayoutHeader,
-} from "@astryxdesign/core/Layout";
-import { NumberInput } from "@astryxdesign/core/NumberInput";
-import { Text } from "@astryxdesign/core/Text";
-import { TextArea } from "@astryxdesign/core/TextArea";
-import { TextInput } from "@astryxdesign/core/TextInput";
-import { VStack } from "@astryxdesign/core/VStack";
-import { Link } from "@astryxdesign/core/Link";
-import { useNavigate } from "@tanstack/react-router";
-import { Maximize2, Save, X } from "lucide-react";
-import { type FormEvent, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { articlePermalink } from "#/features/publishing/articlePresentation";
 
 type AdminArticleFormMode = "create" | "edit";
 
@@ -69,6 +71,7 @@ export function AdminArticleForm({
 }) {
 	const label = articleKindLabel(kind);
 	const navigate = useNavigate();
+	const router = useRouter();
 	const [seq, setSeq] = useState(initialArticle?.seq ?? nextSeq ?? 1);
 	const [title, setTitle] = useState(articleValue(initialArticle?.title));
 	const [slug, setSlug] = useState(articleValue(initialArticle?.slug));
@@ -76,10 +79,16 @@ export function AdminArticleForm({
 	const [isPublished, setIsPublished] = useState(
 		initialArticle?.publishedAt != null,
 	);
+	const [persistedIsPublished, setPersistedIsPublished] = useState(
+		initialArticle?.publishedAt != null,
+	);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [isSaving, setIsSaving] = useState(false);
 	const [isPreviewDialogOpen, setIsPreviewDialogOpen] = useState(false);
 	const debouncedContent = useDebouncedValue(content, 400);
+	const publicArticleHref = initialArticle
+		? articlePermalink(kind === "blog" ? "/blog" : "/daily", initialArticle)
+		: null;
 
 	async function handleSubmit(event: FormEvent<HTMLElement>) {
 		event.preventDefault();
@@ -105,6 +114,9 @@ export function AdminArticleForm({
 							},
 						});
 
+			setPersistedIsPublished(article.publishedAt != null);
+			await router.invalidate({ sync: true });
+
 			toast.success(mode === "create" ? "Created" : "Saved");
 
 			if (mode === "create") {
@@ -127,22 +139,49 @@ export function AdminArticleForm({
 					<LayoutHeader hasDivider>
 						<HStack className="w-full px-6 py-4" hAlign="between" gap={3}>
 							<VStack gap={0}>
-								<Heading level={1} className="text-xl">
-									{mode === "create" ? `New ${label}` : `Edit ${label}`}
-								</Heading>
+								<HStack gap={2}>
+									<Heading level={1} className="text-xl">
+										{mode === "create" ? `New ${label}` : `Edit ${label}`}
+									</Heading>
+									{mode === "edit" && (
+										<HStack gap={1}>
+											<StatusDot
+												variant={persistedIsPublished ? "success" : "warning"}
+												label={persistedIsPublished ? "Published" : "Draft"}
+											/>
+											<Text className="text-sm font-medium text-secondary">
+												{persistedIsPublished ? "Published" : "Draft"}
+											</Text>
+										</HStack>
+									)}
+								</HStack>
 								<Text className="text-sm text-gray-500">
 									Write Markdown content and choose publish state.
 								</Text>
 							</VStack>
-							<Button
-								label="Focus preview"
-								variant="secondary"
-								size="sm"
-								icon={<Maximize2 size={16} />}
-								clickAction={() => {
-									setIsPreviewDialogOpen(true);
-								}}
-							/>
+							<HStack gap={2} wrap="wrap">
+								{publicArticleHref && (
+									<Button
+										label="View article"
+										href={publicArticleHref}
+										target="_blank"
+										rel="noopener noreferrer"
+										variant="secondary"
+										size="sm"
+										icon={<ExternalLink size={16} />}
+										className="bg-surface hover:bg-muted"
+									/>
+								)}
+								<Button
+									label="Focus preview"
+									variant="secondary"
+									size="sm"
+									icon={<Maximize2 size={16} />}
+									clickAction={() => {
+										setIsPreviewDialogOpen(true);
+									}}
+								/>
+							</HStack>
 						</HStack>
 					</LayoutHeader>
 				}

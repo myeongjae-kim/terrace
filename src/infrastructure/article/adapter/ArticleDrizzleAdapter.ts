@@ -46,6 +46,7 @@ function toArticleSummary(row: {
 	title: string | null;
 	slug: string | null;
 	createdAt: Date | null;
+	publishedAt: Date | null;
 }): ArticleSummary {
 	return {
 		id: String(row.id) as ArticleId,
@@ -53,6 +54,7 @@ function toArticleSummary(row: {
 		title: row.title,
 		slug: row.slug,
 		createdAt: toIsoDateTime(row.createdAt),
+		publishedAt: toIsoDateTime(row.publishedAt),
 	};
 }
 
@@ -184,6 +186,7 @@ export class ArticleDrizzleAdapter
 				title: articleTable.title,
 				slug: articleTable.slug,
 				createdAt: articleTable.createdAt,
+				publishedAt: articleTable.publishedAt,
 			})
 			.from(articleTable)
 			.where(whereClause)

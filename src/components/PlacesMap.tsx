@@ -27,7 +27,7 @@ export default function PlacesMap({ places }: { places: readonly Place[] }) {
 			const map = new maplibregl.Map({
 				container: mapContainerRef.current,
 				center: [DEFAULT_CENTER.longitude, DEFAULT_CENTER.latitude],
-				zoom: 2,
+				zoom: 4,
 				attributionControl: false,
 				style: CARTO_POSITRON_STYLE,
 			});
