@@ -1,7 +1,7 @@
 <!-- BEGIN:tanstack-start-agent-rules -->
 # This is NOT the tanstack-start you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in  https://tanstack.com/start/latest/docs/framework/react/guide/routing before writing any code. Heed deprecation notices.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Before making any TanStack Start-related change, use https://tanstack.com/start/latest/docs/framework/react/guide/routing as the entry point to the latest documentation, then read the current guide relevant to the specific area you are changing (for example routing, server functions, middleware, execution model, authentication, or deployment). Do not treat the routing guide as the only required reference. Heed deprecation notices.
 <!-- END:tanstack-start-agent-rules -->
 
 <!-- BEGIN:tooling-agent-rules -->
