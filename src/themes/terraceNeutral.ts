@@ -19,8 +19,8 @@ export const terraceNeutralTheme = defineTheme({
 			weights: { 3: "bold", 4: "bold" },
 		},
 		code: {
-			family: "SUIT",
-			fallbacks: suitFallbacks,
+			family: "Inconsolata",
+			fallbacks: "monospace",
 		},
 	},
 });
