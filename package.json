@@ -44,7 +44,7 @@
     "@tanstack/router-plugin": "^1.132.0",
     "drizzle-orm": "1.0.0-rc.4",
     "google-auth-library": "^10.9.0",
-    "inversify-typesafe-spring-like": "^0.5.12",
+    "inversify-typesafe-spring-like": "^0.5.13",
     "jose": "^6.2.3",
     "lucide-react": "^0.545.0",
     "maplibre-gl": "^5.24.0",
