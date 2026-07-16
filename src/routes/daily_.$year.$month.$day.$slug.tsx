@@ -6,6 +6,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import TerraceMarkdownRenderer from "#/components/TerraceMarkdownRenderer";
+import { articleEditPath } from "#/features/admin/article-management/articleKinds";
+import { getOwnerSession } from "#/features/owner-auth/serverFns";
 import {
 	articleDescription,
 	articleDisplayTitle,
@@ -16,18 +18,25 @@ import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/daily_/$year/$month/$day/$slug")({
 	loader: async ({ params }) => {
-		return await getDailyArticle({ data: { slug: params.slug } });
+		const [article, session] = await Promise.all([
+			getDailyArticle({ data: { slug: params.slug } }),
+			getOwnerSession(),
+		]);
+
+		return { article, isLoggedIn: session != null };
 	},
 	head: ({ loaderData }) => ({
 		meta: [
 			{
-				title: loaderData
-					? siteMetadata.createTitle(articleDisplayTitle(loaderData))
+				title: loaderData?.article
+					? siteMetadata.createTitle(articleDisplayTitle(loaderData.article))
 					: siteMetadata.createTitle("Daily not found"),
 			},
 			{
 				name: "description",
-				content: loaderData ? articleDescription(loaderData, 512) : "",
+				content: loaderData?.article
+					? articleDescription(loaderData.article, 512)
+					: "",
 			},
 		],
 	}),
@@ -35,7 +44,7 @@ export const Route = createFileRoute("/daily_/$year/$month/$day/$slug")({
 });
 
 function DailyArticlePage() {
-	const article = Route.useLoaderData();
+	const { article, isLoggedIn } = Route.useLoaderData();
 
 	if (!article) {
 		return <ArticleNotFound />;
@@ -58,6 +67,16 @@ function DailyArticlePage() {
 					</TerraceLink>
 					{!article.publishedAt && (
 						<Token label="Draft" color="orange" size="sm" />
+					)}
+					{isLoggedIn && (
+						<TerraceLink
+							href={articleEditPath("daily", article.id)}
+							isStandalone
+							variant="button"
+							className="mt-3 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-200"
+						>
+							Edit
+						</TerraceLink>
 					)}
 				</VStack>
 				<VStack className="px-4 py-1" gap={0}>

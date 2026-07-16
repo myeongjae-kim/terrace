@@ -7,6 +7,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import Comment from "#/components/Comment";
 import TerraceLink from "#/components/TerraceLink";
 import { TerraceMarkdownRendererContainer } from "#/components/TerraceMarkdownRenderer";
+import { articleEditPath } from "#/features/admin/article-management/articleKinds";
+import { getOwnerSession } from "#/features/owner-auth/serverFns";
 import {
 	articleDescription,
 	articleDisplayTitle,
@@ -18,18 +20,27 @@ import { siteMetadata } from "#/features/site/siteMetadata";
 
 export const Route = createFileRoute("/blog_/$year/$month/$day/$slug")({
 	loader: async ({ params }) => {
-		return await getBlogArticle({ data: { slug: params.slug } });
+		const [articleData, session] = await Promise.all([
+			getBlogArticle({ data: { slug: params.slug } }),
+			getOwnerSession(),
+		]);
+
+		return { articleData, isLoggedIn: session != null };
 	},
 	head: ({ loaderData }) => ({
 		meta: [
 			{
-				title: loaderData
-					? siteMetadata.createTitle(articleDisplayTitle(loaderData.article))
+				title: loaderData?.articleData
+					? siteMetadata.createTitle(
+							articleDisplayTitle(loaderData.articleData.article),
+						)
 					: siteMetadata.createTitle("Article not found"),
 			},
 			{
 				name: "description",
-				content: loaderData ? articleDescription(loaderData.article, 512) : "",
+				content: loaderData?.articleData
+					? articleDescription(loaderData.articleData.article, 512)
+					: "",
 			},
 		],
 	}),
@@ -37,7 +48,7 @@ export const Route = createFileRoute("/blog_/$year/$month/$day/$slug")({
 });
 
 function BlogArticlePage() {
-	const loaderData = Route.useLoaderData();
+	const { articleData: loaderData, isLoggedIn } = Route.useLoaderData();
 
 	if (!loaderData) {
 		return <ArticleNotFound backHref="/blog" backLabel="Article List" />;
@@ -68,6 +79,16 @@ function BlogArticlePage() {
 					</p>
 					{!article.publishedAt && (
 						<Token label="Draft" color="orange" size="sm" />
+					)}
+					{isLoggedIn && (
+						<TerraceLink
+							href={articleEditPath("blog", article.id)}
+							isStandalone
+							variant="button"
+							className="mt-3 w-fit self-center rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-200"
+						>
+							Edit
+						</TerraceLink>
 					)}
 				</VStack>
 				<VStack className="m-4" gap={0}>
