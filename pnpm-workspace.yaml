@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: false
+  inversify-typesafe: false
+  inversify-typesafe-spring-like: false
+minimumReleaseAgeExclude:
+  - inversify-typesafe-spring-like@0.5.12
+  - inversify-typesafe@0.5.12
